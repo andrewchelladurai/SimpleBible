@@ -6,8 +6,9 @@ The patch versions of the app will be incremented till we reach a Feature Full s
 Till then I hope to fill in all the gaps in patch releases.
 </p>
 <p>
-Developer Account on Google Play - https://play.google.com/store/apps/developer?id=Andrew+Chelladurai</br>
-Application for download - https://play.google.com/store/apps/details?id=com.andrewchelladurai.simplebible
+<a href="https://play.google.com/store/apps/developer?id=Andrew+Chelladurai">Developer Account on Google Play</a></br>
+<a href="https://play.google.com/store/apps/details?id=com.andrewchelladurai.simplebible">Application for download</a>
+</font>
 <p/>
 <p>
 I plan to work on the application each day if time permits, however it is proving difficult with a day job and other things considered.
