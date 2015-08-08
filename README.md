@@ -11,7 +11,6 @@ Till then I hope to fill in all the gaps in patch releases.
 </font>
 <p/>
 <p>
-I plan to work on the application each day if time permits, however it is proving difficult with a day job and other things considered.
-However I will not abandon this project.
+I plan to work on the application each day if time permits, however it is proving difficult with a day job and other things considered. However I will continue working on this project.
 </p>
 -- Andrew Chelladurai
