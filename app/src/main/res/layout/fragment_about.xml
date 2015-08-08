@@ -1,0 +1,54 @@
+<!--
+  ~ Copyright (c) 2015.
+  ~ Andrew Chelladurai - - TheUnknownAndrew[at]GMail[dot]com
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:columnCount="3"
+                android:rowCount="3"
+                tools:context="com.andrewchelladurai.simplebible.Fragment_About">
+
+    <WebView
+        android:id="@+id/about_me"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_margin="10dp"/>
+
+    <WebView
+        android:id="@+id/changelog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/about_me"
+        android:padding="5dp"
+        android:layout_margin="10dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:id="@+id/about_email"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Google+"
+        android:id="@+id/about_google"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/about_email"
+        android:layout_toStartOf="@+id/about_email"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GitHub"
+        android:id="@+id/about_git"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/about_email"
+        android:layout_toEndOf="@+id/about_email"/>
+</RelativeLayout>

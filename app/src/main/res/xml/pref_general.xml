@@ -1,0 +1,18 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <CheckBoxPreference
+        android:key="pref_app_theme"
+        android:title="@string/pref_title_app_theme"
+        android:summary="@string/pref_desc_app_theme"
+        android:defaultValue="false" />
+
+    <ListPreference
+        android:key="verse_text_style"
+        android:title="@string/pref_title_text_style"
+        android:defaultValue="0"
+        android:entries="@array/pref_titles_text_style"
+        android:entryValues="@array/pref_values_text_style"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null" />
+
+</PreferenceScreen>
