@@ -1,0 +1,44 @@
+/*
+ * Copyright (c) 2015.
+ * Andrew Chelladurai - - TheUnknownAndrew[at]GMail[dot]com
+ */
+
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        Google_Play {
+            keyAlias 'Google_Play'
+            keyPassword 'ErsRHY9nZFVbYw6bVSp8k6sm^h3mnC4RHyxR@ZyyUzCtfzpbXM$$Tk6996TAzXGAJm4KWsyDw&D#qa!CUnRYqE'
+            storeFile file('/media/andrew/8AEF-3379/Projects/AndroidProjects/AndrewChelladuraiAndroidKeystore.jks')
+            storePassword 'Bs4uVy*M47Tp!PT*ZDTxUuqy6pJzWq!kqYAhCSf2fnc5fnEBbh2&eNS9pWCZY5wvJvRU%JBpgrP79bk53fT%2XEYDm'
+        }
+    }
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
+    defaultConfig {
+        applicationId "com.andrewchelladurai.simplebible"
+        minSdkVersion 15
+        targetSdkVersion 22
+        versionName '1.0.2'
+        versionCode 3
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+    productFlavors {
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.android.support:design:22.2.0'
+}

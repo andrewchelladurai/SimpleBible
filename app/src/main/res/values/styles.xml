@@ -1,0 +1,14 @@
+<!--
+  ~ Copyright (c) 2015.
+  ~ Andrew Chelladurai - - TheUnknownAndrew[at]GMail[dot]com
+  -->
+
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="LightTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    </style>
+
+    <style name="DarkTheme" parent="Theme.AppCompat">
+    </style>
+</resources>

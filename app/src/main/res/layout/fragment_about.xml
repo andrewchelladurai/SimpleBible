@@ -1,0 +1,68 @@
+<!--
+  ~ Copyright (c) 2015.
+  ~ Andrew Chelladurai - - TheUnknownAndrew[at]GMail[dot]com
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.andrewchelladurai.simplebible.Fragment_About">
+
+    <WebView
+        android:id="@+id/about_meView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <ImageButton
+            android:id="@+id/about_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:onClick="aboutSendEmail"
+            android:src="@drawable/at"
+            android:text="Email" />
+
+        <ImageButton
+            android:id="@+id/about_google"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:onClick="aboutOpenGPlus"
+            android:padding="5dp"
+            android:src="@drawable/gplus"
+            android:text="Google+" />
+
+        <ImageButton
+            android:id="@+id/about_git"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:onClick="aboutOpenGitHub"
+            android:src="@drawable/github"
+            android:text="GitHub" />
+
+    </LinearLayout>
+
+    <WebView
+        android:id="@+id/changelogView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
+
+
+</LinearLayout>

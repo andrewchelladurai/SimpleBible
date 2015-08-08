@@ -1,0 +1,56 @@
+<!--
+  ~ Copyright (c) 2015.
+  ~ Andrew Chelladurai - - TheUnknownAndrew[at]GMail[dot]com
+  -->
+
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.andrewchelladurai.simplebible.Fragment_Search">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/text_to_search_fs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search this exact text"
+            android:inputType="text"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:id="@+id/search_header_fs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center|center_horizontal"
+        android:padding="5dp"
+        android:text=""
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:typeface="monospace"/>
+
+
+    <Button
+        android:id="@+id/button_fs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:onClick="searchShowResults"
+        android:text="Show Results Below"
+        android:textStyle="bold"
+        android:typeface="normal"/>
+
+    <ListView
+        android:id="@+id/search_results_list_fs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</TableLayout>

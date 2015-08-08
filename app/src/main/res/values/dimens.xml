@@ -1,0 +1,10 @@
+<!--
+  ~ Copyright (c) 2015.
+  ~ Andrew Chelladurai - - TheUnknownAndrew[at]GMail[dot]com
+  -->
+
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">15dp</dimen>
+    <dimen name="activity_vertical_margin">15dp</dimen>
+</resources>

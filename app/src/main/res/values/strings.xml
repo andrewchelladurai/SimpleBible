@@ -1,0 +1,94 @@
+<!--
+  ~ Copyright (c) 2015.
+  ~ Andrew Chelladurai - - TheUnknownAndrew[at]GMail[dot]com
+  -->
+
+<resources>
+    <string name="app_name">Simple Bible Offline</string>
+
+    <string name="title_tab1">welcome</string>
+    <string name="title_tab2">books</string>
+    <string name="title_tab3">search</string>
+    <string name="title_tab4">about</string>
+
+    <string name="header_welcome">THE HOLY BIBLE\nNew International Version</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="title_activity_verse_viewer">Verses</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="contactEmail">theunknownandrew+androidapps@gmail.com</string>
+    <string name="contactSubject">Simple Bible - Feedback</string>
+    <string name="githubPage">http://github.com/andrewchelladurai/</string>
+    <string name="gPlusPage">http://plus.google.com/+AndrewChelladurai</string>
+
+    <string-array name="allbooks">
+        <item>Genesis</item>
+        <item>Exodus</item>
+        <item>Leviticus</item>
+        <item>Numbers</item>
+        <item>Deuteronomy</item>
+        <item>Joshua</item>
+        <item>Judges</item>
+        <item>Ruth</item>
+        <item>1 Samuel</item>
+        <item>2 Samuel</item>
+        <item>1 Kings</item>
+        <item>2 Kings</item>
+        <item>1 Chronicles</item>
+        <item>2 Chronicles</item>
+        <item>Ezra</item>
+        <item>Nehemiah</item>
+        <item>Esther</item>
+        <item>Job</item>
+        <item>Psalms</item>
+        <item>Proverbs</item>
+        <item>Ecclesiastes</item>
+        <item>Song Of Solomon</item>
+        <item>Isaiah</item>
+        <item>Jeremiah</item>
+        <item>Lamentations</item>
+        <item>Ezekiel</item>
+        <item>Daniel</item>
+        <item>Hosea</item>
+        <item>Joel</item>
+        <item>Amos</item>
+        <item>Obadiah</item>
+        <item>Jonah</item>
+        <item>Micah</item>
+        <item>Nahum</item>
+        <item>Habakkuk</item>
+        <item>Zephaniah</item>
+        <item>Haggai</item>
+        <item>Zechariah</item>
+        <item>Malachi</item>
+        <item>Matthew</item>
+        <item>Mark</item>
+        <item>Luke</item>
+        <item>John</item>
+        <item>Acts</item>
+        <item>Romans</item>
+        <item>1 Corinthians</item>
+        <item>2 Corinthians</item>
+        <item>Galatians</item>
+        <item>Ephesians</item>
+        <item>Philippians</item>
+        <item>Colossians</item>
+        <item>1 Thessalonians</item>
+        <item>2 Thessalonians</item>
+        <item>1 Timothy</item>
+        <item>2 Timothy</item>
+        <item>Titus</item>
+        <item>Philemon</item>
+        <item>Hebrews</item>
+        <item>James</item>
+        <item>1 Peter</item>
+        <item>2 Peter</item>
+        <item>1 John</item>
+        <item>2 John</item>
+        <item>3 John</item>
+        <item>Jude</item>
+        <item>Revelation</item>
+    </string-array>
+
+</resources>
