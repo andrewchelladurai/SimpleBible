@@ -1,6 +1,10 @@
 <!--
   ~ Copyright (c) 2015.
   ~ Andrew Chelladurai - - TheUnknownAndrew[at]GMail[dot]com
+  ~
+  ~ This Application is available at location
+  ~ https://play.google.com/store/apps/developer?id=Andrew+Chelladurai
+  ~
   -->
 
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -32,9 +36,9 @@
         android:gravity="center|center_horizontal"
         android:padding="5dp"
         android:text=""
-        android:textColor="@android:color/black"
         android:textStyle="bold"
         android:typeface="monospace"/>
+    <!-- android:textColor="@android:color/black" -->
 
 
     <Button

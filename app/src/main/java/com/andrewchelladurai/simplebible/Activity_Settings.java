@@ -1,11 +1,16 @@
 /*
  * Copyright (c) 2015.
  * Andrew Chelladurai - - TheUnknownAndrew[at]GMail[dot]com
+ *
+ * This Application is available at location
+ * https://play.google.com/store/apps/developer?id=Andrew+Chelladurai
+ *
  */
 
 package com.andrewchelladurai.simplebible;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.media.Ringtone;
@@ -39,7 +44,7 @@ import java.util.List;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class Activity_Settings
-      extends PreferenceActivity {
+        extends PreferenceActivity {
 
     /**
      * Determines whether to always show the simplified settings UI, where
@@ -50,57 +55,57 @@ public class Activity_Settings
     private static final boolean ALWAYS_SIMPLE_PREFS = false;
 
     /**
-     * A preference value change listener that updates the preference's summary
+     * A preference value change sChangeListener that updates the preference's summary
      * to reflect its new value.
      */
-    private static Preference.OnPreferenceChangeListener listener =
-          new Preference.OnPreferenceChangeListener() {
-              @Override
-              public boolean onPreferenceChange(Preference preference, Object value) {
-                  String stringValue = value.toString();
+    private static Preference.OnPreferenceChangeListener sChangeListener =
+            new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object value) {
+                    String stringValue = value.toString();
 
-                  if (preference instanceof ListPreference) {
-                      // For list preferences, look up the correct display value in
-                      // the preference's 'entries' list.
-                      ListPreference listPreference = (ListPreference) preference;
-                      int index = listPreference.findIndexOfValue(stringValue);
+                    if (preference instanceof ListPreference) {
+                        // For list preferences, look up the correct display value in
+                        // the preference's 'entries' list.
+                        ListPreference listPreference = (ListPreference) preference;
+                        int index = listPreference.findIndexOfValue(stringValue);
 
-                      // Set the summary to reflect the new value.
-                      preference.setSummary(
-                            index >= 0 ? listPreference.getEntries()[index]
-                                       : null);
+                        // Set the summary to reflect the new value.
+                        preference.setSummary(
+                                index >= 0 ? listPreference.getEntries()[index]
+                                        : null);
 
-                  } else if (preference instanceof RingtonePreference) {
-                      // For ringtone preferences, look up the correct display value
-                      // using RingtoneManager.
-                      if (TextUtils.isEmpty(stringValue)) {
-                          // Empty values correspond to 'silent' (no ringtone).
-                          preference.setSummary(R.string.pref_ringtone_silent);
+                    } else if (preference instanceof RingtonePreference) {
+                        // For ringtone preferences, look up the correct display value
+                        // using RingtoneManager.
+                        if (TextUtils.isEmpty(stringValue)) {
+                            // Empty values correspond to 'silent' (no ringtone).
+                            preference.setSummary(R.string.pref_ringtone_silent);
 
-                      } else {
-                          Ringtone ringtone = RingtoneManager.getRingtone(
-                                preference.getContext(), Uri.parse(stringValue));
+                        } else {
+                            Ringtone ringtone = RingtoneManager.getRingtone(
+                                    preference.getContext(), Uri.parse(stringValue));
 
-                          if (ringtone == null) {
-                              // Clear the summary if there was a lookup error.
-                              preference.setSummary(null);
-                          } else {
-                              // Set the summary to reflect the new ringtone display
-                              // name.
-                              String name = ringtone.getTitle(
-                                    preference.getContext());
-                              preference.setSummary(name);
-                          }
-                      }
+                            if (ringtone == null) {
+                                // Clear the summary if there was a lookup error.
+                                preference.setSummary(null);
+                            } else {
+                                // Set the summary to reflect the new ringtone display
+                                // name.
+                                String name = ringtone.getTitle(
+                                        preference.getContext());
+                                preference.setSummary(name);
+                            }
+                        }
 
-                  } else {
-                      // For all other preferences, set the summary to the value's
-                      // simple string representation.
-                      preference.setSummary(stringValue);
-                  }
-                  return true;
-              }
-          };
+                    } else {
+                        // For all other preferences, set the summary to the value's
+                        // simple string representation.
+                        preference.setSummary(stringValue);
+                    }
+                    return true;
+                }
+            };
 
     /**
      * Helper method to determine if the device has an extra-large screen. For
@@ -109,7 +114,7 @@ public class Activity_Settings
     private static boolean isXLargeTablet(Context context) {
         return (context.getResources().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK) >=
-               Configuration.SCREENLAYOUT_SIZE_XLARGE;
+                Configuration.SCREENLAYOUT_SIZE_XLARGE;
     }
 
     /**
@@ -121,8 +126,8 @@ public class Activity_Settings
      */
     private static boolean isSimplePreferences(Context context) {
         return ALWAYS_SIMPLE_PREFS
-               || Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB
-               || !isXLargeTablet(context);
+                || Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB
+                || !isXLargeTablet(context);
     }
 
     /**
@@ -132,24 +137,53 @@ public class Activity_Settings
      * immediately updated upon calling this method. The exact display format is
      * dependent on the type of preference.
      *
-     * @see #listener
+     * @see #sChangeListener
      */
     private static void bindPreferenceSummaryToValue(Preference preference) {
-        // Set the listener to watch for value changes.
-        preference.setOnPreferenceChangeListener(listener);
+        // Set the sChangeListener to watch for value changes.
+        preference.setOnPreferenceChangeListener(sChangeListener);
 
-        // Trigger the listener immediately with the preference's
+        // Trigger the sChangeListener immediately with the preference's
         // current value.
-        listener.onPreferenceChange(preference,
-                                    PreferenceManager.getDefaultSharedPreferences(
-                                          preference.getContext()).getString(
-                                          preference.getKey(), ""));
+        sChangeListener.onPreferenceChange(preference,
+                PreferenceManager.getDefaultSharedPreferences(
+                        preference.getContext()).getString(
+                        preference.getKey(), ""));
+    }
+
+    public static void changeTheme(Activity pActivity) {
+        if (Activity_Welcome.sPreferences.getBoolean("pref_app_theme", false)) {
+            pActivity.setTheme(R.style.DarkTheme);
+        } else {
+            pActivity.setTheme(R.style.LightTheme);
+        }
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Activity_Settings.changeTheme(this);
         super.onCreate(savedInstanceState);
         setupActionBar();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean onIsMultiPane() {
+        return isXLargeTablet(this) && !isSimplePreferences(this);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public void onBuildHeaders(List<Header> target) {
+        if (!isSimplePreferences(this)) {
+            loadHeadersFromResource(R.xml.pref_headers, target);
+        }
     }
 
     /**
@@ -163,10 +197,16 @@ public class Activity_Settings
                 getActionBar().setDisplayHomeAsUpEnabled(true);
             } catch (Exception e) {
                 Log.e("EXCEPTION",
-                      getClass().getName() + ".setupActionBar()" + e.getMessage());
+                        getClass().getName() + ".setupActionBar()" + e.getMessage());
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        setupSimplePreferencesScreen();
     }
 
     @Override
@@ -177,19 +217,13 @@ public class Activity_Settings
                 return true;
             case R.id.action_settings:
                 Log.e("Error", "This menu item must not have been triggered : " +
-                               item.getTitle());
+                        item.getTitle());
                 return super.onOptionsItemSelected(item);
             default:
                 Log.e("Error",
-                      "Option Item Selected hit Default : " + item.getTitle());
+                        "Option Item Selected hit Default : " + item.getTitle());
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        setupSimplePreferencesScreen();
     }
 
     /**
@@ -229,31 +263,12 @@ public class Activity_Settings
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean onIsMultiPane() {
-        return isXLargeTablet(this) && !isSimplePreferences(this);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public void onBuildHeaders(List<Header> target) {
-        if (!isSimplePreferences(this)) {
-            loadHeadersFromResource(R.xml.pref_headers, target);
-        }
-    }
-
-    /**
      * This fragment shows general preferences only. It is used when the
      * activity is showing a two-pane settings UI.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class GeneralPreferenceFragment
-          extends PreferenceFragment {
+            extends PreferenceFragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -273,7 +288,7 @@ public class Activity_Settings
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class NotificationPreferenceFragment
-          extends PreferenceFragment {
+            extends PreferenceFragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -293,7 +308,7 @@ public class Activity_Settings
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class DataSyncPreferenceFragment
-          extends PreferenceFragment {
+            extends PreferenceFragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);

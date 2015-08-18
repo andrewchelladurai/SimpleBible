@@ -1,13 +1,16 @@
 /*
  * Copyright (c) 2015.
  * Andrew Chelladurai - - TheUnknownAndrew[at]GMail[dot]com
+ *
+ * This Application is available at location
+ * https://play.google.com/store/apps/developer?id=Andrew+Chelladurai
+ *
  */
 
 package com.andrewchelladurai.simplebible;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,6 +26,10 @@ public class Fragment_About
     private static final String TAB_NUMBER = "4";
     private OnFragmentInteractionListener mListener;
 
+    public Fragment_About() {
+        // Required empty public constructor
+    }
+
     public static Fragment_About newInstance(int position) {
         Fragment_About fragment = new Fragment_About();
         Bundle args = new Bundle();
@@ -31,8 +38,15 @@ public class Fragment_About
         return fragment;
     }
 
-    public Fragment_About() {
-        // Required empty public constructor
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (OnFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
     }
 
     @Override
@@ -47,33 +61,14 @@ public class Fragment_About
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_about, container, false);
         WebView abtMe = (WebView) v.findViewById(R.id.about_meView);
-        abtMe.setBackgroundColor(Color.TRANSPARENT);
-        WebView chlog = (WebView) v.findViewById(R.id.changelogView);
-        chlog.setBackgroundColor(Color.TRANSPARENT);
+//        abtMe.setBackgroundColor(Color.TRANSPARENT);
         try {
             abtMe.loadUrl("file:///android_asset/about_me.html");
         } catch (Exception e) {
             Log.e("ERROR", "about_me.html not loaded " + e.getLocalizedMessage());
             e.printStackTrace();
         }
-        try {
-            chlog.loadUrl("file:///android_asset/changelog.html");
-        } catch (Exception e) {
-            Log.e("ERROR", "changelog.html not loaded " + e.getLocalizedMessage());
-            e.printStackTrace();
-        }
         return v;
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement " +
-                    "OnFragmentInteractionListener");
-        }
     }
 
     @Override
@@ -100,7 +95,7 @@ public class Fragment_About
     }
 
     public interface OnFragmentInteractionListener {
-        public void onFragmentAboutInteraction(String id);
+        void onFragmentAboutInteraction(String id);
     }
 
 }

@@ -1,9 +1,13 @@
 <!--
   ~ Copyright (c) 2015.
   ~ Andrew Chelladurai - - TheUnknownAndrew[at]GMail[dot]com
+  ~
+  ~ This Application is available at location
+  ~ https://play.google.com/store/apps/developer?id=Andrew+Chelladurai
+  ~
   -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen>
 
     <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
          dismiss it. -->

@@ -1,8 +1,11 @@
 /*
  * Copyright (c) 2015.
  * Andrew Chelladurai - - TheUnknownAndrew[at]GMail[dot]com
+ *
+ * This Application is available at location
+ * https://play.google.com/store/apps/developer?id=Andrew+Chelladurai
+ *
  */
-
 package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
@@ -13,8 +16,8 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass. Activities that contain this fragment must implement the
- * {@link Fragment_Welcome.OnFragmentInteractionListener} interface to handle interaction events. Use
- * the {@link Fragment_Welcome#getInstance} factory method to create an instance of this fragment.
+ * Use the {@link Fragment_Welcome#getInstance} factory method to create an instance of this
+ * fragment.
  */
 public class Fragment_Welcome
         extends Fragment {

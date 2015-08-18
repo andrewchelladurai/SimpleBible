@@ -1,12 +1,16 @@
 <!--
   ~ Copyright (c) 2015.
   ~ Andrew Chelladurai - - TheUnknownAndrew[at]GMail[dot]com
+  ~
+  ~ This Application is available at location
+  ~ https://play.google.com/store/apps/developer?id=Andrew+Chelladurai
+  ~
   -->
-
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<fragment
     android:id="@+id/fragment"
     android:name="com.andrewchelladurai.simplebible.Fragment_VerseViewer"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:layout="@layout/fragment_verse_viewer" />

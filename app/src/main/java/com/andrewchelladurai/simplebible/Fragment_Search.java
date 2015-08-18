@@ -1,19 +1,18 @@
 /*
  * Copyright (c) 2015.
  * Andrew Chelladurai - - TheUnknownAndrew[at]GMail[dot]com
+ *
+ * This Application is available at location
+ * https://play.google.com/store/apps/developer?id=Andrew+Chelladurai
+ *
  */
 
 package com.andrewchelladurai.simplebible;
 
 import android.app.Activity;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +34,8 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class Fragment_Search
-      extends Fragment
-      implements AbsListView.OnItemClickListener {
+        extends Fragment
+        implements AbsListView.OnItemClickListener {
 
     private static final String TAB_NUMBER = "3";
     private OnFragmentInteractionListener mListener;
@@ -44,6 +43,10 @@ public class Fragment_Search
     private ListView             resultList;
     private ArrayAdapter<String> listAdapter;
     private ArrayList<String>    arrayList;
+
+    public Fragment_Search() {
+        // Required empty public constructor
+    }
 
     public static Fragment_Search newInstance(int position) {
         Fragment_Search fragment = new Fragment_Search();
@@ -53,8 +56,15 @@ public class Fragment_Search
         return fragment;
     }
 
-    public Fragment_Search() {
-        // Required empty public constructor
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (OnFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement " +
+                    "OnFragmentInteractionListener");
+        }
     }
 
     @Override
@@ -66,14 +76,11 @@ public class Fragment_Search
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement " +
-                                         "OnFragmentInteractionListener");
-        }
+    public void onResume() {
+        super.onResume();
+        ((TextView) getActivity().findViewById(R.id.text_to_search_fs)).setText("");
+        arrayList.clear();
+        listAdapter.clear();
     }
 
     @Override
@@ -86,15 +93,14 @@ public class Fragment_Search
     public void onItemClick(AdapterView<?> adapterView, View view, int position,
                             long l) {
         if (null != mListener) {
-            mListener.onFragmentSearchInteraction(
-                  BookList.books.get(position).getBookNumber() + "");
+            mListener.onFragmentSearchInteraction(BookList.getBookNumber(position) + "");
         }
     }
 
     public void searchForResults() {
         TextView tv = (TextView) getActivity().findViewById(R.id.search_header_fs);
         String textToSearch = ((EditText) getActivity()
-              .findViewById(R.id.text_to_search_fs)).getText().toString();
+                .findViewById(R.id.text_to_search_fs)).getText().toString();
 
         if (textToSearch.length() == 0) {
             arrayList.clear();
@@ -102,7 +108,7 @@ public class Fragment_Search
             tv.setText("");
             return;
         }
-        DataBaseHelper dbh    = Activity_Welcome.getMyDbHelper();
+        DataBaseHelper dbh = Activity_Welcome.getDataBaseHelper();
         Cursor         cursor = dbh.getDBRecords(textToSearch);
 
         arrayList.clear();
@@ -120,9 +126,10 @@ public class Fragment_Search
                 chapterNo = cursor.getInt(cursor.getColumnIndex("ChapterId"));
                 bookID = cursor.getInt(cursor.getColumnIndex("BookId"));
 
-                book.append(BookList.books.get(bookID - 1).getBookName());
+//                book.append(BookList.books.get(bookID - 1).getBookName());
+                book.append(BookList.getBookName(bookID - 1));
                 result.append(book).append(" (").append(chapterNo).append(":")
-                      .append(verseNo).append(") ").append(verse);
+                        .append(verseNo).append(") ").append(verse);
                 arrayList.add(result.toString());
 
                 result.delete(0, result.length());
@@ -145,37 +152,8 @@ public class Fragment_Search
         resultList.setDivider(null);
         arrayList = new ArrayList<>(1);
         listAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
-                                               android.R.layout.simple_list_item_1,
-                                               android.R.id.text1,
-                                               arrayList) {
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                View     view     = super.getView(position, convertView, parent);
-                TextView textView = (TextView) view.findViewById(android.R.id.text1);
-                int      theme    = -1;
-                try {
-                    PackageInfo packageInfo =
-                          getActivity().getPackageManager().getPackageInfo(
-                                getActivity().getApplicationContext()
-                                             .getPackageName(),
-                                PackageManager.GET_META_DATA);
-                    theme = (null != packageInfo) ? packageInfo.applicationInfo.theme
-                                                  : R.style.LightTheme;
-                } catch (NameNotFoundException e) {
-                    Log.e("EXCEPTION =>",
-                          "NameNotFoundException @ updateVariables()");
-                    e.printStackTrace();
-                } finally {
-                    if (theme == R.style.DarkTheme) {
-                        textView.setTextColor(Color.WHITE);
-                    } else {
-                        textView.setTextColor(Color.BLACK);
-                    }
-                }
-                return view;
-            }
-        };
+                android.R.layout.simple_list_item_1,
+                android.R.id.text1, arrayList);
         resultList.setAdapter(listAdapter);
     }
 
@@ -190,13 +168,6 @@ public class Fragment_Search
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        public void onFragmentSearchInteraction(String id);
-    }
-
-    @Override public void onResume() {
-        super.onResume();
-        ((TextView) getActivity().findViewById(R.id.text_to_search_fs)).setText("");
-        arrayList.clear();
-        listAdapter.clear();
+        void onFragmentSearchInteraction(String id);
     }
 }

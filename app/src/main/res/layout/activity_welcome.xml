@@ -1,11 +1,15 @@
 <!--
   ~ Copyright (c) 2015.
   ~ Andrew Chelladurai - - TheUnknownAndrew[at]GMail[dot]com
+  ~
+  ~ This Application is available at location
+  ~ https://play.google.com/store/apps/developer?id=Andrew+Chelladurai
+  ~
   -->
-
-<android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.view.ViewPager
+    android:id="@+id/pager"
+    xmlns:android="http://schemas.android.com/apk/res/android"
                                    xmlns:tools="http://schemas.android.com/tools"
-                                   android:id="@+id/pager"
                                    android:layout_width="match_parent"
                                    android:layout_height="match_parent"
                                    tools:context=".WelcomeActivity"/>

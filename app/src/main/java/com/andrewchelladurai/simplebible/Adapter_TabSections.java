@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2015.
  * Andrew Chelladurai - - TheUnknownAndrew[at]GMail[dot]com
+ *
+ * This Application is available at location
+ * https://play.google.com/store/apps/developer?id=Andrew+Chelladurai
+ *
  */
 
 package com.andrewchelladurai.simplebible;
@@ -20,64 +24,64 @@ import java.util.Locale;
 public class Adapter_TabSections
         extends FragmentPagerAdapter {
 
-private Context          context;
-private Fragment_Welcome fragmentWelcome;
-private Fragment_Books   fragment_books;
-private Fragment_Search  fragment_search;
-private Fragment_About   fragment_about;
+    private Context          context;
+    private Fragment_Welcome fragmentWelcome;
+    private Fragment_Books   fragment_books;
+    private Fragment_Search  fragment_search;
+    private Fragment_About   fragment_about;
 
-public Adapter_TabSections(FragmentManager fm, Context con) {
-    super(fm);
-    context = con;
-}
-
-@Override
-public Fragment getItem(int position) {
-    switch (position) {
-        case 1:
-            if (fragment_books == null) {
-                fragment_books = Fragment_Books.newInstance(position);
-            }
-            return fragment_books;
-        case 2:
-            if (fragment_search == null) {
-                fragment_search = Fragment_Search.newInstance(position);
-            }
-            return fragment_search;
-        case 3:
-            if (fragment_about == null) {
-                fragment_about = Fragment_About.newInstance(position);
-            }
-            return fragment_about;
-        default:
-            Log.e("ERROR","Hit default switch in Adapter_TabSections.getItem("+
-                          position+")");
-            if (fragmentWelcome == null) {
-                fragmentWelcome = Fragment_Welcome.getInstance(position);
-            }
-            return fragmentWelcome;
+    public Adapter_TabSections(FragmentManager fm, Context con) {
+        super(fm);
+        context = con;
     }
-}
 
-@Override
-public int getCount() {
-    return 4;
-}
-
-@Override
-public CharSequence getPageTitle(int position) {
-    switch (position) {
-        case 0:
-            return context.getString(R.string.title_tab1).toUpperCase(Locale.getDefault());
-        case 1:
-            return context.getString(R.string.title_tab2).toUpperCase(Locale.getDefault());
-        case 2:
-            return context.getString(R.string.title_tab3).toUpperCase(Locale.getDefault());
-        case 3:
-            return context.getString(R.string.title_tab4).toUpperCase(Locale.getDefault());
+    @Override
+    public Fragment getItem(int position) {
+        switch (position) {
+            case 1:
+                if (fragment_books == null) {
+                    fragment_books = Fragment_Books.newInstance(position);
+                }
+                return fragment_books;
+            case 2:
+                if (fragment_search == null) {
+                    fragment_search = Fragment_Search.newInstance(position);
+                }
+                return fragment_search;
+            case 3:
+                if (fragment_about == null) {
+                    fragment_about = Fragment_About.newInstance(position);
+                }
+                return fragment_about;
+            default:
+                Log.e("ERROR", "Hit default switch in Adapter_TabSections.getItem(" +
+                        position + ")");
+                if (fragmentWelcome == null) {
+                    fragmentWelcome = Fragment_Welcome.getInstance(position);
+                }
+                return fragmentWelcome;
+        }
     }
-    return null;
-}
+
+    @Override
+    public int getCount() {
+        return 4;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        switch (position) {
+            case 0:
+                return context.getString(R.string.title_tab1).toUpperCase(Locale.getDefault());
+            case 1:
+                return context.getString(R.string.title_tab2).toUpperCase(Locale.getDefault());
+            case 2:
+                return context.getString(R.string.title_tab3).toUpperCase(Locale.getDefault());
+            case 3:
+                return context.getString(R.string.title_tab4).toUpperCase(Locale.getDefault());
+        }
+        return null;
+    }
 
     public void aboutSendEmail() {
         fragment_about.sendEmail();

@@ -1,6 +1,10 @@
 <!--
   ~ Copyright (c) 2015.
   ~ Andrew Chelladurai - - TheUnknownAndrew[at]GMail[dot]com
+  ~
+  ~ This Application is available at location
+  ~ https://play.google.com/store/apps/developer?id=Andrew+Chelladurai
+  ~
   -->
 
 <resources>
@@ -21,6 +25,7 @@
     <string name="contactSubject">Simple Bible - Feedback</string>
     <string name="githubPage">http://github.com/andrewchelladurai/</string>
     <string name="gPlusPage">http://plus.google.com/+AndrewChelladurai</string>
+    <string name="booksofthebible_desc">Books of The Holy Bible</string>
 
     <string-array name="allbooks">
         <item>Genesis</item>
