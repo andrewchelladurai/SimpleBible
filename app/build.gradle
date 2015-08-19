@@ -29,9 +29,7 @@ android {
     signingConfigs {
         Google_Play {
             keyAlias 'Google_Play'
-            keyPassword 'ErsRHY9nZFVbYw6bVSp8k6sm^h3mnC4RHyxR@ZyyUzCtfzpbXM$$Tk6996TAzXGAJm4KWsyDw&D#qa!CUnRYqE'
             storeFile file('/media/andrew/8AEF-3379/Projects/AndroidProjects/AndrewChelladuraiAndroidKeystore.jks')
-            storePassword 'Bs4uVy*M47Tp!PT*ZDTxUuqy6pJzWq!kqYAhCSf2fnc5fnEBbh2&eNS9pWCZY5wvJvRU%JBpgrP79bk53fT%2XEYDm'
         }
     }
     compileSdkVersion 22
@@ -42,11 +40,10 @@ android {
         targetSdkVersion 22
         versionName '1.0.2'
         versionCode 3
+        signingConfig signingConfigs.Google_Play
     }
     buildTypes {
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        SimpleBible_release {
         }
     }
     compileOptions {

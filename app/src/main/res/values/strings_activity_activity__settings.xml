@@ -34,7 +34,7 @@
     <string name="pref_title_app_theme">Application Theme</string>
     <string name="pref_desc_app_theme">Check to make the application use a DARK THEME by default</string>
 
-    <string name="pref_title_text_style">Verses Text Style</string>
+    <string name="pref_title_text_style">Verses Text Style - Upcoming Feature</string>
     <string-array name="pref_titles_text_style">
         <item>Sans - Default</item>
         <item>Serif - Old English</item>
@@ -70,7 +70,7 @@
     <!--<string name="pref_title_system_sync_settings">System sync settings</string>-->
 
     <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">Notifications</string>
+    <string name="pref_header_notifications">Notifications - Upcoming Feature</string>
     <string name="pref_title_notifications">Daily Reminder</string>
     <string name="pref_desc_notifications">Check to set a daily reminder to read The Holy Bible</string>
 

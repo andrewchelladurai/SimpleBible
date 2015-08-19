@@ -14,7 +14,7 @@ Till then I hope to fill in all the gaps in patch releases.
 I plan to work on the application each day if time permits, however it is proving difficult with a day job and other things considered. However I will continue working on this project.
 </p>
 <p>
-The Application is now licensed under GPLv3 see <http://www.gnu.org/licenses/> OR <http://www.gnu.org/licenses/gpl-3.0.txt> for details
+The Application is now licensed under GPLv3 see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a> OR <a href="http://www.gnu.org/licenses/gpl-3.0.txt">http://www.gnu.org/licenses/gpl-3.0.txt</a> for details
 </p>
 
 -- Andrew Chelladurai

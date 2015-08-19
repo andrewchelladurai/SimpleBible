@@ -23,7 +23,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * OR <http://www.gnu.org/licenses/gpl-3.0.txt>
  *
- */package com.andrewchelladurai.simplebible;
+ */
+
+package com.andrewchelladurai.simplebible;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -42,15 +44,14 @@ import android.widget.EditText;
 
 public class Activity_Welcome
         extends ActionBarActivity
-        implements ActionBar.TabListener,
-        Fragment_Books.OnFragmentInteractionListener,
-        Fragment_Search.OnFragmentInteractionListener,
-        Fragment_About.OnFragmentInteractionListener {
+        implements ActionBar.TabListener, Fragment_Books.OnFragmentInteractionListener,
+                   Fragment_Search.OnFragmentInteractionListener,
+                   Fragment_About.OnFragmentInteractionListener {
 
-    static         SharedPreferences   sPreferences;
-    private static DataBaseHelper      sDataBaseHelper;
-    private        Adapter_TabSections mTabsAdapter;
-    private        ViewPager           mPager;
+    static SharedPreferences sPreferences;
+    private static DataBaseHelper sDataBaseHelper;
+    private Adapter_TabSections mTabsAdapter;
+    private ViewPager mPager;
 
     public static DataBaseHelper getDataBaseHelper() {
         return sDataBaseHelper;
@@ -70,8 +71,7 @@ public class Activity_Welcome
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mTabsAdapter = new Adapter_TabSections(getSupportFragmentManager(),
-                getApplicationContext());
+        mTabsAdapter = new Adapter_TabSections(getSupportFragmentManager(), getApplicationContext());
 
         // Set up the ViewPager with the sections adapter.
         mPager = (ViewPager) findViewById(R.id.pager);
@@ -90,8 +90,7 @@ public class Activity_Welcome
 
         // For each of the sections in the app, add a tab to the action bar.
         for (int i = 0; i < mTabsAdapter.getCount(); i++) {
-            actionBar.addTab(actionBar.newTab().setText(mTabsAdapter.getPageTitle(i))
-                    .setTabListener(this));
+            actionBar.addTab(actionBar.newTab().setText(mTabsAdapter.getPageTitle(i)).setTabListener(this));
         }
 
         if (sDataBaseHelper == null) {
@@ -113,8 +112,7 @@ public class Activity_Welcome
                 startActivity(new Intent(this, Activity_Settings.class));
                 return true;
             default:
-                Log.e("Error",
-                        "Option Item Selected hit Default : " + item.getTitle());
+                Log.e("Error", "Option Item Selected hit Default : " + item.getTitle());
         }
         return super.onOptionsItemSelected(item);
     }
