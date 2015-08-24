@@ -31,7 +31,7 @@
       tools:context="com.andrewchelladurai.simplebible.Activity_VerseViewer">
     <item
         android:id="@+id/action_settings"
-        android:icon="@drawable/gears_light"
+        android:icon="@drawable/icon_light_settings_64"
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="ifRoom"/>

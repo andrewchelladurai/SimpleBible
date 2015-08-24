@@ -29,6 +29,7 @@ package com.andrewchelladurai.simplebible;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -79,7 +80,6 @@ public class Fragment_About
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_about, container, false);
         WebView abtMe = (WebView) v.findViewById(R.id.about_meView);
-//        abtMe.setBackgroundColor(Color.TRANSPARENT);
         try {
             abtMe.loadUrl("file:///android_asset/about_me.html");
         } catch (Exception e) {
@@ -93,23 +93,6 @@ public class Fragment_About
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    public void sendEmail() {
-        Intent email = new Intent(Intent.ACTION_SENDTO);
-        email.setData(Uri.parse("mailto:"));
-        email.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.contactEmail)});
-        email.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.contactSubject));
-        email.putExtra(Intent.EXTRA_TEXT, "");
-        startActivity(Intent.createChooser(email, "Select an Email app"));
-    }
-
-    public void openGitHubPage() {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githubPage))));
-    }
-
-    public void openGPlusPage() {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.gPlusPage))));
     }
 
     public interface OnFragmentInteractionListener {

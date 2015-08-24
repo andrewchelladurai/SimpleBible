@@ -155,18 +155,6 @@ public class Activity_Welcome
         startActivity(intent);
     }
 
-    public void aboutSendEmail(View view) {
-        mTabsAdapter.aboutSendEmail();
-    }
-
-    public void aboutOpenGitHub(View view) {
-        mTabsAdapter.aboutOpenGitHub();
-    }
-
-    public void aboutOpenGPlus(View view) {
-        mTabsAdapter.aboutOpenGPlus();
-    }
-
     public void searchShowResults(final View view) {
         mTabsAdapter.searchShowResults();
     }

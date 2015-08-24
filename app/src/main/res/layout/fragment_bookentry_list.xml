@@ -54,7 +54,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:onClick="loadBookFragment"
-            android:src="@android:drawable/ic_search_category_default">
+            android:src="@android:drawable/ic_menu_search">
         </ImageButton>
     </LinearLayout>
 

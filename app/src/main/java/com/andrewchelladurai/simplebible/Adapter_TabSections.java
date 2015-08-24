@@ -99,18 +99,6 @@ public class Adapter_TabSections
         return null;
     }
 
-    public void aboutSendEmail() {
-        fragment_about.sendEmail();
-    }
-
-    public void aboutOpenGitHub() {
-        fragment_about.openGitHubPage();
-    }
-
-    public void aboutOpenGPlus() {
-        fragment_about.openGPlusPage();
-    }
-
     public void searchShowResults() {
         fragment_search.searchForResults();
     }
