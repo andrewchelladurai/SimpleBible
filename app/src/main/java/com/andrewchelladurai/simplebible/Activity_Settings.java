@@ -158,12 +158,15 @@ public class Activity_Settings
     }
 
     public static void changeTheme(Activity pActivity) {
-        if (Activity_Welcome.sPreferences.getBoolean("pref_app_theme", false)) {
+        if (isDarkThemeSet()) {
             pActivity.setTheme(R.style.DarkTheme);
         } else {
             pActivity.setTheme(R.style.LightTheme);
         }
+    }
 
+    public static boolean isDarkThemeSet() {
+        return Activity_Welcome.sPreferences.getBoolean("pref_app_theme", false);
     }
 
     @Override

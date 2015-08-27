@@ -44,7 +44,6 @@ public class Fragment_VerseViewer
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
-        View v = inflater.inflate(R.layout.fragment_verse_viewer, container, false);
-        return v;
+        return inflater.inflate(R.layout.fragment_verse_viewer, container, false);
     }
 }

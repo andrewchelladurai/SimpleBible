@@ -23,7 +23,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * OR <http://www.gnu.org/licenses/gpl-3.0.txt>
  *
- */package com.andrewchelladurai.simplebible;
+ */
+package com.andrewchelladurai.simplebible;
 
 import android.app.Activity;
 import android.database.Cursor;
@@ -35,6 +36,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -56,9 +58,9 @@ public class Fragment_Search
     private static final String TAB_NUMBER = "3";
     private OnFragmentInteractionListener mListener;
 
-    private ListView             resultList;
+    private ListView resultList;
     private ArrayAdapter<String> listAdapter;
-    private ArrayList<String>    arrayList;
+    private ArrayList<String> arrayList;
 
     public Fragment_Search() {
         // Required empty public constructor
@@ -66,7 +68,7 @@ public class Fragment_Search
 
     public static Fragment_Search newInstance(int position) {
         Fragment_Search fragment = new Fragment_Search();
-        Bundle          args     = new Bundle();
+        Bundle args = new Bundle();
         args.putInt(TAB_NUMBER, position);
         fragment.setArguments(args);
         return fragment;
@@ -125,15 +127,15 @@ public class Fragment_Search
             return;
         }
         DataBaseHelper dbh = Activity_Welcome.getDataBaseHelper();
-        Cursor         cursor = dbh.getDBRecords(textToSearch);
+        Cursor cursor = dbh.getDBRecords(textToSearch);
 
         arrayList.clear();
         listAdapter.clear();
 
-        StringBuilder book   = new StringBuilder();
-        StringBuilder verse  = new StringBuilder();
+        StringBuilder book = new StringBuilder();
+        StringBuilder verse = new StringBuilder();
         StringBuilder result = new StringBuilder();
-        int           verseNo, chapterNo, bookID;
+        int verseNo, chapterNo, bookID;
 
         if (cursor.moveToFirst()) {
             do {
@@ -142,10 +144,12 @@ public class Fragment_Search
                 chapterNo = cursor.getInt(cursor.getColumnIndex("ChapterId"));
                 bookID = cursor.getInt(cursor.getColumnIndex("BookId"));
 
-//                book.append(BookList.books.get(bookID - 1).getBookName());
                 book.append(BookList.getBookName(bookID - 1));
-                result.append(book).append(" (").append(chapterNo).append(":")
-                        .append(verseNo).append(") ").append(verse);
+                result.append(book)
+                        .append(" (")
+                        .append(chapterNo).append(":")
+                        .append(verseNo).append(") ")
+                        .append(verse);
                 arrayList.add(result.toString());
 
                 result.delete(0, result.length());
@@ -159,7 +163,7 @@ public class Fragment_Search
         } else {
             tv.setText("No Verses found");
         }
-        resultList.refreshDrawableState();
+//        resultList.refreshDrawableState();
         listAdapter.notifyDataSetChanged();
     }
 
@@ -167,7 +171,7 @@ public class Fragment_Search
         resultList = (ListView) view.findViewById(R.id.search_results_list_fs);
         resultList.setDivider(null);
         arrayList = new ArrayList<>(1);
-        listAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
+        listAdapter = new ArrayAdapter<String>(view.getContext(),
                 android.R.layout.simple_list_item_1,
                 android.R.id.text1, arrayList);
         resultList.setAdapter(listAdapter);

@@ -23,7 +23,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * OR <http://www.gnu.org/licenses/gpl-3.0.txt>
  *
- */package com.andrewchelladurai.simplebible;
+ */
+package com.andrewchelladurai.simplebible;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -68,7 +69,7 @@ public class Fragment_Books
 
     public static Fragment_Books newInstance(int position) {
         Fragment_Books fragment = new Fragment_Books();
-        Bundle         args     = new Bundle();
+        Bundle args = new Bundle();
         args.putInt(TAB_NUMBER, position);
         fragment.setArguments(args);
         return fragment;

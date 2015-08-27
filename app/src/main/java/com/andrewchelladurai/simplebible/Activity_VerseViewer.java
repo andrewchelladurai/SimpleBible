@@ -36,6 +36,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -48,13 +49,13 @@ public class Activity_VerseViewer
         extends ActionBarActivity
         implements View.OnClickListener {
 
-    private int               bookID;
-    private int               chapterCount;
-    private String            bookName;
-    private ListView          verseListView;
+    private int bookID;
+    private int chapterCount;
+    private String bookName;
+    private ListView verseListView;
     private ArrayAdapter<String> verseListAdapter;
     private ArrayList<String> arrayList;
-    private TextView          txtHeader;
+    private TextView txtHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,14 +83,29 @@ public class Activity_VerseViewer
 
         arrayList = new ArrayList<>(1);
 
-        verseListAdapter = new ArrayAdapter<String>(getApplicationContext(),
+//        verseListAdapter = new ArrayAdapter<String>(getApplicationContext(),
+//                android.R.layout.simple_list_item_1, android.R.id.text1, arrayList) {
+//
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent) {
+//                View view = super.getView(position, convertView, parent);
+//                TextView textView = (TextView) view.findViewById(android.R.id.text1);
+//                if (Activity_Settings.isDarkThemeSet()) {
+//                    textView.setTextColor(Color.WHITE);
+//                } else {
+//                    textView.setTextColor(Color.BLACK);
+//                }
+//                return view;
+//            }
+//        };
+        verseListAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, arrayList);
         verseListView.setAdapter(verseListAdapter);
     }
 
     private void updateVerseView(int chapterID) {
         DataBaseHelper dataBaseHelper = Activity_Welcome.getDataBaseHelper();
-        Cursor         cursor         = dataBaseHelper.getDBRecords(bookID + 1, chapterID);
+        Cursor cursor = dataBaseHelper.getDBRecords(bookID + 1, chapterID);
 
         arrayList.clear();
         verseListAdapter.clear();

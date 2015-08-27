@@ -25,14 +25,11 @@
   ~
   --><resources>
     <string name="title_activity_activity__settings">Settings</string>
-
-    <!-- Strings related to Settings -->
-
-    <!-- Example General settings -->
     <string name="pref_header_general">General</string>
 
-    <string name="pref_title_app_theme">Application Theme</string>
-    <string name="pref_desc_app_theme">Check to make the application use a DARK THEME by default</string>
+    <string name="pref_title_app_theme">Use Dark Theme</string>
+    <string name="pref_desc_app_theme">Restart Required - Check to make the application use a DARK
+        THEME by default</string>
 
     <string name="pref_title_text_style">Verses Text Style - Upcoming Feature</string>
     <string-array name="pref_titles_text_style">
