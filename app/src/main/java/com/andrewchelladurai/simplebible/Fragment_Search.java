@@ -24,12 +24,17 @@
  * OR <http://www.gnu.org/licenses/gpl-3.0.txt>
  *
  */
+
 package com.andrewchelladurai.simplebible;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,24 +58,33 @@ import java.util.ArrayList;
  */
 public class Fragment_Search
         extends Fragment
-        implements AbsListView.OnItemClickListener {
+        implements AbsListView.OnItemClickListener,
+                   AdapterView.OnItemLongClickListener,
+                   TextWatcher {
 
+    private static final String CLASS_NAME = "Fragment_Search";
     private static final String TAB_NUMBER = "3";
     private OnFragmentInteractionListener mListener;
 
-    private ListView resultList;
+    private ListView          resultList;
     private ArrayAdapter<String> listAdapter;
     private ArrayList<String> arrayList;
+    private EditText          searchTextView;
+    private TextView          messageHeader;
+
+    private StringBuilder currentSearchText = new StringBuilder("");
 
     public Fragment_Search() {
         // Required empty public constructor
     }
 
     public static Fragment_Search newInstance(int position) {
+        Log.i(CLASS_NAME, "Entering newInstance");
         Fragment_Search fragment = new Fragment_Search();
         Bundle args = new Bundle();
         args.putInt(TAB_NUMBER, position);
         fragment.setArguments(args);
+        Log.i(CLASS_NAME, "Exiting newInstance");
         return fragment;
     }
 
@@ -80,26 +94,29 @@ public class Fragment_Search
         try {
             mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement " +
-                    "OnFragmentInteractionListener");
+            throw new ClassCastException(activity.toString()
+                                         + " must implement OnFragmentInteractionListener");
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i(CLASS_NAME, "Entering onCreateView");
         View v = inflater.inflate(R.layout.fragment__search, container, false);
         updateVariables(v);
+        Log.i(CLASS_NAME, "Exiting onCreateView");
         return v;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        ((TextView) getActivity().findViewById(R.id.text_to_search_fs)).setText("");
-        arrayList.clear();
-        listAdapter.clear();
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        ((TextView) getActivity().findViewById(R.id.fragmentsearch_input_text_field)).setText("");
+//        ((TextView) getActivity().findViewById(R.id.fragmentsearch_resultlabel)).setText("");
+//        arrayList.clear();
+//        listAdapter.clear();
+//    }
 
     @Override
     public void onDetach() {
@@ -108,36 +125,44 @@ public class Fragment_Search
     }
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int position,
-                            long l) {
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         if (null != mListener) {
             mListener.onFragmentSearchInteraction(BookList.getBookNumber(position) + "");
         }
     }
 
-    public void searchForResults() {
-        TextView tv = (TextView) getActivity().findViewById(R.id.search_header_fs);
-        String textToSearch = ((EditText) getActivity()
-                .findViewById(R.id.text_to_search_fs)).getText().toString();
+    public void searchForResults(View view) {
+        Button button = (Button) view;
+        currentSearchText.delete(0, currentSearchText.length());
+        currentSearchText.append(searchTextView.getText().toString());
+        Log.d(CLASS_NAME, "Entering searchForResults");
 
-        if (textToSearch.length() == 0) {
+        if ((button.getText() + "").equalsIgnoreCase(
+                getString(R.string.fragment_serach_button_search_reset))
+            || currentSearchText.length() == 0) {
+            Log.d(CLASS_NAME, "searchForResults - Inside first IF");
+            ((EditText) getActivity().findViewById(R.id.fragmentsearch_input_text_field))
+                    .setText("");
             arrayList.clear();
             listAdapter.clear();
-            tv.setText("");
+            messageHeader.setText("");
+            button.setText(R.string.fragment_serach_button_search);
             return;
         }
-        DataBaseHelper dbh = Activity_Welcome.getDataBaseHelper();
-        Cursor cursor = dbh.getDBRecords(textToSearch);
+        Log.d(CLASS_NAME, "searchForResults - Immediately after first IF");
+        Cursor cursor = Activity_Welcome.getDataBaseHelper()
+                                        .getDBRecords(currentSearchText.toString());
 
         arrayList.clear();
         listAdapter.clear();
 
-        StringBuilder book = new StringBuilder();
+        int           verseNo, chapterNo, bookID;
+        StringBuilder book  = new StringBuilder();
         StringBuilder verse = new StringBuilder();
         StringBuilder result = new StringBuilder();
-        int verseNo, chapterNo, bookID;
 
         if (cursor.moveToFirst()) {
+            Log.d(CLASS_NAME, "searchForResults - returned at least one result.");
             do {
                 verse.append(cursor.getString(cursor.getColumnIndex("Verse")));
                 verseNo = cursor.getInt(cursor.getColumnIndex("VerseId"));
@@ -146,35 +171,73 @@ public class Fragment_Search
 
                 book.append(BookList.getBookName(bookID - 1));
                 result.append(book)
-                        .append(" (")
-                        .append(chapterNo).append(":")
-                        .append(verseNo).append(") ")
-                        .append(verse);
+                      .append(" (")
+                      .append(chapterNo).append(":")
+                      .append(verseNo).append(") ")
+                      .append(verse);
                 arrayList.add(result.toString());
 
                 result.delete(0, result.length());
                 book.delete(0, book.length());
                 verse.delete(0, verse.length());
             } while (cursor.moveToNext());
-            tv.setText(cursor.getCount() + " Verses found");
+            messageHeader.setText(cursor.getCount() + " Verses found");
             if (!cursor.isClosed()) {
                 cursor.close();
             }
         } else {
-            tv.setText("No Verses found");
+            messageHeader.setText("No Verses found");
         }
 //        resultList.refreshDrawableState();
         listAdapter.notifyDataSetChanged();
+        button.setText(R.string.fragment_serach_button_search_reset);
+        Log.d(CLASS_NAME, "Exiting searchForResults.");
     }
 
     private void updateVariables(View view) {
-        resultList = (ListView) view.findViewById(R.id.search_results_list_fs);
-        resultList.setDivider(null);
+        Log.i(CLASS_NAME, "Entering updateVariables");
+
         arrayList = new ArrayList<>(1);
         listAdapter = new ArrayAdapter<String>(view.getContext(),
-                android.R.layout.simple_list_item_1,
-                android.R.id.text1, arrayList);
+                                               android.R.layout.simple_list_item_1,
+                                               android.R.id.text1, arrayList);
+        resultList = (ListView) view.findViewById(R.id.fragmentsearch_resultlist);
+        resultList.setDivider(null);
+        resultList.setOnItemLongClickListener(this);
         resultList.setAdapter(listAdapter);
+
+        searchTextView = (EditText) view.findViewById(R.id.fragmentsearch_input_text_field);
+        searchTextView.addTextChangedListener(this);
+        messageHeader = (TextView) view.findViewById(R.id.fragmentsearch_resultlabel);
+
+        Log.d(CLASS_NAME, "Exiting updateVariables");
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.i(CLASS_NAME, "Entering onItemLongClick");
+        String verse = ((TextView) view).getText()
+                       + " -- The Holy Bible (New International Version)";
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, verse);
+        startActivity(intent);
+        Log.d(CLASS_NAME, "Exiting onItemLongClick");
+        return true;
+    }
+
+    @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override public void afterTextChanged(Editable s) {
+        Button button = (Button) getActivity().findViewById(R.id.fragmentsearch_searchbutton);
+        button.setText(getString(R.string.fragment_serach_button_search));
+        messageHeader.setText("");
     }
 
     /**
@@ -188,6 +251,7 @@ public class Fragment_Search
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
+
         void onFragmentSearchInteraction(String id);
     }
 }

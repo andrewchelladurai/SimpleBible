@@ -156,6 +156,6 @@ public class Activity_Welcome
     }
 
     public void searchShowResults(final View view) {
-        mTabsAdapter.searchShowResults();
+        mTabsAdapter.searchShowResults(view);
     }
 }

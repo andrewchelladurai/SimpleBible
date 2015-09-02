@@ -54,7 +54,8 @@
             android:layout_weight="1"
             android:divider="@null"
             android:dividerHeight="0dp"
-            android:fastScrollEnabled="true" />
+            android:fastScrollEnabled = "true"
+            android:longClickable = "true"/>
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView"

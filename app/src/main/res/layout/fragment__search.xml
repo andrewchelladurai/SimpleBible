@@ -39,7 +39,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/text_to_search_fs"
+            android:id = "@+id/fragmentsearch_input_text_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Search this exact text"
@@ -47,7 +47,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <TextView
-        android:id="@+id/search_header_fs"
+        android:id = "@+id/fragmentsearch_resultlabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center|center_horizontal"
@@ -57,19 +57,20 @@
         android:typeface="monospace"/>
 
     <Button
-        android:id="@+id/button_fs"
+        android:id = "@+id/fragmentsearch_searchbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="5dp"
         android:onClick="searchShowResults"
-        android:text="Show Results Below"
+        android:text = "@string/fragment_serach_button_search"
         android:textStyle="bold"
         android:typeface="normal"/>
 
     <ListView
-        android:id="@+id/search_results_list_fs"
+        android:id = "@+id/fragmentsearch_resultlist"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height = "wrap_content"
+        android:longClickable = "true"/>
 
 </TableLayout>

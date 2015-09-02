@@ -36,7 +36,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -47,15 +47,17 @@ import java.util.ArrayList;
 
 public class Activity_VerseViewer
         extends ActionBarActivity
-        implements View.OnClickListener {
+        implements View.OnClickListener,
+                   AdapterView.OnItemLongClickListener {
 
-    private int bookID;
-    private int chapterCount;
-    private String bookName;
-    private ListView verseListView;
+    private int               currentBookId;
+    private int               currentChapter;
+    private int               chapterCount;
+    private String            currentBookName;
+    private ListView          verseListView;
     private ArrayAdapter<String> verseListAdapter;
     private ArrayList<String> arrayList;
-    private TextView txtHeader;
+    private TextView          txtHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,46 +68,31 @@ public class Activity_VerseViewer
 
         Log.d("ID = ", getIntent().getIntExtra("ID", 1) + "");
         updateVariables(getIntent().getIntExtra("ID", 1));
-        setTitle(bookName);
+        setTitle(currentBookName);
 
         // Always load 1st Chapter when loading a new Book
-        txtHeader.setText(bookName + " Chapter 1");
+        txtHeader.setText(currentBookName + " Chapter 1");
         updateVerseView(1);
     }
 
     private void updateVariables(int id) {
-        bookName = BookList.getBookName(id);
+        currentBookName = BookList.getBookName(id);
         chapterCount = BookList.getTotalChapters(id);
-        bookID = BookList.getBookNumber(id);
+        currentBookId = BookList.getBookNumber(id);
 
         verseListView = (ListView) findViewById(R.id.verseListView);
-        txtHeader = (TextView) this.findViewById(R.id.verseHeader);
+        verseListView.setOnItemLongClickListener(this);
+        txtHeader = (TextView) findViewById(R.id.verseHeader);
 
         arrayList = new ArrayList<>(1);
-
-//        verseListAdapter = new ArrayAdapter<String>(getApplicationContext(),
-//                android.R.layout.simple_list_item_1, android.R.id.text1, arrayList) {
-//
-//            @Override
-//            public View getView(int position, View convertView, ViewGroup parent) {
-//                View view = super.getView(position, convertView, parent);
-//                TextView textView = (TextView) view.findViewById(android.R.id.text1);
-//                if (Activity_Settings.isDarkThemeSet()) {
-//                    textView.setTextColor(Color.WHITE);
-//                } else {
-//                    textView.setTextColor(Color.BLACK);
-//                }
-//                return view;
-//            }
-//        };
-        verseListAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, arrayList);
+        verseListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
+                                                    android.R.id.text1, arrayList);
         verseListView.setAdapter(verseListAdapter);
     }
 
     private void updateVerseView(int chapterID) {
         DataBaseHelper dataBaseHelper = Activity_Welcome.getDataBaseHelper();
-        Cursor cursor = dataBaseHelper.getDBRecords(bookID + 1, chapterID);
+        Cursor cursor = dataBaseHelper.getDBRecords(currentBookId + 1, chapterID);
 
         arrayList.clear();
         verseListAdapter.clear();
@@ -116,15 +103,13 @@ public class Activity_VerseViewer
             //            int chapterIdIndex = cursor.getColumnIndex("ChapterId");
             //            int bookIdIndex = cursor.getColumnIndex("BookId");
             do {
-                arrayList.add(cursor.getInt(verseIdIndex) + ": " + cursor.getString(
-                        verseIndex));
+                arrayList.add(cursor.getInt(verseIdIndex) + " : " + cursor.getString(verseIndex));
             } while (cursor.moveToNext());
             verseListView.refreshDrawableState();
             verseListAdapter.notifyDataSetChanged();
-            txtHeader.setText(bookName + " Chapter " + chapterID);
-//            if (!cursor.isClosed()) {
+            txtHeader.setText(currentBookName + " Chapter " + chapterID);
             cursor.close();
-//            }
+            currentChapter = chapterID;
         }
         createChapterButtons();
     }
@@ -150,7 +135,6 @@ public class Activity_VerseViewer
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_verse_viewer, menu);
         return true;
     }
@@ -158,26 +142,43 @@ public class Activity_VerseViewer
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                startActivity(new Intent(this, Activity_Settings.class));
-                return true;
-            default:
-                Log.e("Error", "Option Item Selected hit Default : " + item.getTitle());
+        case R.id.action_settings:
+            startActivity(new Intent(this, Activity_Settings.class));
+            return true;
+        default:
+            Log.e("Error", "Option Item Selected hit Default : " + item.getTitle());
         }
-        // Toast.makeText(this, "In the Next Release", Toast.LENGTH_SHORT).show();
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onClick(View v) {
-        int chapterID = 1;
-        try {
-            chapterID = Integer.parseInt((((Button) v).getText() + ""));
-        } catch (NumberFormatException e) {
-            Log.e("EXCEPTION", e.getLocalizedMessage());
-            e.printStackTrace();
+        if (v instanceof Button) {
+            int chapterID = 1;
+            try {
+                chapterID = Integer.parseInt((((Button) v).getText() + ""));
+            } catch (NumberFormatException e) {
+                Log.e("EXCEPTION", e.getLocalizedMessage());
+                e.printStackTrace();
+            }
+            txtHeader.setText(currentBookName + " Chapter " + chapterID);
+            updateVerseView(chapterID);
+        } else {
+            Log.w(getClass().getName(), "onClick called by unexpected widget " +
+                                        v.getClass().getName());
         }
-        txtHeader.setText(bookName + " Chapter " + chapterID);
-        updateVerseView(chapterID);
     }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        String verse = currentBookName + " Chapter " + currentChapter
+                       + " Verse " + ((TextView) view).getText()
+                       + " -- The Holy Bible (New International Version)";
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, verse);
+        startActivity(intent);
+        return true;
+    }
+
 }

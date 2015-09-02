@@ -63,9 +63,9 @@ public class DataBaseHelper
     //This piece of code will create a database if it’s not yet created
     private void createDataBase() {
         boolean dbExist = checkDataBase();
-        Log.i("INFO = ", "Inside createDataBase - dbExist = " + dbExist);
+        Log.i(getClass().getName(), "Inside createDataBase - dbExist = " + dbExist);
         if (!dbExist) {
-            Log.i("INFO = ", "Inside createDataBase - IF");
+            Log.i(getClass().getName(), "Inside createDataBase - IF");
             this.getReadableDatabase();
             try {
                 copyDataBase();
@@ -74,7 +74,7 @@ public class DataBaseHelper
                 throw new Error("Error copying database!");
             }
         } else {
-            Log.i(this.getClass().toString(), "Database already exists");
+            Log.i(getClass().getName(), "Database already exists");
         }
     }
 
@@ -89,7 +89,7 @@ public class DataBaseHelper
             try {
                 checkDb = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
             } catch (SQLException e) {
-                Log.e(this.getClass().toString(), "Error while checking db");
+                Log.e(getClass().getName(), "Error while checking db");
             } finally {
                 //Android does not like resource leaks, everything should be closed
                 if (checkDb != null) {
@@ -104,12 +104,13 @@ public class DataBaseHelper
     }
 
     //Method for copying the database
-    private void copyDataBase() throws IOException {
-        Log.i("INFO = ", "Inside CopyDatabase");
+    private void copyDataBase()
+            throws IOException {
+        Log.i(getClass().getName(), "Inside CopyDatabase");
         //Open a stream for reading from our ready-made database
         //The stream source is located in the assets
         InputStream externalDbStream = context.getAssets().open(DB_NAME);
-        Log.i("INFO = ", "externalDbStream" + externalDbStream.toString());
+        Log.i(getClass().getName(), "externalDbStream" + externalDbStream.toString());
         //Path to the created empty database on your Android device
         String outFileName = DB_PATH + File.separatorChar + DB_NAME;
         Log.i("INFO = ", "outFileName = " + outFileName);
@@ -126,17 +127,18 @@ public class DataBaseHelper
         //Don’t forget to close the streams
         localDbStream.close();
         externalDbStream.close();
-        Log.i("INFO = ", "Exiting CopyDatabase");
+        Log.i(getClass().getName(), "Exiting CopyDatabase");
     }
 
-    public SQLiteDatabase openDataBase() throws SQLException {
-        Log.i("INFO = ", "Entering openDataBase()");
+    public SQLiteDatabase openDataBase()
+            throws SQLException {
+        Log.i(getClass().getName(), "Entering openDataBase()");
         String path = DB_PATH + File.separatorChar + DB_NAME;
         if (database == null) {
             createDataBase();
             database = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
         }
-        Log.i("INFO = ", "Exiting openDataBase()");
+        Log.i(getClass().getName(), "Exiting openDataBase()");
         return database;
     }
 
@@ -161,7 +163,8 @@ public class DataBaseHelper
         SQLiteDatabase db = getReadableDatabase();
 
         return db.query("bibleverses", new String[]{"bookid", "chapterid", "verseid", "verse"},
-                "chapterid =? AND bookid=?", new String[]{chapterID + "", bookID + ""}, null, null, null);
+                        "chapterid =? AND bookid=?", new String[]{chapterID + "", bookID + ""},
+                        null, null, null);
     }
 
     protected Cursor getDBRecords(String paramTextToSearch) {
@@ -169,6 +172,7 @@ public class DataBaseHelper
         SQLiteDatabase db = getReadableDatabase();
 
         return db.query("bibleverses", new String[]{"bookid", "chapterid", "verseid", "verse"},
-                "verse like ?", new String[]{"%" + paramTextToSearch + "%"}, null, null, null);
+                        "verse like ?", new String[]{"%" + paramTextToSearch + "%"}, null, null,
+                        null);
     }
 }

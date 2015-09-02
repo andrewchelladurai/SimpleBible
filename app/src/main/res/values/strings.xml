@@ -44,6 +44,8 @@
     <string name="githubPage">http://github.com/andrewchelladurai/</string>
     <string name="gPlusPage">http://plus.google.com/+AndrewChelladurai</string>
     <string name="booksofthebible_desc">Books of The Holy Bible</string>
+    <string name = "fragment_serach_button_search">Show Results Below</string>
+    <string name = "fragment_serach_button_search_reset">Click to Reset</string>
 
     <string-array name="allbooks">
         <item>Genesis</item>

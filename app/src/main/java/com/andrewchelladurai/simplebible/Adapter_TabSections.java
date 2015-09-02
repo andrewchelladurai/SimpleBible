@@ -30,6 +30,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
+import android.view.View;
 
 import java.util.Locale;
 
@@ -99,7 +100,7 @@ public class Adapter_TabSections
         return null;
     }
 
-    public void searchShowResults() {
-        fragment_search.searchForResults();
+    public void searchShowResults(View view) {
+        fragment_search.searchForResults(view);
     }
 }
