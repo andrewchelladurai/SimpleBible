@@ -50,6 +50,7 @@ public class Activity_VerseViewer
         implements View.OnClickListener,
                    AdapterView.OnItemLongClickListener {
 
+    private final String CLASS_NAME = "Activity_VerseViewer";
     private int               currentBookId;
     private int               currentChapter;
     private int               chapterCount;
@@ -66,7 +67,7 @@ public class Activity_VerseViewer
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verse_viewer);
 
-        Log.d("ID = ", getIntent().getIntExtra("ID", 1) + "");
+        Log.d(CLASS_NAME, "ID = " + getIntent().getIntExtra("ID", 1) + "");
         updateVariables(getIntent().getIntExtra("ID", 1));
         setTitle(currentBookName);
 
@@ -146,7 +147,7 @@ public class Activity_VerseViewer
             startActivity(new Intent(this, Activity_Settings.class));
             return true;
         default:
-            Log.e("Error", "Option Item Selected hit Default : " + item.getTitle());
+            Log.e(CLASS_NAME, "ERROR : Option Item Selected hit Default : " + item.getTitle());
         }
         return super.onOptionsItemSelected(item);
     }
@@ -158,14 +159,13 @@ public class Activity_VerseViewer
             try {
                 chapterID = Integer.parseInt((((Button) v).getText() + ""));
             } catch (NumberFormatException e) {
-                Log.e("EXCEPTION", e.getLocalizedMessage());
+                Log.e(CLASS_NAME, "EXCEPTION : " + e.getLocalizedMessage());
                 e.printStackTrace();
             }
             txtHeader.setText(currentBookName + " Chapter " + chapterID);
             updateVerseView(chapterID);
         } else {
-            Log.w(getClass().getName(), "onClick called by unexpected widget " +
-                                        v.getClass().getName());
+            Log.w(CLASS_NAME, "onClick called by unexpected widget " + v.getClass().getName());
         }
     }
 

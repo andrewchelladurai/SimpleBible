@@ -23,7 +23,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * OR <http://www.gnu.org/licenses/gpl-3.0.txt>
  *
- */package com.andrewchelladurai.simplebible;
+ */
+
+package com.andrewchelladurai.simplebible;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -41,6 +43,7 @@ import java.util.Locale;
 public class Adapter_TabSections
         extends FragmentPagerAdapter {
 
+    private final String CLASS_NAME = "Adapter_TabSections";
     private Context          context;
     private Fragment_Welcome fragmentWelcome;
     private Fragment_Books   fragment_books;
@@ -55,28 +58,27 @@ public class Adapter_TabSections
     @Override
     public Fragment getItem(int position) {
         switch (position) {
-            case 1:
-                if (fragment_books == null) {
-                    fragment_books = Fragment_Books.newInstance(position);
-                }
-                return fragment_books;
-            case 2:
-                if (fragment_search == null) {
-                    fragment_search = Fragment_Search.newInstance(position);
-                }
-                return fragment_search;
-            case 3:
-                if (fragment_about == null) {
-                    fragment_about = Fragment_About.newInstance(position);
-                }
-                return fragment_about;
-            default:
-                Log.e("ERROR", "Hit default switch in Adapter_TabSections.getItem(" +
-                        position + ")");
-                if (fragmentWelcome == null) {
-                    fragmentWelcome = Fragment_Welcome.getInstance(position);
-                }
-                return fragmentWelcome;
+        case 1:
+            if (fragment_books == null) {
+                fragment_books = Fragment_Books.newInstance(position);
+            }
+            return fragment_books;
+        case 2:
+            if (fragment_search == null) {
+                fragment_search = Fragment_Search.newInstance(position);
+            }
+            return fragment_search;
+        case 3:
+            if (fragment_about == null) {
+                fragment_about = Fragment_About.newInstance(position);
+            }
+            return fragment_about;
+        default:
+            Log.e(CLASS_NAME, "ERROR : Hit default switch in Tabs");
+            if (fragmentWelcome == null) {
+                fragmentWelcome = Fragment_Welcome.getInstance(position);
+            }
+            return fragmentWelcome;
         }
     }
 
@@ -88,14 +90,14 @@ public class Adapter_TabSections
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position) {
-            case 0:
-                return context.getString(R.string.title_tab1).toUpperCase(Locale.getDefault());
-            case 1:
-                return context.getString(R.string.title_tab2).toUpperCase(Locale.getDefault());
-            case 2:
-                return context.getString(R.string.title_tab3).toUpperCase(Locale.getDefault());
-            case 3:
-                return context.getString(R.string.title_tab4).toUpperCase(Locale.getDefault());
+        case 0:
+            return context.getString(R.string.title_tab1).toUpperCase(Locale.getDefault());
+        case 1:
+            return context.getString(R.string.title_tab2).toUpperCase(Locale.getDefault());
+        case 2:
+            return context.getString(R.string.title_tab3).toUpperCase(Locale.getDefault());
+        case 3:
+            return context.getString(R.string.title_tab4).toUpperCase(Locale.getDefault());
         }
         return null;
     }

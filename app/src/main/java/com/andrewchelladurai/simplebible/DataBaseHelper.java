@@ -47,6 +47,7 @@ public class DataBaseHelper
     public static  String         DB_NAME;
     private static SQLiteDatabase database;
     public final   Context        context;
+    private final String CLASS_NAME = "DataBaseHelper";
 
     public DataBaseHelper(Context context, String databaseName) {
         super(context, databaseName, null, 1);
@@ -63,9 +64,9 @@ public class DataBaseHelper
     //This piece of code will create a database if it’s not yet created
     private void createDataBase() {
         boolean dbExist = checkDataBase();
-        Log.i(getClass().getName(), "Inside createDataBase - dbExist = " + dbExist);
+        Log.i(CLASS_NAME, "Inside createDataBase - dbExist = " + dbExist);
         if (!dbExist) {
-            Log.i(getClass().getName(), "Inside createDataBase - IF");
+            Log.i(CLASS_NAME, "Inside createDataBase - IF");
             this.getReadableDatabase();
             try {
                 copyDataBase();
@@ -74,7 +75,7 @@ public class DataBaseHelper
                 throw new Error("Error copying database!");
             }
         } else {
-            Log.i(getClass().getName(), "Database already exists");
+            Log.i(CLASS_NAME, "Database already exists");
         }
     }
 
@@ -84,12 +85,12 @@ public class DataBaseHelper
         String         path    = DB_PATH + File.separatorChar + DB_NAME;
 
         File f = new File(path);
-        Log.d("checkDataBase_path = ", path);
+        Log.d(CLASS_NAME, "checkDataBase : checkDataBase_path = " + path);
         if (f.exists()) {
             try {
                 checkDb = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
             } catch (SQLException e) {
-                Log.e(getClass().getName(), "Error while checking db");
+                Log.e(CLASS_NAME, "checkDataBase : Error while checking db");
             } finally {
                 //Android does not like resource leaks, everything should be closed
                 if (checkDb != null) {
@@ -106,14 +107,14 @@ public class DataBaseHelper
     //Method for copying the database
     private void copyDataBase()
             throws IOException {
-        Log.i(getClass().getName(), "Inside CopyDatabase");
+        Log.i(CLASS_NAME, "Entering CopyDatabase");
         //Open a stream for reading from our ready-made database
         //The stream source is located in the assets
         InputStream externalDbStream = context.getAssets().open(DB_NAME);
-        Log.i(getClass().getName(), "externalDbStream" + externalDbStream.toString());
+        Log.i(CLASS_NAME, "copyDataBase : externalDbStream" + externalDbStream.toString());
         //Path to the created empty database on your Android device
         String outFileName = DB_PATH + File.separatorChar + DB_NAME;
-        Log.i("INFO = ", "outFileName = " + outFileName);
+        Log.i(CLASS_NAME, "copyDataBase : outFileName = " + outFileName);
 
         //Now create a stream for writing the database byte by byte
         OutputStream localDbStream = new FileOutputStream(outFileName);
@@ -127,18 +128,18 @@ public class DataBaseHelper
         //Don’t forget to close the streams
         localDbStream.close();
         externalDbStream.close();
-        Log.i(getClass().getName(), "Exiting CopyDatabase");
+        Log.i(CLASS_NAME, "Exiting CopyDatabase");
     }
 
     public SQLiteDatabase openDataBase()
             throws SQLException {
-        Log.i(getClass().getName(), "Entering openDataBase()");
+        Log.i(CLASS_NAME, "Entering openDataBase()");
         String path = DB_PATH + File.separatorChar + DB_NAME;
         if (database == null) {
             createDataBase();
             database = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
         }
-        Log.i(getClass().getName(), "Exiting openDataBase()");
+        Log.i(CLASS_NAME, "Exiting openDataBase()");
         return database;
     }
 
@@ -159,7 +160,7 @@ public class DataBaseHelper
     }
 
     public Cursor getDBRecords(int bookID, int chapterID) {
-        Log.i("getDBRecords()", "book : chapter = " + bookID + " : " + chapterID);
+        Log.i(CLASS_NAME, "getDBRecords() : chapter = " + bookID + " : " + chapterID);
         SQLiteDatabase db = getReadableDatabase();
 
         return db.query("bibleverses", new String[]{"bookid", "chapterid", "verseid", "verse"},
@@ -168,7 +169,7 @@ public class DataBaseHelper
     }
 
     protected Cursor getDBRecords(String paramTextToSearch) {
-        Log.i("getDBRecords()", "Searching for " + paramTextToSearch);
+        Log.i(CLASS_NAME, "getDBRecords() : Searching for " + paramTextToSearch);
         SQLiteDatabase db = getReadableDatabase();
 
         return db.query("bibleverses", new String[]{"bookid", "chapterid", "verseid", "verse"},

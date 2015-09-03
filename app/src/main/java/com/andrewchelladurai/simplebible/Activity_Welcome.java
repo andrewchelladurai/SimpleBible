@@ -44,14 +44,16 @@ import android.widget.EditText;
 
 public class Activity_Welcome
         extends ActionBarActivity
-        implements ActionBar.TabListener, Fragment_Books.OnFragmentInteractionListener,
+        implements ActionBar.TabListener,
+                   Fragment_Books.OnFragmentInteractionListener,
                    Fragment_Search.OnFragmentInteractionListener,
                    Fragment_About.OnFragmentInteractionListener {
 
-    static SharedPreferences sPreferences;
-    private static DataBaseHelper sDataBaseHelper;
+    static         SharedPreferences sPreferences;
+    private static DataBaseHelper    sDataBaseHelper;
+    private final String CLASS_NAME = "Activity_Welcome";
     private Adapter_TabSections mTabsAdapter;
-    private ViewPager mPager;
+    private ViewPager           mPager;
 
     public static DataBaseHelper getDataBaseHelper() {
         return sDataBaseHelper;
@@ -71,7 +73,8 @@ public class Activity_Welcome
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mTabsAdapter = new Adapter_TabSections(getSupportFragmentManager(), getApplicationContext());
+        mTabsAdapter =
+                new Adapter_TabSections(getSupportFragmentManager(), getApplicationContext());
 
         // Set up the ViewPager with the sections adapter.
         mPager = (ViewPager) findViewById(R.id.pager);
@@ -90,7 +93,8 @@ public class Activity_Welcome
 
         // For each of the sections in the app, add a tab to the action bar.
         for (int i = 0; i < mTabsAdapter.getCount(); i++) {
-            actionBar.addTab(actionBar.newTab().setText(mTabsAdapter.getPageTitle(i)).setTabListener(this));
+            actionBar.addTab(actionBar.newTab().setText(mTabsAdapter.getPageTitle(i))
+                                      .setTabListener(this));
         }
 
         if (sDataBaseHelper == null) {
@@ -108,11 +112,11 @@ public class Activity_Welcome
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                startActivity(new Intent(this, Activity_Settings.class));
-                return true;
-            default:
-                Log.e("Error", "Option Item Selected hit Default : " + item.getTitle());
+        case R.id.action_settings:
+            startActivity(new Intent(this, Activity_Settings.class));
+            return true;
+        default:
+            Log.e(CLASS_NAME, "Error : Option Item Selected hit Default : " + item.getTitle());
         }
         return super.onOptionsItemSelected(item);
     }
@@ -139,7 +143,7 @@ public class Activity_Welcome
 
     @Override
     public void onFragmentAboutInteraction(final String id) {
-        Log.w("About = ", id + " Pressed");
+        Log.w(CLASS_NAME, "About = " + id + " Pressed");
     }
 
     @Override
@@ -148,7 +152,7 @@ public class Activity_Welcome
 
     public void loadBookFragment(View view) {
         CharSequence bookName = ((EditText) findViewById(R.id.lookup_book)).getText();
-        Log.d("BOOK_NAME", BookList.getBookID(bookName) + "");
+        Log.d(CLASS_NAME, "BOOK NAME : " + BookList.getBookID(bookName));
 
         Intent intent = new Intent(this, Activity_VerseViewer.class);
         intent.putExtra("ID", BookList.getBookID(bookName));

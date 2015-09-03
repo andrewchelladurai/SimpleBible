@@ -28,9 +28,6 @@
 package com.andrewchelladurai.simplebible;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -43,6 +40,7 @@ public class Fragment_About
         extends Fragment {
 
     private static final String TAB_NUMBER = "4";
+    private final String CLASS_NAME = "Fragment_About";
     private OnFragmentInteractionListener mListener;
 
     public Fragment_About() {
@@ -83,7 +81,7 @@ public class Fragment_About
         try {
             abtMe.loadUrl("file:///android_asset/about_me.html");
         } catch (Exception e) {
-            Log.e("ERROR", "about_me.html not loaded " + e.getLocalizedMessage());
+            Log.e(CLASS_NAME, "ERROR : about_me.html not loaded " + e.getLocalizedMessage());
             e.printStackTrace();
         }
         return v;
