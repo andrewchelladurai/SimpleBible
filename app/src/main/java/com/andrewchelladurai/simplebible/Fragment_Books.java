@@ -24,11 +24,13 @@
  * OR <http://www.gnu.org/licenses/gpl-3.0.txt>
  *
  */
+
 package com.andrewchelladurai.simplebible;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +54,7 @@ public class Fragment_Books
         implements AbsListView.OnItemClickListener {
 
     private static final String TAB_NUMBER = "2";
+    private static final String CLASS_NAME = "Fragment_Books";
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -68,22 +71,23 @@ public class Fragment_Books
     }
 
     public static Fragment_Books newInstance(int position) {
+        Log.i(CLASS_NAME, "Entering newInstance");
         Fragment_Books fragment = new Fragment_Books();
         Bundle args = new Bundle();
         args.putInt(TAB_NUMBER, position);
         fragment.setArguments(args);
+        Log.i(CLASS_NAME, "Exiting newInstance");
         return fragment;
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-
         try {
             mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() +
-                    " must implement OnFragmentInteractionListener");
+                                         " must implement OnFragmentInteractionListener");
         }
     }
 
@@ -91,13 +95,14 @@ public class Fragment_Books
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAdapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_list_item_1,
-                android.R.id.text1, BookList.getBooks());
+                                      android.R.layout.simple_list_item_1,
+                                      android.R.id.text1, BookList.getBooks());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i(CLASS_NAME, "Entering onCreateView");
         View view = inflater.inflate(R.layout.fragment_bookentry, container, false);
 
         // Set the adapter
@@ -114,7 +119,7 @@ public class Fragment_Books
                 getResources().getStringArray(R.array.allbooks));
         lookupText.setAdapter(adapter);
         lookupText.setThreshold(1);
-
+        Log.i(CLASS_NAME, "Exiting onCreateView");
         return view;
     }
 
@@ -138,6 +143,7 @@ public class Fragment_Books
     }
 
     public interface OnFragmentInteractionListener {
+
         void onFragmentBooksInteraction(Book book);
     }
 

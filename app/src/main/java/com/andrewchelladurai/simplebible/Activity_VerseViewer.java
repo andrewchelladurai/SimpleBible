@@ -62,6 +62,7 @@ public class Activity_VerseViewer
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(CLASS_NAME, "Entering onCreate");
         Activity_Settings.changeTheme(this);
 
         super.onCreate(savedInstanceState);
@@ -74,9 +75,11 @@ public class Activity_VerseViewer
         // Always load 1st Chapter when loading a new Book
         txtHeader.setText(currentBookName + " Chapter 1");
         updateVerseView(1);
+        Log.i(CLASS_NAME, "Exiting onCreate");
     }
 
     private void updateVariables(int id) {
+        Log.i(CLASS_NAME, "Entering updateVariables" + id);
         currentBookName = BookList.getBookName(id);
         chapterCount = BookList.getTotalChapters(id);
         currentBookId = BookList.getBookNumber(id);
@@ -89,9 +92,11 @@ public class Activity_VerseViewer
         verseListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
                                                     android.R.id.text1, arrayList);
         verseListView.setAdapter(verseListAdapter);
+        Log.i(CLASS_NAME, "Exiting updateVariables");
     }
 
     private void updateVerseView(int chapterID) {
+        Log.i(CLASS_NAME, "Entering updateVerseView");
         DataBaseHelper dataBaseHelper = Activity_Welcome.getDataBaseHelper();
         Cursor cursor = dataBaseHelper.getDBRecords(currentBookId + 1, chapterID);
 
@@ -113,9 +118,11 @@ public class Activity_VerseViewer
             currentChapter = chapterID;
         }
         createChapterButtons();
+        Log.i(CLASS_NAME, "Exiting updateVerseView");
     }
 
     private void createChapterButtons() {
+        Log.i(CLASS_NAME, "Entering createChapterButtons");
         LinearLayout layout = (LinearLayout) findViewById(R.id.chapterButtonsLayout);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -132,6 +139,7 @@ public class Activity_VerseViewer
             layout.addView(b, layoutParams);
         }
         layout.refreshDrawableState();
+        Log.i(CLASS_NAME, "Exiting createChapterButtons");
     }
 
     @Override
@@ -154,6 +162,7 @@ public class Activity_VerseViewer
 
     @Override
     public void onClick(View v) {
+        Log.i(CLASS_NAME, "Entering onClick");
         if (v instanceof Button) {
             int chapterID = 1;
             try {
@@ -167,10 +176,12 @@ public class Activity_VerseViewer
         } else {
             Log.w(CLASS_NAME, "onClick called by unexpected widget " + v.getClass().getName());
         }
+        Log.i(CLASS_NAME, "Exiting onClick");
     }
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.i(CLASS_NAME, "Entering onItemLongClick");
         String verse = currentBookName + " Chapter " + currentChapter
                        + " Verse " + ((TextView) view).getText()
                        + " -- The Holy Bible (New International Version)";
@@ -178,6 +189,7 @@ public class Activity_VerseViewer
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_TEXT, verse);
         startActivity(intent);
+        Log.i(CLASS_NAME, "Exiting onItemLongClick");
         return true;
     }
 

@@ -135,7 +135,7 @@ public class Fragment_Search
         Button button = (Button) view;
         currentSearchText.delete(0, currentSearchText.length());
         currentSearchText.append(searchTextView.getText().toString());
-        Log.d(CLASS_NAME, "Entering searchForResults");
+        Log.d(CLASS_NAME, "Entering searchForResults" + currentSearchText);
 
         if ((button.getText() + "").equalsIgnoreCase(
                 getString(R.string.fragment_serach_button_search_reset))

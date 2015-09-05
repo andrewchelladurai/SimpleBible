@@ -27,6 +27,8 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +39,8 @@ import java.util.List;
 public class BookList {
 
     //    private static final Map<String, Book> map   = new HashMap<>();
-    private static final List<Book> books = new ArrayList<>();
+    private static final List<Book> books      = new ArrayList<>();
+    private static final String     CLASS_NAME = "BookList";
 
     static {
         addBook(new Book(0, "Genesis", 50));
@@ -109,11 +112,12 @@ public class BookList {
     }
 
     private static void addBook(Book book) {
+        Log.i(CLASS_NAME, "Entering addBook");
         books.add(book);
-//        map.put(book.getBookNumber() + "", book);
     }
 
     public static int getBookID(CharSequence bookName) {
+        Log.i(CLASS_NAME, "Entering getBookID");
         for (int i = 0; i < books.size(); i++) {
             if ((bookName + "").equalsIgnoreCase(books.get(i).getBookName())) {
                 return i;
@@ -123,18 +127,22 @@ public class BookList {
     }
 
     public static String getBookName(int id) {
+        Log.i(CLASS_NAME, "Entering getBookName");
         return books.get(id).getBookName();
     }
 
     public static int getBookNumber(int id) {
+        Log.i(CLASS_NAME, "Entering getBookNumber");
         return books.get(id).getBookNumber();
     }
 
     public static int getTotalChapters(int id) {
+        Log.i(CLASS_NAME, "Entering getTotalChapters");
         return books.get(id).getTotalChapters();
     }
 
     public static List<Book> getBooks() {
+        Log.i(CLASS_NAME, "Entering getBooks");
         return books;
     }
 }

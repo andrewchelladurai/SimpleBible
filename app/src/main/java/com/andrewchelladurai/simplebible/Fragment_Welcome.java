@@ -29,10 +29,10 @@ package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 
 /**
  * A simple {@link Fragment} subclass. Activities that contain this fragment must implement the
@@ -43,6 +43,7 @@ public class Fragment_Welcome
         extends Fragment {
 
     private static final String TAB_NUMBER = "1";
+    private static final String CLASS_NAME = "Fragment_Welcome";
 
     public Fragment_Welcome() {
     }
@@ -51,10 +52,12 @@ public class Fragment_Welcome
      * Returns a new instance of this fragment for the given section number.
      */
     public static Fragment_Welcome getInstance(int position) {
+        Log.i(CLASS_NAME, "Entering getInstance");
         Fragment_Welcome fragmentWelcome = new Fragment_Welcome();
         Bundle args = new Bundle();
         args.putInt(TAB_NUMBER, position);
         fragmentWelcome.setArguments(args);
+        Log.i(CLASS_NAME, "Entering getInstance");
         return fragmentWelcome;
     }
 

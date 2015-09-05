@@ -70,59 +70,61 @@ public class Activity_Settings
      * as a master/detail two-pane view on tablets. When true, a single pane is
      * shown on tablets.
      */
-    private static final boolean                               ALWAYS_SIMPLE_PREFS = false;
+    private static final boolean ALWAYS_SIMPLE_PREFS = false;
+    private static final String  CLASS_NAME          = "Activity_Settings";
+
     /**
      * A preference value change sChangeListener that updates the preference's summary
      * to reflect its new value.
      */
-    private static       Preference.OnPreferenceChangeListener sChangeListener     =
-            new Preference.OnPreferenceChangeListener() {
+    private static Preference.OnPreferenceChangeListener
+            sChangeListener = new Preference.OnPreferenceChangeListener() {
 
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object value) {
-                    String stringValue = value.toString();
+        @Override
+        public boolean onPreferenceChange(Preference preference, Object value) {
+            String stringValue = value.toString();
+            Log.i(CLASS_NAME, "Entered onPreferenceChange" + stringValue);
 
-                    if (preference instanceof ListPreference) {
-                        // For list preferences, look up the correct display value in
-                        // the preference's 'entries' list.
-                        ListPreference listPreference = (ListPreference) preference;
-                        int index = listPreference.findIndexOfValue(stringValue);
+            if (preference instanceof ListPreference) {
+                // For list preferences, look up the correct display value in
+                // the preference's 'entries' list.
+                ListPreference listPreference = (ListPreference) preference;
+                int index = listPreference.findIndexOfValue(stringValue);
 
-                        // Set the summary to reflect the new value.
-                        preference.setSummary(
-                                index >= 0 ? listPreference.getEntries()[index] : null);
+                // Set the summary to reflect the new value.
+                preference.setSummary(
+                        index >= 0 ? listPreference.getEntries()[index] : null);
 
-                    } else if (preference instanceof RingtonePreference) {
-                        // For ringtone preferences, look up the correct display value
-                        // using RingtoneManager.
-                        if (TextUtils.isEmpty(stringValue)) {
-                            // Empty values correspond to 'silent' (no ringtone).
-                            preference.setSummary(R.string.pref_ringtone_silent);
+            } else if (preference instanceof RingtonePreference) {
+                // For ringtone preferences, look up the correct display value
+                // using RingtoneManager.
+                if (TextUtils.isEmpty(stringValue)) {
+                    // Empty values correspond to 'silent' (no ringtone).
+                    preference.setSummary(R.string.pref_ringtone_silent);
 
-                        } else {
-                            Ringtone ringtone = RingtoneManager
-                                    .getRingtone(preference.getContext(), Uri.parse(stringValue));
+                } else {
+                    Ringtone ringtone = RingtoneManager.getRingtone(
+                            preference.getContext(), Uri.parse(stringValue));
 
-                            if (ringtone == null) {
-                                // Clear the summary if there was a lookup error.
-                                preference.setSummary(null);
-                            } else {
-                                // Set the summary to reflect the new ringtone display name.
-                                String name = ringtone.getTitle(preference.getContext());
-                                preference.setSummary(name);
-                            }
-                        }
-
+                    if (ringtone == null) {
+                        // Clear the summary if there was a lookup error.
+                        preference.setSummary(null);
                     } else {
-                        // For all other preferences, set the summary to the value's
-                        // simple string representation.
-                        preference.setSummary(stringValue);
+                        // Set the summary to reflect the new ringtone display name.
+                        String name = ringtone.getTitle(preference.getContext());
+                        preference.setSummary(name);
                     }
-                    return true;
                 }
-            };
-    private final        String                                CLASS_NAME          =
-            "Activity_Settings";
+
+            } else {
+                // For all other preferences, set the summary to the value's
+                // simple string representation.
+                preference.setSummary(stringValue);
+            }
+            Log.i(CLASS_NAME, "Exiting onPreferenceChange");
+            return true;
+        }
+    };
 
     /**
      * Helper method to determine if the device has an extra-large screen. For
@@ -174,7 +176,8 @@ public class Activity_Settings
     }
 
     public static boolean isDarkThemeSet() {
-        return Activity_Welcome.sPreferences.getBoolean("pref_app_theme", false);
+//        return Activity_Welcome.sPreferences.getBoolean("pref_app_theme", false);
+        return Activity_Welcome.getBooleanPreference("pref_app_theme");
     }
 
     @Override

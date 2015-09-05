@@ -49,18 +49,24 @@ public class Activity_Welcome
                    Fragment_Search.OnFragmentInteractionListener,
                    Fragment_About.OnFragmentInteractionListener {
 
-    static         SharedPreferences sPreferences;
-    private static DataBaseHelper    sDataBaseHelper;
-    private final String CLASS_NAME = "Activity_Welcome";
-    private Adapter_TabSections mTabsAdapter;
-    private ViewPager           mPager;
+    private static final String CLASS_NAME = "Activity_Welcome";
+    private static SharedPreferences   sPreferences;
+    private static DataBaseHelper      sDataBaseHelper;
+    private        Adapter_TabSections mTabsAdapter;
+    private        ViewPager           mPager;
 
     public static DataBaseHelper getDataBaseHelper() {
         return sDataBaseHelper;
     }
 
+    protected static boolean getBooleanPreference(String preference_key) {
+        Log.i(CLASS_NAME, "Entering getBooleanPreference" + preference_key);
+        return sPreferences.getBoolean(preference_key, false);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(CLASS_NAME, "Entering onCreate");
         sPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         Activity_Settings.changeTheme(this);
 
@@ -73,8 +79,8 @@ public class Activity_Welcome
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mTabsAdapter =
-                new Adapter_TabSections(getSupportFragmentManager(), getApplicationContext());
+        mTabsAdapter = new Adapter_TabSections(
+                getSupportFragmentManager(), getApplicationContext());
 
         // Set up the ViewPager with the sections adapter.
         mPager = (ViewPager) findViewById(R.id.pager);
@@ -101,6 +107,7 @@ public class Activity_Welcome
             sDataBaseHelper = new DataBaseHelper(this, "NIV.db");
             getDataBaseHelper().openDataBase();
         }
+        Log.i(CLASS_NAME, "Exiting onCreate");
     }
 
     @Override
@@ -136,14 +143,17 @@ public class Activity_Welcome
 
     @Override
     public void onFragmentBooksInteraction(final Book book) {
+        Log.i(CLASS_NAME, "Entering onFragmentBooksInteraction");
         Intent intent = new Intent(this, Activity_VerseViewer.class);
         intent.putExtra("ID", book.getBookNumber());
         startActivity(intent);
+        Log.i(CLASS_NAME, "Exiting onFragmentBooksInteraction");
     }
 
     @Override
     public void onFragmentAboutInteraction(final String id) {
-        Log.w(CLASS_NAME, "About = " + id + " Pressed");
+        Log.i(CLASS_NAME, "Entering onFragmentAboutInteraction");
+        Log.i(CLASS_NAME, "Exiting onFragmentAboutInteraction");
     }
 
     @Override
@@ -151,15 +161,21 @@ public class Activity_Welcome
     }
 
     public void loadBookFragment(View view) {
+        Log.i(CLASS_NAME, "Entering loadBookFragment");
         CharSequence bookName = ((EditText) findViewById(R.id.lookup_book)).getText();
-        Log.d(CLASS_NAME, "BOOK NAME : " + BookList.getBookID(bookName));
-
-        Intent intent = new Intent(this, Activity_VerseViewer.class);
-        intent.putExtra("ID", BookList.getBookID(bookName));
-        startActivity(intent);
+        int bookId = BookList.getBookID(bookName);
+        Log.d(CLASS_NAME, "BOOK NAME : " + bookId);
+        if (bookName.length() > 0 && bookId > 0) {
+            Intent intent = new Intent(this, Activity_VerseViewer.class);
+            intent.putExtra("ID", BookList.getBookID(bookName));
+            startActivity(intent);
+        }
+        Log.i(CLASS_NAME, "Exiting loadBookFragment");
     }
 
     public void searchShowResults(final View view) {
+        Log.i(CLASS_NAME, "Entering loadBookFragment");
         mTabsAdapter.searchShowResults(view);
+        Log.i(CLASS_NAME, "Exiting loadBookFragment");
     }
 }

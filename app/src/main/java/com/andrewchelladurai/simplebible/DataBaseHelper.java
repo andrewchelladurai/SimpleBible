@@ -51,6 +51,7 @@ public class DataBaseHelper
 
     public DataBaseHelper(Context context, String databaseName) {
         super(context, databaseName, null, 1);
+        Log.i(CLASS_NAME, "Entering Constructor");
         this.context = context;
 
         //Write a full path to the databases of your application
@@ -59,10 +60,12 @@ public class DataBaseHelper
         Log.d("DB_PATH", DB_PATH);
         Log.d("DB_NAME", DB_NAME);
         openDataBase();
+        Log.i(CLASS_NAME, "Exiting Constructor");
     }
 
     //This piece of code will create a database if it’s not yet created
     private void createDataBase() {
+        Log.i(CLASS_NAME, "Entering createDataBase");
         boolean dbExist = checkDataBase();
         Log.i(CLASS_NAME, "Inside createDataBase - dbExist = " + dbExist);
         if (!dbExist) {
@@ -77,10 +80,12 @@ public class DataBaseHelper
         } else {
             Log.i(CLASS_NAME, "Database already exists");
         }
+        Log.i(CLASS_NAME, "Exiting createDataBase");
     }
 
     //Performing a database existence check
     private boolean checkDataBase() {
+        Log.i(CLASS_NAME, "Entering checkDataBase");
         SQLiteDatabase checkDb = null;
         String         path    = DB_PATH + File.separatorChar + DB_NAME;
 
@@ -97,8 +102,10 @@ public class DataBaseHelper
                     checkDb.close();
                 }
             }
+            Log.i(CLASS_NAME, "Exiting checkDataBase");
             return checkDb != null;
         } else {
+            Log.i(CLASS_NAME, "Exiting checkDataBase");
             return false;
         }
 
@@ -133,13 +140,13 @@ public class DataBaseHelper
 
     public SQLiteDatabase openDataBase()
             throws SQLException {
-        Log.i(CLASS_NAME, "Entering openDataBase()");
+        Log.i(CLASS_NAME, "Entering openDataBase");
         String path = DB_PATH + File.separatorChar + DB_NAME;
         if (database == null) {
             createDataBase();
             database = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
         }
-        Log.i(CLASS_NAME, "Exiting openDataBase()");
+        Log.i(CLASS_NAME, "Exiting openDataBase");
         return database;
     }
 
@@ -153,27 +160,39 @@ public class DataBaseHelper
 
     @Override
     public void onCreate(final SQLiteDatabase sqLiteDatabase) {
+        Log.i(CLASS_NAME, "Entering onCreate");
+        Log.i(CLASS_NAME, "Exiting onCreate");
     }
 
     @Override
     public void onUpgrade(final SQLiteDatabase sqLiteDatabase, final int i, final int i1) {
+        Log.i(CLASS_NAME, "Entering onUpgrade");
+        Log.i(CLASS_NAME, "Exiting onUpgrade");
     }
 
     public Cursor getDBRecords(int bookID, int chapterID) {
-        Log.i(CLASS_NAME, "getDBRecords() : chapter = " + bookID + " : " + chapterID);
+        Log.i(CLASS_NAME, "Entering getDBRecords : " + bookID + " : " + chapterID);
         SQLiteDatabase db = getReadableDatabase();
 
-        return db.query("bibleverses", new String[]{"bookid", "chapterid", "verseid", "verse"},
-                        "chapterid =? AND bookid=?", new String[]{chapterID + "", bookID + ""},
-                        null, null, null);
+        Cursor cursor = db.query("bibleverses",
+                                 new String[]{"bookid", "chapterid", "verseid", "verse"},
+                                 "chapterid =? AND bookid=?",
+                                 new String[]{chapterID + "", bookID + ""},
+                                 null, null, null);
+        Log.i(CLASS_NAME, "Exiting getDBRecords");
+        return cursor;
     }
 
     protected Cursor getDBRecords(String paramTextToSearch) {
-        Log.i(CLASS_NAME, "getDBRecords() : Searching for " + paramTextToSearch);
+        Log.i(CLASS_NAME, "Entering getDBRecords Searching for " + paramTextToSearch);
         SQLiteDatabase db = getReadableDatabase();
 
-        return db.query("bibleverses", new String[]{"bookid", "chapterid", "verseid", "verse"},
-                        "verse like ?", new String[]{"%" + paramTextToSearch + "%"}, null, null,
-                        null);
+        Cursor cursor = db.query("bibleverses",
+                                 new String[]{"bookid", "chapterid", "verseid", "verse"},
+                                 "verse like ?",
+                                 new String[]{"%" + paramTextToSearch + "%"},
+                                 null, null, null);
+        Log.i(CLASS_NAME, "Exiting getDBRecords");
+        return cursor;
     }
 }

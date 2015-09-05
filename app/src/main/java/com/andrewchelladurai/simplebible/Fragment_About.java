@@ -40,7 +40,7 @@ public class Fragment_About
         extends Fragment {
 
     private static final String TAB_NUMBER = "4";
-    private final String CLASS_NAME = "Fragment_About";
+    private static final String CLASS_NAME = "Fragment_About";
     private OnFragmentInteractionListener mListener;
 
     public Fragment_About() {
@@ -48,10 +48,12 @@ public class Fragment_About
     }
 
     public static Fragment_About newInstance(int position) {
+        Log.i(CLASS_NAME, "Entering newInstance");
         Fragment_About fragment = new Fragment_About();
         Bundle args = new Bundle();
         args.putInt(TAB_NUMBER, position);
         fragment.setArguments(args);
+        Log.i(CLASS_NAME, "Exiting newInstance");
         return fragment;
     }
 
@@ -69,13 +71,12 @@ public class Fragment_About
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i(CLASS_NAME, "Entering onCreateView");
         View v = inflater.inflate(R.layout.fragment_about, container, false);
         WebView abtMe = (WebView) v.findViewById(R.id.about_meView);
         try {
@@ -84,6 +85,7 @@ public class Fragment_About
             Log.e(CLASS_NAME, "ERROR : about_me.html not loaded " + e.getLocalizedMessage());
             e.printStackTrace();
         }
+        Log.i(CLASS_NAME, "Exiting onCreateView");
         return v;
     }
 

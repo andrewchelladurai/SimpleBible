@@ -26,8 +26,11 @@
  */
 package com.andrewchelladurai.simplebible;
 
+import android.util.Log;
+
 public class Book {
 
+    private static final String CLASS_NAME = "Book";
     private int    bookNumber;
     private int    totalChapters;
     private String bookName;
@@ -39,14 +42,17 @@ public class Book {
     }
 
     public int getTotalChapters() {
+        Log.i(CLASS_NAME, "Entering getTotalChapters");
         return totalChapters;
     }
 
     public String getBookName() {
+        Log.i(CLASS_NAME, "Entering getBookName");
         return bookName;
     }
 
     public int getBookNumber() {
+        Log.i(CLASS_NAME, "Entering getBookNumber");
         return bookNumber;
     }
 
