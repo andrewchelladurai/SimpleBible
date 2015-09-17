@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~
   ~ This file is part of SimpleBible : A Holy Bible Application on the
   ~ Android Mobile platform with easy navigation and offline access.
@@ -26,47 +25,46 @@
   ~
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:orientation="vertical"
-              tools:context="com.andrewchelladurai.simplebible.Fragment_Books">
+<LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+              xmlns:tools = "http://schemas.android.com/tools"
+              android:layout_width = "fill_parent"
+              android:layout_height = "fill_parent"
+              android:orientation = "vertical"
+              tools:context = "com.andrewchelladurai.simplebible.Fragment_Books">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom"
-        android:orientation="horizontal"
-        android:padding="15dp">
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:layout_gravity = "center_horizontal|bottom"
+        android:orientation = "horizontal"
+        android:padding = "15dp">
 
         <AutoCompleteTextView
-            android:id="@+id/lookup_book"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Type Book Here"/>
+            android:id = "@+id/lookup_book"
+            android:layout_width = "0dp"
+            android:layout_height = "wrap_content"
+            android:layout_weight = "1"
+            android:hint = "Type Book Here"/>
 
         <ImageButton
-            android:id="@+id/button2"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@null"
-            android:onClick="loadBookFragment"
-            android:src="@android:drawable/ic_menu_search">
-        </ImageButton>
+            android:id = "@+id/button2"
+            style = "?android:attr/buttonStyleSmall"
+            android:layout_width = "wrap_content"
+            android:layout_height = "match_parent"
+            android:background = "@null"
+            android:onClick = "loadBookFragment"
+            android:src = "@android:drawable/ic_menu_search"></ImageButton>
     </LinearLayout>
 
     <ListView
-        android:id="@android:id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:id = "@android:id/list"
+        android:layout_width = "match_parent"
+        android:layout_height = "match_parent"/>
 
     <TextView
-        android:id="@android:id/empty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"/>
+        android:id = "@android:id/empty"
+        android:layout_width = "match_parent"
+        android:layout_height = "match_parent"
+        android:gravity = "center"/>
 
 </LinearLayout>

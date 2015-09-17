@@ -51,14 +51,14 @@ public class Activity_VerseViewer
                    AdapterView.OnItemLongClickListener {
 
     private final String CLASS_NAME = "Activity_VerseViewer";
-    private int               currentBookId;
-    private int               currentChapter;
-    private int               chapterCount;
-    private String            currentBookName;
-    private ListView          verseListView;
+    private int                  currentBookId;
+    private int                  currentChapter;
+    private int                  chapterCount;
+    private String               currentBookName;
+    private ListView             verseListView;
     private ArrayAdapter<String> verseListAdapter;
-    private ArrayList<String> arrayList;
-    private TextView          txtHeader;
+    private ArrayList<String>    arrayList;
+    private TextView             txtHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

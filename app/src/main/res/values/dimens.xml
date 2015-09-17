@@ -23,8 +23,9 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
   ~
-  --><resources>
+  -->
+<resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">15dp</dimen>
-    <dimen name="activity_vertical_margin">15dp</dimen>
+    <dimen name = "activity_horizontal_margin">15dp</dimen>
+    <dimen name = "activity_vertical_margin">15dp</dimen>
 </resources>

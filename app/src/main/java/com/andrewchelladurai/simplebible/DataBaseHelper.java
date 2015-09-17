@@ -87,7 +87,7 @@ public class DataBaseHelper
     private boolean checkDataBase() {
         Log.i(CLASS_NAME, "Entering checkDataBase");
         SQLiteDatabase checkDb = null;
-        String         path    = DB_PATH + File.separatorChar + DB_NAME;
+        String path = DB_PATH + File.separatorChar + DB_NAME;
 
         File f = new File(path);
         Log.d(CLASS_NAME, "checkDataBase : checkDataBase_path = " + path);
@@ -128,7 +128,7 @@ public class DataBaseHelper
 
         //Copying the database
         byte[] buffer = new byte[1024];
-        int    bytesRead;
+        int bytesRead;
         while ((bytesRead = externalDbStream.read(buffer)) > 0) {
             localDbStream.write(buffer, 0, bytesRead);
         }

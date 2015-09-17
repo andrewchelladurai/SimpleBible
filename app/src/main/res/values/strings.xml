@@ -26,28 +26,28 @@
   -->
 
 <resources>
-    <string name="app_name">Simple Bible Offline - NIV</string>
+    <string name = "app_name">Simple Bible Offline - NIV</string>
 
-    <string name="title_tab1">welcome</string>
-    <string name="title_tab2">books</string>
-    <string name="title_tab3">search</string>
-    <string name="title_tab4">about</string>
+    <string name = "title_tab1">welcome</string>
+    <string name = "title_tab2">books</string>
+    <string name = "title_tab3">search</string>
+    <string name = "title_tab4">about</string>
 
-    <string name="header_welcome">THE HOLY BIBLE\nNew International Version</string>
+    <string name = "header_welcome">THE HOLY BIBLE\nNew International Version</string>
 
-    <string name="action_settings">Settings</string>
+    <string name = "action_settings">Settings</string>
 
-    <string name="title_activity_verse_viewer">Verses</string>
-    <string name="title_activity_settings">Settings</string>
-    <string name="contactEmail">theunknownandrew+androidapps@gmail.com</string>
-    <string name="contactSubject">Simple Bible - Feedback</string>
-    <string name="githubPage">http://github.com/andrewchelladurai/</string>
-    <string name="gPlusPage">http://plus.google.com/+AndrewChelladurai</string>
-    <string name="booksofthebible_desc">Books of The Holy Bible</string>
+    <string name = "title_activity_verse_viewer">Verses</string>
+    <string name = "title_activity_settings">Settings</string>
+    <string name = "contactEmail">theunknownandrew+androidapps@gmail.com</string>
+    <string name = "contactSubject">Simple Bible - Feedback</string>
+    <string name = "githubPage">http://github.com/andrewchelladurai/</string>
+    <string name = "gPlusPage">http://plus.google.com/+AndrewChelladurai</string>
+    <string name = "booksofthebible_desc">Books of The Holy Bible</string>
     <string name = "fragment_serach_button_search">Show Results Below</string>
     <string name = "fragment_serach_button_search_reset">Click to Reset</string>
 
-    <string-array name="allbooks">
+    <string-array name = "allbooks">
         <item>Genesis</item>
         <item>Exodus</item>
         <item>Leviticus</item>

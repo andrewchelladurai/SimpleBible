@@ -66,11 +66,11 @@ public class Fragment_Search
     private static final String TAB_NUMBER = "3";
     private OnFragmentInteractionListener mListener;
 
-    private ListView          resultList;
+    private ListView             resultList;
     private ArrayAdapter<String> listAdapter;
-    private ArrayList<String> arrayList;
-    private EditText          searchTextView;
-    private TextView          messageHeader;
+    private ArrayList<String>    arrayList;
+    private EditText             searchTextView;
+    private TextView             messageHeader;
 
     private StringBuilder currentSearchText = new StringBuilder("");
 
@@ -156,8 +156,8 @@ public class Fragment_Search
         arrayList.clear();
         listAdapter.clear();
 
-        int           verseNo, chapterNo, bookID;
-        StringBuilder book  = new StringBuilder();
+        int verseNo, chapterNo, bookID;
+        StringBuilder book = new StringBuilder();
         StringBuilder verse = new StringBuilder();
         StringBuilder result = new StringBuilder();
 
