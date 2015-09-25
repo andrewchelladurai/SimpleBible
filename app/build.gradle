@@ -23,28 +23,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * OR <http://www.gnu.org/licenses/gpl-3.0.txt>
  *
- */apply plugin: 'com.android.application'
+ */
+
+apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        Google_Play {
-            keyAlias 'Google_Play'
-            storeFile file('/media/andrew/8AEF-3379/Projects/AndroidProjects/AndrewChelladuraiAndroidKeystore.jks')
-        }
-    }
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
     defaultConfig {
         applicationId "com.andrewchelladurai.simplebible"
         minSdkVersion 15
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionName '1.0.4'
         versionCode 5
-        signingConfig signingConfigs.Google_Play
-    }
-    buildTypes {
-        SimpleBible_release {
-        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
@@ -56,6 +47,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.2.1'
-    compile 'com.android.support:design:22.2.0'
+    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.android.support:design:23.0.1'
 }

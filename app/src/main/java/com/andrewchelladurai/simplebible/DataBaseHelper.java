@@ -1,13 +1,15 @@
 /*
+ * This file 'DataBaseHelper.java' is part of SimpleBible :  An Android Bible application
+ * with offline access, simple features and easy to use navigation.
  *
- * This file is part of SimpleBible : A Holy Bible Application on the
- * Android Mobile platform with easy navigation and offline access.
+ * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
+ * on Fri, 25 Sep 2015 23:55:09 IST
  *
- * Copyright (c) 2015.
- * Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
+ * Copyright (c) Andrew Chelladurai - 2015.
  *
- * This Application is available at location
- * https://play.google.com/store/apps/developer?id=Andrew+Chelladurai
+ * This Application is available at below locations
+ * Binary : https://play.google.com/store/apps/developer?id=Andrew+Chelladurai
+ * Source : https://github.com/andrewchelladurai/
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +24,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * OR <http://www.gnu.org/licenses/gpl-3.0.txt>
- *
  */
 
 package com.andrewchelladurai.simplebible;
