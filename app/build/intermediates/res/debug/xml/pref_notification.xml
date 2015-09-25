@@ -1,0 +1,56 @@
+<!--
+  ~
+  ~ This file is part of SimpleBible : A Holy Bible Application on the
+  ~ Android Mobile platform with easy navigation and offline access.
+  ~
+  ~ Copyright (c) 2015.
+  ~ Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
+  ~
+  ~ This Application is available at location
+  ~ https://play.google.com/store/apps/developer?id=Andrew+Chelladurai
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
+  ~
+  -->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- A 'parent' preference, which enables/disables child preferences (below)
+         when checked/unchecked. -->
+    <CheckBoxPreference
+        android:contentDescription="@string/pref_desc_notifications"
+        android:defaultValue="false"
+        android:key="notifications_new_message"
+        android:title="@string/pref_title_notifications"/>
+
+    <!-- Allows the user to choose a ringtone in the 'notification' category. -->
+    <!-- NOTE: This preference will be enabled only when the checkbox above is checked. -->
+    <!-- NOTE: RingtonePreference's summary should be set to its value by the activity code. -->
+    <RingtonePreference
+        android:defaultValue="bookName://settings/system/notification_sound"
+        android:dependency="notifications_new_message"
+        android:key="notifications_ringtone"
+        android:ringtoneType="notification"
+        android:title="@string/pref_title_ringtone"/>
+
+    <!-- NOTE: This preference will be enabled only when the checkbox above is checked. -->
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:dependency="notifications_new_message"
+        android:key="notifications_new_message_vibrate"
+        android:title="@string/pref_title_vibrate"/>
+
+</PreferenceScreen>
+<!-- From: file:/media/andrew/8AEF-3379/Projects/AndroidProjects/SimpleBible/app/src/main/res/xml/pref_notification.xml -->

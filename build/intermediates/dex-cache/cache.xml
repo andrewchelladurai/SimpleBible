@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/media/andrew/8AEF-3379/Projects/AndroidProjects/SimpleBible/app/build/intermediates/exploded-aar/com.android.support/design/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
+        <dex dex="/media/andrew/8AEF-3379/Projects/AndroidProjects/SimpleBible/app/build/intermediates/pre-dexed/debug/classes-2f1587427e95301f027659f1c1bb5e0bc75eaf06.jar" />
+    </item>
+    <item
+        jar="/media/andrew/8AEF-3379/Projects/AndroidProjects/SimpleBible/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="/media/andrew/8AEF-3379/Projects/AndroidProjects/SimpleBible/app/build/intermediates/pre-dexed/debug/classes-c2403dd24de945db32cfa50f4d18c421dc73b721.jar" />
+    </item>
+    <item
+        jar="/media/andrew/8AEF-3379/Projects/AndroidProjects/SimpleBible/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="/media/andrew/8AEF-3379/Projects/AndroidProjects/SimpleBible/app/build/intermediates/pre-dexed/debug/classes-43e57b146214d10c16eabd0961ce433c4ddae905.jar" />
+    </item>
+    <item
+        jar="/media/andrew/8AEF-3379/Projects/AndroidProjects/SimpleBible/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/libs/internal_impl-22.2.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="/media/andrew/8AEF-3379/Projects/AndroidProjects/SimpleBible/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.1-409ac70906fb488abd64af37848043e12aef8534.jar" />
+    </item>
+    <item
+        jar="/home/andrew/.tools/android-sdk-linux/extras/android/m2repository/com/android/support/support-annotations/22.2.1/support-annotations-22.2.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
+        <dex dex="/media/andrew/8AEF-3379/Projects/AndroidProjects/SimpleBible/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.1-83fe548dc053d043ad73bdacfb60a8a4e0977e08.jar" />
+    </item>
+
+</items>
