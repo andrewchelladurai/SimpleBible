@@ -27,6 +27,7 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -64,6 +65,10 @@ public class Activity_Welcome
         return sPreferences.getBoolean(preference_key, false);
     }
 
+    public static int getVerseStyle(String verse_text_style, Context context) {
+        return Integer.parseInt(sPreferences.getString(verse_text_style, "0"));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(CLASS_NAME, "Entering onCreate");
@@ -80,7 +85,8 @@ public class Activity_Welcome
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mTabsAdapter = new Adapter_TabSections(
-                getSupportFragmentManager(), getApplicationContext());
+                getSupportFragmentManager(),
+                getApplicationContext());
 
         // Set up the ViewPager with the sections adapter.
         mPager = (ViewPager) findViewById(R.id.pager);
@@ -119,11 +125,11 @@ public class Activity_Welcome
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.action_settings:
-            startActivity(new Intent(this, Activity_Settings.class));
-            return true;
-        default:
-            Log.e(CLASS_NAME, "Error : Option Item Selected hit Default : " + item.getTitle());
+            case R.id.action_settings:
+                startActivity(new Intent(this, Activity_Settings.class));
+                return true;
+            default:
+                Log.e(CLASS_NAME, "Error : Option Item Selected hit Default : " + item.getTitle());
         }
         return super.onOptionsItemSelected(item);
     }

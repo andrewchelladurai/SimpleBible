@@ -104,7 +104,8 @@ public class Activity_Settings
 
                 } else {
                     Ringtone ringtone = RingtoneManager.getRingtone(
-                            preference.getContext(), Uri.parse(stringValue));
+                            preference.getContext(),
+                            Uri.parse(stringValue));
 
                     if (ringtone == null) {
                         // Clear the summary if there was a lookup error.
@@ -231,17 +232,19 @@ public class Activity_Settings
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case android.R.id.home:
-            NavUtils.navigateUpFromSameTask(this);
-            return true;
-        case R.id.action_settings:
-            Log.e(CLASS_NAME, "ERROR : onOptionsItemSelected : This menu item must not have been " +
-                              "triggered : " + item.getTitle());
-            return super.onOptionsItemSelected(item);
-        default:
-            Log.e(CLASS_NAME, "ERROR : onOptionsItemSelected : Option Item Selected hit Default : "
-                              + item.getTitle());
-            return super.onOptionsItemSelected(item);
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            case R.id.action_settings:
+                Log.e(CLASS_NAME,
+                      "ERROR : onOptionsItemSelected : This menu item must not have been " +
+                      "triggered : " + item.getTitle());
+                return super.onOptionsItemSelected(item);
+            default:
+                Log.e(CLASS_NAME,
+                      "ERROR : onOptionsItemSelected : Option Item Selected hit Default : "
+                      + item.getTitle());
+                return super.onOptionsItemSelected(item);
         }
     }
 

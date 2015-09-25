@@ -32,6 +32,6 @@
     For more on layout aliases, see:
     http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
     -->
-    <item name = "fragment_bookentry" type = "layout">@layout/fragment_bookentry_list</item>
+    <item name="fragment_bookentry" type="layout">@layout/fragment_bookentry_list</item>
 
 </resources>

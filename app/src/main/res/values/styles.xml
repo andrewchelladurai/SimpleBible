@@ -27,14 +27,14 @@
 
 <resources>
 
-    <style name = "LightTheme" parent = "Theme.AppCompat.Light.DarkActionBar">
-        <item name = "colorPrimary">#BD4932</item>
-        <item name = "colorAccent">#BD4932</item>
+    <style name="LightTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">#BD4932</item>
+        <item name="colorAccent">#BD4932</item>
     </style>
 
-    <style name = "DarkTheme" parent = "Theme.AppCompat">
-        <item name = "colorPrimary">#BD4932</item>
-        <item name = "colorAccent">#D5725E</item>
+    <style name="DarkTheme" parent="Theme.AppCompat">
+        <item name="colorPrimary">#BD4932</item>
+        <item name="colorAccent">#D5725E</item>
     </style>
 
 </resources>
