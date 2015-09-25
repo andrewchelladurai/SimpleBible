@@ -24,11 +24,10 @@
   ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
   ~
   -->
-<fragment
-    android:id = "@+id/fragment"
-    android:name = "com.andrewchelladurai.simplebible.Fragment_VerseViewer"
-    xmlns:android = "http://schemas.android.com/apk/res/android"
-    xmlns:tools = "http://schemas.android.com/tools"
-    android:layout_width = "match_parent"
-    android:layout_height = "match_parent"
-    tools:layout = "@layout/fragment_verse_viewer"/>
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment"
+    android:name="com.andrewchelladurai.simplebible.Fragment_VerseViewer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout="@layout/fragment_verse_viewer" />

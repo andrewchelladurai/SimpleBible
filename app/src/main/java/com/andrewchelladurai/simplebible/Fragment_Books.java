@@ -94,8 +94,7 @@ public class Fragment_Books
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new ArrayAdapter<>(getActivity(),
-                                      android.R.layout.simple_list_item_1,
+        mAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,
                                       android.R.id.text1, BookList.getBooks());
     }
 
@@ -112,8 +111,8 @@ public class Fragment_Books
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
 
-        AutoCompleteTextView lookupText = (AutoCompleteTextView) view.findViewById(
-                R.id.lookup_book);
+        AutoCompleteTextView lookupText = (AutoCompleteTextView) view
+                .findViewById(R.id.lookup_book);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 view.getContext(), android.R.layout.simple_list_item_1,
                 getResources().getStringArray(R.array.allbooks));

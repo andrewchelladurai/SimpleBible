@@ -24,17 +24,17 @@
   ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
   ~
   -->
-<LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
-              xmlns:tools = "http://schemas.android.com/tools"
-              android:layout_width = "match_parent"
-              android:layout_height = "match_parent"
-              android:orientation = "vertical"
-              tools:context = "com.andrewchelladurai.simplebible.Fragment_About">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.andrewchelladurai.simplebible.Fragment_About">
 
     <WebView
-        android:id = "@+id/about_meView"
-        android:layout_width = "fill_parent"
-        android:layout_height = "match_parent"
-        android:background = "#E0E0E0"/>
+        android:id="@+id/about_meView"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:background="#E0E0E0" />
 
 </LinearLayout>

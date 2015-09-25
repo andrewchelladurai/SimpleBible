@@ -27,15 +27,18 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -44,21 +47,21 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Activity_VerseViewer
         extends ActionBarActivity
-        implements View.OnClickListener,
-                   AdapterView.OnItemLongClickListener {
+        implements View.OnClickListener, AdapterView.OnItemLongClickListener {
 
     private final String CLASS_NAME = "Activity_VerseViewer";
-    private int                  currentBookId;
-    private int                  currentChapter;
-    private int                  chapterCount;
-    private String               currentBookName;
-    private ListView             verseListView;
-    private ArrayAdapter<String> verseListAdapter;
-    private ArrayList<String>    arrayList;
-    private TextView             txtHeader;
+    private int               currentBookId;
+    private int               currentChapter;
+    private int               chapterCount;
+    private String            currentBookName;
+    private ListView          verseListView;
+    private VerseListAdapter  verseListAdapter;
+    private ArrayList<String> arrayList;
+    private TextView          txtHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,10 +92,17 @@ public class Activity_VerseViewer
         txtHeader = (TextView) findViewById(R.id.verseHeader);
 
         arrayList = new ArrayList<>(1);
-        verseListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
-                                                    android.R.id.text1, arrayList);
+        verseListAdapter = new VerseListAdapter(this, android.R.layout.simple_list_item_1,
+                                                android.R.id.text1, arrayList);
         verseListView.setAdapter(verseListAdapter);
         Log.i(CLASS_NAME, "Exiting updateVariables");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        verseListView.refreshDrawableState();
+        verseListAdapter.notifyDataSetChanged();
     }
 
     private void updateVerseView(int chapterID) {
@@ -124,9 +134,9 @@ public class Activity_VerseViewer
     private void createChapterButtons() {
         Log.i(CLASS_NAME, "Entering createChapterButtons");
         LinearLayout layout = (LinearLayout) findViewById(R.id.chapterButtonsLayout);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams layoutParams =
+                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                                              LinearLayout.LayoutParams.WRAP_CONTENT);
 
         layoutParams.setMargins(-15, 0, -15, 0);
         layout.removeAllViews();
@@ -151,11 +161,11 @@ public class Activity_VerseViewer
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.action_settings:
-            startActivity(new Intent(this, Activity_Settings.class));
-            return true;
-        default:
-            Log.e(CLASS_NAME, "ERROR : Option Item Selected hit Default : " + item.getTitle());
+            case R.id.action_settings:
+                startActivity(new Intent(this, Activity_Settings.class));
+                return true;
+            default:
+                Log.e(CLASS_NAME, "ERROR : Option Item Selected hit Default : " + item.getTitle());
         }
         return super.onOptionsItemSelected(item);
     }
@@ -184,7 +194,7 @@ public class Activity_VerseViewer
         Log.i(CLASS_NAME, "Entering onItemLongClick");
         String verse = currentBookName + " Chapter " + currentChapter
                        + " Verse " + ((TextView) view).getText()
-                       + " -- The Holy Bible (New International Version)";
+                       + "\n-- The Holy Bible (New International Version)";
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_TEXT, verse);
@@ -193,4 +203,32 @@ public class Activity_VerseViewer
         return true;
     }
 
+    protected class VerseListAdapter
+            extends ArrayAdapter<String> {
+
+        public VerseListAdapter(Context context, int resource, int textViewResourceId, List<String> objects) {
+            super(context, resource, textViewResourceId, objects);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View textView = super.getView(position, convertView, parent);
+            TextView item = (TextView) textView.findViewById(android.R.id.text1);
+
+            switch (Activity_Welcome.getVerseStyle("verse_text_style", getApplicationContext())) {
+                case 1:
+                    item.setTypeface(Typeface.SERIF);
+                    break;
+                case 2:
+                    item.setTypeface(Typeface.MONOSPACE);
+                    break;
+                default:
+                    item.setTypeface(Typeface.DEFAULT);
+                    break;
+            }
+
+            return textView;
+        }
+    }
 }
+

@@ -59,31 +59,31 @@ public class Adapter_TabSections
     public Fragment getItem(int position) {
         Log.i(CLASS_NAME, "Entering getItem " + position);
         switch (position) {
-        case 1:
-            if (fragment_books == null) {
-                fragment_books = Fragment_Books.newInstance(position);
-            }
-            Log.i(CLASS_NAME, "Exiting getItem");
-            return fragment_books;
-        case 2:
-            if (fragment_search == null) {
-                fragment_search = Fragment_Search.newInstance(position);
-            }
-            Log.i(CLASS_NAME, "Exiting getItem");
-            return fragment_search;
-        case 3:
-            if (fragment_about == null) {
-                fragment_about = Fragment_About.newInstance(position);
-            }
-            Log.i(CLASS_NAME, "Exiting getItem");
-            return fragment_about;
-        default:
-            Log.e(CLASS_NAME, "ERROR : Hit default switch in Tabs");
-            if (fragmentWelcome == null) {
-                fragmentWelcome = Fragment_Welcome.getInstance(position);
-            }
-            Log.i(CLASS_NAME, "Exiting getItem");
-            return fragmentWelcome;
+            case 1:
+                if (fragment_books == null) {
+                    fragment_books = Fragment_Books.newInstance(position);
+                }
+                Log.i(CLASS_NAME, "Exiting getItem");
+                return fragment_books;
+            case 2:
+                if (fragment_search == null) {
+                    fragment_search = Fragment_Search.newInstance(position);
+                }
+                Log.i(CLASS_NAME, "Exiting getItem");
+                return fragment_search;
+            case 3:
+                if (fragment_about == null) {
+                    fragment_about = Fragment_About.newInstance(position);
+                }
+                Log.i(CLASS_NAME, "Exiting getItem");
+                return fragment_about;
+            default:
+                Log.e(CLASS_NAME, "ERROR : Hit default switch in Tabs");
+                if (fragmentWelcome == null) {
+                    fragmentWelcome = Fragment_Welcome.getInstance(position);
+                }
+                Log.i(CLASS_NAME, "Exiting getItem");
+                return fragmentWelcome;
         }
 
     }
@@ -97,14 +97,14 @@ public class Adapter_TabSections
     public CharSequence getPageTitle(int position) {
         Log.i(CLASS_NAME, "Entering getPageTitle");
         switch (position) {
-        case 0:
-            return context.getString(R.string.title_tab1).toUpperCase(Locale.getDefault());
-        case 1:
-            return context.getString(R.string.title_tab2).toUpperCase(Locale.getDefault());
-        case 2:
-            return context.getString(R.string.title_tab3).toUpperCase(Locale.getDefault());
-        case 3:
-            return context.getString(R.string.title_tab4).toUpperCase(Locale.getDefault());
+            case 0:
+                return context.getString(R.string.title_tab1).toUpperCase(Locale.getDefault());
+            case 1:
+                return context.getString(R.string.title_tab2).toUpperCase(Locale.getDefault());
+            case 2:
+                return context.getString(R.string.title_tab3).toUpperCase(Locale.getDefault());
+            case 3:
+                return context.getString(R.string.title_tab4).toUpperCase(Locale.getDefault());
         }
         Log.i(CLASS_NAME, "Exiting getPageTitle");
         return "NULL TITLE";

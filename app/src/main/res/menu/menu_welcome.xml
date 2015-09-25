@@ -25,14 +25,14 @@
   ~
   -->
 
-<menu xmlns:android = "http://schemas.android.com/apk/res/android"
-      xmlns:app = "http://schemas.android.com/apk/res-auto"
-      xmlns:tools = "http://schemas.android.com/tools"
-      tools:context = ".WelcomeActivity">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".WelcomeActivity">
     <item
-        android:id = "@+id/action_settings"
-        android:icon = "@drawable/icon_light_settings_64"
-        android:orderInCategory = "100"
-        android:title = "@string/action_settings"
-        app:showAsAction = "ifRoom"/>
+        android:id="@+id/action_settings"
+        android:icon="@drawable/icon_light_settings_64"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="ifRoom" />
 </menu>
