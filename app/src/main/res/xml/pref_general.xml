@@ -22,6 +22,7 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
   -->
+
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <CheckBoxPreference
