@@ -39,9 +39,11 @@
 
         <AutoCompleteTextView
             android:id="@+id/lookup_book"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:maxLines="1"
+            android:singleLine="true"
             android:hint="Type Book Here" />
 
         <ImageButton
@@ -51,7 +53,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:onClick="onClick"
-            android:src="@android:drawable/ic_search_category_default"></ImageButton>
+            android:src="@android:drawable/ic_search_category_default"/>
     </LinearLayout>
 
     <GridView

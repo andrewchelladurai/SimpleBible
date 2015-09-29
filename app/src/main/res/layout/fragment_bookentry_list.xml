@@ -42,6 +42,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:maxLines="1"
+            android:singleLine="true"
             android:hint="Type Book Here" />
 
         <ImageButton
@@ -51,7 +53,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:onClick="loadBookFragment"
-            android:src="@android:drawable/ic_menu_search"></ImageButton>
+            android:src="@android:drawable/ic_menu_search"/>
     </LinearLayout>
 
     <ListView
