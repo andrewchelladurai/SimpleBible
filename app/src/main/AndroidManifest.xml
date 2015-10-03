@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ This file 'AndroidManifest.xml' is part of SimpleBible :  An Android Bible application
   ~ with offline access, simple features and easy to use navigation.
@@ -23,6 +24,7 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
   -->
+
 <manifest
     package = "com.andrewchelladurai.simplebible"
     xmlns:android = "http://schemas.android.com/apk/res/android">
@@ -33,7 +35,7 @@
         android:label = "@string/app_name"
         android:theme = "@style/LightTheme">
         <activity
-            android:name = ".Activity_Welcome"
+            android:name = ".ActivityWelcome"
             android:label = "@string/app_name">
             <intent-filter>
                 <action android:name = "android.intent.action.MAIN"/>
@@ -42,20 +44,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name = ".Activity_VerseViewer"
+            android:name = ".ActivityVerseViewer"
             android:label = "@string/title_activity_verse_viewer"
-            android:parentActivityName = ".Activity_Welcome">
+            android:parentActivityName = ".ActivityWelcome">
             <meta-data
                 android:name = "android.support.PARENT_ACTIVITY"
-                android:value = ".Activity_Welcome"/>
+                android:value = ".ActivityWelcome"/>
         </activity>
         <activity
-            android:name = ".Activity_Settings"
+            android:name = ".ActivitySettings"
             android:label = "@string/title_activity_activity__settings"
-            android:parentActivityName = ".Activity_Welcome">
+            android:parentActivityName = ".ActivityWelcome">
             <meta-data
                 android:name = "android.support.PARENT_ACTIVITY"
-                android:value = "com.andrewchelladurai.simplebible.Activity_Welcome"/>
+                android:value = ".ActivityWelcome"/>
         </activity>
     </application>
 

@@ -1,5 +1,5 @@
 /*
- * This file 'Fragment_VerseViewer.java' is part of SimpleBible :  An Android Bible application
+ * This file 'FragmentWelcome.java' is part of SimpleBible :  An Android Bible application
  * with offline access, simple features and easy to use navigation.
  *
  * Copyright (c) Andrew Chelladurai - 2015.
@@ -33,19 +33,36 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * A placeholder fragment containing a simple view.
+ * A simple {@link Fragment} subclass. Activities that contain this fragment must implement the
+ * Use the {@link FragmentWelcome#getInstance} factory method to create an instance of this
+ * fragment.
  */
-public class Fragment_VerseViewer
+public class FragmentWelcome
         extends Fragment {
 
-    private static final String CLASS_NAME = "Fragment_VerseViewer";
+    private static final String TAB_NUMBER = "1";
+    private static final String CLASS_NAME = "FragmentWelcome";
 
-    public Fragment_VerseViewer() {
+    public FragmentWelcome() {
+    }
+
+    /**
+     * Returns a new instance of this fragment for the given section number.
+     */
+    public static FragmentWelcome getInstance(int position) {
+        Log.i(CLASS_NAME, "Entering getInstance");
+        FragmentWelcome fragmentWelcome = new FragmentWelcome();
+        Bundle args = new Bundle();
+        args.putInt(TAB_NUMBER, position);
+        fragmentWelcome.setArguments(args);
+        Log.i(CLASS_NAME, "Entering getInstance");
+        return fragmentWelcome;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
-        Log.i(CLASS_NAME, "Entering onCreateView");
-        return inflater.inflate(R.layout.fragment_verse_viewer, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_welcome, container, false);
     }
+
 }

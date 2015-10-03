@@ -26,7 +26,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.andrewchelladurai.simplebible.Activity_VerseViewer">
+    tools:context="com.andrewchelladurai.simplebible.ActivityVerseViewer">
     <item
         android:id="@+id/action_settings"
         android:icon="@drawable/icon_light_settings_64"

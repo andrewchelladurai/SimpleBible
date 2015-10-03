@@ -1,5 +1,5 @@
 /*
- * This file 'Fragment_About.java' is part of SimpleBible :  An Android Bible application
+ * This file 'FragmentAbout.java' is part of SimpleBible :  An Android Bible application
  * with offline access, simple features and easy to use navigation.
  *
  * Copyright (c) Andrew Chelladurai - 2015.
@@ -34,20 +34,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 
-public class Fragment_About
+public class FragmentAbout
         extends Fragment {
 
     private static final String TAB_NUMBER = "4";
-    private static final String CLASS_NAME = "Fragment_About";
+    private static final String CLASS_NAME = "FragmentAbout";
     private OnFragmentInteractionListener mListener;
 
-    public Fragment_About() {
+    public FragmentAbout() {
         // Required empty public constructor
     }
 
-    public static Fragment_About newInstance(int position) {
+    public static FragmentAbout newInstance(int position) {
         Log.i(CLASS_NAME, "Entering newInstance");
-        Fragment_About fragment = new Fragment_About();
+        FragmentAbout fragment = new FragmentAbout();
         Bundle args = new Bundle();
         args.putInt(TAB_NUMBER, position);
         fragment.setArguments(args);

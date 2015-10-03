@@ -1,5 +1,5 @@
 /*
- * This file 'Fragment_Books.java' is part of SimpleBible :  An Android Bible application
+ * This file 'FragmentBooks.java' is part of SimpleBible :  An Android Bible application
  * with offline access, simple features and easy to use navigation.
  *
  * Copyright (c) Andrew Chelladurai - 2015.
@@ -47,12 +47,12 @@ import android.widget.TextView;
  * OnFragmentInteractionListener}
  * interface.
  */
-public class Fragment_Books
+public class FragmentBooks
         extends Fragment
         implements AbsListView.OnItemClickListener {
 
     private static final String TAB_NUMBER = "2";
-    private static final String CLASS_NAME = "Fragment_Books";
+    private static final String CLASS_NAME = "FragmentBooks";
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -65,12 +65,12 @@ public class Fragment_Books
      */
     private ListAdapter mAdapter;
 
-    public Fragment_Books() {
+    public FragmentBooks() {
     }
 
-    public static Fragment_Books newInstance(int position) {
+    public static FragmentBooks newInstance(int position) {
         Log.i(CLASS_NAME, "Entering newInstance");
-        Fragment_Books fragment = new Fragment_Books();
+        FragmentBooks fragment = new FragmentBooks();
         Bundle args = new Bundle();
         args.putInt(TAB_NUMBER, position);
         fragment.setArguments(args);
@@ -93,7 +93,7 @@ public class Fragment_Books
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,
-                                      android.R.id.text1, BookList.getBooks());
+                                      android.R.id.text1, BookSList.getBooks());
     }
 
     @Override
@@ -135,13 +135,13 @@ public class Fragment_Books
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (null != mListener) {
-            mListener.onFragmentBooksInteraction(BookList.getBooks().get(position));
+            mListener.onFragmentBooksInteraction(BookSList.getBooks().get(position));
         }
     }
 
     public interface OnFragmentInteractionListener {
 
-        void onFragmentBooksInteraction(Book book);
+        void onFragmentBooksInteraction(BookUnit book);
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * This file 'Adapter_TabSections.java' is part of SimpleBible :  An Android Bible application
+ * This file 'AdapterTabSections.java' is part of SimpleBible :  An Android Bible application
  * with offline access, simple features and easy to use navigation.
  *
  * Copyright (c) Andrew Chelladurai - 2015.
@@ -38,17 +38,17 @@ import java.util.Locale;
  * A {@link android.support.v4.app.FragmentPagerAdapter} that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-public class Adapter_TabSections
+public class AdapterTabSections
         extends FragmentPagerAdapter {
 
-    private final String CLASS_NAME = "Adapter_TabSections";
-    private Context          context;
-    private Fragment_Welcome fragmentWelcome;
-    private Fragment_Books   fragment_books;
-    private Fragment_Search  fragment_search;
-    private Fragment_About   fragment_about;
+    private final String CLASS_NAME = "AdapterTabSections";
+    private Context         context;
+    private FragmentWelcome fragmentWelcome;
+    private FragmentBooks   fragment_books;
+    private Fragment_Search fragment_search;
+    private FragmentAbout   fragment_about;
 
-    public Adapter_TabSections(FragmentManager fm, Context con) {
+    public AdapterTabSections(FragmentManager fm, Context con) {
         super(fm);
         context = con;
     }
@@ -59,7 +59,7 @@ public class Adapter_TabSections
         switch (position) {
             case 1:
                 if (fragment_books == null) {
-                    fragment_books = Fragment_Books.newInstance(position);
+                    fragment_books = FragmentBooks.newInstance(position);
                 }
                 Log.i(CLASS_NAME, "Exiting getItem");
                 return fragment_books;
@@ -71,14 +71,14 @@ public class Adapter_TabSections
                 return fragment_search;
             case 3:
                 if (fragment_about == null) {
-                    fragment_about = Fragment_About.newInstance(position);
+                    fragment_about = FragmentAbout.newInstance(position);
                 }
                 Log.i(CLASS_NAME, "Exiting getItem");
                 return fragment_about;
             default:
                 Log.e(CLASS_NAME, "ERROR : Hit default switch in Tabs");
                 if (fragmentWelcome == null) {
-                    fragmentWelcome = Fragment_Welcome.getInstance(position);
+                    fragmentWelcome = FragmentWelcome.getInstance(position);
                 }
                 Log.i(CLASS_NAME, "Exiting getItem");
                 return fragmentWelcome;

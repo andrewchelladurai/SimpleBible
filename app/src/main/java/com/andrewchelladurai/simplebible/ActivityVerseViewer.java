@@ -1,5 +1,5 @@
 /*
- * This file 'Activity_VerseViewer.java' is part of SimpleBible :  An Android Bible application
+ * This file 'ActivityVerseViewer.java' is part of SimpleBible :  An Android Bible application
  * with offline access, simple features and easy to use navigation.
  *
  * Copyright (c) Andrew Chelladurai - 2015.
@@ -47,11 +47,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Activity_VerseViewer
+public class ActivityVerseViewer
         extends ActionBarActivity
         implements View.OnClickListener, AdapterView.OnItemLongClickListener {
 
-    private final String CLASS_NAME = "Activity_VerseViewer";
+    private final String CLASS_NAME = "ActivityVerseViewer";
     private int               currentBookId;
     private int               currentChapter;
     private int               chapterCount;
@@ -64,7 +64,7 @@ public class Activity_VerseViewer
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(CLASS_NAME, "Entering onCreate");
-        Activity_Settings.changeTheme(this);
+        ActivitySettings.changeTheme(this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verse_viewer);
@@ -73,7 +73,7 @@ public class Activity_VerseViewer
         updateVariables(getIntent().getIntExtra("ID", 1));
         setTitle(currentBookName);
 
-        // Always load 1st Chapter when loading a new Book
+        // Always load 1st Chapter when loading a new BookUnit
         txtHeader.setText(currentBookName + " Chapter 1");
         updateVerseView(1);
         Log.i(CLASS_NAME, "Exiting onCreate");
@@ -81,9 +81,9 @@ public class Activity_VerseViewer
 
     private void updateVariables(int id) {
         Log.i(CLASS_NAME, "Entering updateVariables" + id);
-        currentBookName = BookList.getBookName(id);
-        chapterCount = BookList.getTotalChapters(id);
-        currentBookId = BookList.getBookNumber(id);
+        currentBookName = BookSList.getBookName(id);
+        chapterCount = BookSList.getTotalChapters(id);
+        currentBookId = BookSList.getBookNumber(id);
 
         verseListView = (ListView) findViewById(R.id.verseListView);
         verseListView.setOnItemLongClickListener(this);
@@ -105,8 +105,8 @@ public class Activity_VerseViewer
 
     private void updateVerseView(int chapterID) {
         Log.i(CLASS_NAME, "Entering updateVerseView");
-        DataBaseHelper dataBaseHelper = Activity_Welcome.getDataBaseHelper();
-        Cursor cursor = dataBaseHelper.getDBRecords(currentBookId + 1, chapterID);
+        HelperDatabase helperDatabase = ActivityWelcome.getDataBaseHelper();
+        Cursor cursor = helperDatabase.getDBRecords(currentBookId + 1, chapterID);
 
         arrayList.clear();
         verseListAdapter.clear();
@@ -160,7 +160,7 @@ public class Activity_VerseViewer
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                startActivity(new Intent(this, Activity_Settings.class));
+                startActivity(new Intent(this, ActivitySettings.class));
                 return true;
             default:
                 Log.e(CLASS_NAME, "ERROR : Option Item Selected hit Default : " + item.getTitle());
@@ -213,7 +213,7 @@ public class Activity_VerseViewer
             View textView = super.getView(position, convertView, parent);
             TextView item = (TextView) textView.findViewById(android.R.id.text1);
 
-            switch (Activity_Welcome.getVerseStyle("verse_text_style", getApplicationContext())) {
+            switch (ActivityWelcome.getVerseStyle("verse_text_style", getApplicationContext())) {
                 case 1:
                     item.setTypeface(Typeface.SERIF);
                     break;

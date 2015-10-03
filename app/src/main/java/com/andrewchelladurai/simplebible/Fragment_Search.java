@@ -125,7 +125,7 @@ public class Fragment_Search
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         if (null != mListener) {
-            mListener.onFragmentSearchInteraction(BookList.getBookNumber(position) + "");
+            mListener.onFragmentSearchInteraction(BookSList.getBookNumber(position) + "");
         }
     }
 
@@ -148,7 +148,7 @@ public class Fragment_Search
             return;
         }
         Log.d(CLASS_NAME, "searchForResults - Immediately after first IF");
-        Cursor cursor = Activity_Welcome.getDataBaseHelper()
+        Cursor cursor = ActivityWelcome.getDataBaseHelper()
                                         .getDBRecords(currentSearchText.toString());
 
         arrayList.clear();
@@ -167,7 +167,7 @@ public class Fragment_Search
                 chapterNo = cursor.getInt(cursor.getColumnIndex("ChapterId"));
                 bookID = cursor.getInt(cursor.getColumnIndex("BookId"));
 
-                book.append(BookList.getBookName(bookID - 1));
+                book.append(BookSList.getBookName(bookID - 1));
                 result.append(book)
                       .append(" (")
                       .append(chapterNo).append(":")

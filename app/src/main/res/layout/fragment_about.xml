@@ -28,7 +28,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.andrewchelladurai.simplebible.Fragment_About">
+    tools:context="com.andrewchelladurai.simplebible.FragmentAbout">
 
     <WebView
         android:id="@+id/about_meView"

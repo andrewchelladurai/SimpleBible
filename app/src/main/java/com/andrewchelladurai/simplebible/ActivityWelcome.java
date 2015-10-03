@@ -1,5 +1,5 @@
 /*
- * This file 'Activity_Welcome.java' is part of SimpleBible :  An Android Bible application
+ * This file 'ActivityWelcome.java' is part of SimpleBible :  An Android Bible application
  * with offline access, simple features and easy to use navigation.
  *
  * Copyright (c) Andrew Chelladurai - 2015.
@@ -41,21 +41,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-public class Activity_Welcome
+public class ActivityWelcome
         extends ActionBarActivity
         implements ActionBar.TabListener,
-                   Fragment_Books.OnFragmentInteractionListener,
+                   FragmentBooks.OnFragmentInteractionListener,
                    Fragment_Search.OnFragmentInteractionListener,
-                   Fragment_About.OnFragmentInteractionListener {
+                   FragmentAbout.OnFragmentInteractionListener {
 
-    private static final String CLASS_NAME = "Activity_Welcome";
-    private static SharedPreferences   sPreferences;
-    private static DataBaseHelper      sDataBaseHelper;
-    private        Adapter_TabSections mTabsAdapter;
-    private        ViewPager           mPager;
+    private static final String CLASS_NAME = "ActivityWelcome";
+    private static SharedPreferences  sPreferences;
+    private static HelperDatabase     sHelperDatabase;
+    private        AdapterTabSections mTabsAdapter;
+    private        ViewPager          mPager;
 
-    public static DataBaseHelper getDataBaseHelper() {
-        return sDataBaseHelper;
+    public static HelperDatabase getDataBaseHelper() {
+        return sHelperDatabase;
     }
 
     protected static boolean getBooleanPreference(String preference_key) {
@@ -71,7 +71,7 @@ public class Activity_Welcome
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(CLASS_NAME, "Entering onCreate");
         sPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        Activity_Settings.changeTheme(this);
+        ActivitySettings.changeTheme(this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
@@ -82,7 +82,7 @@ public class Activity_Welcome
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mTabsAdapter = new Adapter_TabSections(
+        mTabsAdapter = new AdapterTabSections(
                 getSupportFragmentManager(),
                 getApplicationContext());
 
@@ -107,8 +107,8 @@ public class Activity_Welcome
                                       .setTabListener(this));
         }
 
-        if (sDataBaseHelper == null) {
-            sDataBaseHelper = new DataBaseHelper(this, "NIV.db");
+        if (sHelperDatabase == null) {
+            sHelperDatabase = new HelperDatabase(this, "NIV.db");
             getDataBaseHelper().openDataBase();
         }
         Log.i(CLASS_NAME, "Exiting onCreate");
@@ -124,7 +124,7 @@ public class Activity_Welcome
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                startActivity(new Intent(this, Activity_Settings.class));
+                startActivity(new Intent(this, ActivitySettings.class));
                 return true;
             default:
                 Log.e(CLASS_NAME, "Error : Option Item Selected hit Default : " + item.getTitle());
@@ -146,9 +146,9 @@ public class Activity_Welcome
     }
 
     @Override
-    public void onFragmentBooksInteraction(final Book book) {
+    public void onFragmentBooksInteraction(final BookUnit book) {
         Log.i(CLASS_NAME, "Entering onFragmentBooksInteraction");
-        Intent intent = new Intent(this, Activity_VerseViewer.class);
+        Intent intent = new Intent(this, ActivityVerseViewer.class);
         intent.putExtra("ID", book.getBookNumber());
         startActivity(intent);
         Log.i(CLASS_NAME, "Exiting onFragmentBooksInteraction");
@@ -167,11 +167,11 @@ public class Activity_Welcome
     public void loadBookFragment(View view) {
         Log.i(CLASS_NAME, "Entering loadBookFragment");
         CharSequence bookName = ((EditText) findViewById(R.id.lookup_book)).getText();
-        int bookId = BookList.getBookID(bookName);
+        int bookId = BookSList.getBookID(bookName);
         Log.d(CLASS_NAME, "BOOK NAME : " + bookId);
         if (bookName.length() > 0 && bookId > 0) {
-            Intent intent = new Intent(this, Activity_VerseViewer.class);
-            intent.putExtra("ID", BookList.getBookID(bookName));
+            Intent intent = new Intent(this, ActivityVerseViewer.class);
+            intent.putExtra("ID", BookSList.getBookID(bookName));
             startActivity(intent);
         }
         Log.i(CLASS_NAME, "Exiting loadBookFragment");

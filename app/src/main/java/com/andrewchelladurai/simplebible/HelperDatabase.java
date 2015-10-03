@@ -1,5 +1,5 @@
 /*
- * This file 'DataBaseHelper.java' is part of SimpleBible :  An Android Bible application
+ * This file 'HelperDatabase.java' is part of SimpleBible :  An Android Bible application
  * with offline access, simple features and easy to use navigation.
  *
  * Copyright (c) Andrew Chelladurai - 2015.
@@ -38,16 +38,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class DataBaseHelper
+public class HelperDatabase
         extends SQLiteOpenHelper {
 
     public static  String         DB_PATH;
     public static  String         DB_NAME;
     private static SQLiteDatabase database;
     public final   Context        context;
-    private final String CLASS_NAME = "DataBaseHelper";
+    private final String CLASS_NAME = "HelperDatabase";
 
-    public DataBaseHelper(Context context, String databaseName) {
+    public HelperDatabase(Context context, String databaseName) {
         super(context, databaseName, null, 1);
         Log.i(CLASS_NAME, "Entering Constructor");
         this.context = context;

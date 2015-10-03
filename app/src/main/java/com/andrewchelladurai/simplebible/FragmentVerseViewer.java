@@ -1,5 +1,5 @@
 /*
- * This file 'Book.java' is part of SimpleBible :  An Android Bible application
+ * This file 'FragmentVerseViewer.java' is part of SimpleBible :  An Android Bible application
  * with offline access, simple features and easy to use navigation.
  *
  * Copyright (c) Andrew Chelladurai - 2015.
@@ -25,39 +25,27 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-public class Book {
+/**
+ * A placeholder fragment containing a simple view.
+ */
+public class FragmentVerseViewer
+        extends Fragment {
 
-    private static final String CLASS_NAME = "Book";
-    private int    bookNumber;
-    private int    totalChapters;
-    private String bookName;
+    private static final String CLASS_NAME = "FragmentVerseViewer";
 
-    public Book(int bookNumber, String bookName, int totalChapters) {
-        this.bookNumber = bookNumber;
-        this.bookName = bookName;
-        this.totalChapters = totalChapters;
-    }
-
-    public int getTotalChapters() {
-        Log.i(CLASS_NAME, "Entering getTotalChapters");
-        return totalChapters;
-    }
-
-    public String getBookName() {
-        Log.i(CLASS_NAME, "Entering getBookName");
-        return bookName;
-    }
-
-    public int getBookNumber() {
-        Log.i(CLASS_NAME, "Entering getBookNumber");
-        return bookNumber;
+    public FragmentVerseViewer() {
     }
 
     @Override
-    public String toString() {
-        return getBookName() + " : " + getTotalChapters() + " Chapters";
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
+        Log.i(CLASS_NAME, "Entering onCreateView");
+        return inflater.inflate(R.layout.fragment_verse_viewer, container, false);
     }
-
 }

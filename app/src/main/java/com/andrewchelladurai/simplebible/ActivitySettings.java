@@ -1,5 +1,5 @@
 /*
- * This file 'Activity_Settings.java' is part of SimpleBible :  An Android Bible application
+ * This file 'ActivitySettings.java' is part of SimpleBible :  An Android Bible application
  * with offline access, simple features and easy to use navigation.
  *
  * Copyright (c) Andrew Chelladurai - 2015.
@@ -59,7 +59,7 @@ import java.util.List;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class Activity_Settings
+public class ActivitySettings
         extends PreferenceActivity {
 
     /**
@@ -69,7 +69,7 @@ public class Activity_Settings
      * shown on tablets.
      */
     private static final boolean ALWAYS_SIMPLE_PREFS = false;
-    private static final String  CLASS_NAME          = "Activity_Settings";
+    private static final String  CLASS_NAME          = "ActivitySettings";
 
     /**
      * A preference value change sChangeListener that updates the preference's summary
@@ -175,13 +175,13 @@ public class Activity_Settings
     }
 
     public static boolean isDarkThemeSet() {
-//        return Activity_Welcome.sPreferences.getBoolean("pref_app_theme", false);
-        return Activity_Welcome.getBooleanPreference("pref_app_theme");
+//        return ActivityWelcome.sPreferences.getBoolean("pref_app_theme", false);
+        return ActivityWelcome.getBooleanPreference("pref_app_theme");
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Activity_Settings.changeTheme(this);
+        ActivitySettings.changeTheme(this);
         super.onCreate(savedInstanceState);
         setupActionBar();
     }

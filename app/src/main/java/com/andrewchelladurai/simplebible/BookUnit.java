@@ -1,5 +1,5 @@
 /*
- * This file 'build.gradle' is part of SimpleBible :  An Android Bible application
+ * This file 'BookUnit.java' is part of SimpleBible :  An Android Bible application
  * with offline access, simple features and easy to use navigation.
  *
  * Copyright (c) Andrew Chelladurai - 2015.
@@ -23,23 +23,41 @@
  * OR <http://www.gnu.org/licenses/gpl-3.0.txt>
  */
 
+package com.andrewchelladurai.simplebible;
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+import android.util.Log;
 
-buildscript {
-    repositories {
-        jcenter()
+public class BookUnit {
+
+    private static final String CLASS_NAME = "BookUnit";
+    private int    bookNumber;
+    private int    totalChapters;
+    private String bookName;
+
+    public BookUnit(int bookNumber, String bookName, int totalChapters) {
+        this.bookNumber = bookNumber;
+        this.bookName = bookName;
+        this.totalChapters = totalChapters;
     }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:1.3.0'
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+    public int getTotalChapters() {
+        Log.i(CLASS_NAME, "Entering getTotalChapters");
+        return totalChapters;
     }
-}
 
-allprojects {
-    repositories {
-        jcenter()
+    public String getBookName() {
+        Log.i(CLASS_NAME, "Entering getBookName");
+        return bookName;
     }
+
+    public int getBookNumber() {
+        Log.i(CLASS_NAME, "Entering getBookNumber");
+        return bookNumber;
+    }
+
+    @Override
+    public String toString() {
+        return getBookName() + " : " + getTotalChapters() + " Chapters";
+    }
+
 }
