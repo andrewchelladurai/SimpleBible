@@ -41,12 +41,11 @@ import java.util.Locale;
 public class AdapterTabSections
         extends FragmentPagerAdapter {
 
-    private final String CLASS_NAME = "AdapterTabSections";
+    private final String TAG = "AdapterTabSections";
     private Context         context;
     private FragmentWelcome fragmentWelcome;
     private FragmentBooks   fragment_books;
     private Fragment_Search fragment_search;
-    private FragmentAbout   fragment_about;
 
     public AdapterTabSections(FragmentManager fm, Context con) {
         super(fm);
@@ -55,32 +54,26 @@ public class AdapterTabSections
 
     @Override
     public Fragment getItem(int position) {
-        Log.i(CLASS_NAME, "Entering getItem " + position);
+        Log.i(TAG, "Entering getItem " + position);
         switch (position) {
             case 1:
                 if (fragment_books == null) {
                     fragment_books = FragmentBooks.newInstance(position);
                 }
-                Log.i(CLASS_NAME, "Exiting getItem");
+                Log.i(TAG, "Exiting getItem");
                 return fragment_books;
             case 2:
                 if (fragment_search == null) {
                     fragment_search = Fragment_Search.newInstance(position);
                 }
-                Log.i(CLASS_NAME, "Exiting getItem");
+                Log.i(TAG, "Exiting getItem");
                 return fragment_search;
-            case 3:
-                if (fragment_about == null) {
-                    fragment_about = FragmentAbout.newInstance(position);
-                }
-                Log.i(CLASS_NAME, "Exiting getItem");
-                return fragment_about;
             default:
-                Log.e(CLASS_NAME, "ERROR : Hit default switch in Tabs");
+                Log.e(TAG, "ERROR : Hit default switch in Tabs");
                 if (fragmentWelcome == null) {
                     fragmentWelcome = FragmentWelcome.getInstance(position);
                 }
-                Log.i(CLASS_NAME, "Exiting getItem");
+                Log.i(TAG, "Exiting getItem");
                 return fragmentWelcome;
         }
 
@@ -88,12 +81,12 @@ public class AdapterTabSections
 
     @Override
     public int getCount() {
-        return 4;
+        return 3;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        Log.i(CLASS_NAME, "Entering getPageTitle");
+        Log.i(TAG, "Entering getPageTitle");
         switch (position) {
             case 0:
                 return context.getString(R.string.title_tab1).toUpperCase(Locale.getDefault());
@@ -101,16 +94,14 @@ public class AdapterTabSections
                 return context.getString(R.string.title_tab2).toUpperCase(Locale.getDefault());
             case 2:
                 return context.getString(R.string.title_tab3).toUpperCase(Locale.getDefault());
-            case 3:
-                return context.getString(R.string.title_tab4).toUpperCase(Locale.getDefault());
         }
-        Log.i(CLASS_NAME, "Exiting getPageTitle");
+        Log.i(TAG, "Exiting getPageTitle");
         return "NULL TITLE";
     }
 
     public void searchShowResults(View view) {
-        Log.i(CLASS_NAME, "Entering searchShowResults");
+        Log.i(TAG, "Entering searchShowResults");
         fragment_search.searchForResults(view);
-        Log.i(CLASS_NAME, "Exiting searchShowResults");
+        Log.i(TAG, "Exiting searchShowResults");
     }
 }

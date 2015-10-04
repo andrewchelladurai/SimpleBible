@@ -162,6 +162,10 @@ public class ActivityVerseViewer
             case R.id.action_settings:
                 startActivity(new Intent(this, ActivitySettings.class));
                 return true;
+            case R.id.action_about:
+                FragmentDialogAbout fda = new FragmentDialogAbout();
+                fda.show(getSupportFragmentManager(), "about");
+                return true;
             default:
                 Log.e(CLASS_NAME, "ERROR : Option Item Selected hit Default : " + item.getTitle());
         }
@@ -213,8 +217,7 @@ public class ActivityVerseViewer
             View textView = super.getView(position, convertView, parent);
             TextView item = (TextView) textView.findViewById(android.R.id.text1);
 
-            int verseStyle = Integer.parseInt(Utilities.getStringPreference("verse_text_style","0"));
-            switch (verseStyle) {
+            switch (Integer.parseInt(Utilities.getStringPreference("verse_text_style","0"))) {
                 case 1:
                     item.setTypeface(Typeface.SERIF);
                     break;

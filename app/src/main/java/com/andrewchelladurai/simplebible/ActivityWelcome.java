@@ -46,7 +46,6 @@ public class ActivityWelcome
         implements ActionBar.TabListener,
                    FragmentBooks.OnFragmentInteractionListener,
                    Fragment_Search.OnFragmentInteractionListener,
-                   FragmentAbout.OnFragmentInteractionListener,
                    OnSharedPreferenceChangeListener {
 
     private static final String TAG = "ActivityWelcome";
@@ -120,6 +119,10 @@ public class ActivityWelcome
             case R.id.action_settings:
                 startActivity(new Intent(this, ActivitySettings.class));
                 return true;
+            case R.id.action_about:
+                FragmentDialogAbout fda = new FragmentDialogAbout();
+                fda.show(getSupportFragmentManager(),"about");
+                return true;
             default:
                 Log.e(TAG, "Error : Option Item Selected hit Default : " + item.getTitle());
         }
@@ -146,12 +149,6 @@ public class ActivityWelcome
         intent.putExtra("ID", book.getBookNumber());
         startActivity(intent);
         Log.i(TAG, "Exiting onFragmentBooksInteraction");
-    }
-
-    @Override
-    public void onFragmentAboutInteraction(final String id) {
-        Log.i(TAG, "Entering onFragmentAboutInteraction");
-        Log.i(TAG, "Exiting onFragmentAboutInteraction");
     }
 
     @Override

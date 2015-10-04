@@ -1,5 +1,5 @@
 <!--
-  ~ This file 'fragment_about.xml' is part of SimpleBible :  An Android Bible application
+  ~ This file 'fragment_dialog_about.xml' is part of SimpleBible :  An Android Bible application
   ~ with offline access, simple features and easy to use navigation.
   ~
   ~ Copyright (c) Andrew Chelladurai - 2015.
@@ -24,16 +24,16 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.andrewchelladurai.simplebible.FragmentAbout">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:fitsSystemWindows="true"
+              tools:context="com.andrewchelladurai.simplebible.FragmentDialogAbout">
 
     <WebView
-        android:id="@+id/about_meView"
+        android:id="@+id/about_dialog_meView"
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:background="#E0E0E0" />
+        android:layout_height="fill_parent"
+        android:background="#E0E0E0"/>
 
 </LinearLayout>

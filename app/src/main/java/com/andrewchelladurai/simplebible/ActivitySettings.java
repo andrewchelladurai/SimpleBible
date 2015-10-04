@@ -220,14 +220,14 @@ public class ActivitySettings
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
             case R.id.action_settings:
-                Log.e(CLASS_NAME,
-                      "ERROR : onOptionsItemSelected : This menu item must not have been " +
-                      "triggered : " + item.getTitle());
+            case R.id.action_about:
+                Log.e(CLASS_NAME, "ERROR : onOptionsItemSelected : " +
+                                  "This menu item must not have been " +
+                                  "triggered : " + item.getTitle());
                 return super.onOptionsItemSelected(item);
             default:
-                Log.e(CLASS_NAME,
-                      "ERROR : onOptionsItemSelected : Option Item Selected hit Default : "
-                      + item.getTitle());
+                Log.e(CLASS_NAME, "ERROR : onOptionsItemSelected : " +
+                                  "Option Item Selected hit Default : " + item.getTitle());
                 return super.onOptionsItemSelected(item);
         }
     }
