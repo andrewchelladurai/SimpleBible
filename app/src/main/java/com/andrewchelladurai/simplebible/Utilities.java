@@ -74,4 +74,8 @@ public class Utilities {
             activity.setTheme(R.style.LightTheme);
         }
     }
+
+    public static String getStringPreference(String prefName, String defaultValue) {
+        return preferences.getString(prefName, defaultValue);
+    }
 }

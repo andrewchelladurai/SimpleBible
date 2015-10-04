@@ -213,7 +213,8 @@ public class ActivityVerseViewer
             View textView = super.getView(position, convertView, parent);
             TextView item = (TextView) textView.findViewById(android.R.id.text1);
 
-            switch (ActivityWelcome.getVerseStyle("verse_text_style", getApplicationContext())) {
+            int verseStyle = Integer.parseInt(Utilities.getStringPreference("verse_text_style","0"));
+            switch (verseStyle) {
                 case 1:
                     item.setTypeface(Typeface.SERIF);
                     break;
@@ -224,7 +225,6 @@ public class ActivityVerseViewer
                     item.setTypeface(Typeface.DEFAULT);
                     break;
             }
-
             return textView;
         }
     }

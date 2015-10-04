@@ -25,7 +25,6 @@
 
 package com.andrewchelladurai.simplebible;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -51,7 +50,6 @@ public class ActivityWelcome
                    OnSharedPreferenceChangeListener {
 
     private static final String TAG = "ActivityWelcome";
-    private static SharedPreferences  sPreferences;
     private static HelperDatabase     sHelperDatabase;
     private        AdapterTabSections mTabsAdapter;
     private        ViewPager          mPager;
@@ -60,15 +58,11 @@ public class ActivityWelcome
         return sHelperDatabase;
     }
 
-    public static int getVerseStyle(String verse_text_style, Context context) {
-        return Integer.parseInt(sPreferences.getString(verse_text_style, "0"));
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "Entering onCreate");
-        sPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        Utilities.createInstance(sPreferences);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        Utilities.createInstance(sharedPref);
         Utilities.updateTheme(this);
 
         super.onCreate(savedInstanceState);
@@ -110,7 +104,7 @@ public class ActivityWelcome
             getDataBaseHelper().openDataBase();
         }
 
-        sPreferences.registerOnSharedPreferenceChangeListener(this);
+        sharedPref.registerOnSharedPreferenceChangeListener(this);
         Log.i(TAG, "Exiting onCreate");
     }
 
@@ -187,8 +181,12 @@ public class ActivityWelcome
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
         Log.d(TAG, "onSharedPreferenceChanged() called with: " + "sharedPreferences = [" +
                    sharedPreferences + "], s = [" + s + "]");
-        if (s.equalsIgnoreCase("pref_app_theme")){
+        if (s.equalsIgnoreCase("pref_app_theme")) {
             Utilities.changeTheme(this);
+        }else if (s.equalsIgnoreCase("notifications_new_message")){
+            Log.d(TAG, "onSharedPreferenceChanged() :" +
+                       "Inside : else if (s.equalsIgnoreCase(\"notifications_new_message\")){" );
         }
+
     }
 }
