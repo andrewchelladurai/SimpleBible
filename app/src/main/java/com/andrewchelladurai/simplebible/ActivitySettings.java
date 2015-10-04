@@ -26,7 +26,6 @@
 package com.andrewchelladurai.simplebible;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.media.Ringtone;
@@ -166,22 +165,9 @@ public class ActivitySettings
                 .getString(preference.getKey(), ""));
     }
 
-    public static void changeTheme(Activity pActivity) {
-        if (isDarkThemeSet()) {
-            pActivity.setTheme(R.style.DarkTheme);
-        } else {
-            pActivity.setTheme(R.style.LightTheme);
-        }
-    }
-
-    public static boolean isDarkThemeSet() {
-//        return ActivityWelcome.sPreferences.getBoolean("pref_app_theme", false);
-        return ActivityWelcome.getBooleanPreference("pref_app_theme");
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ActivitySettings.changeTheme(this);
+        Utilities.updateTheme(this);
         super.onCreate(savedInstanceState);
         setupActionBar();
     }

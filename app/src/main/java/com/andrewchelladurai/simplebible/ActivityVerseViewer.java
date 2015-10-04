@@ -64,7 +64,7 @@ public class ActivityVerseViewer
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(CLASS_NAME, "Entering onCreate");
-        ActivitySettings.changeTheme(this);
+        Utilities.updateTheme(this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verse_viewer);

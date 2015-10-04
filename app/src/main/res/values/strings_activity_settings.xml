@@ -1,5 +1,5 @@
 <!--
-  ~ This file 'strings_activity_activity__settings.xml' is part of SimpleBible :  An Android Bible application
+  ~ This file 'strings_activity_settings.xml' is part of SimpleBible :  An Android Bible application
   ~ with offline access, simple features and easy to use navigation.
   ~
   ~ Copyright (c) Andrew Chelladurai - 2015.
@@ -28,8 +28,8 @@
     <string name="pref_header_general">General</string>
 
     <string name="pref_title_app_theme">Use Dark Theme</string>
-    <string name="pref_desc_app_theme">Restart Required - Check to make the application use a DARK
-        THEME by default</string>
+    <string name="pref_desc_app_theme">Check to make the application use a DARK THEME by
+        default</string>
 
     <string name="pref_title_text_style">Verses Text Style</string>
     <string-array name="pref_titles_text_style">

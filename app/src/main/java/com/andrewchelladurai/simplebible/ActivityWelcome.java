@@ -28,6 +28,7 @@ package com.andrewchelladurai.simplebible;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentTransaction;
@@ -46,9 +47,10 @@ public class ActivityWelcome
         implements ActionBar.TabListener,
                    FragmentBooks.OnFragmentInteractionListener,
                    Fragment_Search.OnFragmentInteractionListener,
-                   FragmentAbout.OnFragmentInteractionListener {
+                   FragmentAbout.OnFragmentInteractionListener,
+                   OnSharedPreferenceChangeListener {
 
-    private static final String CLASS_NAME = "ActivityWelcome";
+    private static final String TAG = "ActivityWelcome";
     private static SharedPreferences  sPreferences;
     private static HelperDatabase     sHelperDatabase;
     private        AdapterTabSections mTabsAdapter;
@@ -58,20 +60,16 @@ public class ActivityWelcome
         return sHelperDatabase;
     }
 
-    protected static boolean getBooleanPreference(String preference_key) {
-        Log.i(CLASS_NAME, "Entering getBooleanPreference" + preference_key);
-        return sPreferences.getBoolean(preference_key, false);
-    }
-
     public static int getVerseStyle(String verse_text_style, Context context) {
         return Integer.parseInt(sPreferences.getString(verse_text_style, "0"));
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(CLASS_NAME, "Entering onCreate");
+        Log.i(TAG, "Entering onCreate");
         sPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        ActivitySettings.changeTheme(this);
+        Utilities.createInstance(sPreferences);
+        Utilities.updateTheme(this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
@@ -111,7 +109,9 @@ public class ActivityWelcome
             sHelperDatabase = new HelperDatabase(this, "NIV.db");
             getDataBaseHelper().openDataBase();
         }
-        Log.i(CLASS_NAME, "Exiting onCreate");
+
+        sPreferences.registerOnSharedPreferenceChangeListener(this);
+        Log.i(TAG, "Exiting onCreate");
     }
 
     @Override
@@ -127,7 +127,7 @@ public class ActivityWelcome
                 startActivity(new Intent(this, ActivitySettings.class));
                 return true;
             default:
-                Log.e(CLASS_NAME, "Error : Option Item Selected hit Default : " + item.getTitle());
+                Log.e(TAG, "Error : Option Item Selected hit Default : " + item.getTitle());
         }
         return super.onOptionsItemSelected(item);
     }
@@ -147,17 +147,17 @@ public class ActivityWelcome
 
     @Override
     public void onFragmentBooksInteraction(final BookUnit book) {
-        Log.i(CLASS_NAME, "Entering onFragmentBooksInteraction");
+        Log.i(TAG, "Entering onFragmentBooksInteraction");
         Intent intent = new Intent(this, ActivityVerseViewer.class);
         intent.putExtra("ID", book.getBookNumber());
         startActivity(intent);
-        Log.i(CLASS_NAME, "Exiting onFragmentBooksInteraction");
+        Log.i(TAG, "Exiting onFragmentBooksInteraction");
     }
 
     @Override
     public void onFragmentAboutInteraction(final String id) {
-        Log.i(CLASS_NAME, "Entering onFragmentAboutInteraction");
-        Log.i(CLASS_NAME, "Exiting onFragmentAboutInteraction");
+        Log.i(TAG, "Entering onFragmentAboutInteraction");
+        Log.i(TAG, "Exiting onFragmentAboutInteraction");
     }
 
     @Override
@@ -165,21 +165,30 @@ public class ActivityWelcome
     }
 
     public void loadBookFragment(View view) {
-        Log.i(CLASS_NAME, "Entering loadBookFragment");
+        Log.i(TAG, "Entering loadBookFragment");
         CharSequence bookName = ((EditText) findViewById(R.id.lookup_book)).getText();
         int bookId = BookSList.getBookID(bookName);
-        Log.d(CLASS_NAME, "BOOK NAME : " + bookId);
+        Log.d(TAG, "BOOK NAME : " + bookId);
         if (bookName.length() > 0 && bookId > 0) {
             Intent intent = new Intent(this, ActivityVerseViewer.class);
             intent.putExtra("ID", BookSList.getBookID(bookName));
             startActivity(intent);
         }
-        Log.i(CLASS_NAME, "Exiting loadBookFragment");
+        Log.i(TAG, "Exiting loadBookFragment");
     }
 
     public void searchShowResults(final View view) {
-        Log.i(CLASS_NAME, "Entering loadBookFragment");
+        Log.i(TAG, "Entering loadBookFragment");
         mTabsAdapter.searchShowResults(view);
-        Log.i(CLASS_NAME, "Exiting loadBookFragment");
+        Log.i(TAG, "Exiting loadBookFragment");
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+        Log.d(TAG, "onSharedPreferenceChanged() called with: " + "sharedPreferences = [" +
+                   sharedPreferences + "], s = [" + s + "]");
+        if (s.equalsIgnoreCase("pref_app_theme")){
+            Utilities.changeTheme(this);
+        }
     }
 }
