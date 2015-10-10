@@ -36,9 +36,9 @@ import android.util.Log;
  */
 public class Utilities {
 
-    private static       SharedPreferences preferences = null;
-    private static final String            TAG         = "Utilities";
-    private static       Utilities         utilities   = null;
+    private static final String TAG = "Utilities";
+    private static SharedPreferences preferences = null;
+    private static Utilities utilities = null;
 
     private Utilities(SharedPreferences sharedPreferences) {
         preferences = sharedPreferences;
@@ -66,7 +66,12 @@ public class Utilities {
         Log.d(TAG, "changeTheme() called with: " + "activity = [" + activity + "]");
 
         activity.finish();
-        activity.startActivity(new Intent(activity, activity.getClass()));
+
+        Intent i = new Intent(activity, activity.getClass());
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(i);
 
         if (isDarkThemeSet) {
             activity.setTheme(R.style.DarkTheme);

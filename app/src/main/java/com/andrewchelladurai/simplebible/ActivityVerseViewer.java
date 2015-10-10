@@ -51,7 +51,7 @@ public class ActivityVerseViewer
         extends ActionBarActivity
         implements View.OnClickListener, AdapterView.OnItemLongClickListener {
 
-    private final String CLASS_NAME = "ActivityVerseViewer";
+    private final String TAG = "ActivityVerseViewer";
     private int               currentBookId;
     private int               currentChapter;
     private int               chapterCount;
@@ -63,24 +63,24 @@ public class ActivityVerseViewer
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(CLASS_NAME, "Entering onCreate");
+        Log.i(TAG, "Entering onCreate");
         Utilities.updateTheme(this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verse_viewer);
 
-        Log.d(CLASS_NAME, "ID = " + getIntent().getIntExtra("ID", 1) + "");
+        Log.d(TAG, "ID = " + getIntent().getIntExtra("ID", 1) + "");
         updateVariables(getIntent().getIntExtra("ID", 1));
         setTitle(currentBookName);
 
         // Always load 1st Chapter when loading a new BookUnit
         txtHeader.setText(currentBookName + " Chapter 1");
         updateVerseView(1);
-        Log.i(CLASS_NAME, "Exiting onCreate");
+        Log.i(TAG, "Exiting onCreate");
     }
 
     private void updateVariables(int id) {
-        Log.i(CLASS_NAME, "Entering updateVariables" + id);
+        Log.i(TAG, "Entering updateVariables" + id);
         currentBookName = BookSList.getBookName(id);
         chapterCount = BookSList.getTotalChapters(id);
         currentBookId = BookSList.getBookNumber(id);
@@ -93,7 +93,7 @@ public class ActivityVerseViewer
         verseListAdapter = new VerseListAdapter(this, android.R.layout.simple_list_item_1,
                                                 android.R.id.text1, arrayList);
         verseListView.setAdapter(verseListAdapter);
-        Log.i(CLASS_NAME, "Exiting updateVariables");
+        Log.i(TAG, "Exiting updateVariables");
     }
 
     @Override
@@ -104,7 +104,7 @@ public class ActivityVerseViewer
     }
 
     private void updateVerseView(int chapterID) {
-        Log.i(CLASS_NAME, "Entering updateVerseView");
+        Log.i(TAG, "Entering updateVerseView");
         HelperDatabase helperDatabase = ActivityWelcome.getDataBaseHelper();
         Cursor cursor = helperDatabase.getDBRecords(currentBookId + 1, chapterID);
 
@@ -126,11 +126,11 @@ public class ActivityVerseViewer
             currentChapter = chapterID;
         }
         createChapterButtons();
-        Log.i(CLASS_NAME, "Exiting updateVerseView");
+        Log.i(TAG, "Exiting updateVerseView");
     }
 
     private void createChapterButtons() {
-        Log.i(CLASS_NAME, "Entering createChapterButtons");
+        Log.i(TAG, "Entering createChapterButtons");
         LinearLayout layout = (LinearLayout) findViewById(R.id.chapterButtonsLayout);
         LinearLayout.LayoutParams layoutParams =
                 new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -147,7 +147,7 @@ public class ActivityVerseViewer
             layout.addView(b, layoutParams);
         }
         layout.refreshDrawableState();
-        Log.i(CLASS_NAME, "Exiting createChapterButtons");
+        Log.i(TAG, "Exiting createChapterButtons");
     }
 
     @Override
@@ -167,33 +167,33 @@ public class ActivityVerseViewer
                 fda.show(getSupportFragmentManager(), "about");
                 return true;
             default:
-                Log.e(CLASS_NAME, "ERROR : Option Item Selected hit Default : " + item.getTitle());
+                Log.e(TAG, "ERROR : Option Item Selected hit Default : " + item.getTitle());
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onClick(View v) {
-        Log.i(CLASS_NAME, "Entering onClick");
+        Log.i(TAG, "Entering onClick");
         if (v instanceof Button) {
             int chapterID = 1;
             try {
                 chapterID = Integer.parseInt((((Button) v).getText() + ""));
             } catch (NumberFormatException e) {
-                Log.e(CLASS_NAME, "EXCEPTION : " + e.getLocalizedMessage());
+                Log.e(TAG, "EXCEPTION : " + e.getLocalizedMessage());
                 e.printStackTrace();
             }
             txtHeader.setText(currentBookName + " Chapter " + chapterID);
             updateVerseView(chapterID);
         } else {
-            Log.w(CLASS_NAME, "onClick called by unexpected widget " + v.getClass().getName());
+            Log.w(TAG, "onClick called by unexpected widget " + v.getClass().getName());
         }
-        Log.i(CLASS_NAME, "Exiting onClick");
+        Log.i(TAG, "Exiting onClick");
     }
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.i(CLASS_NAME, "Entering onItemLongClick");
+        Log.i(TAG, "Entering onItemLongClick");
         String verse = currentBookName + " Chapter " + currentChapter
                        + " Verse " + ((TextView) view).getText()
                        + "\n-- The Holy Bible (New International Version)";
@@ -201,7 +201,7 @@ public class ActivityVerseViewer
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_TEXT, verse);
         startActivity(intent);
-        Log.i(CLASS_NAME, "Exiting onItemLongClick");
+        Log.i(TAG, "Exiting onItemLongClick");
         return true;
     }
 

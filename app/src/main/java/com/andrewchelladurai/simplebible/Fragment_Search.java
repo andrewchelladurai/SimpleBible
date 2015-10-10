@@ -107,15 +107,6 @@ public class Fragment_Search
         return v;
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        ((TextView) getActivity().findViewById(R.id.fragmentsearch_input_text_field)).setText("");
-//        ((TextView) getActivity().findViewById(R.id.fragmentsearch_resultlabel)).setText("");
-//        arrayList.clear();
-//        listAdapter.clear();
-//    }
-
     @Override
     public void onDetach() {
         super.onDetach();
@@ -149,7 +140,7 @@ public class Fragment_Search
         }
         Log.d(CLASS_NAME, "searchForResults - Immediately after first IF");
         Cursor cursor = ActivityWelcome.getDataBaseHelper()
-                                        .getDBRecords(currentSearchText.toString());
+                                       .getDBRecords(currentSearchText.toString());
 
         arrayList.clear();
         listAdapter.clear();
@@ -226,12 +217,10 @@ public class Fragment_Search
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-
     }
 
     @Override
