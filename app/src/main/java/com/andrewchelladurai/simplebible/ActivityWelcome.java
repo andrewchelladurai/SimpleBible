@@ -49,9 +49,9 @@ public class ActivityWelcome
                    OnSharedPreferenceChangeListener {
 
     private static final String TAG = "ActivityWelcome";
-    private static HelperDatabase     sHelperDatabase;
-    private        AdapterTabSections mTabsAdapter;
-    private        ViewPager          mPager;
+    private static HelperDatabase sHelperDatabase;
+    private AdapterTabSections mTabsAdapter;
+    private ViewPager mPager;
 
     public static HelperDatabase getDataBaseHelper() {
         return sHelperDatabase;
@@ -73,9 +73,8 @@ public class ActivityWelcome
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mTabsAdapter = new AdapterTabSections(
-                getSupportFragmentManager(),
-                getApplicationContext());
+        mTabsAdapter = new AdapterTabSections(getSupportFragmentManager(),
+                                              getApplicationContext());
 
         // Set up the ViewPager with the sections adapter.
         mPager = (ViewPager) findViewById(R.id.pager);
@@ -110,7 +109,7 @@ public class ActivityWelcome
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_welcome, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -121,7 +120,11 @@ public class ActivityWelcome
                 return true;
             case R.id.action_about:
                 FragmentDialogAbout fda = new FragmentDialogAbout();
-                fda.show(getSupportFragmentManager(),"about");
+                fda.show(getSupportFragmentManager(), "about");
+                return true;
+            case R.id.action_reminder:
+//                FragmentDialogAbout fda = new FragmentDialogAbout();
+//                fda.show(getSupportFragmentManager(), "about");
                 return true;
             default:
                 Log.e(TAG, "Error : Option Item Selected hit Default : " + item.getTitle());
@@ -180,9 +183,9 @@ public class ActivityWelcome
                    sharedPreferences + "], s = [" + s + "]");
         if (s.equalsIgnoreCase("pref_app_theme")) {
             Utilities.changeTheme(this);
-        }else if (s.equalsIgnoreCase("notifications_new_message")){
+        } else if (s.equalsIgnoreCase("notifications_new_message")) {
             Log.d(TAG, "onSharedPreferenceChanged() :" +
-                       "Inside : else if (s.equalsIgnoreCase(\"notifications_new_message\")){" );
+                       "Inside : else if (s.equalsIgnoreCase(\"notifications_new_message\")){");
         }
 
     }

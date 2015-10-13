@@ -166,6 +166,10 @@ public class ActivityVerseViewer
                 FragmentDialogAbout fda = new FragmentDialogAbout();
                 fda.show(getSupportFragmentManager(), "about");
                 return true;
+            case R.id.action_reminder:
+//                FragmentDialogAbout fda = new FragmentDialogAbout();
+//                fda.show(getSupportFragmentManager(), "about");
+                return true;
             default:
                 Log.e(TAG, "ERROR : Option Item Selected hit Default : " + item.getTitle());
         }

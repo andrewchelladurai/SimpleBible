@@ -26,6 +26,8 @@
 package com.andrewchelladurai.simplebible;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.media.Ringtone;
@@ -40,47 +42,34 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
-import android.support.v4.app.NavUtils;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.MenuItem;
+import android.widget.TimePicker;
 
+import java.util.Calendar;
 import java.util.List;
 
-/**
- * A {@link PreferenceActivity} that presents a set of application settings. On
- * handset devices, settings are presented as a single list. On tablets,
- * settings are split by category, with category headers shown to the left of
- * the list of settings.
- * <p/>
- * See <a href="http://developer.android.com/design/patterns/settings.html">
- * Android Design: Settings</a> for design guidelines and the <a
- * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
- * API Guide</a> for more information on developing a Settings UI.
- */
 public class ActivitySettings
         extends PreferenceActivity {
 
-    /**
-     * Determines whether to always show the simplified settings UI, where
-     * settings are presented in a single list. When false, settings are shown
-     * as a master/detail two-pane view on tablets. When true, a single pane is
-     * shown on tablets.
-     */
     private static final boolean ALWAYS_SIMPLE_PREFS = false;
-    private static final String  CLASS_NAME          = "ActivitySettings";
+    private static final String TAG = "ActivitySettings";
+    private static Activity mainActivity = null;
 
-    /**
-     * A preference value change sChangeListener that updates the preference's summary
-     * to reflect its new value.
-     */
+    public ActivitySettings(Activity activity) {
+        mainActivity = activity;
+    }
+
+    public ActivitySettings() {
+    }
+
     private static Preference.OnPreferenceChangeListener
-            sChangeListener = new Preference.OnPreferenceChangeListener() {
+            changeListener = new Preference.OnPreferenceChangeListener() {
 
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
             String stringValue = value.toString();
-            Log.i(CLASS_NAME, "Entered onPreferenceChange" + stringValue);
+            Log.i(TAG, "Entered onPreferenceChange" + stringValue);
 
             if (preference instanceof ListPreference) {
                 // For list preferences, look up the correct display value in
@@ -119,7 +108,28 @@ public class ActivitySettings
                 // simple string representation.
                 preference.setSummary(stringValue);
             }
-            Log.i(CLASS_NAME, "Exiting onPreferenceChange");
+            Log.i(TAG, "Exiting onPreferenceChange");
+            return true;
+        }
+    };
+
+    private static Preference.OnPreferenceClickListener
+            clickListener = new Preference.OnPreferenceClickListener() {
+        @Override
+        public boolean onPreferenceClick(Preference preference) {
+            Log.d(TAG, "onPreferenceClick() called with: " + "preference = [" + preference + "]");
+            if (preference.getKey().equalsIgnoreCase("pref_notify_time")) {
+                TimePickerDialog mTimePicker = new TimePickerDialog(
+                        mainActivity, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour,
+                                          int selectedMinute) {
+                        // Something will go here
+                    }
+                }, Calendar.HOUR, Calendar.MINUTE, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+            }
             return true;
         }
     };
@@ -152,15 +162,16 @@ public class ActivitySettings
      * immediately updated upon calling this method. The exact display format is
      * dependent on the type of preference.
      *
-     * @see #sChangeListener
+     * @see #changeListener
      */
     private static void bindPreferenceSummaryToValue(Preference preference) {
-        // Set the sChangeListener to watch for value changes.
-        preference.setOnPreferenceChangeListener(sChangeListener);
+        // Set the changeListener to watch for value changes.
+        preference.setOnPreferenceChangeListener(changeListener);
+        preference.setOnPreferenceClickListener(clickListener);
 
-        // Trigger the sChangeListener immediately with the preference's
+        // Trigger the changeListener immediately with the preference's
         // current value.
-        sChangeListener.onPreferenceChange(preference, PreferenceManager
+        changeListener.onPreferenceChange(preference, PreferenceManager
                 .getDefaultSharedPreferences(preference.getContext())
                 .getString(preference.getKey(), ""));
     }
@@ -201,7 +212,7 @@ public class ActivitySettings
             try {
                 getActionBar().setDisplayHomeAsUpEnabled(true);
             } catch (Exception e) {
-                Log.e(CLASS_NAME, "EXCEPTION : setupActionBar : " + e.getMessage());
+                Log.e(TAG, "EXCEPTION : setupActionBar : " + e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -211,25 +222,6 @@ public class ActivitySettings
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         setupSimplePreferencesScreen();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-            case R.id.action_settings:
-            case R.id.action_about:
-                Log.e(CLASS_NAME, "ERROR : onOptionsItemSelected : " +
-                                  "This menu item must not have been " +
-                                  "triggered : " + item.getTitle());
-                return super.onOptionsItemSelected(item);
-            default:
-                Log.e(CLASS_NAME, "ERROR : onOptionsItemSelected : " +
-                                  "Option Item Selected hit Default : " + item.getTitle());
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     /**
@@ -265,6 +257,7 @@ public class ActivitySettings
         // to reflect the new value, per the Android Design guidelines.
         bindPreferenceSummaryToValue(findPreference("verse_text_style"));
         bindPreferenceSummaryToValue(findPreference("notifications_ringtone"));
+        bindPreferenceSummaryToValue(findPreference("pref_notify_time"));
         //        bindPreferenceSummaryToValue(findPreference("sync_frequency"));
     }
 
