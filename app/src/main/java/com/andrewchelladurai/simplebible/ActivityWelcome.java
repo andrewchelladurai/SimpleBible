@@ -25,6 +25,7 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -40,6 +41,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TimePicker;
+import android.widget.Toast;
+
+import java.util.Calendar;
 
 public class ActivityWelcome
         extends ActionBarActivity
@@ -123,8 +128,17 @@ public class ActivityWelcome
                 fda.show(getSupportFragmentManager(), "about");
                 return true;
             case R.id.action_reminder:
-//                FragmentDialogAbout fda = new FragmentDialogAbout();
-//                fda.show(getSupportFragmentManager(), "about");
+                Calendar c = Calendar.getInstance();
+                TimePickerDialog tpd = new TimePickerDialog(
+                        this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                        Utilities.setReminderTimestamp(hour, minute);
+                        Toast.makeText(ActivityWelcome.this,"Reminder Depends on Preferences",
+                                       Toast.LENGTH_LONG).show();
+                    }
+                }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
+                tpd.show();
                 return true;
             default:
                 Log.e(TAG, "Error : Option Item Selected hit Default : " + item.getTitle());

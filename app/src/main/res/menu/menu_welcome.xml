@@ -28,16 +28,16 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context=".WelcomeActivity">
     <item
-        android:id="@+id/action_settings"
-        android:icon="@drawable/ic_settings_white_24dp"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="ifRoom|withText"/>
-    <item
         android:id="@+id/action_reminder"
         android:icon="@drawable/ic_alarm_white_24dp"
         android:orderInCategory="100"
         android:title="@string/action_reminder"
+        app:showAsAction="ifRoom|withText"/>
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_settings_white_24dp"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
         app:showAsAction="ifRoom|withText"/>
     <item
         android:id="@+id/action_about"

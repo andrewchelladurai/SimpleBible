@@ -39,8 +39,6 @@ import android.webkit.WebView;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FragmentDialogAbout#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class FragmentDialogAbout
         extends DialogFragment {
@@ -49,13 +47,6 @@ public class FragmentDialogAbout
 
     public FragmentDialogAbout() {
         // Required empty public constructor
-    }
-
-    public static FragmentDialogAbout newInstance() {
-        Log.d(TAG, "newInstance() Entered");
-        FragmentDialogAbout fragment = new FragmentDialogAbout();
-        Log.d(TAG, "newInstance() Exited");
-        return fragment;
     }
 
     @Override

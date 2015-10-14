@@ -30,6 +30,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import java.util.Calendar;
+
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
  * on 04-Oct-2015 at 1:14 PM
@@ -39,6 +41,8 @@ public class Utilities {
     private static final String TAG = "Utilities";
     private static SharedPreferences preferences = null;
     private static Utilities utilities = null;
+    private static int reminderHour;
+    private static int reminderMinute;
 
     private Utilities(SharedPreferences sharedPreferences) {
         preferences = sharedPreferences;
@@ -69,8 +73,8 @@ public class Utilities {
 
         Intent i = new Intent(activity, activity.getClass());
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                Intent.FLAG_ACTIVITY_CLEAR_TASK |
-                Intent.FLAG_ACTIVITY_NEW_TASK);
+                   Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                   Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(i);
 
         if (isDarkThemeSet) {
@@ -83,4 +87,40 @@ public class Utilities {
     public static String getStringPreference(String prefName, String defaultValue) {
         return preferences.getString(prefName, defaultValue);
     }
+
+    public static void setReminderTimestamp(int hour, int minute) {
+        Log.d(TAG, "setReminderTimestamp() called with: " +
+                   "hour [" + hour + "], minute [" + minute + "]");
+        reminderHour = hour;
+        reminderMinute = minute;
+
+        SharedPreferences.Editor editor = preferences.edit();
+
+        // To get the localized String in HH:MM AM/PM Format
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, reminderHour);
+        c.set(Calendar.MINUTE, reminderMinute);
+        if (c.get(Calendar.AM_PM) == Calendar.AM) {
+            editor.putString("pref_notify_time",
+                             hour + " : " + minute + " AM - Hours : Minutes");
+        } else if (c.get(Calendar.AM_PM) == Calendar.PM) {
+            editor.putString("pref_notify_time",
+                             (hour - 12) + " : " + minute + " PM - Hours : Minutes");
+        } else {
+            // I don't know what time was set and how
+            Log.d(TAG, "setReminderTimestamp() Hit the Else part of the AM/PM condition flow." +
+                       "How did this happen?!!");
+        }
+        editor.apply();
+        Log.d(TAG, "setReminderTimestamp() Exited");
+    }
+
+    public static int getReminderHour() {
+        return reminderHour;
+    }
+
+    public static int getReminderMinute() {
+        return reminderMinute;
+    }
+
 }

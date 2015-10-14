@@ -36,8 +36,8 @@
     <Preference
         android:dependency="notifications_new_message"
         android:key="pref_notify_time"
-        android:summary="Show a reminder at this time"
-        android:title="Notification Time : "/>
+        android:summary="Not set yet."
+        android:title="Notify me to read at"/>
 
     <!-- Allows the user to choose a ringtone in the 'notification' category. --><!-- NOTE: This preference will be enabled only when the checkbox above is checked. --><!-- NOTE: RingtonePreference's summary should be set to its value by the activity code. -->
     <RingtonePreference

@@ -25,6 +25,7 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -43,23 +44,27 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class ActivityVerseViewer
         extends ActionBarActivity
-        implements View.OnClickListener, AdapterView.OnItemLongClickListener {
+        implements View.OnClickListener,
+                   AdapterView.OnItemLongClickListener {
 
     private final String TAG = "ActivityVerseViewer";
-    private int               currentBookId;
-    private int               currentChapter;
-    private int               chapterCount;
-    private String            currentBookName;
-    private ListView          verseListView;
-    private VerseListAdapter  verseListAdapter;
+    private int currentBookId;
+    private int currentChapter;
+    private int chapterCount;
+    private String currentBookName;
+    private ListView verseListView;
+    private VerseListAdapter verseListAdapter;
     private ArrayList<String> arrayList;
-    private TextView          txtHeader;
+    private TextView txtHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,8 +172,15 @@ public class ActivityVerseViewer
                 fda.show(getSupportFragmentManager(), "about");
                 return true;
             case R.id.action_reminder:
-//                FragmentDialogAbout fda = new FragmentDialogAbout();
-//                fda.show(getSupportFragmentManager(), "about");
+                Calendar c = Calendar.getInstance();
+                new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                        Utilities.setReminderTimestamp(hour, minute);
+                        Toast.makeText(ActivityVerseViewer.this, "Reminder Depends on Preferences",
+                                       Toast.LENGTH_LONG).show();
+                    }
+                }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false).show();
                 return true;
             default:
                 Log.e(TAG, "ERROR : Option Item Selected hit Default : " + item.getTitle());
@@ -212,7 +224,8 @@ public class ActivityVerseViewer
     protected class VerseListAdapter
             extends ArrayAdapter<String> {
 
-        public VerseListAdapter(Context context, int resource, int textViewResourceId, List<String> objects) {
+        public VerseListAdapter(Context context, int resource, int textViewResourceId,
+                                List<String> objects) {
             super(context, resource, textViewResourceId, objects);
         }
 
@@ -221,7 +234,7 @@ public class ActivityVerseViewer
             View textView = super.getView(position, convertView, parent);
             TextView item = (TextView) textView.findViewById(android.R.id.text1);
 
-            switch (Integer.parseInt(Utilities.getStringPreference("verse_text_style","0"))) {
+            switch (Integer.parseInt(Utilities.getStringPreference("verse_text_style", "0"))) {
                 case 1:
                     item.setTypeface(Typeface.SERIF);
                     break;
