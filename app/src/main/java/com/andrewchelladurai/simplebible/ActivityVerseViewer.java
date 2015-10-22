@@ -32,6 +32,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -45,7 +46,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
+
+import com.andrewchelladurai.simplebible.utilities.HelperDatabase;
+import com.andrewchelladurai.simplebible.utilities.Utilities;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -172,20 +175,31 @@ public class ActivityVerseViewer
                 fda.show(getSupportFragmentManager(), "about");
                 return true;
             case R.id.action_reminder:
-                Calendar c = Calendar.getInstance();
-                new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                        Utilities.setReminderTimestamp(hour, minute);
-                        Toast.makeText(ActivityVerseViewer.this, "Reminder Depends on Preferences",
-                                       Toast.LENGTH_LONG).show();
-                    }
-                }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false).show();
+                reminderActionClicked();
                 return true;
             default:
                 Log.e(TAG, "ERROR : Option Item Selected hit Default : " + item.getTitle());
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void reminderActionClicked() {
+        if (Utilities.isReminderEnabled()) {
+            Calendar c = Calendar.getInstance();
+            TimePickerDialog tpd = new TimePickerDialog(
+                    this, new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                    Utilities.setReminderTimestamp(hour, minute);
+                }
+            }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
+            tpd.show();
+        } else {
+            Snackbar.make(findViewById(R.id.verse_viewer_fragment),
+                          "Reminder is Disabled in Preferences.", Snackbar.LENGTH_LONG).show();
+//                    Toast.makeText(ActivityWelcome.this, "Reminder is Disabled in Preferences.",
+//                                   Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

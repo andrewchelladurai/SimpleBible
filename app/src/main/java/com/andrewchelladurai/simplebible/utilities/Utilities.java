@@ -23,12 +23,16 @@
  * OR <http://www.gnu.org/licenses/gpl-3.0.txt>
  */
 
-package com.andrewchelladurai.simplebible;
+package com.andrewchelladurai.simplebible.utilities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
+
+import com.andrewchelladurai.simplebible.ActivityWelcome;
+import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.notification.ReminderScheduler;
 
 import java.util.Calendar;
 
@@ -40,17 +44,25 @@ public class Utilities {
 
     private static final String TAG = "Utilities";
     private static SharedPreferences preferences = null;
+    private static ActivityWelcome activityWelcome = null;
     private static Utilities utilities = null;
+    private static ReminderScheduler reminderScheduler;
     private static int reminderHour;
     private static int reminderMinute;
 
-    private Utilities(SharedPreferences sharedPreferences) {
+    private Utilities(SharedPreferences sharedPreferences, ActivityWelcome activityWelcome1) {
         preferences = sharedPreferences;
+        activityWelcome = activityWelcome1;
+
+        if (isReminderEnabled()) {
+            startReminderService();
+        }
     }
 
-    public static void createInstance(SharedPreferences sharedPreferences) {
+    public static void createInstance(SharedPreferences sharedPreferences, ActivityWelcome
+            activityWelcome) {
         if (utilities == null) {
-            utilities = new Utilities(sharedPreferences);
+            utilities = new Utilities(sharedPreferences, activityWelcome);
         }
     }
 
@@ -88,39 +100,65 @@ public class Utilities {
         return preferences.getString(prefName, defaultValue);
     }
 
+    public static Calendar getReminderTime() {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, reminderHour);
+        c.set(Calendar.MINUTE, reminderMinute);
+        return c;
+    }
+
+    public static void startReminderService() {
+        if (!isReminderServiceEnabled() || reminderScheduler == null) {
+                reminderScheduler = new ReminderScheduler(activityWelcome);
+            reminderScheduler.doBindService();
+        }
+    }
+
+    public static void stopReminderService() {
+        if (reminderScheduler != null) {
+            reminderScheduler.doUnbindService();
+        }
+    }
+
+    public static boolean isReminderEnabled() {
+        return preferences.getBoolean("notifications_new_message", true);
+    }
+
+    public static boolean isReminderServiceEnabled() {
+        if (reminderScheduler == null) {
+            Log.e(TAG, "isReminderServiceEnabled() Exited : reminderScheduler == null");
+            return false;
+        }
+        return true;
+    }
+
     public static void setReminderTimestamp(int hour, int minute) {
-        Log.d(TAG, "setReminderTimestamp() called with: " +
-                   "hour [" + hour + "], minute [" + minute + "]");
+        Log.d(TAG, "setReminderTimestamp() called with: hour=[" + hour + "], minute=[" +
+                   minute + "]");
         reminderHour = hour;
         reminderMinute = minute;
 
         SharedPreferences.Editor editor = preferences.edit();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, reminderHour);
+        calendar.set(Calendar.MINUTE, reminderMinute);
 
         // To get the localized String in HH:MM AM/PM Format
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, reminderHour);
-        c.set(Calendar.MINUTE, reminderMinute);
-        if (c.get(Calendar.AM_PM) == Calendar.AM) {
+        if (calendar.get(Calendar.AM_PM) == Calendar.AM) {
             editor.putString("pref_notify_time",
-                             hour + " : " + minute + " AM - Hours : Minutes");
-        } else if (c.get(Calendar.AM_PM) == Calendar.PM) {
+                             reminderHour + " : " + reminderMinute + " AM - Hours : Minutes");
+        } else if (calendar.get(Calendar.AM_PM) == Calendar.PM) {
             editor.putString("pref_notify_time",
-                             (hour - 12) + " : " + minute + " PM - Hours : Minutes");
+                             (reminderHour - 12) + " : " + reminderMinute + " PM - Hours : " +
+                             "Minutes");
         } else {
             // I don't know what time was set and how
             Log.d(TAG, "setReminderTimestamp() Hit the Else part of the AM/PM condition flow." +
                        "How did this happen?!!");
         }
         editor.apply();
+        reminderScheduler.setAlarmForNotification(calendar);
         Log.d(TAG, "setReminderTimestamp() Exited");
-    }
 
-    public static int getReminderHour() {
-        return reminderHour;
     }
-
-    public static int getReminderMinute() {
-        return reminderMinute;
-    }
-
 }

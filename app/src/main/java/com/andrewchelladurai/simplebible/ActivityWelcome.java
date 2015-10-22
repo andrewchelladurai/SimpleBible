@@ -31,6 +31,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -42,7 +43,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TimePicker;
-import android.widget.Toast;
+
+import com.andrewchelladurai.simplebible.utilities.HelperDatabase;
+import com.andrewchelladurai.simplebible.utilities.Utilities;
 
 import java.util.Calendar;
 
@@ -54,19 +57,19 @@ public class ActivityWelcome
                    OnSharedPreferenceChangeListener {
 
     private static final String TAG = "ActivityWelcome";
-    private static HelperDatabase sHelperDatabase;
-    private AdapterTabSections mTabsAdapter;
-    private ViewPager mPager;
+    private static HelperDatabase dbHelper;
+    private AdapterTabSections tabsAdapter;
+    private ViewPager pager;
 
     public static HelperDatabase getDataBaseHelper() {
-        return sHelperDatabase;
+        return dbHelper;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "Entering onCreate");
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        Utilities.createInstance(sharedPref);
+        Utilities.createInstance(sharedPref, this);
         Utilities.updateTheme(this);
 
         super.onCreate(savedInstanceState);
@@ -78,17 +81,17 @@ public class ActivityWelcome
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mTabsAdapter = new AdapterTabSections(getSupportFragmentManager(),
-                                              getApplicationContext());
+        tabsAdapter = new AdapterTabSections(getSupportFragmentManager(),
+                                             getApplicationContext());
 
         // Set up the ViewPager with the sections adapter.
-        mPager = (ViewPager) findViewById(R.id.pager);
-        mPager.setAdapter(mTabsAdapter);
+        pager = (ViewPager) findViewById(R.id.pager);
+        pager.setAdapter(tabsAdapter);
 
         // When swiping between different sections, select the corresponding
         // tab. We can also use ActionBar.Tab#select() to do this if we have
         // a reference to the Tab.
-        mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+        pager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 
             @Override
             public void onPageSelected(int position) {
@@ -97,13 +100,13 @@ public class ActivityWelcome
         });
 
         // For each of the sections in the app, add a tab to the action bar.
-        for (int i = 0; i < mTabsAdapter.getCount(); i++) {
-            actionBar.addTab(actionBar.newTab().setText(mTabsAdapter.getPageTitle(i))
+        for (int i = 0; i < tabsAdapter.getCount(); i++) {
+            actionBar.addTab(actionBar.newTab().setText(tabsAdapter.getPageTitle(i))
                                       .setTabListener(this));
         }
 
-        if (sHelperDatabase == null) {
-            sHelperDatabase = new HelperDatabase(this, "NIV.db");
+        if (dbHelper == null) {
+            dbHelper = new HelperDatabase(this, "NIV.db");
             getDataBaseHelper().openDataBase();
         }
 
@@ -128,17 +131,7 @@ public class ActivityWelcome
                 fda.show(getSupportFragmentManager(), "about");
                 return true;
             case R.id.action_reminder:
-                Calendar c = Calendar.getInstance();
-                TimePickerDialog tpd = new TimePickerDialog(
-                        this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                        Utilities.setReminderTimestamp(hour, minute);
-                        Toast.makeText(ActivityWelcome.this,"Reminder Depends on Preferences",
-                                       Toast.LENGTH_LONG).show();
-                    }
-                }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
-                tpd.show();
+                reminderActionClicked();
                 return true;
             default:
                 Log.e(TAG, "Error : Option Item Selected hit Default : " + item.getTitle());
@@ -146,9 +139,28 @@ public class ActivityWelcome
         return super.onOptionsItemSelected(item);
     }
 
+    private void reminderActionClicked() {
+        if (Utilities.isReminderEnabled()) {
+            Calendar c = Calendar.getInstance();
+            TimePickerDialog tpd = new TimePickerDialog(
+                    this, new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                    Utilities.setReminderTimestamp(hour,minute);
+                }
+            }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
+            tpd.show();
+        } else {
+            Snackbar.make(findViewById(R.id.pager), "Reminder is Disabled in Preferences.",
+                          Snackbar.LENGTH_LONG).show();
+//                    Toast.makeText(ActivityWelcome.this, "Reminder is Disabled in Preferences.",
+//                                   Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-        mPager.setCurrentItem(tab.getPosition());
+        pager.setCurrentItem(tab.getPosition());
     }
 
     @Override
@@ -187,7 +199,7 @@ public class ActivityWelcome
 
     public void searchShowResults(final View view) {
         Log.i(TAG, "Entering loadBookFragment");
-        mTabsAdapter.searchShowResults(view);
+        tabsAdapter.searchShowResults(view);
         Log.i(TAG, "Exiting loadBookFragment");
     }
 
@@ -198,9 +210,25 @@ public class ActivityWelcome
         if (s.equalsIgnoreCase("pref_app_theme")) {
             Utilities.changeTheme(this);
         } else if (s.equalsIgnoreCase("notifications_new_message")) {
-            Log.d(TAG, "onSharedPreferenceChanged() :" +
-                       "Inside : else if (s.equalsIgnoreCase(\"notifications_new_message\")){");
+            if (Utilities.isReminderEnabled()) {
+                Utilities.startReminderService();
+            } else {
+                Utilities.stopReminderService();
+            }
         }
+    }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        if(Utilities.isReminderEnabled()){
+            Utilities.startReminderService();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Utilities.stopReminderService();
     }
 }

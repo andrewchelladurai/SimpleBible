@@ -23,7 +23,7 @@
  * OR <http://www.gnu.org/licenses/gpl-3.0.txt>
  */
 
-package com.andrewchelladurai.simplebible;
+package com.andrewchelladurai.simplebible.utilities;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -41,15 +41,16 @@ import java.io.OutputStream;
 public class HelperDatabase
         extends SQLiteOpenHelper {
 
-    public static  String         DB_PATH;
-    public static  String         DB_NAME;
+    private static String DB_PATH;
+    private static String DB_NAME;
     private static SQLiteDatabase database;
-    public final   Context        context;
-    private final String CLASS_NAME = "HelperDatabase";
+    private final Context context;
+    private final String TAG = "HelperDatabase";
 
     public HelperDatabase(Context context, String databaseName) {
         super(context, databaseName, null, 1);
-        Log.i(CLASS_NAME, "Entering Constructor");
+        Log.d(TAG, "HelperDatabase() called with: context = [" + context +
+                   "], databaseName = [" + databaseName + "]");
         this.context = context;
 
         //Write a full path to the databases of your application
@@ -58,52 +59,52 @@ public class HelperDatabase
         Log.d("DB_PATH", DB_PATH);
         Log.d("DB_NAME", DB_NAME);
         openDataBase();
-        Log.i(CLASS_NAME, "Exiting Constructor");
+        Log.d(TAG, "HelperDatabase() Exited");
     }
 
     //This piece of code will create a database if it’s not yet created
     private void createDataBase() {
-        Log.i(CLASS_NAME, "Entering createDataBase");
+        Log.d(TAG, "createDataBase() Entered");
         boolean dbExist = checkDataBase();
-        Log.i(CLASS_NAME, "Inside createDataBase - dbExist = " + dbExist);
+        Log.i(TAG, "dbExist = " + dbExist);
         if (!dbExist) {
-            Log.i(CLASS_NAME, "Inside createDataBase - IF");
+            Log.i(TAG, "Inside createDataBase - IF");
             this.getReadableDatabase();
             try {
                 copyDataBase();
             } catch (IOException e) {
-                Log.e(this.getClass().toString(), "Copying error");
+                Log.e(TAG, "DB copying error");
                 throw new Error("Error copying database!");
             }
         } else {
-            Log.i(CLASS_NAME, "Database already exists");
+            Log.i(TAG, "Database already exists");
         }
-        Log.i(CLASS_NAME, "Exiting createDataBase");
+        Log.d(TAG, "createDataBase() Exited");
     }
 
     //Performing a database existence check
     private boolean checkDataBase() {
-        Log.i(CLASS_NAME, "Entering checkDataBase");
+        Log.d(TAG, "checkDataBase() Entered");
         SQLiteDatabase checkDb = null;
         String path = DB_PATH + File.separatorChar + DB_NAME;
 
         File f = new File(path);
-        Log.d(CLASS_NAME, "checkDataBase : checkDataBase_path = " + path);
+        Log.d(TAG, "checkDataBase_path = " + path);
         if (f.exists()) {
             try {
                 checkDb = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
             } catch (SQLException e) {
-                Log.e(CLASS_NAME, "checkDataBase : Error while checking db");
+                Log.e(TAG, "Error when checking DB");
             } finally {
                 //Android does not like resource leaks, everything should be closed
                 if (checkDb != null) {
                     checkDb.close();
                 }
             }
-            Log.i(CLASS_NAME, "Exiting checkDataBase");
+            Log.d(TAG, "checkDataBase() Exited returning checkDb != null");
             return checkDb != null;
         } else {
-            Log.i(CLASS_NAME, "Exiting checkDataBase");
+            Log.d(TAG, "checkDataBase() Exited returning false");
             return false;
         }
 
@@ -112,16 +113,13 @@ public class HelperDatabase
     //Method for copying the database
     private void copyDataBase()
             throws IOException {
-        Log.i(CLASS_NAME, "Entering CopyDatabase");
-        //Open a stream for reading from our ready-made database
-        //The stream source is located in the assets
-        InputStream externalDbStream = context.getAssets().open(DB_NAME);
-        Log.i(CLASS_NAME, "copyDataBase : externalDbStream" + externalDbStream.toString());
-        //Path to the created empty database on your Android device
-        String outFileName = DB_PATH + File.separatorChar + DB_NAME;
-        Log.i(CLASS_NAME, "copyDataBase : outFileName = " + outFileName);
+        Log.d(TAG, "copyDataBase() Entered");
 
-        //Now create a stream for writing the database byte by byte
+        InputStream externalDbStream = context.getAssets().open(DB_NAME);
+        Log.i(TAG, "copyDataBase : externalDbStream" + externalDbStream.toString());
+        String outFileName = DB_PATH + File.separatorChar + DB_NAME;
+        Log.i(TAG, "copyDataBase : outFileName = " + outFileName);
+
         OutputStream localDbStream = new FileOutputStream(outFileName);
 
         //Copying the database
@@ -130,21 +128,20 @@ public class HelperDatabase
         while ((bytesRead = externalDbStream.read(buffer)) > 0) {
             localDbStream.write(buffer, 0, bytesRead);
         }
-        //Don’t forget to close the streams
         localDbStream.close();
         externalDbStream.close();
-        Log.i(CLASS_NAME, "Exiting CopyDatabase");
+        Log.d(TAG, "copyDataBase() Exited");
     }
 
     public SQLiteDatabase openDataBase()
             throws SQLException {
-        Log.i(CLASS_NAME, "Entering openDataBase");
+        Log.d(TAG, "openDataBase() Entered");
         String path = DB_PATH + File.separatorChar + DB_NAME;
         if (database == null) {
             createDataBase();
             database = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
         }
-        Log.i(CLASS_NAME, "Exiting openDataBase");
+        Log.d(TAG, "openDataBase() Exited");
         return database;
     }
 
@@ -158,18 +155,19 @@ public class HelperDatabase
 
     @Override
     public void onCreate(final SQLiteDatabase sqLiteDatabase) {
-        Log.i(CLASS_NAME, "Entering onCreate");
-        Log.i(CLASS_NAME, "Exiting onCreate");
+        Log.i(TAG, "Entering onCreate");
+        Log.i(TAG, "Exiting onCreate");
     }
 
     @Override
     public void onUpgrade(final SQLiteDatabase sqLiteDatabase, final int i, final int i1) {
-        Log.i(CLASS_NAME, "Entering onUpgrade");
-        Log.i(CLASS_NAME, "Exiting onUpgrade");
+        Log.i(TAG, "Entering onUpgrade");
+        Log.i(TAG, "Exiting onUpgrade");
     }
 
     public Cursor getDBRecords(int bookID, int chapterID) {
-        Log.i(CLASS_NAME, "Entering getDBRecords : " + bookID + " : " + chapterID);
+        Log.d(TAG, "getDBRecords() called with: bookID = [" + bookID +
+                   "], chapterID = [" + chapterID + "]");
         SQLiteDatabase db = getReadableDatabase();
 
         Cursor cursor = db.query("bibleverses",
@@ -177,20 +175,21 @@ public class HelperDatabase
                                  "chapterid =? AND bookid=?",
                                  new String[]{chapterID + "", bookID + ""},
                                  null, null, null);
-        Log.i(CLASS_NAME, "Exiting getDBRecords");
+        Log.d(TAG, "getDBRecords() Exited");
         return cursor;
     }
 
-    protected Cursor getDBRecords(String paramTextToSearch) {
-        Log.i(CLASS_NAME, "Entering getDBRecords Searching for " + paramTextToSearch);
-        SQLiteDatabase db = getReadableDatabase();
+    public Cursor getDBRecords(String paramTextToSearch) {
+        Log.d(TAG, "getDBRecords() called with: paramTextToSearch = ["
+                   + paramTextToSearch + "]");
 
+        SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query("bibleverses",
                                  new String[]{"bookid", "chapterid", "verseid", "verse"},
                                  "verse like ?",
                                  new String[]{"%" + paramTextToSearch + "%"},
                                  null, null, null);
-        Log.i(CLASS_NAME, "Exiting getDBRecords");
+        Log.d(TAG, "getDBRecords() Exited");
         return cursor;
     }
 }

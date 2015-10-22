@@ -26,8 +26,6 @@
 package com.andrewchelladurai.simplebible;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.media.Ringtone;
@@ -44,9 +42,9 @@ import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.TimePicker;
 
-import java.util.Calendar;
+import com.andrewchelladurai.simplebible.utilities.Utilities;
+
 import java.util.List;
 
 public class ActivitySettings
@@ -54,15 +52,6 @@ public class ActivitySettings
 
     private static final boolean ALWAYS_SIMPLE_PREFS = false;
     private static final String TAG = "ActivitySettings";
-    private static Activity mainActivity = null;
-
-    public ActivitySettings(Activity activity) {
-        mainActivity = activity;
-    }
-
-    public ActivitySettings() {
-    }
-
     private static Preference.OnPreferenceChangeListener
             changeListener = new Preference.OnPreferenceChangeListener() {
 
@@ -113,27 +102,6 @@ public class ActivitySettings
         }
     };
 
-    private static Preference.OnPreferenceClickListener
-            clickListener = new Preference.OnPreferenceClickListener() {
-        @Override
-        public boolean onPreferenceClick(Preference preference) {
-            Log.d(TAG, "onPreferenceClick() called with: " + "preference = [" + preference + "]");
-            if (preference.getKey().equalsIgnoreCase("pref_notify_time")) {
-                TimePickerDialog mTimePicker = new TimePickerDialog(
-                        mainActivity, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour,
-                                          int selectedMinute) {
-                        // Something will go here
-                    }
-                }, Calendar.HOUR, Calendar.MINUTE, true);//Yes 24 hour time
-                mTimePicker.setTitle("Select Time");
-                mTimePicker.show();
-            }
-            return true;
-        }
-    };
-
     /**
      * Helper method to determine if the device has an extra-large screen. For
      * example, 10" tablets are extra-large.
@@ -167,7 +135,7 @@ public class ActivitySettings
     private static void bindPreferenceSummaryToValue(Preference preference) {
         // Set the changeListener to watch for value changes.
         preference.setOnPreferenceChangeListener(changeListener);
-        preference.setOnPreferenceClickListener(clickListener);
+//        preference.setOnPreferenceClickListener(clickListener);
 
         // Trigger the changeListener immediately with the preference's
         // current value.
