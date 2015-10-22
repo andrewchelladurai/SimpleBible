@@ -24,6 +24,7 @@
 
 package com.andrewchelladurai.simplebible.notification;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -75,12 +76,14 @@ public class NotifierService
     private void showNotification() {
         Log.d(TAG, "showNotification() Entered");
         boolean showReminder = PreferenceManager.getDefaultSharedPreferences(this)
-                                        .getBoolean("notifications_new_message", true);
+                                                .getBoolean("notifications_new_message", true);
 
         if (showReminder) {
             NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(this)
                     .setContentTitle("Simple Bible")
                     .setContentText("Press to open and read The Bible")
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setAutoCancel(true)
                     .setSmallIcon(R.drawable.ic_alarm_white_24dp)
                     .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon));
 

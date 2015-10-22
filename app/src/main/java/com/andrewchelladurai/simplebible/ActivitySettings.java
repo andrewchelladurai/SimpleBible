@@ -224,7 +224,7 @@ public class ActivitySettings
         // their values. When their values change, their summaries are updated
         // to reflect the new value, per the Android Design guidelines.
         bindPreferenceSummaryToValue(findPreference("verse_text_style"));
-        bindPreferenceSummaryToValue(findPreference("notifications_ringtone"));
+//        bindPreferenceSummaryToValue(findPreference("notifications_ringtone"));
         bindPreferenceSummaryToValue(findPreference("pref_notify_time"));
         //        bindPreferenceSummaryToValue(findPreference("sync_frequency"));
     }
@@ -267,7 +267,7 @@ public class ActivitySettings
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("notifications_ringtone"));
+//            bindPreferenceSummaryToValue(findPreference("notifications_ringtone"));
         }
     }
 
