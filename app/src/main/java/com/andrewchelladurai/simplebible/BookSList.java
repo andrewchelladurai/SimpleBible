@@ -36,9 +36,8 @@ import java.util.List;
  */
 public class BookSList {
 
-    //    private static final Map<String, BookUnit> map   = new HashMap<>();
-    private static final List<BookUnit> books      = new ArrayList<>();
-    private static final String         CLASS_NAME = "BookSList";
+    private static final List<BookUnit> books = new ArrayList<>();
+    private static final String TAG = "BookSList";
 
     static {
         addBook(new BookUnit(0, "Genesis", 50));
@@ -110,37 +109,34 @@ public class BookSList {
     }
 
     private static void addBook(BookUnit book) {
-        Log.i(CLASS_NAME, "Entering addBook");
         books.add(book);
     }
 
-    public static int getBookID(CharSequence bookName) {
-        Log.i(CLASS_NAME, "Entering getBookID");
+    public static int getBookID(String bookName) {
+        Log.d(TAG, "getBookID() Entered");
         for (int i = 0; i < books.size(); i++) {
-            if ((bookName + "").equalsIgnoreCase(books.get(i).getBookName())) {
+            if (bookName.equalsIgnoreCase(books.get(i).getBookName())) {
+                Log.d(TAG, "getBookID() returned: " + i);
                 return i;
             }
         }
+        Log.d(TAG, "getBookID() returned: " + -1);
         return -1;
     }
 
     public static String getBookName(int id) {
-        Log.i(CLASS_NAME, "Entering getBookName");
         return books.get(id).getBookName();
     }
 
     public static int getBookNumber(int id) {
-        Log.i(CLASS_NAME, "Entering getBookNumber");
         return books.get(id).getBookNumber();
     }
 
     public static int getTotalChapters(int id) {
-        Log.i(CLASS_NAME, "Entering getTotalChapters");
         return books.get(id).getTotalChapters();
     }
 
     public static List<BookUnit> getBooks() {
-        Log.i(CLASS_NAME, "Entering getBooks");
         return books;
     }
 }

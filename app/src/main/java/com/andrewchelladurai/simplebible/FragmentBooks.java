@@ -37,7 +37,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListAdapter;
-import android.widget.TextView;
 
 /**
  * A fragment representing a list of Items.
@@ -53,7 +52,7 @@ public class FragmentBooks
 
     private static final String TAB_NUMBER = "2";
     private static final String TAG = "FragmentBooks";
-//    private static AutoCompleteTextView lookupText;
+    private static AutoCompleteTextView booknameLookupText;
     private OnFragmentInteractionListener listener;
 
     /**
@@ -110,13 +109,13 @@ public class FragmentBooks
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
 
-        AutoCompleteTextView lookupText = (AutoCompleteTextView) view
+        booknameLookupText = (AutoCompleteTextView) view
                 .findViewById(R.id.autocomplete_bookname_text);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 view.getContext(), android.R.layout.simple_list_item_1,
                 getResources().getStringArray(R.array.allbooks));
-        lookupText.setAdapter(adapter);
-        lookupText.setThreshold(1);
+        booknameLookupText.setAdapter(adapter);
+        booknameLookupText.setThreshold(1);
         Log.d(TAG, "onCreateView() Exited");
         return view;
     }
@@ -124,7 +123,8 @@ public class FragmentBooks
     @Override
     public void onResume() {
         super.onResume();
-        ((TextView) getActivity().findViewById(R.id.autocomplete_bookname_text)).setText("");
+
+        booknameLookupText.setText("");
     }
 
     @Override
@@ -137,6 +137,18 @@ public class FragmentBooks
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (null != listener) {
             listener.onFragmentBooksInteraction(BookSList.getBooks().get(position));
+        }
+    }
+
+    public static String getLookupBookName() {
+        Log.d(TAG, "getLookupBookName() Entered");
+        String bookName = booknameLookupText.getText().toString();
+        if (bookName.length() > 0 && BookSList.getBookID(bookName) > -1){
+            Log.d(TAG, "getLookupBookName() returned: " + bookName);
+            return bookName;
+        }else{
+            Log.d(TAG, "getLookupBookName() returned: " + null);
+            return null;
         }
     }
 

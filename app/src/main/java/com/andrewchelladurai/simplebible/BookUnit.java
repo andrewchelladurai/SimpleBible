@@ -29,29 +29,29 @@ import android.util.Log;
 
 public class BookUnit {
 
-    private static final String CLASS_NAME = "BookUnit";
-    private int    bookNumber;
-    private int    totalChapters;
+    private static final String TAG = "BookUnit";
+    private int bookNumber;
+    private int totalChapters;
     private String bookName;
 
     public BookUnit(int bookNumber, String bookName, int totalChapters) {
+        Log.d(TAG, "BookUnit() called with: bookNumber = [" + bookNumber + "], bookName = ["
+                   + bookName + "], totalChapters = [" + totalChapters + "]");
         this.bookNumber = bookNumber;
         this.bookName = bookName;
         this.totalChapters = totalChapters;
+        Log.d(TAG, "BookUnit() Exited");
     }
 
     public int getTotalChapters() {
-        Log.i(CLASS_NAME, "Entering getTotalChapters");
         return totalChapters;
     }
 
     public String getBookName() {
-        Log.i(CLASS_NAME, "Entering getBookName");
         return bookName;
     }
 
     public int getBookNumber() {
-        Log.i(CLASS_NAME, "Entering getBookNumber");
         return bookNumber;
     }
 

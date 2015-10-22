@@ -41,7 +41,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TimePicker;
 
 import com.andrewchelladurai.simplebible.utilities.HelperDatabase;
@@ -185,16 +184,14 @@ public class ActivityWelcome
     }
 
     public void loadBookFragment(View view) {
-        Log.d(TAG, "loadBookFragment() Entered Exited");
-        CharSequence bookName = ((EditText) findViewById(R.id.autocomplete_bookname_text)).getText();
-        int bookId = BookSList.getBookID(bookName);
-        Log.d(TAG, "loadBookFragment() bookId = " + bookId + "bookName = " + bookName);
-        if (bookName.length() > 0 && bookId > -1) {
+        Log.d(TAG, "loadBookFragment() Entered");
+        String bookName = FragmentBooks.getLookupBookName();
+        if (bookName != null) {
             Intent intent = new Intent(this, ActivityVerseViewer.class);
             intent.putExtra("ID", BookSList.getBookID(bookName));
             startActivity(intent);
         }
-        Log.d(TAG, "loadBookFragment() Entered Exited");
+        Log.d(TAG, "loadBookFragment() Exited");
     }
 
     public void searchShowResults(final View view) {
