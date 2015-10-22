@@ -146,7 +146,7 @@ public class ActivityWelcome
                     this, new TimePickerDialog.OnTimeSetListener() {
                 @Override
                 public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                    Utilities.setReminderTimestamp(hour,minute);
+                    Utilities.setReminderTimestamp(hour, minute);
                 }
             }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
             tpd.show();
@@ -185,16 +185,16 @@ public class ActivityWelcome
     }
 
     public void loadBookFragment(View view) {
-        Log.i(TAG, "Entering loadBookFragment");
-        CharSequence bookName = ((EditText) findViewById(R.id.lookup_book)).getText();
+        Log.d(TAG, "loadBookFragment() Entered Exited");
+        CharSequence bookName = ((EditText) findViewById(R.id.autocomplete_bookname_text)).getText();
         int bookId = BookSList.getBookID(bookName);
-        Log.d(TAG, "BOOK NAME : " + bookId);
-        if (bookName.length() > 0 && bookId > 0) {
+        Log.d(TAG, "loadBookFragment() bookId = " + bookId + "bookName = " + bookName);
+        if (bookName.length() > 0 && bookId > -1) {
             Intent intent = new Intent(this, ActivityVerseViewer.class);
             intent.putExtra("ID", BookSList.getBookID(bookName));
             startActivity(intent);
         }
-        Log.i(TAG, "Exiting loadBookFragment");
+        Log.d(TAG, "loadBookFragment() Entered Exited");
     }
 
     public void searchShowResults(final View view) {
@@ -221,7 +221,7 @@ public class ActivityWelcome
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        if(Utilities.isReminderEnabled()){
+        if (Utilities.isReminderEnabled()) {
             Utilities.startReminderService();
         }
     }

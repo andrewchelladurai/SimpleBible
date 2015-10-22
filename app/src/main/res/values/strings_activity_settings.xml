@@ -50,7 +50,7 @@
     <!--<string name="pref_title_system_sync_settings">System sync settings</string>-->
 
     <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">Notifications - Upcoming Feature</string>
+    <string name="pref_header_notifications">Notifications</string>
     <string name="pref_title_notifications">Daily Reminder</string>
     <string name="pref_desc_notifications">Check to set a daily reminder to read The Holy Bible</string>
 

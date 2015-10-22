@@ -52,8 +52,9 @@ public class FragmentBooks
         implements AbsListView.OnItemClickListener {
 
     private static final String TAB_NUMBER = "2";
-    private static final String CLASS_NAME = "FragmentBooks";
-    private OnFragmentInteractionListener mListener;
+    private static final String TAG = "FragmentBooks";
+//    private static AutoCompleteTextView lookupText;
+    private OnFragmentInteractionListener listener;
 
     /**
      * The fragment's ListView/GridView.
@@ -69,12 +70,12 @@ public class FragmentBooks
     }
 
     public static FragmentBooks newInstance(int position) {
-        Log.i(CLASS_NAME, "Entering newInstance");
+        Log.d(TAG, "newInstance() Entered");
         FragmentBooks fragment = new FragmentBooks();
         Bundle args = new Bundle();
         args.putInt(TAB_NUMBER, position);
         fragment.setArguments(args);
-        Log.i(CLASS_NAME, "Exiting newInstance");
+        Log.d(TAG, "newInstance() Exited");
         return fragment;
     }
 
@@ -82,7 +83,7 @@ public class FragmentBooks
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (OnFragmentInteractionListener) activity;
+            listener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() +
                                          " must implement OnFragmentInteractionListener");
@@ -99,7 +100,7 @@ public class FragmentBooks
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.i(CLASS_NAME, "Entering onCreateView");
+        Log.d(TAG, "onCreateView() Exited");
         View view = inflater.inflate(R.layout.fragment_bookentry, container, false);
 
         // Set the adapter
@@ -110,32 +111,32 @@ public class FragmentBooks
         mListView.setOnItemClickListener(this);
 
         AutoCompleteTextView lookupText = (AutoCompleteTextView) view
-                .findViewById(R.id.lookup_book);
+                .findViewById(R.id.autocomplete_bookname_text);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 view.getContext(), android.R.layout.simple_list_item_1,
                 getResources().getStringArray(R.array.allbooks));
         lookupText.setAdapter(adapter);
         lookupText.setThreshold(1);
-        Log.i(CLASS_NAME, "Exiting onCreateView");
+        Log.d(TAG, "onCreateView() Exited");
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        ((TextView) getActivity().findViewById(R.id.lookup_book)).setText("");
+        ((TextView) getActivity().findViewById(R.id.autocomplete_bookname_text)).setText("");
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        listener = null;
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (null != mListener) {
-            mListener.onFragmentBooksInteraction(BookSList.getBooks().get(position));
+        if (null != listener) {
+            listener.onFragmentBooksInteraction(BookSList.getBooks().get(position));
         }
     }
 
