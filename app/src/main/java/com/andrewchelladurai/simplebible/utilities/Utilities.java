@@ -47,8 +47,7 @@ public class Utilities {
     private static ActivityWelcome activityWelcome = null;
     private static Utilities utilities = null;
     private static ReminderScheduler reminderScheduler;
-    private static int reminderHour;
-    private static int reminderMinute;
+    private static Calendar sReminderTD = Calendar.getInstance();
 
     private Utilities(SharedPreferences sharedPreferences, ActivityWelcome activityWelcome1) {
         preferences = sharedPreferences;
@@ -85,8 +84,8 @@ public class Utilities {
 
         Intent i = new Intent(activity, activity.getClass());
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                   Intent.FLAG_ACTIVITY_CLEAR_TASK |
-                   Intent.FLAG_ACTIVITY_NEW_TASK);
+                Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(i);
 
         if (isDarkThemeSet) {
@@ -101,15 +100,13 @@ public class Utilities {
     }
 
     public static Calendar getReminderTime() {
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, reminderHour);
-        c.set(Calendar.MINUTE, reminderMinute);
+        Calendar c = sReminderTD;
         return c;
     }
 
     public static void startReminderService() {
         if (!isReminderServiceEnabled() || reminderScheduler == null) {
-                reminderScheduler = new ReminderScheduler(activityWelcome);
+            reminderScheduler = new ReminderScheduler(activityWelcome);
             reminderScheduler.doBindService();
         }
     }
@@ -134,31 +131,38 @@ public class Utilities {
 
     public static void setReminderTimestamp(int hour, int minute) {
         Log.d(TAG, "setReminderTimestamp() called with: hour=[" + hour + "], minute=[" +
-                   minute + "]");
-        reminderHour = hour;
-        reminderMinute = minute;
+                minute + "]");
 
         SharedPreferences.Editor editor = preferences.edit();
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, reminderHour);
-        calendar.set(Calendar.MINUTE, reminderMinute);
+        sReminderTD.set(Calendar.HOUR_OF_DAY, hour);
+        sReminderTD.set(Calendar.MINUTE, minute);
 
         // To get the localized String in HH:MM AM/PM Format
-        if (calendar.get(Calendar.AM_PM) == Calendar.AM) {
+        if (sReminderTD.get(Calendar.AM_PM) == Calendar.AM) {
             editor.putString("pref_notify_time",
-                             reminderHour + " : " + reminderMinute + " AM - Hours : Minutes");
-        } else if (calendar.get(Calendar.AM_PM) == Calendar.PM) {
+                    hour + " : " + minute + " AM - Hours : Minutes");
+        } else if (sReminderTD.get(Calendar.AM_PM) == Calendar.PM) {
             editor.putString("pref_notify_time",
-                             (reminderHour - 12) + " : " + reminderMinute + " PM - Hours : " +
-                             "Minutes");
+                    (hour - 12) + " : " + minute + " PM - Hours : " +
+                            "Minutes");
         } else {
             // I don't know what time was set and how
             Log.d(TAG, "setReminderTimestamp() Hit the Else part of the AM/PM condition flow." +
-                       "How did this happen?!!");
+                    "How did this happen?!!");
         }
         editor.apply();
-        reminderScheduler.setAlarmForNotification(calendar);
+        reminderScheduler.setAlarmForNotification(sReminderTD);
         Log.d(TAG, "setReminderTimestamp() Exited");
 
+    }
+
+    public static void updateTimestamp() {
+//        sReminderTD.add(Calendar.DAY_OF_MONTH, 1);
+        sReminderTD.add(Calendar.MINUTE, 2);
+        Log.d(TAG, "updateTimestamp() Minute : " + sReminderTD.get(Calendar.MINUTE));
+        startReminderService();
+        Log.d(TAG, "updateTimestamp() : reminderScheduler" + reminderScheduler.toString());
+        reminderScheduler.setAlarmForNotification(sReminderTD);
+        Log.d(TAG, "updateTimestamp() Updated next Reminders timestamp");
     }
 }

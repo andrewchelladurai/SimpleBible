@@ -51,9 +51,9 @@ import java.util.Calendar;
 public class ActivityWelcome
         extends ActionBarActivity
         implements ActionBar.TabListener,
-                   FragmentBooks.OnFragmentInteractionListener,
-                   Fragment_Search.OnFragmentInteractionListener,
-                   OnSharedPreferenceChangeListener {
+        FragmentBooks.OnFragmentInteractionListener,
+        Fragment_Search.OnFragmentInteractionListener,
+        OnSharedPreferenceChangeListener {
 
     private static final String TAG = "ActivityWelcome";
     private static HelperDatabase dbHelper;
@@ -81,7 +81,7 @@ public class ActivityWelcome
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         tabsAdapter = new AdapterTabSections(getSupportFragmentManager(),
-                                             getApplicationContext());
+                getApplicationContext());
 
         // Set up the ViewPager with the sections adapter.
         pager = (ViewPager) findViewById(R.id.pager);
@@ -101,7 +101,7 @@ public class ActivityWelcome
         // For each of the sections in the app, add a tab to the action bar.
         for (int i = 0; i < tabsAdapter.getCount(); i++) {
             actionBar.addTab(actionBar.newTab().setText(tabsAdapter.getPageTitle(i))
-                                      .setTabListener(this));
+                    .setTabListener(this));
         }
 
         if (dbHelper == null) {
@@ -151,7 +151,7 @@ public class ActivityWelcome
             tpd.show();
         } else {
             Snackbar.make(findViewById(R.id.pager), "Reminder is Disabled in Preferences.",
-                          Snackbar.LENGTH_LONG).show();
+                    Snackbar.LENGTH_LONG).show();
 //                    Toast.makeText(ActivityWelcome.this, "Reminder is Disabled in Preferences.",
 //                                   Toast.LENGTH_SHORT).show();
         }
@@ -203,7 +203,7 @@ public class ActivityWelcome
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
         Log.d(TAG, "onSharedPreferenceChanged() called with: " + "sharedPreferences = [" +
-                   sharedPreferences + "], s = [" + s + "]");
+                sharedPreferences + "], s = [" + s + "]");
         if (s.equalsIgnoreCase("pref_app_theme")) {
             Utilities.changeTheme(this);
         } else if (s.equalsIgnoreCase("notifications_new_message")) {

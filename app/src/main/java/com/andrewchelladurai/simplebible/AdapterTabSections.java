@@ -42,9 +42,9 @@ public class AdapterTabSections
         extends FragmentPagerAdapter {
 
     private final String TAG = "AdapterTabSections";
-    private Context         context;
+    private Context context;
     private FragmentWelcome fragmentWelcome;
-    private FragmentBooks   fragment_books;
+    private FragmentBooks fragment_books;
     private Fragment_Search fragment_search;
 
     public AdapterTabSections(FragmentManager fm, Context con) {

@@ -78,6 +78,18 @@ public class FragmentBooks
         return fragment;
     }
 
+    public static String getLookupBookName() {
+        Log.d(TAG, "getLookupBookName() Entered");
+        String bookName = booknameLookupText.getText().toString();
+        if (bookName.length() > 0 && BookSList.getBookID(bookName) > -1) {
+            Log.d(TAG, "getLookupBookName() returned: " + bookName);
+            return bookName;
+        } else {
+            Log.d(TAG, "getLookupBookName() returned: " + null);
+            return null;
+        }
+    }
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -85,7 +97,7 @@ public class FragmentBooks
             listener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() +
-                                         " must implement OnFragmentInteractionListener");
+                    " must implement OnFragmentInteractionListener");
         }
     }
 
@@ -93,7 +105,7 @@ public class FragmentBooks
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,
-                                      android.R.id.text1, BookSList.getBooks());
+                android.R.id.text1, BookSList.getBooks());
     }
 
     @Override
@@ -137,18 +149,6 @@ public class FragmentBooks
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (null != listener) {
             listener.onFragmentBooksInteraction(BookSList.getBooks().get(position));
-        }
-    }
-
-    public static String getLookupBookName() {
-        Log.d(TAG, "getLookupBookName() Entered");
-        String bookName = booknameLookupText.getText().toString();
-        if (bookName.length() > 0 && BookSList.getBookID(bookName) > -1){
-            Log.d(TAG, "getLookupBookName() returned: " + bookName);
-            return bookName;
-        }else{
-            Log.d(TAG, "getLookupBookName() returned: " + null);
-            return null;
         }
     }
 

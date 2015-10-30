@@ -57,7 +57,7 @@ import java.util.List;
 public class ActivityVerseViewer
         extends ActionBarActivity
         implements View.OnClickListener,
-                   AdapterView.OnItemLongClickListener {
+        AdapterView.OnItemLongClickListener {
 
     private final String TAG = "ActivityVerseViewer";
     private int currentBookId;
@@ -99,7 +99,7 @@ public class ActivityVerseViewer
 
         arrayList = new ArrayList<>(1);
         verseListAdapter = new VerseListAdapter(this, android.R.layout.simple_list_item_1,
-                                                android.R.id.text1, arrayList);
+                android.R.id.text1, arrayList);
         verseListView.setAdapter(verseListAdapter);
         Log.i(TAG, "Exiting updateVariables");
     }
@@ -142,7 +142,7 @@ public class ActivityVerseViewer
         LinearLayout layout = (LinearLayout) findViewById(R.id.chapterButtonsLayout);
         LinearLayout.LayoutParams layoutParams =
                 new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                                              LinearLayout.LayoutParams.WRAP_CONTENT);
+                        LinearLayout.LayoutParams.WRAP_CONTENT);
 
         layoutParams.setMargins(-15, 0, -15, 0);
         layout.removeAllViews();
@@ -196,7 +196,7 @@ public class ActivityVerseViewer
             tpd.show();
         } else {
             Snackbar.make(findViewById(R.id.verse_viewer_fragment),
-                          "Reminder is Disabled in Preferences.", Snackbar.LENGTH_LONG).show();
+                    "Reminder is Disabled in Preferences.", Snackbar.LENGTH_LONG).show();
 //                    Toast.makeText(ActivityWelcome.this, "Reminder is Disabled in Preferences.",
 //                                   Toast.LENGTH_SHORT).show();
         }
@@ -225,8 +225,8 @@ public class ActivityVerseViewer
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         Log.i(TAG, "Entering onItemLongClick");
         String verse = currentBookName + " Chapter " + currentChapter
-                       + " Verse " + ((TextView) view).getText()
-                       + "\n-- The Holy Bible (New International Version)";
+                + " Verse " + ((TextView) view).getText()
+                + "\n-- The Holy Bible (New International Version)";
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_TEXT, verse);

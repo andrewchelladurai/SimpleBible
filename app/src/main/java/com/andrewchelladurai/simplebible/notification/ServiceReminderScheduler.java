@@ -38,14 +38,6 @@ public class ServiceReminderScheduler
     private static final String TAG = "SrvcReminderScheduler";
     private final IBinder binder = new ServiceBinder();
 
-    public class ServiceBinder
-            extends Binder {
-
-        ServiceReminderScheduler getService() {
-            return ServiceReminderScheduler.this;
-        }
-    }
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(TAG, "Received start id " + startId + ": " + intent);
@@ -61,5 +53,13 @@ public class ServiceReminderScheduler
         Log.d(TAG, "setAlarm() Entered");
         new NotifierThread(this, c).run();
         Log.d(TAG, "setAlarm() Exited");
+    }
+
+    public class ServiceBinder
+            extends Binder {
+
+        ServiceReminderScheduler getService() {
+            return ServiceReminderScheduler.this;
+        }
     }
 }

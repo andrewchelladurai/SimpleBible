@@ -50,7 +50,7 @@ public class HelperDatabase
     public HelperDatabase(Context context, String databaseName) {
         super(context, databaseName, null, 1);
         Log.d(TAG, "HelperDatabase() called with: context = [" + context +
-                   "], databaseName = [" + databaseName + "]");
+                "], databaseName = [" + databaseName + "]");
         this.context = context;
 
         //Write a full path to the databases of your application
@@ -167,28 +167,28 @@ public class HelperDatabase
 
     public Cursor getDBRecords(int bookID, int chapterID) {
         Log.d(TAG, "getDBRecords() called with: bookID = [" + bookID +
-                   "], chapterID = [" + chapterID + "]");
+                "], chapterID = [" + chapterID + "]");
         SQLiteDatabase db = getReadableDatabase();
 
         Cursor cursor = db.query("bibleverses",
-                                 new String[]{"bookid", "chapterid", "verseid", "verse"},
-                                 "chapterid =? AND bookid=?",
-                                 new String[]{chapterID + "", bookID + ""},
-                                 null, null, null);
+                new String[]{"bookid", "chapterid", "verseid", "verse"},
+                "chapterid =? AND bookid=?",
+                new String[]{chapterID + "", bookID + ""},
+                null, null, null);
         Log.d(TAG, "getDBRecords() Exited");
         return cursor;
     }
 
     public Cursor getDBRecords(String paramTextToSearch) {
         Log.d(TAG, "getDBRecords() called with: paramTextToSearch = ["
-                   + paramTextToSearch + "]");
+                + paramTextToSearch + "]");
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query("bibleverses",
-                                 new String[]{"bookid", "chapterid", "verseid", "verse"},
-                                 "verse like ?",
-                                 new String[]{"%" + paramTextToSearch + "%"},
-                                 null, null, null);
+                new String[]{"bookid", "chapterid", "verseid", "verse"},
+                "verse like ?",
+                new String[]{"%" + paramTextToSearch + "%"},
+                null, null, null);
         Log.d(TAG, "getDBRecords() Exited");
         return cursor;
     }

@@ -44,19 +44,6 @@ public class ReminderScheduler {
     private ServiceReminderScheduler schedulerService;
     private Context context;
     private boolean isBound;
-
-    public ReminderScheduler(Context context) {
-        this.context = context;
-    }
-
-    public void doBindService() {
-        Log.d(TAG, "doBindService() Entered");
-        context.bindService(new Intent(context, ServiceReminderScheduler.class),
-                            mConnection, Context.BIND_AUTO_CREATE);
-        Log.d(TAG, "doBindService() Exited : Reminder Service Begun");
-        isBound = true;
-    }
-
     private ServiceConnection mConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName className, IBinder service) {
             ReminderScheduler.this.schedulerService =
@@ -67,6 +54,18 @@ public class ReminderScheduler {
 //            schedulerService = null;
         }
     };
+
+    public ReminderScheduler(Context context) {
+        this.context = context;
+    }
+
+    public void doBindService() {
+        Log.d(TAG, "doBindService() Entered");
+        context.bindService(new Intent(context, ServiceReminderScheduler.class),
+                mConnection, Context.BIND_AUTO_CREATE);
+        Log.d(TAG, "doBindService() Exited : Reminder Service Begun");
+        isBound = true;
+    }
 
     public void setAlarmForNotification(Calendar c) {
         Log.d(TAG, "setAlarmForNotification() Entered Exited");

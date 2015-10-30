@@ -43,16 +43,8 @@ public class NotifierService
         extends Service {
 
     private static final String TAG = "NotifierService";
-    private NotificationManager nManager;
     private final IBinder binder = new ServiceBinder();
-
-    public class ServiceBinder
-            extends Binder {
-
-        NotifierService getService() {
-            return NotifierService.this;
-        }
-    }
+    private NotificationManager nManager;
 
     @Override
     public void onCreate() {
@@ -76,7 +68,7 @@ public class NotifierService
     private void showNotification() {
         Log.d(TAG, "showNotification() Entered");
         boolean showReminder = PreferenceManager.getDefaultSharedPreferences(this)
-                                                .getBoolean("notifications_new_message", true);
+                .getBoolean("notifications_new_message", true);
 
         if (showReminder) {
             NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(this)
@@ -97,5 +89,13 @@ public class NotifierService
             Log.d(TAG, "showNotification() Reminder is disabled");
         }
         Log.d(TAG, "showNotification() Exited");
+    }
+
+    public class ServiceBinder
+            extends Binder {
+
+        NotifierService getService() {
+            return NotifierService.this;
+        }
     }
 }

@@ -55,7 +55,8 @@ public class NotifierThread
         Log.d(TAG, "run() Entered");
         Intent intent = new Intent(context, NotifierService.class);
         PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, 0);
-        alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(),
+                (60 * 60 * 24 * 1000), pendingIntent);
         Log.d(TAG, "run() Exited");
     }
 }

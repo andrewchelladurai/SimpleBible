@@ -120,7 +120,7 @@ public class ActivitySettings
      */
     private static boolean isSimplePreferences(Context context) {
         return Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB ||
-               !isXLargeTablet(context);
+                !isXLargeTablet(context);
     }
 
     /**
@@ -179,7 +179,7 @@ public class ActivitySettings
             // Show the Up button in the action bar.
             try {
                 getActionBar().setDisplayHomeAsUpEnabled(true);
-            } catch (Exception e) {
+            } catch (NullPointerException e) {
                 Log.e(TAG, "EXCEPTION : setupActionBar : " + e.getMessage());
                 e.printStackTrace();
             }

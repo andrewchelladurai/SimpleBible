@@ -35,12 +35,11 @@ public class BookUnit {
     private String bookName;
 
     public BookUnit(int bookNumber, String bookName, int totalChapters) {
-        Log.d(TAG, "BookUnit() called with: bookNumber = [" + bookNumber + "], bookName = ["
-                   + bookName + "], totalChapters = [" + totalChapters + "]");
         this.bookNumber = bookNumber;
         this.bookName = bookName;
         this.totalChapters = totalChapters;
-        Log.d(TAG, "BookUnit() Exited");
+        Log.d(TAG, "BookUnit() called with: bookNumber = [" + bookNumber + "], bookName = ["
+                + bookName + "], totalChapters = [" + totalChapters + "]");
     }
 
     public int getTotalChapters() {

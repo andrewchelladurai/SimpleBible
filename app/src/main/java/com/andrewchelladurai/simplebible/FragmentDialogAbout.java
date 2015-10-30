@@ -75,7 +75,7 @@ public class FragmentDialogAbout
         Dialog d = getDialog();
         if (null != d) {
             d.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
-                                    ViewGroup.LayoutParams.MATCH_PARENT);
+                    ViewGroup.LayoutParams.MATCH_PARENT);
         }
     }
 }

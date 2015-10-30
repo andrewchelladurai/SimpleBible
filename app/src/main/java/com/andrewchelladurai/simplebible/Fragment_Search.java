@@ -57,18 +57,18 @@ import java.util.ArrayList;
 public class Fragment_Search
         extends Fragment
         implements AbsListView.OnItemClickListener,
-                   AdapterView.OnItemLongClickListener,
-                   TextWatcher {
+        AdapterView.OnItemLongClickListener,
+        TextWatcher {
 
     private static final String CLASS_NAME = "Fragment_Search";
     private static final String TAB_NUMBER = "3";
     private OnFragmentInteractionListener mListener;
 
-    private ListView             resultList;
+    private ListView resultList;
     private ArrayAdapter<String> listAdapter;
-    private ArrayList<String>    arrayList;
-    private EditText             searchTextView;
-    private TextView             messageHeader;
+    private ArrayList<String> arrayList;
+    private EditText searchTextView;
+    private TextView messageHeader;
 
     private StringBuilder currentSearchText = new StringBuilder("");
 
@@ -93,7 +93,7 @@ public class Fragment_Search
             mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                                         + " must implement OnFragmentInteractionListener");
+                    + " must implement OnFragmentInteractionListener");
         }
     }
 
@@ -128,7 +128,7 @@ public class Fragment_Search
 
         if ((button.getText() + "").equalsIgnoreCase(
                 getString(R.string.fragment_serach_button_search_reset))
-            || currentSearchText.length() == 0) {
+                || currentSearchText.length() == 0) {
             Log.d(CLASS_NAME, "searchForResults - Inside first IF");
             ((EditText) getActivity().findViewById(R.id.fragmentsearch_input_text_field))
                     .setText("");
@@ -140,7 +140,7 @@ public class Fragment_Search
         }
         Log.d(CLASS_NAME, "searchForResults - Immediately after first IF");
         Cursor cursor = ActivityWelcome.getDataBaseHelper()
-                                       .getDBRecords(currentSearchText.toString());
+                .getDBRecords(currentSearchText.toString());
 
         arrayList.clear();
         listAdapter.clear();
@@ -160,10 +160,10 @@ public class Fragment_Search
 
                 book.append(BookSList.getBookName(bookID - 1));
                 result.append(book)
-                      .append(" (")
-                      .append(chapterNo).append(":")
-                      .append(verseNo).append(") ")
-                      .append(verse);
+                        .append(" (")
+                        .append(chapterNo).append(":")
+                        .append(verseNo).append(") ")
+                        .append(verse);
                 arrayList.add(result.toString());
 
                 result.delete(0, result.length());
@@ -188,8 +188,8 @@ public class Fragment_Search
 
         arrayList = new ArrayList<>(1);
         listAdapter = new ArrayAdapter<String>(view.getContext(),
-                                               android.R.layout.simple_list_item_1,
-                                               android.R.id.text1, arrayList);
+                android.R.layout.simple_list_item_1,
+                android.R.id.text1, arrayList);
         resultList = (ListView) view.findViewById(R.id.fragmentsearch_resultlist);
         resultList.setDivider(null);
         resultList.setOnItemLongClickListener(this);
@@ -206,7 +206,7 @@ public class Fragment_Search
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         Log.i(CLASS_NAME, "Entering onItemLongClick");
         String verse = ((TextView) view).getText()
-                       + " -- The Holy Bible (New International Version)";
+                + " -- The Holy Bible (New International Version)";
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_TEXT, verse);
@@ -235,7 +235,7 @@ public class Fragment_Search
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p/>
+     * <p>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
