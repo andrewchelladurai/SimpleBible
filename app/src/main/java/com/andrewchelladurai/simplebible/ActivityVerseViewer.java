@@ -259,6 +259,19 @@ public class ActivityVerseViewer
                     item.setTypeface(Typeface.DEFAULT);
                     break;
             }
+
+            // updated to handle font size feature
+            switch (Integer.parseInt(Utilities.getStringPreference("verse_text_size", "0"))) {
+                case 1: // Big
+                    item.setTextSize(20.0f);
+                    break;
+                case 2: // Large
+                    item.setTextSize(22.0f);
+                    break;
+                default: // Medium
+                    item.setTextSize(18.0f);
+                    break;
+            }
             return textView;
         }
     }

@@ -67,8 +67,7 @@ public class ActivitySettings
                 int index = listPreference.findIndexOfValue(stringValue);
 
                 // Set the summary to reflect the new value.
-                preference.setSummary(
-                        index >= 0 ? listPreference.getEntries()[index] : null);
+                preference.setSummary(index >= 0 ? listPreference.getEntries()[index] : null);
 
             } else if (preference instanceof RingtonePreference) {
                 // For ringtone preferences, look up the correct display value
@@ -78,8 +77,7 @@ public class ActivitySettings
                     preference.setSummary(R.string.pref_ringtone_silent);
 
                 } else {
-                    Ringtone ringtone = RingtoneManager.getRingtone(
-                            preference.getContext(),
+                    Ringtone ringtone = RingtoneManager.getRingtone(preference.getContext(),
                             Uri.parse(stringValue));
 
                     if (ringtone == null) {
@@ -224,7 +222,7 @@ public class ActivitySettings
         // their values. When their values change, their summaries are updated
         // to reflect the new value, per the Android Design guidelines.
         bindPreferenceSummaryToValue(findPreference("verse_text_style"));
-//        bindPreferenceSummaryToValue(findPreference("notifications_ringtone"));
+        bindPreferenceSummaryToValue(findPreference("verse_text_size"));
         bindPreferenceSummaryToValue(findPreference("pref_notify_time"));
         //        bindPreferenceSummaryToValue(findPreference("sync_frequency"));
     }
@@ -247,6 +245,7 @@ public class ActivitySettings
             // updated to reflect the new value, per the Android Design
             // guidelines.
             bindPreferenceSummaryToValue(findPreference("verse_text_style"));
+            bindPreferenceSummaryToValue(findPreference("verse_text_size"));
         }
     }
 
