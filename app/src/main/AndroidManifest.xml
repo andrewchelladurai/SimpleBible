@@ -1,27 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ This file 'AndroidManifest.xml' is part of SimpleBible :  An Android Bible application
-  ~ with offline access, simple features and easy to use navigation.
-  ~
-  ~ Copyright (c) Andrew Chelladurai - 2015.
-  ~
-  ~ This Application is available at below locations
-  ~ Binary : https://play.google.com/store/apps/developer?id=Andrew+Chelladurai
-  ~ Source : https://github.com/andrewchelladurai/
-  ~
-  ~ This program is free software: you can redistribute it and/or modify
-  ~ it under the terms of the GNU General Public License as published by
-  ~ the Free Software Foundation, either version 3 of the License, or
-  ~ (at your option) any later version.
-  ~
-  ~ This program is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~ GNU General Public License for more details.
-  ~
-  ~ You should have received a copy of the GNU General Public License
-  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
--->
+<?xml version="1.0" encoding="utf-8"?>
 <manifest
     package="com.andrewchelladurai.simplebible"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -30,40 +7,26 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/LightTheme">
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
         <activity
-            android:name=".ActivityWelcome"
-            android:label="@string/app_name">
+            android:name=".V2SimpleBibleActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".ActivityVerseViewer"
-            android:label="@string/title_activity_verse_viewer"
-            android:parentActivityName=".ActivityWelcome">
+            android:name=".V2ChapterVersesActivity"
+            android:label="@string/title_activity_v2_chapter_verses"
+            android:parentActivityName=".V2SimpleBibleActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ActivityWelcome" />
+                android:value="com.andrewchelladurai.simplebible.V2SimpleBibleActivity"/>
         </activity>
-        <activity
-            android:name=".ActivitySettings"
-            android:label="@string/title_activity_activity__settings"
-            android:parentActivityName=".ActivityWelcome">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ActivityWelcome" />
-        </activity>
-
-        <service
-            android:name=".notification.ServiceReminderScheduler"
-            android:enabled="true"
-            android:exported="true"></service>
-        <service
-            android:name=".notification.NotifierService"
-            android:enabled="true"
-            android:exported="true"></service>
     </application>
 
 </manifest>

@@ -1,122 +1,101 @@
-<!--
-  ~ This file 'strings.xml' is part of SimpleBible :  An Android Bible application
-  ~ with offline access, simple features and easy to use navigation.
-  ~
-  ~ Copyright (c) Andrew Chelladurai - 2015.
-  ~
-  ~ This Application is available at below locations
-  ~ Binary : https://play.google.com/store/apps/developer?id=Andrew+Chelladurai
-  ~ Source : https://github.com/andrewchelladurai/
-  ~
-  ~ This program is free software: you can redistribute it and/or modify
-  ~ it under the terms of the GNU General Public License as published by
-  ~ the Free Software Foundation, either version 3 of the License, or
-  ~ (at your option) any later version.
-  ~
-  ~ This program is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~ GNU General Public License for more details.
-  ~
-  ~ You should have received a copy of the GNU General Public License
-  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
-  -->
-
 <resources>
-    <string name="app_name">Simple Bible Offline - NIV</string>
+    <string name="app_name">Simple Bible</string>
 
-    <string name="title_tab1">welcome</string>
-    <string name="title_tab2">books</string>
-    <string name="title_tab3">search</string>
-    <string name="title_tab4">about</string>
-
-    <string name="header_welcome">THE HOLY BIBLE\nNew International Version</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
 
-    <string name="title_activity_verse_viewer">Verses</string>
-    <string name="title_activity_settings">Settings</string>
+    <string name="text_about">About</string>
+    <string name="text_search">Search Text</string>
+    <string name="text_bookmarked">Bookmarked Verses</string>
+    <string name="text_nt_books">New Testament Books</string>
+    <string name="text_ot_books">Old Testament Books</string>
+    <string name="text_welcome">Welcome</string>
+    <string name="version">New International Version</string>
+
+    <string name="fragment_home_daily_verse_blank">Today\'s Daily Verse</string>
+    <string name="fragment_home_img_books_desc">Books of The Holy Bible</string>
+
+    <string name="fragment_v2_search_edit_text_hint">Search this exact text</string>
+    <string name="fragment_v2_search_button_label_default">Search for Text</string>
+
     <string name="contactEmail">theunknownandrew+androidapps@gmail.com</string>
     <string name="contactSubject">Simple Bible - Feedback</string>
     <string name="githubPage">http://github.com/andrewchelladurai/</string>
     <string name="gPlusPage">http://plus.google.com/+AndrewChelladurai</string>
-    <string name="booksofthebible_desc">Books of The Holy Bible</string>
-    <string name="fragment_serach_button_search">Show Results Below</string>
-    <string name="fragment_serach_button_search_reset">Click to Reset</string>
-    <string name="action_about">About</string>
 
-    <string-array name="allbooks">
-        <item>Genesis</item>
-        <item>Exodus</item>
-        <item>Leviticus</item>
-        <item>Numbers</item>
-        <item>Deuteronomy</item>
-        <item>Joshua</item>
-        <item>Judges</item>
-        <item>Ruth</item>
-        <item>1 Samuel</item>
-        <item>2 Samuel</item>
-        <item>1 Kings</item>
-        <item>2 Kings</item>
-        <item>1 Chronicles</item>
-        <item>2 Chronicles</item>
-        <item>Ezra</item>
-        <item>Nehemiah</item>
-        <item>Esther</item>
-        <item>Job</item>
-        <item>Psalms</item>
-        <item>Proverbs</item>
-        <item>Ecclesiastes</item>
-        <item>Song Of Solomon</item>
-        <item>Isaiah</item>
-        <item>Jeremiah</item>
-        <item>Lamentations</item>
-        <item>Ezekiel</item>
-        <item>Daniel</item>
-        <item>Hosea</item>
-        <item>Joel</item>
-        <item>Amos</item>
-        <item>Obadiah</item>
-        <item>Jonah</item>
-        <item>Micah</item>
-        <item>Nahum</item>
-        <item>Habakkuk</item>
-        <item>Zephaniah</item>
-        <item>Haggai</item>
-        <item>Zechariah</item>
-        <item>Malachi</item>
-        <item>Matthew</item>
-        <item>Mark</item>
-        <item>Luke</item>
-        <item>John</item>
-        <item>Acts</item>
-        <item>Romans</item>
-        <item>1 Corinthians</item>
-        <item>2 Corinthians</item>
-        <item>Galatians</item>
-        <item>Ephesians</item>
-        <item>Philippians</item>
-        <item>Colossians</item>
-        <item>1 Thessalonians</item>
-        <item>2 Thessalonians</item>
-        <item>1 Timothy</item>
-        <item>2 Timothy</item>
-        <item>Titus</item>
-        <item>Philemon</item>
-        <item>Hebrews</item>
-        <item>James</item>
-        <item>1 Peter</item>
-        <item>2 Peter</item>
-        <item>1 John</item>
-        <item>2 John</item>
-        <item>3 John</item>
-        <item>Jude</item>
-        <item>Revelation</item>
+    <string-array name="books_n_chapter_count_array">
+        <item>Genesis:50</item>
+        <item>Exodus:40</item>
+        <item>Leviticus:27</item>
+        <item>Numbers:36</item>
+        <item>Deuteronomy:34</item>
+        <item>Joshua:24</item>
+        <item>Judges:21</item>
+        <item>Ruth:4</item>
+        <item>1 Samuel:31</item>
+        <item>2 Samuel:24</item>
+        <item>1 Kings:22</item>
+        <item>2 Kings:25</item>
+        <item>1 Chronicles:29</item>
+        <item>2 Chronicles:36</item>
+        <item>Ezra:10</item>
+        <item>Nehemiah:13</item>
+        <item>Esther:10</item>
+        <item>Job:42</item>
+        <item>Psalms:150</item>
+        <item>Proverbs:31</item>
+        <item>Ecclesiastes:12</item>
+        <item>Song of Solomon:8</item>
+        <item>Isaiah:66</item>
+        <item>Jeremiah:52</item>
+        <item>Lamentations:5</item>
+        <item>Ezekiel:48</item>
+        <item>Daniel:12</item>
+        <item>Hosea:14</item>
+        <item>Joel:3</item>
+        <item>Amos:9</item>
+        <item>Obadiah:1</item>
+        <item>Jonah:4</item>
+        <item>Micah:7</item>
+        <item>Nahum:3</item>
+        <item>Habakkuk:3</item>
+        <item>Zephaniah:3</item>
+        <item>Haggai:2</item>
+        <item>Zechariah:14</item>
+        <item>Malachi:4</item>
+        <item>Matthew:28</item>
+        <item>Mark:16</item>
+        <item>Luke:24</item>
+        <item>John:21</item>
+        <item>Acts:28</item>
+        <item>Romans:16</item>
+        <item>1 Corinthians:16</item>
+        <item>2 Corinthians:13</item>
+        <item>Galatians:6</item>
+        <item>Ephesians:6</item>
+        <item>Philippians:4</item>
+        <item>Colossians:4</item>
+        <item>1 Thessalonians:5</item>
+        <item>2 Thessalonians:3</item>
+        <item>1 Timothy:6</item>
+        <item>2 Timothy:4</item>
+        <item>Titus:3</item>
+        <item>Philemon:1</item>
+        <item>Hebrews:13</item>
+        <item>James:5</item>
+        <item>1 Peter:5</item>
+        <item>2 Peter:3</item>
+        <item>1 John:5</item>
+        <item>2 John:1</item>
+        <item>3 John:1</item>
+        <item>Jude:1</item>
+        <item>Revelation:22</item>
     </string-array>
+    <string name="title_activity_v2_chapter_verses">Book : Chapter</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="action_reminder">Reminder</string>
 
 </resources>
