@@ -121,7 +121,7 @@ public class DatabaseUtility
         Log.d(TAG, "copyDataBase() Exited");
     }
 
-    public Cursor getDBRecords(int bookID, int chapterID) {
+    private Cursor getDBRecords(int bookID, int chapterID) {
         Log.d(TAG, "getDBRecords() called with: bookID = [" + bookID +
                    "], chapterID = [" + chapterID + "]");
         SQLiteDatabase db = getReadableDatabase();
@@ -138,7 +138,7 @@ public class DatabaseUtility
     public ArrayList<String> getAllVerseOfChapter(int bookNumber, int chapterNumber) {
         Cursor cursor = getDBRecords(bookNumber, chapterNumber);
         ArrayList<String> list = new ArrayList<>(0);
-//
+
         if (cursor.moveToFirst()) {
             int verseIndex = cursor.getColumnIndex("Verse");
             int verseIdIndex = cursor.getColumnIndex("VerseId");
@@ -154,18 +154,38 @@ public class DatabaseUtility
         return list;
     }
 
-    public Cursor getDBRecords(String paramTextToSearch) {
-        Log.d(TAG, "getDBRecords() called with: paramTextToSearch = ["
-                   + paramTextToSearch + "]");
+    private Cursor searchForTextCursor(String textToSearch) {
+        Log.d(TAG, "getDBRecords() called with: textToSearch = [" + textToSearch + "]");
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query("bibleverses",
                                  new String[]{"bookid", "chapterid", "verseid", "verse"},
                                  "verse like ?",
-                                 new String[]{"%" + paramTextToSearch + "%"},
+                                 new String[]{"%" + textToSearch + "%"},
                                  null, null, null);
         Log.d(TAG, "getDBRecords() Exited");
         return cursor;
+    }
+
+    public ArrayList<String> searchForText(String textToSearch) {
+        ArrayList<String> results = new ArrayList<>(0);
+
+        if (textToSearch != null && textToSearch.length() > 0) {
+            Cursor cursor = searchForTextCursor(textToSearch);
+            if (cursor.moveToFirst()) {
+                int verseIndex = cursor.getColumnIndex("Verse");
+                int verseIdIndex = cursor.getColumnIndex("VerseId");
+                //            int chapterIdIndex = cursor.getColumnIndex("ChapterId");
+                //            int bookIdIndex = cursor.getColumnIndex("BookId");
+                do {
+                    results.add(cursor.getInt(verseIdIndex) + " : " + cursor.getString(verseIndex));
+                } while (cursor.moveToNext());
+                if (results.size() > 0) {
+                    cursor.close();
+                }
+            }
+        }
+        return results;
     }
 
     @Override

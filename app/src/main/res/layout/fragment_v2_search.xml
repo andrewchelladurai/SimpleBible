@@ -43,7 +43,7 @@
         android:text=""
         android:textAppearance="?android:attr/textAppearanceSmall"/>
 
-    <ListView
+    <android.support.v7.widget.ListViewCompat
         android:id="@+id/fragment_v2_search_results_listView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
