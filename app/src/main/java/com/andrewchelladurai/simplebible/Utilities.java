@@ -1,8 +1,8 @@
 package com.andrewchelladurai.simplebible;
 
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.Log;
+import android.view.Surface;
 
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
@@ -21,24 +21,18 @@ public class Utilities {
         return staticInstance;
     }
 
-    public boolean isLarge(Resources resources) {
-        return resources.getBoolean(R.bool.isLarge);
-    }
-
-    public int getChapterListColumnCount(Resources resources) {
-        int orientation = resources.getConfiguration().orientation;
-        int count = 1;
-        switch (orientation) {
-            case Configuration.ORIENTATION_LANDSCAPE:
-                count = (isLarge(resources)) ? 2 : 1;
-                break;
-            case Configuration.ORIENTATION_PORTRAIT:
-                count = (isLarge(resources)) ? 2 : 1;
-                break;
+    public int getChapterListColumnCount(int rotation, Resources resources) {
+        switch (rotation) {
+            case Surface.ROTATION_0:
+            case Surface.ROTATION_180:
+                Log.d(TAG, "getChapterListColumnCount() either 0 | 180");
+                return 1;
+            case Surface.ROTATION_90:
+            case Surface.ROTATION_270:
+                Log.d(TAG, "getChapterListColumnCount() either 90 | 270");
+                return 2;
         }
-        Log.d(TAG, "getChapterListColumnCount() : orientation = [" + orientation + "]"
-                   + " count [" + count + "]");
-        return count;
+        return 1;
     }
 
 }

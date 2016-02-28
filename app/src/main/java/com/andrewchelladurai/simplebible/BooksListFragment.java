@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,17 +16,41 @@ public class BooksListFragment
 
     public static final  String ARG_OLD_TESTAMENT_LIST = "OLD_TESTAMENT_LIST";
     public static final  String ARG_NEW_TESTAMENT_LIST = "NEW_TESTAMENT_LIST";
+    private static final String TAG                    = "BooksListFragment";
     private static final String ARG_COLUMN_COUNT       = "COLUMN_COUNT";
-    private static BooksListFragment staticInstanceOT;
-    private static BooksListFragment staticInstanceNT;
-    private int    mColumnCount = 2;
-    private String booksList    = ARG_OLD_TESTAMENT_LIST;
+    //    private static BooksListFragment staticInstanceOT;
+//    private static BooksListFragment staticInstanceNT;
+    private              int    mColumnCount           = 1;
+    private              String booksList              = ARG_OLD_TESTAMENT_LIST;
     private InteractionListener mListener;
 
     public BooksListFragment() {
     }
 
-    public static BooksListFragment getInstance(String booksListType, int columnCount) {
+    public static BooksListFragment createInstance(String booksListType, int columnCount) {
+        if (booksListType == null) {
+            booksListType = ARG_OLD_TESTAMENT_LIST;
+        }
+        Bundle args = new Bundle();
+        if (columnCount <= 0) {
+            columnCount = 1;
+        }
+
+        args.putInt(ARG_COLUMN_COUNT, columnCount);
+
+        BooksListFragment fragment = new BooksListFragment();
+        fragment.setArguments(args);
+        fragment.mColumnCount = columnCount;
+
+        if (booksListType.equalsIgnoreCase(ARG_NEW_TESTAMENT_LIST)) {
+            fragment.booksList = ARG_NEW_TESTAMENT_LIST;
+        } else {
+            fragment.booksList = ARG_OLD_TESTAMENT_LIST;
+        }
+        return fragment;
+    }
+
+/*    public static BooksListFragment getInstance(String booksListType, int columnCount) {
         if (booksListType == null) {
             booksListType = ARG_OLD_TESTAMENT_LIST;
         }
@@ -53,7 +78,7 @@ public class BooksListFragment
             }
             return staticInstanceOT;
         }
-    }
+    }*/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,6 +97,7 @@ public class BooksListFragment
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
+            Log.d(TAG, "onCreateView: mColumnCount = " + mColumnCount);
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
