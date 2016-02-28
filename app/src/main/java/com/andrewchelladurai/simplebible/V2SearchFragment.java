@@ -51,7 +51,7 @@ public class V2SearchFragment
         resultsLabel = (TextView) view.findViewById(R.id.fragment_v2_search_results_label);
         ListViewCompat resultsList = (ListViewCompat) view.findViewById(
                 R.id.fragment_v2_search_results_listView);
-        listAdapater = new ArrayAdapter<String>(
+        listAdapater = new ArrayAdapter<>(
                 getContext(), android.R.layout.simple_list_item_1, new ArrayList<String>(1));
         resultsList.setAdapter(listAdapater);
 

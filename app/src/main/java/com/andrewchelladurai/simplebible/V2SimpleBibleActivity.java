@@ -189,7 +189,7 @@ public class V2SimpleBibleActivity
     }
 
     @Override
-    public void handleBooksListFragmentInteraction(AllBooks.Book item) {
+    public void onBooksListFragmentInteraction(AllBooks.Book item) {
         Intent intent = new Intent(this, V2ChapterVersesActivity.class);
         intent.putExtra(V2ChapterVersesActivity.ARG_BOOK_NUMBER, item.getBookNumber());
         startActivity(intent);

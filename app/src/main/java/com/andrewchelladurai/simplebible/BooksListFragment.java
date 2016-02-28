@@ -107,6 +107,6 @@ public class BooksListFragment
 
     public interface InteractionListener {
 
-        void handleBooksListFragmentInteraction(AllBooks.Book item);
+        void onBooksListFragmentInteraction(AllBooks.Book item);
     }
 }
