@@ -35,12 +35,13 @@
 
     <TextView
         android:id="@+id/fragment_v2_search_results_label"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fragment_v2_search_button"
         android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/dp_10"
         android:text=""
+        android:textAlignment="center"
         android:textAppearance="?android:attr/textAppearanceSmall"/>
 
     <android.support.v7.widget.ListViewCompat
@@ -49,5 +50,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/fragment_v2_search_results_label"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_10"/>
 </RelativeLayout>

@@ -18,7 +18,8 @@ import java.util.ArrayList;
 
 public class V2SearchFragment
         extends Fragment
-        implements View.OnClickListener, TextWatcher {
+        implements View.OnClickListener,
+                   TextWatcher {
 
     private static final String TAG = "V2SearchFragment";
     private static V2SearchFragment     staticInstance;
@@ -26,7 +27,6 @@ public class V2SearchFragment
     private        EditText             editText;
     private        Button               button;
     private        TextView             resultsLabel;
-    private        ListViewCompat       resultsList;
     private        ArrayAdapter<String> listAdapater;
 
     public V2SearchFragment() {
@@ -49,7 +49,8 @@ public class V2SearchFragment
         editText = (EditText) view.findViewById(R.id.fragment_v2_search_edittext);
         button = (Button) view.findViewById(R.id.fragment_v2_search_button);
         resultsLabel = (TextView) view.findViewById(R.id.fragment_v2_search_results_label);
-        resultsList = (ListViewCompat) view.findViewById(R.id.fragment_v2_search_results_listView);
+        ListViewCompat resultsList = (ListViewCompat) view.findViewById(
+                R.id.fragment_v2_search_results_listView);
         listAdapater = new ArrayAdapter<String>(
                 getContext(), android.R.layout.simple_list_item_1, new ArrayList<String>(1));
         resultsList.setAdapter(listAdapater);
@@ -92,7 +93,6 @@ public class V2SearchFragment
                                               R.string.fragment_v2_search_button_label_reset))) {
             button.setText(getString(R.string.fragment_v2_search_button_label_default));
             listAdapater.clear();
-            listAdapater.notifyDataSetChanged();
             editText.setText("");
             resultsLabel.setText("");
         } else if (title.equalsIgnoreCase(getString(
@@ -103,19 +103,18 @@ public class V2SearchFragment
             if (results.size() > 0) {
                 listAdapater.clear();
                 listAdapater.addAll(results);
-                listAdapater.notifyDataSetChanged();
-                button.setText(getString(R.string.fragment_v2_search_button_label_default));
-                resultsLabel.setText(
-                        (results.size() + 1) + " "
-                        + getString(R.string.fragment_v2_search_button_label_results_found));
+                String str = (results.size() + 1) + " "
+                             + getString(R.string.fragment_v2_search_button_label_results_found);
+                resultsLabel.setText(str);
                 button.setText(getString(R.string.fragment_v2_search_button_label_reset));
             } else {
                 resultsLabel.setText(
                         getString(R.string.fragment_v2_search_button_label_no_results_found));
                 button.setText(getString(R.string.fragment_v2_search_button_label_reset));
+                listAdapater.clear();
             }
         }
-
+        listAdapater.notifyDataSetChanged();
     }
 
     @Override
