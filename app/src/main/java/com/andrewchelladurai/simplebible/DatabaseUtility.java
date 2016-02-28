@@ -48,14 +48,13 @@ public class DatabaseUtility
         return staticInstance;
     }
 
-    private SQLiteDatabase openDataBase()
+    private void openDataBase()
     throws SQLException {
         String path = DB_PATH + File.separatorChar + DATABASE_NAME;
         if (database == null) {
             createDataBase();
             database = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
         }
-        return database;
     }
 
     private void createDataBase() {

@@ -9,9 +9,9 @@ import java.util.Map;
 
 public class AllBooks {
 
-    static final         Map<String, Book> NT_BOOKS_MAP  = new HashMap<>();
+    private static final Map<String, Book> NT_BOOKS_MAP = new HashMap<>();
     private static final Map<String, Book> OT_BOOKS_MAP  = new HashMap<>();
-    private static final String TAG = "AllBooks";
+    private static final String            TAG          = "AllBooks";
     private static final List<Book>        OT_BOOKS_LIST = new ArrayList<>();
     private static final List<Book>        NT_BOOKS_LIST = new ArrayList<>();
 

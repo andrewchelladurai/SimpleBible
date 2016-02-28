@@ -70,6 +70,14 @@ public class FragmentHome
         mListener = null;
     }
 
+    public String getVerseOfTheDay() {
+        return verseOfTheDay;
+    }
+
+    public void setVerseOfTheDay(String verseOfTheDay) {
+        this.verseOfTheDay = verseOfTheDay;
+    }
+
     public interface InteractionListener {
 
         void onHomeFragmentInteraction(View view);
