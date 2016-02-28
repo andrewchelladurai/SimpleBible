@@ -175,10 +175,21 @@ public class DatabaseUtility
             if (cursor.moveToFirst()) {
                 int verseIndex = cursor.getColumnIndex("Verse");
                 int verseIdIndex = cursor.getColumnIndex("VerseId");
-                //            int chapterIdIndex = cursor.getColumnIndex("ChapterId");
-                //            int bookIdIndex = cursor.getColumnIndex("BookId");
+                int bookIdIndex = cursor.getColumnIndex("BookId");
+                int chapterIdIndex = cursor.getColumnIndex("ChapterId");
+                AllBooks.Book book;
+                StringBuilder entry = new StringBuilder();
                 do {
-                    results.add(cursor.getInt(verseIdIndex) + " : " + cursor.getString(verseIndex));
+                    entry.delete(0, entry.length());
+                    book = AllBooks.getBook(cursor.getInt(bookIdIndex));
+                    entry.append(book.bookName)
+                         .append(" [")
+                         .append(cursor.getInt(chapterIdIndex))
+                         .append(" - ")
+                         .append(cursor.getInt(verseIdIndex))
+                         .append("] : ")
+                         .append(cursor.getString(verseIndex));
+                    results.add(entry.toString());
                 } while (cursor.moveToNext());
                 if (results.size() > 0) {
                     cursor.close();

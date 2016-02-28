@@ -4,27 +4,30 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.ListViewCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class V2SearchFragment
         extends Fragment
-        implements View.OnClickListener {
+        implements View.OnClickListener, TextWatcher {
 
     private static final String TAG = "V2SearchFragment";
-    private static V2SearchFragment    staticInstance;
-    private        InteractionListener mListener;
-    private EditText       editText;
-    private Button         button;
-    private TextView       resultsLabel;
-    private ListViewCompat resultsList;
+    private static V2SearchFragment     staticInstance;
+    private        InteractionListener  mListener;
+    private        EditText             editText;
+    private        Button               button;
+    private        TextView             resultsLabel;
+    private        ListViewCompat       resultsList;
+    private        ArrayAdapter<String> listAdapater;
 
     public V2SearchFragment() {
         // Required empty public constructor
@@ -47,8 +50,12 @@ public class V2SearchFragment
         button = (Button) view.findViewById(R.id.fragment_v2_search_button);
         resultsLabel = (TextView) view.findViewById(R.id.fragment_v2_search_results_label);
         resultsList = (ListViewCompat) view.findViewById(R.id.fragment_v2_search_results_listView);
+        listAdapater = new ArrayAdapter<String>(
+                getContext(), android.R.layout.simple_list_item_1, new ArrayList<String>(1));
+        resultsList.setAdapter(listAdapater);
 
         button.setOnClickListener(this);
+        editText.addTextChangedListener(this);
         return view;
     }
 
@@ -71,12 +78,58 @@ public class V2SearchFragment
 
     @Override
     public void onClick(View view) {
-        ArrayList<String> results =
-                DatabaseUtility.getInstance(getContext())
-                               .searchForText(editText.getText().toString());
-        Toast.makeText(getContext(),
-                       editText.getText() + " : " + results.size() + " Results",
-                       Toast.LENGTH_SHORT).show();
+        String textToSearch = editText.getText().toString();
+
+        if (textToSearch.length() < 2) {
+            resultsLabel.setText(getString(R.string.fragment_v2_search_results_label_2chars));
+            editText.requestFocus();
+            return;
+        }
+
+        String title = button.getText().toString();
+
+        if (title.equalsIgnoreCase(getString( // is button showing : Click to reset
+                                              R.string.fragment_v2_search_button_label_reset))) {
+            button.setText(getString(R.string.fragment_v2_search_button_label_default));
+            listAdapater.clear();
+            listAdapater.notifyDataSetChanged();
+            editText.setText("");
+            resultsLabel.setText("");
+        } else if (title.equalsIgnoreCase(getString(
+                R.string.fragment_v2_search_button_label_default))) {
+            ArrayList<String> results =
+                    DatabaseUtility.getInstance(getContext())
+                                   .searchForText(editText.getText().toString());
+            if (results.size() > 0) {
+                listAdapater.clear();
+                listAdapater.addAll(results);
+                listAdapater.notifyDataSetChanged();
+                button.setText(getString(R.string.fragment_v2_search_button_label_default));
+                resultsLabel.setText(
+                        (results.size() + 1) + " "
+                        + getString(R.string.fragment_v2_search_button_label_results_found));
+                button.setText(getString(R.string.fragment_v2_search_button_label_reset));
+            } else {
+                resultsLabel.setText(
+                        getString(R.string.fragment_v2_search_button_label_no_results_found));
+                button.setText(getString(R.string.fragment_v2_search_button_label_reset));
+            }
+        }
+
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        button.setText(getString(R.string.fragment_v2_search_button_label_default));
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
     }
 
     public interface InteractionListener {
