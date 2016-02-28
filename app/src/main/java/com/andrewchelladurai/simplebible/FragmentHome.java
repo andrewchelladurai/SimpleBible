@@ -12,25 +12,25 @@ import android.view.ViewGroup;
  * Activities that contain this fragment must implement the
  * {@link InteractionListener} interface
  * to handle interaction events.
- * Use the {@link V2HomeFragment#getInstance} factory method to
+ * Use the {@link FragmentHome#getInstance} factory method to
  * create an instance of this fragment.
  */
-public class V2HomeFragment
+public class FragmentHome
         extends Fragment {
 
-    private static final String TAG                  = "V2HomeFragment";
+    private static final String TAG = "FragmentHome";
     private static final String ARG_VERSE_OF_THE_DAY = "ARG_VERSE_OF_THE_DAY";
-    private static V2HomeFragment      staticInstance;
+    private static FragmentHome staticInstance;
     private        String              verseOfTheDay;
     private        InteractionListener mListener;
 
-    public V2HomeFragment() {
+    public FragmentHome() {
         // Required empty public constructor
     }
 
-    public static V2HomeFragment getInstance(String verseID) {
+    public static FragmentHome getInstance(String verseID) {
         if (staticInstance == null) {
-            staticInstance = new V2HomeFragment();
+            staticInstance = new FragmentHome();
             Bundle args = new Bundle();
             args.putString(ARG_VERSE_OF_THE_DAY, verseID);
             staticInstance.setArguments(args);
@@ -50,7 +50,7 @@ public class V2HomeFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_v2_home, container, false);
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override

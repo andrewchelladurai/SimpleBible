@@ -14,24 +14,24 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class V2VersesFragment
+public class FragmentChapterVerses
         extends Fragment
         implements AdapterView.OnItemLongClickListener {
 
     private static final String ARG_VERSES_LIST = "VERSES_LIST";
-    private static V2VersesFragment     staticInstance;
-    private static ArrayAdapter<String> verseListAdapter;
+    private static FragmentChapterVerses staticInstance;
+    private static ArrayAdapter<String>  verseListAdapter;
     private ArrayList<String> versesList = new ArrayList<>(0);
 
     private InteractionListener mListener;
 
-    public V2VersesFragment() {
+    public FragmentChapterVerses() {
         // Required empty public constructor
     }
 
-    public static V2VersesFragment getInstance() {
+    public static FragmentChapterVerses getInstance() {
         if (staticInstance == null) {
-            staticInstance = new V2VersesFragment();
+            staticInstance = new FragmentChapterVerses();
             Bundle args = new Bundle();
             args.putStringArrayList(ARG_VERSES_LIST, new ArrayList<String>(0));
             staticInstance.setArguments(args);
@@ -51,7 +51,7 @@ public class V2VersesFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_v2_verses, container, false);
+        View view = inflater.inflate(R.layout.fragment_verses, container, false);
         ArrayList<String> verseList = new ArrayList<>(1);
         verseListAdapter = new ArrayAdapter<String>(getContext(),
                                                     android.R.layout.simple_list_item_1,
@@ -87,7 +87,7 @@ public class V2VersesFragment
     }
 
     public void refreshVersesList(int bookNumber, int chapterNumber) {
-        versesList = V2DatabaseUtility.getInstance(getContext())
+        versesList = DatabaseUtility.getInstance(getContext())
                                     .getAllVerseOfChapter(bookNumber, chapterNumber);
         verseListAdapter.clear();
         verseListAdapter.addAll(versesList);

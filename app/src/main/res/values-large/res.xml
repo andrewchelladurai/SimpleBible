@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <bool nameV2="isLarge">true</bool>
+    <bool name="isLarge">true</bool>
 </resources>

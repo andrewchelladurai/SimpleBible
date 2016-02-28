@@ -11,23 +11,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class V2BooksListFragment
+public class FragmentBooksList
         extends Fragment {
 
     public static final  String ARG_OLD_TESTAMENT_LIST = "OLD_TESTAMENT_LIST";
     public static final  String ARG_NEW_TESTAMENT_LIST = "NEW_TESTAMENT_LIST";
-    private static final String TAG = "V2BooksListFragment";
+    private static final String TAG = "FragmentBooksList";
     private static final String ARG_COLUMN_COUNT       = "COLUMN_COUNT";
-    private static V2BooksListFragment staticInstanceOT;
-    private static V2BooksListFragment staticInstanceNT;
+    private static FragmentBooksList staticInstanceOT;
+    private static FragmentBooksList staticInstanceNT;
     private int    mColumnCount = 1;
     private String booksList    = ARG_OLD_TESTAMENT_LIST;
     private InteractionListener mListener;
 
-    public V2BooksListFragment() {
+    public FragmentBooksList() {
     }
 
-    public static V2BooksListFragment getInstance(String booksListType, int columnCount) {
+    public static FragmentBooksList getInstance(String booksListType, int columnCount) {
         if (booksListType == null) {
             booksListType = ARG_OLD_TESTAMENT_LIST;
         }
@@ -40,7 +40,7 @@ public class V2BooksListFragment
 
         if (booksListType.equalsIgnoreCase(ARG_NEW_TESTAMENT_LIST)) {
             if (staticInstanceNT == null) {
-                staticInstanceNT = new V2BooksListFragment();
+                staticInstanceNT = new FragmentBooksList();
                 staticInstanceNT.setArguments(args);
                 staticInstanceNT.mColumnCount = columnCount;
                 staticInstanceNT.booksList = ARG_NEW_TESTAMENT_LIST;
@@ -48,7 +48,7 @@ public class V2BooksListFragment
             return staticInstanceNT;
         } else {
             if (staticInstanceOT == null) {
-                staticInstanceOT = new V2BooksListFragment();
+                staticInstanceOT = new FragmentBooksList();
                 staticInstanceOT.setArguments(args);
                 staticInstanceOT.mColumnCount = columnCount;
                 staticInstanceOT.booksList = ARG_OLD_TESTAMENT_LIST;
@@ -68,7 +68,7 @@ public class V2BooksListFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_v2_book_list_layout, container, false);
+        View view = inflater.inflate(R.layout.fragment_book_list_layout, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -82,10 +82,10 @@ public class V2BooksListFragment
             }
             if (this.booksList.equalsIgnoreCase(ARG_NEW_TESTAMENT_LIST)) {
                 recyclerView.setAdapter(
-                        new V2BooksListAdapter(V2AllBooks.getNTBooksList(), mListener));
+                        new AdapterBooksList(AllBooks.getNTBooksList(), mListener));
             } else {
                 recyclerView.setAdapter(
-                        new V2BooksListAdapter(V2AllBooks.getOTBooksList(), mListener));
+                        new AdapterBooksList(AllBooks.getOTBooksList(), mListener));
             }
         }
         return view;
@@ -110,6 +110,6 @@ public class V2BooksListFragment
 
     public interface InteractionListener {
 
-        void onBooksListFragmentInteraction(V2AllBooks.Book item);
+        void onBooksListFragmentInteraction(AllBooks.Book item);
     }
 }

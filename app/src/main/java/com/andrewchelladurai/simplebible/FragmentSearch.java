@@ -18,26 +18,26 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class V2SearchFragment
+public class FragmentSearch
         extends Fragment
         implements View.OnClickListener,
                    TextWatcher, AdapterView.OnItemLongClickListener {
 
-    private static final String TAG = "V2SearchFragment";
-    private static V2SearchFragment     staticInstance;
+    private static final String TAG = "FragmentSearch";
+    private static FragmentSearch staticInstance;
     private        InteractionListener  mListener;
     private        EditText             editText;
     private        Button               button;
     private        TextView             resultsLabel;
     private        ArrayAdapter<String> listAdapater;
 
-    public V2SearchFragment() {
+    public FragmentSearch() {
         // Required empty public constructor
     }
 
-    public static V2SearchFragment getInstance() {
+    public static FragmentSearch getInstance() {
         if (staticInstance == null) {
-            staticInstance = new V2SearchFragment();
+            staticInstance = new FragmentSearch();
             Bundle args = new Bundle();
             staticInstance.setArguments(args);
         }
@@ -47,7 +47,7 @@ public class V2SearchFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_v2_search, container, false);
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
         editText = (EditText) view.findViewById(R.id.fragment_v2_search_edittext);
         button = (Button) view.findViewById(R.id.fragment_v2_search_button);
         resultsLabel = (TextView) view.findViewById(R.id.fragment_v2_search_results_label);
@@ -101,7 +101,7 @@ public class V2SearchFragment
         } else if (title.equalsIgnoreCase(getString(
                 R.string.fragment_v2_search_button_label_default))) {
             ArrayList<String> results =
-                    V2DatabaseUtility.getInstance(getContext())
+                    DatabaseUtility.getInstance(getContext())
                                    .searchForText(editText.getText().toString());
             if (results.size() > 0) {
                 listAdapater.clear();

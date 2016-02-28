@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".V2SimpleBibleActivity">
+    tools:context=".ActivitySimpleBible">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/v2_content_simple_bible"/>
+    <include layout="@layout/content_simple_bible"/>
 
     <!--<android.support.design.widget.FloatingActionButton-->
     <!--android:id="@+id/activity_simple_bible_fab"-->

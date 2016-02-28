@@ -4,27 +4,27 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/activity_simple_bible_navbar_welcome"
-            android:icon="@drawable/ic_home_black_24dp"
+            android:icon="@drawable/ic_home_black"
             android:title="@string/text_welcome"/>
         <item
             android:id="@+id/activity_simple_bible_navbar_otbooks"
-            android:icon="@drawable/ic_toc_black_24dp"
+            android:icon="@drawable/ic_toc_black"
             android:title="@string/text_ot_books"/>
         <item
             android:id="@+id/activity_simple_bible_navbar_ntbooks"
-            android:icon="@drawable/ic_toc_black_24dp"
+            android:icon="@drawable/ic_toc_black"
             android:title="@string/text_nt_books"/>
         <item
             android:id="@+id/activity_simple_bible_navbar_bookmarked"
-            android:icon="@drawable/ic_bookmark_black_24dp"
+            android:icon="@drawable/ic_bookmark_black"
             android:title="@string/text_bookmarked"/>
         <item
             android:id="@+id/activity_simple_bible_navbar_search"
-            android:icon="@drawable/ic_search_black_24dp"
+            android:icon="@drawable/ic_search_black"
             android:title="@string/text_search"/>
         <item
             android:id="@+id/activity_simple_bible_navbar_about"
-            android:icon="@drawable/ic_info_black_24dp"
+            android:icon="@drawable/ic_info_black"
             android:title="@string/text_about"/>
     </group>
 

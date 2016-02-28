@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.andrewchelladurai.simplebible.V2SearchFragment">
+    tools:context=".FragmentSearch">
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/fragment_v2_search_textinputlayout"

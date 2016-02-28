@@ -13,23 +13,23 @@ import android.webkit.WebView;
  * Activities that contain this fragment must implement the
  * {@link InteractionListener} interface
  * to handle interaction events.
- * Use the {@link V2AboutFragment#getInstance} factory method to
+ * Use the {@link FragmentAbout#getInstance} factory method to
  * create an instance of this fragment.
  */
-public class V2AboutFragment
+public class FragmentAbout
         extends Fragment {
 
-    private static final String TAG = "V2AboutFragment";
-    private static V2AboutFragment     staticInstance;
+    private static final String TAG = "FragmentAbout";
+    private static FragmentAbout staticInstance;
     private        InteractionListener mListener;
 
-    public V2AboutFragment() {
+    public FragmentAbout() {
         // Required empty public constructor
     }
 
-    public static V2AboutFragment getInstance() {
+    public static FragmentAbout getInstance() {
         if (staticInstance == null) {
-            staticInstance = new V2AboutFragment();
+            staticInstance = new FragmentAbout();
             Bundle args = new Bundle();
             staticInstance.setArguments(args);
         }
@@ -39,7 +39,7 @@ public class V2AboutFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_v2_about, container, false);
+        View view = inflater.inflate(R.layout.fragment_about, container, false);
         WebView webView = (WebView) view.findViewById(R.id.fragment_v2_about_webView);
 
         webView.loadUrl("file:///android_asset/about_me.html");

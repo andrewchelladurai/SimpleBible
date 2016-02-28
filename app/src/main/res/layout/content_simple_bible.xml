@@ -11,7 +11,7 @@
     android:paddingRight="@dimen/dp_0"
     android:paddingTop="@dimen/dp_0"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".V2SimpleBibleActivity"
-    tools:showIn="@layout/v2_app_bar_simple_bible">
+    tools:context=".ActivitySimpleBible"
+    tools:showIn="@layout/app_bar_simple_bible">
 
 </RelativeLayout>

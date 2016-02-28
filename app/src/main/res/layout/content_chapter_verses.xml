@@ -11,12 +11,12 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.andrewchelladurai.simplebible.V2ChapterVersesActivity"
-    tools:showIn="@layout/app_bar_v2_chapter_verses">
+    tools:context=".ActivityChapterVerses"
+    tools:showIn="@layout/app_bar_chapter_verses">
 
     <fragment
         android:id="@+id/activity_v2_chapter_verses_container_fragment"
-        android:name="com.andrewchelladurai.simplebible.V2VersesFragment"
+        android:name="com.andrewchelladurai.simplebible.FragmentChapterVerses"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

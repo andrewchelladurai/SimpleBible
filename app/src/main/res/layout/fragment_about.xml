@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.andrewchelladurai.simplebible.V2VersesFragment">
+    tools:context=".FragmentAbout">
 
-    <android.support.v7.widget.ListViewCompat
-        android:id="@+id/fragment_v2_verses_list"
+    <WebView
+        android:id="@+id/fragment_v2_about_webView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"/>
 </RelativeLayout>

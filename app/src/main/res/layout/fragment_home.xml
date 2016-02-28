@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.andrewchelladurai.simplebible.V2HomeFragment">
+    tools:context=".FragmentHome">
 
     <TextView
         android:id="@+id/fragment_home_daily_verse"
@@ -24,7 +24,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:contentDescription="@string/fragment_home_img_books_desc"
-        android:src="@drawable/booksofthebible"
+        android:src="@drawable/books_of_the_bible"
         />
 
 </RelativeLayout>
