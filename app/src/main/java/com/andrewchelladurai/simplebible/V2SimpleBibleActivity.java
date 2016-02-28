@@ -113,19 +113,10 @@ public class V2SimpleBibleActivity
                 int rotation = getWindowManager().getDefaultDisplay().getRotation();
                 int columnCount = utilities.getChapterListColumnCount(rotation, getResources());
 
-/*
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.activity_simple_bible_fragment_container,
                                  BooksListFragment.getInstance(
-                                         BooksListFragment.ARG_OLD_TESTAMENT_LIST,
-                                         columnCount))
-                        .commit();
-*/
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.activity_simple_bible_fragment_container,
-                                 BooksListFragment.createInstance(
                                          BooksListFragment.ARG_OLD_TESTAMENT_LIST,
                                          columnCount))
                         .commit();
@@ -140,19 +131,10 @@ public class V2SimpleBibleActivity
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.activity_simple_bible_fragment_container,
-                                 BooksListFragment.createInstance(
-                                         BooksListFragment.ARG_NEW_TESTAMENT_LIST,
-                                         columnCount))
-                        .commit();
-/*
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.activity_simple_bible_fragment_container,
                                  BooksListFragment.getInstance(
                                          BooksListFragment.ARG_NEW_TESTAMENT_LIST,
                                          columnCount))
                         .commit();
-*/
                 title.append(" : New Testament");
             }
             break;
