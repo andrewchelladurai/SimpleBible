@@ -22,6 +22,12 @@ public class Utilities {
     }
 
     public int getChapterListColumnCount(int rotation, Resources resources) {
+        if (resources.getBoolean(R.bool.isLarge)) {
+            Log.d(TAG, "getChapterListColumnCount: isLarge");
+            return 2;
+        }
+        Log.d(TAG, "getChapterListColumnCount: not isLarge");
+
         switch (rotation) {
             case Surface.ROTATION_0:
             case Surface.ROTATION_180:
@@ -34,5 +40,4 @@ public class Utilities {
         }
         return 1;
     }
-
 }
