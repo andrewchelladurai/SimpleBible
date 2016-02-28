@@ -87,7 +87,7 @@ public class V2VersesFragment
     }
 
     public void refreshVersesList(int bookNumber, int chapterNumber) {
-        versesList = DatabaseUtility.getInstance(getContext())
+        versesList = V2DatabaseUtility.getInstance(getContext())
                                     .getAllVerseOfChapter(bookNumber, chapterNumber);
         verseListAdapter.clear();
         verseListAdapter.addAll(versesList);

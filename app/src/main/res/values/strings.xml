@@ -1,31 +1,31 @@
 <resources>
-    <string name="app_name">Simple Bible</string>
+    <string nameV2="app_name">Simple Bible</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string nameV2="navigation_drawer_open">Open navigation drawer</string>
+    <string nameV2="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string nameV2="action_settings">Settings</string>
 
-    <string name="text_about">About</string>
-    <string name="text_search">Search Text</string>
-    <string name="text_bookmarked">Bookmarked Verses</string>
-    <string name="text_nt_books">New Testament Books</string>
-    <string name="text_ot_books">Old Testament Books</string>
-    <string name="text_welcome">Welcome</string>
-    <string name="version">New International Version</string>
+    <string nameV2="text_about">About</string>
+    <string nameV2="text_search">Search Text</string>
+    <string nameV2="text_bookmarked">Bookmarked Verses</string>
+    <string nameV2="text_nt_books">New Testament Books</string>
+    <string nameV2="text_ot_books">Old Testament Books</string>
+    <string nameV2="text_welcome">Welcome</string>
+    <string nameV2="version">New International Version</string>
 
-    <string name="fragment_home_daily_verse_blank">Today\'s Daily Verse</string>
-    <string name="fragment_home_img_books_desc">Books of The Holy Bible</string>
+    <string nameV2="fragment_home_daily_verse_blank">Today\'s Daily Verse</string>
+    <string nameV2="fragment_home_img_books_desc">Books of The Holy Bible</string>
 
-    <string name="fragment_v2_search_edit_text_hint">Search this exact text</string>
-    <string name="fragment_v2_search_button_label_default">Search for Text</string>
+    <string nameV2="fragment_v2_search_edit_text_hint">Search this exact text</string>
+    <string nameV2="fragment_v2_search_button_label_default">Search for Text</string>
 
-    <string name="contactEmail">theunknownandrew+androidapps@gmail.com</string>
-    <string name="contactSubject">Simple Bible - Feedback</string>
-    <string name="githubPage">http://github.com/andrewchelladurai/</string>
-    <string name="gPlusPage">http://plus.google.com/+AndrewChelladurai</string>
+    <string nameV2="contactEmail">theunknownandrew+androidapps@gmail.com</string>
+    <string nameV2="contactSubject">Simple Bible - Feedback</string>
+    <string nameV2="githubPage">http://github.com/andrewchelladurai/</string>
+    <string nameV2="gPlusPage">http://plus.google.com/+AndrewChelladurai</string>
 
-    <string-array name="books_n_chapter_count_array">
+    <string-array nameV2="books_n_chapter_count_array">
         <item>Genesis:50</item>
         <item>Exodus:40</item>
         <item>Leviticus:27</item>
@@ -93,12 +93,12 @@
         <item>Jude:1</item>
         <item>Revelation:22</item>
     </string-array>
-    <string name="title_activity_v2_chapter_verses">Book : Chapter</string>
+    <string nameV2="title_activity_v2_chapter_verses">Book : Chapter</string>
 
-    <string name="fragment_v2_search_button_label_reset">Click to Reset</string>
-    <string name="fragment_v2_search_button_label_results_found"> verses found</string>
-    <string name="fragment_v2_search_button_label_no_results_found">No verses found</string>
-    <string name="fragment_v2_search_results_label_2chars">
+    <string nameV2="fragment_v2_search_button_label_reset">Click to Reset</string>
+    <string nameV2="fragment_v2_search_button_label_results_found"> verses found</string>
+    <string nameV2="fragment_v2_search_button_label_no_results_found">No verses found</string>
+    <string nameV2="fragment_v2_search_results_label_2chars">
         Enter more than 2 alphabets to Search</string>
 
 </resources>

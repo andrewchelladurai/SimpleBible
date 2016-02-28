@@ -101,7 +101,7 @@ public class V2SearchFragment
         } else if (title.equalsIgnoreCase(getString(
                 R.string.fragment_v2_search_button_label_default))) {
             ArrayList<String> results =
-                    DatabaseUtility.getInstance(getContext())
+                    V2DatabaseUtility.getInstance(getContext())
                                    .searchForText(editText.getText().toString());
             if (results.size() > 0) {
                 listAdapater.clear();

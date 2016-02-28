@@ -1,18 +1,18 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/accent</item>
+    <style nameV2="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item nameV2="colorPrimary">@color/primary</item>
+        <item nameV2="colorPrimaryDark">@color/primary_dark</item>
+        <item nameV2="colorAccent">@color/accent</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style nameV2="AppTheme.NoActionBar">
+        <item nameV2="windowActionBar">false</item>
+        <item nameV2="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style nameV2="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style nameV2="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
 </resources>

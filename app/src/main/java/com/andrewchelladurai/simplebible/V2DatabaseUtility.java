@@ -18,32 +18,32 @@ import java.util.ArrayList;
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
  * on 26-Feb-2016 @ 1:15 AM
  */
-public class DatabaseUtility
+public class V2DatabaseUtility
         extends SQLiteOpenHelper {
 
-    private static final String          TAG            = "DatabaseUtility";
-    private static final String          DATABASE_NAME  = "NIV.db";
-    private static       DatabaseUtility staticInstance = null;
+    private static final String            TAG            = "V2DatabaseUtility";
+    private static final String            DATABASE_NAME  = "NIV.db";
+    private static       V2DatabaseUtility staticInstance = null;
     private static String         DB_PATH;
     private static SQLiteDatabase database;
     private static Context        context;
 
-    private DatabaseUtility(Context context) {
+    private V2DatabaseUtility(Context context) {
         super(context, DATABASE_NAME, null, 1);
-        DatabaseUtility.context = context;
+        V2DatabaseUtility.context = context;
         //Write a full path to the databases of your application
         DB_PATH = context.getDatabasePath(DATABASE_NAME).getParent();
         Log.d("DB_PATH", DB_PATH);
         openDataBase();
     }
 
-    public static DatabaseUtility getInstance(Context context)
+    public static V2DatabaseUtility getInstance(Context context)
     throws NullPointerException {
         if (staticInstance == null) {
             if (context == null) {
                 throw new NullPointerException("NULL Context passed for instantiating DB");
             }
-            staticInstance = new DatabaseUtility(context);
+            staticInstance = new V2DatabaseUtility(context);
         }
         return staticInstance;
     }
@@ -177,11 +177,11 @@ public class DatabaseUtility
                 int verseIdIndex = cursor.getColumnIndex("VerseId");
                 int bookIdIndex = cursor.getColumnIndex("BookId");
                 int chapterIdIndex = cursor.getColumnIndex("ChapterId");
-                AllBooks.Book book;
+                V2AllBooks.Book book;
                 StringBuilder entry = new StringBuilder();
                 do {
                     entry.delete(0, entry.length());
-                    book = AllBooks.getBook(cursor.getInt(bookIdIndex));
+                    book = V2AllBooks.getBook(cursor.getInt(bookIdIndex));
                     entry.append(book.bookName)
                          .append(" [")
                          .append(cursor.getInt(chapterIdIndex))

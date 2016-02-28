@@ -10,5 +10,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="com.andrewchelladurai.simplebible.BooksListFragment"
-    tools:listitem="@layout/fragment_book_list"/>
+    tools:context=".V2BooksListFragment"
+    tools:listitem="@layout/fragment_v2_book_list"/>

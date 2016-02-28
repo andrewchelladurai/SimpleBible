@@ -20,15 +20,15 @@ public class V2SimpleBibleActivity
                    V2HomeFragment.InteractionListener,
                    V2AboutFragment.InteractionListener,
                    V2SearchFragment.InteractionListener,
-                   BooksListFragment.InteractionListener {
+                   V2BooksListFragment.InteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.v2_activity_simple_bible);
 
-        DatabaseUtility.getInstance(getBaseContext());
-        AllBooks.populateBooks(getResources().getStringArray(
+        V2DatabaseUtility.getInstance(getBaseContext());
+        V2AllBooks.populateBooks(getResources().getStringArray(
                 R.array.books_n_chapter_count_array));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_simple_bible_toolbar);
@@ -73,7 +73,7 @@ public class V2SimpleBibleActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.simple_bible, menu);
+        getMenuInflater().inflate(R.menu.v2_simple_bible, menu);
         return true;
     }
 
@@ -109,30 +109,30 @@ public class V2SimpleBibleActivity
                 }
                 break;
             case R.id.activity_simple_bible_navbar_otbooks: {
-                Utilities utilities = Utilities.getInstance();
+                V2Utilities utilities = V2Utilities.getInstance();
                 int rotation = getWindowManager().getDefaultDisplay().getRotation();
                 int columnCount = utilities.getChapterListColumnCount(rotation, getResources());
 
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.activity_simple_bible_fragment_container,
-                                 BooksListFragment.getInstance(
-                                         BooksListFragment.ARG_OLD_TESTAMENT_LIST,
+                                 V2BooksListFragment.getInstance(
+                                         V2BooksListFragment.ARG_OLD_TESTAMENT_LIST,
                                          columnCount))
                         .commit();
                 title.append(" : Old Testament");
             }
             break;
             case R.id.activity_simple_bible_navbar_ntbooks: {
-                Utilities utilities = Utilities.getInstance();
+                V2Utilities utilities = V2Utilities.getInstance();
                 int rotation = getWindowManager().getDefaultDisplay().getRotation();
                 int columnCount = utilities.getChapterListColumnCount(rotation, getResources());
 
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.activity_simple_bible_fragment_container,
-                                 BooksListFragment.getInstance(
-                                         BooksListFragment.ARG_NEW_TESTAMENT_LIST,
+                                 V2BooksListFragment.getInstance(
+                                         V2BooksListFragment.ARG_NEW_TESTAMENT_LIST,
                                          columnCount))
                         .commit();
                 title.append(" : New Testament");
@@ -191,7 +191,7 @@ public class V2SimpleBibleActivity
     }
 
     @Override
-    public void onBooksListFragmentInteraction(AllBooks.Book item) {
+    public void onBooksListFragmentInteraction(V2AllBooks.Book item) {
         Intent intent = new Intent(this, V2ChapterVersesActivity.class);
         intent.putExtra(V2ChapterVersesActivity.ARG_BOOK_NUMBER, item.getBookNumber());
         startActivity(intent);

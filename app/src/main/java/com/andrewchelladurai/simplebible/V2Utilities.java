@@ -8,16 +8,16 @@ import android.view.Surface;
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
  * on 27-Feb-2016 @ 11:18 AM
  */
-public class Utilities {
+public class V2Utilities {
 
-    private static final String TAG = "Utilities";
+    private static final String TAG = "V2Utilities";
 
-    private static Utilities staticInstance = new Utilities();
+    private static V2Utilities staticInstance = new V2Utilities();
 
-    private Utilities() {
+    private V2Utilities() {
     }
 
-    public static Utilities getInstance() {
+    public static V2Utilities getInstance() {
         return staticInstance;
     }
 

@@ -6,17 +6,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.andrewchelladurai.simplebible.AllBooks.Book;
+import com.andrewchelladurai.simplebible.V2AllBooks.Book;
 
 import java.util.List;
 
-public class BooksListAdapter
-        extends RecyclerView.Adapter<BooksListAdapter.ViewHolder> {
+public class V2BooksListAdapter
+        extends RecyclerView.Adapter<V2BooksListAdapter.ViewHolder> {
 
-    private final List<Book>                            mValues;
-    private final BooksListFragment.InteractionListener mListener;
+    private final List<Book>                              mValues;
+    private final V2BooksListFragment.InteractionListener mListener;
 
-    public BooksListAdapter(List<Book> items, BooksListFragment.InteractionListener listener) {
+    public V2BooksListAdapter(List<Book> items, V2BooksListFragment.InteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -24,7 +24,7 @@ public class BooksListAdapter
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                                  .inflate(R.layout.fragment_book_list, parent, false);
+                                  .inflate(R.layout.fragment_v2_book_list, parent, false);
         return new ViewHolder(view);
     }
 

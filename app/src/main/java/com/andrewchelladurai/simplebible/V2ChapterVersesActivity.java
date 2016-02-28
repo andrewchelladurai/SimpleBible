@@ -33,7 +33,7 @@ public class V2ChapterVersesActivity
         bookNumber = Integer.parseInt(getIntent().getStringExtra(ARG_BOOK_NUMBER));
         Log.d(TAG, "onCreate: bookNumber = " + bookNumber);
 
-        AllBooks.Book book = AllBooks.getBook(bookNumber);
+        V2AllBooks.Book book = V2AllBooks.getBook(bookNumber);
 
 /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -111,7 +111,7 @@ public class V2ChapterVersesActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         String title = item.getTitle().toString();
         String number = title.subSequence(title.indexOf(" "), title.length()).toString();
-        AllBooks.Book book = AllBooks.getBook(bookNumber);
+        V2AllBooks.Book book = V2AllBooks.getBook(bookNumber);
 
         title = book.getName() + " Chapter" + number;
         setTitle(title);
