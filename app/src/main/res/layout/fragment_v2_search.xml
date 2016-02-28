@@ -17,7 +17,8 @@
             android:id="@+id/fragment_v2_search_edittext"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/fragment_v2_search_edit_text_hint"/>
+            android:hint="@string/fragment_v2_search_edit_text_hint"
+            android:singleLine="true"/>
     </android.support.design.widget.TextInputLayout>
 
     <Button
