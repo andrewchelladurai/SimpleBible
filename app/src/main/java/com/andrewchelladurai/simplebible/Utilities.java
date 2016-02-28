@@ -12,7 +12,7 @@ public class Utilities {
 
     private static final String TAG = "Utilities";
 
-    private static Utilities staticInstance = new Utilities();
+    private static final Utilities staticInstance = new Utilities();
 
     private Utilities() {
     }

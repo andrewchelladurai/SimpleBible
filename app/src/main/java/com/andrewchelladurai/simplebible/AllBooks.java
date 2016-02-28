@@ -9,11 +9,11 @@ import java.util.Map;
 
 public class AllBooks {
 
-    public static final  Map<String, Book> OT_BOOKS_MAP  = new HashMap<String, Book>();
-    public static final  Map<String, Book> NT_BOOKS_MAP  = new HashMap<String, Book>();
+    static final         Map<String, Book> NT_BOOKS_MAP  = new HashMap<>();
+    private static final Map<String, Book> OT_BOOKS_MAP  = new HashMap<>();
     private static final String TAG = "AllBooks";
-    private static final List<Book>        OT_BOOKS_LIST = new ArrayList<Book>();
-    private static final List<Book>        NT_BOOKS_LIST = new ArrayList<Book>();
+    private static final List<Book>        OT_BOOKS_LIST = new ArrayList<>();
+    private static final List<Book>        NT_BOOKS_LIST = new ArrayList<>();
 
     public static void populateBooks(String allBooks[]) {
         if (OT_BOOKS_LIST.size() == 39 || NT_BOOKS_LIST.size() == 27) {

@@ -24,12 +24,12 @@ public class FragmentSearch
                    TextWatcher, AdapterView.OnItemLongClickListener {
 
     private static final String TAG = "FragmentSearch";
-    private static FragmentSearch staticInstance;
+    private static FragmentSearch       staticInstance;
     private        InteractionListener  mListener;
     private        EditText             editText;
     private        Button               button;
     private        TextView             resultsLabel;
-    private        ArrayAdapter<String> listAdapater;
+    private        ArrayAdapter<String> listAdapter;
 
     public FragmentSearch() {
         // Required empty public constructor
@@ -53,9 +53,9 @@ public class FragmentSearch
         resultsLabel = (TextView) view.findViewById(R.id.fragment_v2_search_results_label);
         ListViewCompat resultsList = (ListViewCompat) view.findViewById(
                 R.id.fragment_v2_search_results_listView);
-        listAdapater = new ArrayAdapter<>(
+        listAdapter = new ArrayAdapter<>(
                 getContext(), android.R.layout.simple_list_item_1, new ArrayList<String>(1));
-        resultsList.setAdapter(listAdapater);
+        resultsList.setAdapter(listAdapter);
 
         button.setOnClickListener(this);
         editText.addTextChangedListener(this);
@@ -95,7 +95,7 @@ public class FragmentSearch
         if (title.equalsIgnoreCase(getString( // is button showing : Click to reset
                                               R.string.fragment_v2_search_button_label_reset))) {
             button.setText(getString(R.string.fragment_v2_search_button_label_default));
-            listAdapater.clear();
+            listAdapter.clear();
             editText.setText("");
             resultsLabel.setText("");
         } else if (title.equalsIgnoreCase(getString(
@@ -104,8 +104,8 @@ public class FragmentSearch
                     DatabaseUtility.getInstance(getContext())
                                    .searchForText(editText.getText().toString());
             if (results.size() > 0) {
-                listAdapater.clear();
-                listAdapater.addAll(results);
+                listAdapter.clear();
+                listAdapter.addAll(results);
                 String str = (results.size() + 1) + " "
                              + getString(R.string.fragment_v2_search_button_label_results_found);
                 resultsLabel.setText(str);
@@ -114,10 +114,10 @@ public class FragmentSearch
                 resultsLabel.setText(
                         getString(R.string.fragment_v2_search_button_label_no_results_found));
                 button.setText(getString(R.string.fragment_v2_search_button_label_reset));
-                listAdapater.clear();
+                listAdapter.clear();
             }
         }
-        listAdapater.notifyDataSetChanged();
+        listAdapter.notifyDataSetChanged();
     }
 
     @Override
