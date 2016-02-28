@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.ListViewCompat;
@@ -9,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 public class V2SearchFragment
         extends Fragment
         implements View.OnClickListener,
-                   TextWatcher {
+                   TextWatcher, AdapterView.OnItemLongClickListener {
 
     private static final String TAG = "V2SearchFragment";
     private static V2SearchFragment     staticInstance;
@@ -57,6 +59,7 @@ public class V2SearchFragment
 
         button.setOnClickListener(this);
         editText.addTextChangedListener(this);
+        resultsList.setOnItemLongClickListener(this);
         return view;
     }
 
@@ -129,6 +132,17 @@ public class V2SearchFragment
 
     @Override
     public void afterTextChanged(Editable editable) {
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+        String verse = ((TextView) view).getText()
+                       + " -- The Holy Bible (New International Version)";
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, verse);
+        startActivity(intent);
+        return true;
     }
 
     public interface InteractionListener {

@@ -1,24 +1,27 @@
 package com.andrewchelladurai.simplebible;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.ListViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class V2VersesFragment
-        extends Fragment {
+        extends Fragment
+        implements AdapterView.OnItemLongClickListener {
 
     private static final String ARG_VERSES_LIST = "VERSES_LIST";
     private static V2VersesFragment     staticInstance;
     private static ArrayAdapter<String> verseListAdapter;
     private ArrayList<String> versesList = new ArrayList<>(0);
-    private ListViewCompat listViewCompat;
 
     private InteractionListener mListener;
 
@@ -53,8 +56,10 @@ public class V2VersesFragment
         verseListAdapter = new ArrayAdapter<String>(getContext(),
                                                     android.R.layout.simple_list_item_1,
                                                     verseList);
-        listViewCompat = (ListViewCompat) view.findViewById(R.id.fragment_v2_verses_list);
+        ListViewCompat listViewCompat =
+                (ListViewCompat) view.findViewById(R.id.fragment_v2_verses_list);
         listViewCompat.setAdapter(verseListAdapter);
+        listViewCompat.setOnItemLongClickListener(this);
         return view;
     }
 
@@ -87,6 +92,17 @@ public class V2VersesFragment
         verseListAdapter.clear();
         verseListAdapter.addAll(versesList);
         verseListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+        String verse = ((TextView) view).getText()
+                       + " -- The Holy Bible (New International Version)";
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, verse);
+        startActivity(intent);
+        return true;
     }
 
     public interface InteractionListener {
