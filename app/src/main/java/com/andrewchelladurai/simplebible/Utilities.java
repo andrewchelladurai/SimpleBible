@@ -1,6 +1,10 @@
 package com.andrewchelladurai.simplebible;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.preference.PreferenceManager;
+import android.support.v7.widget.ListViewCompat;
 import android.util.Log;
 import android.view.Surface;
 
@@ -39,5 +43,22 @@ public class Utilities {
                 return 2;
         }
         return 1;
+    }
+
+    public String getPreferredStyle(Context context) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        return pref.getString(context.getString(R.string.pref_ui_text_style_key_name), "normal");
+    }
+
+    public int getPreferredSize(Context context) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        String str =
+                pref.getString(context.getString(R.string.pref_ui_text_size_key_name), "10");
+        return Integer.parseInt(str);
+    }
+
+    public void updateListViewStyle(ListViewCompat list, Context context) {
+        String style = getPreferredStyle(context);
+        int size = getPreferredSize(context);
     }
 }
