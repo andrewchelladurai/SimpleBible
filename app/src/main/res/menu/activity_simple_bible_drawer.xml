@@ -16,6 +16,7 @@
             android:title="@string/text_nt_books"/>
         <item
             android:id="@+id/activity_simple_bible_navbar_bookmarked"
+            android:enabled="false"
             android:icon="@drawable/ic_bookmark_black"
             android:title="@string/text_bookmarked"/>
         <item

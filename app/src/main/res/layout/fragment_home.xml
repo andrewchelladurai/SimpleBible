@@ -14,7 +14,8 @@
         android:layout_centerInParent="true"
         android:layout_margin="@dimen/header_margin"
         android:padding="@dimen/header_margin"
-        android:text="@string/fragment_home_daily_verse_blank"/>
+        android:text="@string/fragment_home_daily_verse_blank"
+        android:visibility="invisible"/>
 
     <ImageView
         android:id="@+id/fragment_home_img_books"
@@ -24,7 +25,6 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:contentDescription="@string/fragment_home_img_books_desc"
-        android:src="@drawable/books_of_the_bible"
-        />
+        android:src="@drawable/books_of_the_bible"/>
 
 </RelativeLayout>
