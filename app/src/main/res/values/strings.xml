@@ -111,32 +111,20 @@
     <string name="pref_ui_dark_theme_desc">The Application will use a almost black color scheme.</string>
 
     <string name="pref_ui_text_size_title">SIZE of displayed text.</string>
-    <string-array name="pref_ui_text_size_texts">
-        <item>Normal</item>
-        <item>Big</item>
-        <item>Large</item>
-        <item>Huge</item>
-    </string-array>
-    <string-array name="pref_ui_text_size_values">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
+    <string name="pref_ui_text_size_value_small">Small</string>
+    <string name="pref_ui_text_size_value_normal">Normal</string>
+    <string name="pref_ui_text_size_value_big">Big</string>
+    <string name="pref_ui_text_size_value_huge">Huge</string>
 
+    <string-array name="pref_ui_text_size_texts">
+        <item>@string/pref_ui_text_size_value_small</item>
+        <item>@string/pref_ui_text_size_value_normal</item>
+        <item>@string/pref_ui_text_size_value_big</item>
+        <item>@string/pref_ui_text_size_value_huge</item>
+    </string-array>
 
     <string name="pref_ui_text_style_title">STYLE of displayed text.</string>
     <string-array name="pref_ui_text_style_texts">
-        <item>Normal</item>
-        <item>Old English</item>
-        <item>Typewriter</item>
-    </string-array>
-    <string-array name="pref_ui_text_style_values">
-        <!--
-                <item>0</item>
-                <item>1</item>
-                <item>2</item>
-        -->
         <item>Normal</item>
         <item>Old English</item>
         <item>Typewriter</item>

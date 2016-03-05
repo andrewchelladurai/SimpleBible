@@ -54,9 +54,6 @@ public class FragmentSearch
         ListViewCompat resultsList = (ListViewCompat) view.findViewById(
                 R.id.fragment_v2_search_results_listView);
 
-        // update Style & Size for the ListView
-        Utilities.getInstance().updateListViewStyle(resultsList, getContext());
-
         listAdapter = new VerseListAdapter(
                 getContext(), android.R.layout.simple_list_item_1, new ArrayList<String>(1));
         resultsList.setAdapter(listAdapter);

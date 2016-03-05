@@ -3,10 +3,11 @@ package com.andrewchelladurai.simplebible;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.preference.PreferenceManager;
-import android.support.v7.widget.ListViewCompat;
 import android.util.Log;
 import android.view.Surface;
+import android.widget.TextView;
 
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
@@ -50,15 +51,39 @@ public class Utilities {
         return pref.getString(context.getString(R.string.pref_ui_text_style_key_name), "normal");
     }
 
-    public int getPreferredSize(Context context) {
+    public float getPreferredSize(Context context) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         String str =
-                pref.getString(context.getString(R.string.pref_ui_text_size_key_name), "10");
-        return Integer.parseInt(str);
+                pref.getString(context.getString(R.string.pref_ui_text_size_key_name), "normal");
+        if (str.equalsIgnoreCase(
+                context.getString(R.string.pref_ui_text_size_value_small))) {
+            return 14f;
+        } else if (str.equalsIgnoreCase(
+                context.getString(R.string.pref_ui_text_size_value_normal))) {
+            return 18f;
+        } else if (str.equalsIgnoreCase(
+                context.getString(R.string.pref_ui_text_size_value_big))) {
+            return 22f;
+        }
+        return 26f;
     }
 
-    public void updateListViewStyle(ListViewCompat list, Context context) {
+    public void updateListViewStyle(TextView textView, Context context) {
+        // Set Text Style of ListItems
         String style = getPreferredStyle(context);
-        int size = getPreferredSize(context);
+        String styles[] = context.getResources().getStringArray(R.array.pref_ui_text_style_texts);
+
+        if (style.equalsIgnoreCase(styles[0])) {
+            textView.setTypeface(Typeface.DEFAULT);
+        } else if (style.equalsIgnoreCase(styles[1])) {
+            textView.setTypeface(Typeface.SERIF);
+        } else if (style.equalsIgnoreCase(styles[2])) {
+            textView.setTypeface(Typeface.MONOSPACE);
+        } else {
+            textView.setTypeface(Typeface.DEFAULT);
+        }
+
+        // Set Size of ListItems
+        textView.setTextSize(getPreferredSize(context));
     }
 }
