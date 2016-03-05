@@ -1,3 +1,27 @@
+/*
+ * This file 'FragmentBooksList.java' is part of SimpleBible :
+ *
+ * Copyright (c) 2016.
+ *
+ * This Application is available at below locations
+ * Binary : https://play.google.com/store/apps/developer?id=Andrew+Chelladurai
+ * Source : https://github.com/andrewchelladurai/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * OR <http://www.gnu.org/licenses/gpl-3.0.txt>
+ */
+
 package com.andrewchelladurai.simplebible;
 
 import android.content.Context;
@@ -20,29 +44,22 @@ public class FragmentBooksList
     private static final String ARG_COLUMN_COUNT       = "COLUMN_COUNT";
     private static FragmentBooksList staticInstanceOT;
     private static FragmentBooksList staticInstanceNT;
-    private int    mColumnCount = 1;
     private String booksList = ARG_OLD_TESTAMENT_LIST; // setting a default value
     private InteractionListener mListener;
 
     public FragmentBooksList() {
     }
 
-    public static FragmentBooksList getInstance(String booksListType, int columnCount) {
+    public static FragmentBooksList getInstance(String booksListType) {
         if (booksListType == null) {
             booksListType = ARG_OLD_TESTAMENT_LIST;
         }
         Bundle args = new Bundle();
-        if (columnCount <= 0) {
-            columnCount = 1;
-        }
-
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
 
         if (booksListType.equalsIgnoreCase(ARG_NEW_TESTAMENT_LIST)) {
             if (staticInstanceNT == null) {
                 staticInstanceNT = new FragmentBooksList();
                 staticInstanceNT.setArguments(args);
-                staticInstanceNT.mColumnCount = columnCount;
                 staticInstanceNT.booksList = ARG_NEW_TESTAMENT_LIST;
             }
             return staticInstanceNT;
@@ -50,7 +67,6 @@ public class FragmentBooksList
             if (staticInstanceOT == null) {
                 staticInstanceOT = new FragmentBooksList();
                 staticInstanceOT.setArguments(args);
-                staticInstanceOT.mColumnCount = columnCount;
                 staticInstanceOT.booksList = ARG_OLD_TESTAMENT_LIST;
             }
             return staticInstanceOT;
@@ -61,7 +77,6 @@ public class FragmentBooksList
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
     }
 
@@ -74,11 +89,16 @@ public class FragmentBooksList
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            Log.d(TAG, "onCreateView: mColumnCount = " + mColumnCount);
-            if (mColumnCount <= 1) {
+
+            Utilities utilities = Utilities.getInstance();
+            int rotation = getActivity().getWindowManager().getDefaultDisplay().getRotation();
+            int columnCount = utilities.getChapterListColumnCount(rotation, getResources());
+
+            Log.d(TAG, "onCreateView: mColumnCount = " + columnCount);
+            if (columnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+                recyclerView.setLayoutManager(new GridLayoutManager(context, columnCount));
             }
             if (this.booksList.equalsIgnoreCase(ARG_NEW_TESTAMENT_LIST)) {
                 recyclerView.setAdapter(
