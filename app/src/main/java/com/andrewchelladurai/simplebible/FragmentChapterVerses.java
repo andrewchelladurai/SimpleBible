@@ -40,6 +40,12 @@ public class FragmentChapterVerses
     }
 
     @Override
+    public void onResume() {
+        verseListAdapter.notifyDataSetChanged();
+        super.onResume();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
