@@ -21,7 +21,7 @@ public class FragmentBooksList
     private static FragmentBooksList staticInstanceOT;
     private static FragmentBooksList staticInstanceNT;
     private int    mColumnCount = 1;
-    private String booksList    = ARG_OLD_TESTAMENT_LIST;
+    private String booksList = ARG_OLD_TESTAMENT_LIST; // setting a default value
     private InteractionListener mListener;
 
     public FragmentBooksList() {
@@ -94,6 +94,7 @@ public class FragmentBooksList
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
         if (context instanceof InteractionListener) {
             mListener = (InteractionListener) context;
         } else {

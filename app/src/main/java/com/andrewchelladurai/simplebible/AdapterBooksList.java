@@ -62,6 +62,10 @@ public class AdapterBooksList
             super(view);
             mView = view;
             mContentView = (TextView) view.findViewById(R.id.fragment_book_list_item_content);
+            //TODO : Find a way to make this take effect without an activity recreate
+//            mContentView.setTypeface(Utilities.getInstance().getPreferredStyle(view.getContext
+// ()));
+//            mContentView.setTextSize(Utilities.getInstance().getPreferredSize(view.getContext()));
         }
 
         @Override
