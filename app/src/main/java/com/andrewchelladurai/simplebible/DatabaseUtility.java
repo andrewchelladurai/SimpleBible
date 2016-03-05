@@ -1,3 +1,27 @@
+/*
+ * This file 'DatabaseUtility.java' is part of SimpleBible :
+ *
+ * Copyright (c) 2016.
+ *
+ * This Application is available at below locations
+ * Binary : https://play.google.com/store/apps/developer?id=Andrew+Chelladurai
+ * Source : https://github.com/andrewchelladurai/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * OR <http://www.gnu.org/licenses/gpl-3.0.txt>
+ */
+
 package com.andrewchelladurai.simplebible;
 
 import android.content.Context;
@@ -33,7 +57,7 @@ public class DatabaseUtility
         DatabaseUtility.context = context;
         //Write a full path to the databases of your application
         DB_PATH = context.getDatabasePath(DATABASE_NAME).getParent();
-        Log.d("DB_PATH", DB_PATH);
+        Log.d(TAG, "DatabaseUtility: DB_PATH : " + DB_PATH);
         openDataBase();
     }
 
@@ -50,9 +74,10 @@ public class DatabaseUtility
 
     private void openDataBase()
     throws SQLException {
-        String path = DB_PATH + File.separatorChar + DATABASE_NAME;
+        Log.d(TAG, "openDataBase: Called");
         if (database == null) {
             createDataBase();
+            String path = DB_PATH + File.separatorChar + DATABASE_NAME;
             database = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
         }
     }
@@ -60,50 +85,49 @@ public class DatabaseUtility
     private void createDataBase() {
         boolean dbExist = checkDataBase();
         if (!dbExist) {
-            Log.i(TAG, "Inside createDataBase - IF");
+            Log.d(TAG, "createDataBase: DB Does not Exist");
             this.getReadableDatabase();
             try {
                 copyDataBase();
             } catch (IOException e) {
-                Log.e(TAG, "DB copying error");
-                throw new Error("Error copying database!");
+                Log.d(TAG, "createDataBase: Exception Copying Bible.db");
+                throw new Error("Error copying Bible.db!");
             }
         } else {
-            Log.i(TAG, "Database already exists");
+            Log.d(TAG, "createDataBase: Database already exists");
         }
     }
 
     private boolean checkDataBase() {
         SQLiteDatabase checkDb = null;
         String path = DB_PATH + File.separatorChar + DATABASE_NAME;
-
+        Log.d(TAG, "checkDataBase: at path" + path);
         File f = new File(path);
-        Log.d(TAG, "checkDataBase_path = " + path);
         if (f.exists()) {
             try {
                 checkDb = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
-            } catch (SQLException e) {
-                Log.e(TAG, "Error when checking DB");
+            } catch (SQLException sqle) {
+                Log.d(TAG, "checkDataBase: " + sqle.getLocalizedMessage());
+                sqle.printStackTrace();
             } finally {
                 //Android does not like resource leaks, everything should be closed
                 if (checkDb != null) {
                     checkDb.close();
                 }
             }
-            Log.d(TAG, "checkDataBase() Exited returning checkDb != null");
+            Log.d(TAG, "checkDataBase: Exited returning checkDb != null");
             return checkDb != null;
         } else {
             return false;
         }
-
     }
 
     private void copyDataBase()
     throws IOException {
-        Log.d(TAG, "copyDataBase() Entered");
+        Log.d(TAG, "copyDataBase: Called");
 
         InputStream externalDbStream = context.getAssets().open(DATABASE_NAME);
-        Log.i(TAG, "copyDataBase : externalDbStream" + externalDbStream.toString());
+        Log.i(TAG, "copyDataBase : externalDBStream" + externalDbStream.toString());
         String outFileName = DB_PATH + File.separatorChar + DATABASE_NAME;
         Log.i(TAG, "copyDataBase : outFileName = " + outFileName);
 
@@ -117,12 +141,12 @@ public class DatabaseUtility
         }
         localDbStream.close();
         externalDbStream.close();
-        Log.d(TAG, "copyDataBase() Exited");
+        Log.d(TAG, "copyDataBase: Finished");
     }
 
     private Cursor getDBRecords(int bookID, int chapterID) {
-        Log.d(TAG, "getDBRecords() called with: bookID = [" + bookID +
-                   "], chapterID = [" + chapterID + "]");
+        Log.d(TAG, "getDBRecords called with: bookID [" + bookID
+                   + "], chapterID [" + chapterID + "]");
         SQLiteDatabase db = getReadableDatabase();
 
         Cursor cursor = db.query("bibleverses",
@@ -135,6 +159,8 @@ public class DatabaseUtility
     }
 
     public ArrayList<String> getAllVerseOfChapter(int bookNumber, int chapterNumber) {
+        Log.d(TAG, "getAllVerseOfChapter() called with bookNumber = [" + bookNumber +
+                   "], chapterNumber = [" + chapterNumber + "]");
         Cursor cursor = getDBRecords(bookNumber, chapterNumber);
         ArrayList<String> list = new ArrayList<>(0);
 
@@ -167,6 +193,7 @@ public class DatabaseUtility
     }
 
     public ArrayList<String> searchForText(String textToSearch) {
+        Log.d(TAG, "searchForText() called with: textToSearch = [" + textToSearch + "]");
         ArrayList<String> results = new ArrayList<>(0);
 
         if (textToSearch != null && textToSearch.length() > 0) {

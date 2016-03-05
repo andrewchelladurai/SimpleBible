@@ -1,3 +1,27 @@
+/*
+ * This file 'AllBooks.java' is part of SimpleBible :
+ *
+ * Copyright (c) 2016.
+ *
+ * This Application is available at below locations
+ * Binary : https://play.google.com/store/apps/developer?id=Andrew+Chelladurai
+ * Source : https://github.com/andrewchelladurai/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * OR <http://www.gnu.org/licenses/gpl-3.0.txt>
+ */
+
 package com.andrewchelladurai.simplebible;
 
 import android.util.Log;
@@ -50,8 +74,10 @@ public class AllBooks {
 
     public static Book getBook(int bookNumber) {
         if ((bookNumber - 1) < 39) {
+            Log.d(TAG, "getBook() Returning OT Book [" + bookNumber + "]");
             return OT_BOOKS_LIST.get(bookNumber - 1);
         } else {
+            Log.d(TAG, "getBook() Returning NT Book [" + bookNumber + "]");
             return NT_BOOKS_LIST.get(bookNumber - 40);
         }
     }
@@ -75,8 +101,7 @@ public class AllBooks {
             bookNumber = id;
             bookName = title;
             chapterCount = count;
-            Log.d(TAG,
-                  "Book() called with: id = [" + bookNumber + "], content = [" + bookName + "]");
+            Log.d(TAG, "Book() called with [" + bookNumber + "], [" + bookName + "]");
         }
 
         @Override
