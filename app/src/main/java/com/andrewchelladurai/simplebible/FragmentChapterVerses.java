@@ -60,8 +60,8 @@ public class FragmentChapterVerses
         View view = inflater.inflate(R.layout.fragment_verses, container, false);
         ArrayList<String> verseList = new ArrayList<>(1);
         verseListAdapter = new VerseListAdapter(getContext(),
-                                                    android.R.layout.simple_list_item_1,
-                                                    verseList);
+                                                android.R.layout.simple_list_item_1,
+                                                verseList);
         ListViewCompat listViewCompat =
                 (ListViewCompat) view.findViewById(R.id.fragment_v2_verses_list);
         listViewCompat.setAdapter(verseListAdapter);
@@ -102,11 +102,13 @@ public class FragmentChapterVerses
 
     @Override
     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+        String title = getActivity().getTitle().toString();
+        title = title.replace("Chapter ", "");
         String verse = ((TextView) view).getText()
                        + " -- The Holy Bible (New International Version)";
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, verse);
+        intent.putExtra(Intent.EXTRA_TEXT, title + ":" + verse);
         startActivity(intent);
         return true;
     }

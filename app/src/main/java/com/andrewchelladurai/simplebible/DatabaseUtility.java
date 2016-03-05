@@ -144,7 +144,7 @@ public class DatabaseUtility
             //            int chapterIdIndex = cursor.getColumnIndex("ChapterId");
             //            int bookIdIndex = cursor.getColumnIndex("BookId");
             do {
-                list.add(cursor.getInt(verseIdIndex) + " : " + cursor.getString(verseIndex));
+                list.add(cursor.getInt(verseIdIndex) + " - " + cursor.getString(verseIndex));
             } while (cursor.moveToNext());
             if (list.size() > 0) {
                 cursor.close();

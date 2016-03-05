@@ -79,4 +79,15 @@ public class Utilities {
         return 18f;
     }
 
+    public int getTheme(Context context) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+
+        if (pref.getBoolean("pref_ui_dark_theme", false)) {
+            Log.d(TAG, "changeTheme: Dark Selected");
+            return  R.style.ThemeLight;
+        } else {
+            Log.d(TAG, "changeTheme: Light Selected");
+            return android.R.style.Theme_DeviceDefault;
+        }
+    }
 }

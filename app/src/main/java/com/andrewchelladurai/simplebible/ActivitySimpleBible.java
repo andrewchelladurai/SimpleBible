@@ -183,6 +183,11 @@ public class ActivitySimpleBible
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public void onSearchFragmentInteraction(View view) {
         Toast.makeText(ActivitySimpleBible.this,
                        "onSearchFragmentInteraction", Toast.LENGTH_SHORT).show();
