@@ -23,7 +23,8 @@ public class VerseListAdapter
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = super.getView(position, convertView, parent);
         TextView textView = (TextView) view.findViewById(android.R.id.text1);
-        Utilities.getInstance().updateListViewStyle(textView, getContext());
+        textView.setTypeface(Utilities.getInstance().getPreferredStyle(getContext()));
+        textView.setTextSize(Utilities.getInstance().getPreferredSize(getContext()));
         return view;
     }
 }

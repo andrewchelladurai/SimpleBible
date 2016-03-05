@@ -124,10 +124,13 @@
     </string-array>
 
     <string name="pref_ui_text_style_title">STYLE of displayed text.</string>
+    <string name="pref_ui_text_style_value_normal">Normal</string>
+    <string name="pref_ui_text_style_value_old_english">Old English</string>
+    <string name="pref_ui_text_style_value_typewriter">Typewriter</string>
     <string-array name="pref_ui_text_style_texts">
-        <item>Normal</item>
-        <item>Old English</item>
-        <item>Typewriter</item>
+        <item>@string/pref_ui_text_style_value_normal</item>
+        <item>@string/pref_ui_text_style_value_old_english</item>
+        <item>@string/pref_ui_text_style_value_typewriter</item>
     </string-array>
 
     <!-- Example settings for Data & Sync -->

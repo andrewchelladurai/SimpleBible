@@ -7,7 +7,6 @@ import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Surface;
-import android.widget.TextView;
 
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
@@ -46,44 +45,38 @@ public class Utilities {
         return 1;
     }
 
-    public String getPreferredStyle(Context context) {
+    public Typeface getPreferredStyle(Context context) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-        return pref.getString(context.getString(R.string.pref_ui_text_style_key_name), "normal");
+        String value =
+                pref.getString(context.getString(R.string.pref_ui_text_style_key_name),
+                               context.getString(R.string.pref_ui_text_style_value_normal));
+
+        if (value.equalsIgnoreCase(context.getString(
+                R.string.pref_ui_text_style_value_old_english))) {
+            return Typeface.SERIF;
+        } else if (value.equalsIgnoreCase(context.getString(
+                R.string.pref_ui_text_style_value_typewriter))) {
+            return Typeface.MONOSPACE;
+        }
+        return Typeface.DEFAULT;
     }
 
     public float getPreferredSize(Context context) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         String str =
-                pref.getString(context.getString(R.string.pref_ui_text_size_key_name), "normal");
+                pref.getString(context.getString(R.string.pref_ui_text_size_key_name),
+                               context.getString(R.string.pref_ui_text_size_value_normal));
         if (str.equalsIgnoreCase(
                 context.getString(R.string.pref_ui_text_size_value_small))) {
             return 14f;
         } else if (str.equalsIgnoreCase(
-                context.getString(R.string.pref_ui_text_size_value_normal))) {
-            return 18f;
-        } else if (str.equalsIgnoreCase(
                 context.getString(R.string.pref_ui_text_size_value_big))) {
             return 22f;
+        } else if (str.equalsIgnoreCase(
+                context.getString(R.string.pref_ui_text_size_value_huge))) {
+            return 26f;
         }
-        return 26f;
+        return 18f;
     }
 
-    public void updateListViewStyle(TextView textView, Context context) {
-        // Set Text Style of ListItems
-        String style = getPreferredStyle(context);
-        String styles[] = context.getResources().getStringArray(R.array.pref_ui_text_style_texts);
-
-        if (style.equalsIgnoreCase(styles[0])) {
-            textView.setTypeface(Typeface.DEFAULT);
-        } else if (style.equalsIgnoreCase(styles[1])) {
-            textView.setTypeface(Typeface.SERIF);
-        } else if (style.equalsIgnoreCase(styles[2])) {
-            textView.setTypeface(Typeface.MONOSPACE);
-        } else {
-            textView.setTypeface(Typeface.DEFAULT);
-        }
-
-        // Set Size of ListItems
-        textView.setTextSize(getPreferredSize(context));
-    }
 }
