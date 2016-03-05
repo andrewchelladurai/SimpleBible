@@ -182,11 +182,11 @@ public class DatabaseUtility
                     entry.delete(0, entry.length());
                     book = AllBooks.getBook(cursor.getInt(bookIdIndex));
                     entry.append(book.bookName)
-                         .append(" [")
+                         .append(" (")
                          .append(cursor.getInt(chapterIdIndex))
-                         .append(" - ")
+                         .append(":")
                          .append(cursor.getInt(verseIdIndex))
-                         .append("] : ")
+                         .append(") - ")
                          .append(cursor.getString(verseIndex));
                     results.add(entry.toString());
                 } while (cursor.moveToNext());
