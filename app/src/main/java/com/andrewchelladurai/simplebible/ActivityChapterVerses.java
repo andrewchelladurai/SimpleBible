@@ -25,6 +25,7 @@
 package com.andrewchelladurai.simplebible;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -44,9 +45,10 @@ public class ActivityChapterVerses
         implements NavigationView.OnNavigationItemSelectedListener,
                    FragmentChapterVerses.InteractionListener {
 
-    public static final  String ARG_BOOK_NUMBER = "BOOK_NUMBER";
-    private static final String TAG = "ActivityChapterVerses";
-    private              int    bookNumber      = 1;
+    public static final  String ARG_BOOK_NUMBER           = "BOOK_NUMBER";
+    public static final  String CURRENT_FRAGMENT_POSITION = "CURRENT_FRAGMENT_POSITION";
+    private static final String TAG                       = "ActivityChapterVerses";
+    private              int    bookNumber                = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,6 +148,8 @@ public class ActivityChapterVerses
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
+        setCurrentFragmentPosition(Integer.parseInt(number.trim()) - 1); // Item 0 = Chapter 1
         return true;
     }
 
@@ -153,5 +157,21 @@ public class ActivityChapterVerses
     public void handleVersesFragmentInteraction(View view) {
         Toast.makeText(ActivityChapterVerses.this, "handleVersesFragmentInteraction",
                        Toast.LENGTH_SHORT).show();
+    }
+
+    private int getCurrentFragmentPosition() {
+        return getIntent().getIntExtra(CURRENT_FRAGMENT_POSITION, 0);
+    }
+
+    private void setCurrentFragmentPosition(int position) {
+        getIntent().putExtra(CURRENT_FRAGMENT_POSITION, position);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        NavigationView navigationView =
+                (NavigationView) findViewById(R.id.nav_view);
+        onNavigationItemSelected(navigationView.getMenu().getItem(getCurrentFragmentPosition()));
     }
 }

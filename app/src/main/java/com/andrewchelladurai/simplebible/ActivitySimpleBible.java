@@ -25,6 +25,7 @@
 package com.andrewchelladurai.simplebible;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -45,6 +46,9 @@ public class ActivitySimpleBible
                    FragmentAbout.InteractionListener,
                    FragmentSearch.InteractionListener,
                    FragmentBooksList.InteractionListener {
+
+    public static final  String CURRENT_FRAGMENT_POSITION = "CURRENT_FRAGMENT_POSITION";
+    private static final String TAG                       = "ActivitySimpleBible";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +132,7 @@ public class ActivitySimpleBible
                             .replace(R.id.activity_simple_bible_fragment_container,
                                      FragmentHome.getInstance(""))
                             .commit();
+                    setCurrentFragmentPosition(0);
                 }
                 break;
             case R.id.activity_simple_bible_navbar_otbooks:
@@ -138,6 +143,7 @@ public class ActivitySimpleBible
                                          FragmentBooksList.ARG_OLD_TESTAMENT_LIST))
                         .commit();
                 title.append(" : Old Testament");
+                setCurrentFragmentPosition(1);
                 break;
             case R.id.activity_simple_bible_navbar_ntbooks:
                 getSupportFragmentManager()
@@ -147,6 +153,7 @@ public class ActivitySimpleBible
                                          FragmentBooksList.ARG_NEW_TESTAMENT_LIST))
                         .commit();
                 title.append(" : New Testament");
+                setCurrentFragmentPosition(2);
                 break;
             case R.id.activity_simple_bible_navbar_bookmarked:
                 // TODO : Implement and activate a Bookmark Fragment
@@ -162,6 +169,7 @@ public class ActivitySimpleBible
                             .commit();
                 }
                 title.append(" : Search");
+                setCurrentFragmentPosition(3);
                 break;
             case R.id.activity_simple_bible_navbar_about:
                 if (!(fragment instanceof FragmentAbout)) {
@@ -173,6 +181,7 @@ public class ActivitySimpleBible
                             .commit();
                 }
                 title.append(" : About");
+                setCurrentFragmentPosition(4);
                 break;
             default:
         }
@@ -195,11 +204,6 @@ public class ActivitySimpleBible
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
     public void onSearchFragmentInteraction(View view) {
         Toast.makeText(ActivitySimpleBible.this,
                        "onSearchFragmentInteraction", Toast.LENGTH_SHORT).show();
@@ -211,4 +215,21 @@ public class ActivitySimpleBible
         intent.putExtra(ActivityChapterVerses.ARG_BOOK_NUMBER, item.getBookNumber());
         startActivity(intent);
     }
+
+    private int getCurrentFragmentPosition() {
+        return getIntent().getIntExtra(CURRENT_FRAGMENT_POSITION, 0);
+    }
+
+    private void setCurrentFragmentPosition(int position) {
+        getIntent().putExtra(CURRENT_FRAGMENT_POSITION, position);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        NavigationView navigationView =
+                (NavigationView) findViewById(R.id.activity_simple_bible_nav_view);
+        onNavigationItemSelected(navigationView.getMenu().getItem(getCurrentFragmentPosition()));
+    }
+
 }

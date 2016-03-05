@@ -11,6 +11,7 @@
         android:theme="@style/ThemeLight">
         <activity
             android:name=".ActivitySimpleBible"
+            android:configChanges="orientation|screenSize"
             android:label="@string/app_name"
             android:theme="@style/ThemeLight.NoActionBar">
             <intent-filter>
@@ -21,6 +22,7 @@
         </activity>
         <activity
             android:name=".ActivityChapterVerses"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_v2_chapter_verses"
             android:parentActivityName=".ActivitySimpleBible"
             android:theme="@style/ThemeLight.NoActionBar">
