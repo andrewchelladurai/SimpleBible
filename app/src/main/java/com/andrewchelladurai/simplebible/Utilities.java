@@ -74,8 +74,6 @@ public class Utilities {
         String value =
                 pref.getString(context.getString(R.string.pref_ui_text_style_key_name),
                                context.getString(R.string.pref_ui_text_style_value_normal));
-        Log.d(TAG, "getPreferredSize() called with Style = [" + value + "]");
-
         if (value.equalsIgnoreCase(context.getString(
                 R.string.pref_ui_text_style_value_old_english))) {
             return Typeface.SERIF;
@@ -91,7 +89,6 @@ public class Utilities {
         String value =
                 pref.getString(context.getString(R.string.pref_ui_text_size_key_name),
                                context.getString(R.string.pref_ui_text_size_value_normal));
-        Log.d(TAG, "getPreferredSize() called with Size = [" + value + "]");
         if (value.equalsIgnoreCase(
                 context.getString(R.string.pref_ui_text_size_value_small))) {
             return 14f;

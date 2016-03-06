@@ -38,7 +38,7 @@
     <string name="text_welcome">Welcome</string>
     <string name="version">New International Version</string>
 
-    <string name="fragment_home_daily_verse_blank">Today\'s Daily Verse</string>
+    <string name="fragment_home_daily_verse_blank">Verse of the Day</string>
     <string name="fragment_home_img_books_desc">Books of The Holy Bible</string>
 
     <string name="fragment_v2_search_edit_text_hint">Search this exact text</string>
