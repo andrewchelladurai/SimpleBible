@@ -117,7 +117,7 @@ public class FragmentSearch
         String textToSearch = editText.getText().toString();
         Log.d(TAG, "onClick() called with textToSearch = [" + textToSearch + "]");
 
-        if (textToSearch.length() < 2) {
+        if (textToSearch.length() <= 2) {
             resultsLabel.setText(getString(R.string.fragment_v2_search_results_label_2chars));
             editText.requestFocus();
             return;
@@ -139,7 +139,7 @@ public class FragmentSearch
             if (results.size() > 0) {
                 listAdapter.clear();
                 listAdapter.addAll(results);
-                String str = (results.size() + 1) + " "
+                String str = results.size() + " "
                              + getString(R.string.fragment_v2_search_button_label_results_found);
                 resultsLabel.setText(str);
                 button.setText(getString(R.string.fragment_v2_search_button_label_reset));
