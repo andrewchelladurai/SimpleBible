@@ -25,25 +25,63 @@
 <html>
 <head>
     <style>
+        body{
+        background-color:#C8E6C9;
+        color:#212121;
+        }
+
         a:link, a:visited,a:hover, a:active {
         color:#1A411B;
         font-weight: bold;
         padding: 4px;
         text-decoration: none;
         }
+
+        td.version {
+        font-weight: bold;
+        text-align: center;
+        letter-spacing: 2px;
+        text-transform: capitalize;
+        line-height: 1.8;
+        border: 2px dotted;
+        }
+
+        td.header {
+        text-transform: uppercase;
+        background-color: #411A2C;
+        color:white;
+        }
+
+        td.update_type{
+        vertical-align: top;
+        text-align: right;
+        font-size:75%;
+        text-transform: capitalize;
+        }
+
     </style>
 </head>
-<body bgcolor="#C8E6C9" text="#212121">
-<table border="0" width="100%" align="center" cellpadding="10">
+<body>
+<table border="0" align="center" cellpadding="10">
     <tr>
-        <td bgcolor="#411A2C"><strong><font color="white">ABOUT ME</font></strong></td>
+        <td class="header">Simple Bible is intended to be:
     </tr>
     <tr>
-        <td><b>I am Andrew Chelladurai</b> and am currently learning Android App Development.<br/>
-            This is my attempt to make a worthy, useful and simple to use application.<br/>
-            Use the methods listed below to contact me regarding suggestions, feedback or anything
+        <td>
+            - Simple to use.<br/>
+            - Avoid unnecessary features.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Keeping this in mind, I began this project; since it was something the elders I
+            knew wanted in their Bible application. This is my attempt to meet their
+            needs.<br/><br/>
+            Use the methods listed below to contact me regarding suggestions, feedback or
+            anything
             else related to this application.<br/>
-            This is an Open Source application and is located at the GitHub location pointed below.
+            This is an Open Source application and is located at the GitHub location pointed
+            below.
         </td>
     </tr>
     <tr>
@@ -56,8 +94,7 @@
         </td>
     </tr>
     <tr>
-        <td bgcolor="#411A2C"><strong><font color="white">Credits and Thanks</font></strong>
-        </td>
+        <td class="header">Credits and Thanks</td>
     </tr>
     <tr>
         <td>The Icons used are <a href="https://design.google.com/icons/" title="Material">Material
@@ -65,132 +102,180 @@
         </td>
     </tr>
     <tr>
-        <td bgcolor="#411A2C"><strong><font color="white">CHANGE LOG</font></strong></td>
+        <td class="header">Change Log</td>
     </tr>
     <tr>
         <td>
-            <table border="0" cellpadding="3px" width="100%">
+            <table border="0" cellpadding="3px">
                 <tr>
-                    <td colspan="2"><br/><b>VERSION 1.0.7 - Dec 05, 2015</b></td>
+                    <td colspan="2" class="version">VERSION 1.5 - Feb 06, 2016</td>
                 </tr>
                 <tr>
-                    <td align="right" VALIGN="CENTER">FEATURE</td>
+                    <td class="update_type">FEATURE</td>
+                    <td>Optimized for Tablets.</td>
+                </tr>
+                <tr>
+                    <td class="update_type">FIXED</td>
+                    <td>Screens do not reset when Rotated</td>
+                </tr>
+                <tr>
+                    <td class="update_type">MODIFIED</td>
+                    <td>The User Interface is now modified for easier navigation.</td>
+                </tr>
+                <tr>
+                    <td class="update_type">MODIFIED</td>
+                    <td>The Dark Theme & Reminders is removed Temporarily.</td>
+                </tr>
+                <tr>
+                    <td class="update_type">MODIFIED</td>
+                    <td>New Theme to go along with the New Version.</td>
+                </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                </tr>
+                <!--LAST VERSION INFO IS ABOVE THIS LINE-->
+                <tr>
+                    <td colspan="2" class="version">VERSION 1.0.7 - Dec 05, 2015</td>
+                </tr>
+                <tr>
+                    <td class="update_type">FEATURE</td>
                     <td>Verse Size can changed to Normal, Big or Large.</td>
+                </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
                 </tr>
 
                 <tr>
-                    <td colspan="2"><br/><b>VERSION 1.0.6 - Oct 22, 2015</b></td>
+                    <td colspan="2" class="version">VERSION 1.0.6 - Oct 22, 2015</td>
                 </tr>
                 <tr>
-                    <td align="right" VALIGN="CENTER">FEATURE</td>
+                    <td class="update_type">FEATURE</td>
                     <td>Reminder Notifications is implemented.</td>
                 </tr>
                 <tr>
-                    <td align="right" VALIGN="CENTER">FEATURE</td>
+                    <td class="update_type">FEATURE</td>
                     <td>Verse Style is now enabled.</td>
                 </tr>
                 <tr>
-                    <td align="right" VALIGN="CENTER">MODIFY</td>
+                    <td class="update_type">MODIFIED</td>
                     <td>Application automatically restarts for a Theme change.</td>
                 </tr>
                 <tr>
-                    <td align="right" VALIGN="CENTER">MODIFY</td>
+                    <td class="update_type">MODIFIED</td>
                     <td>About page is no longer a main section.</td>
                 </tr>
                 <tr>
-                    <td align="right" VALIGN="CENTER">FIX</td>
+                    <td class="update_type">FIXED</td>
                     <td>Fixed a bug in the Book Name Lookup field.</td>
                 </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                </tr>
 
                 <tr>
-                    <td colspan="2"><br/><b>VERSION 1.0.5 - Sep 17, 2015</b></td>
+                    <td colspan="2" class="version">VERSION 1.0.5 - Sep 17, 2015</td>
                 </tr>
                 <tr>
-                    <td align="right" VALIGN="CENTER">FIX</td>
+                    <td class="update_type">FIXED</td>
                     <td>Two bugs identified in the Book Lookup Screen</td>
                 </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                </tr>
 
                 <tr>
-                    <td colspan="2"><br/><b>VERSION 1.0.4 - Sep 04, 2015</b></td>
+                    <td colspan="2" class="version">VERSION 1.0.4 - Sep 04, 2015</td>
                 </tr>
                 <tr>
-                    <td align="right" VALIGN="CENTER">FEATURE</td>
+                    <td class="update_type">FEATURE</td>
                     <td>Share Verses from Search or Chapter View by Long Clicking on it.</td>
                 </tr>
                 <tr>
-                    <td align="right" VALIGN="CENTER">MODIFY</td>
+                    <td class="update_type">MODIFIED</td>
                     <td>Search screen now shows better messages to indicate function.</td>
+                </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
                 </tr>
 
                 <tr>
-                    <td colspan="2"><br/><b>VERSION 1.0.3 - Aug 27, 2015</b></td>
+                    <td colspan="2" class="version">VERSION 1.0.3 - Aug 27, 2015</td>
                 </tr>
                 <tr>
-                    <td align="right" VALIGN="CENTER">MODIFY</td>
+                    <td class="update_type">MODIFIED</td>
                     <td>Action Bar Colored for distinction.</td>
                 </tr>
                 <tr>
-                    <td align="right" VALIGN="CENTER">FIX</td>
+                    <td class="update_type">FIXED</td>
                     <td>Dark Theme in Settings now Works.</td>
                 </tr>
                 <tr>
-                    <td align="right" VALIGN="CENTER">FIX</td>
+                    <td class="update_type">FIXED</td>
                     <td>Search text operation now shows all results.</td>
                 </tr>
                 <tr>
-                    <td align="right" VALIGN="CENTER">MODIFY</td>
+                    <td class="update_type">MODIFIED</td>
                     <td>Beautified the About page.</td>
                 </tr>
                 <tr>
-                    <td align="right" VALIGN="CENTER">MODIFY</td>
+                    <td class="update_type">MODIFIED</td>
                     <td>Performance Improvements.</td>
+                </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
                 </tr>
 
                 <tr>
-                    <td colspan="2"><br/><b>VERSION 1.0.2 - Aug 16, 2015</b></td>
+                    <td colspan="2" class="version">VERSION 1.0.2 - Aug 16, 2015</td>
                 </tr>
                 <tr>
-                    <td align="right" VALIGN="CENTER">MODIFY</td>
+                    <td class="update_type">MODIFIED</td>
                     <td>Book lookup now needs just one alphabet.</td>
                 </tr>
                 <tr>
-                    <td align="right" VALIGN="CENTER">FIX</td>
+                    <td class="update_type">FIXED</td>
                     <td>Extra redundant tab.</td>
                 </tr>
                 <tr>
-                    <td align="right" VALIGN="CENTER">MODIFY</td>
+                    <td class="update_type">MODIFIED</td>
                     <td>Populated the About page.</td>
                 </tr>
                 <tr>
-                    <td align="right" VALIGN="CENTER">MODIFY</td>
+                    <td class="update_type">MODIFIED</td>
                     <td>Performance Improvements.</td>
+                </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
                 </tr>
 
                 <tr>
-                    <td colspan="2"><br/><b>VERSION 1.0.1 - July 31, 2015</b></td>
+                    <td colspan="2" class="version">VERSION 1.0.1 - July 31, 2015</td>
                 </tr>
                 <tr>
-                    <td align="right" VALIGN="CENTER">MODIFY</td>
+                    <td class="update_type">MODIFIED</td>
                     <td>Single list of books.</td>
                 </tr>
                 <tr>
-                    <td align="right" VALIGN="CENTER">FEATURE</td>
+                    <td class="update_type">FEATURE</td>
                     <td>Book lookup / Autocomplete search in the Books list.</td>
                 </tr>
                 <tr>
-                    <td align="right" VALIGN="CENTER">MODIFY</td>
+                    <td class="update_type">MODIFIED</td>
                     <td>Updated application icon &nbsp; introduction image.</td>
                 </tr>
                 <tr>
-                    <td align="right" VALIGN="CENTER">FEATURE</td>
+                    <td class="update_type">FEATURE</td>
                     <td>Included the About tab.</td>
+                </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
                 </tr>
 
                 <tr>
-                    <td colspan="2"><br/><b>VERSION 1.0.0 - July 26, 2015</b></td>
+                    <td colspan="2" class="version">VERSION 1.0.0 - July 26, 2015</td>
                 </tr>
                 <tr>
-                    <td align="right" VALIGN="CENTER">FEATURE</td>
+                    <td class="update_type">FEATURE</td>
                     <td>Initial Release with very basic functionality</td>
                 </tr>
             </table>
