@@ -24,7 +24,12 @@
   -->
 
 <resources>
-    <color name="primaryColor">#388e3c</color>
-    <color name="color_material_Dark">#1f4e21</color>
-    <color name="accent_dark">#411A2C</color>
+    <color name="primary">#681A88</color>
+    <color name="primary_dark">#370E48</color>
+    <color name="primary_light">#E1BEE7</color>
+    <color name="accent">#085532</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#727272</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#B6B6B6</color>
 </resources>
