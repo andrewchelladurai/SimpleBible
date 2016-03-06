@@ -25,7 +25,6 @@
 package com.andrewchelladurai.simplebible;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -46,13 +45,12 @@ public class ActivityChapterVerses
                    FragmentChapterVerses.InteractionListener {
 
     public static final  String ARG_BOOK_NUMBER           = "BOOK_NUMBER";
-    public static final  String CURRENT_FRAGMENT_POSITION = "CURRENT_FRAGMENT_POSITION";
     private static final String TAG                       = "ActivityChapterVerses";
     private              int    bookNumber                = 1;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle savedState) {
+        super.onCreate(savedState);
         setContentView(R.layout.activity_chapter_verses);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -92,7 +90,9 @@ public class ActivityChapterVerses
 */
 
         populateMenuItems(navigationView.getMenu(), book.getChapterCount());
+        if (savedState == null) {
         onNavigationItemSelected(navigationView.getMenu().getItem(0));
+        }
     }
 
     private void populateMenuItems(Menu menu, int chapterCount) {
@@ -149,7 +149,6 @@ public class ActivityChapterVerses
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
-        setCurrentFragmentPosition(Integer.parseInt(number.trim()) - 1); // Item 0 = Chapter 1
         return true;
     }
 
@@ -159,19 +158,4 @@ public class ActivityChapterVerses
                        Toast.LENGTH_SHORT).show();
     }
 
-    private int getCurrentFragmentPosition() {
-        return getIntent().getIntExtra(CURRENT_FRAGMENT_POSITION, 0);
-    }
-
-    private void setCurrentFragmentPosition(int position) {
-        getIntent().putExtra(CURRENT_FRAGMENT_POSITION, position);
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        NavigationView navigationView =
-                (NavigationView) findViewById(R.id.nav_view);
-        onNavigationItemSelected(navigationView.getMenu().getItem(getCurrentFragmentPosition()));
-    }
 }
