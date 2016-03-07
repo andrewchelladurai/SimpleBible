@@ -63,7 +63,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
-        android:layout_centerVertical="true">
+        android:layout_centerVertical="true"
+        android:padding="@dimen/dp_10">
 
         <ImageView
             android:id="@+id/fragment_home_img_books"
