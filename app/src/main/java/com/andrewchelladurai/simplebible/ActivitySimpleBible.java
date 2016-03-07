@@ -141,7 +141,7 @@ public class ActivitySimpleBible
                                  FragmentBooksList.getInstance(
                                          FragmentBooksList.ARG_OLD_TESTAMENT_LIST))
                         .commit();
-                title.append(" : Old Testament");
+                title.delete(0, title.length()).append("Old Testament");
                 break;
             case R.id.activity_simple_bible_navbar_ntbooks:
                 getSupportFragmentManager()
@@ -150,11 +150,11 @@ public class ActivitySimpleBible
                                  FragmentBooksList.getInstance(
                                          FragmentBooksList.ARG_NEW_TESTAMENT_LIST))
                         .commit();
-                title.append(" : New Testament");
+                title.delete(0, title.length()).append("New Testament");
                 break;
             case R.id.activity_simple_bible_navbar_bookmarked:
                 // TODO : Implement and activate a Bookmark Fragment
-                title.append(" : Bookmarked");
+                title.delete(0, title.length()).append("Bookmarked");
                 break;
             case R.id.activity_simple_bible_navbar_search:
                 if (!(fragment instanceof FragmentSearch)) {
@@ -165,7 +165,7 @@ public class ActivitySimpleBible
                                     FragmentSearch.getInstance())
                             .commit();
                 }
-                title.append(" : Search");
+                title.delete(0, title.length()).append("Search");
                 break;
             case R.id.activity_simple_bible_navbar_about:
                 if (!(fragment instanceof FragmentAbout)) {
@@ -176,7 +176,7 @@ public class ActivitySimpleBible
                                     FragmentAbout.getInstance())
                             .commit();
                 }
-                title.append(" : About");
+                title.delete(0, title.length()).append("About");
                 break;
             default:
         }
