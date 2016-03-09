@@ -28,6 +28,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.ListViewCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -37,7 +38,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -52,7 +52,7 @@ public class FragmentSearch
     private static FragmentSearch       staticInstance;
     private        InteractionListener  mListener;
     private        EditText             editText;
-    private        Button               button;
+    private AppCompatButton button;
     private        TextView             resultsLabel;
     private        ArrayAdapter<String> listAdapter;
 
@@ -80,7 +80,7 @@ public class FragmentSearch
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         editText = (EditText) view.findViewById(R.id.fragment_v2_search_edittext);
-        button = (Button) view.findViewById(R.id.fragment_v2_search_button);
+        button = (AppCompatButton) view.findViewById(R.id.fragment_v2_search_button);
         resultsLabel = (TextView) view.findViewById(R.id.fragment_v2_search_results_label);
         ListViewCompat resultsList = (ListViewCompat) view.findViewById(
                 R.id.fragment_v2_search_results_listView);
