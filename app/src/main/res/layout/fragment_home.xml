@@ -29,49 +29,20 @@
     android:layout_height="match_parent"
     tools:context=".FragmentHome">
 
-    <!--
-    //TODO Use this block when the Daily verse is implemented.
-        <TextView
-            android:id="@+id/fragment_home_daily_verse"
-            style="@style/TextAppearance.AppCompat.Large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
-            android:layout_margin="@dimen/header_margin"
-            android:padding="@dimen/header_margin"
-            android:text="@string/fragment_home_daily_verse_blank"/>
-
-        <ScrollView
-            android:id="@+id/scrollView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/fragment_home_daily_verse"
-            android:layout_centerHorizontal="true">
-
-            <ImageView
-                android:id="@+id/fragment_home_img_books"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/fragment_home_img_books_desc"
-                android:src="@drawable/books_of_the_bible"/>
-        </ScrollView>
-    -->
-    <ScrollView
-        android:id="@+id/scrollView"
+    <fragment
+        android:id="@+id/home_goto_fragment"
+        android:name="com.andrewchelladurai.simplebible.FragmentGotoLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/fragment_home_daily_verse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/home_goto_fragment"
         android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:layout_centerVertical="true"
-        android:padding="@dimen/dp_10">
-
-        <ImageView
-            android:id="@+id/fragment_home_img_books"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/fragment_home_img_books_desc"
-            android:src="@drawable/books_of_the_bible"/>
-    </ScrollView>
-
+        android:text="@string/fragment_home_daily_verse_blank"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
 </RelativeLayout>
