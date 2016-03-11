@@ -51,6 +51,11 @@ public class ActivitySimpleBible
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
+
+        if (savedState != null) {
+            return;
+        }
+
         setContentView(R.layout.activity_simple_bible);
 
         DatabaseUtility.getInstance(getBaseContext());
@@ -83,9 +88,7 @@ public class ActivitySimpleBible
         NavigationView navigationView =
                 (NavigationView) findViewById(R.id.activity_simple_bible_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        if (savedState == null) {
-            onNavigationItemSelected(navigationView.getMenu().getItem(0));
-        }
+        onNavigationItemSelected(navigationView.getMenu().getItem(0));
     }
 
     @Override

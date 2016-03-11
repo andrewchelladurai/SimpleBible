@@ -131,8 +131,10 @@
     <!-- Example General settings -->
     <string name="pref_header_ui">Appearance</string>
 
-    <string name="pref_ui_dark_theme_title">Enable Dark Theme</string>
-    <string name="pref_ui_dark_theme_desc">The Application will use a almost black color scheme.</string>
+    <string name="pref_ui_dark_theme_title">Disabled - Enable Dark Theme</string>
+    <string name="pref_ui_dark_theme_desc">Coming soon - The Application will use a almost black
+        color
+        scheme.</string>
 
     <string name="pref_ui_text_size_title">SIZE of displayed text.</string>
     <string name="pref_ui_text_size_value_small">Small</string>
