@@ -38,7 +38,7 @@
     <string name="text_welcome">Welcome</string>
     <string name="version">New International Version</string>
 
-    <string name="fragment_home_daily_verse_blank">Verse of the Day</string>
+    <string name="fragment_home_daily_verse">For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.\n<b>John 3:16</b></string>
     <string name="fragment_home_img_books_desc">Books of The Holy Bible</string>
 
     <string name="fragment_v2_search_edit_text_hint">Search this exact text</string>
@@ -198,5 +198,8 @@
     <string name="com.andrewchelladurai.simplebible.PREF_STORAGE_NAME">
         PREFERENCES_STORAGE
     </string>
+    <string name="fragment_goto_label_book_name_text">Type Name Book to go to it</string>
+    <string name="fragment_goto_label_chapter_text">Choose Chapter from book</string>
+    <string name="fragment_goto_button_text">Goto Location</string>
 
 </resources>

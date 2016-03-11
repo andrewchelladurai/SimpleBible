@@ -27,6 +27,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/dp_10"
     tools:context=".FragmentHome">
 
     <fragment
@@ -35,14 +36,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
-
-    <TextView
-        android:id="@+id/fragment_home_daily_verse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/home_goto_fragment"
         android:layout_centerHorizontal="true"
-        android:text="@string/fragment_home_daily_verse_blank"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+        android:layout_margin="@dimen/dp_20"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/home_goto_fragment"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_20">
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:id="@+id/fragment_home_daily_verse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_home_daily_verse"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
+        </ScrollView>
+    </RelativeLayout>
+
 </RelativeLayout>

@@ -36,7 +36,7 @@
         android:id="@+id/fragment_goto_label_book_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Type Name Book to go to it"
+        android:text="@string/fragment_goto_label_book_name_text"
         android:textAppearance="?android:attr/textAppearanceSmall"/>
 
     <AutoCompleteTextView
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/fragment_goto_book_input"
         android:layout_gravity="center_vertical"
-        android:text="Choose Chapter from book"
+        android:text="@string/fragment_goto_label_chapter_text"
         android:textAppearance="?android:attr/textAppearanceSmall"/>
 
     <android.support.v7.widget.LinearLayoutCompat
@@ -74,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onGotoFragmentInteraction"
-            android:text="Goto Location"/>
+            android:text="@string/fragment_goto_button_text"/>
     </android.support.v7.widget.LinearLayoutCompat>
 
 </RelativeLayout>
