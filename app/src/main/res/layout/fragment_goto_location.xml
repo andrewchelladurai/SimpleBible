@@ -33,41 +33,37 @@
 
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/fragment_goto_label_book_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="Type Book Name"
+        android:text="Type Name Book to go to it"
         android:textAppearance="?android:attr/textAppearanceSmall"/>
 
     <AutoCompleteTextView
         android:id="@+id/fragment_goto_book_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView3"
+        android:layout_below="@+id/fragment_goto_label_book_name"
         android:layout_centerHorizontal="true"
         android:text=""/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/fragment_goto_label_chapter"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fragment_goto_book_input"
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal"
-        android:padding="@dimen/dp_10">
+        android:layout_gravity="center_vertical"
+        android:text="Choose Chapter from book"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="Choose Chapter"
-            android:textAppearance="?android:attr/textAppearanceSmall"/>
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fragment_goto_label_chapter">
 
         <AutoCompleteTextView
             android:id="@+id/fragment_goto_chapter_input"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
@@ -77,9 +73,8 @@
             android:id="@+id/fragment_goto_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:onClick="onGotoFragmentInteraction"
             android:text="Goto Location"/>
-    </LinearLayout>
+    </android.support.v7.widget.LinearLayoutCompat>
 
 </RelativeLayout>
