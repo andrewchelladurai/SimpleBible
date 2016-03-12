@@ -36,7 +36,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 
 import java.util.Arrays;
 
@@ -84,7 +83,7 @@ public class FragmentGotoLocation
                 .simple_list_item_1, new String[0]);
         chapterNameTxtView.setAdapter(chapterNamesAdapter);
 
-        Button gotoButton = (Button) view.findViewById(R.id.fragment_goto_button);
+        AppCompatButton gotoButton = (AppCompatButton) view.findViewById(R.id.fragment_goto_button);
         gotoButton.setOnClickListener(this);
 
         return view;

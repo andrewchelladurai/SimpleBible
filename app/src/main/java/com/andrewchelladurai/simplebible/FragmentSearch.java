@@ -85,7 +85,7 @@ public class FragmentSearch
         ListViewCompat resultsList = (ListViewCompat) view.findViewById(
                 R.id.fragment_v2_search_results_listView);
 
-        listAdapter = new VerseListAdapter(
+        listAdapter = new AdapterVerseList(
                 getContext(), android.R.layout.simple_list_item_1, new ArrayList<String>(1));
         resultsList.setAdapter(listAdapter);
 

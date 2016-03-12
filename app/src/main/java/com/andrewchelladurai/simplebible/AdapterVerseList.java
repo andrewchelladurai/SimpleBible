@@ -36,10 +36,10 @@ import java.util.ArrayList;
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
  * on 05-Mar-2016 @ 2:34 AM
  */
-public class VerseListAdapter
+public class AdapterVerseList
         extends ArrayAdapter<String> {
 
-    public VerseListAdapter(Context context, int resource, ArrayList<String> objects) {
+    public AdapterVerseList(Context context, int resource, ArrayList<String> objects) {
         super(context, resource, objects);
     }
 

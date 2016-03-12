@@ -31,7 +31,7 @@
     android:padding="@dimen/dp_10"
     tools:context="com.andrewchelladurai.simplebible.FragmentGotoLocation">
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/fragment_goto_label_book_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
         android:selectAllOnFocus="true"
         android:text=""/>
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/fragment_goto_label_chapter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
