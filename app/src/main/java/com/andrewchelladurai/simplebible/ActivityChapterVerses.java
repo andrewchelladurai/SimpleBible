@@ -33,7 +33,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,19 +43,27 @@ public class ActivityChapterVerses
         implements NavigationView.OnNavigationItemSelectedListener,
                    FragmentChapterVerses.InteractionListener {
 
-    public static final  String ARG_BOOK_NUMBER           = "BOOK_NUMBER";
-    private static final String TAG                       = "ActivityChapterVerses";
-    private              int    bookNumber                = 1;
+    public static final  String ARG_BOOK_NUMBER    = "BOOK_NUMBER";
+    public static final  String ARG_CHAPTER_NUMBER = "CHAPTER_NUMBER";
+    private static final String TAG                = "ActivityChapterVerses";
+    private              int    bookNumber         = 1;
 
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
+
+        if (savedState != null) {
+            return;
+        }
+
         setContentView(R.layout.activity_chapter_verses);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        bookNumber = Integer.parseInt(getIntent().getStringExtra(ARG_BOOK_NUMBER));
-        Log.d(TAG, "onCreate: bookNumber = " + bookNumber);
+        bookNumber = (getIntent().getStringExtra(ARG_BOOK_NUMBER) == null)
+                     ? 1 : Integer.parseInt(getIntent().getStringExtra(ARG_BOOK_NUMBER));
+        int chapterNumber = (getIntent().getStringExtra(ARG_CHAPTER_NUMBER) == null)
+                            ? 1 : Integer.parseInt(getIntent().getStringExtra(ARG_CHAPTER_NUMBER));
 
         AllBooks.Book book = AllBooks.getBook(bookNumber);
 
@@ -88,11 +95,8 @@ public class ActivityChapterVerses
                          FragmentChapterVerses.getInstance(new ArrayList<String>(1)))
                 .commit();
 */
-
         populateMenuItems(navigationView.getMenu(), book.getChapterCount());
-        if (savedState == null) {
-        onNavigationItemSelected(navigationView.getMenu().getItem(0));
-        }
+        onNavigationItemSelected(navigationView.getMenu().getItem(chapterNumber - 1));
     }
 
     private void populateMenuItems(Menu menu, int chapterCount) {
