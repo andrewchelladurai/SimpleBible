@@ -22,7 +22,6 @@
   ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
   -->
 
-<!--
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -31,7 +30,6 @@
     android:layout_margin="@dimen/dp_10"
     android:padding="@dimen/dp_10"
     tools:context="com.andrewchelladurai.simplebible.FragmentGotoLocation">
-
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/fragment_goto_label_book_name"
@@ -60,88 +58,27 @@
         android:text="@string/fragment_goto_label_chapter_text"
         android:textAppearance="?android:attr/textAppearanceSmall"/>
 
-    <android.support.v7.widget.AppCompatAutoCompleteTextView
-        android:id="@+id/fragment_goto_chapter_input"
+    <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/fragment_goto_label_chapter"
-        android:layout_gravity="center_vertical"
-        android:completionThreshold="1"
-        android:maxLines="1"
-        android:selectAllOnFocus="true"
-        android:text=""/>
+        android:layout_below="@id/fragment_goto_label_chapter">
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/fragment_goto_button"
-        style="?android:borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/fragment_goto_chapter_input"
-        android:layout_centerHorizontal="true"
-        android:background="@color/accent"
-        android:elevation="@dimen/dp_20"
-        android:padding="@dimen/dp_20"
-        android:text="@string/fragment_goto_button_text"
-        android:textColor="@color/primary_light"/>
+        <android.support.v7.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/fragment_goto_chapter_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:completionThreshold="1"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:text=""/>
 
-</RelativeLayout>
--->
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".FragmentSearch">
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/fragment_goto_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_goto_button_text"/>
+    </android.support.v7.widget.LinearLayoutCompat>
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/fragment_v2_search_textinputlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/dp_10">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/fragment_v2_search_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/fragment_v2_search_edit_text_hint"
-            android:singleLine="true"/>
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/fragment_v2_search_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/fragment_v2_search_textinputlayout"
-        android:layout_centerHorizontal="true"
-        android:elevation="@dimen/dp_20"
-        android:paddingEnd="@dimen/dp_20"
-        android:paddingLeft="@dimen/dp_20"
-        android:paddingRight="@dimen/dp_20"
-        android:paddingStart="@dimen/dp_20"
-        android:text="@string/fragment_v2_search_button_label_default"/>
-
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/fragment_v2_search_results_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/fragment_v2_search_button"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/dp_10"
-        android:elevation="@dimen/dp_20"
-        android:text=""
-        android:textAlignment="center"
-        android:textAppearance="?android:attr/textAppearanceSmall"/>
-
-    <android.support.v7.widget.ListViewCompat
-        android:id="@+id/fragment_v2_search_results_listView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/fragment_v2_search_results_label"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_10"/>
 </RelativeLayout>

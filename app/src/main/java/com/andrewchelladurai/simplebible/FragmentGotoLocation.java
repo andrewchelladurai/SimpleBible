@@ -106,8 +106,7 @@ public class FragmentGotoLocation
     @Override
     public void onClick(View view) {
         String buttonLabel = ((AppCompatButton) view).getText().toString();
-        if (buttonLabel.equalsIgnoreCase(getString(R.string.fragment_goto_button_text))) ;
-        {
+        if (buttonLabel.equalsIgnoreCase(getString(R.string.fragment_goto_button_text))) {
             handleGotoButtonClick(view);
         }
     }
