@@ -40,14 +40,6 @@ import android.widget.Button;
 
 import java.util.Arrays;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link InteractionListener} interface
- * to handle interaction events.
- * Use the {@link FragmentGotoLocation#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FragmentGotoLocation
         extends Fragment
         implements View.OnClickListener, View.OnFocusChangeListener {

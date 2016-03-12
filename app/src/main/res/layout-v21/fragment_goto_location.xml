@@ -31,7 +31,6 @@
     android:padding="@dimen/dp_10"
     tools:context="com.andrewchelladurai.simplebible.FragmentGotoLocation">
 
-
     <TextView
         android:id="@+id/fragment_goto_label_book_name"
         android:layout_width="wrap_content"
@@ -77,11 +76,10 @@
 
         <Button
             android:id="@+id/fragment_goto_button"
-            style="?android:buttonStyle"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fragment_goto_button_text"/>
-        <!--style="@style/Widget.AppCompat.Button.Colored"-->
     </android.support.v7.widget.LinearLayoutCompat>
 
 </RelativeLayout>
