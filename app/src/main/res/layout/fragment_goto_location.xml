@@ -39,12 +39,14 @@
         android:text="@string/fragment_goto_label_book_name_text"
         android:textAppearance="?android:attr/textAppearanceSmall"/>
 
-    <AutoCompleteTextView
+    <android.support.v7.widget.AppCompatAutoCompleteTextView
         android:id="@+id/fragment_goto_book_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fragment_goto_label_book_name"
         android:layout_centerHorizontal="true"
+        android:completionThreshold="1"
+        android:maxLines="1"
         android:text=""/>
 
     <TextView
@@ -61,12 +63,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/fragment_goto_label_chapter">
 
-        <AutoCompleteTextView
+        <android.support.v7.widget.AppCompatAutoCompleteTextView
             android:id="@+id/fragment_goto_chapter_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
+            android:completionThreshold="1"
+            android:maxLines="1"
             android:text=""/>
 
         <Button

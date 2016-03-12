@@ -27,10 +27,15 @@ package com.andrewchelladurai.simplebible;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+
+import java.util.Arrays;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,10 +50,11 @@ public class FragmentGotoLocation
 
     private static final String TAG = "FragmentGotoLocation";
 
-    private String bookNumber;
-    private String chapterNumber;
-
-    private InteractionListener mListener;
+    private InteractionListener           mListener;
+    private AppCompatAutoCompleteTextView bookNameTxtView;
+    private AppCompatAutoCompleteTextView chapterNameTxtView;
+    private BookNameValidator             bookNameValidator;
+    private ArrayAdapter<String>          chapterNamesAdapter;
 
     public FragmentGotoLocation() {
         // Required empty public constructor
@@ -62,20 +68,30 @@ public class FragmentGotoLocation
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            return super.onCreateView(inflater, container, savedInstanceState);
+        }
         View view = inflater.inflate(R.layout.fragment_goto_location, container, false);
-        AutoCompleteTextView bookNameTxtView = (AutoCompleteTextView)
+        bookNameTxtView = (AppCompatAutoCompleteTextView)
                 view.findViewById(R.id.fragment_goto_book_input);
-        AutoCompleteTextView chapterNameTxtView = (AutoCompleteTextView)
+        chapterNameTxtView = (AppCompatAutoCompleteTextView)
                 view.findViewById(R.id.fragment_goto_chapter_input);
+        Button gotoButton = (Button) view.findViewById(R.id.fragment_goto_button);
+
+        bookNameTxtView.setAdapter(new ArrayAdapter<String>(
+                getActivity(), android.R.layout.simple_list_item_1, createBooksList()));
+
+        chapterNamesAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout
+                .simple_list_item_1, new String[0]);
+        chapterNameTxtView.setAdapter(chapterNamesAdapter);
+
+        bookNameValidator = new BookNameValidator();
+
+//        bookNameTxtView.setValidator(bookNameValidator);
+        bookNameTxtView.setOnFocusChangeListener(bookNameValidator);
+
         return view;
     }
 
@@ -102,18 +118,77 @@ public class FragmentGotoLocation
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    private String[] createBooksList() {
+        String booknames[] = new String[66];
+        int count = 0;
+        for (AllBooks.Book book : AllBooks.getOTBooksList()) {
+            booknames[count] = book.getName();
+            count++;
+        }
+        for (AllBooks.Book book : AllBooks.getNTBooksList()) {
+            booknames[count] = book.getName();
+            count++;
+        }
+        return booknames;
+    }
+
     public interface InteractionListener {
 
         void onGotoFragmentInteraction(View view);
+    }
+
+    class BookNameValidator
+            implements View.OnFocusChangeListener {
+
+        int bookNumber    = -1;
+        int chapterNumber = -1;
+        int chapterCount  = -1;
+
+        @Override
+        public void onFocusChange(View view, boolean b) {
+            AutoCompleteTextView actv = ((AutoCompleteTextView) view);
+            chapterCount = -1;
+            if (actv.equals(bookNameTxtView)) {
+                chapterCount = validateBookName(actv);
+            }
+            if (chapterCount > 0) {
+                String chapterNames[] = new String[chapterCount];
+                for (int i = 0; i < chapterCount; i++) {
+                    chapterNames[i] = "" + (i + 1);
+                }
+                chapterNamesAdapter.clear();
+                chapterNamesAdapter.addAll(chapterNames);
+                chapterNamesAdapter.notifyDataSetChanged();
+            } else {
+                chapterCount = -1;
+            }
+        }
+
+        private int validateBookName(AutoCompleteTextView actv) {
+            String enteredText = actv.getText().toString();
+            String books[] = createBooksList();
+
+            Arrays.sort(books);
+
+            if (Arrays.binarySearch(books, enteredText) < 0) { // Entered Text Not a Book
+                resetValues();
+                return -1;
+            }
+
+            books = createBooksList();
+            bookNumber = -1;
+            for (bookNumber = 0; bookNumber < books.length; bookNumber++) {
+                if (books[bookNumber].equalsIgnoreCase(enteredText)) { break; }
+            }
+            return AllBooks.getBook(bookNumber + 1).getChapterCount();
+        }
+
+        private void resetValues() {
+            bookNumber = -1;
+            chapterCount = -1;
+            chapterNumber = -1;
+            bookNameTxtView.setText("");
+            chapterNameTxtView.setText("");
+        }
     }
 }
