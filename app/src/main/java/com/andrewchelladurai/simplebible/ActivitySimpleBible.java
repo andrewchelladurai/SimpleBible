@@ -44,8 +44,7 @@ public class ActivitySimpleBible
                    FragmentHome.InteractionListener,
                    FragmentAbout.InteractionListener,
                    FragmentSearch.InteractionListener,
-                   FragmentBooksList.InteractionListener,
-                   FragmentGotoLocation.InteractionListener {
+                   FragmentBooksList.InteractionListener {
 
     private static final String TAG = "ActivitySimpleBible";
 
@@ -212,12 +211,8 @@ public class ActivitySimpleBible
     public void onBooksListFragmentInteraction(AllBooks.Book item) {
         Intent intent = new Intent(this, ActivityChapterVerses.class);
         intent.putExtra(ActivityChapterVerses.ARG_BOOK_NUMBER, item.getBookNumber());
+        intent.putExtra(ActivityChapterVerses.ARG_CHAPTER_NUMBER, 1 + "");
         startActivity(intent);
     }
 
-    @Override
-    public void onGotoFragmentInteraction(View view) {
-        Toast.makeText(ActivitySimpleBible.this,
-                       "onGotoFragmentInteraction", Toast.LENGTH_SHORT).show();
-    }
 }

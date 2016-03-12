@@ -47,6 +47,7 @@
         android:layout_centerHorizontal="true"
         android:completionThreshold="1"
         android:maxLines="1"
+        android:selectAllOnFocus="true"
         android:text=""/>
 
     <TextView
@@ -71,13 +72,13 @@
             android:layout_weight="1"
             android:completionThreshold="1"
             android:maxLines="1"
+            android:selectAllOnFocus="true"
             android:text=""/>
 
         <Button
             android:id="@+id/fragment_goto_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onGotoFragmentInteraction"
             android:text="@string/fragment_goto_button_text"/>
     </android.support.v7.widget.LinearLayoutCompat>
 

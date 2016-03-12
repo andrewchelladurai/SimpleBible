@@ -24,10 +24,13 @@
 
 package com.andrewchelladurai.simplebible;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
+import android.support.v7.widget.AppCompatButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,15 +49,17 @@ import java.util.Arrays;
  * create an instance of this fragment.
  */
 public class FragmentGotoLocation
-        extends Fragment {
+        extends Fragment
+        implements View.OnClickListener, View.OnFocusChangeListener {
 
     private static final String TAG = "FragmentGotoLocation";
 
-    private InteractionListener           mListener;
     private AppCompatAutoCompleteTextView bookNameTxtView;
     private AppCompatAutoCompleteTextView chapterNameTxtView;
-    private BookNameValidator             bookNameValidator;
     private ArrayAdapter<String>          chapterNamesAdapter;
+    private int bookNumber    = -1;
+    private int chapterNumber = -1;
+    private int chapterCount  = -1;
 
     public FragmentGotoLocation() {
         // Required empty public constructor
@@ -74,48 +79,23 @@ public class FragmentGotoLocation
             return super.onCreateView(inflater, container, savedInstanceState);
         }
         View view = inflater.inflate(R.layout.fragment_goto_location, container, false);
+
         bookNameTxtView = (AppCompatAutoCompleteTextView)
                 view.findViewById(R.id.fragment_goto_book_input);
-        chapterNameTxtView = (AppCompatAutoCompleteTextView)
-                view.findViewById(R.id.fragment_goto_chapter_input);
-        Button gotoButton = (Button) view.findViewById(R.id.fragment_goto_button);
-
         bookNameTxtView.setAdapter(new ArrayAdapter<String>(
                 getActivity(), android.R.layout.simple_list_item_1, createBooksList()));
+        bookNameTxtView.setOnFocusChangeListener(this);
 
+        chapterNameTxtView = (AppCompatAutoCompleteTextView)
+                view.findViewById(R.id.fragment_goto_chapter_input);
         chapterNamesAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout
                 .simple_list_item_1, new String[0]);
         chapterNameTxtView.setAdapter(chapterNamesAdapter);
 
-        bookNameValidator = new BookNameValidator();
-
-//        bookNameTxtView.setValidator(bookNameValidator);
-        bookNameTxtView.setOnFocusChangeListener(bookNameValidator);
+        Button gotoButton = (Button) view.findViewById(R.id.fragment_goto_button);
+        gotoButton.setOnClickListener(this);
 
         return view;
-    }
-
-    public void onButtonPressed(View view) {
-        if (mListener != null) {
-            mListener.onGotoFragmentInteraction(view);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof InteractionListener) {
-            mListener = (InteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                                       + " must implement InteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 
     private String[] createBooksList() {
@@ -132,63 +112,91 @@ public class FragmentGotoLocation
         return booknames;
     }
 
-    public interface InteractionListener {
-
-        void onGotoFragmentInteraction(View view);
-    }
-
-    class BookNameValidator
-            implements View.OnFocusChangeListener {
-
-        int bookNumber    = -1;
-        int chapterNumber = -1;
-        int chapterCount  = -1;
-
-        @Override
-        public void onFocusChange(View view, boolean b) {
-            AutoCompleteTextView actv = ((AutoCompleteTextView) view);
-            chapterCount = -1;
-            if (actv.equals(bookNameTxtView)) {
-                chapterCount = validateBookName(actv);
-            }
-            if (chapterCount > 0) {
-                String chapterNames[] = new String[chapterCount];
-                for (int i = 0; i < chapterCount; i++) {
-                    chapterNames[i] = "" + (i + 1);
-                }
-                chapterNamesAdapter.clear();
-                chapterNamesAdapter.addAll(chapterNames);
-                chapterNamesAdapter.notifyDataSetChanged();
-            } else {
-                chapterCount = -1;
-            }
-        }
-
-        private int validateBookName(AutoCompleteTextView actv) {
-            String enteredText = actv.getText().toString();
-            String books[] = createBooksList();
-
-            Arrays.sort(books);
-
-            if (Arrays.binarySearch(books, enteredText) < 0) { // Entered Text Not a Book
-                resetValues();
-                return -1;
-            }
-
-            books = createBooksList();
-            bookNumber = -1;
-            for (bookNumber = 0; bookNumber < books.length; bookNumber++) {
-                if (books[bookNumber].equalsIgnoreCase(enteredText)) { break; }
-            }
-            return AllBooks.getBook(bookNumber + 1).getChapterCount();
-        }
-
-        private void resetValues() {
-            bookNumber = -1;
-            chapterCount = -1;
-            chapterNumber = -1;
-            bookNameTxtView.setText("");
-            chapterNameTxtView.setText("");
+    @Override
+    public void onClick(View view) {
+        String buttonLabel = ((AppCompatButton) view).getText().toString();
+        if (buttonLabel.equalsIgnoreCase(getString(R.string.fragment_goto_button_text))) ;
+        {
+            handleGotoButtonClick(view);
         }
     }
+
+    private void handleGotoButtonClick(View view) {
+
+        if (bookNumber < 1 || bookNumber > 66) {
+            Snackbar.make(view, "Typed Book is Incorrect", Snackbar.LENGTH_SHORT);
+            return;
+        }
+
+        try {
+            chapterNumber = Integer.parseInt(chapterNameTxtView.getText().toString());
+        } catch (NumberFormatException nfe) {
+            chapterNumber = 0;
+            Snackbar.make(view, "Chapter Number is Incorrect", Snackbar.LENGTH_SHORT);
+            return;
+        }
+
+        if (chapterNumber < 1 || chapterNumber > chapterCount) {
+            Snackbar.make(view, "Chapter Number is Incorrect", Snackbar.LENGTH_SHORT);
+            return;
+        }
+
+        Intent intent = new Intent(
+                getActivity().getApplicationContext(), ActivityChapterVerses.class);
+        intent.putExtra(ActivityChapterVerses.ARG_BOOK_NUMBER, bookNumber + "");
+        intent.putExtra(ActivityChapterVerses.ARG_CHAPTER_NUMBER, chapterNumber + "");
+        Log.d(TAG, "handleGotoButtonClick() called with : "
+                   + bookNumber + " : " + chapterNumber + " of " + chapterCount);
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void onFocusChange(View view, boolean b) {
+        AutoCompleteTextView actv = ((AutoCompleteTextView) view);
+        chapterCount = -1;
+        if (actv.equals(bookNameTxtView)) {
+            chapterCount = validateBookName(actv);
+        }
+        if (chapterCount > 0) {
+            String chapterNames[] = new String[chapterCount];
+            for (int i = 0; i < chapterCount; i++) {
+                chapterNames[i] = "" + (i + 1);
+            }
+            chapterNamesAdapter.clear();
+            chapterNamesAdapter.addAll(chapterNames);
+            chapterNamesAdapter.notifyDataSetChanged();
+        } else {
+            chapterCount = -1;
+        }
+    }
+
+    private int validateBookName(AutoCompleteTextView actv) {
+        String enteredText = actv.getText().toString();
+        String books[] = createBooksList();
+
+        Arrays.sort(books);
+
+        if (Arrays.binarySearch(books, enteredText) < 0) { // Entered Text Not a Book
+            resetValues();
+            return -1;
+        }
+
+        books = createBooksList();
+        bookNumber = -1;
+        for (bookNumber = 0; bookNumber < books.length; bookNumber++) {
+            if (books[bookNumber].equalsIgnoreCase(enteredText)) { break; }
+        }
+        bookNumber += 1;
+        return AllBooks.getBook(bookNumber).getChapterCount();
+    }
+
+    private void resetValues() {
+        bookNumber = -1;
+        chapterCount = -1;
+        chapterNumber = -1;
+        bookNameTxtView.setText("");
+        chapterNameTxtView.setText("");
+    }
+
 }
