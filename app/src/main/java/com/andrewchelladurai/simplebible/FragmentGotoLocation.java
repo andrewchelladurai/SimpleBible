@@ -77,14 +77,14 @@ public class FragmentGotoLocation
 
         bookNameTxtView = (AppCompatAutoCompleteTextView)
                 view.findViewById(R.id.fragment_goto_book_input);
-        bookNameTxtView.setAdapter(new ArrayAdapter<String>(
+        bookNameTxtView.setAdapter(new ArrayAdapter<>(
                 getActivity(), android.R.layout.simple_list_item_1, createBooksList()));
         bookNameTxtView.setOnFocusChangeListener(this);
         bookNameTxtView.setOnItemClickListener(this);
 
         chapterNameTxtView = (AppCompatAutoCompleteTextView)
                 view.findViewById(R.id.fragment_goto_chapter_input);
-        chapterNamesAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout
+        chapterNamesAdapter = new ArrayAdapter<>(getActivity(), android.R.layout
                 .simple_list_item_1, new String[0]);
         chapterNameTxtView.setAdapter(chapterNamesAdapter);
 
@@ -143,6 +143,7 @@ public class FragmentGotoLocation
         Log.d(TAG, "handleGotoButtonClick() called with : "
                 + bookNumber + " : " + chapterNumber + " of " + chapterCount);
         startActivity(intent);
+        resetValues();
     }
 
     @Override
@@ -187,6 +188,11 @@ public class FragmentGotoLocation
         return AllBooks.getBook(bookNumber).getChapterCount();
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        chapterNameTxtView.requestFocus();
+    }
+
     private void resetValues() {
         bookNumber = -1;
         chapterCount = -1;
@@ -195,8 +201,4 @@ public class FragmentGotoLocation
         chapterNameTxtView.setText("");
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        chapterNameTxtView.requestFocus();
-    }
 }
