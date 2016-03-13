@@ -34,23 +34,27 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 
 import java.util.Arrays;
 
 public class FragmentGotoLocation
         extends Fragment
-        implements View.OnClickListener, View.OnFocusChangeListener {
+        implements View.OnClickListener,
+        View.OnFocusChangeListener,
+        AdapterView.OnItemClickListener {
 
     private static final String TAG = "FragmentGotoLocation";
 
     private AppCompatAutoCompleteTextView bookNameTxtView;
     private AppCompatAutoCompleteTextView chapterNameTxtView;
-    private ArrayAdapter<String>          chapterNamesAdapter;
-    private int bookNumber    = -1;
+    private ArrayAdapter<String> chapterNamesAdapter;
+    private int bookNumber = -1;
     private int chapterNumber = -1;
-    private int chapterCount  = -1;
+    private int chapterCount = -1;
 
     public FragmentGotoLocation() {
         // Required empty public constructor
@@ -76,6 +80,7 @@ public class FragmentGotoLocation
         bookNameTxtView.setAdapter(new ArrayAdapter<String>(
                 getActivity(), android.R.layout.simple_list_item_1, createBooksList()));
         bookNameTxtView.setOnFocusChangeListener(this);
+        bookNameTxtView.setOnItemClickListener(this);
 
         chapterNameTxtView = (AppCompatAutoCompleteTextView)
                 view.findViewById(R.id.fragment_goto_chapter_input);
@@ -112,22 +117,22 @@ public class FragmentGotoLocation
     }
 
     private void handleGotoButtonClick(View view) {
-
         if (bookNumber < 1 || bookNumber > 66) {
-            Snackbar.make(view, "Typed Book is Incorrect", Snackbar.LENGTH_SHORT);
+            Toast.makeText(getActivity(), "Typed Book is Incorrect", Toast.LENGTH_SHORT).show();
+            Snackbar.make(view, "Typed Book is Incorrect", Snackbar.LENGTH_SHORT).show();
             return;
         }
 
+        final String chapterStr = chapterNameTxtView.getText().toString();
+
         try {
-            chapterNumber = Integer.parseInt(chapterNameTxtView.getText().toString());
+            chapterNumber = (chapterStr.isEmpty()) ? 1 : Integer.parseInt(chapterStr);
         } catch (NumberFormatException nfe) {
             chapterNumber = 0;
-            Snackbar.make(view, "Chapter Number is Incorrect", Snackbar.LENGTH_SHORT);
             return;
         }
 
         if (chapterNumber < 1 || chapterNumber > chapterCount) {
-            Snackbar.make(view, "Chapter Number is Incorrect", Snackbar.LENGTH_SHORT);
             return;
         }
 
@@ -136,9 +141,8 @@ public class FragmentGotoLocation
         intent.putExtra(ActivityChapterVerses.ARG_BOOK_NUMBER, bookNumber + "");
         intent.putExtra(ActivityChapterVerses.ARG_CHAPTER_NUMBER, chapterNumber + "");
         Log.d(TAG, "handleGotoButtonClick() called with : "
-                   + bookNumber + " : " + chapterNumber + " of " + chapterCount);
+                + bookNumber + " : " + chapterNumber + " of " + chapterCount);
         startActivity(intent);
-
     }
 
     @Override
@@ -175,7 +179,9 @@ public class FragmentGotoLocation
         books = createBooksList();
         bookNumber = -1;
         for (bookNumber = 0; bookNumber < books.length; bookNumber++) {
-            if (books[bookNumber].equalsIgnoreCase(enteredText)) { break; }
+            if (books[bookNumber].equalsIgnoreCase(enteredText)) {
+                break;
+            }
         }
         bookNumber += 1;
         return AllBooks.getBook(bookNumber).getChapterCount();
@@ -189,4 +195,8 @@ public class FragmentGotoLocation
         chapterNameTxtView.setText("");
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        chapterNameTxtView.requestFocus();
+    }
 }
