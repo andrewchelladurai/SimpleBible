@@ -85,7 +85,7 @@ public class FragmentChapterVerses
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_verses, container, false);
         ArrayList<String> verseList = new ArrayList<>(1);
-        verseListAdapter = new VerseListAdapter(getContext(),
+        verseListAdapter = new AdapterVerseList(getContext(),
                                                 android.R.layout.simple_list_item_1,
                                                 verseList);
         ListViewCompat listViewCompat =

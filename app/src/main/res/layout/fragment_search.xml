@@ -47,18 +47,22 @@
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/fragment_v2_search_button"
+        style="?android:borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fragment_v2_search_textinputlayout"
         android:layout_centerHorizontal="true"
+        android:background="@color/accent"
         android:elevation="@dimen/dp_20"
         android:paddingEnd="@dimen/dp_20"
         android:paddingLeft="@dimen/dp_20"
         android:paddingRight="@dimen/dp_20"
         android:paddingStart="@dimen/dp_20"
-        android:text="@string/fragment_v2_search_button_label_default"/>
+        android:text="@string/fragment_v2_search_button_label_default"
+        android:textColor="@color/primary_light"/>
+    <!--style="@style/Widget.AppCompat.Button"-->
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/fragment_v2_search_results_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

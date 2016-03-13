@@ -211,6 +211,8 @@ public class ActivitySimpleBible
     public void onBooksListFragmentInteraction(AllBooks.Book item) {
         Intent intent = new Intent(this, ActivityChapterVerses.class);
         intent.putExtra(ActivityChapterVerses.ARG_BOOK_NUMBER, item.getBookNumber());
+        intent.putExtra(ActivityChapterVerses.ARG_CHAPTER_NUMBER, 1 + "");
         startActivity(intent);
     }
+
 }

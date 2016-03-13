@@ -26,7 +26,6 @@ package com.andrewchelladurai.simplebible;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -40,8 +39,8 @@ import android.view.ViewGroup;
  * A {@link android.preference.PreferenceActivity} which implements and proxies the necessary calls
  * to be used with AppCompat.
  */
-public abstract class AppCompatPreferenceActivity
-        extends PreferenceActivity {
+public abstract class PreferenceActivity
+        extends android.preference.PreferenceActivity {
 
     private AppCompatDelegate mDelegate;
 
