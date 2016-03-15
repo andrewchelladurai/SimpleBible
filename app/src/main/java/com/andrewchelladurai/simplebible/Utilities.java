@@ -33,8 +33,7 @@ import android.util.Log;
 import android.view.Surface;
 
 /**
- * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
- * on 27-Feb-2016 @ 11:18 AM
+ * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 27-Feb-2016 @ 11:18 AM
  */
 public class Utilities {
 
@@ -50,30 +49,39 @@ public class Utilities {
     }
 
     public int getChapterListColumnCount(int rotation, Resources resources) {
-        if (resources.getBoolean(R.bool.isLarge)) {
-            Log.d(TAG, "getChapterListColumnCount: isLarge");
+/*
+        if (isLargeDisplay(resources)) {
             return 2;
         }
-        Log.d(TAG, "getChapterListColumnCount: not isLarge");
+*/
 
         switch (rotation) {
             case Surface.ROTATION_0:
             case Surface.ROTATION_180:
                 Log.d(TAG, "getChapterListColumnCount() either 0 | 180");
-                return 1;
+                if (isLargeDisplay(resources)) {
+                    return 2;
+                } else {
+                    return 1;
+                }
             case Surface.ROTATION_90:
             case Surface.ROTATION_270:
                 Log.d(TAG, "getChapterListColumnCount() either 90 | 270");
-                return 2;
+                if (resources.getBoolean(R.bool.isLarge)) {
+                    return 2;
+                } else {
+                    return 2;
+                }
+            default:
+                return 1;
         }
-        return 1;
     }
 
     public Typeface getPreferredStyle(Context context) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         String value =
                 pref.getString(context.getString(R.string.pref_ui_text_style_key_name),
-                               context.getString(R.string.pref_ui_text_style_value_normal));
+                        context.getString(R.string.pref_ui_text_style_value_normal));
         if (value.equalsIgnoreCase(context.getString(
                 R.string.pref_ui_text_style_value_old_english))) {
             return Typeface.SERIF;
@@ -88,7 +96,7 @@ public class Utilities {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         String value =
                 pref.getString(context.getString(R.string.pref_ui_text_size_key_name),
-                               context.getString(R.string.pref_ui_text_size_value_normal));
+                        context.getString(R.string.pref_ui_text_size_value_normal));
         if (value.equalsIgnoreCase(
                 context.getString(R.string.pref_ui_text_size_value_small))) {
             return 14f;
@@ -102,12 +110,22 @@ public class Utilities {
         return 18f;
     }
 
+    public boolean isLargeDisplay(Resources resources) {
+        if (resources.getBoolean(R.bool.isLarge)) {
+            Log.d(TAG, "isLargeDisplay : true");
+            return true;
+        } else {
+            Log.d(TAG, "isLargeDisplay : false");
+            return false;
+        }
+    }
+
     public int getTheme(Context context) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
 
         if (pref.getBoolean("pref_ui_dark_theme", false)) {
             Log.d(TAG, "changeTheme: Dark Selected");
-            return  R.style.ThemeLight;
+            return R.style.ThemeLight;
         } else {
             Log.d(TAG, "changeTheme: Light Selected");
             return android.R.style.Theme_DeviceDefault;

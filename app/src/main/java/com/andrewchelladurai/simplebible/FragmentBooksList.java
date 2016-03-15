@@ -38,10 +38,10 @@ import android.view.ViewGroup;
 public class FragmentBooksList
         extends Fragment {
 
-    public static final  String ARG_OLD_TESTAMENT_LIST = "OLD_TESTAMENT_LIST";
-    public static final  String ARG_NEW_TESTAMENT_LIST = "NEW_TESTAMENT_LIST";
+    public static final String ARG_OLD_TESTAMENT_LIST = "OLD_TESTAMENT_LIST";
+    public static final String ARG_NEW_TESTAMENT_LIST = "NEW_TESTAMENT_LIST";
     private static final String TAG = "FragmentBooksList";
-    private static final String ARG_COLUMN_COUNT       = "COLUMN_COUNT";
+    private static final String ARG_COLUMN_COUNT = "COLUMN_COUNT";
     private static FragmentBooksList staticInstanceOT;
     private static FragmentBooksList staticInstanceNT;
     private String booksList = ARG_OLD_TESTAMENT_LIST; // setting a default value
@@ -54,8 +54,8 @@ public class FragmentBooksList
         if (booksListType == null) {
             booksListType = ARG_OLD_TESTAMENT_LIST;
         }
-        Bundle args = new Bundle();
 
+        Bundle args = new Bundle();
         if (booksListType.equalsIgnoreCase(ARG_NEW_TESTAMENT_LIST)) {
             if (staticInstanceNT == null) {
                 staticInstanceNT = new FragmentBooksList();
@@ -74,15 +74,13 @@ public class FragmentBooksList
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        if (savedInstanceState != null) {
+            return super.onCreateView(inflater, container, savedInstanceState);
+        }
+
         View view = inflater.inflate(R.layout.fragment_book_list_layout, container, false);
 
         // Set the adapter
@@ -119,7 +117,7 @@ public class FragmentBooksList
             mListener = (InteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                                       + " must implement InteractionListener");
+                    + " must implement InteractionListener");
         }
     }
 
