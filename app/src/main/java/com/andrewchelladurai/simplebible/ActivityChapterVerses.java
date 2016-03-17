@@ -57,7 +57,7 @@ public class ActivityChapterVerses
         }
 
         setContentView(R.layout.activity_chapter_verses);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_simple_bible_toolbar);
         setSupportActionBar(toolbar);
 
         bookNumber = (getIntent().getStringExtra(ARG_BOOK_NUMBER) == null)

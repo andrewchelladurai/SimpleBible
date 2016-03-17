@@ -9,15 +9,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/ThemeLight">
+
+        <!--
         <activity
             android:name=".ActivitySimpleBible"
             android:configChanges="orientation|screenSize"
             android:label="@string/app_name"
             android:theme="@style/ThemeLight.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
@@ -28,7 +30,7 @@
             android:theme="@style/ThemeLight.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ActivitySimpleBible"/>
+                android:value=".ActivitySimpleBible" />
         </activity>
         <activity
             android:name=".ActivitySettings"
@@ -36,7 +38,18 @@
             android:parentActivityName=".ActivitySimpleBible">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.andrewchelladurai.simplebible.ActivitySimpleBible"/>
+                android:value="com.andrewchelladurai.simplebible.ActivitySimpleBible" />
+        </activity>
+        -->
+        <activity
+            android:name=".v2.SimpleBibleActivity"
+            android:label="@string/app_name"
+            android:theme="@style/ThemeLight.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
