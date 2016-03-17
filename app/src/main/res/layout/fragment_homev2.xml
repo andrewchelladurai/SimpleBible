@@ -1,0 +1,105 @@
+<!--
+  ~ This file 'fragment_homev2.xml' is part of SimpleBible :
+  ~
+  ~ Copyright (c) 2016.
+  ~
+  ~ This Application is available at below locations
+  ~ Binary : https://play.google.com/store/apps/developer?id=Andrew+Chelladurai
+  ~ Source : https://github.com/andrewchelladurai/
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:orientation="vertical"
+    android:padding="@dimen/dp_10"
+    tools:context="com.andrewchelladurai.simplebible.v2.HomeFragment">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10"
+        android:background="@android:color/background_light"
+        android:elevation="@dimen/dp_10"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_10">
+
+        <TableRow android:layout_width="match_parent">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <android.support.v7.widget.AppCompatAutoCompleteTextView
+                    android:id="@+id/fragment_homev2_book"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:completionHint="@string/completion_hint"
+                    android:hint="@string/fragment_goto_label_book_name_text"
+                    android:inputType="textAutoComplete|textAutoCorrect" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <android.support.v7.widget.AppCompatAutoCompleteTextView
+                    android:id="@+id/fragment_homev2_chapter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:completionHint="@string/completion_hint"
+                    android:hint="@string/fragment_goto_label_chapter_text"
+                    android:inputType="textAutoComplete|textAutoCorrect" />
+            </android.support.design.widget.TextInputLayout>
+        </TableRow>
+
+        <TableRow>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/fragment_homev2_button"
+                style="@style/Base.Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_span="2"
+                android:layout_weight="1"
+                android:text="@string/fragment_goto_button_text" />
+        </TableRow>
+    </TableLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10"
+        android:background="@android:color/background_light"
+        android:elevation="@dimen/dp_10">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/fragment_homev2_verse"
+            style="@style/Base.TextAppearance.AppCompat.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_20"
+            android:text="@string/fragment_home_daily_verse"
+            android:textAlignment="center" />
+    </ScrollView>
+
+</LinearLayout>
