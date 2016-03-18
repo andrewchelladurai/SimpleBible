@@ -36,7 +36,10 @@ import android.widget.Toast;
 
 import com.andrewchelladurai.simplebible.R;
 
-public class HomeFragment extends Fragment implements View.OnClickListener {
+public class HomeFragment
+        extends Fragment
+        implements View.OnClickListener {
+
     private static final String ARG_VERSE_ID = "ARG_VERSE_ID";
 
     private String verseID;

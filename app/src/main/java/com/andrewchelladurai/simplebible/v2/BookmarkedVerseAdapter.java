@@ -1,5 +1,5 @@
 /*
- * This file 'AdapterBooksList.java' is part of SimpleBible :
+ * This file 'BookmarkedVerseAdapter.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.
  *
@@ -22,25 +22,35 @@
  * OR <http://www.gnu.org/licenses/gpl-3.0.txt>
  */
 
-package com.andrewchelladurai.simplebible;
+package com.andrewchelladurai.simplebible.v2;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
-import com.andrewchelladurai.simplebible.AllBooks.Book;
+import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.v2.BookmarkedVerseFragment.OnListFragmentInteractionListener;
+import com.andrewchelladurai.simplebible.v2.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
-public class AdapterBooksList
-        extends RecyclerView.Adapter<AdapterBooksList.ViewHolder> {
+/**
+ * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * specified {@link OnListFragmentInteractionListener}. TODO: Replace the implementation with code
+ * for your data type.
+ */
+public class BookmarkedVerseAdapter
+        extends RecyclerView.Adapter<BookmarkedVerseAdapter.ViewHolder> {
 
-    private final List<Book>                            mValues;
-    private final FragmentBooksList.InteractionListener mListener;
+    private final List<DummyItem> mValues;
+    private final BookmarkedVerseFragment.OnListFragmentInteractionListener mListener;
 
-    public AdapterBooksList(List<Book> items, FragmentBooksList.InteractionListener listener) {
+    public BookmarkedVerseAdapter(
+            List<DummyItem> items,
+            BookmarkedVerseFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -48,15 +58,15 @@ public class AdapterBooksList
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                                  .inflate(R.layout.fragment_book_list, parent, false);
+                .inflate(R.layout.fragment_bookmarkedverse, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-//        holder.verse_id.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).toString());
+        holder.bookmarkedVerse = mValues.get(position);
+        holder.verse_id.setText(mValues.get(position).id);
+        holder.notes.setText(mValues.get(position).content);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +74,7 @@ public class AdapterBooksList
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onBooksListFragmentInteraction(holder.mItem);
+                    mListener.handleBookmarkedVerseInteraction(holder.bookmarkedVerse);
                 }
             }
         });
@@ -75,26 +85,26 @@ public class AdapterBooksList
         return mValues.size();
     }
 
-    public class ViewHolder
-            extends RecyclerView.ViewHolder {
-
-        public final View     mView;
-        public final TextView mContentView;
-        public       Book     mItem;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public final View mView;
+        public final TextView verse_id;
+        public final TextView notes;
+        public final Button viewButton;
+        public final Button editButton;
+        public DummyItem bookmarkedVerse;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mContentView = (TextView) view.findViewById(R.id.fragment_book_list_item_content);
-            //TODO : Find a way to make this take effect without an activity recreate
-//            notes.setTypeface(Utilities.getInstance().getPreferredStyle(view.getContext
-// ()));
-//            notes.setTextSize(Utilities.getInstance().getPreferredSize(view.getContext()));
+            verse_id = (TextView) view.findViewById(R.id.bm_verse_id);
+            notes = (TextView) view.findViewById(R.id.bm_notes);
+            viewButton = (Button) view.findViewById(R.id.bm_button_view);
+            editButton = (Button) view.findViewById(R.id.bm_button_edit);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + notes.getText() + "'";
         }
     }
 }

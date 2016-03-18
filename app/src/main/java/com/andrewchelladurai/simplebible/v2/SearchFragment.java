@@ -1,5 +1,5 @@
 /*
- * This file 'GotoFragment.java' is part of SimpleBible :
+ * This file 'SearchFragment.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.
  *
@@ -32,24 +32,35 @@ import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.R;
 
-public class GotoFragment
-        extends Fragment {
+public class SearchFragment extends Fragment {
 
-    public GotoFragment() {
+    public SearchFragment() {
         // Required empty public constructor
     }
 
-    public static GotoFragment newInstance() {
-        GotoFragment fragment = new GotoFragment();
+    public static SearchFragment newInstance() {
+        SearchFragment fragment = new SearchFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+/*
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+*/
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.goto_fragment, container, false);
+        super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.fragment_searchv2, container, false);
         return view;
     }
 

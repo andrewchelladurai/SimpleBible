@@ -26,6 +26,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/dp_10"
     android:padding="@dimen/dp_10"
     tools:context="com.andrewchelladurai.simplebible.v2.BooksFragment">
 
@@ -35,8 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/dp_10" />
+        android:layout_centerHorizontal="true" />
 
     <android.support.v7.widget.ListViewCompat
         android:id="@+id/fragment_books_list"

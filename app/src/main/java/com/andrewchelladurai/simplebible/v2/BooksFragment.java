@@ -39,7 +39,9 @@ import android.widget.Toast;
 import com.andrewchelladurai.simplebible.AllBooks;
 import com.andrewchelladurai.simplebible.R;
 
-public class BooksFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class BooksFragment
+        extends Fragment
+        implements AdapterView.OnItemClickListener {
 
     private OnFragmentInteractionListener mListener;
 
@@ -57,10 +59,7 @@ public class BooksFragment extends Fragment implements AdapterView.OnItemClickLi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        if (savedInstanceState != null) {
-            return super.onCreateView(inflater, container, savedInstanceState);
-        }
+        super.onCreateView(inflater, container, savedInstanceState);
 
         View view = inflater.inflate(R.layout.fragment_booksv2, container, false);
         ListViewCompat listView = (ListViewCompat) view.findViewById(R.id.fragment_books_list);

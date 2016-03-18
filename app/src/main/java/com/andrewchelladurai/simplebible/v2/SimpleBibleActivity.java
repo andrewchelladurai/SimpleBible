@@ -34,21 +34,21 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.andrewchelladurai.simplebible.AllBooks;
 import com.andrewchelladurai.simplebible.DatabaseUtility;
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.v2.dummy.DummyContent;
 
 public class SimpleBibleActivity
         extends AppCompatActivity
-        implements BooksFragment.OnFragmentInteractionListener, View.OnClickListener {
+        implements BooksFragment.OnFragmentInteractionListener,
+        View.OnClickListener,
+        BookmarkedVerseFragment.OnListFragmentInteractionListener {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -119,28 +119,10 @@ public class SimpleBibleActivity
         }
     }
 
-    public static class PlaceholderFragment extends Fragment {
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_simple_bible, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
+    @Override
+    public void handleBookmarkedVerseInteraction(DummyContent.DummyItem item) {
+        Toast.makeText(SimpleBibleActivity.this, "handleBookmarkedVerseInteraction",
+                Toast.LENGTH_SHORT).show();
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -157,7 +139,9 @@ public class SimpleBibleActivity
                 case 1:
                     return BooksFragment.newInstance();
                 case 2:
-                    return PlaceholderFragment.newInstance(position + 1);
+                    return BookmarkedVerseFragment.newInstance(1);
+                case 3:
+                    return SearchFragment.newInstance();
                 default:
                     return HomeFragment.newInstance("");
             }
@@ -165,7 +149,7 @@ public class SimpleBibleActivity
 
         @Override
         public int getCount() {
-            return 3;
+            return 4;
         }
 
         @Override
@@ -176,7 +160,9 @@ public class SimpleBibleActivity
                 case 1:
                     return "books";
                 case 2:
-                    return "favourites";
+                    return "notes";
+                case 3:
+                    return "search";
             }
             return null;
         }

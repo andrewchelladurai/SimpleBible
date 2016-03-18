@@ -205,5 +205,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bm_notes_text">Notes not entered</string>
+    <string name="bm_verse_id_text">Verse Bookmarked</string>
+    <string name="bm_button_view_label">View</string>
+    <string name="bm_button_edit_label">Edit</string>
 
 </resources>
