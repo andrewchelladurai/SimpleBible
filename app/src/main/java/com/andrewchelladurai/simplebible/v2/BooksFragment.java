@@ -62,7 +62,7 @@ public class BooksFragment extends Fragment implements AdapterView.OnItemClickLi
             return super.onCreateView(inflater, container, savedInstanceState);
         }
 
-        View view = inflater.inflate(R.layout.fragment_books, container, false);
+        View view = inflater.inflate(R.layout.fragment_booksv2, container, false);
         ListViewCompat listView = (ListViewCompat) view.findViewById(R.id.fragment_books_list);
         ArrayAdapter<String> bookListAdapter = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_list_item_1, AllBooks.getAllBooks());
