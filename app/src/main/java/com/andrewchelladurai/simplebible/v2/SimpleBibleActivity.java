@@ -38,10 +38,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.andrewchelladurai.simplebible.AllBooks;
+import com.andrewchelladurai.simplebible.DatabaseUtility;
 import com.andrewchelladurai.simplebible.R;
 
-public class SimpleBibleActivity extends AppCompatActivity {
+public class SimpleBibleActivity
+        extends AppCompatActivity
+        implements BooksFragment.OnFragmentInteractionListener {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -50,6 +55,11 @@ public class SimpleBibleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        DatabaseUtility.getInstance(getBaseContext());
+        AllBooks.populateBooks(getResources().getStringArray(
+                R.array.books_n_chapter_count_array));
+
         setContentView(R.layout.activity_simple_biblev2);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -92,6 +102,12 @@ public class SimpleBibleActivity extends AppCompatActivity {
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void handleBooksFragmentInteraction(View view) {
+        Toast.makeText(SimpleBibleActivity.this, "handleBooksFragmentInteraction",
+                Toast.LENGTH_SHORT).show();
+    }
+
     public static class PlaceholderFragment extends Fragment {
         private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -128,7 +144,7 @@ public class SimpleBibleActivity extends AppCompatActivity {
                 case 0:
                     return HomeFragment.newInstance("");
                 case 1:
-                    return PlaceholderFragment.newInstance(position + 1);
+                    return BooksFragment.newInstance();
                 case 2:
                     return PlaceholderFragment.newInstance(position + 1);
                 default:

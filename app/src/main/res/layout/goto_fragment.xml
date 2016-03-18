@@ -23,7 +23,6 @@
   -->
 
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/background_light"
@@ -36,36 +35,36 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:errorEnabled="true">
+            android:layout_weight="1">
 
             <android.support.v7.widget.AppCompatAutoCompleteTextView
-                android:id="@+id/autoCompleteTextView"
+                android:id="@+id/goto_fragment_book"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:completionHint="@string/completion_hint"
-                android:hint="@string/fragment_goto_label_book_name_text" />
+                android:hint="@string/fragment_goto_label_book_name_text"
+                android:inputType="textAutoComplete|textAutoCorrect" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:errorEnabled="true">
+            android:layout_weight="1">
 
             <android.support.v7.widget.AppCompatAutoCompleteTextView
-                android:id="@+id/autoCompleteTextView2"
+                android:id="@+id/goto_fragment_chapter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:completionHint="@string/completion_hint"
-                android:hint="@string/fragment_goto_label_chapter_text" />
+                android:hint="@string/fragment_goto_label_chapter_text"
+                android:inputType="textAutoComplete|textAutoCorrect" />
         </android.support.design.widget.TextInputLayout>
     </TableRow>
 
     <TableRow>
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/button"
+            android:id="@+id/goto_fragment_button"
             style="@style/Base.Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

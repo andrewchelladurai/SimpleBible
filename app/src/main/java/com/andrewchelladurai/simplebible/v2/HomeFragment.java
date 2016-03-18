@@ -78,9 +78,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_homev2, container, false);
         dailyVerseTV = (AppCompatTextView) view.findViewById(R.id.fragment_homev2_verse);
-        gotoButton = (AppCompatButton) view.findViewById(R.id.fragment_homev2_button);
-        bookTV = (AppCompatAutoCompleteTextView) view.findViewById(R.id.fragment_homev2_book);
-        chapterTV = (AppCompatAutoCompleteTextView) view.findViewById(R.id.fragment_homev2_chapter);
+        gotoButton = (AppCompatButton) view.findViewById(R.id.goto_fragment_button);
+        bookTV = (AppCompatAutoCompleteTextView) view.findViewById(R.id.goto_fragment_book);
+        chapterTV = (AppCompatAutoCompleteTextView) view.findViewById(R.id.goto_fragment_chapter);
 
         gotoButton.setOnClickListener(this);
         return view;

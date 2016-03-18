@@ -34,10 +34,10 @@ import java.util.Map;
 public class AllBooks {
 
     private static final Map<String, Book> NT_BOOKS_MAP = new HashMap<>();
-    private static final Map<String, Book> OT_BOOKS_MAP  = new HashMap<>();
-    private static final String            TAG          = "AllBooks";
-    private static final List<Book>        OT_BOOKS_LIST = new ArrayList<>();
-    private static final List<Book>        NT_BOOKS_LIST = new ArrayList<>();
+    private static final Map<String, Book> OT_BOOKS_MAP = new HashMap<>();
+    private static final String TAG = "AllBooks";
+    private static final List<Book> OT_BOOKS_LIST = new ArrayList<>();
+    private static final List<Book> NT_BOOKS_LIST = new ArrayList<>();
 
     public static void populateBooks(String allBooks[]) {
         if (OT_BOOKS_LIST.size() == 39 || NT_BOOKS_LIST.size() == 27) {
@@ -54,6 +54,20 @@ public class AllBooks {
         }
     }
 
+    public static String[] getAllBooks() {
+        String books[] = new String[66];
+        int i = 0;
+        for (Book book : getOTBooksList()) {
+            books[i] = book.getName() + " : " + book.getChapterCount() + " Chapters";
+            i++;
+        }
+        for (Book book : getNTBooksList()) {
+            books[i] = book.getName() + " : " + book.getChapterCount() + " Chapters";
+            i++;
+        }
+        return books;
+    }
+
     private static void addOTBook(Book item) {
         OT_BOOKS_LIST.add(item);
         OT_BOOKS_MAP.put(item.bookNumber, item);
@@ -68,8 +82,8 @@ public class AllBooks {
         String splits[] = label.split(":");
 
         return new Book(Integer.toString(bookNumber), // BOOK NUMBER
-                        splits[0], // BOOK NAME
-                        Integer.valueOf(splits[1])); // NUMBER OF CHAPTERS
+                splits[0], // BOOK NAME
+                Integer.valueOf(splits[1])); // NUMBER OF CHAPTERS
     }
 
     public static Book getBook(int bookNumber) {

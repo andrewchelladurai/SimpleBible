@@ -22,6 +22,7 @@
   ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
   -->
 
+<!--
 <android.support.design.widget.CoordinatorLayout
     android:id="@+id/main_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -30,6 +31,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    tools:context="com.andrewchelladurai.simplebible.v2.SimpleBibleActivity">
+-->
+<android.support.v7.widget.LinearLayoutCompat
+    android:id="@+id/main_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="com.andrewchelladurai.simplebible.v2.SimpleBibleActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -52,14 +64,14 @@
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
 
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <!--
@@ -72,4 +84,4 @@
             android:src="@android:drawable/ic_dialog_email" />
     -->
 
-</android.support.design.widget.CoordinatorLayout>
+</android.support.v7.widget.LinearLayoutCompat>
