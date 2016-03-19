@@ -26,13 +26,28 @@ package com.andrewchelladurai.simplebible.v2;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.ListViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
+import com.andrewchelladurai.simplebible.AdapterVerseList;
+import com.andrewchelladurai.simplebible.DatabaseUtility;
 import com.andrewchelladurai.simplebible.R;
 
-public class SearchFragment extends Fragment {
+import java.util.ArrayList;
+
+public class SearchFragment
+        extends Fragment implements View.OnClickListener {
+
+    private AppCompatTextView resultsLabel;
+    private AppCompatEditText searchText;
+    private ArrayAdapter<String> searchListAdapter;
+    private DatabaseUtility databaseUtility;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -61,7 +76,29 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_searchv2, container, false);
+        searchText = (AppCompatEditText) view.findViewById(R.id.fragment_searchv2_search_text);
+        resultsLabel = (AppCompatTextView) view.findViewById(R.id.fragment_searchv2_results_label);
+        searchListAdapter = new AdapterVerseList(getContext(), android.R.layout.simple_list_item_1,
+                new ArrayList<String>(1));
+
+        ListViewCompat lvc = (ListViewCompat) view.findViewById(R.id.fragment_searchv2_results_list);
+        lvc.setAdapter(searchListAdapter);
+
+        AppCompatButton button = (AppCompatButton) view.findViewById(R.id.fragment_searchv2_button);
+        button.setOnClickListener(this);
+        databaseUtility = DatabaseUtility.getInstance(getContext());
         return view;
     }
 
+    @Override
+    public void onClick(View view) {
+        if (view instanceof AppCompatButton) {
+            String displayStr = searchText.getText() + " Searched";
+            resultsLabel.setText(displayStr);
+
+            searchListAdapter.clear();
+            searchListAdapter.addAll(databaseUtility.searchForText(searchText.getText().toString()));
+            searchListAdapter.notifyDataSetChanged();
+        }
+    }
 }
