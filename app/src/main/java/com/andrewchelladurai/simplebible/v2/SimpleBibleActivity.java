@@ -25,7 +25,6 @@
 package com.andrewchelladurai.simplebible.v2;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -42,7 +41,7 @@ import android.widget.Toast;
 import com.andrewchelladurai.simplebible.AllBooks;
 import com.andrewchelladurai.simplebible.DatabaseUtility;
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.v2.dummy.DummyContent;
+import com.andrewchelladurai.simplebible.v2.dummy.BookmarkedVerseList;
 
 public class SimpleBibleActivity
         extends AppCompatActivity
@@ -78,16 +77,12 @@ public class SimpleBibleActivity
             tabLayout.setupWithViewPager(mViewPager);
         }
 
+/*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_activity_search);
         if (fab != null) {
-            fab.setOnClickListener(/*new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-            }*/this);
+            fab.setOnClickListener(this);
         }
+*/
 
     }
 
@@ -120,7 +115,7 @@ public class SimpleBibleActivity
     }
 
     @Override
-    public void handleBookmarkedVerseInteraction(DummyContent.DummyItem item) {
+    public void handleBookmarkedVerseInteraction(BookmarkedVerseList.BookmarkedVerse item) {
         Toast.makeText(SimpleBibleActivity.this, "handleBookmarkedVerseInteraction",
                 Toast.LENGTH_SHORT).show();
     }
