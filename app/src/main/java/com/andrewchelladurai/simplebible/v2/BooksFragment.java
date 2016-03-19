@@ -24,9 +24,10 @@
 
 package com.andrewchelladurai.simplebible.v2;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatAutoCompleteTextView;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.ListViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,9 +42,10 @@ import com.andrewchelladurai.simplebible.R;
 
 public class BooksFragment
         extends Fragment
-        implements AdapterView.OnItemClickListener {
+        implements AdapterView.OnItemClickListener, View.OnClickListener {
 
-    private OnFragmentInteractionListener mListener;
+    private AppCompatAutoCompleteTextView book;
+    private AppCompatAutoCompleteTextView chapter;
 
     public BooksFragment() {
         // Required empty public constructor
@@ -57,41 +59,23 @@ public class BooksFragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
+        super.onCreateView(inflater, container, savedState);
 
         View view = inflater.inflate(R.layout.fragment_booksv2, container, false);
+
         ListViewCompat listView = (ListViewCompat) view.findViewById(R.id.fragment_books_list);
         ArrayAdapter<String> bookListAdapter = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_list_item_1, AllBooks.getAllBooks());
         listView.setOnItemClickListener(this);
         listView.setAdapter(bookListAdapter);
 
+        AppCompatButton button = (AppCompatButton) view.findViewById(R.id.goto_fragment_button);
+        button.setOnClickListener(this);
+
+        book = (AppCompatAutoCompleteTextView) view.findViewById(R.id.goto_fragment_book);
+        chapter = (AppCompatAutoCompleteTextView) view.findViewById(R.id.goto_fragment_chapter);
         return view;
-    }
-
-    public void onButtonPressed(View view) {
-        if (mListener != null) {
-            mListener.handleBooksFragmentInteraction(view);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 
     @Override
@@ -100,7 +84,12 @@ public class BooksFragment
         Toast.makeText(getActivity(), "Book " + i + " : " + value, Toast.LENGTH_SHORT).show();
     }
 
-    public interface OnFragmentInteractionListener {
-        void handleBooksFragmentInteraction(View view);
+    @Override
+    public void onClick(View view) {
+        if (view instanceof AppCompatButton) {
+            String value = book.getText() + " : " + chapter.getText();
+            Toast.makeText(getActivity(), "Loading " + value, Toast.LENGTH_SHORT).show();
+        }
     }
+
 }

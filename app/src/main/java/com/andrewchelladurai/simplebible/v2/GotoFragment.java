@@ -50,6 +50,7 @@ public class GotoFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.goto_fragment, container, false);
+
         return view;
     }
 

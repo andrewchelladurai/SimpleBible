@@ -25,7 +25,6 @@
 package com.andrewchelladurai.simplebible.v2;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -44,7 +43,7 @@ import com.andrewchelladurai.simplebible.R;
 
 public class SimpleBibleActivity
         extends AppCompatActivity
-        implements BooksFragment.OnFragmentInteractionListener,
+        implements /*BooksFragment.OnFragmentInteractionListener,*/
         View.OnClickListener,
         BookmarkedVerseFragment.OnListFragmentInteractionListener {
 
@@ -98,19 +97,23 @@ public class SimpleBibleActivity
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
+/*
     @Override
     public void handleBooksFragmentInteraction(View view) {
         Toast.makeText(SimpleBibleActivity.this, "handleBooksFragmentInteraction",
                 Toast.LENGTH_SHORT).show();
     }
+*/
 
     @Override
     public void onClick(View view) {
+/*
         switch (view.getId()) {
             case R.id.fab_activity_search:
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
         }
+*/
     }
 
     @Override
