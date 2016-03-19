@@ -33,9 +33,17 @@
 
     <TextView
         android:id="@+id/bm_verse_id"
+        style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/bm_verse_id_text"
+        android:paddingBottom="@dimen/dp_10"
+        android:text="@string/bm_verse_id_text" />
+
+    <TextView
+        android:id="@+id/bm_verse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bm_verse_text"
         android:textAppearance="?attr/textAppearanceListItem" />
 
     <LinearLayout

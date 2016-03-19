@@ -41,7 +41,6 @@ import android.widget.Toast;
 import com.andrewchelladurai.simplebible.AllBooks;
 import com.andrewchelladurai.simplebible.DatabaseUtility;
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.v2.dummy.BookmarkedVerseList;
 
 public class SimpleBibleActivity
         extends AppCompatActivity

@@ -33,23 +33,23 @@ import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.v2.BookmarkedVerseFragment.OnListFragmentInteractionListener;
-import com.andrewchelladurai.simplebible.v2.dummy.DummyContent.DummyItem;
+import com.andrewchelladurai.simplebible.v2.BookmarkedVerseList.BookmarkedVerse;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link BookmarkedVerse} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}. TODO: Replace the implementation with code
  * for your data type.
  */
 public class BookmarkedVerseAdapter
         extends RecyclerView.Adapter<BookmarkedVerseAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<BookmarkedVerse> mValues;
     private final BookmarkedVerseFragment.OnListFragmentInteractionListener mListener;
 
     public BookmarkedVerseAdapter(
-            List<DummyItem> items,
+            List<BookmarkedVerse> items,
             BookmarkedVerseFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
@@ -65,8 +65,9 @@ public class BookmarkedVerseAdapter
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.bookmarkedVerse = mValues.get(position);
-        holder.verse_id.setText(mValues.get(position).id);
-        holder.notes.setText(mValues.get(position).content);
+        holder.verse_id.setText(mValues.get(position).verseID);
+        holder.verse.setText(mValues.get(position).verseText);
+        holder.notes.setText(mValues.get(position).verseNotes);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,18 +86,21 @@ public class BookmarkedVerseAdapter
         return mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder
+            extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView verse_id;
+        public final TextView verse;
         public final TextView notes;
         public final Button viewButton;
         public final Button editButton;
-        public DummyItem bookmarkedVerse;
+        public BookmarkedVerse bookmarkedVerse;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             verse_id = (TextView) view.findViewById(R.id.bm_verse_id);
+            verse = (TextView) view.findViewById(R.id.bm_verse);
             notes = (TextView) view.findViewById(R.id.bm_notes);
             viewButton = (Button) view.findViewById(R.id.bm_button_view);
             editButton = (Button) view.findViewById(R.id.bm_button_edit);

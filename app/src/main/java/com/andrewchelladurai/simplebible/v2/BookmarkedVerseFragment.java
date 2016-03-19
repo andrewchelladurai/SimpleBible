@@ -35,8 +35,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.v2.dummy.DummyContent;
-import com.andrewchelladurai.simplebible.v2.dummy.DummyContent.DummyItem;
+import com.andrewchelladurai.simplebible.v2.BookmarkedVerseList.BookmarkedVerse;
 
 public class BookmarkedVerseFragment
         extends Fragment {
@@ -79,7 +78,7 @@ public class BookmarkedVerseFragment
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new BookmarkedVerseAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new BookmarkedVerseAdapter(BookmarkedVerseList.ITEMS, mListener));
         }
         return view;
     }
@@ -103,6 +102,6 @@ public class BookmarkedVerseFragment
     }
 
     public interface OnListFragmentInteractionListener {
-        void handleBookmarkedVerseInteraction(DummyItem item);
+        void handleBookmarkedVerseInteraction(BookmarkedVerse item);
     }
 }
