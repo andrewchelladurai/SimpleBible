@@ -22,7 +22,7 @@
  * OR <http://www.gnu.org/licenses/gpl-3.0.txt>
  */
 
-package com.andrewchelladurai.simplebible;
+package com.andrewchelladurai.simplebible.v2;
 
 import android.content.Context;
 import android.view.View;
@@ -31,10 +31,6 @@ import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 
-/**
- * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
- * on 05-Mar-2016 @ 2:34 AM
- */
 public class AdapterVerseList
         extends ArrayAdapter<String> {
 

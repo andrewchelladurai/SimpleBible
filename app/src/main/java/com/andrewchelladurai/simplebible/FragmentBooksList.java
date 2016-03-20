@@ -35,6 +35,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.andrewchelladurai.simplebible.v2.AdapterBooksList;
+
 public class FragmentBooksList
         extends Fragment {
 

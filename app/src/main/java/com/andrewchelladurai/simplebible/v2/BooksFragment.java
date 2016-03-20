@@ -37,15 +37,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
-import com.andrewchelladurai.simplebible.ActivityChapterVerses;
 import com.andrewchelladurai.simplebible.AllBooks;
 import com.andrewchelladurai.simplebible.R;
 
 public class BooksFragment
-        extends Fragment
-        implements AdapterView.OnItemClickListener, View.OnClickListener {
+        extends Fragment {
 
     private static final String TAG = "BooksFragment";
     private AppCompatAutoCompleteTextView book;
@@ -88,10 +85,28 @@ public class BooksFragment
                 getContext(), android.R.layout.simple_list_item_1, new String[]{""}));
 
         AppCompatButton button = (AppCompatButton) view.findViewById(R.id.goto_fragment_button);
-        button.setOnClickListener(this);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleGotoButtonClick();
+            }
+        });
 
         ListViewCompat listView = (ListViewCompat) view.findViewById(R.id.fragment_books_list);
-        listView.setOnItemClickListener(this);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                int itemClicked = i + 1;
+                Log.d(TAG, "onItemClick: Clicked : " + itemClicked);
+
+                AllBooks.Book book = AllBooks.getBook(itemClicked);
+                Intent intent = new Intent(getContext(), ActivityChapterVerses.class);
+                intent.putExtra(ActivityChapterVerses.ARG_BOOK_NUMBER, book.getBookNumber());
+                intent.putExtra(ActivityChapterVerses.ARG_CHAPTER_NUMBER, 1 + "");
+                startActivity(intent);
+            }
+        });
+
         listView.setAdapter(new ArrayAdapter<>(
                 getContext(), android.R.layout.simple_list_item_1, AllBooks.getAllBooks()));
         return view;
@@ -114,25 +129,6 @@ public class BooksFragment
         chapter.setAdapter(new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_list_item_1, newItems));
         return true;
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        String value = ((TextView) view).getText().toString();
-
-/*
-        Intent intent = new Intent(this, ActivityChapterVerses.class);
-        intent.putExtra(ActivityChapterVerses.ARG_BOOK_NUMBER, item.getBookNumber());
-        intent.putExtra(ActivityChapterVerses.ARG_CHAPTER_NUMBER, 1 + "");
-        startActivity(intent);
-*/
-    }
-
-    @Override
-    public void onClick(View view) {
-        if (view instanceof AppCompatButton) {
-            handleGotoButtonClick();
-        }
     }
 
     private void handleGotoButtonClick() {

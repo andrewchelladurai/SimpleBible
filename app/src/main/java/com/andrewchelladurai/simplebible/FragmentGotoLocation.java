@@ -39,6 +39,8 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
+import com.andrewchelladurai.simplebible.v2.ActivityChapterVerses;
+
 import java.util.Arrays;
 
 public class FragmentGotoLocation

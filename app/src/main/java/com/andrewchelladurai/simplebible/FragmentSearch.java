@@ -41,6 +41,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.andrewchelladurai.simplebible.v2.AdapterVerseList;
+
 import java.util.ArrayList;
 
 public class FragmentSearch

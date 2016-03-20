@@ -22,7 +22,7 @@
  * OR <http://www.gnu.org/licenses/gpl-3.0.txt>
  */
 
-package com.andrewchelladurai.simplebible;
+package com.andrewchelladurai.simplebible.v2;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,6 +37,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import com.andrewchelladurai.simplebible.ActivitySettings;
+import com.andrewchelladurai.simplebible.AllBooks;
+import com.andrewchelladurai.simplebible.FragmentChapterVerses;
+import com.andrewchelladurai.simplebible.R;
 
 public class ActivityChapterVerses
         extends AppCompatActivity
