@@ -35,15 +35,18 @@ public class AllBooks {
 
     private static final Map<String, Book> NT_BOOKS_MAP = new HashMap<>();
     private static final Map<String, Book> OT_BOOKS_MAP = new HashMap<>();
+    private static final Map<String, Book> BOOKS_MAP = new HashMap<>();
     private static final String TAG = "AllBooks";
     private static final List<Book> OT_BOOKS_LIST = new ArrayList<>();
     private static final List<Book> NT_BOOKS_LIST = new ArrayList<>();
+    private static final List<Book> BOOKS_LIST = new ArrayList<>();
 
     public static void populateBooks(String allBooks[]) {
-        if (OT_BOOKS_LIST.size() == 39 || NT_BOOKS_LIST.size() == 27) {
+        if (OT_BOOKS_LIST.size() == 39 && NT_BOOKS_LIST.size() == 27 && BOOKS_LIST.size() == 66) {
             Log.d(TAG, "populateBooks: Lists already populated");
         } else {
             for (int i = 0; i < allBooks.length; i++) {
+                addBook(createBookItem((i + 1), allBooks[i]));
                 if (i < 39) {
                     addOTBook(createBookItem((i + 1), allBooks[i]));
                 } else {
@@ -73,6 +76,11 @@ public class AllBooks {
         OT_BOOKS_MAP.put(item.bookNumber, item);
     }
 
+    private static void addBook(Book item) {
+        BOOKS_LIST.add(item);
+        BOOKS_MAP.put(item.bookNumber, item);
+    }
+
     private static void addNTBook(Book item) {
         NT_BOOKS_LIST.add(item);
         NT_BOOKS_MAP.put(item.bookNumber, item);
@@ -94,6 +102,17 @@ public class AllBooks {
             Log.d(TAG, "getBook() Returning NT Book [" + bookNumber + "]");
             return NT_BOOKS_LIST.get(bookNumber - 40);
         }
+    }
+
+    public static Book getBook(String value) {
+        Book b = null;
+        for (int i = 0; i < BOOKS_LIST.size(); i++) {
+            b = BOOKS_LIST.get(i);
+            if (b.toString().equalsIgnoreCase(value)) {
+                return b;
+            }
+        }
+        return b;
     }
 
     public static List<Book> getNTBooksList() {

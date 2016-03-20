@@ -24,19 +24,22 @@
 
 package com.andrewchelladurai.simplebible.v2;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.ListViewCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.andrewchelladurai.simplebible.ActivityChapterVerses;
 import com.andrewchelladurai.simplebible.AllBooks;
 import com.andrewchelladurai.simplebible.R;
 
@@ -44,8 +47,10 @@ public class BooksFragment
         extends Fragment
         implements AdapterView.OnItemClickListener, View.OnClickListener {
 
+    private static final String TAG = "BooksFragment";
     private AppCompatAutoCompleteTextView book;
     private AppCompatAutoCompleteTextView chapter;
+    private AllBooks.Book gotoBook = null;
 
     public BooksFragment() {
         // Required empty public constructor
@@ -64,32 +69,94 @@ public class BooksFragment
 
         View view = inflater.inflate(R.layout.fragment_booksv2, container, false);
 
-        ListViewCompat listView = (ListViewCompat) view.findViewById(R.id.fragment_books_list);
-        ArrayAdapter<String> bookListAdapter = new ArrayAdapter<>(getContext(),
-                android.R.layout.simple_list_item_1, AllBooks.getAllBooks());
-        listView.setOnItemClickListener(this);
-        listView.setAdapter(bookListAdapter);
+        book = (AppCompatAutoCompleteTextView) view.findViewById(R.id.goto_fragment_book);
+        book.setAdapter(new ArrayAdapter<>(
+                getContext(), android.R.layout.simple_list_item_1, AllBooks.getAllBooks()));
+        book.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (loadChapters(book.getText().toString().trim())) {
+                    chapter.requestFocus();
+                } else {
+                    Snackbar.make(book, "Incorrect Book Name", Snackbar.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        chapter = (AppCompatAutoCompleteTextView) view.findViewById(R.id.goto_fragment_chapter);
+        chapter.setAdapter(new ArrayAdapter<String>(
+                getContext(), android.R.layout.simple_list_item_1, new String[]{""}));
 
         AppCompatButton button = (AppCompatButton) view.findViewById(R.id.goto_fragment_button);
         button.setOnClickListener(this);
 
-        book = (AppCompatAutoCompleteTextView) view.findViewById(R.id.goto_fragment_book);
-        chapter = (AppCompatAutoCompleteTextView) view.findViewById(R.id.goto_fragment_chapter);
+        ListViewCompat listView = (ListViewCompat) view.findViewById(R.id.fragment_books_list);
+        listView.setOnItemClickListener(this);
+        listView.setAdapter(new ArrayAdapter<>(
+                getContext(), android.R.layout.simple_list_item_1, AllBooks.getAllBooks()));
         return view;
+    }
+
+    private boolean loadChapters(String label) {
+        Log.d(TAG, "loadChapters() called with label = [" + label + "]");
+        gotoBook = AllBooks.getBook(label);
+
+        if (gotoBook == null) {
+            return false;
+        }
+
+        int chapterCount = gotoBook.getChapterCount();
+        String newItems[] = new String[chapterCount];
+
+        for (int i = 0; i < chapterCount; i++) {
+            newItems[i] = (i + 1) + "";
+        }
+        chapter.setAdapter(new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_list_item_1, newItems));
+        return true;
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         String value = ((TextView) view).getText().toString();
-        Toast.makeText(getActivity(), "Book " + i + " : " + value, Toast.LENGTH_SHORT).show();
+
+/*
+        Intent intent = new Intent(this, ActivityChapterVerses.class);
+        intent.putExtra(ActivityChapterVerses.ARG_BOOK_NUMBER, item.getBookNumber());
+        intent.putExtra(ActivityChapterVerses.ARG_CHAPTER_NUMBER, 1 + "");
+        startActivity(intent);
+*/
     }
 
     @Override
     public void onClick(View view) {
         if (view instanceof AppCompatButton) {
-            String value = book.getText() + " : " + chapter.getText();
-            Toast.makeText(getActivity(), "Loading " + value, Toast.LENGTH_SHORT).show();
+            handleGotoButtonClick();
         }
+    }
+
+    private void handleGotoButtonClick() {
+        int chapterNumber = (chapter.getText().toString().trim().isEmpty())
+                ? 1 : Integer.parseInt(chapter.getText().toString().trim());
+
+        if (gotoBook == null) {
+            Snackbar.make(book, "Incorrect Book", Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (chapterNumber < 1 || chapterNumber > gotoBook.getChapterCount()) {
+            Snackbar.make(book, "Incorrect Chapter", Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(getContext(), ActivityChapterVerses.class);
+        intent.putExtra(ActivityChapterVerses.ARG_BOOK_NUMBER, gotoBook.getBookNumber());
+        intent.putExtra(ActivityChapterVerses.ARG_CHAPTER_NUMBER, chapterNumber + "");
+
+        book.setText("");
+        chapter.setText("");
+
+        startActivity(intent);
     }
 
 }

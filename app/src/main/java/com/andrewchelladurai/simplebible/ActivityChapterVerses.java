@@ -41,12 +41,12 @@ import android.widget.Toast;
 public class ActivityChapterVerses
         extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-                   FragmentChapterVerses.InteractionListener {
+        FragmentChapterVerses.InteractionListener {
 
-    public static final  String ARG_BOOK_NUMBER    = "BOOK_NUMBER";
-    public static final  String ARG_CHAPTER_NUMBER = "CHAPTER_NUMBER";
-    private static final String TAG                = "ActivityChapterVerses";
-    private              int    bookNumber         = 1;
+    public static final String ARG_BOOK_NUMBER = "BOOK_NUMBER";
+    public static final String ARG_CHAPTER_NUMBER = "CHAPTER_NUMBER";
+    private static final String TAG = "ActivityChapterVerses";
+    private int bookNumber = 1;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -61,9 +61,9 @@ public class ActivityChapterVerses
         setSupportActionBar(toolbar);
 
         bookNumber = (getIntent().getStringExtra(ARG_BOOK_NUMBER) == null)
-                     ? 1 : Integer.parseInt(getIntent().getStringExtra(ARG_BOOK_NUMBER));
+                ? 1 : Integer.parseInt(getIntent().getStringExtra(ARG_BOOK_NUMBER));
         int chapterNumber = (getIntent().getStringExtra(ARG_CHAPTER_NUMBER) == null)
-                            ? 1 : Integer.parseInt(getIntent().getStringExtra(ARG_CHAPTER_NUMBER));
+                ? 1 : Integer.parseInt(getIntent().getStringExtra(ARG_CHAPTER_NUMBER));
 
         AllBooks.Book book = AllBooks.getBook(bookNumber);
 
@@ -159,7 +159,7 @@ public class ActivityChapterVerses
     @Override
     public void handleVersesFragmentInteraction(View view) {
         Toast.makeText(ActivityChapterVerses.this, "handleVersesFragmentInteraction",
-                       Toast.LENGTH_SHORT).show();
+                Toast.LENGTH_SHORT).show();
     }
 
 }

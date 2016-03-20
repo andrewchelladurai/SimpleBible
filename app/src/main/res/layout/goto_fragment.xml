@@ -41,9 +41,11 @@
                 android:id="@+id/goto_fragment_book"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:completionHint="@string/completion_hint"
+                android:completionThreshold="1"
                 android:hint="@string/fragment_goto_label_book_name_text"
-                android:inputType="textAutoComplete|textAutoCorrect" />
+                android:inputType="textAutoComplete|textAutoCorrect"
+                android:selectAllOnFocus="true"
+                android:singleLine="true" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -55,9 +57,11 @@
                 android:id="@+id/goto_fragment_chapter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:completionHint="@string/completion_hint"
+                android:completionThreshold="1"
                 android:hint="@string/fragment_goto_label_chapter_text"
-                android:inputType="textAutoComplete|textAutoCorrect" />
+                android:inputType="number|textAutoComplete|textAutoCorrect"
+                android:selectAllOnFocus="true"
+                android:singleLine="true" />
         </android.support.design.widget.TextInputLayout>
     </TableRow>
 
