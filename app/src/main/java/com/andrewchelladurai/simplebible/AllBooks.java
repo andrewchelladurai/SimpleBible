@@ -61,11 +61,11 @@ public class AllBooks {
         String books[] = new String[66];
         int i = 0;
         for (Book book : getOTBooksList()) {
-            books[i] = book.getName() + " : " + book.getChapterCount() + " Chapters";
+            books[i] = book.getName();
             i++;
         }
         for (Book book : getNTBooksList()) {
-            books[i] = book.getName() + " : " + book.getChapterCount() + " Chapters";
+            books[i] = book.getName();
             i++;
         }
         return books;
@@ -108,9 +108,10 @@ public class AllBooks {
         Book b = null;
         for (int i = 0; i < BOOKS_LIST.size(); i++) {
             b = BOOKS_LIST.get(i);
-            if (b.toString().equalsIgnoreCase(value)) {
+            if (b.getName().equalsIgnoreCase(value)) {
                 return b;
             }
+            b = null;
         }
         return b;
     }
