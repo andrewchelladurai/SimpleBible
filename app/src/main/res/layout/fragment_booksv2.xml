@@ -30,23 +30,11 @@
     android:padding="@dimen/dp_10"
     tools:context="com.andrewchelladurai.simplebible.v2.BooksFragment">
 
-    <include
-        android:id="@+id/topPanel"
-        layout="@layout/goto_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
     <android.support.v7.widget.ListViewCompat
         android:id="@+id/fragment_books_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/topPanel"
-        android:paddingLeft="@dimen/dp_20"
-        android:paddingRight="@dimen/dp_20"
-        android:paddingTop="@dimen/dp_20" />
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
 
 </RelativeLayout>

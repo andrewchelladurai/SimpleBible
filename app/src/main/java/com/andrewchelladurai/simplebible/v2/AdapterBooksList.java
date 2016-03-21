@@ -39,7 +39,7 @@ import java.util.List;
 public class AdapterBooksList
         extends RecyclerView.Adapter<AdapterBooksList.ViewHolder> {
 
-    private final List<Book>                            mValues;
+    private final List<Book> mValues;
     private final FragmentBooksList.InteractionListener mListener;
 
     public AdapterBooksList(List<Book> items, FragmentBooksList.InteractionListener listener) {
@@ -50,7 +50,7 @@ public class AdapterBooksList
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                                  .inflate(R.layout.fragment_book_list, parent, false);
+                .inflate(R.layout.fragment_book_list, parent, false);
         return new ViewHolder(view);
     }
 
@@ -64,8 +64,6 @@ public class AdapterBooksList
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
                     mListener.onBooksListFragmentInteraction(holder.mItem);
                 }
             }
@@ -80,9 +78,9 @@ public class AdapterBooksList
     public class ViewHolder
             extends RecyclerView.ViewHolder {
 
-        public final View     mView;
+        public final View mView;
         public final TextView mContentView;
-        public       Book     mItem;
+        public Book mItem;
 
         public ViewHolder(View view) {
             super(view);
