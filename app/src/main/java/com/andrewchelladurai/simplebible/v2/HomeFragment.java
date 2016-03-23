@@ -27,7 +27,6 @@ package com.andrewchelladurai.simplebible.v2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.AppCompatButton;
@@ -51,9 +50,6 @@ public class HomeFragment
     private AppCompatAutoCompleteTextView bookTV;
     private AppCompatAutoCompleteTextView chapterTV;
     private AppCompatTextView dailyVerseTV;
-    private TextInputLayout bookParent;
-    private TextInputLayout chapterParent;
-    private View rootview;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -87,7 +83,6 @@ public class HomeFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_homev2, container, false);
-        rootview = view;
         dailyVerseTV = (AppCompatTextView) view.findViewById(R.id.fragment_homev2_verse);
 
         AppCompatButton gotoButton = (AppCompatButton) view.findViewById(R.id.goto_fragment_button);
@@ -118,16 +113,13 @@ public class HomeFragment
 
         chapterTV = (AppCompatAutoCompleteTextView) view.findViewById(R.id.goto_fragment_chapter);
 
-        bookParent = (TextInputLayout) view.findViewById(R.id.goto_fragment_book_parent);
-        chapterParent = (TextInputLayout) view.findViewById(R.id.goto_fragment_chapter_layout);
-
         return view;
     }
 
     private void handleGotoButtonClick() {
         String input = bookTV.getText().toString().trim();
         if (input.isEmpty()) {
-            Snackbar.make(rootview, "Enter Book Name", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(bookTV, "Enter Book Name", Snackbar.LENGTH_SHORT).show();
             bookTV.requestFocus();
             return;
         }
@@ -135,14 +127,19 @@ public class HomeFragment
         AllBooks.Book book = AllBooks.getBook(input);
         if (book == null) {
             bookTV.requestFocus();
-            Snackbar.make(rootview, "Book Name Incorrect", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(bookTV, "Book Name Incorrect", Snackbar.LENGTH_SHORT).show();
             return;
         }
 
         input = chapterTV.getText().toString().trim();
-        int chapterCount = (input.isEmpty()) ? 1 : Integer.valueOf(input);
+        int chapterCount;
+        try {
+            chapterCount = (input.isEmpty()) ? 1 : Integer.valueOf(input);
+        } catch (NumberFormatException e) {
+            chapterCount = 0;
+        }
         if (chapterCount < 1 || chapterCount > book.getChapterCount()) {
-            Snackbar.make(rootview, "Chapter number is Incorrect", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(chapterTV, "Chapter number is Incorrect", Snackbar.LENGTH_SHORT).show();
             chapterTV.requestFocus();
             return;
         }
