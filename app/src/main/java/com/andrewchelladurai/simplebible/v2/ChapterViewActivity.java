@@ -24,6 +24,7 @@
 
 package com.andrewchelladurai.simplebible.v2;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +34,7 @@ import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
@@ -160,6 +162,15 @@ public class ChapterViewActivity
                 refreshVersesList();
                 chapterInput.setText("");
             }
+        }
+
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(chapterInput.getWindowToken(), 0);
+
+        ListViewCompat listViewCompat =
+                (ListViewCompat) findViewById(R.id.activity_chapter_list_verses);
+        if (listViewCompat != null) {
+            listViewCompat.setSelectionAfterHeaderView();
         }
     }
 
