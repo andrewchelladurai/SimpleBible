@@ -56,26 +56,27 @@
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal">
 
-        <Button
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/activity_chapter_button_search"
             style="@style/Base.Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/search_label" />
 
-        <Button
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/activity_chapter_button_bookmarked"
             style="@style/Base.Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/notes_label" />
 
-        <Button
-            android:id="@+id/activity_chapter_button_chapters"
-            style="@style/Base.Widget.AppCompat.Button.Colored"
+        <android.support.v7.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/activity_chapter_atv_chapter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/chapters_label" />
+            android:completionThreshold="1"
+            android:hint="@string/fragment_goto_label_chapter_text"
+            android:inputType="number|textAutoComplete" />
 
     </android.support.v7.widget.ButtonBarLayout>
 </LinearLayout>

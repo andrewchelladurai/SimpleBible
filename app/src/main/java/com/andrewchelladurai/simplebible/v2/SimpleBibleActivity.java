@@ -46,9 +46,18 @@ public class SimpleBibleActivity
         implements View.OnClickListener,
         BookmarkedVerseFragment.OnListFragmentInteractionListener {
 
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private static SectionsPagerAdapter mSectionsPagerAdapter;
+    private static ViewPager mViewPager;
 
-    private ViewPager mViewPager;
+    public static void showNotesSection() {
+        mViewPager.setCurrentItem(2);
+        mSectionsPagerAdapter.notifyDataSetChanged();
+    }
+
+    public static void showSearchSection() {
+        mViewPager.setCurrentItem(3);
+        mSectionsPagerAdapter.notifyDataSetChanged();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +92,13 @@ public class SimpleBibleActivity
 
     }
 
+/*
+    @Override
+    public void handleBooksFragmentInteraction(View view) {
+        Toast.makeText(SimpleBibleActivity.this, "handleBooksFragmentInteraction",
+                Toast.LENGTH_SHORT).show();
+    }
+*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -95,14 +111,6 @@ public class SimpleBibleActivity
         int id = item.getItemId();
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
-
-/*
-    @Override
-    public void handleBooksFragmentInteraction(View view) {
-        Toast.makeText(SimpleBibleActivity.this, "handleBooksFragmentInteraction",
-                Toast.LENGTH_SHORT).show();
-    }
-*/
 
     @Override
     public void onClick(View view) {

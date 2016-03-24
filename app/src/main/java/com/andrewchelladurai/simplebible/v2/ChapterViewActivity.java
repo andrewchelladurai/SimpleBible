@@ -27,6 +27,8 @@ package com.andrewchelladurai.simplebible.v2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatAutoCompleteTextView;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -48,6 +50,7 @@ public class ChapterViewActivity
     private static final String TAG = "ChapterVerseActivity";
     private int bookNumber = 0, chapterNumber = 0;
     private ArrayAdapter<String> verseListAdapter;
+    private AppCompatAutoCompleteTextView chapterInput;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -88,10 +91,76 @@ public class ChapterViewActivity
             });
         }
 
-        refreshVersesList();
         BookNameContent.BookNameItem book = BookNameContent.getBookItem(bookNumber);
-        String title = (book != null ? book.getName() : "Unknown Book") + " Chapter" + chapterNumber;
-        setTitle(title);
+        if (book != null) {
+            chapterInput = (AppCompatAutoCompleteTextView) findViewById(
+                    R.id.activity_chapter_atv_chapter);
+            String chapterList[] = new String[book.getChapterCount()];
+            for (int i = 0; i < chapterList.length; i++) {
+                chapterList[i] = (i + 1) + "";
+            }
+            chapterInput.setAdapter(new ArrayAdapter<>(
+                    this, android.R.layout.simple_list_item_1, chapterList));
+            chapterInput.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    handleNewChapterSelected();
+                }
+            });
+
+            refreshVersesList();
+        } else {
+            Log.e(TAG, "onCreate", new RuntimeException(
+                    "No Book found at position " + bookNumber));
+        }
+
+        AppCompatButton notesButton = (AppCompatButton) findViewById(
+                R.id.activity_chapter_button_bookmarked);
+        if (notesButton != null) {
+            notesButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    handleNotesButtonClick();
+                }
+            });
+        }
+
+        AppCompatButton searchButton = (AppCompatButton) findViewById(
+                R.id.activity_chapter_button_search);
+        if (searchButton != null) {
+            searchButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    handleSearchButtonClick();
+                }
+            });
+        }
+
+    }
+
+    private void handleNotesButtonClick() {
+        SimpleBibleActivity.showNotesSection();
+        finish();
+    }
+
+    private void handleSearchButtonClick() {
+        SimpleBibleActivity.showSearchSection();
+        finish();
+    }
+
+    private void handleNewChapterSelected() {
+        int newChapter = Integer.parseInt(chapterInput.getText().toString().trim());
+        BookNameContent.BookNameItem book = BookNameContent.getBookItem(bookNumber);
+        if (book != null) {
+            if (newChapter < 1 || newChapter > book.getChapterCount()) {
+                Log.e(TAG, "onCreate", new RuntimeException("[BookNumber] + [Incorrect ChapterNumber] : ["
+                        + bookNumber + "][" + chapterNumber + "]"));
+            } else {
+                chapterNumber = newChapter;
+                refreshVersesList();
+                chapterInput.setText("");
+            }
+        }
     }
 
     private boolean handleVerseLongClick(View view) {
@@ -114,6 +183,10 @@ public class ChapterViewActivity
         verseListAdapter.clear();
         verseListAdapter.addAll(versesList);
         verseListAdapter.notifyDataSetChanged();
+
+        BookNameContent.BookNameItem book = BookNameContent.getBookItem(bookNumber);
+        String title = (book != null ? book.getName() : "Unknown Book") + " Chapter " + chapterNumber;
+        setTitle(title);
     }
 
 }
