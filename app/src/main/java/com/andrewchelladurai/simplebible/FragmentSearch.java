@@ -120,7 +120,7 @@ public class FragmentSearch
         Log.d(TAG, "onClick() called with textToSearch = [" + textToSearch + "]");
 
         if (textToSearch.length() <= 2) {
-            resultsLabel.setText(getString(R.string.fragment_v2_search_results_label_2chars));
+            resultsLabel.setText(getString(R.string.fragment_v2_search_results_label_length));
             editText.requestFocus();
             return;
         }

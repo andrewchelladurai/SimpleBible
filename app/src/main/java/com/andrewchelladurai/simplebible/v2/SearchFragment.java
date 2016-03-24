@@ -25,10 +25,10 @@
 package com.andrewchelladurai.simplebible.v2;
 
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.ListViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,10 +43,11 @@ import java.util.ArrayList;
 public class SearchFragment
         extends Fragment {
 
-    private AppCompatTextView resultsLabel;
+    //    private AppCompatTextView resultsLabel;
     private AppCompatEditText searchText;
     private ArrayAdapter<String> searchListAdapter;
     private DatabaseUtility databaseUtility;
+    private TextInputLayout hintLayout;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -76,7 +77,7 @@ public class SearchFragment
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_searchv2, container, false);
         searchText = (AppCompatEditText) view.findViewById(R.id.fragment_searchv2_search_text);
-        resultsLabel = (AppCompatTextView) view.findViewById(R.id.fragment_searchv2_results_label);
+        hintLayout = (TextInputLayout) view.findViewById(R.id.fragment_searchv2_hint_layout);
         searchListAdapter = new AdapterVerseList(getContext(), android.R.layout.simple_list_item_1,
                 new ArrayList<String>(1));
 
@@ -87,20 +88,45 @@ public class SearchFragment
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                handleSearchButtonClick();
+                handleSearchButtonClick(view);
             }
         });
         databaseUtility = DatabaseUtility.getInstance(getContext());
         return view;
     }
 
-    private void handleSearchButtonClick() {
-        String displayStr = searchText.getText() + " Searched";
-        resultsLabel.setText(displayStr);
+    private void handleSearchButtonClick(View view) {
+        String input = String.valueOf(searchText.getText());
 
-        searchListAdapter.clear();
-        searchListAdapter.addAll(databaseUtility.searchForText(searchText.getText().toString()));
-        searchListAdapter.notifyDataSetChanged();
+        if (input.isEmpty() || input.length() < 2) {
+            hintLayout.setError(getString(R.string.fragment_v2_search_results_label_length));
+            searchText.requestFocus();
+            return;
+        }
+
+        String label = (String) ((AppCompatButton) view).getText();
+        if (label.equalsIgnoreCase(getString(R.string.fragment_v2_search_button_label_default))) {
+            ArrayList<String> results = databaseUtility.searchForText(input);
+            searchListAdapter.clear();
+            if (results.size() > 0) {
+                searchListAdapter.addAll(results);
+                hintLayout.setHint(results.size() + " " +
+                        getString(R.string.fragment_v2_search_button_label_results_found));
+                hintLayout.setError("");
+            } else {
+                label = getString(R.string.fragment_v2_search_button_label_no_results_found);
+                hintLayout.setError(label);
+            }
+            searchListAdapter.notifyDataSetChanged();
+            ((AppCompatButton) view).setText(getString(R.string.fragment_v2_search_button_label_reset));
+        } else if (label.equalsIgnoreCase(getString(R.string.fragment_v2_search_button_label_reset))) {
+            searchListAdapter.clear();
+            ((AppCompatButton) view).setText(getString(R.string.fragment_v2_search_button_label_default));
+            searchListAdapter.notifyDataSetChanged();
+            hintLayout.setHint(getString(R.string.fragment_v2_search_edit_text_hint));
+            hintLayout.setError("");
+            searchText.setText("");
+        }
+
     }
-
 }

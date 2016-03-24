@@ -23,11 +23,11 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="@dimen/gap"
-    android:padding="@dimen/gap"
     tools:context="com.andrewchelladurai.simplebible.v2.SearchFragment">
 
     <android.support.v7.widget.LinearLayoutCompat
@@ -42,8 +42,10 @@
         android:padding="@dimen/gap">
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/fragment_searchv2_hint_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:errorEnabled="true">
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/fragment_searchv2_search_text"
@@ -52,13 +54,15 @@
                 android:hint="@string/fragment_v2_search_edit_text_hint" />
         </android.support.design.widget.TextInputLayout>
 
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/fragment_searchv2_results_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/gap" />
+        <!--
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/fragment_searchv2_results_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/gap" />
+        -->
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/fragment_searchv2_button"

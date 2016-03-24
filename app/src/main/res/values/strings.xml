@@ -123,8 +123,8 @@
     <string name="fragment_v2_search_button_label_reset">Click to Reset</string>
     <string name="fragment_v2_search_button_label_results_found"> verses found</string>
     <string name="fragment_v2_search_button_label_no_results_found">No verses found</string>
-    <string name="fragment_v2_search_results_label_2chars">
-        Enter more than 2 alphabets to Search</string>
+    <string name="fragment_v2_search_results_label_length">
+        Enter at least 1 alphabet to Search</string>
     <string name="title_activity_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
