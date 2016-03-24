@@ -39,7 +39,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.andrewchelladurai.simplebible.ActivitySettings;
-import com.andrewchelladurai.simplebible.AllBooks;
 import com.andrewchelladurai.simplebible.FragmentChapterVerses;
 import com.andrewchelladurai.simplebible.R;
 
@@ -70,7 +69,8 @@ public class ActivityChapterVerses
         int chapterNumber = (getIntent().getStringExtra(ARG_CHAPTER_NUMBER) == null)
                 ? 1 : Integer.parseInt(getIntent().getStringExtra(ARG_CHAPTER_NUMBER));
 
-        AllBooks.Book book = AllBooks.getBook(bookNumber);
+//        AllBooks.Book book = AllBooks.getBook(bookNumber);
+        BookNameContent.BookNameItem book = BookNameContent.getBookItem(bookNumber);
 
 /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -145,7 +145,8 @@ public class ActivityChapterVerses
     public boolean onNavigationItemSelected(MenuItem item) {
         String title = item.getTitle().toString();
         String number = title.subSequence(title.indexOf(" "), title.length()).toString();
-        AllBooks.Book book = AllBooks.getBook(bookNumber);
+//        AllBooks.Book book = AllBooks.getBook(bookNumber);
+        BookNameContent.BookNameItem book = BookNameContent.getBookItem(bookNumber);
 
         title = book.getName() + " Chapter" + number;
         setTitle(title);

@@ -22,13 +22,12 @@
   ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
   -->
 
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/dp_10"
-    android:padding="@dimen/dp_10"
+    android:layout_margin="@dimen/gap"
+    android:padding="@dimen/gap"
     tools:context="com.andrewchelladurai.simplebible.FragmentGotoLocation">
 
     <android.support.v7.widget.AppCompatTextView
@@ -36,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/fragment_goto_label_book_name_text"
-        android:textAppearance="?android:attr/textAppearanceSmall"/>
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <android.support.v7.widget.AppCompatAutoCompleteTextView
         android:id="@+id/fragment_goto_book_input"
@@ -47,7 +46,7 @@
         android:completionThreshold="1"
         android:maxLines="1"
         android:selectAllOnFocus="true"
-        android:text=""/>
+        android:text="" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/fragment_goto_label_chapter"
@@ -56,7 +55,7 @@
         android:layout_below="@+id/fragment_goto_book_input"
         android:layout_gravity="center_vertical"
         android:text="@string/fragment_goto_label_chapter_text"
-        android:textAppearance="?android:attr/textAppearanceSmall"/>
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -72,13 +71,14 @@
             android:completionThreshold="1"
             android:maxLines="1"
             android:selectAllOnFocus="true"
-            android:text=""/>
+            android:text="" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/fragment_goto_button"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/fragment_goto_button_text"/>
+            android:text="@string/fragment_goto_button_text" />
     </android.support.v7.widget.LinearLayoutCompat>
 
 </RelativeLayout>

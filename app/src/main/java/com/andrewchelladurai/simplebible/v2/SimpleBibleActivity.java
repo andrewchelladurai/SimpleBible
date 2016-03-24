@@ -41,10 +41,10 @@ import com.andrewchelladurai.simplebible.AllBooks;
 import com.andrewchelladurai.simplebible.DatabaseUtility;
 import com.andrewchelladurai.simplebible.R;
 
+
 public class SimpleBibleActivity
         extends AppCompatActivity
-        implements /*BooksFragment.OnFragmentInteractionListener,*/
-        View.OnClickListener,
+        implements View.OnClickListener,
         BookmarkedVerseFragment.OnListFragmentInteractionListener {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -57,6 +57,8 @@ public class SimpleBibleActivity
 
         DatabaseUtility.getInstance(getBaseContext());
         AllBooks.populateBooks(getResources().getStringArray(
+                R.array.books_n_chapter_count_array));
+        BookNameContent.populateBooks(getResources().getStringArray(
                 R.array.books_n_chapter_count_array));
 
         setContentView(R.layout.activity_simple_biblev2);
@@ -134,7 +136,7 @@ public class SimpleBibleActivity
                 case 0:
                     return HomeFragment.newInstance("");
                 case 1:
-                    return BooksFragment.newInstance();
+                    return BooksListFragment.newInstance(1);
                 case 2:
                     return BookmarkedVerseFragment.newInstance(1);
                 case 3:

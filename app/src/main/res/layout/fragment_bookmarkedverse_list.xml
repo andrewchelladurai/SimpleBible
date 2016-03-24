@@ -30,10 +30,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/dp_10"
+    android:layout_margin="@dimen/gap"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    android:padding="@dimen/dp_10"
+    android:padding="@dimen/gap"
     app:layoutManager="LinearLayoutManager"
     tools:context="com.andrewchelladurai.simplebible.v2.BookmarkedVerseFragment"
     tools:listitem="@layout/fragment_bookmarkedverse" />

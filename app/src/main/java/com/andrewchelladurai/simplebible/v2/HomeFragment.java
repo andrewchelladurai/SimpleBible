@@ -99,12 +99,15 @@ public class HomeFragment
         bookTV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int j, long k) {
-                AllBooks.Book book = AllBooks.getBook(bookTV.getText().toString().trim());
-                int chapterCount = book.getChapterCount();
+                int position = BookNameContent.getBookPosition(
+                        bookTV.getText().toString().trim());
+                int chapterCount = BookNameContent.getBookChapterCount(position);
+
                 String items[] = new String[chapterCount];
                 for (int i = 0; i < chapterCount; i++) {
                     items[i] = "" + (i + 1);
                 }
+
                 chapterTV.setAdapter(new ArrayAdapter<>(
                         getContext(), android.R.layout.simple_list_item_1, items));
                 chapterTV.requestFocus();

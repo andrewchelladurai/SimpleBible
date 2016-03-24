@@ -32,6 +32,6 @@
         android:id="@+id/fragment_book_list_item_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dp_10"
+        android:padding="@dimen/no_gap"
         android:textAppearance="?attr/textAppearanceListItem"/>
 </LinearLayout>
