@@ -37,7 +37,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.andrewchelladurai.simplebible.AllBooks;
 import com.andrewchelladurai.simplebible.DatabaseUtility;
 import com.andrewchelladurai.simplebible.R;
 
@@ -56,8 +55,6 @@ public class SimpleBibleActivity
         super.onCreate(savedInstanceState);
 
         DatabaseUtility.getInstance(getBaseContext());
-        AllBooks.populateBooks(getResources().getStringArray(
-                R.array.books_n_chapter_count_array));
         BookNameContent.populateBooks(getResources().getStringArray(
                 R.array.books_n_chapter_count_array));
 
