@@ -31,6 +31,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,8 +45,8 @@ import com.andrewchelladurai.simplebible.R;
 public class HomeFragment
         extends Fragment {
 
+    private static final String TAG = "HomeFragment";
     private static final String ARG_VERSE_ID = "ARG_VERSE_ID";
-
     private String verseID;
     private AppCompatAutoCompleteTextView bookTV;
     private AppCompatAutoCompleteTextView chapterTV;
@@ -99,24 +100,40 @@ public class HomeFragment
         bookTV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int j, long k) {
-                int position = BookNameContent.getBookPosition(
-                        bookTV.getText().toString().trim());
-                int chapterCount = BookNameContent.getBookChapterCount(position);
-
-                String items[] = new String[chapterCount];
-                for (int i = 0; i < chapterCount; i++) {
-                    items[i] = "" + (i + 1);
-                }
-
-                chapterTV.setAdapter(new ArrayAdapter<>(
-                        getContext(), android.R.layout.simple_list_item_1, items));
-                chapterTV.requestFocus();
+                loadChaptersForBook(BookNameContent.getBookPosition(
+                        bookTV.getText().toString().trim()));
             }
         });
 
         chapterTV = (AppCompatAutoCompleteTextView) view.findViewById(R.id.goto_fragment_chapter);
 
         return view;
+    }
+
+    private void loadChaptersForBook(int position) {
+        BookNameContent.BookNameItem item = BookNameContent.getBookItem(position);
+
+        if (item == null) {
+            Log.e(TAG, "loadChaptersForBook :", new RuntimeException(
+                    "No Book found at Position " + position));
+            return;
+        }
+
+        int chapterCount = item.getChapterCount();
+        if (chapterCount < 1) {
+            Log.e(TAG, "loadChaptersForBook :", new RuntimeException(
+                    "Zero Chapters for Book at Position " + position));
+            return;
+        }
+
+        String items[] = new String[chapterCount];
+        for (int i = 0; i < chapterCount; i++) {
+            items[i] = "" + (i + 1);
+        }
+
+        chapterTV.setAdapter(new ArrayAdapter<>(
+                getContext(), android.R.layout.simple_list_item_1, items));
+        chapterTV.requestFocus();
     }
 
     private void handleGotoButtonClick() {
