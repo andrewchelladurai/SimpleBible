@@ -51,20 +51,10 @@ public class BookNameContent {
     }
 
     public static BookNameItem getBookItem(int bookPosition) {
-        try {
-            return ITEMS.get(bookPosition);
-        } catch (Exception e) {
-            return null;
+        if (ITEM_MAP.containsKey(bookPosition + "")) {
+            return ITEM_MAP.get(bookPosition + "");
         }
-    }
-
-    public static int getBookChapterCount(int bookPosition) {
-        BookNameItem item = getBookItem(bookPosition);
-        if (item != null) {
-            return item.chapterCount;
-        } else {
-            return 0;
-        }
+        return null;
     }
 
     public static int getBookPosition(String bookName) {
@@ -76,9 +66,9 @@ public class BookNameContent {
         return 0;
     }
 
-    private static void addItem(int book_number, BookNameItem item) {
+    private static void addItem(int bookNumber, BookNameItem item) {
         ITEMS.add(item);
-        ITEM_MAP.put(book_number + "", item);
+        ITEM_MAP.put(bookNumber + "", item);
     }
 
     public static class BookNameItem {
