@@ -25,6 +25,7 @@
 package com.andrewchelladurai.simplebible.v2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -89,6 +90,12 @@ public class BooksListFragment
         Toast.makeText(getContext(),
                 item.getBookNumber() + " : " + item.getName() + " : " +
                         item.getChapterCount(), Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(getContext(), ChapterViewActivity.class);
+        intent.putExtra(ChapterViewActivity.ARG_BOOK_NUMBER, item.getBookNumber() + "");
+        intent.putExtra(ChapterViewActivity.ARG_CHAPTER_NUMBER, 1 + "");
+        startActivity(intent);
+
 /*
         Intent intent = new Intent(getContext(), ActivityChapterVerses.class);
         intent.putExtra(ActivityChapterVerses.ARG_BOOK_NUMBER, item.getBookNumber() + "");
