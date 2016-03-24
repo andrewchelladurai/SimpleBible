@@ -57,6 +57,15 @@ public class BookNameContent {
         return null;
     }
 
+    public static BookNameItem getBookItem(String bookName) {
+        for (BookNameItem item : ITEMS) {
+            if (item.bookName.equalsIgnoreCase(bookName)) {
+                return ITEM_MAP.get(item.bookNumber + "");
+            }
+        }
+        return null;
+    }
+
     public static int getBookPosition(String bookName) {
         for (BookNameItem item : ITEMS) {
             if (item.bookName.equalsIgnoreCase(bookName)) {
@@ -69,6 +78,14 @@ public class BookNameContent {
     private static void addItem(int bookNumber, BookNameItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(bookNumber + "", item);
+    }
+
+    public static String[] getAllBookLabels() {
+        String books[] = new String[ITEMS.size()];
+        for (int i = 0; i < books.length; i++) {
+            books[i] = ITEMS.get(i).getName();
+        }
+        return books;
     }
 
     public static class BookNameItem {
