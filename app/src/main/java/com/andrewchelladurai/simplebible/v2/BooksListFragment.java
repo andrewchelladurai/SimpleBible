@@ -34,7 +34,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.v2.BookNameContent.BookNameItem;
@@ -87,22 +86,10 @@ public class BooksListFragment
 
 
     public void onListFragmentInteraction(BookNameItem item) {
-        Toast.makeText(getContext(),
-                item.getBookNumber() + " : " + item.getName() + " : " +
-                        item.getChapterCount(), Toast.LENGTH_SHORT).show();
-
         Intent intent = new Intent(getContext(), ChapterViewActivity.class);
         intent.putExtra(ChapterViewActivity.ARG_BOOK_NUMBER, item.getBookNumber() + "");
         intent.putExtra(ChapterViewActivity.ARG_CHAPTER_NUMBER, 1 + "");
         startActivity(intent);
-
-/*
-        Intent intent = new Intent(getContext(), ActivityChapterVerses.class);
-        intent.putExtra(ActivityChapterVerses.ARG_BOOK_NUMBER, item.getBookNumber() + "");
-        intent.putExtra(ActivityChapterVerses.ARG_CHAPTER_NUMBER, 1 + "");
-
-        startActivity(intent);
-*/
     }
 
 }

@@ -38,8 +38,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.andrewchelladurai.simplebible.v2.ActivityChapterVerses;
-
 public class ActivitySimpleBible
         extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,

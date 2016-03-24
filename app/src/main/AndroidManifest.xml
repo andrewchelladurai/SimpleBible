@@ -24,7 +24,7 @@
         </activity>
         -->
         <activity
-            android:name=".v2.ActivityChapterVerses"
+            android:name=".ActivityChapterVerses"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_v2_chapter_verses"
             android:parentActivityName=".ActivitySimpleBible"
