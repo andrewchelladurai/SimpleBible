@@ -39,7 +39,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import com.andrewchelladurai.simplebible.AllBooks;
 import com.andrewchelladurai.simplebible.R;
 
 public class HomeFragment
@@ -96,7 +95,7 @@ public class HomeFragment
 
         bookTV = (AppCompatAutoCompleteTextView) view.findViewById(R.id.goto_fragment_book);
         bookTV.setAdapter(new ArrayAdapter<>(
-                getContext(), android.R.layout.simple_list_item_1, AllBooks.getAllBooks()));
+                getContext(), android.R.layout.simple_list_item_1, BookNameContent.getAllBookLabels()));
         bookTV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int j, long k) {
@@ -144,7 +143,8 @@ public class HomeFragment
             return;
         }
 
-        AllBooks.Book book = AllBooks.getBook(input);
+//        AllBooks.Book book = AllBooks.getBook(input);
+        BookNameContent.BookNameItem book = BookNameContent.getBookItem(input);
         if (book == null) {
             bookTV.requestFocus();
             Snackbar.make(bookTV, "Book Name Incorrect", Snackbar.LENGTH_SHORT).show();
@@ -164,9 +164,9 @@ public class HomeFragment
             return;
         }
 
-        Intent intent = new Intent(getContext(), ActivityChapterVerses.class);
-        intent.putExtra(ActivityChapterVerses.ARG_BOOK_NUMBER, book.getBookNumber());
-        intent.putExtra(ActivityChapterVerses.ARG_CHAPTER_NUMBER, input);
+        Intent intent = new Intent(getContext(), ChapterViewActivity.class);
+        intent.putExtra(ChapterViewActivity.ARG_BOOK_NUMBER, book.getBookNumber() + "");
+        intent.putExtra(ChapterViewActivity.ARG_CHAPTER_NUMBER, chapterCount + "");
         resetValues();
         startActivity(intent);
     }
@@ -174,6 +174,6 @@ public class HomeFragment
     private void resetValues() {
         bookTV.setText("");
         chapterTV.setText("");
-
+        chapterTV.setAdapter(null);
     }
 }

@@ -22,7 +22,7 @@
  * OR <http://www.gnu.org/licenses/gpl-3.0.txt>
  */
 
-package com.andrewchelladurai.simplebible.v2;
+package com.andrewchelladurai.simplebible;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,8 +31,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.AllBooks.Book;
-import com.andrewchelladurai.simplebible.FragmentBooksList;
-import com.andrewchelladurai.simplebible.R;
 
 import java.util.List;
 

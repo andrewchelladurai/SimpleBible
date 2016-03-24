@@ -45,6 +45,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".v2.ChapterViewActivity"
+            android:label="@string/title_activity_chapter_view"
+            android:parentActivityName=".v2.SimpleBibleActivity"
+            android:theme="@style/ThemeLight.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.andrewchelladurai.simplebible.v2.SimpleBibleActivity" />
+        </activity>
     </application>
 
 </manifest>

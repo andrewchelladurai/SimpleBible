@@ -37,4 +37,5 @@
     <dimen name="text_margin">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="shadow_depth">5dp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
 </resources>

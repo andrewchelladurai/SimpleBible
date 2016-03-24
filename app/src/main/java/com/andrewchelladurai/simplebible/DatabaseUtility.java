@@ -31,6 +31,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.andrewchelladurai.simplebible.v2.BookNameContent;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -39,18 +41,17 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 /**
- * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
- * on 26-Feb-2016 @ 1:15 AM
+ * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 26-Feb-2016 @ 1:15 AM
  */
 public class DatabaseUtility
         extends SQLiteOpenHelper {
 
-    private static final String          TAG            = "DatabaseUtility";
-    private static final String          DATABASE_NAME  = "Bible_NIV.db";
-    private static       DatabaseUtility staticInstance = null;
-    private static String         DB_PATH;
+    private static final String TAG = "DatabaseUtility";
+    private static final String DATABASE_NAME = "Bible_NIV.db";
+    private static DatabaseUtility staticInstance = null;
+    private static String DB_PATH;
     private static SQLiteDatabase database;
-    private static Context        context;
+    private static Context context;
 
     private DatabaseUtility(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -62,7 +63,7 @@ public class DatabaseUtility
     }
 
     public static DatabaseUtility getInstance(Context context)
-    throws NullPointerException {
+            throws NullPointerException {
         if (staticInstance == null) {
             if (context == null) {
                 throw new NullPointerException("NULL Context passed for instantiating DB");
@@ -73,7 +74,7 @@ public class DatabaseUtility
     }
 
     private void openDataBase()
-    throws SQLException {
+            throws SQLException {
         Log.d(TAG, "openDataBase: Called");
         if (database == null) {
             createDataBase();
@@ -123,7 +124,7 @@ public class DatabaseUtility
     }
 
     private void copyDataBase()
-    throws IOException {
+            throws IOException {
         Log.d(TAG, "copyDataBase: Called");
 
         InputStream externalDbStream = context.getAssets().open(DATABASE_NAME);
@@ -146,21 +147,21 @@ public class DatabaseUtility
 
     private Cursor getDBRecords(int bookID, int chapterID) {
         Log.d(TAG, "getDBRecords called with: bookID [" + bookID
-                   + "], chapterID [" + chapterID + "]");
+                + "], chapterID [" + chapterID + "]");
         SQLiteDatabase db = getReadableDatabase();
 
         Cursor cursor = db.query("bibleverses",
-                                 new String[]{"bookid", "chapterid", "verseid", "verse"},
-                                 "chapterid =? AND bookid=?",
-                                 new String[]{chapterID + "", bookID + ""},
-                                 null, null, null);
+                new String[]{"bookid", "chapterid", "verseid", "verse"},
+                "chapterid =? AND bookid=?",
+                new String[]{chapterID + "", bookID + ""},
+                null, null, null);
         Log.d(TAG, "getDBRecords() Exited");
         return cursor;
     }
 
     public ArrayList<String> getAllVerseOfChapter(int bookNumber, int chapterNumber) {
         Log.d(TAG, "getAllVerseOfChapter() called with bookNumber = [" + bookNumber +
-                   "], chapterNumber = [" + chapterNumber + "]");
+                "], chapterNumber = [" + chapterNumber + "]");
         Cursor cursor = getDBRecords(bookNumber, chapterNumber);
         ArrayList<String> list = new ArrayList<>(0);
 
@@ -184,10 +185,10 @@ public class DatabaseUtility
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query("bibleverses",
-                                 new String[]{"bookid", "chapterid", "verseid", "verse"},
-                                 "verse like ?",
-                                 new String[]{"%" + textToSearch + "%"},
-                                 null, null, null);
+                new String[]{"bookid", "chapterid", "verseid", "verse"},
+                "verse like ?",
+                new String[]{"%" + textToSearch + "%"},
+                null, null, null);
         Log.d(TAG, "getDBRecords() Exited");
         return cursor;
     }
@@ -203,19 +204,23 @@ public class DatabaseUtility
                 int verseIdIndex = cursor.getColumnIndex("VerseId");
                 int bookIdIndex = cursor.getColumnIndex("BookId");
                 int chapterIdIndex = cursor.getColumnIndex("ChapterId");
-                AllBooks.Book book;
+//                AllBooks.Book book;
+                BookNameContent.BookNameItem book;
                 StringBuilder entry = new StringBuilder();
                 do {
                     entry.delete(0, entry.length());
-                    book = AllBooks.getBook(cursor.getInt(bookIdIndex));
-                    entry.append(book.bookName)
-                         .append(" (")
-                         .append(cursor.getInt(chapterIdIndex))
-                         .append(":")
-                         .append(cursor.getInt(verseIdIndex))
-                         .append(") - ")
-                         .append(cursor.getString(verseIndex));
-                    results.add(entry.toString());
+                    book = BookNameContent.getBookItem(bookIdIndex + 1);
+                    if (book != null) {
+                        entry.append(book.getName())
+                                .append(" (")
+                                .append(cursor.getInt(chapterIdIndex))
+                                .append(":")
+                                .append(cursor.getInt(verseIdIndex))
+                                .append(") - ")
+                                .append(cursor.getString(verseIndex));
+                        results.add(entry.toString());
+                    }
+//                    book = AllBooks.getBook(cursor.getInt(bookIdIndex));
                 } while (cursor.moveToNext());
                 if (results.size() > 0) {
                     cursor.close();
