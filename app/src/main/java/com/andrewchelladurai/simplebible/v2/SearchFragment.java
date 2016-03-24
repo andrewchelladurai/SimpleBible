@@ -41,7 +41,7 @@ import com.andrewchelladurai.simplebible.R;
 import java.util.ArrayList;
 
 public class SearchFragment
-        extends Fragment implements View.OnClickListener {
+        extends Fragment {
 
     private AppCompatTextView resultsLabel;
     private AppCompatEditText searchText;
@@ -84,20 +84,23 @@ public class SearchFragment
         lvc.setAdapter(searchListAdapter);
 
         AppCompatButton button = (AppCompatButton) view.findViewById(R.id.fragment_searchv2_button);
-        button.setOnClickListener(this);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleSearchButtonClick();
+            }
+        });
         databaseUtility = DatabaseUtility.getInstance(getContext());
         return view;
     }
 
-    @Override
-    public void onClick(View view) {
-        if (view instanceof AppCompatButton) {
-            String displayStr = searchText.getText() + " Searched";
-            resultsLabel.setText(displayStr);
+    private void handleSearchButtonClick() {
+        String displayStr = searchText.getText() + " Searched";
+        resultsLabel.setText(displayStr);
 
-            searchListAdapter.clear();
-            searchListAdapter.addAll(databaseUtility.searchForText(searchText.getText().toString()));
-            searchListAdapter.notifyDataSetChanged();
-        }
+        searchListAdapter.clear();
+        searchListAdapter.addAll(databaseUtility.searchForText(searchText.getText().toString()));
+        searchListAdapter.notifyDataSetChanged();
     }
+
 }
