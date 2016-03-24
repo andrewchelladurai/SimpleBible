@@ -36,7 +36,7 @@ import com.andrewchelladurai.simplebible.v2.BookNameContent.BookNameItem;
 import java.util.List;
 
 public class BooksListAdapter
-        extends RecyclerView.Adapter<BooksListAdapter.ViewHolder> {
+        extends RecyclerView.Adapter<BooksListAdapter.BookNameView> {
 
     private final List<BookNameItem> mValues;
     private final BooksListFragment mListener;
@@ -47,14 +47,14 @@ public class BooksListAdapter
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BookNameView onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_bookv2, parent, false);
-        return new ViewHolder(view);
+        return new BookNameView(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final BookNameView holder, int position) {
         holder.bookItem = mValues.get(position);
         holder.book_name_content.setText(mValues.get(position).toString());
 
@@ -73,14 +73,14 @@ public class BooksListAdapter
         return mValues.size();
     }
 
-    public class ViewHolder
+    public class BookNameView
             extends RecyclerView.ViewHolder {
 
         public final View view;
         public final TextView book_name_content;
         public BookNameItem bookItem;
 
-        public ViewHolder(View view) {
+        public BookNameView(View view) {
             super(view);
             this.view = view;
             book_name_content = (TextView) view.findViewById(R.id.book_name_content);
