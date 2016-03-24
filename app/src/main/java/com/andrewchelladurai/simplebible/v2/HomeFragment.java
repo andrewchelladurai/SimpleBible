@@ -165,11 +165,11 @@ public class HomeFragment
         }
 
         Intent intent = new Intent(getContext(), ChapterViewActivity.class);
-        Log.d(TAG, "handleGotoButtonClick: Book : Chapter = " + book.getBookNumber() + " : " + chapterCount);
         intent.putExtra(ChapterViewActivity.ARG_BOOK_NUMBER, book.getBookNumber() + "");
         intent.putExtra(ChapterViewActivity.ARG_CHAPTER_NUMBER, chapterCount + "");
-        resetValues();
         startActivity(intent);
+        resetValues();
+
     }
 
     private void resetValues() {

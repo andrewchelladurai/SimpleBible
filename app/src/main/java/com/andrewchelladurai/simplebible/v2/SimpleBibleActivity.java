@@ -152,13 +152,13 @@ public class SimpleBibleActivity
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "home";
+                    return getString(R.string.home_label);
                 case 1:
-                    return "books";
+                    return getString(R.string.books_label);
                 case 2:
-                    return "notes";
+                    return getString(R.string.notes_label);
                 case 3:
-                    return "search";
+                    return getString(R.string.search_label);
             }
             return null;
         }
