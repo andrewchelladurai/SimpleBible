@@ -107,7 +107,7 @@ public class SimpleBible
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return HomeFragment.newInstance("");
+                    return FragmentHome.newInstance("");
                 case 1:
                     return BooksListFragment.newInstance(1);
                 case 2:
@@ -115,7 +115,7 @@ public class SimpleBible
                 case 3:
                     return FragmentSearch.newInstance();
                 default:
-                    return HomeFragment.newInstance("");
+                    return FragmentHome.newInstance("");
             }
         }
 

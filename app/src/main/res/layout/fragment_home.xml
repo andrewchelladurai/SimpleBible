@@ -1,5 +1,5 @@
 <!--
-  ~ This file 'fragment_homev2.xml' is part of SimpleBible :
+  ~ This file 'fragment_home.xmlis part of SimpleBible :
   ~
   ~ Copyright (c) 2016.
   ~
@@ -30,10 +30,10 @@
     android:animateLayoutChanges="true"
     android:orientation="vertical"
     android:padding="@dimen/gap"
-    tools:context=".HomeFragment">
+    tools:context=".FragmentHome">
 
     <include
-        android:id="@+id/topPanel"
+        android:id="@+id/fragment_home_goto_panel"
         layout="@layout/goto_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -43,7 +43,7 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/fragment_homev2_verse"
+            android:id="@+id/fragment_home_daily_verse"
             style="@style/Base.TextAppearance.AppCompat.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
