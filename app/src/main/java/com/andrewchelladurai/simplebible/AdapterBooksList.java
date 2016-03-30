@@ -30,32 +30,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.andrewchelladurai.simplebible.BookNameContent.BookNameItem;
+import com.andrewchelladurai.simplebible.BookNameContent.BookItem;
 
 import java.util.List;
 
-public class BooksListAdapter
-        extends RecyclerView.Adapter<BooksListAdapter.BookNameView> {
+public class AdapterBooksList
+        extends RecyclerView.Adapter<AdapterBooksList.BookName> {
 
-    private final List<BookNameItem> mValues;
+    private final List<BookItem> mValues;
     private final FragmentBooksList mListener;
 
-    public BooksListAdapter(List<BookNameItem> items, FragmentBooksList listener) {
+    public AdapterBooksList(List<BookItem> items, FragmentBooksList listener) {
         mValues = items;
         mListener = listener;
     }
 
     @Override
-    public BookNameView onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BookName onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_bookv2, parent, false);
-        return new BookNameView(view);
+                .inflate(R.layout.fragment_bookname, parent, false);
+        return new BookName(view);
     }
 
     @Override
-    public void onBindViewHolder(final BookNameView holder, int position) {
+    public void onBindViewHolder(final BookName holder, int position) {
         holder.bookItem = mValues.get(position);
-        holder.book_name_content.setText(mValues.get(position).toString());
+        holder.book_name.setText(mValues.get(position).toString());
 
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,22 +72,22 @@ public class BooksListAdapter
         return mValues.size();
     }
 
-    public class BookNameView
+    public class BookName
             extends RecyclerView.ViewHolder {
 
         public final View view;
-        public final TextView book_name_content;
-        public BookNameItem bookItem;
+        public final TextView book_name;
+        public BookItem bookItem;
 
-        public BookNameView(View view) {
+        public BookName(View view) {
             super(view);
             this.view = view;
-            book_name_content = (TextView) view.findViewById(R.id.book_name_content);
+            book_name = (TextView) view.findViewById(R.id.fragment_bookname_content);
         }
 
         @Override
         public String toString() {
-            return book_name_content.getText() + "";
+            return book_name.getText() + "";
         }
 
     }

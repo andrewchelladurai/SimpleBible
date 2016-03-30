@@ -136,7 +136,7 @@ public class ActivityChapterView
 
     private void handleNewChapterSelected(int chapter) {
         Log.d(TAG, "handleNewChapterSelected: " + chapter);
-        BookNameContent.BookNameItem book = BookNameContent.getBookItem(bookNumber);
+        BookNameContent.BookItem book = BookNameContent.getBookItem(bookNumber);
         if (book != null) {
             if (chapter < 1 || chapter > book.getChapterCount()) {
                 Log.e(TAG, "onCreate", new RuntimeException("[BookNumber] + [Incorrect ChapterNumber] : ["
@@ -149,7 +149,7 @@ public class ActivityChapterView
     }
 
     private void showChapterSelectionDialog() {
-        BookNameContent.BookNameItem book = BookNameContent.getBookItem(bookNumber);
+        BookNameContent.BookItem book = BookNameContent.getBookItem(bookNumber);
         if (book == null) {
             return;
         }
@@ -200,7 +200,7 @@ public class ActivityChapterView
         verseListAdapter.addAll(versesList);
         verseListAdapter.notifyDataSetChanged();
 
-        BookNameContent.BookNameItem book = BookNameContent.getBookItem(bookNumber);
+        BookNameContent.BookItem book = BookNameContent.getBookItem(bookNumber);
         String title = (book != null ? book.getName() : "Unknown Book") + " Chapter " + chapterNumber;
         setTitle(title);
     }

@@ -35,7 +35,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.andrewchelladurai.simplebible.BookNameContent.BookNameItem;
+import com.andrewchelladurai.simplebible.BookNameContent.BookItem;
 
 public class FragmentBooksList
         extends Fragment {
@@ -77,14 +77,14 @@ public class FragmentBooksList
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, columnCount));
             }
-            BooksListAdapter adapter = new BooksListAdapter(BookNameContent.ITEMS, this);
+            AdapterBooksList adapter = new AdapterBooksList(BookNameContent.ITEMS, this);
             recyclerView.setAdapter(adapter);
         }
         return view;
     }
 
 
-    public void onListFragmentInteraction(BookNameItem item) {
+    public void onListFragmentInteraction(BookItem item) {
         Intent intent = new Intent(getContext(), ActivityChapterView.class);
         intent.putExtra(ActivityChapterView.ARG_BOOK_NUMBER, item.getBookNumber() + "");
         intent.putExtra(ActivityChapterView.ARG_CHAPTER_NUMBER, 1 + "");

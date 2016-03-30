@@ -108,7 +108,7 @@ public class FragmentHome
     }
 
     private void loadChaptersForBook(int position) {
-        BookNameContent.BookNameItem item = BookNameContent.getBookItem(position);
+        BookNameContent.BookItem item = BookNameContent.getBookItem(position);
 
         if (item == null) {
             Log.e(TAG, "loadChaptersForBook :", new RuntimeException(
@@ -142,7 +142,7 @@ public class FragmentHome
         }
 
 //        AllBooks.Book book = AllBooks.getBook(input);
-        BookNameContent.BookNameItem book = BookNameContent.getBookItem(input);
+        BookNameContent.BookItem book = BookNameContent.getBookItem(input);
         if (book == null) {
             bookInput.requestFocus();
             Snackbar.make(bookInput, "Book Name Incorrect", Snackbar.LENGTH_SHORT).show();

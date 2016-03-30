@@ -33,8 +33,8 @@ import java.util.Map;
 
 public class BookNameContent {
 
-    public static final List<BookNameItem> ITEMS = new ArrayList<BookNameItem>();
-    public static final Map<String, BookNameItem> ITEM_MAP = new HashMap<String, BookNameItem>();
+    public static final List<BookItem> ITEMS = new ArrayList<BookItem>();
+    public static final Map<String, BookItem> ITEM_MAP = new HashMap<String, BookItem>();
     private static final String TAG = "BookNameContent";
 
     public static void populateBooks(String allBooks[]) {
@@ -44,21 +44,21 @@ public class BookNameContent {
             String values[];
             for (int i = 0; i < allBooks.length; i++) {
                 values = allBooks[i].split(":");
-                addItem(i, new BookNameItem(i, values[0], Integer.valueOf(values[1])));
+                addItem(i, new BookItem(i, values[0], Integer.valueOf(values[1])));
             }
             Log.d(TAG, "populateBooks: Completed successfully");
         }
     }
 
-    public static BookNameItem getBookItem(int bookPosition) {
+    public static BookItem getBookItem(int bookPosition) {
         if (ITEM_MAP.containsKey(bookPosition + "")) {
             return ITEM_MAP.get(bookPosition + "");
         }
         return null;
     }
 
-    public static BookNameItem getBookItem(String bookName) {
-        for (BookNameItem item : ITEMS) {
+    public static BookItem getBookItem(String bookName) {
+        for (BookItem item : ITEMS) {
             if (item.bookName.equalsIgnoreCase(bookName)) {
                 return ITEM_MAP.get(item.bookNumber + "");
             }
@@ -67,7 +67,7 @@ public class BookNameContent {
     }
 
     public static int getBookPosition(String bookName) {
-        for (BookNameItem item : ITEMS) {
+        for (BookItem item : ITEMS) {
             if (item.bookName.equalsIgnoreCase(bookName)) {
                 return item.bookNumber;
             }
@@ -75,7 +75,7 @@ public class BookNameContent {
         return 0;
     }
 
-    private static void addItem(int bookNumber, BookNameItem item) {
+    private static void addItem(int bookNumber, BookItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(bookNumber + "", item);
     }
@@ -88,11 +88,11 @@ public class BookNameContent {
         return books;
     }
 
-    public static class BookNameItem {
+    public static class BookItem {
         private final String bookName;
         private final int bookNumber, chapterCount;
 
-        public BookNameItem(int number, String name, int count) {
+        public BookItem(int number, String name, int count) {
             bookName = name;
             bookNumber = number;
             chapterCount = count;

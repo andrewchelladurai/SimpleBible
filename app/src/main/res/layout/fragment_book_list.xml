@@ -34,4 +34,4 @@
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
     tools:context=".FragmentBooksList"
-    tools:listitem="@layout/fragment_bookv2" />
+    tools:listitem="@layout/fragment_bookname" />

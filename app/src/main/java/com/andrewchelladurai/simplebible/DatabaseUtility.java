@@ -203,7 +203,7 @@ public class DatabaseUtility
                 int bookIdIndex = cursor.getColumnIndex("BookId");
                 int chapterIdIndex = cursor.getColumnIndex("ChapterId");
 //                AllBooks.Book book;
-                BookNameContent.BookNameItem book;
+                BookNameContent.BookItem book;
                 StringBuilder entry = new StringBuilder();
                 do {
                     entry.delete(0, entry.length());
