@@ -34,18 +34,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class BookmarkedVerseFragment
+public class VerseNotesFragment
         extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
-    public BookmarkedVerseFragment() {
+    public VerseNotesFragment() {
     }
 
-    public static BookmarkedVerseFragment newInstance(int columnCount) {
-        BookmarkedVerseFragment fragment = new BookmarkedVerseFragment();
+    public static VerseNotesFragment newInstance(int columnCount) {
+        VerseNotesFragment fragment = new VerseNotesFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -64,7 +64,7 @@ public class BookmarkedVerseFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_bookmarkedverse_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_verse_notes_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -79,8 +79,7 @@ public class BookmarkedVerseFragment
         }
         return view;
     }
-
-
+    
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

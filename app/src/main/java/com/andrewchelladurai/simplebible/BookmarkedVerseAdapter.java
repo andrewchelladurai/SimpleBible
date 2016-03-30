@@ -35,18 +35,18 @@ import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link VerseNotesList.VerseNotesItem} and
- * makes a call to the specified {@link BookmarkedVerseFragment.OnListFragmentInteractionListener}.
+ * makes a call to the specified {@link VerseNotesFragment.OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class BookmarkedVerseAdapter
         extends RecyclerView.Adapter<BookmarkedVerseAdapter.ViewHolder> {
 
     private final List<VerseNotesList.VerseNotesItem> mValues;
-    private final BookmarkedVerseFragment.OnListFragmentInteractionListener mListener;
+    private final VerseNotesFragment.OnListFragmentInteractionListener mListener;
 
     public BookmarkedVerseAdapter(
             List<VerseNotesList.VerseNotesItem> items,
-            BookmarkedVerseFragment.OnListFragmentInteractionListener listener) {
+            VerseNotesFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }

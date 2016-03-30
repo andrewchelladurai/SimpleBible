@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ This file 'fragment_bookmarkedverse_list.xml' is part of SimpleBible :
+  ~ This file 'fragment_verse_notes_list.xml part of SimpleBible :
   ~
   ~ Copyright (c) 2016.
   ~
@@ -35,5 +35,5 @@
     android:layout_marginRight="16dp"
     android:padding="@dimen/gap"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".BookmarkedVerseFragment"
+    tools:context=".VerseNotesFragment"
     tools:listitem="@layout/fragment_bookmarkedverse" />
