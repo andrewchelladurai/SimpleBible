@@ -37,17 +37,17 @@ import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.BookNameContent.BookNameItem;
 
-public class BooksListFragment
+public class FragmentBooksList
         extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "ARG_COLUMN_COUNT";
     private int columnCount = 1;
 
-    public BooksListFragment() {
+    public FragmentBooksList() {
     }
 
-    public static BooksListFragment newInstance(int columnCount) {
-        BooksListFragment fragment = new BooksListFragment();
+    public static FragmentBooksList newInstance(int columnCount) {
+        FragmentBooksList fragment = new FragmentBooksList();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -66,7 +66,7 @@ public class BooksListFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_book_listv2, container, false);
+        View view = inflater.inflate(R.layout.fragment_book_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {

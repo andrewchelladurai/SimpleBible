@@ -109,7 +109,7 @@ public class SimpleBible
                 case 0:
                     return FragmentHome.newInstance("");
                 case 1:
-                    return BooksListFragment.newInstance(1);
+                    return FragmentBooksList.newInstance(1);
                 case 2:
                     return BookmarkedVerseFragment.newInstance(1);
                 case 3:

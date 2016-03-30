@@ -38,9 +38,9 @@ public class BooksListAdapter
         extends RecyclerView.Adapter<BooksListAdapter.BookNameView> {
 
     private final List<BookNameItem> mValues;
-    private final BooksListFragment mListener;
+    private final FragmentBooksList mListener;
 
-    public BooksListAdapter(List<BookNameItem> items, BooksListFragment listener) {
+    public BooksListAdapter(List<BookNameItem> items, FragmentBooksList listener) {
         mValues = items;
         mListener = listener;
     }
