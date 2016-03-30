@@ -40,7 +40,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ChapterViewActivity
+public class ActivityChapterView
         extends AppCompatActivity {
 
     public static final String ARG_CHAPTER_NUMBER = "ARG_CHAPTER_NUMBER";
@@ -67,8 +67,8 @@ public class ChapterViewActivity
         getIntent().getExtras().putString(ARG_BOOK_NUMBER, bookNumber + "");
         getIntent().getExtras().putString(ARG_CHAPTER_NUMBER, chapterNumber + "");
 
-        setContentView(R.layout.activity_chapter_versev2);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setContentView(R.layout.activity_chapter_view);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_chapter_view_toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -77,7 +77,7 @@ public class ChapterViewActivity
         verseListAdapter = new AdapterVerseList(this, android.R.layout.simple_list_item_1,
                 new ArrayList<String>(1));
         ListViewCompat listViewCompat =
-                (ListViewCompat) findViewById(R.id.activity_chapter_list_verses);
+                (ListViewCompat) findViewById(R.id.activity_chapter_view_list_verses);
         if (listViewCompat != null) {
             listViewCompat.setAdapter(verseListAdapter);
             listViewCompat.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -89,7 +89,7 @@ public class ChapterViewActivity
         }
 
         AppCompatButton notesButton = (AppCompatButton) findViewById(
-                R.id.activity_chapter_button_bookmarked);
+                R.id.activity_chapter_view_button_notes);
         if (notesButton != null) {
             notesButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -100,7 +100,7 @@ public class ChapterViewActivity
         }
 
         AppCompatButton searchButton = (AppCompatButton) findViewById(
-                R.id.activity_chapter_button_search);
+                R.id.activity_chapter_view_button_search);
         if (searchButton != null) {
             searchButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -111,7 +111,7 @@ public class ChapterViewActivity
         }
 
         AppCompatButton chaptersButton = (AppCompatButton) findViewById(
-                R.id.activity_chapter_button_chapters);
+                R.id.activity_chapter_view_button_chapters);
         if (chaptersButton != null) {
             chaptersButton.setOnClickListener(new View.OnClickListener() {
                 @Override

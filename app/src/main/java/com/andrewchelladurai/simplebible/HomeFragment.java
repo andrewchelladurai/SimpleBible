@@ -162,9 +162,9 @@ public class HomeFragment
             return;
         }
 
-        Intent intent = new Intent(getContext(), ChapterViewActivity.class);
-        intent.putExtra(ChapterViewActivity.ARG_BOOK_NUMBER, book.getBookNumber() + "");
-        intent.putExtra(ChapterViewActivity.ARG_CHAPTER_NUMBER, chapterCount + "");
+        Intent intent = new Intent(getContext(), ActivityChapterView.class);
+        intent.putExtra(ActivityChapterView.ARG_BOOK_NUMBER, book.getBookNumber() + "");
+        intent.putExtra(ActivityChapterView.ARG_CHAPTER_NUMBER, chapterCount + "");
         startActivity(intent);
         resetValues();
 

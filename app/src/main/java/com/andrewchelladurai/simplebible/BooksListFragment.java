@@ -85,9 +85,9 @@ public class BooksListFragment
 
 
     public void onListFragmentInteraction(BookNameItem item) {
-        Intent intent = new Intent(getContext(), ChapterViewActivity.class);
-        intent.putExtra(ChapterViewActivity.ARG_BOOK_NUMBER, item.getBookNumber() + "");
-        intent.putExtra(ChapterViewActivity.ARG_CHAPTER_NUMBER, 1 + "");
+        Intent intent = new Intent(getContext(), ActivityChapterView.class);
+        intent.putExtra(ActivityChapterView.ARG_BOOK_NUMBER, item.getBookNumber() + "");
+        intent.putExtra(ActivityChapterView.ARG_CHAPTER_NUMBER, 1 + "");
         startActivity(intent);
     }
 

@@ -28,7 +28,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ChapterViewActivity">
+    tools:context=".ActivityChapterView">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -36,7 +36,7 @@
         android:theme="@style/ThemeLight.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/activity_chapter_view_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -45,7 +45,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.ListViewCompat
-        android:id="@+id/activity_chapter_list_verses"
+        android:id="@+id/activity_chapter_view_list_verses"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -60,7 +60,7 @@
         android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/activity_chapter_button_search"
+            android:id="@+id/activity_chapter_view_button_search"
             style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
             android:text="@string/search_label" />
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/activity_chapter_button_bookmarked"
+            android:id="@+id/activity_chapter_view_button_notes"
             style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
             android:text="@string/notes_label" />
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/activity_chapter_button_chapters"
+            android:id="@+id/activity_chapter_view_button_chapters"
             style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

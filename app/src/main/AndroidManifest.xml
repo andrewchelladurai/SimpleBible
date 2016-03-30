@@ -35,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ChapterViewActivity"
+            android:name=".ActivityChapterView"
             android:label="@string/title_activity_chapter_verse"
             android:parentActivityName=".SimpleBible"
             android:theme="@style/ThemeLight.NoActionBar">
