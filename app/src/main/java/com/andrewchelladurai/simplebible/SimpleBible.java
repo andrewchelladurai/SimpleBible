@@ -113,7 +113,7 @@ public class SimpleBible
                 case 2:
                     return BookmarkedVerseFragment.newInstance(1);
                 case 3:
-                    return SearchFragment.newInstance();
+                    return FragmentSearch.newInstance();
                 default:
                     return HomeFragment.newInstance("");
             }
