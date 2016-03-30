@@ -53,7 +53,7 @@
         android:paddingTop="@dimen/gap" />
 
     <android.support.v7.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:elevation="@dimen/gap"
@@ -75,17 +75,14 @@
             android:src="@drawable/ic_bookmark_black"
             android:text="@string/notes_label" />
 
-        <android.support.v7.widget.AppCompatAutoCompleteTextView
-            android:id="@+id/activity_chapter_atv_chapter"
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/activity_chapter_button_chapters"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:completionThreshold="1"
-            android:hint="@string/fragment_goto_label_chapter_text"
-            android:inputType="number|textAutoComplete"
-            android:maxLines="1"
-            android:singleLine="true" />
-
+            android:src="@drawable/ic_toc_black"
+            android:text="@string/chapters_label" />
     </android.support.v7.widget.LinearLayoutCompat>
+
 
 </LinearLayout>

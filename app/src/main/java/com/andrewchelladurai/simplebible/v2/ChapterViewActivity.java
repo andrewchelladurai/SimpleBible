@@ -24,19 +24,18 @@
 
 package com.andrewchelladurai.simplebible.v2;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.DatabaseUtility;
@@ -52,7 +51,6 @@ public class ChapterViewActivity
     private static final String TAG = "ChapterVerseActivity";
     private int bookNumber = 0, chapterNumber = 0;
     private ArrayAdapter<String> verseListAdapter;
-    private AppCompatAutoCompleteTextView chapterInput;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -63,7 +61,7 @@ public class ChapterViewActivity
         value = getIntent().getStringExtra(ARG_CHAPTER_NUMBER);
         chapterNumber = (value == null) ? 0 : Integer.parseInt(value);
 
-        if (chapterNumber < 1) {
+        if (chapterNumber < 0) {
             Log.e(TAG, "onCreate", new RuntimeException("[BookNumber] + [ChapterNumber = Zero] : ["
                     + bookNumber + "][" + chapterNumber + "]"));
             return;
@@ -93,29 +91,6 @@ public class ChapterViewActivity
             });
         }
 
-        BookNameContent.BookNameItem book = BookNameContent.getBookItem(bookNumber);
-        if (book != null) {
-            chapterInput = (AppCompatAutoCompleteTextView) findViewById(
-                    R.id.activity_chapter_atv_chapter);
-            String chapterList[] = new String[book.getChapterCount()];
-            for (int i = 0; i < chapterList.length; i++) {
-                chapterList[i] = (i + 1) + "";
-            }
-            chapterInput.setAdapter(new ArrayAdapter<>(
-                    this, android.R.layout.simple_list_item_1, chapterList));
-            chapterInput.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    handleNewChapterSelected();
-                }
-            });
-
-            refreshVersesList();
-        } else {
-            Log.e(TAG, "onCreate", new RuntimeException(
-                    "No Book found at position " + bookNumber));
-        }
-
         AppCompatButton notesButton = (AppCompatButton) findViewById(
                 R.id.activity_chapter_button_bookmarked);
         if (notesButton != null) {
@@ -138,6 +113,18 @@ public class ChapterViewActivity
             });
         }
 
+        AppCompatButton chaptersButton = (AppCompatButton) findViewById(
+                R.id.activity_chapter_button_chapters);
+        if (chaptersButton != null) {
+            chaptersButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showChapterSelectionDialog();
+                }
+            });
+        }
+
+        handleNewChapterSelected(chapterNumber);
     }
 
     private void handleNotesButtonClick() {
@@ -150,28 +137,49 @@ public class ChapterViewActivity
         finish();
     }
 
-    private void handleNewChapterSelected() {
-        int newChapter = Integer.parseInt(chapterInput.getText().toString().trim());
+    private void handleNewChapterSelected(int chapter) {
+        Log.d(TAG, "handleNewChapterSelected: " + chapter);
         BookNameContent.BookNameItem book = BookNameContent.getBookItem(bookNumber);
         if (book != null) {
-            if (newChapter < 1 || newChapter > book.getChapterCount()) {
+            if (chapter < 1 || chapter > book.getChapterCount()) {
                 Log.e(TAG, "onCreate", new RuntimeException("[BookNumber] + [Incorrect ChapterNumber] : ["
                         + bookNumber + "][" + chapterNumber + "]"));
             } else {
-                chapterNumber = newChapter;
+                chapterNumber = chapter;
                 refreshVersesList();
-                chapterInput.setText("");
             }
         }
+    }
 
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(chapterInput.getWindowToken(), 0);
-
-        ListViewCompat listViewCompat =
-                (ListViewCompat) findViewById(R.id.activity_chapter_list_verses);
-        if (listViewCompat != null) {
-            listViewCompat.setSelectionAfterHeaderView();
+    private void showChapterSelectionDialog() {
+        BookNameContent.BookNameItem book = BookNameContent.getBookItem(bookNumber);
+        if (book == null) {
+            return;
         }
+
+        int cc = book.getChapterCount();
+        String chaps[] = new String[cc];
+        for (int i = 0; i < cc; i++) {
+            chaps[i] = "" + (i + 1);
+        }
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.fragment_goto_label_chapter_text));
+        GridView gridView = new GridView(this);
+        gridView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, chaps));
+        gridView.setNumColumns(5);
+        builder.setView(gridView);
+        final AlertDialog ad = builder.create();
+        ad.show();
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ad.dismiss();
+                handleNewChapterSelected(position + 1);
+            }
+        });
+
     }
 
     private boolean handleVerseLongClick(View view) {
