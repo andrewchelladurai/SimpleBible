@@ -30,7 +30,7 @@
     android:animateLayoutChanges="true"
     android:orientation="vertical"
     android:padding="@dimen/gap"
-    tools:context="com.andrewchelladurai.simplebible.v2.HomeFragment">
+    tools:context=".HomeFragment">
 
     <include
         android:id="@+id/topPanel"

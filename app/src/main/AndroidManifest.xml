@@ -24,18 +24,7 @@
         </activity>
         -->
         <activity
-            android:name=".ActivityChapterVerses"
-            android:configChanges="orientation|screenSize"
-            android:label="@string/title_activity_v2_chapter_verses"
-            android:parentActivityName=".ActivitySimpleBible"
-            android:theme="@style/ThemeLight.NoActionBar"
-            android:windowSoftInputMode="adjustResize">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ActivitySimpleBible" />
-        </activity>
-        <activity
-            android:name=".v2.SimpleBibleActivity"
+            android:name=".SimpleBibleActivity"
             android:label="@string/app_name"
             android:theme="@style/ThemeLight.NoActionBar"
             android:windowSoftInputMode="adjustResize">
@@ -46,31 +35,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".v2.ChapterListActivity"
-            android:label="@string/title_chapter_list"
-            android:parentActivityName=".v2.SimpleBibleActivity"
-            android:theme="@style/ThemeLight.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.andrewchelladurai.simplebible.v2.SimpleBibleActivity" />
-        </activity>
-        <activity
-            android:name=".v2.ChapterDetailActivity"
-            android:label="@string/title_chapter_detail"
-            android:parentActivityName=".v2.ChapterListActivity"
-            android:theme="@style/ThemeLight.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.andrewchelladurai.simplebible.v2.ChapterListActivity" />
-        </activity>
-        <activity
-            android:name=".v2.ChapterViewActivity"
+            android:name=".ChapterViewActivity"
             android:label="@string/title_activity_chapter_verse"
-            android:parentActivityName=".v2.SimpleBibleActivity"
+            android:parentActivityName=".SimpleBibleActivity"
             android:theme="@style/ThemeLight.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.andrewchelladurai.simplebible.v2.SimpleBibleActivity" />
+                android:value=".SimpleBibleActivity" />
         </activity>
     </application>
 

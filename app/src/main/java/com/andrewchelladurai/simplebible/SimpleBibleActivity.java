@@ -22,7 +22,7 @@
  * OR <http://www.gnu.org/licenses/gpl-3.0.txt>
  */
 
-package com.andrewchelladurai.simplebible.v2;
+package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -36,9 +36,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
-import com.andrewchelladurai.simplebible.DatabaseUtility;
-import com.andrewchelladurai.simplebible.R;
 
 
 public class SimpleBibleActivity

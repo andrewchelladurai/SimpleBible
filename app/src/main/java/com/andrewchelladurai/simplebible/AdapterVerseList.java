@@ -22,7 +22,7 @@
  * OR <http://www.gnu.org/licenses/gpl-3.0.txt>
  */
 
-package com.andrewchelladurai.simplebible.v2;
+package com.andrewchelladurai.simplebible;
 
 import android.content.Context;
 import android.view.View;

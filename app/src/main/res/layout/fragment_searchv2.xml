@@ -28,7 +28,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="@dimen/gap"
-    tools:context="com.andrewchelladurai.simplebible.v2.SearchFragment">
+    tools:context=".SearchFragment">
 
     <android.support.v7.widget.LinearLayoutCompat
         android:id="@+id/fragment_searchv2_panel"

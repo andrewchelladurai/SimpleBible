@@ -22,7 +22,7 @@
  * OR <http://www.gnu.org/licenses/gpl-3.0.txt>
  */
 
-package com.andrewchelladurai.simplebible.v2;
+package com.andrewchelladurai.simplebible;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,9 +37,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
-
-import com.andrewchelladurai.simplebible.DatabaseUtility;
-import com.andrewchelladurai.simplebible.R;
 
 import java.util.ArrayList;
 

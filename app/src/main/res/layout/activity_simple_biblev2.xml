@@ -30,7 +30,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.andrewchelladurai.simplebible.v2.SimpleBibleActivity">
+    tools:context=".SimpleBibleActivity">
 
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"

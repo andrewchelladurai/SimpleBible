@@ -1,5 +1,5 @@
 /*
- * This file 'AdapterBooksList.java' is part of SimpleBible :
+ * This file 'BooksListAdapter.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.
  *
@@ -30,39 +30,38 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.andrewchelladurai.simplebible.AllBooks.Book;
+import com.andrewchelladurai.simplebible.BookNameContent.BookNameItem;
 
 import java.util.List;
 
-public class AdapterBooksList
-        extends RecyclerView.Adapter<AdapterBooksList.ViewHolder> {
+public class BooksListAdapter
+        extends RecyclerView.Adapter<BooksListAdapter.BookNameView> {
 
-    private final List<Book> mValues;
-    private final FragmentBooksList.InteractionListener mListener;
+    private final List<BookNameItem> mValues;
+    private final BooksListFragment mListener;
 
-    public AdapterBooksList(List<Book> items, FragmentBooksList.InteractionListener listener) {
+    public BooksListAdapter(List<BookNameItem> items, BooksListFragment listener) {
         mValues = items;
         mListener = listener;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BookNameView onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_book_list, parent, false);
-        return new ViewHolder(view);
+                .inflate(R.layout.fragment_bookv2, parent, false);
+        return new BookNameView(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-//        holder.verse_id.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).toString());
+    public void onBindViewHolder(final BookNameView holder, int position) {
+        holder.bookItem = mValues.get(position);
+        holder.book_name_content.setText(mValues.get(position).toString());
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.onBooksListFragmentInteraction(holder.mItem);
+                    mListener.onListFragmentInteraction(holder.bookItem);
                 }
             }
         });
@@ -73,26 +72,23 @@ public class AdapterBooksList
         return mValues.size();
     }
 
-    public class ViewHolder
+    public class BookNameView
             extends RecyclerView.ViewHolder {
 
-        public final View mView;
-        public final TextView mContentView;
-        public Book mItem;
+        public final View view;
+        public final TextView book_name_content;
+        public BookNameItem bookItem;
 
-        public ViewHolder(View view) {
+        public BookNameView(View view) {
             super(view);
-            mView = view;
-            mContentView = (TextView) view.findViewById(R.id.fragment_book_list_item_content);
-            //TODO : Find a way to make this take effect without an activity recreate
-//            notes.setTypeface(Utilities.getInstance().getPreferredStyle(view.getContext
-// ()));
-//            notes.setTextSize(Utilities.getInstance().getPreferredSize(view.getContext()));
+            this.view = view;
+            book_name_content = (TextView) view.findViewById(R.id.book_name_content);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return book_name_content.getText() + "";
         }
+
     }
 }
