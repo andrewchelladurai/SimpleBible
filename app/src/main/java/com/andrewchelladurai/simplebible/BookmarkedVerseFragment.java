@@ -75,7 +75,7 @@ public class BookmarkedVerseFragment
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new BookmarkedVerseAdapter(BookmarkedVerseList.ITEMS, mListener));
+            recyclerView.setAdapter(new BookmarkedVerseAdapter(VerseNotesList.ITEMS, mListener));
         }
         return view;
     }
@@ -99,6 +99,6 @@ public class BookmarkedVerseFragment
     }
 
     public interface OnListFragmentInteractionListener {
-        void handleBookmarkedVerseInteraction(BookmarkedVerseList.BookmarkedVerse item);
+        void handleBookmarkedVerseInteraction(VerseNotesList.VerseNotesItem item);
     }
 }

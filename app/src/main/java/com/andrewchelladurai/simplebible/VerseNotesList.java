@@ -29,10 +29,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BookmarkedVerseList {
+public class VerseNotesList {
 
-    public static final List<BookmarkedVerse> ITEMS = new ArrayList<>();
-    public static final Map<String, BookmarkedVerse> ITEM_MAP = new HashMap<>();
+    public static final List<VerseNotesItem> ITEMS = new ArrayList<>();
+    public static final Map<String, VerseNotesItem> ITEM_MAP = new HashMap<>();
 
     static {
         for (int i = 1; i <= 25; i++) {
@@ -40,31 +40,31 @@ public class BookmarkedVerseList {
         }
     }
 
-    private static void addItem(BookmarkedVerse item) {
+    private static void addItem(VerseNotesItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.verseID, item);
     }
 
-    private static BookmarkedVerse createDummyItem(int position) {
+    private static VerseNotesItem createDummyItem(int position) {
         String id = "Verse " + position;
         String verse = "Verse @ Position : " + position;
         String notes = "Notes Yes / No";
-        return new BookmarkedVerse(id, verse, notes);
+        return new VerseNotesItem(id, verse, notes);
     }
 
-    public static class BookmarkedVerse {
+    public static class VerseNotesItem {
         public final String verseID;
-        public final String verseText;
-        public final String verseNotes;
+        public final String verse;
+        public final String notes;
 
-        public BookmarkedVerse(String id, String verse, String notes) {
+        public VerseNotesItem(String id, String verse, String notes) {
             verseID = id;
-            verseText = verse;
-            verseNotes = notes;
+            this.verse = verse;
+            this.notes = notes;
         }
 
         public String toString() {
-            return "ID : " + verseID + " Verse : " + verseText + " Notes" + verseNotes;
+            return "ID : " + verseID + " Verse : " + verse + " Notes" + notes;
         }
     }
 }

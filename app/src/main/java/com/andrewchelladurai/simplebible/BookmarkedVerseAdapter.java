@@ -34,18 +34,18 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link BookmarkedVerseList.BookmarkedVerse} and
+ * {@link RecyclerView.Adapter} that can display a {@link VerseNotesList.VerseNotesItem} and
  * makes a call to the specified {@link BookmarkedVerseFragment.OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class BookmarkedVerseAdapter
         extends RecyclerView.Adapter<BookmarkedVerseAdapter.ViewHolder> {
 
-    private final List<BookmarkedVerseList.BookmarkedVerse> mValues;
+    private final List<VerseNotesList.VerseNotesItem> mValues;
     private final BookmarkedVerseFragment.OnListFragmentInteractionListener mListener;
 
     public BookmarkedVerseAdapter(
-            List<BookmarkedVerseList.BookmarkedVerse> items,
+            List<VerseNotesList.VerseNotesItem> items,
             BookmarkedVerseFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
@@ -60,10 +60,10 @@ public class BookmarkedVerseAdapter
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.bookmarkedVerse = mValues.get(position);
+        holder.verseNotesItem = mValues.get(position);
         holder.verse_id.setText(mValues.get(position).verseID);
-        holder.verse.setText(mValues.get(position).verseText);
-        holder.notes.setText(mValues.get(position).verseNotes);
+        holder.verse.setText(mValues.get(position).verse);
+        holder.notes.setText(mValues.get(position).notes);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +71,7 @@ public class BookmarkedVerseAdapter
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.handleBookmarkedVerseInteraction(holder.bookmarkedVerse);
+                    mListener.handleBookmarkedVerseInteraction(holder.verseNotesItem);
                 }
             }
         });
@@ -90,7 +90,7 @@ public class BookmarkedVerseAdapter
         public final TextView notes;
         public final Button viewButton;
         public final Button editButton;
-        public BookmarkedVerseList.BookmarkedVerse bookmarkedVerse;
+        public VerseNotesList.VerseNotesItem verseNotesItem;
 
         public ViewHolder(View view) {
             super(view);

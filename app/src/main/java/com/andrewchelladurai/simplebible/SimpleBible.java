@@ -92,7 +92,7 @@ public class SimpleBible
     }
 
     @Override
-    public void handleBookmarkedVerseInteraction(BookmarkedVerseList.BookmarkedVerse item) {
+    public void handleBookmarkedVerseInteraction(VerseNotesList.VerseNotesItem item) {
         Toast.makeText(SimpleBible.this, "handleBookmarkedVerseInteraction",
                 Toast.LENGTH_SHORT).show();
     }
