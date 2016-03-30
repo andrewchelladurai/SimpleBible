@@ -34,18 +34,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class VerseNotesFragment
+public class FragmentVerseNotes
         extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
-    public VerseNotesFragment() {
+    public FragmentVerseNotes() {
     }
 
-    public static VerseNotesFragment newInstance(int columnCount) {
-        VerseNotesFragment fragment = new VerseNotesFragment();
+    public static FragmentVerseNotes newInstance(int columnCount) {
+        FragmentVerseNotes fragment = new FragmentVerseNotes();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -75,11 +75,11 @@ public class VerseNotesFragment
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new BookmarkedVerseAdapter(VerseNotesList.ITEMS, mListener));
+            recyclerView.setAdapter(new AdapterVerseNotes(VerseNotesList.ITEMS, mListener));
         }
         return view;
     }
-    
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

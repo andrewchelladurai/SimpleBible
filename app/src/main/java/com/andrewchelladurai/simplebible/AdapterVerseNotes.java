@@ -35,31 +35,31 @@ import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link VerseNotesList.VerseNotesItem} and
- * makes a call to the specified {@link VerseNotesFragment.OnListFragmentInteractionListener}.
+ * makes a call to the specified {@link FragmentVerseNotes.OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class BookmarkedVerseAdapter
-        extends RecyclerView.Adapter<BookmarkedVerseAdapter.ViewHolder> {
+public class AdapterVerseNotes
+        extends RecyclerView.Adapter<AdapterVerseNotes.VerseNotesView> {
 
     private final List<VerseNotesList.VerseNotesItem> mValues;
-    private final VerseNotesFragment.OnListFragmentInteractionListener mListener;
+    private final FragmentVerseNotes.OnListFragmentInteractionListener mListener;
 
-    public BookmarkedVerseAdapter(
+    public AdapterVerseNotes(
             List<VerseNotesList.VerseNotesItem> items,
-            VerseNotesFragment.OnListFragmentInteractionListener listener) {
+            FragmentVerseNotes.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public VerseNotesView onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_bookmarkedverse, parent, false);
-        return new ViewHolder(view);
+        return new VerseNotesView(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final VerseNotesView holder, int position) {
         holder.verseNotesItem = mValues.get(position);
         holder.verse_id.setText(mValues.get(position).verseID);
         holder.verse.setText(mValues.get(position).verse);
@@ -82,7 +82,7 @@ public class BookmarkedVerseAdapter
         return mValues.size();
     }
 
-    public class ViewHolder
+    public class VerseNotesView
             extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView verse_id;
@@ -92,7 +92,7 @@ public class BookmarkedVerseAdapter
         public final Button editButton;
         public VerseNotesList.VerseNotesItem verseNotesItem;
 
-        public ViewHolder(View view) {
+        public VerseNotesView(View view) {
             super(view);
             mView = view;
             verse_id = (TextView) view.findViewById(R.id.bm_verse_id);

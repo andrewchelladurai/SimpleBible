@@ -39,7 +39,7 @@ import android.widget.Toast;
 
 public class SimpleBible
         extends AppCompatActivity
-        implements VerseNotesFragment.OnListFragmentInteractionListener {
+        implements FragmentVerseNotes.OnListFragmentInteractionListener {
 
     private static SectionsPagerAdapter mSectionsPagerAdapter;
     private static ViewPager mViewPager;
@@ -111,7 +111,7 @@ public class SimpleBible
                 case 1:
                     return FragmentBooksList.newInstance(1);
                 case 2:
-                    return VerseNotesFragment.newInstance(1);
+                    return FragmentVerseNotes.newInstance(1);
                 case 3:
                     return FragmentSearch.newInstance();
                 default:

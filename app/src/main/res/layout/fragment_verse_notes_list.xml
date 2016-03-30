@@ -35,5 +35,5 @@
     android:layout_marginRight="16dp"
     android:padding="@dimen/gap"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".VerseNotesFragment"
+    tools:context=".FragmentVerseNotes"
     tools:listitem="@layout/fragment_bookmarkedverse" />
