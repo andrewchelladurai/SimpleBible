@@ -207,5 +207,4 @@ public class ChapterViewActivity
         String title = (book != null ? book.getName() : "Unknown Book") + " Chapter " + chapterNumber;
         setTitle(title);
     }
-
 }
