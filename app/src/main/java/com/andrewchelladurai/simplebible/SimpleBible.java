@@ -34,14 +34,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 
-public class SimpleBibleActivity
+public class SimpleBible
         extends AppCompatActivity
-        implements View.OnClickListener,
-        BookmarkedVerseFragment.OnListFragmentInteractionListener {
+        implements BookmarkedVerseFragment.OnListFragmentInteractionListener {
 
     private static SectionsPagerAdapter mSectionsPagerAdapter;
     private static ViewPager mViewPager;
@@ -64,38 +62,22 @@ public class SimpleBibleActivity
         BookNameContent.populateBooks(getResources().getStringArray(
                 R.array.books_n_chapter_count_array));
 
-        setContentView(R.layout.activity_simple_biblev2);
+        setContentView(R.layout.activity_simple_bible);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_simple_bible_toolbar);
         setSupportActionBar(toolbar);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = (ViewPager) findViewById(R.id.activity_simple_bible_container);
         if (mViewPager != null) {
             mViewPager.setAdapter(mSectionsPagerAdapter);
         }
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.activity_simple_bible_tabs);
         if (tabLayout != null) {
             tabLayout.setupWithViewPager(mViewPager);
         }
-
-/*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_activity_search);
-        if (fab != null) {
-            fab.setOnClickListener(this);
-        }
-*/
-
     }
-
-/*
-    @Override
-    public void handleBooksFragmentInteraction(View view) {
-        Toast.makeText(SimpleBibleActivity.this, "handleBooksFragmentInteraction",
-                Toast.LENGTH_SHORT).show();
-    }
-*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -110,19 +92,8 @@ public class SimpleBibleActivity
     }
 
     @Override
-    public void onClick(View view) {
-/*
-        switch (view.getId()) {
-            case R.id.fab_activity_search:
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-        }
-*/
-    }
-
-    @Override
     public void handleBookmarkedVerseInteraction(BookmarkedVerseList.BookmarkedVerse item) {
-        Toast.makeText(SimpleBibleActivity.this, "handleBookmarkedVerseInteraction",
+        Toast.makeText(SimpleBible.this, "handleBookmarkedVerseInteraction",
                 Toast.LENGTH_SHORT).show();
     }
 

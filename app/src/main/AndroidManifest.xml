@@ -24,7 +24,7 @@
         </activity>
         -->
         <activity
-            android:name=".SimpleBibleActivity"
+            android:name=".SimpleBible"
             android:label="@string/app_name"
             android:theme="@style/ThemeLight.NoActionBar"
             android:windowSoftInputMode="adjustResize">
@@ -37,11 +37,11 @@
         <activity
             android:name=".ChapterViewActivity"
             android:label="@string/title_activity_chapter_verse"
-            android:parentActivityName=".SimpleBibleActivity"
+            android:parentActivityName=".SimpleBible"
             android:theme="@style/ThemeLight.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".SimpleBibleActivity" />
+                android:value=".SimpleBible" />
         </activity>
     </application>
 

@@ -125,12 +125,12 @@ public class ChapterViewActivity
     }
 
     private void handleNotesButtonClick() {
-        SimpleBibleActivity.showNotesSection();
+        SimpleBible.showNotesSection();
         finish();
     }
 
     private void handleSearchButtonClick() {
-        SimpleBibleActivity.showSearchSection();
+        SimpleBible.showSearchSection();
         finish();
     }
 

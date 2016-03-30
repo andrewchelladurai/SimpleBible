@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ This file 'activity_simple_bible.xml' is part of SimpleBible :
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ This file 'activity_simple_biblev2.xml' is part of SimpleBible :
   ~
   ~ Copyright (c) 2016.
   ~
@@ -23,28 +22,60 @@
   ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
   -->
 
-<android.support.v4.widget.DrawerLayout
-    android:id="@+id/activity_simple_bible_drawer_layout"
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/main_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:openDrawer="start">
+    tools:context=".SimpleBible">
 
-    <include
-        layout="@layout/app_bar_simple_bible"
+    <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-    <android.support.design.widget.NavigationView
-        android:id="@+id/activity_simple_bible_nav_view"
-        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_simple_bible"
-        app:menu="@menu/activity_simple_bible_drawer"/>
+        android:orientation="vertical">
 
-</android.support.v4.widget.DrawerLayout>
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/appbar_padding_top"
+            android:theme="@style/ThemeLight.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/activity_simple_bible_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/ThemeLight.PopupOverlay">
+
+            </android.support.v7.widget.Toolbar>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/activity_simple_bible_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/activity_simple_bible_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <!--
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_activity_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_dialog_email" />
+    -->
+</android.support.design.widget.CoordinatorLayout>
