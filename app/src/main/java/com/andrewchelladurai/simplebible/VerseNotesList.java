@@ -31,21 +31,21 @@ import java.util.Map;
 
 public class VerseNotesList {
 
-    public static final List<VerseNotesItem> ITEMS = new ArrayList<>();
-    public static final Map<String, VerseNotesItem> ITEM_MAP = new HashMap<>();
+    public static final List<VerseNotesItem> NOTES_LIST = new ArrayList<>();
+    public static final Map<String, VerseNotesItem> NOTES_MAP = new HashMap<>();
 
     static {
         for (int i = 1; i <= 25; i++) {
-            addItem(createDummyItem(i));
+            addItem(createItem(i));
         }
     }
 
     private static void addItem(VerseNotesItem item) {
-        ITEMS.add(item);
-        ITEM_MAP.put(item.verseID, item);
+        NOTES_LIST.add(item);
+        NOTES_MAP.put(item.verseID, item);
     }
 
-    private static VerseNotesItem createDummyItem(int position) {
+    private static VerseNotesItem createItem(int position) {
         String id = "Verse " + position;
         String verse = "Verse @ Position : " + position;
         String notes = "Notes Yes / No";

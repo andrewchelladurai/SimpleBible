@@ -41,17 +41,17 @@ public class SimpleBible
         extends AppCompatActivity
         implements FragmentVerseNotes.OnListFragmentInteractionListener {
 
-    private static SectionsPagerAdapter mSectionsPagerAdapter;
-    private static ViewPager mViewPager;
+    private static SectionsPagerAdapter pagerAdapter;
+    private static ViewPager pager;
 
     public static void showNotesSection() {
-        mViewPager.setCurrentItem(2);
-        mSectionsPagerAdapter.notifyDataSetChanged();
+        pager.setCurrentItem(2);
+        pagerAdapter.notifyDataSetChanged();
     }
 
     public static void showSearchSection() {
-        mViewPager.setCurrentItem(3);
-        mSectionsPagerAdapter.notifyDataSetChanged();
+        pager.setCurrentItem(3);
+        pagerAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -66,16 +66,16 @@ public class SimpleBible
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_simple_bible_toolbar);
         setSupportActionBar(toolbar);
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        pagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        mViewPager = (ViewPager) findViewById(R.id.activity_simple_bible_container);
-        if (mViewPager != null) {
-            mViewPager.setAdapter(mSectionsPagerAdapter);
+        pager = (ViewPager) findViewById(R.id.activity_simple_bible_container);
+        if (pager != null) {
+            pager.setAdapter(pagerAdapter);
         }
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.activity_simple_bible_tabs);
         if (tabLayout != null) {
-            tabLayout.setupWithViewPager(mViewPager);
+            tabLayout.setupWithViewPager(pager);
         }
     }
 

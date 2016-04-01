@@ -77,7 +77,7 @@ public class FragmentBooksList
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, columnCount));
             }
-            AdapterBooksList adapter = new AdapterBooksList(BookNameContent.ITEMS, this);
+            AdapterBooksList adapter = new AdapterBooksList(BookNameContent.BOOK_ITEMS, this);
             recyclerView.setAdapter(adapter);
         }
         return view;

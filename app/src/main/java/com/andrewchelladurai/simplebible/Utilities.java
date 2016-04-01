@@ -39,13 +39,13 @@ public class Utilities {
 
     private static final String TAG = "Utilities";
 
-    private static final Utilities staticInstance = new Utilities();
+    private static final Utilities STATIC_INSTANCE = new Utilities();
 
     private Utilities() {
     }
 
     public static Utilities getInstance() {
-        return staticInstance;
+        return STATIC_INSTANCE;
     }
 
     public int getChapterListColumnCount(int rotation, Resources resources) {

@@ -56,7 +56,7 @@ public class DatabaseUtility
         DatabaseUtility.context = context;
         //Write a full path to the databases of your application
         DB_PATH = context.getDatabasePath(DATABASE_NAME).getParent();
-        Log.d(TAG, "DatabaseUtility: DB_PATH : " + DB_PATH);
+        Log.d(TAG, "DatabaseUtility() called DB_PATH = [" + DB_PATH + "]");
         openDataBase();
     }
 
@@ -202,7 +202,6 @@ public class DatabaseUtility
                 int verseIdIndex = cursor.getColumnIndex("VerseId");
                 int bookIdIndex = cursor.getColumnIndex("BookId");
                 int chapterIdIndex = cursor.getColumnIndex("ChapterId");
-//                AllBooks.Book book;
                 BookNameContent.BookItem book;
                 StringBuilder entry = new StringBuilder();
                 do {
@@ -218,7 +217,6 @@ public class DatabaseUtility
                                 .append(cursor.getString(verseIndex));
                         results.add(entry.toString());
                     }
-//                    book = AllBooks.getBook(cursor.getInt(bookIdIndex));
                 } while (cursor.moveToNext());
                 if (results.size() > 0) {
                     cursor.close();
@@ -229,19 +227,19 @@ public class DatabaseUtility
     }
 
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-    }
-
-    @Override
     public synchronized void close() {
         if (database != null) {
             database.close();
         }
         super.close();
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
     }
 
 }

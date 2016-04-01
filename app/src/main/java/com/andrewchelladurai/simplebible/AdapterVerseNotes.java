@@ -36,19 +36,18 @@ import java.util.List;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link VerseNotesList.VerseNotesItem} and
  * makes a call to the specified {@link FragmentVerseNotes.OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
  */
 public class AdapterVerseNotes
         extends RecyclerView.Adapter<AdapterVerseNotes.VerseNotesView> {
 
-    private final List<VerseNotesList.VerseNotesItem> mValues;
-    private final FragmentVerseNotes.OnListFragmentInteractionListener mListener;
+    private final List<VerseNotesList.VerseNotesItem> notesItems;
+    private final FragmentVerseNotes.OnListFragmentInteractionListener listener;
 
     public AdapterVerseNotes(
             List<VerseNotesList.VerseNotesItem> items,
             FragmentVerseNotes.OnListFragmentInteractionListener listener) {
-        mValues = items;
-        mListener = listener;
+        notesItems = items;
+        this.listener = listener;
     }
 
     @Override
@@ -60,18 +59,18 @@ public class AdapterVerseNotes
 
     @Override
     public void onBindViewHolder(final VerseNotesView holder, int position) {
-        holder.verseNotesItem = mValues.get(position);
-        holder.verse_id.setText(mValues.get(position).verseID);
-        holder.verse.setText(mValues.get(position).verse);
-        holder.notes.setText(mValues.get(position).notes);
+        holder.verseNotesItem = notesItems.get(position);
+        holder.verse_id.setText(notesItems.get(position).verseID);
+        holder.verse.setText(notesItems.get(position).verse);
+        holder.notes.setText(notesItems.get(position).notes);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
+                if (null != listener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.handleBookmarkedVerseInteraction(holder.verseNotesItem);
+                    listener.handleBookmarkedVerseInteraction(holder.verseNotesItem);
                 }
             }
         });
@@ -79,7 +78,7 @@ public class AdapterVerseNotes
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return notesItems.size();
     }
 
     public class VerseNotesView

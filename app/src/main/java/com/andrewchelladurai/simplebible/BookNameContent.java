@@ -33,12 +33,12 @@ import java.util.Map;
 
 public class BookNameContent {
 
-    public static final List<BookItem> ITEMS = new ArrayList<BookItem>();
-    public static final Map<String, BookItem> ITEM_MAP = new HashMap<String, BookItem>();
+    public static final List<BookItem> BOOK_ITEMS = new ArrayList<BookItem>();
+    public static final Map<String, BookItem> BOOK_ITEM_MAP = new HashMap<String, BookItem>();
     private static final String TAG = "BookNameContent";
 
     public static void populateBooks(String allBooks[]) {
-        if (ITEMS.size() == 66) {
+        if (BOOK_ITEMS.size() == 66) {
             Log.d(TAG, "populateBooks: Lists already populated");
         } else {
             String values[];
@@ -51,23 +51,23 @@ public class BookNameContent {
     }
 
     public static BookItem getBookItem(int bookPosition) {
-        if (ITEM_MAP.containsKey(bookPosition + "")) {
-            return ITEM_MAP.get(bookPosition + "");
+        if (BOOK_ITEM_MAP.containsKey(bookPosition + "")) {
+            return BOOK_ITEM_MAP.get(bookPosition + "");
         }
         return null;
     }
 
     public static BookItem getBookItem(String bookName) {
-        for (BookItem item : ITEMS) {
+        for (BookItem item : BOOK_ITEMS) {
             if (item.bookName.equalsIgnoreCase(bookName)) {
-                return ITEM_MAP.get(item.bookNumber + "");
+                return BOOK_ITEM_MAP.get(item.bookNumber + "");
             }
         }
         return null;
     }
 
     public static int getBookPosition(String bookName) {
-        for (BookItem item : ITEMS) {
+        for (BookItem item : BOOK_ITEMS) {
             if (item.bookName.equalsIgnoreCase(bookName)) {
                 return item.bookNumber;
             }
@@ -76,14 +76,14 @@ public class BookNameContent {
     }
 
     private static void addItem(int bookNumber, BookItem item) {
-        ITEMS.add(item);
-        ITEM_MAP.put(bookNumber + "", item);
+        BOOK_ITEMS.add(item);
+        BOOK_ITEM_MAP.put(bookNumber + "", item);
     }
 
     public static String[] getAllBookLabels() {
-        String books[] = new String[ITEMS.size()];
+        String books[] = new String[BOOK_ITEMS.size()];
         for (int i = 0; i < books.length; i++) {
-            books[i] = ITEMS.get(i).getName();
+            books[i] = BOOK_ITEMS.get(i).getName();
         }
         return books;
     }

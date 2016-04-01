@@ -37,7 +37,7 @@ import android.view.ViewGroup;
 public class FragmentVerseNotes
         extends Fragment {
 
-    private static final String ARG_COLUMN_COUNT = "column-count";
+    private static final String ARG_COLUMN_COUNT = "ARG_COLUMN_COUNT";
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
@@ -75,7 +75,7 @@ public class FragmentVerseNotes
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new AdapterVerseNotes(VerseNotesList.ITEMS, mListener));
+            recyclerView.setAdapter(new AdapterVerseNotes(VerseNotesList.NOTES_LIST, mListener));
         }
         return view;
     }

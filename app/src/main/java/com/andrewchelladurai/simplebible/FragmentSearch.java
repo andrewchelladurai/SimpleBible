@@ -40,8 +40,8 @@ import java.util.ArrayList;
 public class FragmentSearch
         extends Fragment {
 
-    private AppCompatEditText searchText;
-    private ArrayAdapter<String> searchListAdapter;
+    private AppCompatEditText searchInput;
+    private ArrayAdapter<String> searchResults;
     private TextInputLayout hint;
 
     public FragmentSearch() {
@@ -60,13 +60,13 @@ public class FragmentSearch
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_search, container, false);
-        searchText = (AppCompatEditText) view.findViewById(R.id.fragment_search_input);
+        searchInput = (AppCompatEditText) view.findViewById(R.id.fragment_search_input);
         hint = (TextInputLayout) view.findViewById(R.id.fragment_search_hint);
-        searchListAdapter = new AdapterVerseList(getContext(), android.R.layout.simple_list_item_1,
+        searchResults = new AdapterVerseList(getContext(), android.R.layout.simple_list_item_1,
                 new ArrayList<String>(1));
 
         ListViewCompat lvc = (ListViewCompat) view.findViewById(R.id.fragment_search_results);
-        lvc.setAdapter(searchListAdapter);
+        lvc.setAdapter(searchResults);
 
         AppCompatButton button = (AppCompatButton) view.findViewById(R.id.fragment_search_button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -79,11 +79,11 @@ public class FragmentSearch
     }
 
     private void handleSearchButtonClick(View view) {
-        String input = String.valueOf(searchText.getText());
+        String input = String.valueOf(searchInput.getText());
 
         if (input.isEmpty() || input.length() < 2) {
             hint.setError(getString(R.string.fragment_v2_search_results_label_length));
-            searchText.requestFocus();
+            searchInput.requestFocus();
             return;
         }
 
@@ -91,9 +91,9 @@ public class FragmentSearch
         if (label.equalsIgnoreCase(getString(R.string.fragment_v2_search_button_label_default))) {
             DatabaseUtility databaseUtility = DatabaseUtility.getInstance(getContext());
             ArrayList<String> results = databaseUtility.searchForText(input);
-            searchListAdapter.clear();
+            searchResults.clear();
             if (results.size() > 0) {
-                searchListAdapter.addAll(results);
+                searchResults.addAll(results);
                 hint.setHint(results.size() + " " +
                         getString(R.string.fragment_v2_search_button_label_results_found));
                 hint.setError("");
@@ -101,15 +101,15 @@ public class FragmentSearch
                 label = getString(R.string.fragment_v2_search_button_label_no_results_found);
                 hint.setError(label);
             }
-            searchListAdapter.notifyDataSetChanged();
+            searchResults.notifyDataSetChanged();
             ((AppCompatButton) view).setText(getString(R.string.fragment_v2_search_button_label_reset));
         } else if (label.equalsIgnoreCase(getString(R.string.fragment_v2_search_button_label_reset))) {
-            searchListAdapter.clear();
+            searchResults.clear();
             ((AppCompatButton) view).setText(getString(R.string.fragment_v2_search_button_label_default));
-            searchListAdapter.notifyDataSetChanged();
+            searchResults.notifyDataSetChanged();
             hint.setHint(getString(R.string.fragment_v2_search_edit_text_hint));
             hint.setError("");
-            searchText.setText("");
+            searchInput.setText("");
         }
 
     }
