@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -36,7 +37,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -84,7 +84,8 @@ public class ActivityChapterView
             listViewCompat.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    return handleVerseLongClick(view);
+                    handleVerseLongClick(i);
+                    return true;
                 }
             });
         }
@@ -123,6 +124,19 @@ public class ActivityChapterView
         }
 
         handleNewChapterSelected(chapterNumber);
+    }
+
+    private void dialogShareClicked(AlertDialog dialog, int position) {
+        String title = getTitle().toString();
+        title = title.replace("Chapter ", "");
+        String verse = listViewCompat.getItemAtPosition(position).toString()
+                + " -- The Holy Bible (New International Version)";
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, title + ":" + verse);
+        dialog.dismiss();
+        startActivity(intent);
     }
 
     private void handleNotesButtonClick() {
@@ -180,16 +194,30 @@ public class ActivityChapterView
 
     }
 
-    private boolean handleVerseLongClick(View view) {
-        String title = getTitle().toString();
-        title = title.replace("Chapter ", "");
-        String verse = ((TextView) view).getText()
-                + " -- The Holy Bible (New International Version)";
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, title + ":" + verse);
-        startActivity(intent);
-        return true;
+    private void handleVerseLongClick(final int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(R.layout.long_press_dialog);
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+        AppCompatTextView textView = (AppCompatTextView) dialog.findViewById(
+                R.id.long_click_tv_verse_id);
+        if (textView != null) {
+            String text = getTitle() + " : Verse " + (position + 1);
+            textView.setText(text);
+        }
+
+        AppCompatButton shareButton = (AppCompatButton) dialog.findViewById(
+                R.id.long_click_but_share);
+        if (shareButton != null) {
+            shareButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialogShareClicked(dialog, position);
+                }
+            });
+        }
     }
 
     public void refreshVersesList() {
@@ -206,4 +234,5 @@ public class ActivityChapterView
         String title = (book != null ? book.getName() : "Unknown Book") + " Chapter " + chapterNumber;
         setTitle(title);
     }
+
 }
