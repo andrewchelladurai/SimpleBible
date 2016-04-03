@@ -48,6 +48,7 @@ public class ActivityChapterView
     private static final String TAG = "ChapterVerseActivity";
     private int bookNumber = 0, chapterNumber = 0;
     private ArrayAdapter<String> verseListAdapter;
+    private ListViewCompat listViewCompat;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -76,7 +77,7 @@ public class ActivityChapterView
 
         verseListAdapter = new AdapterVerseList(this, android.R.layout.simple_list_item_1,
                 new ArrayList<String>(1));
-        ListViewCompat listViewCompat =
+        listViewCompat =
                 (ListViewCompat) findViewById(R.id.activity_chapter_view_list_verses);
         if (listViewCompat != null) {
             listViewCompat.setAdapter(verseListAdapter);
@@ -199,6 +200,7 @@ public class ActivityChapterView
         verseListAdapter.clear();
         verseListAdapter.addAll(versesList);
         verseListAdapter.notifyDataSetChanged();
+        listViewCompat.setSelectionAfterHeaderView();
 
         BookNameContent.BookItem book = BookNameContent.getBookItem(bookNumber);
         String title = (book != null ? book.getName() : "Unknown Book") + " Chapter " + chapterNumber;
