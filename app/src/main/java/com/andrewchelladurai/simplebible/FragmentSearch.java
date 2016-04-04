@@ -39,7 +39,9 @@ import android.widget.ArrayAdapter;
 import java.util.ArrayList;
 
 public class FragmentSearch
-        extends Fragment implements AdapterView.OnItemLongClickListener {
+        extends Fragment
+        implements AdapterView.OnItemLongClickListener,
+        View.OnClickListener {
 
     private AppCompatEditText searchInput;
     private ArrayAdapter<String> searchResults;
@@ -72,12 +74,8 @@ public class FragmentSearch
         searchResultsList.setOnItemLongClickListener(this);
 
         AppCompatButton button = (AppCompatButton) view.findViewById(R.id.fragment_search_button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                handleSearchButtonClick(view);
-            }
-        });
+        button.setOnClickListener(this);
+
         return view;
     }
 
@@ -123,5 +121,10 @@ public class FragmentSearch
                 "Search Result", i, this, searchResultsList);
         alert.showDialog();
         return true;
+    }
+
+    @Override
+    public void onClick(View view) {
+        handleSearchButtonClick(view);
     }
 }

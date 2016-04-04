@@ -60,13 +60,17 @@ public class VerseLongClickAlert
         isSearchFragment = searchFragment;
     }
 
-    public static VerseLongClickAlert newInstance(String title, int position,
-                                                  Activity activity, ListViewCompat lvc) {
+    public static VerseLongClickAlert newInstance(String title,
+                                                  int position,
+                                                  Activity activity,
+                                                  ListViewCompat lvc) {
         return new VerseLongClickAlert(title, position, activity, lvc, false);
     }
 
-    public static VerseLongClickAlert newInstance(String title, int position,
-                                                  FragmentSearch fragment, ListViewCompat lvc) {
+    public static VerseLongClickAlert newInstance(String title,
+                                                  int position,
+                                                  FragmentSearch fragment,
+                                                  ListViewCompat lvc) {
         return new VerseLongClickAlert(title, position, fragment.getActivity(), lvc, true);
     }
 
