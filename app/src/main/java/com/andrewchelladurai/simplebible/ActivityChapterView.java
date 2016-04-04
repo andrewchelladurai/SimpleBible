@@ -24,12 +24,10 @@
 
 package com.andrewchelladurai.simplebible;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -41,7 +39,8 @@ import android.widget.GridView;
 import java.util.ArrayList;
 
 public class ActivityChapterView
-        extends AppCompatActivity {
+        extends AppCompatActivity
+        implements View.OnClickListener {
 
     public static final String ARG_CHAPTER_NUMBER = "ARG_CHAPTER_NUMBER";
     public static final String ARG_BOOK_NUMBER = "ARG_BOOK_NUMBER";
@@ -90,53 +89,18 @@ public class ActivityChapterView
             });
         }
 
-        AppCompatButton notesButton = (AppCompatButton) findViewById(
-                R.id.activity_chapter_view_button_notes);
-        if (notesButton != null) {
-            notesButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    handleNotesButtonClick();
-                }
-            });
-        }
-
-        AppCompatButton searchButton = (AppCompatButton) findViewById(
-                R.id.activity_chapter_view_button_search);
-        if (searchButton != null) {
-            searchButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    handleSearchButtonClick();
-                }
-            });
-        }
-
-        AppCompatButton chaptersButton = (AppCompatButton) findViewById(
-                R.id.activity_chapter_view_button_chapters);
-        if (chaptersButton != null) {
-            chaptersButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    showChapterSelectionDialog();
-                }
-            });
-        }
+        bindButton(R.id.activity_chapter_view_button_notes);
+        bindButton(R.id.activity_chapter_view_button_search);
+        bindButton(R.id.activity_chapter_view_button_chapters);
 
         handleNewChapterSelected(chapterNumber);
     }
 
-    private void dialogShareClicked(AlertDialog dialog, int position) {
-        String title = getTitle().toString();
-        title = title.replace("Chapter ", "");
-        String verse = listViewCompat.getItemAtPosition(position).toString()
-                + " -- The Holy Bible (New International Version)";
-
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, title + ":" + verse);
-        dialog.dismiss();
-        startActivity(intent);
+    private void bindButton(int buttonID) {
+        AppCompatButton button = (AppCompatButton) findViewById(buttonID);
+        if (button != null) {
+            button.setOnClickListener(this);
+        }
     }
 
     private void handleNotesButtonClick() {
@@ -178,7 +142,7 @@ public class ActivityChapterView
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.fragment_goto_label_chapter_text));
         GridView gridView = new GridView(this);
-        gridView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, chaps));
+        gridView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, chaps));
         gridView.setNumColumns(5);
         builder.setView(gridView);
         final AlertDialog ad = builder.create();
@@ -191,33 +155,12 @@ public class ActivityChapterView
                 handleNewChapterSelected(position + 1);
             }
         });
-
     }
 
-    private void handleVerseLongClick(final int position) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(R.layout.long_press_dialog);
-
-        final AlertDialog dialog = builder.create();
-        dialog.show();
-
-        AppCompatTextView textView = (AppCompatTextView) dialog.findViewById(
-                R.id.long_click_tv_verse_id);
-        if (textView != null) {
-            String text = getTitle() + " : Verse " + (position + 1);
-            textView.setText(text);
-        }
-
-        AppCompatButton shareButton = (AppCompatButton) dialog.findViewById(
-                R.id.long_click_but_share);
-        if (shareButton != null) {
-            shareButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialogShareClicked(dialog, position);
-                }
-            });
-        }
+    private void handleVerseLongClick(int position) {
+        VerseLongClickAlert alert = VerseLongClickAlert.newInstance(
+                getTitle().toString(), position, this, listViewCompat);
+        alert.showDialog();
     }
 
     public void refreshVersesList() {
@@ -235,4 +178,22 @@ public class ActivityChapterView
         setTitle(title);
     }
 
+    @Override
+    public void onClick(View view) {
+        Log.d(TAG, "onClick() called with: viewID = [" + view.getId() + "]");
+        switch (view.getId()) {
+            case R.id.activity_chapter_view_button_chapters:
+                showChapterSelectionDialog();
+                break;
+            case R.id.activity_chapter_view_button_notes:
+                handleNotesButtonClick();
+                break;
+            case R.id.activity_chapter_view_button_search:
+                handleSearchButtonClick();
+                break;
+            default:
+                Log.e(TAG, "onClick: ", new RuntimeException(
+                        "View with ID = " + view.getId() + " is not handled"));
+        }
+    }
 }

@@ -43,8 +43,8 @@
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_bookmark_black"
-            android:text="Share" />
+            android:drawableLeft="@drawable/ic_share_black_24dp"
+            android:text="@string/buton_label_share" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/long_click_but_bookmark"
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_bookmark_black"
-            android:text="Bookmark" />
+            android:text="@string/buton_label_bookmark" />
     </android.support.v7.widget.LinearLayoutCompat>
 
 </android.support.v7.widget.LinearLayoutCompat>

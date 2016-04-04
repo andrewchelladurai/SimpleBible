@@ -203,8 +203,6 @@
 
     <string name="section_format">Hello World from section: %1$d</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="bm_notes_text">Notes not entered</string>
     <string name="bm_verse_text">Verse Bookmarked</string>
     <string name="bm_verse_id_text">Verse Bookmarked Reference</string>
@@ -220,5 +218,7 @@
     <string name="notes_label">Notes</string>
     <string name="search_label">Search</string>
     <string name="chapters_label">Chapters</string>
+    <string name="buton_label_share">Share</string>
+    <string name="buton_label_bookmark">Bookmark</string>
 
 </resources>
