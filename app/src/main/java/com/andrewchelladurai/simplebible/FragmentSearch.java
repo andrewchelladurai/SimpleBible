@@ -33,16 +33,18 @@ import android.support.v7.widget.ListViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 
 public class FragmentSearch
-        extends Fragment {
+        extends Fragment implements AdapterView.OnItemLongClickListener {
 
     private AppCompatEditText searchInput;
     private ArrayAdapter<String> searchResults;
     private TextInputLayout hint;
+    private ListViewCompat searchResultsList;
 
     public FragmentSearch() {
         // Required empty public constructor
@@ -65,8 +67,9 @@ public class FragmentSearch
         searchResults = new AdapterVerseList(getContext(), android.R.layout.simple_list_item_1,
                 new ArrayList<String>(1));
 
-        ListViewCompat lvc = (ListViewCompat) view.findViewById(R.id.fragment_search_results);
-        lvc.setAdapter(searchResults);
+        searchResultsList = (ListViewCompat) view.findViewById(R.id.fragment_search_results);
+        searchResultsList.setAdapter(searchResults);
+        searchResultsList.setOnItemLongClickListener(this);
 
         AppCompatButton button = (AppCompatButton) view.findViewById(R.id.fragment_search_button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -112,5 +115,13 @@ public class FragmentSearch
             searchInput.setText("");
         }
 
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+        VerseLongClickAlert alert = VerseLongClickAlert.newInstance(
+                "Search Result", i, this, searchResultsList);
+        alert.showDialog();
+        return true;
     }
 }

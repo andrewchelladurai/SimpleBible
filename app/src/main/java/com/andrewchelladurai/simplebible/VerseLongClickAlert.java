@@ -40,6 +40,7 @@ public class VerseLongClickAlert
         implements View.OnClickListener {
 
     private static final String TAG = "VerseLongClickAlert";
+    boolean isSearchFragment = false;
     private String title;
     private int verseNumber;
     private Activity parentActivity;
@@ -47,7 +48,8 @@ public class VerseLongClickAlert
     private AlertDialog dialog;
 
     private VerseLongClickAlert(String titleText, int versePosition,
-                                Activity activity, ListViewCompat listViewCompat) {
+                                Activity activity, ListViewCompat listViewCompat,
+                                boolean searchFragment) {
         title = titleText;
         verseNumber = versePosition;
         parentActivity = activity;
@@ -55,13 +57,18 @@ public class VerseLongClickAlert
         builder.setView(R.layout.long_press_dialog);
         verseList = listViewCompat;
         dialog = builder.create();
+        isSearchFragment = searchFragment;
     }
 
     public static VerseLongClickAlert newInstance(String title, int position,
                                                   Activity activity, ListViewCompat lvc) {
-        return new VerseLongClickAlert(title, position, activity, lvc);
+        return new VerseLongClickAlert(title, position, activity, lvc, false);
     }
 
+    public static VerseLongClickAlert newInstance(String title, int position,
+                                                  FragmentSearch fragment, ListViewCompat lvc) {
+        return new VerseLongClickAlert(title, position, fragment.getActivity(), lvc, true);
+    }
 
     public void showDialog() {
         dialog.show();
@@ -86,13 +93,19 @@ public class VerseLongClickAlert
     }
 
     private void dialogShareClicked() {
-        String text = title.replace("Chapter ", "");
-        String verse = verseList.getItemAtPosition(verseNumber).toString()
-                + " -- The Holy Bible (New International Version)";
-
+        String value;
+        if (isSearchFragment) {
+            value = verseList.getItemAtPosition(verseNumber).toString()
+                    + " -- The Holy Bible (New International Version)";
+        } else {
+            String text = title.replace("Chapter ", "");
+            String verse = verseList.getItemAtPosition(verseNumber).toString()
+                    + " -- The Holy Bible (New International Version)";
+            value = text + ":" + verse;
+        }
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, text + ":" + verse);
+        intent.putExtra(Intent.EXTRA_TEXT, value);
         dialog.dismiss();
         parentActivity.startActivity(intent);
     }
