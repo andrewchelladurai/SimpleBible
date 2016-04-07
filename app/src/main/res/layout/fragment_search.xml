@@ -23,7 +23,6 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -41,18 +40,18 @@
         android:orientation="vertical"
         android:padding="@dimen/gap">
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/fragment_search_hint"
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/fragment_search_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:errorEnabled="true">
+            android:hint="@string/fragment_v2_search_edit_text_hint" />
 
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/fragment_search_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/fragment_v2_search_edit_text_hint" />
-        </android.support.design.widget.TextInputLayout>
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/fragment_search_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textStyle="bold" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/fragment_search_button"

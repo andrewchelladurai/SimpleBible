@@ -25,11 +25,13 @@
 package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.ListViewCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,22 +43,24 @@ import java.util.ArrayList;
 public class FragmentSearch
         extends Fragment
         implements AdapterView.OnItemLongClickListener,
-        View.OnClickListener {
+        View.OnClickListener, TextWatcher {
 
-    private AppCompatEditText searchInput;
-    private ArrayAdapter<String> searchResults;
-    private TextInputLayout hint;
-    private ListViewCompat searchResultsList;
+    private AppCompatEditText input;
+    private ArrayAdapter<String> results;
+    private AppCompatTextView label;
+    private ListViewCompat list;
+    private AppCompatButton button;
+
+    private String buttonLabelDefault, buttonLabelReset;
+    private String resultsEmpty, resultsLength, resultsFound, resultsNotFound;
+
 
     public FragmentSearch() {
-        // Required empty public constructor
+        setArguments(new Bundle());
     }
 
     public static FragmentSearch newInstance() {
-        FragmentSearch fragment = new FragmentSearch();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
+        return new FragmentSearch();
     }
 
     @Override
@@ -64,67 +68,101 @@ public class FragmentSearch
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_search, container, false);
-        searchInput = (AppCompatEditText) view.findViewById(R.id.fragment_search_input);
-        hint = (TextInputLayout) view.findViewById(R.id.fragment_search_hint);
-        searchResults = new AdapterVerseList(getContext(), android.R.layout.simple_list_item_1,
+
+        input = (AppCompatEditText) view.findViewById(R.id.fragment_search_input);
+        input.addTextChangedListener(this);
+
+        label = (AppCompatTextView) view.findViewById(R.id.fragment_search_hint);
+
+        results = new AdapterVerseList(getContext(), android.R.layout.simple_list_item_1,
                 new ArrayList<String>(1));
+        list = (ListViewCompat) view.findViewById(R.id.fragment_search_results);
+        list.setAdapter(results);
+        list.setOnItemLongClickListener(this);
 
-        searchResultsList = (ListViewCompat) view.findViewById(R.id.fragment_search_results);
-        searchResultsList.setAdapter(searchResults);
-        searchResultsList.setOnItemLongClickListener(this);
-
-        AppCompatButton button = (AppCompatButton) view.findViewById(R.id.fragment_search_button);
+        button = (AppCompatButton) view.findViewById(R.id.fragment_search_button);
         button.setOnClickListener(this);
+
+        // String Labels shown on UI.
+        buttonLabelDefault = getString(R.string.fragment_v2_search_button_label_default);
+        buttonLabelReset = getString(R.string.fragment_v2_search_button_label_reset);
+        resultsEmpty = getString(R.string.fragment_v2_search_results_label_empty);
+        resultsLength = getString(R.string.fragment_v2_search_results_label_length);
+        resultsFound = getString(R.string.fragment_v2_search_button_label_results_found);
+        resultsNotFound = getString(R.string.fragment_v2_search_button_label_no_results_found);
 
         return view;
     }
 
-    private void handleSearchButtonClick(View view) {
-        String input = String.valueOf(searchInput.getText());
-
-        if (input.isEmpty() || input.length() < 2) {
-            hint.setError(getString(R.string.fragment_v2_search_results_label_length));
-            searchInput.requestFocus();
-            return;
+    private void searchText(String input) {
+        results.clear();
+        DatabaseUtility databaseUtility = DatabaseUtility.getInstance(getContext());
+        ArrayList<String> results = databaseUtility.searchForText(input);
+        if (results.size() > 0) {
+            this.results.addAll(results);
+            showLabel(results.size() + " " + resultsFound);
+        } else {
+            showLabel(resultsNotFound);
         }
+        this.results.notifyDataSetChanged();
+        button.setText(buttonLabelReset);
+    }
 
-        String label = (String) ((AppCompatButton) view).getText();
-        if (label.equalsIgnoreCase(getString(R.string.fragment_v2_search_button_label_default))) {
-            DatabaseUtility databaseUtility = DatabaseUtility.getInstance(getContext());
-            ArrayList<String> results = databaseUtility.searchForText(input);
-            searchResults.clear();
-            if (results.size() > 0) {
-                searchResults.addAll(results);
-                hint.setHint(results.size() + " " +
-                        getString(R.string.fragment_v2_search_button_label_results_found));
-                hint.setError("");
-            } else {
-                label = getString(R.string.fragment_v2_search_button_label_no_results_found);
-                hint.setError(label);
-            }
-            searchResults.notifyDataSetChanged();
-            ((AppCompatButton) view).setText(getString(R.string.fragment_v2_search_button_label_reset));
-        } else if (label.equalsIgnoreCase(getString(R.string.fragment_v2_search_button_label_reset))) {
-            searchResults.clear();
-            ((AppCompatButton) view).setText(getString(R.string.fragment_v2_search_button_label_default));
-            searchResults.notifyDataSetChanged();
-            hint.setHint(getString(R.string.fragment_v2_search_edit_text_hint));
-            hint.setError("");
-            searchInput.setText("");
-        }
+    private void resetValues() {
+        results.clear();
+        button.setText(buttonLabelDefault);
+        results.notifyDataSetChanged();
+        showLabel("");
+        input.setText("");
+    }
 
+    private void showLabel(String text) {
+        label.setText(text);
     }
 
     @Override
     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
         VerseLongClickAlert alert = VerseLongClickAlert.newInstance(
-                "Search Result", i, this, searchResultsList);
+                "Search Result", i, this, list);
         alert.showDialog();
         return true;
     }
 
     @Override
     public void onClick(View view) {
-        handleSearchButtonClick(view);
+        String input = String.valueOf(this.input.getText()).trim();
+
+        if (input.isEmpty()) {
+            showLabel(resultsEmpty);
+            this.input.requestFocus();
+            return;
+        } else if (input.length() < 2) {
+            showLabel(resultsLength);
+            this.input.requestFocus();
+            return;
+        }
+
+        String label = button.getText().toString();
+
+        if (label.equalsIgnoreCase(buttonLabelDefault)) {
+            searchText(input);
+        } else if (label.equalsIgnoreCase(buttonLabelReset)) {
+            resetValues();
+        }
     }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+        button.setText(buttonLabelDefault);
+        showLabel("");
+    }
+
 }

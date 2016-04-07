@@ -220,5 +220,6 @@
     <string name="chapters_label">Chapters</string>
     <string name="buton_label_share">Share</string>
     <string name="buton_label_bookmark">Bookmark</string>
+    <string name="fragment_v2_search_results_label_empty">Enter text to search</string>
 
 </resources>
