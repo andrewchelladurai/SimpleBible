@@ -22,48 +22,90 @@
   ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
   -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/big_gap"
+    android:layout_margin="@dimen/gap"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.andrewchelladurai.simplebible.ActivityBookmarkedVerse"
     tools:showIn="@layout/activity_bookmarked_verse">
 
-    <!--
-        <android.support.v7.widget.LinearLayoutCompat
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/bookmarked_verse_ID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/big_gap"
+        android:text="id/bookmarked_verse_ID"
+        app:textAllCaps="true" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/bookmarked_verse_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/big_gap"
+        android:layout_marginLeft="@dimen/gap"
+        android:layout_marginRight="@dimen/gap"
+        android:layout_marginTop="@dimen/big_gap"
+        android:background="@android:color/background_light"
+        android:elevation="@dimen/gap"
+        android:padding="@dimen/gap"
+        android:text="id/bookmarked_verse_text" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/bookmarked_verse_notes_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:inputType="textMultiLine|textLongMessage"
+        android:padding="@dimen/big_gap"
+        android:text="id/bookmarked_verse_notes_edit"
+        android:visibility="invisible" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/bookmarked_verse_notes_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="@dimen/big_gap"
+        android:text="id/bookmarked_verse_notes_view"
+        android:visibility="invisible" />
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:elevation="@dimen/gap"
+        android:orientation="horizontal">
+
+        <ToggleButton
+            android:id="@+id/bookmarked_verse_button_edit"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:elevation="@dimen/gap"
-            android:orientation="horizontal">
+            android:src="@drawable/ic_toc_black"
+            android:textOff="@string/bm_button_edit_off_label"
+            android:textOn="@string/bm_button_edit_on_label" />
 
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/activity_chapter_view_button_search"
-                style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_search_black"
-                android:text="@string/search_label" />
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/bookmarked_verse_button_save"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search_black"
+            android:text="@string/save_label" />
 
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/activity_chapter_view_button_notes"
-                style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_bookmark_black"
-                android:text="@string/notes_label" />
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/bookmarked_verse_button_delete"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_bookmark_black"
+            android:text="@string/delete_label" />
 
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/activity_chapter_view_button_chapters"
-                style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_toc_black"
-                android:text="@string/chapters_label" />
-        </android.support.v7.widget.LinearLayoutCompat>
-    -->
+    </android.support.v7.widget.LinearLayoutCompat>
 
-</RelativeLayout>
+</android.support.v7.widget.LinearLayoutCompat>

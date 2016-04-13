@@ -207,7 +207,8 @@
     <string name="bm_verse_text">Verse Bookmarked</string>
     <string name="bm_verse_id_text">Verse Bookmarked Reference</string>
     <string name="bm_button_view_label">View</string>
-    <string name="bm_button_edit_label">Edit</string>
+    <string name="bm_button_edit_on_label">Editing</string>
+    <string name="bm_button_edit_off_label">Click to Edit</string>
     <string name="title_activity_chapter_view">Book : Chapter</string>
 
     <string name="title_chapter_list">Chapters</string>
@@ -222,5 +223,7 @@
     <string name="buton_label_bookmark">Bookmark</string>
     <string name="fragment_v2_search_results_label_empty">Enter text to search</string>
     <string name="title_activity_activity_bookmarked_verse">Bookmarked Verse</string>
+    <string name="save_label">Save</string>
+    <string name="delete_label">Delete</string>
 
 </resources>
