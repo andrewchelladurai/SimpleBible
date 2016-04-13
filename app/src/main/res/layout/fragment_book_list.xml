@@ -22,16 +22,15 @@
   ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
   -->
 
-<android.support.v7.widget.RecyclerView
-    android:id="@+id/book_name_list"
+<android.support.v7.widget.RecyclerView android:id="@+id/book_name_list"
     android:name="com.andrewchelladurai.simplebible.v2.BooksListFragment"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:layout_marginLeft="@dimen/big_gap"
+    android:layout_marginRight="@dimen/big_gap"
     app:layoutManager="LinearLayoutManager"
     tools:context=".FragmentBooksList"
     tools:listitem="@layout/fragment_bookname" />
