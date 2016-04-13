@@ -36,7 +36,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-
 public class SimpleBible
         extends AppCompatActivity
         implements FragmentVerseNotes.OnListFragmentInteractionListener {
@@ -139,5 +138,4 @@ public class SimpleBible
             return null;
         }
     }
-
 }

@@ -29,14 +29,6 @@
     android:elevation="@dimen/gap"
     android:padding="@dimen/gap">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/goto_fragment_book_parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:focusableInTouchMode="true">
-
         <android.support.v7.widget.AppCompatAutoCompleteTextView
             android:id="@+id/goto_fragment_book"
             android:layout_width="match_parent"
@@ -46,30 +38,23 @@
             android:inputType="textAutoComplete|textAutoCorrect"
             android:selectAllOnFocus="true"
             android:singleLine="true" />
-    </android.support.design.widget.TextInputLayout>
 
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/goto_fragment_book_parent"
+        android:layout_below="@id/goto_fragment_book"
         android:orientation="horizontal">
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/goto_fragment_chapter_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
 
             <android.support.v7.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/goto_fragment_chapter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:completionThreshold="1"
                 android:hint="@string/fragment_goto_label_chapter_text"
                 android:inputType="number|textAutoComplete|textAutoCorrect"
                 android:selectAllOnFocus="true"
                 android:singleLine="true" />
-        </android.support.design.widget.TextInputLayout>
 
 
         <android.support.v7.widget.AppCompatButton
