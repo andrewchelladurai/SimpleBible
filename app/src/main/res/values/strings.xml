@@ -221,5 +221,6 @@
     <string name="buton_label_share">Share</string>
     <string name="buton_label_bookmark">Bookmark</string>
     <string name="fragment_v2_search_results_label_empty">Enter text to search</string>
+    <string name="title_activity_activity_bookmarked_verse">Bookmarked Verse</string>
 
 </resources>

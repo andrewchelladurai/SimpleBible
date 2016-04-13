@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="com.andrewchelladurai.simplebible"
+<manifest package="com.andrewchelladurai.simplebible"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
@@ -42,6 +41,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".SimpleBible" />
+        </activity>
+        <activity
+            android:name=".ActivityBookmarkedVerse"
+            android:label="@string/title_activity_activity_bookmarked_verse"
+            android:parentActivityName=".SimpleBible"
+            android:theme="@style/ThemeLight.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.andrewchelladurai.simplebible.SimpleBible" />
         </activity>
     </application>
 

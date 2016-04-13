@@ -37,42 +37,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/gap"
-        android:text="@string/bm_verse_id_text" />
+        android:text="@string/bm_verse_id_text"
+        android:textAllCaps="true" />
 
     <TextView
         android:id="@+id/bm_verse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/gap"
         android:text="@string/bm_verse_text"
         android:textAppearance="?attr/textAppearanceListItem" />
 
-    <LinearLayout
-        style="?android:buttonBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <TextView
+        android:id="@+id/bm_notes"
+        style="?android:textAppearanceSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="end"
-        android:orientation="horizontal">
+        android:text="@string/bm_notes_text" />
 
-        <TextView
-            android:id="@+id/bm_notes"
-            style="?android:textAppearanceSmall"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/bm_notes_text" />
-
-        <Button
-            android:id="@+id/bm_button_view"
-            style="?android:buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/bm_button_view_label" />
-
-        <Button
-            android:id="@+id/bm_button_edit"
-            style="?android:buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/bm_button_edit_label" />
-    </LinearLayout>
 </LinearLayout>
