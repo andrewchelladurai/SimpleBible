@@ -34,11 +34,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 public class SimpleBible
-        extends AppCompatActivity
-        implements FragmentVerseNotes.OnListFragmentInteractionListener {
+        extends AppCompatActivity {
 
     private static SectionsPagerAdapter pagerAdapter;
     private static ViewPager pager;
@@ -88,12 +86,6 @@ public class SimpleBible
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void handleBookmarkedVerseInteraction(VerseNotesList.VerseNotesItem item) {
-        Toast.makeText(SimpleBible.this, "handleBookmarkedVerseInteraction",
-                Toast.LENGTH_SHORT).show();
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

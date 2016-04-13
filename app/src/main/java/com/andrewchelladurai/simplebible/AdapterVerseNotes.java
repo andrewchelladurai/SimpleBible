@@ -28,24 +28,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link VerseNotesList.VerseNotesItem} and
- * makes a call to the specified {@link FragmentVerseNotes.OnListFragmentInteractionListener}.
- */
 public class AdapterVerseNotes
         extends RecyclerView.Adapter<AdapterVerseNotes.VerseNotesView> {
 
     private final List<VerseNotesList.VerseNotesItem> notesItems;
-    private final FragmentVerseNotes.OnListFragmentInteractionListener listener;
+    private final FragmentVerseNotes listener;
 
     public AdapterVerseNotes(
             List<VerseNotesList.VerseNotesItem> items,
-            FragmentVerseNotes.OnListFragmentInteractionListener listener) {
+            FragmentVerseNotes listener) {
         notesItems = items;
         this.listener = listener;
     }
@@ -87,8 +82,6 @@ public class AdapterVerseNotes
         public final TextView verse_id;
         public final TextView verse;
         public final TextView notes;
-        public final Button viewButton;
-        public final Button editButton;
         public VerseNotesList.VerseNotesItem verseNotesItem;
 
         public VerseNotesView(View view) {
@@ -97,8 +90,6 @@ public class AdapterVerseNotes
             verse_id = (TextView) view.findViewById(R.id.bm_verse_id);
             verse = (TextView) view.findViewById(R.id.bm_verse);
             notes = (TextView) view.findViewById(R.id.bm_notes);
-            viewButton = (Button) view.findViewById(R.id.bm_button_view);
-            editButton = (Button) view.findViewById(R.id.bm_button_edit);
         }
 
         @Override

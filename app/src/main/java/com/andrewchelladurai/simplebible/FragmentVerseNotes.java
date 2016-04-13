@@ -25,6 +25,7 @@
 package com.andrewchelladurai.simplebible;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -33,13 +34,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 public class FragmentVerseNotes
         extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "ARG_COLUMN_COUNT";
     private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
 
     public FragmentVerseNotes() {
     }
@@ -75,29 +76,18 @@ public class FragmentVerseNotes
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new AdapterVerseNotes(VerseNotesList.NOTES_LIST, mListener));
+            recyclerView.setAdapter(new AdapterVerseNotes(VerseNotesList.NOTES_LIST, this));
         }
         return view;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
-        }
+    public void handleBookmarkedVerseInteraction(VerseNotesList.VerseNotesItem verseNotesItem) {
+        String value = verseNotesItem.verseID;
+        Toast.makeText(getActivity(), "handleBookmarkedVerseInteraction = " + value,
+                Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getContext(), ActivityBookmarkedVerse.class);
+//        intent.putExtra(String , String );
+        startActivity(intent);
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    public interface OnListFragmentInteractionListener {
-        void handleBookmarkedVerseInteraction(VerseNotesList.VerseNotesItem item);
-    }
 }
