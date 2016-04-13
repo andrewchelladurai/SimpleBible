@@ -35,7 +35,7 @@ public class ActivityBookmarkedVerse
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmarked_verse);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_bookmarked_verse_toolbar);
         setSupportActionBar(toolbar);
 
 /*
