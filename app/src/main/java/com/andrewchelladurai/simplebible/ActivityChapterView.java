@@ -40,7 +40,7 @@ import java.util.ArrayList;
 
 public class ActivityChapterView
         extends AppCompatActivity
-        implements View.OnClickListener {
+        implements View.OnClickListener, AdapterView.OnItemLongClickListener {
 
     public static final String ARG_CHAPTER_NUMBER = "ARG_CHAPTER_NUMBER";
     public static final String ARG_BOOK_NUMBER = "ARG_BOOK_NUMBER";
@@ -70,23 +70,16 @@ public class ActivityChapterView
         setContentView(R.layout.activity_chapter_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_chapter_view_toolbar);
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
+        if (null != getSupportActionBar()) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        verseListAdapter = new AdapterVerseList(this, android.R.layout.simple_list_item_1,
-                new ArrayList<String>(1));
-        listViewCompat =
-                (ListViewCompat) findViewById(R.id.activity_chapter_view_list_verses);
+        verseListAdapter = new AdapterVerseList(
+                this, android.R.layout.simple_list_item_1, new ArrayList<String>(1));
+        listViewCompat = (ListViewCompat) findViewById(R.id.activity_chapter_view_list_verses);
         if (listViewCompat != null) {
             listViewCompat.setAdapter(verseListAdapter);
-            listViewCompat.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    handleVerseLongClick(i);
-                    return true;
-                }
-            });
+            listViewCompat.setOnItemLongClickListener(this);
         }
 
         bindButton(R.id.activity_chapter_view_button_notes);
@@ -140,21 +133,21 @@ public class ActivityChapterView
         }
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.fragment_goto_label_chapter_text));
-        GridView gridView = new GridView(this);
-        gridView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, chaps));
-        gridView.setNumColumns(5);
-        builder.setView(gridView);
+        builder.setView(R.layout.chapter_selection_dialog);
+
         final AlertDialog ad = builder.create();
         ad.show();
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ad.dismiss();
-                handleNewChapterSelected(position + 1);
-            }
-        });
+        GridView gridView = (GridView) ad.findViewById(R.id.chapter_selection_dialog_grid);
+        if (gridView != null) {
+            gridView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, chaps));
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    ad.dismiss();
+                    handleNewChapterSelected(position + 1);
+                }
+            });
+        }
     }
 
     private void handleVerseLongClick(int position) {
@@ -195,5 +188,11 @@ public class ActivityChapterView
                 Log.e(TAG, "onClick: ", new RuntimeException(
                         "View with ID = " + view.getId() + " is not handled"));
         }
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+        handleVerseLongClick(i);
+        return true;
     }
 }
