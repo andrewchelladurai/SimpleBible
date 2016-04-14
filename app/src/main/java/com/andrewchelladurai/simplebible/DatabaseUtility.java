@@ -242,4 +242,7 @@ public class DatabaseUtility
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
     }
 
+    public String getSpecificVerse(int bookNumber, int chapterNumber, int verseNumber) {
+        return "";
+    }
 }
