@@ -37,19 +37,6 @@ public class ActivityBookmarkedVerse
         setContentView(R.layout.activity_bookmarked_verse);
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_bookmarked_verse_toolbar);
         setSupportActionBar(toolbar);
-
-/*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        if (null != fab) {
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-            });
-        }
-*/
         if (null != getSupportActionBar()) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }

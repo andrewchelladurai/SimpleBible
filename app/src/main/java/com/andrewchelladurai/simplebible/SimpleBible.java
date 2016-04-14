@@ -24,6 +24,7 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -34,9 +35,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 
 public class SimpleBible
-        extends AppCompatActivity {
+        extends AppCompatActivity
+        implements ViewPager.OnPageChangeListener {
 
     private static SectionsPagerAdapter pagerAdapter;
     private static ViewPager pager;
@@ -68,6 +71,7 @@ public class SimpleBible
         pager = (ViewPager) findViewById(R.id.activity_simple_bible_container);
         if (pager != null) {
             pager.setAdapter(pagerAdapter);
+            pager.addOnPageChangeListener(this);
         }
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.activity_simple_bible_tabs);
@@ -88,7 +92,24 @@ public class SimpleBible
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(pager.getWindowToken(), 0);
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    public class SectionsPagerAdapter
+            extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
