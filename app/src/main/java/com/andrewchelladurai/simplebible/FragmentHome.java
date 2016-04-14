@@ -50,7 +50,6 @@ public class FragmentHome
     private AppCompatTextView dailyVerseLabel;
 
     public FragmentHome() {
-        // Required empty public constructor
     }
 
     public static FragmentHome newInstance(String verseID) {
@@ -141,7 +140,6 @@ public class FragmentHome
             return;
         }
 
-//        AllBooks.Book book = AllBooks.getBook(input);
         BookNameContent.BookItem book = BookNameContent.getBookItem(input);
         if (book == null) {
             bookInput.requestFocus();
@@ -167,7 +165,6 @@ public class FragmentHome
         intent.putExtra(ActivityChapterView.ARG_CHAPTER_NUMBER, chapterCount + "");
         startActivity(intent);
         resetValues();
-
     }
 
     private void resetValues() {

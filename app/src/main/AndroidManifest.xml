@@ -8,12 +8,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/ThemeLight">
-
         <activity
             android:name=".SimpleBible"
             android:label="@string/app_name"
             android:theme="@style/ThemeLight.NoActionBar"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

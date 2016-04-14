@@ -27,12 +27,15 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical"
-    android:paddingTop="@dimen/big_gap">
+    android:paddingBottom="@dimen/gap"
+    android:paddingTop="@dimen/gap">
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/long_click_tv_verse_id"
+        style="?android:windowTitleStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/gap" />
 
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
@@ -40,10 +43,12 @@
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/long_click_but_share"
-            style="?android:attr/borderlessButtonStyle"
+            style="?borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_share_black_24dp"
+            android:drawablePadding="@dimen/gap"
+            android:drawableStart="@drawable/ic_share_black_24dp"
             android:text="@string/buton_label_share" />
 
         <android.support.v7.widget.AppCompatButton
@@ -52,6 +57,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_bookmark_black"
+            android:drawablePadding="@dimen/gap"
+            android:drawableStart="@drawable/ic_bookmark_black"
             android:text="@string/buton_label_bookmark" />
     </android.support.v7.widget.LinearLayoutCompat>
 
