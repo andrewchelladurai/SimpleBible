@@ -83,10 +83,10 @@ public class FragmentVerseNotes
 
     public void handleBookmarkedVerseInteraction(VerseNotesList.VerseNotesItem verseNotesItem) {
         String value = verseNotesItem.verseID;
-        Toast.makeText(getActivity(), "handleBookmarkedVerseInteraction = " + value,
-                Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getContext(), ActivityBookmarkedVerse.class);
-//        intent.putExtra(String , String );
+        intent.putExtra(ActivityBookmarkedVerse.VERSE_NUMBER, 1 + "");
+        intent.putExtra(ActivityBookmarkedVerse.CHAPTER_NUMBER, 1 + "");
+        intent.putExtra(ActivityBookmarkedVerse.BOOK_NUMBER, 1 + "");
         startActivity(intent);
     }
 
