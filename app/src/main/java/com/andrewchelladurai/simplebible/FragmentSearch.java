@@ -122,9 +122,18 @@ public class FragmentSearch
 
     @Override
     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-        VerseLongClickAlert alert = VerseLongClickAlert.newInstance(
-                "Search Result", i, this, list);
-        alert.showDialog();
+
+        String title = "Search Result";
+        int verseNumber = i;
+        int chapterNumber;
+        int bookNumber;
+        String bookName;
+        String verseText;
+        FragmentSearch fragment;
+        ListViewCompat lvc;
+
+//        VerseLongClickAlert alert = VerseLongClickAlert.newInstance(title, i, this, list);
+//        alert.showDialog();
         return true;
     }
 
