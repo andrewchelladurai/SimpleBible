@@ -39,8 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/big_gap"
-        android:text="id/bookmarked_verse_ID"
-        app:textAllCaps="true" />
+        android:textStyle="bold" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/bookmarked_verse_text"
