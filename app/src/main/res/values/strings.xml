@@ -225,5 +225,6 @@
     <string name="title_activity_activity_bookmarked_verse">Bookmarked Verse</string>
     <string name="save_label">Save</string>
     <string name="delete_label">Delete</string>
+    <string name="this_must_never_show">How did I end up here?! Clearly somethin\'s wrong.</string>
 
 </resources>
