@@ -43,35 +43,43 @@ public class VerseLongClickAlert
     boolean isSearchFragment = false;
     private String title;
     private int verseNumber;
+    private int chapterNumber;
+    private int bookNumber;
+    private String bookName;
+    private String verseText;
     private Activity parentActivity;
-    private ListViewCompat verseList;
+    //    private ListViewCompat verseList;
     private AlertDialog dialog;
 
-    private VerseLongClickAlert(String titleText, int versePosition,
-                                Activity activity, ListViewCompat listViewCompat,
-                                boolean searchFragment) {
-        title = titleText;
-        verseNumber = versePosition;
+    private VerseLongClickAlert(String title, int verseNumber, int chapterNumber, int bookNumber,
+                                String bookName, String verseText, Activity activity,
+                                ListViewCompat lvc, boolean searchFragment) {
+        this.title = title;
+        this.verseNumber = verseNumber + 1;
+        this.chapterNumber = chapterNumber;
+        this.bookNumber = bookNumber;
+        this.bookName = bookName;
+        this.verseText = verseText;
         parentActivity = activity;
         AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity);
         builder.setView(R.layout.long_press_dialog);
-        verseList = listViewCompat;
+//        verseList = lvc;
         dialog = builder.create();
         isSearchFragment = searchFragment;
     }
 
-    public static VerseLongClickAlert newInstance(String title,
-                                                  int position,
-                                                  Activity activity,
-                                                  ListViewCompat lvc) {
-        return new VerseLongClickAlert(title, position, activity, lvc, false);
+    public static VerseLongClickAlert newInstance(
+            String title, int verseNumber, int chapterNumber, int bookNumber,
+            String bookName, String verseText, Activity activity, ListViewCompat lvc) {
+        return new VerseLongClickAlert(title, verseNumber, chapterNumber, bookNumber,
+                bookName, verseText, activity, lvc, false);
     }
 
-    public static VerseLongClickAlert newInstance(String title,
-                                                  int position,
-                                                  FragmentSearch fragment,
-                                                  ListViewCompat lvc) {
-        return new VerseLongClickAlert(title, position, fragment.getActivity(), lvc, true);
+    public static VerseLongClickAlert newInstance(
+            String title, int verseNumber, int chapterNumber, int bookNumber,
+            String bookName, String verseText, FragmentSearch fragment, ListViewCompat lvc) {
+        return new VerseLongClickAlert(title, verseNumber, chapterNumber, bookNumber,
+                bookName, verseText, fragment.getActivity(), lvc, true);
     }
 
     public void showDialog() {
@@ -80,30 +88,33 @@ public class VerseLongClickAlert
         AppCompatTextView textView = (AppCompatTextView) dialog.findViewById(
                 R.id.long_click_tv_verse_id);
         if (textView != null) {
-            String text = title + " : Verse " + (verseNumber + 1);
+            String text = title + " : Verse " + verseNumber;
             textView.setText(text);
         }
 
-        AppCompatButton shareButton = (AppCompatButton) dialog.findViewById(
-                R.id.long_click_but_share);
-        if (shareButton != null) {
-            shareButton.setOnClickListener(this);
-        }
-        AppCompatButton bmarkButton = (AppCompatButton) dialog.findViewById(
-                R.id.long_click_but_bookmark);
-        if (bmarkButton != null) {
-            bmarkButton.setOnClickListener(this);
+        bindButton(R.id.long_click_but_share);
+        bindButton(R.id.long_click_but_bookmark);
+    }
+
+    private void bindButton(int buttonID) {
+        AppCompatButton button = (AppCompatButton) dialog.findViewById(buttonID);
+        if (button != null) {
+            button.setOnClickListener(this);
         }
     }
 
     private void dialogShareClicked() {
         String value;
         if (isSearchFragment) {
+            value = verseText + " -- The Holy Bible (New International Version)";
+/*
             value = verseList.getItemAtPosition(verseNumber).toString()
                     + " -- The Holy Bible (New International Version)";
+*/
         } else {
             String text = title.replace("Chapter ", "");
-            String verse = verseList.getItemAtPosition(verseNumber).toString()
+            String verse = verseText
+//            String verse = verseList.getItemAtPosition(verseNumber).toString()
                     + " -- The Holy Bible (New International Version)";
             value = text + ":" + verse;
         }
@@ -132,5 +143,11 @@ public class VerseLongClickAlert
 
     private void dialogBookmarkClicked() {
         Log.d(TAG, "dialogBookmarkClicked() called");
+        Intent intent = new Intent(parentActivity.getApplicationContext(), ActivityBookmarkedVerse.class);
+        intent.putExtra(ActivityBookmarkedVerse.VERSE_NUMBER, verseNumber + "");
+        intent.putExtra(ActivityBookmarkedVerse.CHAPTER_NUMBER, chapterNumber + "");
+        intent.putExtra(ActivityBookmarkedVerse.BOOK_NUMBER, bookNumber + "");
+        dialog.dismiss();
+        parentActivity.startActivity(intent);
     }
 }
