@@ -151,8 +151,13 @@ public class ActivityChapterView
     }
 
     private void handleVerseLongClick(int position) {
+
+        String title = getTitle().toString();
+        String bookName = BookNameContent.getBookItem(bookNumber).getName();
+        String verseText = listViewCompat.getItemAtPosition(position).toString();
+
         VerseLongClickAlert alert = VerseLongClickAlert.newInstance(
-                getTitle().toString(), position, this, listViewCompat);
+                title, position, chapterNumber, bookNumber, bookName, verseText, this, listViewCompat);
         alert.showDialog();
     }
 
