@@ -135,7 +135,7 @@ public class ActivitySimpleBible
         public Fragment getItem(int position) {
             switch (position) {
                 case 1:
-                    return PlaceholderFragment.newInstance(position + 1);
+                    return FragmentBooks.newInstance();
                 case 2:
                     return FragmentBookmarks.newInstance();
                 case 3:
