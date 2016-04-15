@@ -90,7 +90,8 @@ public class ActivitySimpleBible
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        return id == R.id.activity_simple_bible_action_settings || super.onOptionsItemSelected(item);
+        return id == R.id.activity_simple_bible_action_settings ||
+               super.onOptionsItemSelected(item);
 
     }
 
@@ -113,10 +114,12 @@ public class ActivitySimpleBible
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_activity_simple_bible, container, false);
+            View rootView =
+                    inflater.inflate(R.layout.fragment_activity_simple_bible, container, false);
             TextView textView = (TextView) rootView.findViewById(
                     R.id.fragment_activity_simple_bible_section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            textView.setText(
+                    getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
     }
@@ -130,7 +133,12 @@ public class ActivitySimpleBible
 
         @Override
         public Fragment getItem(int position) {
-            return PlaceholderFragment.newInstance(position + 1);
+            switch (position) {
+                case 0:
+                    return FragmentHome.newInstance("");
+                default:
+                    return PlaceholderFragment.newInstance(position + 1);
+            }
         }
 
         @Override
