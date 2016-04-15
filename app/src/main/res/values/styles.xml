@@ -33,14 +33,12 @@
             <item name="android:icon">@color/icons</item>
             <item name="android:divider">@color/divider</item>
         </style>
-
         <style name="ThemeLight.NoActionBar">
             <item name="windowActionBar">false</item>
             <item name="windowNoTitle">true</item>
         </style>
 
         <style name="ThemeLight.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
         <style name="ThemeLight.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     -->
 

@@ -49,11 +49,11 @@ public class Utilities {
     }
 
     public int getChapterListColumnCount(int rotation, Resources resources) {
-/*
+
+        /*
         if (isLargeDisplay(resources)) {
             return 2;
-        }
-*/
+        }*/
 
         switch (rotation) {
             case Surface.ROTATION_0:

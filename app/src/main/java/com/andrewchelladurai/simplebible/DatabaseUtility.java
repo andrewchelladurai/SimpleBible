@@ -206,4 +206,5 @@ public class DatabaseUtility
         Log.d(TAG, "getSpecificVerse: returning : " + verseText);
         return verseText;
     }*/
+
 }

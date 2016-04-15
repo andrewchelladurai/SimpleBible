@@ -99,6 +99,6 @@
         <item>Revelation:22</item>
     </string-array>
 
-    <string name="this_must_never_show">How did I end up here?! Clearly something\'s wrong.</string>
+    <string name="how_am_i_here">How did I end up here?! Clearly something\'s wrong.</string>
 
 </resources>
