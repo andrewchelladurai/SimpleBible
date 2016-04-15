@@ -25,7 +25,6 @@
 package com.andrewchelladurai.simplebible;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -36,7 +35,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 26-Feb-2016 @ 1:15 AM
@@ -45,11 +43,18 @@ public class DatabaseUtility
         extends SQLiteOpenHelper {
 
     private static final String TAG = "DatabaseUtility";
+
     private static final String DATABASE_NAME = "Bible_NIV.db";
     private static DatabaseUtility staticInstance = null;
     private static String DB_PATH;
     private static SQLiteDatabase database;
     private static Context context;
+    private final String BIBLE_NIV_TABLE = "bibleverses";
+    private final String BIBLE_COLUMNS[] = {"bookid", "chapterid", "verseid", "verse"};
+    private final String BIBLE_COLUMN_BOOK_ID = "bookid";
+    private final String BIBLE_COLUMN_CHAPTER_ID = "chapterid";
+    private final String BIBLE_COLUMN_VERSE_ID = "verseid";
+    private final String BIBLE_COLUMN_VERSE_TEXT = "Verse";
 
     private DatabaseUtility(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -73,7 +78,7 @@ public class DatabaseUtility
 
     private void openDataBase()
             throws SQLException {
-        Log.d(TAG, "openDataBase: Called");
+        Log.d(TAG, "openDataBase: Entered");
         if (database == null) {
             createDataBase();
             String path = DB_PATH + File.separatorChar + DATABASE_NAME;
@@ -85,7 +90,7 @@ public class DatabaseUtility
         boolean dbExist = checkDataBase();
         if (!dbExist) {
             Log.d(TAG, "createDataBase: DB Does not Exist");
-            this.getReadableDatabase();
+            getReadableDatabase();
             try {
                 copyDataBase();
             } catch (IOException e) {
@@ -125,105 +130,22 @@ public class DatabaseUtility
             throws IOException {
         Log.d(TAG, "copyDataBase: Called");
 
-        InputStream externalDbStream = context.getAssets().open(DATABASE_NAME);
-        Log.i(TAG, "copyDataBase : externalDBStream" + externalDbStream.toString());
+        InputStream assetDatabase = context.getAssets().open(DATABASE_NAME);
+        Log.i(TAG, "copyDataBase : externalDBStream" + assetDatabase.toString());
         String outFileName = DB_PATH + File.separatorChar + DATABASE_NAME;
         Log.i(TAG, "copyDataBase : outFileName = " + outFileName);
 
-        OutputStream localDbStream = new FileOutputStream(outFileName);
+        OutputStream localDatabase = new FileOutputStream(outFileName);
 
         //Copying the database
         byte[] buffer = new byte[1024];
         int bytesRead;
-        while ((bytesRead = externalDbStream.read(buffer)) > 0) {
-            localDbStream.write(buffer, 0, bytesRead);
+        while ((bytesRead = assetDatabase.read(buffer)) > 0) {
+            localDatabase.write(buffer, 0, bytesRead);
         }
-        localDbStream.close();
-        externalDbStream.close();
+        localDatabase.close();
+        assetDatabase.close();
         Log.d(TAG, "copyDataBase: Finished");
-    }
-
-    private Cursor getDBRecords(int bookID, int chapterID) {
-        Log.d(TAG, "getDBRecords called with: bookID [" + bookID
-                + "], chapterID [" + chapterID + "]");
-        SQLiteDatabase db = getReadableDatabase();
-
-        Cursor cursor = db.query("bibleverses",
-                new String[]{"bookid", "chapterid", "verseid", "verse"},
-                "chapterid =? AND bookid=?",
-                new String[]{chapterID + "", bookID + ""},
-                null, null, null);
-        Log.d(TAG, "getDBRecords() Exited");
-        return cursor;
-    }
-
-    public ArrayList<String> getAllVerseOfChapter(int bookNumber, int chapterNumber) {
-        Log.d(TAG, "getAllVerseOfChapter() called with bookNumber = [" + bookNumber +
-                "], chapterNumber = [" + chapterNumber + "]");
-        Cursor cursor = getDBRecords(bookNumber, chapterNumber);
-        ArrayList<String> list = new ArrayList<>(0);
-
-        if (cursor.moveToFirst()) {
-            int verseIndex = cursor.getColumnIndex("Verse");
-            int verseIdIndex = cursor.getColumnIndex("VerseId");
-            //            int chapterIdIndex = cursor.getColumnIndex("ChapterId");
-            //            int bookIdIndex = cursor.getColumnIndex("BookId");
-            do {
-                list.add(cursor.getInt(verseIdIndex) + " - " + cursor.getString(verseIndex));
-            } while (cursor.moveToNext());
-            if (list.size() > 0) {
-                cursor.close();
-            }
-        }
-        return list;
-    }
-
-    private Cursor searchForTextCursor(String textToSearch) {
-        Log.d(TAG, "getDBRecords() called with: textToSearch = [" + textToSearch + "]");
-
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query("bibleverses",
-                new String[]{"bookid", "chapterid", "verseid", "verse"},
-                "verse like ?",
-                new String[]{"%" + textToSearch + "%"},
-                null, null, null);
-        Log.d(TAG, "getDBRecords() Exited");
-        return cursor;
-    }
-
-    public ArrayList<String> searchForText(String textToSearch) {
-        Log.d(TAG, "searchForText() called with: textToSearch = [" + textToSearch + "]");
-        ArrayList<String> results = new ArrayList<>(0);
-
-        if (textToSearch != null && textToSearch.length() > 0) {
-            Cursor cursor = searchForTextCursor(textToSearch);
-            if (cursor.moveToFirst()) {
-                int verseIndex = cursor.getColumnIndex("Verse");
-                int verseIdIndex = cursor.getColumnIndex("VerseId");
-                int bookIdIndex = cursor.getColumnIndex("BookId");
-                int chapterIdIndex = cursor.getColumnIndex("ChapterId");
-                BookNameContent.BookItem book;
-                StringBuilder entry = new StringBuilder();
-                do {
-                    entry.delete(0, entry.length());
-                    book = BookNameContent.getBookItem(bookIdIndex + 1);
-                    if (book != null) {
-                        entry.append(book.getName())
-                                .append(" (")
-                                .append(cursor.getInt(chapterIdIndex))
-                                .append(":")
-                                .append(cursor.getInt(verseIdIndex))
-                                .append(") - ")
-                                .append(cursor.getString(verseIndex));
-                        results.add(entry.toString());
-                    }
-                } while (cursor.moveToNext());
-                if (results.size() > 0) {
-                    cursor.close();
-                }
-            }
-        }
-        return results;
     }
 
     @Override
@@ -242,7 +164,46 @@ public class DatabaseUtility
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
     }
 
-    public String getSpecificVerse(int bookNumber, int chapterNumber, int verseNumber) {
-        return "";
-    }
+/*    public String getSpecificVerse(int bookNumber, int chapterNumber, int verseNumber) {
+        String verseText;
+        Log.d(TAG, "getSpecificVerse() called with: bookNumber = [" + bookNumber +
+                "], chapterNumber = [" + chapterNumber + "], verseNumber = [" + verseNumber + "]");
+
+        if (bookNumber < 1 || verseNumber < 1 || chapterNumber < 1) {
+            Log.d(TAG, "getSpecificVerse: One of the parameters is < 1, returning null");
+            return null;
+        }
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        String[] selectColumns = {BIBLE_COLUMN_VERSE_TEXT};
+        String whereCondition = BIBLE_COLUMN_BOOK_ID + "=? AND " +
+                BIBLE_COLUMN_CHAPTER_ID + "=? AND " +
+                BIBLE_COLUMN_VERSE_ID + "=?";
+        String[] conditionParameters = {bookNumber + "", chapterNumber + "", verseNumber + ""};
+
+        String sql = "query " + BIBLE_NIV_TABLE + " to show " + BIBLE_COLUMN_VERSE_TEXT +
+                "where " + BIBLE_COLUMN_BOOK_ID + "=" + bookNumber + " AND " +
+                BIBLE_COLUMN_CHAPTER_ID + "=" + chapterNumber + " AND " +
+                BIBLE_COLUMN_VERSE_ID + "=" + verseNumber;
+        Log.i(TAG, "getSpecificVerse: sql = " + sql);
+
+        Cursor cursor = db.query(BIBLE_NIV_TABLE, selectColumns, whereCondition, conditionParameters,
+                null, null, null, null);
+        if (cursor.moveToFirst()) {
+            int index = cursor.getColumnIndex(BIBLE_COLUMN_VERSE_TEXT);
+            String[] cols = cursor.getColumnNames();
+            for (String c : cols) {
+                Log.d(TAG, "\ngetSpecificVerse: Column : " + c);
+            }
+            Log.d(TAG, "getSpecificVerse: index = "+index);
+            verseText = cursor.getString(index);
+        } else {
+            Log.d(TAG, "getSpecificVerse: No record found, returning empty");
+            verseText = "";
+        }
+        cursor.close();
+        Log.d(TAG, "getSpecificVerse: returning : " + verseText);
+        return verseText;
+    }*/
 }

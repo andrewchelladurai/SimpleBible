@@ -24,31 +24,11 @@
 
 <resources>
     <string name="app_name">Simple Bible</string>
-    <string name="app_PREF_STORAGE_NAME">PREFERENCES_STORAGE</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_settings">Settings</string>
-
-    <string name="text_about">About</string>
-    <string name="text_search">Search Text</string>
-    <string name="text_bookmarked">Bookmarked Verses</string>
-    <string name="text_nt_books">New Testament Books</string>
-    <string name="text_ot_books">Old Testament Books</string>
-    <string name="text_welcome">Welcome</string>
-    <string name="version">New International Version</string>
-
-    <string name="fragment_home_daily_verse">For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.\n<b>John 3:16</b></string>
-    <string name="fragment_home_img_books_desc">Books of The Holy Bible</string>
-
-    <string name="fragment_v2_search_edit_text_hint">Search this exact text</string>
-    <string name="fragment_v2_search_button_label_default">Search for Text</string>
-
-    <string name="contactEmail">theunknownandrew+androidapps@gmail.com</string>
-    <string name="contactSubject">Simple Bible - Feedback</string>
-    <string name="githubPage">http://github.com/andrewchelladurai/</string>
-    <string name="gPlusPage">http://plus.google.com/+AndrewChelladurai</string>
+    <string name="my_email_address">theunknownandrew+androidapps@gmail.com</string>
+    <string name="my_mail_subject">Simple Bible - Feedback</string>
+    <string name="my_github_page">http://github.com/andrewchelladurai/</string>
+    <string name="my_g_plus_page">http://plus.google.com/+AndrewChelladurai</string>
 
     <string-array name="books_n_chapter_count_array">
         <item>Genesis:50</item>
@@ -118,113 +98,7 @@
         <item>Jude:1</item>
         <item>Revelation:22</item>
     </string-array>
-    <string name="title_activity_v2_chapter_verses">Book : Chapter</string>
 
-    <string name="fragment_v2_search_button_label_reset">Click to Reset</string>
-    <string name="fragment_v2_search_button_label_results_found"> verses found</string>
-    <string name="fragment_v2_search_button_label_no_results_found">No verses found</string>
-    <string name="fragment_v2_search_results_label_length">
-        Enter at least 1 alphabet to Search</string>
-    <string name="title_activity_activity_settings">Settings</string>
-
-    <!-- Strings related to Settings -->
-
-    <!-- Example General settings -->
-    <string name="pref_header_ui">Appearance</string>
-
-    <string name="pref_ui_dark_theme_title">Disabled - Enable Dark Theme</string>
-    <string name="pref_ui_dark_theme_desc">Coming soon - The Application will use a almost black
-        color
-        scheme.</string>
-
-    <string name="pref_ui_text_size_title">SIZE of displayed text.</string>
-    <string name="pref_ui_text_size_value_small">Small</string>
-    <string name="pref_ui_text_size_value_normal">Normal</string>
-    <string name="pref_ui_text_size_value_big">Big</string>
-    <string name="pref_ui_text_size_value_huge">Huge</string>
-
-    <string-array name="pref_ui_text_size_texts">
-        <item>@string/pref_ui_text_size_value_small</item>
-        <item>@string/pref_ui_text_size_value_normal</item>
-        <item>@string/pref_ui_text_size_value_big</item>
-        <item>@string/pref_ui_text_size_value_huge</item>
-    </string-array>
-
-    <string name="pref_ui_text_style_title">STYLE of displayed text.</string>
-    <string name="pref_ui_text_style_value_normal">Normal</string>
-    <string name="pref_ui_text_style_value_old_english">Old English</string>
-    <string name="pref_ui_text_style_value_typewriter">Typewriter</string>
-    <string-array name="pref_ui_text_style_texts">
-        <item>@string/pref_ui_text_style_value_normal</item>
-        <item>@string/pref_ui_text_style_value_old_english</item>
-        <item>@string/pref_ui_text_style_value_typewriter</item>
-    </string-array>
-
-    <!-- Example settings for Data & Sync -->
-    <!--
-        <string name="pref_header_data_sync">Data &amp; sync</string>
-
-        <string name="pref_title_sync_frequency">Sync frequency</string>
-        <string-array name="pref_sync_frequency_titles">
-            <item>15 minutes</item>
-            <item>30 minutes</item>
-            <item>1 hour</item>
-            <item>3 hours</item>
-            <item>6 hours</item>
-            <item>Never</item>
-        </string-array>
-        <string-array name="pref_sync_frequency_values">
-            <item>15</item>
-            <item>30</item>
-            <item>60</item>
-            <item>180</item>
-            <item>360</item>
-            <item>-1</item>
-        </string-array>
-
-        <string name="pref_title_system_sync_settings">System sync settings</string>
-    -->
-
-    <!-- Example settings for Notifications -->
-    <string name="pref_header_data">Reminder Notifications</string>
-
-    <string name="pref_data_reminder_notification_title">Notifications</string>
-
-    <string name="pref_title_ringtone">Ringtone</string>
-    <string name="pref_ringtone_silent">Silent</string>
-
-    <string name="pref_title_vibrate">Vibrate</string>
-    <string name="pref_ui_text_style_key_name">pref_ui_text_style</string>
-    <string name="pref_ui_text_size_key_name">pref_ui_text_size</string>
-    <string name="fragment_goto_label_book_name_text">Book Name</string>
-    <string name="fragment_goto_label_chapter_text">Chapter Number</string>
-    <string name="completion_hint">Select from list</string>
-    <string name="fragment_goto_button_text"> Goto Location </string>
-
-    <string name="section_format">Hello World from section: %1$d</string>
-
-    <string name="bm_notes_text">Notes not entered</string>
-    <string name="bm_verse_text">Verse Bookmarked</string>
-    <string name="bm_verse_id_text">Verse Bookmarked Reference</string>
-    <string name="bm_button_view_label">View</string>
-    <string name="bm_button_edit_on_label">Editing</string>
-    <string name="bm_button_edit_off_label">Click to Edit</string>
-    <string name="title_activity_chapter_view">Book : Chapter</string>
-
-    <string name="title_chapter_list">Chapters</string>
-    <string name="title_chapter_detail">Chapter Detail</string>
-    <string name="title_activity_chapter_verse">Chapters</string>
-    <string name="home_label">Home</string>
-    <string name="books_label">Books</string>
-    <string name="notes_label">Notes</string>
-    <string name="search_label">Search</string>
-    <string name="chapters_label">Chapters</string>
-    <string name="buton_label_share">Share</string>
-    <string name="buton_label_bookmark">Bookmark</string>
-    <string name="fragment_v2_search_results_label_empty">Enter text to search</string>
-    <string name="title_activity_activity_bookmarked_verse">Bookmarked Verse</string>
-    <string name="save_label">Save</string>
-    <string name="delete_label">Delete</string>
-    <string name="this_must_never_show">How did I end up here?! Clearly somethin\'s wrong.</string>
+    <string name="this_must_never_show">How did I end up here?! Clearly something\'s wrong.</string>
 
 </resources>
