@@ -103,5 +103,9 @@
     <string name="title_activity_activity_simple_bible">Simple Bible</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="label_home">Home</string>
+    <string name="label_books">Books</string>
+    <string name="label_notes">Notes</string>
+    <string name="label_search">Search</string>
 
 </resources>
