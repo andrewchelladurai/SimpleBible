@@ -138,6 +138,8 @@ public class ActivitySimpleBible
                     return FragmentHome.newInstance("");
                 case 3:
                     return FragmentSearch.newInstance();
+                case 2:
+                    return FragmentBookmarks.newInstance();
                 default:
                     return PlaceholderFragment.newInstance(position + 1);
             }
