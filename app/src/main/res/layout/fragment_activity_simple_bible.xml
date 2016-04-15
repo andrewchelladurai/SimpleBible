@@ -33,7 +33,7 @@
     tools:context="com.andrewchelladurai.simplebible.ActivitySimpleBible$PlaceholderFragment">
 
     <TextView
-        android:id="@+id/section_label"
+        android:id="@+id/fragment_activity_simple_bible_section_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
