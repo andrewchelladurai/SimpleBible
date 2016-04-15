@@ -27,7 +27,6 @@ package com.andrewchelladurai.simplebible;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Surface;
@@ -77,6 +76,7 @@ public class Utilities {
         }
     }
 
+/*
     public Typeface getPreferredStyle(Context context) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         String value =
@@ -109,6 +109,7 @@ public class Utilities {
         }
         return 18f;
     }
+*/
 
     public boolean isLargeDisplay(Resources resources) {
         if (resources.getBoolean(R.bool.isLarge)) {
