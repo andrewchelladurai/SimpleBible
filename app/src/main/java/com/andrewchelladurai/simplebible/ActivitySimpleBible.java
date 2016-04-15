@@ -136,6 +136,8 @@ public class ActivitySimpleBible
             switch (position) {
                 case 0:
                     return FragmentHome.newInstance("");
+                case 3:
+                    return FragmentSearch.newInstance();
                 default:
                     return PlaceholderFragment.newInstance(position + 1);
             }
