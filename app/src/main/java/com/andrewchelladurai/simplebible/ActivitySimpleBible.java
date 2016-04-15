@@ -134,14 +134,14 @@ public class ActivitySimpleBible
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                case 0:
-                    return FragmentHome.newInstance("");
-                case 3:
-                    return FragmentSearch.newInstance();
+                case 1:
+                    return PlaceholderFragment.newInstance(position + 1);
                 case 2:
                     return FragmentBookmarks.newInstance();
+                case 3:
+                    return FragmentSearch.newInstance();
                 default:
-                    return PlaceholderFragment.newInstance(position + 1);
+                    return FragmentHome.newInstance("");
             }
         }
 
