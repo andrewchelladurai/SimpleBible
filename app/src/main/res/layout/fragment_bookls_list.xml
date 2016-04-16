@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ This file 'fragment_books.xml' is part of SimpleBible :
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ This file 'fragment_bookls_list.xml' is part of SimpleBible :
   ~
   ~ Copyright (c) 2016.
   ~
@@ -23,22 +22,15 @@
   ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-
-    <TextView
-        android:id="@+id/id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
-
-    <TextView
-        android:id="@+id/content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
-</LinearLayout>
+<android.support.v7.widget.RecyclerView android:id="@+id/list"
+    android:name="com.andrewchelladurai.simplebible.FragmentBooks"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/gap"
+    android:layout_marginRight="@dimen/gap"
+    app:layoutManager="LinearLayoutManager"
+    tools:context="com.andrewchelladurai.simplebible.FragmentBooks"
+    tools:listitem="@layout/fragment_books" />
