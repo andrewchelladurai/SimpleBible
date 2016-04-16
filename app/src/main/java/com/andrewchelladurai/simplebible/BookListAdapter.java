@@ -30,40 +30,38 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.andrewchelladurai.simplebible.dummy.DummyContent.DummyItem;
-
 import java.util.List;
 
 public class BookListAdapter
-        extends RecyclerView.Adapter<BookListAdapter.ViewHolder> {
+        extends RecyclerView.Adapter<BookListAdapter.BookEntryHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<BookDetails.Book> mValues;
     private final FragmentBooks mListener;
 
-    public BookListAdapter(List<DummyItem> items, FragmentBooks listener) {
+    public BookListAdapter(List<BookDetails.Book> items, FragmentBooks listener) {
         mValues = items;
         mListener = listener;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BookEntryHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                                   .inflate(R.layout.fragment_books, parent, false);
-        return new ViewHolder(view);
+        return new BookEntryHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final BookEntryHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        String value = mValues.get(position).getName();
+        holder.mBookName.setText(value);
+        value = mValues.get(position).getChapterCount() + " Chapters";
+        holder.mChapterCount.setText(value);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
                     mListener.bookEntryClicked(holder.mItem);
                 }
             }
@@ -75,24 +73,24 @@ public class BookListAdapter
         return mValues.size();
     }
 
-    public class ViewHolder
+    public class BookEntryHolder
             extends RecyclerView.ViewHolder {
 
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public final TextView mBookName;
+        public final TextView mChapterCount;
+        public BookDetails.Book mItem;
 
-        public ViewHolder(View view) {
+        public BookEntryHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mBookName = (TextView) view.findViewById(R.id.fragment_books_book_name);
+            mChapterCount = (TextView) view.findViewById(R.id.fragment_books_chapter_count);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return mBookName.toString() + " : " + mChapterCount.toString();
         }
     }
 }

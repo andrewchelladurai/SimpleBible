@@ -34,13 +34,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.andrewchelladurai.simplebible.dummy.DummyContent;
-import com.andrewchelladurai.simplebible.dummy.DummyContent.DummyItem;
-
 public class FragmentBooks
         extends Fragment {
 
-    private static final String ARG_COLUMN_COUNT = "column-count";
+    private static final String ARG_COLUMN_COUNT = "ARG_COLUMN_COUNT";
     private int mColumnCount = 1;
 
     public FragmentBooks() {
@@ -68,7 +65,6 @@ public class FragmentBooks
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bookls_list, container, false);
 
-        // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
@@ -77,12 +73,12 @@ public class FragmentBooks
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new BookListAdapter(DummyContent.ITEMS, this));
+            recyclerView.setAdapter(new BookListAdapter(BookDetails.BOOKS, this));
         }
         return view;
     }
 
-    public void bookEntryClicked(final DummyItem pItem) {
+    public void bookEntryClicked(final BookDetails.Book pItem) {
 
     }
 }

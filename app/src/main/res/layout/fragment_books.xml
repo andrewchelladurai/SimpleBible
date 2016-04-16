@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ This file 'fragment_books.xml' is part of SimpleBible :
   ~
   ~ Copyright (c) 2016.
@@ -24,21 +23,30 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:layout_margin="@dimen/gap"
+    android:background="@android:color/background_light"
+    android:elevation="@dimen/gap"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/id"
+        android:id="@+id/fragment_books_book_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:layout_marginLeft="@dimen/text_margin"
+        android:layout_marginRight="@dimen/text_margin"
+        android:paddingTop="@dimen/gap"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/content"
+        android:id="@+id/fragment_books_chapter_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:layout_marginLeft="@dimen/text_margin"
+        android:layout_marginRight="@dimen/text_margin"
+        android:paddingBottom="@dimen/gap"
+        android:textAppearance="?attr/textAppearanceListItemSmall" />
 </LinearLayout>
