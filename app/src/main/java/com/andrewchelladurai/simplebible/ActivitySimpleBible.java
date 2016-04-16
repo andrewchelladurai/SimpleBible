@@ -32,12 +32,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 public class ActivitySimpleBible
         extends AppCompatActivity {
@@ -81,35 +77,6 @@ public class ActivitySimpleBible
 
     }
 
-    public static class PlaceholderFragment
-            extends Fragment {
-
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView =
-                    inflater.inflate(R.layout.fragment_activity_simple_bible, container, false);
-            TextView textView = (TextView) rootView.findViewById(
-                    R.id.fragment_activity_simple_bible_section_label);
-            textView.setText(
-                    getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
-    }
-
     private class SectionsAdapter
             extends FragmentPagerAdapter {
 
@@ -121,7 +88,7 @@ public class ActivitySimpleBible
         public Fragment getItem(int position) {
             switch (position) {
                 case 1:
-                    return FragmentBooks.newInstance();
+                    return FragmentBooks.newInstance(1);
                 case 2:
                     return FragmentBookmarks.newInstance();
                 case 3:
