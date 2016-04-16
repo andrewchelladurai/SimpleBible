@@ -30,6 +30,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ import android.view.ViewGroup;
 public class FragmentBooks
         extends Fragment {
 
+    private static final String TAG = "FragmentBooks";
     private static final String ARG_COLUMN_COUNT = "ARG_COLUMN_COUNT";
     private int mColumnCount = 1;
 
@@ -83,6 +85,7 @@ public class FragmentBooks
     }
 
     public void bookEntryClicked(final BookDetails.Book pItem) {
-
+        //TODO : Implement Logic
+        Log.d(TAG, "bookEntryClicked() called : " + "pItem = [" + pItem + "]");
     }
 }
