@@ -43,17 +43,21 @@ public class FragmentBooks
     public FragmentBooks() {
     }
 
-    public static FragmentBooks newInstance(int columnCount) {
+    public static FragmentBooks newInstance() {
         FragmentBooks fragment = new FragmentBooks();
         Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
+        args.putInt(ARG_COLUMN_COUNT, getColumnCount());
         fragment.setArguments(args);
         return fragment;
     }
 
+    private static int getColumnCount() {
+        return 2;
+    }
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate(Bundle savedState) {
+        super.onCreate(savedState);
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
