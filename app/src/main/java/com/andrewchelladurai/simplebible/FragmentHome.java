@@ -48,8 +48,8 @@ public class FragmentHome
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate(Bundle pSavedState) {
+        super.onCreate(pSavedState);
         if (getArguments() != null) {
             mDailyVerseId = getArguments().getString(DAILY_VERSE_ID);
         }

@@ -22,10 +22,28 @@
   ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
   -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/gap_big"
     tools:context="com.andrewchelladurai.simplebible.FragmentHome">
 
-</FrameLayout>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:cardElevation="@dimen/cardview_default_elevation">
+
+        <TextView
+            android:id="@+id/fragment_home_daily_verse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/gap"
+            android:text="The following code example shows you how to include a CardView widget in your layout:"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textStyle="bold" />
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
