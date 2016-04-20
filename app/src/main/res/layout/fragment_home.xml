@@ -22,7 +22,7 @@
   ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
   -->
 
-<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -41,17 +41,58 @@
             android:id="@+id/fragment_home_daily_verse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/gap"
-            android:text="The following code example shows you how to include a CardView widget in your layout:"
+            android:padding="@dimen/gap_big"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textStyle="bold" />
     </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.LinearLayoutCompat
-        android:layout_width="0dp"
+    <TableLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:paddingBottom="@dimen/gap_big"
+        android:paddingTop="@dimen/gap_big">
 
-    </android.support.v7.widget.LinearLayoutCompat>
-</android.support.v7.widget.LinearLayoutCompat>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/gap">
+
+            <AutoCompleteTextView
+                android:id="@+id/fragment_home_book"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/label_input_book"
+                android:inputType="textAutoCorrect|textAutoComplete"
+                android:lines="1"
+                android:maxLines="1" />
+
+            <AutoCompleteTextView
+                android:id="@+id/fragment_home_chapter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/label_input_chapter"
+                android:inputType="textAutoCorrect|textAutoComplete"
+                android:lines="1"
+                android:maxLines="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/fragment_home_button"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_goto" />
+        </TableRow>
+
+
+    </TableLayout>
+
+</LinearLayout>

@@ -106,5 +106,8 @@
     <string name="label_books">Books</string>
     <string name="label_notes">Notes</string>
     <string name="label_search">Search</string>
+    <string name="label_goto">Goto Selection</string>
+    <string name="label_input_book">Enter Book Name</string>
+    <string name="label_input_chapter">Select Chapter</string>
 
 </resources>
