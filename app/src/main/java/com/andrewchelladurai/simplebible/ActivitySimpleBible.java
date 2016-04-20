@@ -92,7 +92,7 @@ public class ActivitySimpleBible
                 case 1:
                     return FragmentBooks.newInstance();
                 case 2:
-                    return FragmentBookmarks.newInstance();
+                    return FragmentVerseNotes.newInstance();
                 case 3:
                     return FragmentSearch.newInstance();
                 default:

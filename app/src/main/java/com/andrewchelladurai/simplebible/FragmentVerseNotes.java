@@ -1,5 +1,5 @@
 /*
- * This file 'FragmentBookmarks.java' is part of SimpleBible :
+ * This file 'FragmentVerseNotes.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.
  *
@@ -24,43 +24,68 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass. Activities that contain this fragment must implement the
- * {@link FragmentBookmarks.OnFragmentInteractionListener} interface to handle interaction events.
- * Use the {@link FragmentBookmarks#newInstance} factory method to create an instance of this
- * fragment.
- */
-public class FragmentBookmarks
+import com.andrewchelladurai.simplebible.dummy.VerseNotesContent;
+import com.andrewchelladurai.simplebible.dummy.VerseNotesContent.VerseNotesItem;
+
+public class FragmentVerseNotes
         extends Fragment {
 
-    public FragmentBookmarks() {
+    private static final String ARG_COLUMN_COUNT = "COLUMN_COUNT";
+    private int mColumnCount = 1;
+
+    public FragmentVerseNotes() {
     }
 
-    public static FragmentBookmarks newInstance() {
-        FragmentBookmarks fragment = new FragmentBookmarks();
+    public static FragmentVerseNotes newInstance() {
+        FragmentVerseNotes fragment = new FragmentVerseNotes();
         Bundle args = new Bundle();
+        args.putInt(ARG_COLUMN_COUNT, getColumnCount());
         fragment.setArguments(args);
         return fragment;
+    }
+
+    private static int getColumnCount() {
+        return 1;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
+            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_bookmarks, container, false);
+        View view = inflater.inflate(R.layout.fragment_verse_notes_list, container, false);
+
+        if (view instanceof RecyclerView) {
+            Context context = view.getContext();
+            RecyclerView recyclerView = (RecyclerView) view;
+            if (mColumnCount <= 1) {
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            } else {
+                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+            }
+            recyclerView.setAdapter(new AdapterVerseNotes(VerseNotesContent.ITEMS, this));
+        }
+        return view;
+    }
+
+    public void onListFragmentInteraction(final VerseNotesItem pItem) {
     }
 
 }

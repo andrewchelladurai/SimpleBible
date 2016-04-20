@@ -1,5 +1,5 @@
-<!--
-  ~ This file 'fragment_bookmarks.xml' is part of SimpleBible :
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ This file 'fragment_verse_notes_list.xml' is part of SimpleBible :
   ~
   ~ Copyright (c) 2016.
   ~
@@ -22,10 +22,15 @@
   ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
   -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.RecyclerView android:id="@+id/list"
+    android:name="com.andrewchelladurai.simplebible.FragmentVerseNotes"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.andrewchelladurai.simplebible.FragmentBookmarks">
-
-</FrameLayout>
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    app:layoutManager="LinearLayoutManager"
+    tools:context="com.andrewchelladurai.simplebible.FragmentVerseNotes"
+    tools:listitem="@layout/verse_notes_item" />
