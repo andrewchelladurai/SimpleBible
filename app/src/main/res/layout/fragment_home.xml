@@ -31,20 +31,6 @@
     android:padding="@dimen/gap_big"
     tools:context="com.andrewchelladurai.simplebible.FragmentHome">
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        app:cardElevation="@dimen/cardview_default_elevation">
-
-        <TextView
-            android:id="@+id/fragment_home_daily_verse"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/gap_big"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:textStyle="bold" />
-    </android.support.v7.widget.CardView>
 
     <TableLayout
         android:layout_width="match_parent"
@@ -91,8 +77,23 @@
                 android:layout_height="wrap_content"
                 android:text="@string/label_goto" />
         </TableRow>
-
-
     </TableLayout>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/gap_big"
+        android:layout_marginTop="@dimen/gap_big"
+        app:cardElevation="@dimen/cardview_default_elevation">
+
+        <TextView
+            android:id="@+id/fragment_home_daily_verse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/gap_big"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textStyle="bold" />
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>
