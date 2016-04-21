@@ -35,6 +35,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class FragmentBooksList
         extends Fragment {
 
@@ -87,5 +92,64 @@ public class FragmentBooksList
     public void bookEntryClicked(final Book.Details pItem) {
         //TODO : Implement Logic
         Log.d(TAG, "bookEntryClicked() called : " + "pItem = [" + pItem + "]");
+    }
+
+    /**
+     * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 16-Apr-2016 @ 11:40 AM
+     */
+    public static class Book {
+
+        public static final List<Details> BOOKS = new ArrayList<>();
+        public static final Map<String, Details> BOOK_MAP = new HashMap<>();
+        private static final String TAG = "BookDetails";
+
+        public static void populateDetails(final String[] pStringArray) {
+            if (BOOKS.size() > 0) {
+                Log.d(TAG, "populateDetails: " + BOOKS.size() + " books already created");
+                return;
+            }
+
+            int bookNumber = 1;
+            String[] splitValue;
+            Details book;
+            for (String value : pStringArray) {
+                splitValue = value.split(":");
+                book = new Details(bookNumber + "", splitValue[0], splitValue[1]);
+                BOOKS.add(book);
+                BOOK_MAP.put(book.number, book);
+                bookNumber++;
+            }
+            Log.d(TAG, "populateDetails: " + BOOKS.size() + " books created");
+        }
+
+        public static class Details {
+
+            private final String number;
+            private final String name;
+            private final String chapterCount;
+
+            public Details(String pNumber, String pName, String pChapterCount) {
+                name = pName;
+                number = pNumber;
+                chapterCount = pChapterCount;
+            }
+
+            @Override
+            public String toString() {
+                return number + " : " + name + " : " + chapterCount;
+            }
+
+            public String getNumber() {
+                return number;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public String getChapterCount() {
+                return chapterCount;
+            }
+        }
     }
 }

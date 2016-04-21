@@ -47,7 +47,7 @@ public class ActivitySimpleBible
         setContentView(R.layout.activity_simple_bible);
 
         DatabaseUtility.getInstance(getApplicationContext());
-        Book.populateDetails(
+        FragmentBooksList.Book.populateDetails(
                 getResources().getStringArray(R.array.books_n_chapter_count_array));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_simple_bible_toolbar);

@@ -35,10 +35,10 @@ import java.util.List;
 public class AdapterBookList
         extends RecyclerView.Adapter<AdapterBookList.DetailsView> {
 
-    private final List<Book.Details> mValues;
+    private final List<FragmentBooksList.Book.Details> mValues;
     private final FragmentBooksList mListener;
 
-    public AdapterBookList(List<Book.Details> items, FragmentBooksList listener) {
+    public AdapterBookList(List<FragmentBooksList.Book.Details> items, FragmentBooksList listener) {
         mValues = items;
         mListener = listener;
     }
@@ -79,7 +79,7 @@ public class AdapterBookList
         public final View mView;
         public final TextView mBookName;
         public final TextView mChapterCount;
-        public Book.Details mItem;
+        public FragmentBooksList.Book.Details mItem;
 
         public DetailsView(View view) {
             super(view);
