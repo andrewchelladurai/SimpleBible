@@ -30,17 +30,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.andrewchelladurai.simplebible.dummy.VerseNotesContent.VerseNotesItem;
-
 import java.util.List;
 
 public class AdapterVerseNotes
         extends RecyclerView.Adapter<AdapterVerseNotes.ViewHolder> {
 
-    private final List<VerseNotesItem> mValues;
+    private final List<FragmentVerseNotes.Notes.Content> mValues;
     private final FragmentVerseNotes mListener;
 
-    public AdapterVerseNotes(List<VerseNotesItem> items, FragmentVerseNotes listener) {
+    public AdapterVerseNotes(List<FragmentVerseNotes.Notes.Content> items,
+                             FragmentVerseNotes listener) {
         mValues = items;
         mListener = listener;
     }
@@ -79,7 +78,7 @@ public class AdapterVerseNotes
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public VerseNotesItem mItem;
+        public FragmentVerseNotes.Notes.Content mItem;
 
         public ViewHolder(View view) {
             super(view);
