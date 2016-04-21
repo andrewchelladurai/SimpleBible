@@ -87,16 +87,14 @@ public class FragmentVerseNotes
         return view;
     }
 
-    public void onListFragmentInteraction(final Notes.Content pItem) {
+    public void onListFragmentInteraction(final Notes.Details pItem) {
 
     }
 
     public static class Notes {
 
-        public static final List<Content> ITEMS = new ArrayList<>();
-
-        public static final Map<String, Content> ITEM_MAP = new HashMap<>();
-
+        public static final List<Details> ITEMS = new ArrayList<>();
+        public static final Map<String, Details> ITEM_MAP = new HashMap<>();
         private static final int COUNT = 25;
 
         static {
@@ -105,13 +103,13 @@ public class FragmentVerseNotes
             }
         }
 
-        private static void addItem(Content item) {
+        private static void addItem(Details item) {
             ITEMS.add(item);
             ITEM_MAP.put(item.id, item);
         }
 
-        private static Content createDummyItem(int position) {
-            return new Content(String.valueOf(position), "Item " + position,
+        private static Details createDummyItem(int position) {
+            return new Details(String.valueOf(position), "Item " + position,
                                makeDetails(position));
         }
 
@@ -124,13 +122,13 @@ public class FragmentVerseNotes
             return builder.toString();
         }
 
-        public static class Content {
+        public static class Details {
 
             public final String id;
             public final String content;
             public final String details;
 
-            public Content(String id, String content, String details) {
+            public Details(String id, String content, String details) {
                 this.id = id;
                 this.content = content;
                 this.details = details;

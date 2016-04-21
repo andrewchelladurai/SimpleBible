@@ -47,7 +47,7 @@ public class ActivitySimpleBible
         setContentView(R.layout.activity_simple_bible);
 
         DatabaseUtility.getInstance(getApplicationContext());
-        BookDetails.populateDetails(
+        Book.populateDetails(
                 getResources().getStringArray(R.array.books_n_chapter_count_array));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_simple_bible_toolbar);
@@ -90,7 +90,7 @@ public class ActivitySimpleBible
         public Fragment getItem(int position) {
             switch (position) {
                 case 1:
-                    return FragmentBooks.newInstance();
+                    return FragmentBooksList.newInstance();
                 case 2:
                     return FragmentVerseNotes.newInstance();
                 case 3:

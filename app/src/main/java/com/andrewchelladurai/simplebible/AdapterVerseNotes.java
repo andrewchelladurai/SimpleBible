@@ -33,26 +33,26 @@ import android.widget.TextView;
 import java.util.List;
 
 public class AdapterVerseNotes
-        extends RecyclerView.Adapter<AdapterVerseNotes.ViewHolder> {
+        extends RecyclerView.Adapter<AdapterVerseNotes.DetailsView> {
 
-    private final List<FragmentVerseNotes.Notes.Content> mValues;
+    private final List<FragmentVerseNotes.Notes.Details> mValues;
     private final FragmentVerseNotes mListener;
 
-    public AdapterVerseNotes(List<FragmentVerseNotes.Notes.Content> items,
+    public AdapterVerseNotes(List<FragmentVerseNotes.Notes.Details> items,
                              FragmentVerseNotes listener) {
         mValues = items;
         mListener = listener;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DetailsView onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                                   .inflate(R.layout.verse_notes_item, parent, false);
-        return new ViewHolder(view);
+        return new DetailsView(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final DetailsView holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).id);
         holder.mContentView.setText(mValues.get(position).content);
@@ -72,15 +72,15 @@ public class AdapterVerseNotes
         return mValues.size();
     }
 
-    public class ViewHolder
+    public class DetailsView
             extends RecyclerView.ViewHolder {
 
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public FragmentVerseNotes.Notes.Content mItem;
+        public FragmentVerseNotes.Notes.Details mItem;
 
-        public ViewHolder(View view) {
+        public DetailsView(View view) {
             super(view);
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.id);
