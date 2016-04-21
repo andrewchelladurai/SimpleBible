@@ -20,8 +20,7 @@
   ~ You should have received a copy of the GNU General Public License
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
-  -->
-
+-->
 <manifest package="com.andrewchelladurai.simplebible"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -40,6 +39,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ActivityChapter"
+            android:label="@string/title_activity_activity_chapter"
+            android:parentActivityName=".ActivitySimpleBible"
+            android:theme="@style/ThemeLight.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.andrewchelladurai.simplebible.ActivitySimpleBible" />
         </activity>
     </application>
 
