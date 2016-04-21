@@ -32,26 +32,26 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class BookListAdapter
-        extends RecyclerView.Adapter<BookListAdapter.BookEntryHolder> {
+public class AdapterBookList
+        extends RecyclerView.Adapter<AdapterBookList.DetailsView> {
 
-    private final List<BookDetails.Book> mValues;
-    private final FragmentBooks mListener;
+    private final List<Book.Details> mValues;
+    private final FragmentBooksList mListener;
 
-    public BookListAdapter(List<BookDetails.Book> items, FragmentBooks listener) {
+    public AdapterBookList(List<Book.Details> items, FragmentBooksList listener) {
         mValues = items;
         mListener = listener;
     }
 
     @Override
-    public BookEntryHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DetailsView onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                                   .inflate(R.layout.fragment_books, parent, false);
-        return new BookEntryHolder(view);
+        return new DetailsView(view);
     }
 
     @Override
-    public void onBindViewHolder(final BookEntryHolder holder, int position) {
+    public void onBindViewHolder(final DetailsView holder, int position) {
         holder.mItem = mValues.get(position);
         String value = mValues.get(position).getName();
         holder.mBookName.setText(value);
@@ -73,15 +73,15 @@ public class BookListAdapter
         return mValues.size();
     }
 
-    public class BookEntryHolder
+    public class DetailsView
             extends RecyclerView.ViewHolder {
 
         public final View mView;
         public final TextView mBookName;
         public final TextView mChapterCount;
-        public BookDetails.Book mItem;
+        public Book.Details mItem;
 
-        public BookEntryHolder(View view) {
+        public DetailsView(View view) {
             super(view);
             mView = view;
             mBookName = (TextView) view.findViewById(R.id.fragment_books_book_name);

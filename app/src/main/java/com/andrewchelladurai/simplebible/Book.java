@@ -34,10 +34,10 @@ import java.util.Map;
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 16-Apr-2016 @ 11:40 AM
  */
-public class BookDetails {
+public class Book {
 
-    public static final List<Book> BOOKS = new ArrayList<>();
-    public static final Map<String, Book> BOOK_MAP = new HashMap<>();
+    public static final List<Details> BOOKS = new ArrayList<>();
+    public static final Map<String, Details> BOOK_MAP = new HashMap<>();
     private static final String TAG = "BookDetails";
 
     public static void populateDetails(final String[] pStringArray) {
@@ -48,10 +48,10 @@ public class BookDetails {
 
         int bookNumber = 1;
         String[] splitValue;
-        Book book;
+        Details book;
         for (String value : pStringArray) {
             splitValue = value.split(":");
-            book = new Book(bookNumber + "", splitValue[0], splitValue[1]);
+            book = new Details(bookNumber + "", splitValue[0], splitValue[1]);
             BOOKS.add(book);
             BOOK_MAP.put(book.number, book);
             bookNumber++;
@@ -59,13 +59,13 @@ public class BookDetails {
         Log.d(TAG, "populateDetails: " + BOOKS.size() + " books created");
     }
 
-    public static class Book {
+    public static class Details {
 
         private final String number;
         private final String name;
         private final String chapterCount;
 
-        public Book(String pNumber, String pName, String pChapterCount) {
+        public Details(String pNumber, String pName, String pChapterCount) {
             name = pName;
             number = pNumber;
             chapterCount = pChapterCount;

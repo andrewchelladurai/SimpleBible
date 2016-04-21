@@ -35,18 +35,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class FragmentBooks
+public class FragmentBooksList
         extends Fragment {
 
     private static final String TAG = "FragmentBooks";
     private static final String ARG_COLUMN_COUNT = "ARG_COLUMN_COUNT";
     private int mColumnCount = 1;
 
-    public FragmentBooks() {
+    public FragmentBooksList() {
     }
 
-    public static FragmentBooks newInstance() {
-        FragmentBooks fragment = new FragmentBooks();
+    public static FragmentBooksList newInstance() {
+        FragmentBooksList fragment = new FragmentBooksList();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, getColumnCount());
         fragment.setArguments(args);
@@ -79,12 +79,12 @@ public class FragmentBooks
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new BookListAdapter(BookDetails.BOOKS, this));
+            recyclerView.setAdapter(new AdapterBookList(Book.BOOKS, this));
         }
         return view;
     }
 
-    public void bookEntryClicked(final BookDetails.Book pItem) {
+    public void bookEntryClicked(final Book.Details pItem) {
         //TODO : Implement Logic
         Log.d(TAG, "bookEntryClicked() called : " + "pItem = [" + pItem + "]");
     }
