@@ -24,11 +24,11 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.List;
 
@@ -54,8 +54,8 @@ public class AdapterVerseNotes
     @Override
     public void onBindViewHolder(final DetailsView holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mId.setText(mValues.get(position).id);
+        holder.mNotes.setText(mValues.get(position).content);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,20 +76,22 @@ public class AdapterVerseNotes
             extends RecyclerView.ViewHolder {
 
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
+        public final AppCompatTextView mId;
+        public final AppCompatTextView mVerse;
+        public final AppCompatTextView mNotes;
         public FragmentVerseNotes.Notes.Details mItem;
 
         public DetailsView(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mId = (AppCompatTextView) view.findViewById(R.id.verse_notes_item_id);
+            mVerse = (AppCompatTextView) view.findViewById(R.id.verse_notes_item_text);
+            mNotes = (AppCompatTextView) view.findViewById(R.id.verse_notes_item_content);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mNotes.getText() + "'";
         }
     }
 }

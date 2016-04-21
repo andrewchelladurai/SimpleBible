@@ -23,21 +23,78 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:layout_marginBottom="@dimen/gap"
+    android:layout_marginLeft="@dimen/gap_big"
+    android:layout_marginRight="@dimen/gap_big"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/id"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        app:cardCornerRadius="0dp"
+        app:cardElevation="@dimen/shadow_depth">
 
-    <TextView
-        android:id="@+id/content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/gap"
+            android:layout_marginRight="@dimen/gap"
+            android:layout_marginTop="@dimen/gap"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/verse_notes_item_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:textAppearance="?attr/textAppearanceListItem" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/verse_notes_item_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/verse_notes_item_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceListItem" />
+
+            <android.support.v7.widget.ButtonBarLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/verse_notes_item_but_edit"
+                    style="?buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_edit" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/verse_notes_item_but_delete"
+                    style="?buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_delete" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/verse_notes_item_but_share"
+                    style="?buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_share" />
+
+            </android.support.v7.widget.ButtonBarLayout>
+
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>

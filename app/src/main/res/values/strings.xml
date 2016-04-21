@@ -110,5 +110,8 @@
     <string name="label_input_book">Enter Book Name</string>
     <string name="label_input_chapter">Select Chapter</string>
     <string name="label_input_search">Enter text to search</string>
+    <string name="label_edit">Edit</string>
+    <string name="label_delete">Delete</string>
+    <string name="label_share">Share</string>
 
 </resources>
