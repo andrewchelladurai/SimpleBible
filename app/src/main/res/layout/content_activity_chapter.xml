@@ -52,13 +52,15 @@
         style="?buttonBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:background="@color/primary_dark">
 
         <android.support.v7.widget.AppCompatImageButton
             android:id="@+id/activity_chapter_but_previous"
-            style="?imageButtonStyle"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_navigate_before_white_18dp" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/activity_chapter_but_notes"
@@ -76,9 +78,10 @@
 
         <android.support.v7.widget.AppCompatImageButton
             android:id="@+id/activity_chapter_but_next"
-            style="?imageButtonStyle"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_navigate_next_white_18dp" />
     </android.support.v7.widget.ButtonBarLayout>
 
 </LinearLayout>
