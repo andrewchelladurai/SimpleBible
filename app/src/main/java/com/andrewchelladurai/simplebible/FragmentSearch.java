@@ -26,12 +26,17 @@ package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 public class FragmentSearch
-        extends Fragment {
+        extends Fragment
+        implements View.OnClickListener {
+
+    private static final String TAG = "FragmentSearch";
 
     public FragmentSearch() {
     }
@@ -55,7 +60,23 @@ public class FragmentSearch
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_search, container, false);
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
+        AppCompatButton button = (AppCompatButton) view.findViewById(R.id.fragment_search_button);
+        button.setOnClickListener(this);
+        return view;
     }
 
+    @Override
+    public void onClick(final View pView) {
+        switch (pView.getId()) {
+            case R.id.fragment_search_button:
+                handleSearchClicked();
+                break;
+            default:
+        }
+    }
+
+    private void handleSearchClicked() {
+        Log.i(TAG, "handleSearchClicked: ");
+    }
 }
