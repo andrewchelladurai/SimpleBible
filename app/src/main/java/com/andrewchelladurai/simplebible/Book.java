@@ -73,6 +73,15 @@ public class Book {
         return values;
     }
 
+    public static int getBookDetails(final String pName) {
+        for (Details d : BOOKS) {
+            if (pName.equalsIgnoreCase(d.getName())) {
+                return Integer.parseInt(d.getNumber());
+            }
+        }
+        return 0;
+    }
+
     public static class Details {
 
         private final String number;

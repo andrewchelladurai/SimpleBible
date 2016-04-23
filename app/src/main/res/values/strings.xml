@@ -107,8 +107,9 @@
     <string name="label_notes">Notes</string>
     <string name="label_search">Search</string>
     <string name="label_goto">Goto Selection</string>
-    <string name="label_input_book">Enter Book Name</string>
+    <string name="label_input_book">Enter and Select Book Name</string>
     <string name="label_input_chapter">Select Chapter</string>
+    <string name="label_input_chapter_count">between 1 and</string>
     <string name="label_input_search">Enter text to search</string>
     <string name="label_edit">Edit</string>
     <string name="label_delete">Delete</string>
