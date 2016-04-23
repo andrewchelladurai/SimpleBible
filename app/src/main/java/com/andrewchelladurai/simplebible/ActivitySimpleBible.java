@@ -38,8 +38,8 @@ import android.view.MenuItem;
 public class ActivitySimpleBible
         extends AppCompatActivity {
 
-    private SectionsAdapter mSectionsAdapter;
-    private ViewPager mPager;
+    private static SectionsAdapter mSectionsAdapter;
+    private static ViewPager mPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +78,14 @@ public class ActivitySimpleBible
         return id == R.id.activity_simple_bible_action_settings ||
                super.onOptionsItemSelected(item);
 
+    }
+
+    public static void showNotesSection() {
+        mPager.setCurrentItem(2, true);
+    }
+
+    public static void showSearchSection() {
+        mPager.setCurrentItem(3, true);
     }
 
     private class SectionsAdapter
