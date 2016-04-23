@@ -25,8 +25,8 @@
 package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -79,38 +79,33 @@ public class ActivityChapter
 
         mBookDetails = Book.getDetails(bNum);
 
-        String title = mBookDetails.getName() + " " +
-                       getString(R.string.title_activity_activity_chapter) + " " + mCurrentChapter;
-        setTitle(title);
-
         Log.d(TAG, "onCreate: Showing chapter " + mCurrentChapter + " of " +
                    mBookDetails.getNumber() + "-" + mBookDetails.getName() + ":" +
                    mBookDetails.getChapterCount());
 
-        bindButton(R.id.activity_chapter_but_previous, true);
-        bindButton(R.id.activity_chapter_but_notes, false);
-        bindButton(R.id.activity_chapter_but_search, false);
-        bindButton(R.id.activity_chapter_but_next, true);
+        bindButton(R.id.activity_chapter_but_previous);
+        bindButton(R.id.activity_chapter_but_notes);
+        bindButton(R.id.activity_chapter_but_search);
+        bindButton(R.id.activity_chapter_but_next);
 
+        refreshChapterContents();
     }
 
-    private void bindButton(final int pButtonId, boolean isImageButton) {
-        if (isImageButton) {
-            AppCompatImageButton button = (AppCompatImageButton) findViewById(pButtonId);
-            if (null != button) {
-                button.setOnClickListener(this);
-            }
-        } else {
-            AppCompatButton button = (AppCompatButton) findViewById(pButtonId);
-            if (null != button) {
-                button.setOnClickListener(this);
-            }
+    private void bindButton(final int pButtonId) {
+        AppCompatImageButton button = (AppCompatImageButton) findViewById(pButtonId);
+        if (null != button) {
+            button.setOnClickListener(this);
         }
     }
 
     public void handlePreviousButtonClick(View view) {
-        // FIXME: 23/4/16
         Log.d(TAG, "handlePreviousButtonClick: ");
+        if (mCurrentChapter == 1) {
+            Snackbar.make(view, "Already showing Chapter 1", Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+        mCurrentChapter--;
+        refreshChapterContents();
     }
 
     public void handleNotesButtonClick(View view) {
@@ -124,8 +119,13 @@ public class ActivityChapter
     }
 
     public void handleNextButtonClick(View view) {
-        // FIXME: 23/4/16
         Log.d(TAG, "handleNextButtonClick: ");
+        if (mCurrentChapter == Integer.parseInt(mBookDetails.getChapterCount() + "")) {
+            Snackbar.make(view, "Already showing Last Chapter", Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+        mCurrentChapter++;
+        refreshChapterContents();
     }
 
     @Override
@@ -138,5 +138,11 @@ public class ActivityChapter
             default:
                 Log.d(TAG, "onClick: in default case");
         }
+    }
+
+    private void refreshChapterContents() {
+        String title = mBookDetails.getName() + " " +
+                       getString(R.string.title_activity_activity_chapter) + " " + mCurrentChapter;
+        setTitle(title);
     }
 }
