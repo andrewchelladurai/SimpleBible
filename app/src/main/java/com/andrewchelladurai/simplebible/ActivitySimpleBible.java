@@ -57,6 +57,7 @@ public class ActivitySimpleBible
         mPager = (ViewPager) findViewById(R.id.activity_simple_bible_container);
         if (null != mPager) {
             mPager.setAdapter(mSectionsAdapter);
+            mPager.addOnPageChangeListener(new KeyboardHideListener(this));
         }
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.activity_simple_bible_tabs);
