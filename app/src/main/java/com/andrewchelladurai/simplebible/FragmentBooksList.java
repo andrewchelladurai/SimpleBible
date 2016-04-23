@@ -25,6 +25,7 @@
 package com.andrewchelladurai.simplebible;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -90,8 +91,10 @@ public class FragmentBooksList
     }
 
     public void bookEntryClicked(final Book.Details pItem) {
-        //TODO : Implement Logic
-        Log.d(TAG, "bookEntryClicked() called : " + "pItem = [" + pItem + "]");
+        Intent intent = new Intent(getContext(), ActivityChapter.class);
+        intent.putExtra(ActivityChapter.ARG_BOOK_NUMBER, pItem.getNumber());
+        intent.putExtra(ActivityChapter.ARG_CHAPTER_NUMBER, 1 + "");
+        startActivity(intent);
     }
 
     /**
@@ -120,6 +123,10 @@ public class FragmentBooksList
                 bookNumber++;
             }
             Log.d(TAG, "populateDetails: " + BOOKS.size() + " books created");
+        }
+
+        public static Details getDetails(int pBookNumber) {
+            return BOOK_MAP.get(pBookNumber + "");
         }
 
         public static class Details {
