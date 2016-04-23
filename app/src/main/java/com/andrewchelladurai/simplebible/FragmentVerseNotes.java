@@ -30,6 +30,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,8 +41,10 @@ import java.util.List;
 import java.util.Map;
 
 public class FragmentVerseNotes
-        extends Fragment {
+        extends Fragment
+        implements View.OnClickListener {
 
+    private static final String TAG = "FragmentVerseNotes";
     private static final String ARG_COLUMN_COUNT = "COLUMN_COUNT";
     private int mColumnCount = 1;
 
@@ -88,7 +91,38 @@ public class FragmentVerseNotes
     }
 
     public void onListFragmentInteraction(final Notes.Details pItem) {
+        String verseID = pItem.mId;
+        String verseText = pItem.mVerse;
+        String verseNotes = pItem.mNotes;
+        Log.i(TAG, "onListFragmentInteraction: " + verseID);
+    }
 
+    @Override
+    public void onClick(final View pView) {
+        switch (pView.getId()) {
+            case R.id.verse_notes_item_but_delete:
+                handleDeleteClicked();
+                break;
+            case R.id.verse_notes_item_but_share:
+                handleShareClicked();
+                break;
+            case R.id.verse_notes_item_but_edit:
+                handleEditClicked();
+                break;
+            default:
+        }
+    }
+
+    private void handleEditClicked() {
+        Log.i(TAG, "handleEditClicked: ");
+    }
+
+    private void handleShareClicked() {
+        Log.i(TAG, "handleShareClicked: ");
+    }
+
+    private void handleDeleteClicked() {
+        Log.i(TAG, "handleDeleteClicked: ");
     }
 
     public static class Notes {

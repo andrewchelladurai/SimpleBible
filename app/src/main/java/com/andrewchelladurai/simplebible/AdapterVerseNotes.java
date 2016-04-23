@@ -24,6 +24,7 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -48,7 +49,17 @@ public class AdapterVerseNotes
     public DetailsView onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                                   .inflate(R.layout.verse_notes_item, parent, false);
+
+        bindButton(R.id.verse_notes_item_but_share, view);
+        bindButton(R.id.verse_notes_item_but_edit, view);
+        bindButton(R.id.verse_notes_item_but_delete, view);
+
         return new DetailsView(view);
+    }
+
+    private void bindButton(int pButtonId, View pView) {
+        AppCompatButton button = (AppCompatButton) pView.findViewById(pButtonId);
+        button.setOnClickListener(mListener);
     }
 
     @Override
