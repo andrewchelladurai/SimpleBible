@@ -70,7 +70,7 @@ public class ActivityChapter
             return;
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_chapter_toolbar);
         setSupportActionBar(toolbar);
 
         if (null != getSupportActionBar()) {
