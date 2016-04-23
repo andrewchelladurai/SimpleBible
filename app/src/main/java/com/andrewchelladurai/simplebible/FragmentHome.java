@@ -26,13 +26,17 @@ package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 public class FragmentHome
-        extends Fragment {
+        extends Fragment
+        implements View.OnClickListener {
 
+    private static final String TAG = "FragmentHome";
     public static final String DAILY_VERSE_ID = "DAILY_VERSE_ID";
     private String mDailyVerseId = null;
 
@@ -58,7 +62,11 @@ public class FragmentHome
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        AppCompatButton button = (AppCompatButton) view.findViewById(R.id.fragment_home_button);
+        button.setOnClickListener(this);
+        return view;
     }
 
     public String getDailyVerseId() {
@@ -67,5 +75,17 @@ public class FragmentHome
 
     public void setDailyVerseId(final String pDailyVerseId) {
         mDailyVerseId = pDailyVerseId;
+    }
+
+    @Override
+    public void onClick(final View pView) {
+        switch (pView.getId()){
+            case R.id.fragment_home_button:
+                handleGotoClicked();
+        }
+    }
+
+    private void handleGotoClicked() {
+        Log.i(TAG, "handleGotoClicked: ");
     }
 }
