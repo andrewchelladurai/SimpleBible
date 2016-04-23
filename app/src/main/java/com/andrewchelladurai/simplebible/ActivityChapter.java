@@ -39,7 +39,7 @@ public class ActivityChapter
     private static final String TAG = "ActivityChapter";
     public static final String ARG_BOOK_NUMBER = "ARG_BOOK_NUMBER";
     public static final String ARG_CHAPTER_NUMBER = "ARG_CHAPTER_NUMBER";
-    private FragmentBooksList.Book.Details mBookDetails = null;
+    private Book.Details mBookDetails = null;
     private int mCurrentChapter = 0;
 
     @Override
@@ -77,7 +77,12 @@ public class ActivityChapter
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        mBookDetails = FragmentBooksList.Book.getDetails(bNum);
+        mBookDetails = Book.getDetails(bNum);
+
+        String title = mBookDetails.getName() + " " +
+                       getString(R.string.title_activity_activity_chapter) + " " + mCurrentChapter;
+        setTitle(title);
+
         Log.d(TAG, "onCreate: Showing chapter " + mCurrentChapter + " of " +
                    mBookDetails.getNumber() + "-" + mBookDetails.getName() + ":" +
                    mBookDetails.getChapterCount());

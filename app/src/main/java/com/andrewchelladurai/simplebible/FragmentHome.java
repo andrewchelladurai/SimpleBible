@@ -24,21 +24,30 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 public class FragmentHome
         extends Fragment
-        implements View.OnClickListener {
+        implements View.OnClickListener,
+                   AdapterView.OnItemClickListener {
 
     private static final String TAG = "FragmentHome";
     public static final String DAILY_VERSE_ID = "DAILY_VERSE_ID";
     private String mDailyVerseId = null;
+    private AppCompatAutoCompleteTextView mBookInput;
+    private AppCompatAutoCompleteTextView mChapterInput;
+    private int mBookNumber = 0;
+    private int mChapterNumber = 0;
 
     public FragmentHome() {
     }
@@ -64,6 +73,18 @@ public class FragmentHome
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        mBookInput = (AppCompatAutoCompleteTextView)
+                view.findViewById(R.id.fragment_home_book);
+        mBookInput.setAdapter(new ArrayAdapter<>(
+                getContext(), android.R.layout.simple_dropdown_item_1line,
+                Book.getAllBookNames()));
+        mBookInput.setOnItemClickListener(this);
+
+        mChapterInput = (AppCompatAutoCompleteTextView)
+                view.findViewById(R.id.fragment_home_chapter);
+        mChapterInput.setAdapter(new ArrayAdapter<>(
+                getContext(), android.R.layout.simple_dropdown_item_1line, new String[]{""}));
+
         AppCompatButton button = (AppCompatButton) view.findViewById(R.id.fragment_home_button);
         button.setOnClickListener(this);
         return view;
@@ -79,7 +100,7 @@ public class FragmentHome
 
     @Override
     public void onClick(final View pView) {
-        switch (pView.getId()){
+        switch (pView.getId()) {
             case R.id.fragment_home_button:
                 handleGotoClicked();
         }
@@ -87,5 +108,84 @@ public class FragmentHome
 
     private void handleGotoClicked() {
         Log.i(TAG, "handleGotoClicked: ");
+        mBookNumber = validateBook();
+        mChapterNumber = validateChapter();
+        boolean validated = ((mBookNumber > 0) & (mChapterNumber > 0));
+        if (validated) {
+            Intent intent = new Intent(getContext(), ActivityChapter.class);
+            intent.putExtra(ActivityChapter.ARG_BOOK_NUMBER, mBookNumber + "");
+            intent.putExtra(ActivityChapter.ARG_CHAPTER_NUMBER, mChapterNumber + "");
+            startActivity(intent);
+            resetValues();
+        }
+    }
+
+    private void resetValues() {
+        mBookNumber = mChapterNumber = 0;
+        mBookInput.setText("");
+        mChapterInput.setText("");
+        mChapterInput.setHint("");
+        mBookInput.requestFocus();
+    }
+
+    private int validateChapter() {
+        String input = mChapterInput.getText() + "".trim();
+        if (input.isEmpty()) {
+            return 1;
+        }
+        try {
+            mChapterNumber = Integer.parseInt(input);
+        } catch (NumberFormatException pE) {
+            mChapterNumber = 0;
+        }
+        int maxCount = Integer.parseInt(Book.getDetails(mBookNumber).getChapterCount());
+        if (mChapterNumber > 0 & mChapterNumber <= maxCount) {
+            return mChapterNumber;
+        } else {
+            Log.d(TAG, "validateChapter: Invalid Chapter " + mChapterNumber);
+            mChapterInput.setError("Invalid Chapter");
+            mChapterInput.requestFocus();
+            return 0;
+        }
+    }
+
+    private int validateBook() {
+        String input = mBookInput.getText() + "".trim();
+        if (input.isEmpty()) {
+            Log.d(TAG, "validateBook: Empty Book Name");
+            mBookInput.setError("Empty Book Name");
+            return 0;
+        }
+        mChapterInput.setAdapter(null);
+        mBookNumber = Book.getBookDetails(input);
+        if (mBookNumber > 0 & mBookNumber < 67) {
+            String[] values;
+            int count = Integer.parseInt(Book.getDetails(mBookNumber).getChapterCount());
+            values = new String[count];
+            for (int i = 0; i < count; i++) {
+                values[i] = (i + 1) + "";
+            }
+            mChapterInput.setAdapter(new ArrayAdapter<>(
+                    getContext(), android.R.layout.simple_dropdown_item_1line, values));
+            String hint = getString(R.string.label_input_chapter_count) + " " + count;
+            mChapterInput.setHint(hint);
+            mChapterInput.requestFocus();
+        } else {
+            Log.d(TAG, "validateBook: Invalid BookNumber " + mBookNumber);
+            mBookInput.setError("Invalid Book");
+            mBookInput.requestFocus();
+        }
+        return mBookNumber;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> pAdapterView, View pView, int pI, long pL) {
+        validateBook();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        resetValues();
     }
 }
