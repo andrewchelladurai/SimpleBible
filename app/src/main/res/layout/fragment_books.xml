@@ -34,7 +34,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/cardview_default_radius"
-        app:cardElevation="@dimen/cardview_default_elevation">
+        app:cardElevation="@dimen/cardview_default_elevation"
+        app:cardUseCompatPadding="true">
 
         <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"

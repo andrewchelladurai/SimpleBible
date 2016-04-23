@@ -38,8 +38,9 @@
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/gap"
         android:layout_weight="1"
-        app:cardCornerRadius="@dimen/gap_none"
-        app:cardElevation="@dimen/shadow_depth">
+        app:cardCornerRadius="@dimen/cardview_default_radius"
+        app:cardElevation="@dimen/cardview_default_elevation"
+        app:cardUseCompatPadding="true">
 
         <ListView
             android:id="@+id/activity_chapter_list"

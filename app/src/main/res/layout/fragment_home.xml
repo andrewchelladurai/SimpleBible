@@ -85,7 +85,9 @@
         android:layout_gravity="center"
         android:layout_marginBottom="@dimen/gap_big"
         android:layout_marginTop="@dimen/gap_big"
-        app:cardElevation="@dimen/cardview_default_elevation">
+        app:cardCornerRadius="@dimen/cardview_default_radius"
+        app:cardElevation="@dimen/cardview_default_elevation"
+        app:cardUseCompatPadding="true">
 
         <TextView
             android:id="@+id/fragment_home_daily_verse"
