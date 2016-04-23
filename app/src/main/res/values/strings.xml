@@ -115,5 +115,6 @@
     <string name="label_delete">Delete</string>
     <string name="label_share">Share</string>
     <string name="title_activity_activity_chapter">Chapter</string>
+    <string name="label_chapter">Chapter</string>
 
 </resources>
