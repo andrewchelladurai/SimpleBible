@@ -105,7 +105,7 @@ public class FragmentVerseNotes
 
         private static void addItem(Details item) {
             ITEMS.add(item);
-            ITEM_MAP.put(item.id, item);
+            ITEM_MAP.put(item.mId, item);
         }
 
         private static Details createDummyItem(int position) {
@@ -124,19 +124,19 @@ public class FragmentVerseNotes
 
         public static class Details {
 
-            public final String id;
-            public final String content;
-            public final String details;
+            public final String mId;
+            public final String mVerse;
+            public final String mNotes;
 
             public Details(String id, String content, String details) {
-                this.id = id;
-                this.content = content;
-                this.details = details;
+                this.mId = id;
+                this.mVerse = content;
+                this.mNotes = details;
             }
 
             @Override
             public String toString() {
-                return content;
+                return mVerse;
             }
         }
     }

@@ -54,8 +54,8 @@ public class AdapterVerseNotes
     @Override
     public void onBindViewHolder(final DetailsView holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mId.setText(mValues.get(position).id);
-        holder.mNotes.setText(mValues.get(position).content);
+        holder.mId.setText(mValues.get(position).mId);
+        holder.mNotes.setText(mValues.get(position).mVerse);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
