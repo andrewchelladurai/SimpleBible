@@ -25,6 +25,7 @@
 package com.andrewchelladurai.simplebible;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -35,6 +36,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 26-Feb-2016 @ 1:15 AM
@@ -164,6 +166,38 @@ public class DatabaseUtility
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
     }
 
+    public ArrayList<String> getAllVersesOfChapter(final int pBookNumber,
+                                                   final int pChapterNumber) {
+        Log.d(TAG, "getAllVersesOfChapter() called BookNumber = [" + pBookNumber +
+                   "], ChapterNumber = [" + pChapterNumber + "]");
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        String[] selectCols = BIBLE_COLUMNS;
+        String whereCondition = BIBLE_COLUMN_BOOK_ID + " = ? AND " +
+                                BIBLE_COLUMN_CHAPTER_ID + " = ?";
+        String[] conditionParams = {pBookNumber + "", pChapterNumber + ""};
+
+        Cursor cursor = db.query(BIBLE_NIV_TABLE, selectCols, whereCondition,
+                                 conditionParams, null, null, null, null);
+
+        ArrayList<String> list = new ArrayList<>(0);
+
+        if (cursor.moveToFirst()) {
+            int verseIndex = cursor.getColumnIndex("Verse");
+            int verseIdIndex = cursor.getColumnIndex("VerseId");
+            //            int chapterIdIndex = cursor.getColumnIndex("ChapterId");
+            //            int bookIdIndex = cursor.getColumnIndex("BookId");
+            do {
+                list.add(cursor.getInt(verseIdIndex) + " - " + cursor.getString(verseIndex));
+            } while (cursor.moveToNext());
+            if (list.size() > 0) {
+                cursor.close();
+            }
+        }
+        return list;
+    }
+
 /*    public String getSpecificVerse(int bookNumber, int chapterNumber, int verseNumber) {
         String verseText;
         Log.d(TAG, "getSpecificVerse() called with: bookNumber = [" + bookNumber +
@@ -188,8 +222,8 @@ public class DatabaseUtility
                 BIBLE_COLUMN_VERSE_ID + "=" + verseNumber;
         Log.i(TAG, "getSpecificVerse: sql = " + sql);
 
-        Cursor cursor = db.query(BIBLE_NIV_TABLE, selectColumns, whereCondition, conditionParameters,
-                null, null, null, null);
+        Cursor cursor = db.query(BIBLE_NIV_TABLE, selectColumns, whereCondition,
+        conditionParameters, null, null, null, null);
         if (cursor.moveToFirst()) {
             int index = cursor.getColumnIndex(BIBLE_COLUMN_VERSE_TEXT);
             String[] cols = cursor.getColumnNames();

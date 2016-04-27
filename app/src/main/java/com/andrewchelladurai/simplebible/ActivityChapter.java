@@ -25,124 +25,24 @@
 package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
 
 public class ActivityChapter
-        extends AppCompatActivity
-        implements View.OnClickListener {
+        extends AppCompatActivity {
 
-    private static final String TAG = "ActivityChapter";
-    public static final String ARG_BOOK_NUMBER = "ARG_BOOK_NUMBER";
-    public static final String ARG_CHAPTER_NUMBER = "ARG_CHAPTER_NUMBER";
-    private Book.Details mBookDetails = null;
-    private int mCurrentChapter = 0;
+    public static String ARG_BOOK_NUMBER = "BOOK_NUMBER";
+    public static String ARG_CHAPTER_NUMBER = "CHAPTER_NUMBER";
 
     @Override
-    protected void onCreate(Bundle savedState) {
-        super.onCreate(savedState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chapter);
-
-        int bNum;
-        try {
-            bNum = Integer.parseInt(getIntent().getStringExtra(ARG_BOOK_NUMBER));
-        } catch (NumberFormatException nfe) {
-            nfe.printStackTrace();
-            bNum = 0;
-        }
-        if (bNum < 1 || bNum > 66) {
-            Log.d(TAG, "onCreate: Invalid Book Number : " + bNum);
-            return;
-        }
-
-        try {
-            mCurrentChapter = Integer.parseInt(getIntent().getStringExtra(ARG_CHAPTER_NUMBER));
-        } catch (NumberFormatException nfe) {
-            nfe.printStackTrace();
-            mCurrentChapter = 0;
-        }
-        if (mCurrentChapter < 1) {
-            Log.d(TAG, "onCreate: Invalid Chapter Number : " + mCurrentChapter);
-            return;
-        }
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_chapter_toolbar);
         setSupportActionBar(toolbar);
 
         if (null != getSupportActionBar()) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
-        mBookDetails = Book.getDetails(bNum);
-
-        Log.d(TAG, "onCreate: Showing chapter " + mCurrentChapter + " of " +
-                   mBookDetails.getNumber() + "-" + mBookDetails.getName() + ":" +
-                   mBookDetails.getChapterCount());
-
-        bindButton(R.id.activity_chapter_but_previous);
-        bindButton(R.id.activity_chapter_but_notes);
-        bindButton(R.id.activity_chapter_but_search);
-        bindButton(R.id.activity_chapter_but_next);
-
-        refreshChapterContents();
-    }
-
-    private void bindButton(final int pButtonId) {
-        AppCompatImageButton button = (AppCompatImageButton) findViewById(pButtonId);
-        if (null != button) {
-            button.setOnClickListener(this);
-        }
-    }
-
-    public void handlePreviousButtonClick(View view) {
-        Log.d(TAG, "handlePreviousButtonClick: ");
-        if (mCurrentChapter == 1) {
-            Snackbar.make(view, "Already showing Chapter 1", Snackbar.LENGTH_SHORT).show();
-            return;
-        }
-        mCurrentChapter--;
-        refreshChapterContents();
-    }
-
-    public void handleNotesButtonClick(View view) {
-        finish();
-        ActivitySimpleBible.showNotesSection();
-    }
-
-    public void handleSearchButtonClick(View view) {
-        finish();
-        ActivitySimpleBible.showSearchSection();
-    }
-
-    public void handleNextButtonClick(View view) {
-        Log.d(TAG, "handleNextButtonClick: ");
-        if (mCurrentChapter == Integer.parseInt(mBookDetails.getChapterCount() + "")) {
-            Snackbar.make(view, "Already showing Last Chapter", Snackbar.LENGTH_SHORT).show();
-            return;
-        }
-        mCurrentChapter++;
-        refreshChapterContents();
-    }
-
-    @Override
-    public void onClick(final View pView) {
-        switch (pView.getId()) {
-            case R.id.activity_chapter_but_previous: handlePreviousButtonClick(pView); break;
-            case R.id.activity_chapter_but_notes: handleNotesButtonClick(pView); break;
-            case R.id.activity_chapter_but_search: handleSearchButtonClick(pView); break;
-            case R.id.activity_chapter_but_next: handleNextButtonClick(pView); break;
-            default:
-                Log.d(TAG, "onClick: in default case");
-        }
-    }
-
-    private void refreshChapterContents() {
-        String title = mBookDetails.getName() + " " +
-                       getString(R.string.title_activity_activity_chapter) + " " + mCurrentChapter;
-        setTitle(title);
     }
 }

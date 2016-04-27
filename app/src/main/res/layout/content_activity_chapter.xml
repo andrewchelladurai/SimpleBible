@@ -42,7 +42,7 @@
         app:cardElevation="@dimen/cardview_default_elevation"
         app:cardUseCompatPadding="true">
 
-        <ListView
+        <android.support.v7.widget.ListViewCompat
             android:id="@+id/activity_chapter_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -52,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@color/primary_dark"
+        android:background="@color/primary"
         android:gravity="center">
 
         <android.support.v7.widget.AppCompatImageButton
@@ -60,7 +60,7 @@
             style="@style/Widget.AppCompat.Button.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/primary_dark"
+            android:background="@color/primary"
             android:src="@drawable/ic_arrow_back_white_18dp" />
 
         <android.support.v7.widget.AppCompatImageButton
@@ -68,7 +68,7 @@
             style="@style/Widget.AppCompat.Button.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/primary_dark"
+            android:background="@color/primary"
             android:src="@drawable/ic_mode_edit_white_18dp" />
 
         <android.support.v7.widget.AppCompatImageButton
@@ -76,7 +76,7 @@
             style="@style/Widget.AppCompat.Button.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/primary_dark"
+            android:background="@color/primary"
             android:src="@drawable/ic_view_module_white_18dp" />
 
         <android.support.v7.widget.AppCompatImageButton
@@ -84,7 +84,7 @@
             style="@style/Widget.AppCompat.Button.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/primary_dark"
+            android:background="@color/primary"
             android:src="@drawable/ic_search_white_18dp" />
 
         <android.support.v7.widget.AppCompatImageButton
@@ -92,7 +92,7 @@
             style="@style/Widget.AppCompat.Button.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/primary_dark"
+            android:background="@color/primary"
             android:src="@drawable/ic_arrow_forward_white_18dp" />
     </android.support.v7.widget.LinearLayoutCompat>
 
