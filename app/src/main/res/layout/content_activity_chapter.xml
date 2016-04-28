@@ -22,7 +22,7 @@
   ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -48,52 +48,48 @@
             android:layout_height="match_parent" />
     </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.LinearLayoutCompat
+    <android.support.v7.widget.ButtonBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@color/primary"
         android:gravity="center">
 
         <android.support.v7.widget.AppCompatImageButton
             android:id="@+id/activity_chapter_but_previous"
-            style="@style/Widget.AppCompat.Button.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/primary"
-            android:src="@drawable/ic_arrow_back_white_18dp" />
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_arrow_back_white_18dp"
+            android:tint="@color/primary_dark" />
 
-        <android.support.v7.widget.AppCompatImageButton
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/activity_chapter_but_notes"
-            style="@style/Widget.AppCompat.Button.Small"
+            style="?buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/primary"
-            android:src="@drawable/ic_mode_edit_white_18dp" />
+            android:text="@string/label_notes" />
 
-        <android.support.v7.widget.AppCompatImageButton
-            android:id="@+id/activity_chapter_but_chapters"
-            style="@style/Widget.AppCompat.Button.Small"
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/activity_chapter_but_chapter"
+            style="?buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/primary"
-            android:src="@drawable/ic_view_module_white_18dp" />
+            android:text="@string/label_chapter" />
 
-        <android.support.v7.widget.AppCompatImageButton
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/activity_chapter_but_search"
-            style="@style/Widget.AppCompat.Button.Small"
+            style="?buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/primary"
-            android:src="@drawable/ic_search_white_18dp" />
+            android:text="@string/label_search" />
 
         <android.support.v7.widget.AppCompatImageButton
             android:id="@+id/activity_chapter_but_next"
-            style="@style/Widget.AppCompat.Button.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/primary"
-            android:src="@drawable/ic_arrow_forward_white_18dp" />
-    </android.support.v7.widget.LinearLayoutCompat>
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_arrow_forward_white_18dp"
+            android:tint="@color/primary_dark" />
 
-</LinearLayout>
+    </android.support.v7.widget.ButtonBarLayout>
+</android.support.v7.widget.LinearLayoutCompat>
