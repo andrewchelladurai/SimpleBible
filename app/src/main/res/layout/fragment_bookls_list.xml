@@ -29,8 +29,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/gap"
-    android:paddingBottom="@dimen/gap_big"
     app:layoutManager="LinearLayoutManager"
     tools:context=".FragmentBooksList"
-    tools:listitem="@layout/fragment_books" />
+    tools:listitem="@layout/fragment_books"/>
