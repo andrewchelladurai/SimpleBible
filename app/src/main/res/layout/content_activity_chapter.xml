@@ -90,6 +90,5 @@
             android:background="@android:color/transparent"
             android:src="@drawable/ic_arrow_forward_white_18dp"
             android:tint="@color/primary_dark" />
-
     </android.support.v7.widget.ButtonBarLayout>
 </android.support.v7.widget.LinearLayoutCompat>
