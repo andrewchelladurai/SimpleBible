@@ -58,12 +58,12 @@ public class ActivityChapter
 
     private void bindButton(int pButtonId, boolean pIsImageButton) {
         if (pIsImageButton) {
-            AppCompatButton button = (AppCompatButton) findViewById(pButtonId);
+            AppCompatImageButton button = (AppCompatImageButton) findViewById(pButtonId);
             if (null != button) {
                 button.setOnClickListener(this);
             }
         } else {
-            AppCompatImageButton button = (AppCompatImageButton) findViewById(pButtonId);
+            AppCompatButton button = (AppCompatButton) findViewById(pButtonId);
             if (null != button) {
                 button.setOnClickListener(this);
             }
@@ -87,7 +87,8 @@ public class ActivityChapter
     }
 
     private void handleSearchButtonClick() {
-
+        finish();
+        ActivitySimpleBible.showSearchSection();
     }
 
     private void handleChapterButtonClick() {
@@ -95,7 +96,8 @@ public class ActivityChapter
     }
 
     private void handleNotesButtonClick() {
-
+        finish();
+        ActivitySimpleBible.showNotesSection();
     }
 
     private void handlePreviousButtonClick() {
