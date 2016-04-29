@@ -59,10 +59,6 @@ public class Book {
         Log.d(TAG, "populateDetails: " + BOOKS.size() + " books created");
     }
 
-    public static Details getDetails(int pBookNumber) {
-        return BOOK_MAP.get(pBookNumber + "");
-    }
-
     public static String[] getAllBookNames() {
         String[] values = new String[BOOKS.size()];
         int i = 0;
@@ -71,6 +67,10 @@ public class Book {
             i++;
         }
         return values;
+    }
+
+    public static Details getBookDetails(int pBookNumber) {
+        return BOOK_MAP.get(pBookNumber + "");
     }
 
     public static int getBookDetails(final String pName) {

@@ -138,7 +138,7 @@ public class FragmentHome
         } catch (NumberFormatException pE) {
             mChapterNumber = 0;
         }
-        int maxCount = Integer.parseInt(Book.getDetails(mBookNumber).getChapterCount());
+        int maxCount = Integer.parseInt(Book.getBookDetails(mBookNumber).getChapterCount());
         if (mChapterNumber > 0 & mChapterNumber <= maxCount) {
             return mChapterNumber;
         } else {
@@ -160,7 +160,7 @@ public class FragmentHome
         mBookNumber = Book.getBookDetails(input);
         if (mBookNumber > 0 & mBookNumber < 67) {
             String[] values;
-            int count = Integer.parseInt(Book.getDetails(mBookNumber).getChapterCount());
+            int count = Integer.parseInt(Book.getBookDetails(mBookNumber).getChapterCount());
             values = new String[count];
             for (int i = 0; i < count; i++) {
                 values[i] = (i + 1) + "";

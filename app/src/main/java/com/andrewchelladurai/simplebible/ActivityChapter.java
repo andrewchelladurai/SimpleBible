@@ -29,14 +29,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 public class ActivityChapter
         extends AppCompatActivity
         implements View.OnClickListener {
 
+    private static final String TAG = "ActivityChapter";
     public static String ARG_BOOK_NUMBER = "BOOK_NUMBER";
     public static String ARG_CHAPTER_NUMBER = "CHAPTER_NUMBER";
+
+    private Book.Details mBook;
+    private int mCurrentChapter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,31 @@ public class ActivityChapter
         bindButton(R.id.activity_chapter_but_chapter, false);
         bindButton(R.id.activity_chapter_but_search, false);
         bindButton(R.id.activity_chapter_but_next, true);
+
+        try {
+            mBook = Book.getBookDetails(
+                    Integer.parseInt(getIntent().getStringExtra(ARG_BOOK_NUMBER)));
+        } catch (NumberFormatException pE) {
+            mBook = null;
+            pE.printStackTrace();
+        }
+        try {
+            mCurrentChapter = Integer.parseInt(getIntent().getStringExtra(ARG_CHAPTER_NUMBER));
+        } catch (NumberFormatException pE) {
+            mCurrentChapter = 0;
+            pE.printStackTrace();
+        }
+        if (null != mBook) {
+            mCurrentChapter = (isChapterValid()) ? mCurrentChapter : 1;
+        }
+        Log.i(TAG, "onCreate: Showing [book][chapter] : [" + mBook.getName() +
+                   "][" + mCurrentChapter + "]");
+        String value = getString(R.string.label_chapter) + " " + mCurrentChapter;
+        setTitle(value);
+    }
+
+    private boolean isChapterValid() {
+        return mCurrentChapter > 0 && mCurrentChapter <= Integer.parseInt(mBook.getChapterCount());
     }
 
     private void bindButton(int pButtonId, boolean pIsImageButton) {

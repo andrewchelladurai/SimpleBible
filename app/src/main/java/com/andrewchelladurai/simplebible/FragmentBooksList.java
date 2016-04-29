@@ -86,7 +86,7 @@ public class FragmentBooksList
 
     public void bookEntryClicked(final Book.Details pItem) {
         Intent intent = new Intent(getContext(), ActivityChapter.class);
-        intent.putExtra(ActivityChapter.ARG_BOOK_NUMBER, pItem.getNumber());
+        intent.putExtra(ActivityChapter.ARG_BOOK_NUMBER, pItem.getNumber() + "");
         intent.putExtra(ActivityChapter.ARG_CHAPTER_NUMBER, 1 + "");
         startActivity(intent);
     }
