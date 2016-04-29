@@ -26,6 +26,7 @@ package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageButton;
@@ -33,6 +34,9 @@ import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -50,6 +54,7 @@ public class ActivityChapter
     private AdapterVerse<String> mVersesAdapter = null;
     private ArrayList<String> mVersesArray = null;
     private ListViewCompat mVerseList = null;
+    private AlertDialog mNewChapterDialog = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +66,6 @@ public class ActivityChapter
         if (null != getSupportActionBar()) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
-        bindButton(R.id.activity_chapter_but_previous, true);
-        bindButton(R.id.activity_chapter_but_notes, false);
-        bindButton(R.id.activity_chapter_but_chapter, false);
-        bindButton(R.id.activity_chapter_but_search, false);
-        bindButton(R.id.activity_chapter_but_next, true);
 
         try {
             mBook = Book.getBookDetails(
@@ -86,6 +85,16 @@ public class ActivityChapter
         }
         Log.i(TAG, "onCreate: Showing [book][chapter] : [" + mBook.getName() +
                    "][" + mCurrentChapter + "]");
+
+        bindButton(R.id.activity_chapter_but_previous, true);
+        bindButton(R.id.activity_chapter_but_notes, false);
+        bindButton(R.id.activity_chapter_but_chapter, false);
+        bindButton(R.id.activity_chapter_but_search, false);
+        bindButton(R.id.activity_chapter_but_next, true);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(R.layout.chapter_dialog);
+        mNewChapterDialog = builder.create();
 
         mVersesArray = new ArrayList<>(0);
         mVersesAdapter = new AdapterVerse<>(getApplicationContext(),
@@ -143,7 +152,38 @@ public class ActivityChapter
     }
 
     private void handleChapterButtonClick() {
+        mNewChapterDialog.show();
+        GridView gridView = (GridView) mNewChapterDialog.findViewById(R.id.chapter_dialog_grid);
+        if (null != gridView) {
+            int pCount = Integer.parseInt(mBook.getChapterCount());
+            String[] values = new String[pCount];
+            for (int i = 0; i < pCount; i++) {
+                values[i] = "" + (i + 1);
+            }
+            gridView.setAdapter(
+                    new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, values));
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(
+                        AdapterView<?> parent, View view, int position, long id) {
+                    mNewChapterDialog.dismiss();
+                    handleNewChapterSelected(position + 1);
+                }
+            });
+        }
+    }
 
+    private void handleNewChapterSelected(int pNewChapter) {
+        if (pNewChapter == mCurrentChapter) {
+            return;
+        }
+        int oldChapterNumber = mCurrentChapter;
+        mCurrentChapter = pNewChapter;
+        if (isChapterValid()) {
+            refreshChapter();
+        } else {
+            mCurrentChapter = oldChapterNumber;
+        }
     }
 
     private void handleNotesButtonClick() {
