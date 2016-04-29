@@ -25,6 +25,7 @@
 package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageButton;
@@ -32,7 +33,7 @@ import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -44,10 +45,11 @@ public class ActivityChapter
     public static String ARG_BOOK_NUMBER = "BOOK_NUMBER";
     public static String ARG_CHAPTER_NUMBER = "CHAPTER_NUMBER";
 
-    private Book.Details mBook;
+    private Book.Details mBook = null;
     private int mCurrentChapter = 0;
-    private AdapterVerse<String> mVersesAdapter;
-    private ArrayList<String> mVersesList;
+    private AdapterVerse<String> mVersesAdapter = null;
+    private ArrayList<String> mVersesArray = null;
+    private ListViewCompat mVerseList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,15 +86,13 @@ public class ActivityChapter
         }
         Log.i(TAG, "onCreate: Showing [book][chapter] : [" + mBook.getName() +
                    "][" + mCurrentChapter + "]");
-        String value = getString(R.string.label_chapter) + " " + mCurrentChapter;
-        setTitle(value);
 
-        mVersesList = new ArrayList<>(0);
+        mVersesArray = new ArrayList<>(0);
         mVersesAdapter = new AdapterVerse<>(getApplicationContext(),
-                                            android.R.layout.simple_list_item_1, mVersesList);
-        final ListViewCompat list = (ListViewCompat) findViewById(R.id.activity_chapter_list);
-        if (list != null) {
-            list.setAdapter(mVersesAdapter);
+                                            android.R.layout.simple_list_item_1, mVersesArray);
+        mVerseList = (ListViewCompat) findViewById(R.id.activity_chapter_list);
+        if (mVerseList != null) {
+            mVerseList.setAdapter(mVersesAdapter);
         }
         refreshChapter();
     }
@@ -128,7 +128,13 @@ public class ActivityChapter
     }
 
     private void handleNextButtonClick() {
-
+        mCurrentChapter++;
+        if (isChapterValid()) {
+            refreshChapter();
+        } else {
+            Snackbar.make(mVerseList, "You are at Last Chapter", Snackbar.LENGTH_SHORT).show();
+            mCurrentChapter--;
+        }
     }
 
     private void handleSearchButtonClick() {
@@ -146,15 +152,24 @@ public class ActivityChapter
     }
 
     private void handlePreviousButtonClick() {
-
+        mCurrentChapter--;
+        if (isChapterValid()) {
+            refreshChapter();
+        } else {
+            mCurrentChapter++;
+            Snackbar.make(mVerseList, "You are at First Chapter", Snackbar.LENGTH_SHORT).show();
+        }
     }
 
     private void refreshChapter() {
         DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
         int book = Integer.parseInt(mBook.getNumber());
         ArrayList<String> values = dbu.getAllVersesOfChapter(book, mCurrentChapter);
-        mVersesList.clear();
-        mVersesList.addAll(values);
+        mVersesArray.clear();
+        mVersesArray.addAll(values);
         mVersesAdapter.notifyDataSetChanged();
+        mVerseList.setSelectionAfterHeaderView();
+        setTitle(mBook.getName() + " : " +
+                 getString(R.string.label_chapter) + " " + mCurrentChapter);
     }
 }
