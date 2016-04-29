@@ -48,7 +48,7 @@ public class AdapterVerseNotes
     @Override
     public DetailsView onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                                  .inflate(R.layout.verse_notes_item, parent, false);
+                .inflate(R.layout.verse_notes_item, parent, false);
 
         bindButton(R.id.verse_notes_item_but_share, view);
         bindButton(R.id.verse_notes_item_but_edit, view);

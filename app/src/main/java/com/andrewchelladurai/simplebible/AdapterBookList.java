@@ -46,7 +46,7 @@ public class AdapterBookList
     @Override
     public DetailsView onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                                  .inflate(R.layout.fragment_books, parent, false);
+                .inflate(R.layout.fragment_books, parent, false);
         return new DetailsView(view);
     }
 

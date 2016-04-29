@@ -42,19 +42,19 @@ public class KeyboardHideListener
         activity = pActivity;
     }
 
-    private void hideKeyboard(){
+    @Override
+    public void onPageScrolled(final int position, final float positionOffset,
+                               final int positionOffsetPixels) {
+        hideKeyboard();
+    }
+
+    private void hideKeyboard() {
         InputMethodManager im = (InputMethodManager)
                 activity.getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         View view = activity.getCurrentFocus();
         if (view != null) {
             im.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
-    }
-
-    @Override
-    public void onPageScrolled(final int position, final float positionOffset,
-                               final int positionOffsetPixels) {
-        hideKeyboard();
     }
 
     @Override

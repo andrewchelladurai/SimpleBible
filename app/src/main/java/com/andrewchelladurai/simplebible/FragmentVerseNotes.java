@@ -113,16 +113,16 @@ public class FragmentVerseNotes
         }
     }
 
-    private void handleEditClicked() {
-        Log.i(TAG, "handleEditClicked: ");
+    private void handleDeleteClicked() {
+        Log.i(TAG, "handleDeleteClicked: ");
     }
 
     private void handleShareClicked() {
         Log.i(TAG, "handleShareClicked: ");
     }
 
-    private void handleDeleteClicked() {
-        Log.i(TAG, "handleDeleteClicked: ");
+    private void handleEditClicked() {
+        Log.i(TAG, "handleEditClicked: ");
     }
 
     public static class Notes {

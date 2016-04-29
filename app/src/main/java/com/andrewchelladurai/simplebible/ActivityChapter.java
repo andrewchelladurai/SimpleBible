@@ -37,7 +37,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -51,7 +50,7 @@ public class ActivityChapter
 
     private Book.Details mBook = null;
     private int mCurrentChapter = 0;
-    private AdapterVerse<String> mVersesAdapter = null;
+    private AdapterVerseItem<String> mVersesAdapter = null;
     private ArrayList<String> mVersesArray = null;
     private ListViewCompat mVerseList = null;
     private AlertDialog mNewChapterDialog = null;
@@ -97,8 +96,8 @@ public class ActivityChapter
         mNewChapterDialog = builder.create();
 
         mVersesArray = new ArrayList<>(0);
-        mVersesAdapter = new AdapterVerse<>(getApplicationContext(),
-                                            android.R.layout.simple_list_item_1, mVersesArray);
+        mVersesAdapter = new AdapterVerseItem<>(getApplicationContext(),
+                                                android.R.layout.simple_list_item_1, mVersesArray);
         mVerseList = (ListViewCompat) findViewById(R.id.activity_chapter_list);
         if (mVerseList != null) {
             mVerseList.setAdapter(mVersesAdapter);
@@ -124,31 +123,52 @@ public class ActivityChapter
         }
     }
 
+    private void refreshChapter() {
+        DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
+        int book = Integer.parseInt(mBook.getNumber());
+        mVersesArray.clear();
+        mVersesArray.addAll(dbu.getAllVersesOfChapter(book, mCurrentChapter));
+        mVerseList.setSelectionAfterHeaderView();
+        mVersesAdapter.notifyDataSetChanged();
+        setTitle(mBook.getName() + " : " +
+                 getString(R.string.label_chapter) + " " + mCurrentChapter);
+    }
+
     @Override
     public void onClick(View pView) {
         switch (pView.getId()) {
-            case R.id.activity_chapter_but_previous: handlePreviousButtonClick(); break;
-            case R.id.activity_chapter_but_notes: handleNotesButtonClick(); break;
-            case R.id.activity_chapter_but_chapter: handleChapterButtonClick(); break;
-            case R.id.activity_chapter_but_search: handleSearchButtonClick(); break;
-            case R.id.activity_chapter_but_next: handleNextButtonClick(); break;
+            case R.id.activity_chapter_but_previous:
+                handlePreviousButtonClick();
+                break;
+            case R.id.activity_chapter_but_notes:
+                handleNotesButtonClick();
+                break;
+            case R.id.activity_chapter_but_chapter:
+                handleChapterButtonClick();
+                break;
+            case R.id.activity_chapter_but_search:
+                handleSearchButtonClick();
+                break;
+            case R.id.activity_chapter_but_next:
+                handleNextButtonClick();
+                break;
             default: // FIXME: 29/4/16 This must be showcased
         }
     }
 
-    private void handleNextButtonClick() {
-        mCurrentChapter++;
+    private void handlePreviousButtonClick() {
+        mCurrentChapter--;
         if (isChapterValid()) {
             refreshChapter();
         } else {
-            Snackbar.make(mVerseList, "You are at Last Chapter", Snackbar.LENGTH_SHORT).show();
-            mCurrentChapter--;
+            mCurrentChapter++;
+            Snackbar.make(mVerseList, "You are at First Chapter", Snackbar.LENGTH_SHORT).show();
         }
     }
 
-    private void handleSearchButtonClick() {
+    private void handleNotesButtonClick() {
         finish();
-        ActivitySimpleBible.showSearchSection();
+        ActivitySimpleBible.showNotesSection();
     }
 
     private void handleChapterButtonClick() {
@@ -173,6 +193,21 @@ public class ActivityChapter
         }
     }
 
+    private void handleSearchButtonClick() {
+        finish();
+        ActivitySimpleBible.showSearchSection();
+    }
+
+    private void handleNextButtonClick() {
+        mCurrentChapter++;
+        if (isChapterValid()) {
+            refreshChapter();
+        } else {
+            Snackbar.make(mVerseList, "You are at Last Chapter", Snackbar.LENGTH_SHORT).show();
+            mCurrentChapter--;
+        }
+    }
+
     private void handleNewChapterSelected(int pNewChapter) {
         if (pNewChapter == mCurrentChapter) {
             return;
@@ -184,32 +219,5 @@ public class ActivityChapter
         } else {
             mCurrentChapter = oldChapterNumber;
         }
-    }
-
-    private void handleNotesButtonClick() {
-        finish();
-        ActivitySimpleBible.showNotesSection();
-    }
-
-    private void handlePreviousButtonClick() {
-        mCurrentChapter--;
-        if (isChapterValid()) {
-            refreshChapter();
-        } else {
-            mCurrentChapter++;
-            Snackbar.make(mVerseList, "You are at First Chapter", Snackbar.LENGTH_SHORT).show();
-        }
-    }
-
-    private void refreshChapter() {
-        DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
-        int book = Integer.parseInt(mBook.getNumber());
-        ArrayList<String> values = dbu.getAllVersesOfChapter(book, mCurrentChapter);
-        mVersesArray.clear();
-        mVersesArray.addAll(values);
-        mVersesAdapter.notifyDataSetChanged();
-        mVerseList.setSelectionAfterHeaderView();
-        setTitle(mBook.getName() + " : " +
-                 getString(R.string.label_chapter) + " " + mCurrentChapter);
     }
 }

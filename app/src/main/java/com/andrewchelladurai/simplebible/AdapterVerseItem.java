@@ -36,10 +36,10 @@ import java.util.ArrayList;
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 30-Apr-2016 @ 1:19 AM
  */
-public class AdapterVerse<T>
+public class AdapterVerseItem<T>
         extends ArrayAdapter<T> {
 
-    public AdapterVerse(Context pContext, int pLayoutResourceId, ArrayList<T> pVersesList) {
+    public AdapterVerseItem(Context pContext, int pLayoutResourceId, ArrayList<T> pVersesList) {
         super(pContext, pLayoutResourceId, pVersesList);
     }
 

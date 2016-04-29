@@ -41,6 +41,14 @@ public class ActivitySimpleBible
     private static SectionsAdapter mSectionsAdapter;
     private static ViewPager mPager;
 
+    public static void showNotesSection() {
+        mPager.setCurrentItem(2, true);
+    }
+
+    public static void showSearchSection() {
+        mPager.setCurrentItem(3, true);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,15 +85,6 @@ public class ActivitySimpleBible
         int id = item.getItemId();
         return id == R.id.activity_simple_bible_action_settings ||
                super.onOptionsItemSelected(item);
-
-    }
-
-    public static void showNotesSection() {
-        mPager.setCurrentItem(2, true);
-    }
-
-    public static void showSearchSection() {
-        mPager.setCurrentItem(3, true);
     }
 
     private class SectionsAdapter

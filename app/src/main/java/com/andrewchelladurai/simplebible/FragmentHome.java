@@ -41,8 +41,8 @@ public class FragmentHome
         implements View.OnClickListener,
                    AdapterView.OnItemClickListener {
 
-    private static final String TAG = "FragmentHome";
     public static final String DAILY_VERSE_ID = "DAILY_VERSE_ID";
+    private static final String TAG = "FragmentHome";
     private String mDailyVerseId = null;
     private AppCompatAutoCompleteTextView mBookInput;
     private AppCompatAutoCompleteTextView mChapterInput;
@@ -90,6 +90,12 @@ public class FragmentHome
         return view;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        resetValues();
+    }
+
     public String getDailyVerseId() {
         return mDailyVerseId;
     }
@@ -117,35 +123,6 @@ public class FragmentHome
             intent.putExtra(ActivityChapter.ARG_CHAPTER_NUMBER, mChapterNumber + "");
             startActivity(intent);
             resetValues();
-        }
-    }
-
-    private void resetValues() {
-        mBookNumber = mChapterNumber = 0;
-        mBookInput.setText("");
-        mChapterInput.setText("");
-        mChapterInput.setHint("");
-        mBookInput.requestFocus();
-    }
-
-    private int validateChapter() {
-        String input = mChapterInput.getText() + "".trim();
-        if (input.isEmpty()) {
-            return 1;
-        }
-        try {
-            mChapterNumber = Integer.parseInt(input);
-        } catch (NumberFormatException pE) {
-            mChapterNumber = 0;
-        }
-        int maxCount = Integer.parseInt(Book.getBookDetails(mBookNumber).getChapterCount());
-        if (mChapterNumber > 0 & mChapterNumber <= maxCount) {
-            return mChapterNumber;
-        } else {
-            Log.d(TAG, "validateChapter: Invalid Chapter " + mChapterNumber);
-            mChapterInput.setError("Invalid Chapter");
-            mChapterInput.requestFocus();
-            return 0;
         }
     }
 
@@ -178,14 +155,37 @@ public class FragmentHome
         return mBookNumber;
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> pAdapterView, View pView, int pI, long pL) {
-        validateBook();
+    private int validateChapter() {
+        String input = mChapterInput.getText() + "".trim();
+        if (input.isEmpty()) {
+            return 1;
+        }
+        try {
+            mChapterNumber = Integer.parseInt(input);
+        } catch (NumberFormatException pE) {
+            mChapterNumber = 0;
+        }
+        int maxCount = Integer.parseInt(Book.getBookDetails(mBookNumber).getChapterCount());
+        if (mChapterNumber > 0 & mChapterNumber <= maxCount) {
+            return mChapterNumber;
+        } else {
+            Log.d(TAG, "validateChapter: Invalid Chapter " + mChapterNumber);
+            mChapterInput.setError("Invalid Chapter");
+            mChapterInput.requestFocus();
+            return 0;
+        }
+    }
+
+    private void resetValues() {
+        mBookNumber = mChapterNumber = 0;
+        mBookInput.setText("");
+        mChapterInput.setText("");
+        mChapterInput.setHint("");
+        mBookInput.requestFocus();
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        resetValues();
+    public void onItemClick(AdapterView<?> pAdapterView, View pView, int pI, long pL) {
+        validateBook();
     }
 }
