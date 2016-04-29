@@ -28,9 +28,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageButton;
+import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+
+import java.util.ArrayList;
 
 public class ActivityChapter
         extends AppCompatActivity
@@ -42,6 +46,8 @@ public class ActivityChapter
 
     private Book.Details mBook;
     private int mCurrentChapter = 0;
+    private AdapterVerse<String> mVersesAdapter;
+    private ArrayList<String> mVersesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +86,15 @@ public class ActivityChapter
                    "][" + mCurrentChapter + "]");
         String value = getString(R.string.label_chapter) + " " + mCurrentChapter;
         setTitle(value);
+
+        mVersesList = new ArrayList<>(0);
+        mVersesAdapter = new AdapterVerse<>(getApplicationContext(),
+                                            android.R.layout.simple_list_item_1, mVersesList);
+        final ListViewCompat list = (ListViewCompat) findViewById(R.id.activity_chapter_list);
+        if (list != null) {
+            list.setAdapter(mVersesAdapter);
+        }
+        refreshChapter();
     }
 
     private boolean isChapterValid() {
@@ -132,5 +147,14 @@ public class ActivityChapter
 
     private void handlePreviousButtonClick() {
 
+    }
+
+    private void refreshChapter() {
+        DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
+        int book = Integer.parseInt(mBook.getNumber());
+        ArrayList<String> values = dbu.getAllVersesOfChapter(book, mCurrentChapter);
+        mVersesList.clear();
+        mVersesList.addAll(values);
+        mVersesAdapter.notifyDataSetChanged();
     }
 }
