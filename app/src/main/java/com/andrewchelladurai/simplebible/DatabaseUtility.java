@@ -46,7 +46,7 @@ public class DatabaseUtility
 
     private static final String TAG = "DatabaseUtility";
 
-    private static final String DATABASE_NAME = "Bible_NIV.db";
+    private static final String DATABASE_NAME = "Bible.db";
     private static DatabaseUtility staticInstance = null;
     private static String DB_PATH;
     private static SQLiteDatabase database;
