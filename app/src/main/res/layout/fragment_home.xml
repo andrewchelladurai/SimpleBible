@@ -95,12 +95,13 @@
         android:layout_marginTop="@dimen/gap_big"
         app:cardCornerRadius="@dimen/cardview_default_radius"
         app:cardElevation="@dimen/cardview_default_elevation"
-        app:cardUseCompatPadding="true">
+        app:cardUseCompatPadding="true"
+        android:layout_weight="1">
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/fragment_home_daily_verse"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:padding="@dimen/gap_big"
             android:textAppearance="?attr/textAppearanceListItem"
