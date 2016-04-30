@@ -116,5 +116,7 @@
     <string name="label_share">Share</string>
     <string name="title_activity_activity_chapter">Chapter</string>
     <string name="label_chapter">Chapter</string>
+    <string name="message_search_empty_text">Text to Search is Empty</string>
+    <string name="message_search_length">Search Text must be at least 3 charecters.</string>
 
 </resources>

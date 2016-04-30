@@ -25,18 +25,27 @@
 package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.ListViewCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+
+import java.util.ArrayList;
 
 public class FragmentSearch
         extends Fragment
         implements View.OnClickListener {
 
     private static final String TAG = "FragmentSearch";
+    private TextInputEditText mSearchText;
+    private ListViewCompat mResultsList;
+    private ArrayAdapter<String> mResultsAdapter;
+    private ArrayList<String> mResultsArray;
 
     public FragmentSearch() {
     }
@@ -44,23 +53,22 @@ public class FragmentSearch
     public static FragmentSearch newInstance() {
         FragmentSearch fragment = new FragmentSearch();
         Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
+
+        mSearchText = (TextInputEditText) view.findViewById(R.id.fragment_search_text);
+        mResultsList = (ListViewCompat) view.findViewById(R.id.fragment_search_results);
+        mResultsArray = new ArrayList<>(1);
+        mResultsAdapter = new AdapterVerseItem<>(
+                getContext(), android.R.layout.simple_list_item_1, mResultsArray);
+        mResultsList.setAdapter(mResultsAdapter);
+
         AppCompatButton button = (AppCompatButton) view.findViewById(R.id.fragment_search_button);
         button.setOnClickListener(this);
         return view;
@@ -73,10 +81,29 @@ public class FragmentSearch
                 handleSearchClicked();
                 break;
             default:
+                // FIXME: 30/4/16 This needs to be handled.
         }
     }
 
     private void handleSearchClicked() {
         Log.i(TAG, "handleSearchClicked: ");
+        String input = mSearchText.getText().toString();
+        if (input.isEmpty()) {
+            mSearchText.setError(getString(R.string.message_search_empty_text));
+            return;
+        }
+        if (input.length() < 3) {
+            mSearchText.setError(getString(R.string.message_search_length));
+            return;
+        }
+        DatabaseUtility dbu = DatabaseUtility.getInstance(getContext());
+        ArrayList<String> results = dbu.findText(input);
+        Log.d(TAG, "handleSearchClicked: " + results.size() + " results returned");
+        mResultsArray.clear();
+        if (!results.isEmpty()) {
+            mResultsArray.addAll(results);
+        }
+        mResultsAdapter.notifyDataSetChanged();
+        mResultsList.setSelectionAfterHeaderView();
     }
 }
