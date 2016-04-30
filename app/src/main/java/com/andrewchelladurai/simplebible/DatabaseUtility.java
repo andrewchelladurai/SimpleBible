@@ -51,12 +51,14 @@ public class DatabaseUtility
     private static String DB_PATH;
     private static SQLiteDatabase database;
     private static Context context;
-    private final String BIBLE_NIV_TABLE = "bibleverses";
-    private final String BIBLE_COLUMNS[] = {"BookId", "ChapterId", "VerseId", "Verse"};
-    private final String BIBLE_COLUMN_BOOK_ID = "BookId";
-    private final String BIBLE_COLUMN_CHAPTER_ID = "ChapterId";
-    private final String BIBLE_COLUMN_VERSE_ID = "VerseId";
-    private final String BIBLE_COLUMN_VERSE_TEXT = "Verse";
+
+    private final String BIBLE_TABLE = "BIBLE_VERSES";
+    private final static String COLUMNS[] = {"VERSE_NUMBER", "CHAPTER_NUMBER",
+                                             "BOOK_NUMBER", "VERSE_TEXT"};
+    private final static String BOOK_NUMBER = "BOOK_NUMBER";
+    private final static String CHAPTER_NUMBER = "CHAPTER_NUMBER";
+    private final static String VERSE_NUMBER = "VERSE_NUMBER";
+    private final static String VERSE_TEXT = "VERSE_TEXT";
 
     private DatabaseUtility(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -173,19 +175,19 @@ public class DatabaseUtility
 
         final SQLiteDatabase db = getReadableDatabase();
 
-        String[] selectCols = BIBLE_COLUMNS;
-        String whereCondition = BIBLE_COLUMN_BOOK_ID + " = ? AND " +
-                                BIBLE_COLUMN_CHAPTER_ID + " = ?";
+        String[] selectCols = COLUMNS;
+        String whereCondition = BOOK_NUMBER + " = ? AND " +
+                                CHAPTER_NUMBER + " = ?";
         String[] conditionParams = {pBookNumber + "", pChapterNumber + ""};
 
-        Cursor cursor = db.query(BIBLE_NIV_TABLE, selectCols, whereCondition,
-                                 conditionParams, null, null, BIBLE_COLUMN_VERSE_ID, null);
+        Cursor cursor = db.query(BIBLE_TABLE, selectCols, whereCondition,
+                                 conditionParams, null, null, VERSE_NUMBER, null);
 
         ArrayList<String> list = new ArrayList<>(0);
 
         if (null != cursor && cursor.moveToFirst()) {
-            int verseIndex = cursor.getColumnIndex(BIBLE_COLUMN_VERSE_TEXT);
-            int verseIdIndex = cursor.getColumnIndex(BIBLE_COLUMN_VERSE_ID);
+            int verseIndex = cursor.getColumnIndex(VERSE_TEXT);
+            int verseIdIndex = cursor.getColumnIndex(VERSE_NUMBER);
             //            int chapterIdIndex = cursor.getColumnIndex("ChapterId");
             //            int bookIdIndex = cursor.getColumnIndex("BookId");
             do {
@@ -200,18 +202,18 @@ public class DatabaseUtility
         Log.d(TAG, "findText() called  pInput = [" + pInput + "]");
         ArrayList<String> values = new ArrayList<>(0);
         final SQLiteDatabase db = getReadableDatabase();
-        String[] selectCols = BIBLE_COLUMNS;
-        String whereCondition = BIBLE_COLUMN_VERSE_TEXT + " like ?";
+        String[] selectCols = COLUMNS;
+        String whereCondition = VERSE_TEXT + " like ?";
         String[] conditionParams = {"%" + pInput + "%"};
 
-        Cursor cursor = db.query(BIBLE_NIV_TABLE, selectCols, whereCondition, conditionParams,
-                                 null, null, BIBLE_COLUMN_BOOK_ID);
+        Cursor cursor = db.query(BIBLE_TABLE, selectCols, whereCondition, conditionParams,
+                                 null, null, BOOK_NUMBER);
 
         if (cursor != null && cursor.moveToFirst()) {
-            int verseTextIndex = cursor.getColumnIndex(BIBLE_COLUMN_VERSE_TEXT);
-            int verseNumberIndex = cursor.getColumnIndex(BIBLE_COLUMN_VERSE_ID);
-            int chapterIndex = cursor.getColumnIndex(BIBLE_COLUMN_CHAPTER_ID);
-            int bookIndex = cursor.getColumnIndex(BIBLE_COLUMN_BOOK_ID);
+            int verseTextIndex = cursor.getColumnIndex(VERSE_TEXT);
+            int verseNumberIndex = cursor.getColumnIndex(VERSE_NUMBER);
+            int chapterIndex = cursor.getColumnIndex(CHAPTER_NUMBER);
+            int bookIndex = cursor.getColumnIndex(BOOK_NUMBER);
             int bookValue, chapterValue, verseValue;
             StringBuilder entry = new StringBuilder();
             do {
@@ -233,48 +235,4 @@ public class DatabaseUtility
         Log.d(TAG, "findText() returned: " + values.size());
         return values;
     }
-
-/*    public String getSpecificVerse(int bookNumber, int chapterNumber, int verseNumber) {
-        String verseText;
-        Log.d(TAG, "getSpecificVerse() called with: bookNumber = [" + bookNumber +
-                "], chapterNumber = [" + chapterNumber + "], verseNumber = [" + verseNumber + "]");
-
-        if (bookNumber < 1 || verseNumber < 1 || chapterNumber < 1) {
-            Log.d(TAG, "getSpecificVerse: One of the parameters is < 1, returning null");
-            return null;
-        }
-
-        SQLiteDatabase db = getReadableDatabase();
-
-        String[] selectColumns = {BIBLE_COLUMN_VERSE_TEXT};
-        String whereCondition = BIBLE_COLUMN_BOOK_ID + "=? AND " +
-                BIBLE_COLUMN_CHAPTER_ID + "=? AND " +
-                BIBLE_COLUMN_VERSE_ID + "=?";
-        String[] conditionParameters = {bookNumber + "", chapterNumber + "", verseNumber + ""};
-
-        String sql = "query " + BIBLE_NIV_TABLE + " to show " + BIBLE_COLUMN_VERSE_TEXT +
-                "where " + BIBLE_COLUMN_BOOK_ID + "=" + bookNumber + " AND " +
-                BIBLE_COLUMN_CHAPTER_ID + "=" + chapterNumber + " AND " +
-                BIBLE_COLUMN_VERSE_ID + "=" + verseNumber;
-        Log.i(TAG, "getSpecificVerse: sql = " + sql);
-
-        Cursor cursor = db.query(BIBLE_NIV_TABLE, selectColumns, whereCondition,
-        conditionParameters, null, null, null, null);
-        if (cursor.moveToFirst()) {
-            int index = cursor.getColumnIndex(BIBLE_COLUMN_VERSE_TEXT);
-            String[] cols = cursor.getColumnNames();
-            for (String c : cols) {
-                Log.d(TAG, "\ngetSpecificVerse: Column : " + c);
-            }
-            Log.d(TAG, "getSpecificVerse: index = "+index);
-            verseText = cursor.getString(index);
-        } else {
-            Log.d(TAG, "getSpecificVerse: No record found, returning empty");
-            verseText = "";
-        }
-        cursor.close();
-        Log.d(TAG, "getSpecificVerse: returning : " + verseText);
-        return verseText;
-    }*/
-
 }
