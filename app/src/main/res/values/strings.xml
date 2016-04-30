@@ -107,16 +107,18 @@
     <string name="label_notes">Notes</string>
     <string name="label_search">Search</string>
     <string name="label_goto">Goto Selection</string>
-    <string name="label_input_book">Enter and Select Book Name</string>
-    <string name="label_input_chapter">Select Chapter</string>
-    <string name="label_input_chapter_count">between 1 and</string>
-    <string name="label_input_search">Enter text to search</string>
     <string name="label_edit">Edit</string>
     <string name="label_delete">Delete</string>
     <string name="label_share">Share</string>
     <string name="title_activity_activity_chapter">Chapter</string>
     <string name="label_chapter">Chapter</string>
+    <string name="label_reset">Reset</string>
+    <string name="message_input_book">Enter and Select Book Name</string>
+    <string name="message_input_chapter">Select Chapter</string>
+    <string name="message_input_chapter_count">between 1 and</string>
+    <string name="message_input_search">Enter text to search</string>
     <string name="message_search_empty_text">Text to Search is Empty</string>
     <string name="message_search_length">Search Text must be at least 3 charecters.</string>
+    <string name="message_search_results_found">verses found wit the input text</string>
 
 </resources>

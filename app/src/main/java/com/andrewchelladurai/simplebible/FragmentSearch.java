@@ -78,14 +78,22 @@ public class FragmentSearch
     public void onClick(final View pView) {
         switch (pView.getId()) {
             case R.id.fragment_search_button:
-                handleSearchClicked();
+                AppCompatButton button = (AppCompatButton) pView;
+                String label = button.getText().toString();
+                if (label.equalsIgnoreCase(getString(R.string.label_search))) {
+                    handleSearchClicked(button);
+                } else if (label.equalsIgnoreCase(getString(R.string.label_reset))) {
+                    handleResetClicked(button);
+                } else {
+                    Log.d(TAG, "onClick:" + getString(R.string.how_am_i_here));
+                }
                 break;
             default:
-                // FIXME: 30/4/16 This needs to be handled.
+                Log.d(TAG, "onClick:" + getString(R.string.how_am_i_here));
         }
     }
 
-    private void handleSearchClicked() {
+    private void handleSearchClicked(AppCompatButton pButton) {
         Log.i(TAG, "handleSearchClicked: ");
         String input = mSearchText.getText().toString();
         if (input.isEmpty()) {
@@ -101,9 +109,23 @@ public class FragmentSearch
         Log.d(TAG, "handleSearchClicked: " + results.size() + " results returned");
         mResultsArray.clear();
         if (!results.isEmpty()) {
+            mSearchText.setError(
+                    results.size() + " " + getString(R.string.message_search_results_found));
             mResultsArray.addAll(results);
+            pButton.setText(getString(R.string.label_reset));
+        } else {
+            mSearchText.setError("No " + getString(R.string.message_search_results_found));
         }
         mResultsAdapter.notifyDataSetChanged();
         mResultsList.setSelectionAfterHeaderView();
+    }
+
+    private void handleResetClicked(AppCompatButton pButton) {
+        mSearchText.setText("");
+        mSearchText.setError("");
+        mResultsArray.clear();
+        mResultsAdapter.notifyDataSetChanged();
+        mResultsList.setSelectionAfterHeaderView();
+        pButton.setText(getString(R.string.label_search));
     }
 }

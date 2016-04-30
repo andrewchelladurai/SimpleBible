@@ -144,7 +144,7 @@ public class FragmentHome
             }
             mChapterInput.setAdapter(new ArrayAdapter<>(
                     getContext(), android.R.layout.simple_dropdown_item_1line, values));
-            String hint = getString(R.string.label_input_chapter_count) + " " + count;
+            String hint = getString(R.string.message_input_chapter_count) + " " + count;
             mChapterInput.setHint(hint);
             mChapterInput.requestFocus();
         } else {

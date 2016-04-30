@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/label_input_chapter"
+        android:text="@string/message_input_chapter"
         app:textAllCaps="true" />
 
     <GridView
