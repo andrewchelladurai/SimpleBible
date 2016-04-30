@@ -53,8 +53,8 @@ public class DatabaseUtility
     private static SQLiteDatabase database;
     private static Context context;
 
-    private final String BIBLE_TABLE = "BIBLE_VERSES";
-    private final String DAILY_VERSE_TABLE = "DAILY_VERSE";
+    private final static String BIBLE_TABLE = "BIBLE_VERSES";
+    private final static String DAILY_VERSE_TABLE = "DAILY_VERSE";
     private final static String BOOK_NUMBER = "BOOK_NUMBER";
     private final static String CHAPTER_NUMBER = "CHAPTER_NUMBER";
     private final static String VERSE_NUMBER = "VERSE_NUMBER";
@@ -273,6 +273,18 @@ public class DatabaseUtility
 
     public String getSpecificVerse(int pBook, int pChapter, int pVerse) {
         String value = "";
+        final SQLiteDatabase dbu = getReadableDatabase();
+
+        String[] showColumns = {VERSE_TEXT};
+        String whereCondition =
+                BOOK_NUMBER + "=? AND " + CHAPTER_NUMBER + "=? AND " + VERSE_NUMBER + "=?";
+        String[] conditionParams = {pBook + "", pChapter + "", pVerse + ""};
+        Cursor cursor = dbu.query(BIBLE_TABLE, showColumns, whereCondition, conditionParams,
+                                  null, null, null);
+        if (null != cursor && cursor.moveToFirst()){
+            value = cursor.getString(cursor.getColumnIndex(VERSE_TEXT));
+            cursor.close();
+        }
         return value;
     }
 }
