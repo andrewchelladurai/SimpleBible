@@ -122,7 +122,7 @@ public class FragmentSearch
 
     private void handleResetClicked(AppCompatButton pButton) {
         mSearchText.setText("");
-        mSearchText.setError("");
+        mSearchText.setError(null);
         mResultsArray.clear();
         mResultsAdapter.notifyDataSetChanged();
         mResultsList.setSelectionAfterHeaderView();
