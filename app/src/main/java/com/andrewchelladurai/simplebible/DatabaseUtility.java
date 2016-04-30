@@ -52,10 +52,10 @@ public class DatabaseUtility
     private static SQLiteDatabase database;
     private static Context context;
     private final String BIBLE_NIV_TABLE = "bibleverses";
-    private final String BIBLE_COLUMNS[] = {"bookid", "chapterid", "verseid", "verse"};
-    private final String BIBLE_COLUMN_BOOK_ID = "bookid";
-    private final String BIBLE_COLUMN_CHAPTER_ID = "chapterid";
-    private final String BIBLE_COLUMN_VERSE_ID = "verseid";
+    private final String BIBLE_COLUMNS[] = {"BookId", "ChapterId", "VerseId", "Verse"};
+    private final String BIBLE_COLUMN_BOOK_ID = "BookId";
+    private final String BIBLE_COLUMN_CHAPTER_ID = "ChapterId";
+    private final String BIBLE_COLUMN_VERSE_ID = "VerseId";
     private final String BIBLE_COLUMN_VERSE_TEXT = "Verse";
 
     private DatabaseUtility(Context context) {
@@ -166,12 +166,12 @@ public class DatabaseUtility
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
     }
 
-    public ArrayList<String> getAllVersesOfChapter(final int pBookNumber,
-                                                   final int pChapterNumber) {
+    public ArrayList<String> getAllVersesOfChapter(
+            final int pBookNumber, final int pChapterNumber) {
         Log.d(TAG, "getAllVersesOfChapter() called BookNumber = [" + pBookNumber +
                    "], ChapterNumber = [" + pChapterNumber + "]");
 
-        SQLiteDatabase db = getReadableDatabase();
+        final SQLiteDatabase db = getReadableDatabase();
 
         String[] selectCols = BIBLE_COLUMNS;
         String whereCondition = BIBLE_COLUMN_BOOK_ID + " = ? AND " +
@@ -179,23 +179,59 @@ public class DatabaseUtility
         String[] conditionParams = {pBookNumber + "", pChapterNumber + ""};
 
         Cursor cursor = db.query(BIBLE_NIV_TABLE, selectCols, whereCondition,
-                                 conditionParams, null, null, null, null);
+                                 conditionParams, null, null, BIBLE_COLUMN_VERSE_ID, null);
 
         ArrayList<String> list = new ArrayList<>(0);
 
-        if (cursor.moveToFirst()) {
-            int verseIndex = cursor.getColumnIndex("Verse");
-            int verseIdIndex = cursor.getColumnIndex("VerseId");
+        if (null != cursor && cursor.moveToFirst()) {
+            int verseIndex = cursor.getColumnIndex(BIBLE_COLUMN_VERSE_TEXT);
+            int verseIdIndex = cursor.getColumnIndex(BIBLE_COLUMN_VERSE_ID);
             //            int chapterIdIndex = cursor.getColumnIndex("ChapterId");
             //            int bookIdIndex = cursor.getColumnIndex("BookId");
             do {
                 list.add(cursor.getInt(verseIdIndex) + " - " + cursor.getString(verseIndex));
             } while (cursor.moveToNext());
-            if (list.size() > 0) {
-                cursor.close();
-            }
+            cursor.close();
         }
         return list;
+    }
+
+    public ArrayList<String> findText(String pInput) {
+        Log.d(TAG, "findText() called  pInput = [" + pInput + "]");
+        ArrayList<String> values = new ArrayList<>(0);
+        final SQLiteDatabase db = getReadableDatabase();
+        String[] selectCols = BIBLE_COLUMNS;
+        String whereCondition = BIBLE_COLUMN_VERSE_TEXT + " like ?";
+        String[] conditionParams = {"%" + pInput + "%"};
+
+        Cursor cursor = db.query(BIBLE_NIV_TABLE, selectCols, whereCondition, conditionParams,
+                                 null, null, BIBLE_COLUMN_BOOK_ID);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int verseTextIndex = cursor.getColumnIndex(BIBLE_COLUMN_VERSE_TEXT);
+            int verseNumberIndex = cursor.getColumnIndex(BIBLE_COLUMN_VERSE_ID);
+            int chapterIndex = cursor.getColumnIndex(BIBLE_COLUMN_CHAPTER_ID);
+            int bookIndex = cursor.getColumnIndex(BIBLE_COLUMN_BOOK_ID);
+            int bookValue, chapterValue, verseValue;
+            StringBuilder entry = new StringBuilder();
+            do {
+                bookValue = cursor.getInt(bookIndex);
+                chapterValue = cursor.getInt(chapterIndex);
+                verseValue = cursor.getInt(verseNumberIndex);
+                entry.append(Book.getBookDetails(bookValue).getName())
+                        .append(" (")
+                        .append(chapterValue)
+                        .append(":")
+                        .append(verseValue)
+                        .append(") ")
+                        .append(cursor.getString(verseTextIndex));
+                values.add(entry.toString());
+                entry.delete(0, entry.length());
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        Log.d(TAG, "findText() returned: " + values.size());
+        return values;
     }
 
 /*    public String getSpecificVerse(int bookNumber, int chapterNumber, int verseNumber) {
