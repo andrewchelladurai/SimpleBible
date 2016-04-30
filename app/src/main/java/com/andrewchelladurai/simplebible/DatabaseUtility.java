@@ -37,6 +37,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 26-Feb-2016 @ 1:15 AM
@@ -53,8 +54,7 @@ public class DatabaseUtility
     private static Context context;
 
     private final String BIBLE_TABLE = "BIBLE_VERSES";
-    private final static String COLUMNS[] = {"VERSE_NUMBER", "CHAPTER_NUMBER",
-                                             "BOOK_NUMBER", "VERSE_TEXT"};
+    private final String DAILY_VERSE_TABLE = "DAILY_VERSE";
     private final static String BOOK_NUMBER = "BOOK_NUMBER";
     private final static String CHAPTER_NUMBER = "CHAPTER_NUMBER";
     private final static String VERSE_NUMBER = "VERSE_NUMBER";
@@ -175,7 +175,7 @@ public class DatabaseUtility
 
         final SQLiteDatabase db = getReadableDatabase();
 
-        String[] selectCols = COLUMNS;
+        String[] selectCols = {VERSE_NUMBER, CHAPTER_NUMBER, BOOK_NUMBER, VERSE_TEXT};
         String whereCondition = BOOK_NUMBER + " = ? AND " +
                                 CHAPTER_NUMBER + " = ?";
         String[] conditionParams = {pBookNumber + "", pChapterNumber + ""};
@@ -202,7 +202,7 @@ public class DatabaseUtility
         Log.d(TAG, "findText() called  pInput = [" + pInput + "]");
         ArrayList<String> values = new ArrayList<>(0);
         final SQLiteDatabase db = getReadableDatabase();
-        String[] selectCols = COLUMNS;
+        String[] selectCols = {VERSE_NUMBER, CHAPTER_NUMBER, BOOK_NUMBER, VERSE_TEXT};
         String whereCondition = VERSE_TEXT + " like ?";
         String[] conditionParams = {"%" + pInput + "%"};
 
@@ -234,5 +234,45 @@ public class DatabaseUtility
         }
         Log.d(TAG, "findText() returned: " + values.size());
         return values;
+    }
+
+    public String getVerseForToday() {
+        String verseId = "43:3:16";
+        int dayOfYear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+        Log.i(TAG, "getVerseForToday: dayOfYear = " + dayOfYear);
+
+        final SQLiteDatabase db = getReadableDatabase();
+        String[] selectCols = {BOOK_NUMBER, CHAPTER_NUMBER, VERSE_NUMBER};
+        String whereCondition = " rowid = ?";
+        String[] conditionParams = {"" + dayOfYear};
+
+        Cursor cursor = db.query(DAILY_VERSE_TABLE, selectCols, whereCondition, conditionParams,
+                                 null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int verseNumberIndex = cursor.getColumnIndex(VERSE_NUMBER);
+            int chapterIndex = cursor.getColumnIndex(CHAPTER_NUMBER);
+            int bookIndex = cursor.getColumnIndex(BOOK_NUMBER);
+            int bookValue, chapterValue, verseValue;
+            StringBuilder entry = new StringBuilder();
+            bookValue = cursor.getInt(bookIndex);
+            chapterValue = cursor.getInt(chapterIndex);
+            verseValue = cursor.getInt(verseNumberIndex);
+            entry.append(bookValue)
+                    .append(":")
+                    .append(chapterValue)
+                    .append(":")
+                    .append(verseValue);
+            verseId = entry.toString();
+            entry.delete(0, entry.length());
+            cursor.close();
+        }
+        Log.d(TAG, "getVerseForToday() returned: " + verseId + " for dayOfYear = " + dayOfYear);
+        return verseId;
+    }
+
+    public String getSpecificVerse(int pBook, int pChapter, int pVerse) {
+        String value = "";
+        return value;
     }
 }

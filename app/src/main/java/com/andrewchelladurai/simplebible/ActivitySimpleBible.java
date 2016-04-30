@@ -104,7 +104,8 @@ public class ActivitySimpleBible
                 case 3:
                     return FragmentSearch.newInstance();
                 default:
-                    return FragmentHome.newInstance("");
+                    DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
+                    return FragmentHome.newInstance(dbu.getVerseForToday());
             }
         }
 

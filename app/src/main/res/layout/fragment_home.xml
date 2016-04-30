@@ -97,10 +97,11 @@
         app:cardElevation="@dimen/cardview_default_elevation"
         app:cardUseCompatPadding="true">
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/fragment_home_daily_verse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:padding="@dimen/gap_big"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textStyle="bold" />

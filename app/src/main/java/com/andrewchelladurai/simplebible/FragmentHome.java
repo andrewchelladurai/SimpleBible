@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,7 @@ public class FragmentHome
     private AppCompatAutoCompleteTextView mChapterInput;
     private int mBookNumber = 0;
     private int mChapterNumber = 0;
+    private AppCompatTextView mDailyVerse;
 
     public FragmentHome() {
     }
@@ -85,23 +87,33 @@ public class FragmentHome
         mChapterInput.setAdapter(new ArrayAdapter<>(
                 getContext(), android.R.layout.simple_dropdown_item_1line, new String[]{""}));
 
+        mDailyVerse = (AppCompatTextView) view.findViewById(R.id.fragment_home_daily_verse);
+
         AppCompatButton button = (AppCompatButton) view.findViewById(R.id.fragment_home_button);
         button.setOnClickListener(this);
+        showVerseForToday();
         return view;
+    }
+
+    private void showVerseForToday() {
+        String[] values = mDailyVerseId.split(":");
+        int verse = Integer.parseInt(values[0]);
+        int chapter = Integer.parseInt(values[1]);
+        int book = Integer.parseInt(values[2]);
+
+        DatabaseUtility dbu = DatabaseUtility.getInstance(getContext());
+        String verseText = dbu.getSpecificVerse(book, chapter, verse);
+        String footer = Book.getBookDetails(book).getName()
+                        + " - Chapter " + chapter + " : Verse " + verse;
+
+        String value = verseText + footer;
+        mDailyVerse.setText(value);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         resetValues();
-    }
-
-    public String getDailyVerseId() {
-        return mDailyVerseId;
-    }
-
-    public void setDailyVerseId(final String pDailyVerseId) {
-        mDailyVerseId = pDailyVerseId;
     }
 
     @Override
