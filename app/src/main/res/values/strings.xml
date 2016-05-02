@@ -120,5 +120,12 @@
     <string name="message_search_empty_text">Text to Search is Empty</string>
     <string name="message_search_length">Search Text must be at least 3 charecters.</string>
     <string name="message_search_results_found">verses found wit the input text</string>
+    <string name="daily_verse_template"><![CDATA[<h4>VERSE_TEXT<h4><hr>VERSE_REF]]></string>
+    <string name="daily_verse_template_text">VERSE_TEXT</string>
+    <string name="daily_verse_template_ref">VERSE_REF</string>
+    <string name="daily_verse_ref_template">BOOK_NAME : Chapter CHAPTER_NUMBER : Verse VERSE_NUMBER</string>
+    <string name="daily_verse_ref_template_book_name">BOOK_NAME</string>
+    <string name="daily_verse_ref_template_chapter_number">CHAPTER_NUMBER</string>
+    <string name="daily_verse_ref_template_verse_number">VERSE_NUMBER</string>
 
 </resources>

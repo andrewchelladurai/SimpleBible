@@ -30,6 +30,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,12 +103,23 @@ public class FragmentHome
         int book = Integer.parseInt(values[2]);
 
         DatabaseUtility dbu = DatabaseUtility.getInstance(getContext());
-        String verseText = dbu.getSpecificVerse(book, chapter, verse);
-        String footer = Book.getBookDetails(book).getName()
-                        + " - Chapter " + chapter + " : Verse " + verse;
 
-        String value = verseText + footer;
-        mDailyVerse.setText(value);
+        String verseContent = getString(R.string.daily_verse_template);
+        verseContent = verseContent.replace(getString(R.string.daily_verse_template_text),
+                                            dbu.getSpecificVerse(book, chapter, verse));
+
+        String verseRef = getString(R.string.daily_verse_ref_template);
+        verseRef = verseRef.replace(
+                getString(R.string.daily_verse_ref_template_book_name),
+                Book.getBookDetails(book).getName());
+        verseRef = verseRef.replace(
+                getString(R.string.daily_verse_ref_template_chapter_number), chapter + "");
+        verseRef = verseRef.replace(
+                getString(R.string.daily_verse_ref_template_verse_number), verse + "");
+
+        verseContent = verseContent.replace(getString(R.string.daily_verse_template_ref), verseRef);
+
+        mDailyVerse.setText(Html.fromHtml(verseContent));
     }
 
     @Override
