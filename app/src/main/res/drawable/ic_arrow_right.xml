@@ -1,5 +1,5 @@
 <!--
-  ~ This file 'menu_activity_simple_bible.xml' is part of SimpleBible :
+  ~ This file 'ic_arrow_right.xml' is part of SimpleBible :
   ~
   ~ Copyright (c) 2016.
   ~
@@ -22,20 +22,12 @@
   ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.andrewchelladurai.simplebible.ActivitySimpleBible">
-    <item
-        android:id="@+id/activity_simple_bible_action_settings"
-        android:orderInCategory="100"
-        android:title="@string/label_settings"
-        android:icon="@drawable/ic_settings"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/activity_simple_bible_action_about"
-        android:orderInCategory="100"
-        android:title="@string/label_about"
-        android:icon="@drawable/ic_info"
-        app:showAsAction="ifRoom" />
-</menu>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportHeight="24.0"
+    android:viewportWidth="24.0">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M12,4l-1.41,1.41L16.17,11H4v2h12.17l-5.58,5.59L12,20l8,-8z" />
+</vector>
