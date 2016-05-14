@@ -220,6 +220,15 @@ public class DatabaseUtility
                 bookValue = cursor.getInt(bookIndex);
                 chapterValue = cursor.getInt(chapterIndex);
                 verseValue = cursor.getInt(verseNumberIndex);
+                entry.append("Book ")
+                     .append(bookValue)
+                     .append(" (")
+                     .append(chapterValue)
+                     .append(":")
+                     .append(verseValue)
+                     .append(") ")
+                     .append(cursor.getString(verseTextIndex));
+/*
                 entry.append(Book.getBookDetails(bookValue).getName())
                         .append(" (")
                         .append(chapterValue)
@@ -227,6 +236,7 @@ public class DatabaseUtility
                         .append(verseValue)
                         .append(") ")
                         .append(cursor.getString(verseTextIndex));
+*/
                 values.add(entry.toString());
                 entry.delete(0, entry.length());
             } while (cursor.moveToNext());
@@ -259,10 +269,10 @@ public class DatabaseUtility
             chapterValue = cursor.getInt(chapterIndex);
             verseValue = cursor.getInt(verseNumberIndex);
             entry.append(bookValue)
-                    .append(":")
-                    .append(chapterValue)
-                    .append(":")
-                    .append(verseValue);
+                 .append(":")
+                 .append(chapterValue)
+                 .append(":")
+                 .append(verseValue);
             verseId = entry.toString();
             entry.delete(0, entry.length());
             cursor.close();
@@ -281,7 +291,7 @@ public class DatabaseUtility
         String[] conditionParams = {pBook + "", pChapter + "", pVerse + ""};
         Cursor cursor = dbu.query(BIBLE_TABLE, showColumns, whereCondition, conditionParams,
                                   null, null, null);
-        if (null != cursor && cursor.moveToFirst()){
+        if (null != cursor && cursor.moveToFirst()) {
             value = cursor.getString(cursor.getColumnIndex(VERSE_TEXT));
             cursor.close();
         }

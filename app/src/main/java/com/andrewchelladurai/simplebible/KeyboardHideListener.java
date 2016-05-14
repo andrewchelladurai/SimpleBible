@@ -38,7 +38,7 @@ public class KeyboardHideListener
 
     private AppCompatActivity activity;
 
-    public KeyboardHideListener(final ActivitySimpleBible pActivity) {
+    public KeyboardHideListener(final AppCompatActivity pActivity) {
         activity = pActivity;
     }
 
