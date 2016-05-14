@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorAccent">#cf423c</color>
+    <color name="colorAccent">#3f0b1b</color>
     <color name="primary_text_light">#000000</color>
     <color name="color_navigation_bar">#3f0b1b</color>
     <color name="color_status_bar">#3f0b1b</color>
