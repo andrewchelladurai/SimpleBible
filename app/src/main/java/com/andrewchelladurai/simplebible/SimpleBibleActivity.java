@@ -54,6 +54,7 @@ public class SimpleBibleActivity
             });
         }
 
+        Book.populateBooks(getResources().getStringArray(R.array.books_n_chapter_count_array));
     }
 
     @Override
@@ -123,7 +124,7 @@ public class SimpleBibleActivity
                 case 0: // HOME
                     return HomeFragment.newInstance();
                 case 1:  // BOOKS
-                    return PlaceholderFragment.newInstance(position + 1);
+                    return BookListFragment.newInstance();
                 case 2:  // NOTES
                     return PlaceholderFragment.newInstance(position + 1);
                 case 3:  // SEARCH
