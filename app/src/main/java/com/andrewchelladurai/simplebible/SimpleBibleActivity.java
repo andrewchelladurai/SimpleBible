@@ -54,6 +54,7 @@ public class SimpleBibleActivity
             });
         }
 
+        mViewPager.addOnPageChangeListener(new KeyboardHideListener(this));
         Book.populateBooks(getResources().getStringArray(R.array.books_n_chapter_count_array));
     }
 
