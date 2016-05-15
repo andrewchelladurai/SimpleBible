@@ -29,7 +29,10 @@
                     android:id="@+id/fragment_home_book_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_book_name" />
+                    android:completionThreshold="1"
+                    android:hint="@string/hint_book_name"
+                    android:inputType="textAutoComplete|text"
+                    android:maxLines="1" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.v7.widget.LinearLayoutCompat
@@ -45,10 +48,14 @@
                         android:id="@+id/fragment_home_chapter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/hint_chapter_number" />
+                        android:completionThreshold="1"
+                        android:hint="@string/hint_chapter_number"
+                        android:inputType="numberSigned|textAutoComplete"
+                        android:maxLines="1" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/fragment_home_button"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"

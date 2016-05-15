@@ -31,6 +31,23 @@ public class Book {
         return true;
     }
 
+    public static String[] getAllBookNamed() {
+        String[] names = new String[ENTRY_MAP.size()];
+        for (int i = 0; i < names.length; i++) {
+            names[i] = ENTRY_MAP.get((i + 1)).name;
+        }
+        return names;
+    }
+
+    public static Details getBookDetails(final String pBookName) {
+        for (Details d : ENTRIES) {
+            if (d.name.equalsIgnoreCase(pBookName)) {
+                return d;
+            }
+        }
+        return null;
+    }
+
     public static class Details {
         final int number;
         final String name;
