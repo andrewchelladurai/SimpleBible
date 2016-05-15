@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,8 +21,10 @@ import android.widget.TextView;
 public class SimpleBibleActivity
         extends AppCompatActivity {
 
+    private static final String TAG = "SimpleBibleActivity";
     private PagerAdapter mPagerAdapter;
     private ViewPager mViewPager;
+    private Utilities mUtilities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,7 @@ public class SimpleBibleActivity
 
         mViewPager.addOnPageChangeListener(new KeyboardHideListener(this));
         Book.populateBooks(getResources().getStringArray(R.array.books_n_chapter_count_array));
+        mUtilities = Utilities.getInstance(getResources());
     }
 
     @Override
@@ -79,10 +83,12 @@ public class SimpleBibleActivity
     }
 
     private void aboutButtonClicked() {
+        Log.i(TAG, "aboutButtonClicked: ");
         // FIXME: 14/5/16 Handle About Click
     }
 
     private void settingsButtonClicked() {
+        Log.i(TAG, "settingsButtonClicked: ");
         // FIXME: 14/5/16 Handle Settings Click
     }
 

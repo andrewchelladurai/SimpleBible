@@ -6,38 +6,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/gap"
+    android:padding="@dimen/gapBig"
     tools:context="com.andrewchelladurai.simplebible.SearchFragment">
 
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/gapSmall"
-        android:orientation="vertical"
-        android:padding="@dimen/gapSmall">
+        android:layout_marginBottom="@dimen/gapBig"
+        android:padding="@dimen/gapBig">
 
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/fragment_search_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/fragment_search_label"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
-            android:text="Some Text"
-            style="?textAppearanceSearchResultSubtitle"
             android:layout_height="wrap_content"
-            android:padding="@dimen/gapSmall" />
+            android:layout_weight="1" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/fragment_search_button"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:text="@string/label_search_text" />
     </android.support.v7.widget.LinearLayoutCompat>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/fragment_search_label"
+        style="?textAppearanceSearchResultSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="@dimen/gapBig" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_search_list"

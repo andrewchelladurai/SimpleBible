@@ -17,8 +17,6 @@ public class BookListFragment
         extends Fragment {
 
     private static final String TAG = "BookListFragment";
-    private static final String ARG_COLUMN_COUNT = "COLUMN_COUNT";
-    private int mColumnCount = 2;
 
     public BookListFragment() {
     }
@@ -26,32 +24,23 @@ public class BookListFragment
     public static BookListFragment newInstance() {
         BookListFragment fragment = new BookListFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, 2);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_book_list, container, false);
+        final int count = Utilities.getInstance(null).getBooksColumnCount();
 
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
+            if (count <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+                recyclerView.setLayoutManager(new GridLayoutManager(context, count));
             }
             recyclerView.setAdapter(new BookListAdapter(Book.ENTRIES, this));
         }
