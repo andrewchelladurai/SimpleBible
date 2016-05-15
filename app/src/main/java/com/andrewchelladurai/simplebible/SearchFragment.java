@@ -2,7 +2,6 @@ package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,8 +15,6 @@ public class SearchFragment
         extends Fragment {
 
     private static final String TAG = "SearchFragment";
-    private static final String ARG_COLUMN_COUNT = "COLUMN_COUNT";
-    private int mColumnCount = 1;
 
     public SearchFragment() {
     }
@@ -25,7 +22,6 @@ public class SearchFragment
     public static SearchFragment newInstance() {
         SearchFragment fragment = new SearchFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, 1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -35,7 +31,6 @@ public class SearchFragment
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
     }
 
@@ -45,11 +40,7 @@ public class SearchFragment
         View view = inflater.inflate(R.layout.fragment_search_list, container, false);
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_search_list);
-        if (mColumnCount <= 1) {
-            recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        } else {
-            recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), mColumnCount));
-        }
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(new SearchViewAdapter(SearchResult.ITEMS, this));
 
         return view;

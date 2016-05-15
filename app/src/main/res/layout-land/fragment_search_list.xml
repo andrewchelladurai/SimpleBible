@@ -12,15 +12,15 @@
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/gapBig"
+        android:layout_marginBottom="@dimen/gap"
         android:padding="@dimen/gapBig">
 
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/fragment_search_text"
             android:layout_width="wrap_content"
+            android:hint="@string/hint_text_to_search"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="@string/hint_text_to_search" />
+            android:layout_weight="1" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/fragment_search_button"
@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:padding="@dimen/gapBig" />
+        android:padding="@dimen/gap" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_search_list"
