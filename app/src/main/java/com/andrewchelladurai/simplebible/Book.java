@@ -50,6 +50,10 @@ public class Book {
         return null;
     }
 
+    public static Details getBookDetails(final int pBook) {
+        return (ENTRY_MAP.containsKey(pBook)) ? ENTRY_MAP.get(pBook) : null;
+    }
+
     public static class Details {
         final int number;
         final String name;

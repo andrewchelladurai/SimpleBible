@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +50,7 @@ public class HomeFragment
 
         mChapter = (AppCompatAutoCompleteTextView) view.findViewById(R.id.fragment_home_chapter);
         mDailyVerse = (AppCompatTextView) view.findViewById(R.id.fragment_home_daily_verse);
+        setDailyVerse();
 
         return view;
     }
@@ -63,6 +65,35 @@ public class HomeFragment
         mChapter.setHint(R.string.hint_chapter_number);
         mBookNumber = mChapterNumber = mMaxChapterCount = 0;
         mButton.setEnabled(false);
+    }
+
+    public void setDailyVerse() {
+        final DatabaseUtility dbu = DatabaseUtility.getInstance(null);
+        final String[] parts = dbu.getVerseForToday().split(":");
+        int book = Integer.parseInt(parts[0]);
+        int chapter = Integer.parseInt(parts[1]);
+        int verse = Integer.parseInt(parts[2]);
+
+        String verseContent = getString(R.string.daily_verse_template);
+        verseContent = verseContent.replace(getString(R.string.daily_verse_template_text),
+                                            dbu.getSpecificVerse(book, chapter, verse));
+
+        Book.Details bookDetails = Book.getBookDetails(book);
+        if (bookDetails != null) {
+            String verseRef = getString(R.string.daily_verse_ref_template);
+            verseRef = verseRef.replace(
+                    getString(R.string.daily_verse_ref_template_book_name), bookDetails.name);
+            verseRef = verseRef.replace(
+                    getString(R.string.daily_verse_ref_template_chapter_number), chapter + "");
+            verseRef = verseRef.replace(
+                    getString(R.string.daily_verse_ref_template_verse_number), verse + "");
+            verseContent = verseContent.replace(
+                    getString(R.string.daily_verse_template_ref), verseRef);
+
+            Log.d(TAG, "setDailyVerse: " + verseContent);
+            // FIXME: 16/5/16 Center Align Text on the display
+            mDailyVerse.setText(Html.fromHtml(verseContent));
+        }
     }
 
     class EventHandler

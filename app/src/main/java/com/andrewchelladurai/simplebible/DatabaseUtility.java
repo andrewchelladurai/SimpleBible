@@ -29,6 +29,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
 
 import java.io.File;
@@ -106,7 +107,6 @@ public class DatabaseUtility
                 Log.d(TAG, "checkDataBase: " + sqle.getLocalizedMessage());
                 sqle.printStackTrace();
             } finally {
-                //Android does not like resource leaks, everything should be closed
                 if (checkDb != null) {
                     checkDb.close();
                 }
@@ -248,12 +248,15 @@ public class DatabaseUtility
     public String getVerseForToday() {
         String verseId = "43:3:16";
         int dayOfYear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
-        Log.i(TAG, "getVerseForToday: dayOfYear = " + dayOfYear);
 
         final SQLiteDatabase db = getReadableDatabase();
         String[] selectCols = {BOOK_NUMBER, CHAPTER_NUMBER, VERSE_NUMBER};
         String whereCondition = " rowid = ?";
         String[] conditionParams = {"" + dayOfYear};
+
+        String query = SQLiteQueryBuilder.buildQueryString(
+                true, DAILY_VERSE_TABLE, selectCols, whereCondition, null, null, null, null);
+        Log.d(TAG, "getVerseForToday: Query = " + query);
 
         Cursor cursor = db.query(DAILY_VERSE_TABLE, selectCols, whereCondition, conditionParams,
                                  null, null, null);
@@ -281,6 +284,9 @@ public class DatabaseUtility
     }
 
     public String getSpecificVerse(int pBook, int pChapter, int pVerse) {
+        Log.d(TAG, "getSpecificVerse() called with pBook = [" + pBook + "], pChapter = ["
+                   + pChapter + "], pVerse = [" + pVerse + "]");
+
         String value = "";
         final SQLiteDatabase dbu = getReadableDatabase();
 
@@ -288,12 +294,18 @@ public class DatabaseUtility
         String whereCondition =
                 BOOK_NUMBER + "=? AND " + CHAPTER_NUMBER + "=? AND " + VERSE_NUMBER + "=?";
         String[] conditionParams = {pBook + "", pChapter + "", pVerse + ""};
+
+        String query = SQLiteQueryBuilder.buildQueryString(
+                true, BIBLE_TABLE, showColumns, whereCondition, null, null, null, null);
+        Log.d(TAG, "getSpecificVerse: Query = " + query);
+
         Cursor cursor = dbu.query(BIBLE_TABLE, showColumns, whereCondition, conditionParams,
                                   null, null, null);
         if (null != cursor && cursor.moveToFirst()) {
             value = cursor.getString(cursor.getColumnIndex(VERSE_TEXT));
             cursor.close();
         }
+        Log.d(TAG, "getSpecificVerse() returned: " + value);
         return value;
     }
 }

@@ -46,21 +46,18 @@
     </android.support.v7.widget.LinearLayoutCompat>
 
     <android.support.v7.widget.CardView
+        android:layout_marginTop="@dimen/gapBig"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         app:cardBackgroundColor="@color/cardview_light_background"
         app:cardCornerRadius="@dimen/cardview_default_radius"
         app:cardUseCompatPadding="true">
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/fragment_home_daily_verse"
-            style="?title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="@dimen/gap"
-            android:textColor="@color/primary_text_light"
-            android:textStyle="bold" />
+            android:padding="@dimen/gap" />
     </android.support.v7.widget.CardView>
 </android.support.v7.widget.LinearLayoutCompat>

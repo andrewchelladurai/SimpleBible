@@ -56,6 +56,7 @@ public class SimpleBibleActivity
 */
 
         Utilities.getInstance(getResources());
+        DatabaseUtility.getInstance(getApplicationContext());
         mViewPager.addOnPageChangeListener(new KeyboardHideListener(this));
         Book.populateBooks(getResources().getStringArray(R.array.books_n_chapter_count_array));
     }

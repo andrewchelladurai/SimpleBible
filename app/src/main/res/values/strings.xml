@@ -105,10 +105,19 @@
     <string name="menu_item_about">About</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hint_book_name">Enter Book Name</string>
     <string name="hint_chapter_number">Chapter #</string>
     <string name="hint_text_to_search">Enter exact text to search</string>
     <string name="button_goto_location">Goto Location</string>
     <string name="button_search_text">Search Text</string>
     <string name="book_details_append_chapters">" Chapters"</string>
+
+    <string name="daily_verse_template"><![CDATA[<h1>Today\'s Verse</h1><h4>VERSE_TEXT</h4><hr>VERSE_REF]]></string>
+    <string name="daily_verse_template_text">VERSE_TEXT</string>
+    <string name="daily_verse_template_ref">VERSE_REF</string>
+    <string name="daily_verse_ref_template">BOOK_NAME : Chapter CHAPTER_NUMBER : Verse VERSE_NUMBER</string>
+    <string name="daily_verse_ref_template_book_name">BOOK_NAME</string>
+    <string name="daily_verse_ref_template_chapter_number">CHAPTER_NUMBER</string>
+    <string name="daily_verse_ref_template_verse_number">VERSE_NUMBER</string>
 </resources>
