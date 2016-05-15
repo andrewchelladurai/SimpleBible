@@ -20,6 +20,8 @@ public class HomeFragment
     private AppCompatAutoCompleteTextView mBookName;
     private AppCompatAutoCompleteTextView mChapter;
     private AppCompatTextView mDailyVerse;
+    private AppCompatButton mButton;
+    private int mBookNumber, mChapterNumber, mMaxChapterCount;
 
     public HomeFragment() {
     }
@@ -34,15 +36,16 @@ public class HomeFragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         EventHandler eventHandler = new EventHandler();
 
-        AppCompatButton button = (AppCompatButton) view.findViewById(R.id.fragment_home_button);
-        button.setOnClickListener(eventHandler);
+        mButton = (AppCompatButton) view.findViewById(R.id.fragment_home_button);
+        mButton.setOnClickListener(eventHandler);
+        mButton.setEnabled(false);
 
         mBookName = (AppCompatAutoCompleteTextView) view.findViewById(R.id.fragment_home_book_name);
         mBookName.setAdapter(new ArrayAdapter<>(view.getContext(),
                                                 android.R.layout.simple_dropdown_item_1line,
                                                 Book.getAllBookNamed()));
-//        mBookName.setOnItemClickListener(eventHandler);
         mBookName.setValidator(eventHandler);
+        mBookName.setOnItemClickListener(eventHandler);
 
         mChapter = (AppCompatAutoCompleteTextView) view.findViewById(R.id.fragment_home_chapter);
         mDailyVerse = (AppCompatTextView) view.findViewById(R.id.fragment_home_daily_verse);
@@ -58,49 +61,45 @@ public class HomeFragment
         mChapter.setAdapter(null);
         mChapter.setError(null);
         mChapter.setHint(R.string.hint_chapter_number);
+        mBookNumber = mChapterNumber = mMaxChapterCount = 0;
+        mButton.setEnabled(false);
     }
 
     class EventHandler
-            implements View.OnClickListener, AdapterView.OnItemClickListener,
-                       AutoCompleteTextView.Validator {
+            implements View.OnClickListener, AutoCompleteTextView.Validator,
+                       AdapterView.OnItemClickListener {
 
-        @Override public void onClick(final View v) {
-            Log.i(TAG, "EventHandler.onClick: Button Goto Location Clicked");
+        @Override
+        public void onClick(final View v) {
+            String chapter = mChapter.getText().toString().trim();
+            try {
+                mChapterNumber = (chapter.isEmpty()) ? 1 : Integer.parseInt(chapter);
+            } catch (NumberFormatException pNFE) {
+                mChapterNumber = 1;
+                pNFE.printStackTrace();
+            }
+            if (mChapterNumber < 1 | mChapterNumber > mMaxChapterCount) {
+                mChapter.setError("Incorrect Chapter Number");
+                return;
+            }
+            Log.i(TAG, "EventHandler.onClick: Button Goto Location Clicked"
+                       + " [" + mBookNumber + "][" + mChapterNumber + "]");
             resetValues();
         }
 
         @Override
-        public void onItemClick(final AdapterView<?> parent, final View view, final int position,
-                                final long id) {
-            Log.i(TAG, "EventHandler.onItemClick: Book Name Dropdown selected");
-            String name = mBookName.getText().toString();
-            Book.Details bookDetails = Book.getBookDetails(name);
-            if (bookDetails != null) {
-                String[] chapters = new String[bookDetails.chapterCount];
-                for (int i = 0; i < chapters.length; i++) {
-                    chapters[i] = "" + (i + 1);
-                }
-                mChapter.setAdapter(new ArrayAdapter<>(mChapter.getContext(),
-                                                       android.R.layout.simple_dropdown_item_1line,
-                                                       chapters));
-                mBookName.setError(null);
-                mChapter.requestFocus();
-            } else {
-                mChapter.setAdapter(null);
-            }
-        }
-
-        @Override public boolean isValid(final CharSequence text) {
-            String bookName = text.toString();
+        public boolean isValid(final CharSequence text) {
+            String bookName = (null != text) ? text.toString() : "";
             if (bookName.isEmpty()) {
-                mBookName.setError("Empty Book Name");
+                fixText(text);
                 return false;
             }
-            Book.Details bookDetails = Book.getBookDetails(bookName);
+            final Book.Details bookDetails = Book.getBookDetails(bookName);
             if (bookDetails == null) {
                 fixText(text);
                 return false;
             }
+
             String[] chapters = new String[bookDetails.chapterCount];
             for (int i = 0; i < chapters.length; i++) {
                 chapters[i] = "" + (i + 1);
@@ -109,15 +108,28 @@ public class HomeFragment
                                                    android.R.layout.simple_dropdown_item_1line,
                                                    chapters));
             mChapter.setHint("between 1 and " + chapters.length);
-            mChapter.requestFocus();
+            mBookName.setError(null);
+            mBookNumber = bookDetails.number;
+            mMaxChapterCount = bookDetails.chapterCount;
+            mButton.setEnabled(true);
             return true;
         }
 
-        @Override public CharSequence fixText(final CharSequence invalidText) {
+        @Override
+        public CharSequence fixText(final CharSequence invalidText) {
             mBookName.setError("Incorrect Book Name");
-            mChapter.setAdapter(null);
             mChapter.setHint(R.string.hint_chapter_number);
+            mChapter.setAdapter(null);
+            mBookNumber = mChapterNumber = mMaxChapterCount = 0;
+            mButton.setEnabled(false);
             return invalidText;
+        }
+
+        @Override
+        public void onItemClick(final AdapterView<?> parent, final View view, final int position,
+                                final long id) {
+            mButton.setEnabled(true);
+            mChapter.requestFocus();
         }
     }
 }
