@@ -27,21 +27,13 @@ public class SearchFragment
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search_list, container, false);
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_search_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerView.setAdapter(new SearchViewAdapter(SearchResult.ITEMS, this));
+        recyclerView.setAdapter(new SearchViewAdapter(SearchResult.getITEMS(), this));
 
         return view;
     }

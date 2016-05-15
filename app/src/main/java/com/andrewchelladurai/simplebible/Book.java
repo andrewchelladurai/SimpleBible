@@ -10,13 +10,12 @@ import java.util.Map;
 public class Book {
 
     private static final String TAG = "Book";
-    public static final List<Details> ENTRIES = new ArrayList<>();
-    public static final Map<Integer, Details> ENTRY_MAP = new HashMap<>();
+    private static final List<Details> ENTRIES = new ArrayList<>();
+    private static final Map<Integer, Details> ENTRY_MAP = new HashMap<>();
 
-    public static boolean populateBooks(String[] values) {
-        if (ENTRIES.size() == 66) {
+    public static void populateBooks(String[] values) {
+        if (getENTRIES().size() == 66) {
             Log.i(TAG, "populateBooks: Books already Populated [Size=66]");
-            return true;
         }
         Details item;
         for (int i = 0; i < values.length; i++) {
@@ -24,11 +23,14 @@ public class Book {
             item = new Details((i + 1), // BOOK NUMBER
                                str[0], // BOOK NAME
                                Integer.parseInt(str[1])); // BOOK CHAPTER COUNT
-            ENTRIES.add(item);
+            getENTRIES().add(item);
             ENTRY_MAP.put(item.number, item);
         }
         Log.i(TAG, "populateBooks: All Books created");
-        return true;
+    }
+
+    public static List<Details> getENTRIES() {
+        return ENTRIES;
     }
 
     public static String[] getAllBookNamed() {
@@ -40,7 +42,7 @@ public class Book {
     }
 
     public static Details getBookDetails(final String pBookName) {
-        for (Details d : ENTRIES) {
+        for (Details d : getENTRIES()) {
             if (d.name.equalsIgnoreCase(pBookName)) {
                 return d;
             }

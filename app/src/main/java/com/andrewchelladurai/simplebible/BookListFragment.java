@@ -42,7 +42,7 @@ public class BookListFragment
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, count));
             }
-            recyclerView.setAdapter(new BookListAdapter(Book.ENTRIES, this));
+            recyclerView.setAdapter(new BookListAdapter(Book.getENTRIES(), this));
         }
         return view;
     }

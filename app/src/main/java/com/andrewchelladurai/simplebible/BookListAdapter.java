@@ -31,15 +31,16 @@ public class BookListAdapter
     @Override
     public void onBindViewHolder(final BookEntryView holder, int position) {
         holder.mDetails = mValues.get(position);
-        holder.mName.setText(mValues.get(position).name);
-        holder.mChapterCount.setText(mValues.get(position).chapterCount + " Chapters");
+        String bookName = mValues.get(position).name;
+        String chapters = mValues.get(position).chapterCount +
+                          mListener.getString(R.string.book_details_append_chapters);
+        holder.mName.setText(bookName);
+        holder.mChapterCount.setText(chapters);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
-                    mListener.bookItemClicked(holder.mDetails);
-                }
+                mListener.bookItemClicked(holder.mDetails);
             }
         });
     }

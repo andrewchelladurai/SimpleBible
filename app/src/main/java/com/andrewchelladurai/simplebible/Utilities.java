@@ -7,10 +7,13 @@ import android.util.Log;
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 14-May-2016 @ 9:14 PM
  */
 public class Utilities {
-    private static Utilities staticInstance = null;
-
     private static final String TAG = "Utilities";
-    private Resources mResources;
+    private static Utilities staticInstance = null;
+    private final Resources mResources;
+
+    private Utilities(final Resources pResources) {
+        mResources = pResources;
+    }
 
     public static Utilities getInstance(final Resources pResources) {
         if (staticInstance == null) {
@@ -18,10 +21,6 @@ public class Utilities {
             Log.i(TAG, "getInstance: staticInstance is Initiated");
         }
         return staticInstance;
-    }
-
-    private Utilities(final Resources pResources) {
-        mResources = pResources;
     }
 
     public int getBooksColumnCount() {

@@ -33,10 +33,11 @@ import android.view.inputmethod.InputMethodManager;
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 23-Apr-2016 @ 1:44 PM
  */
-public class KeyboardHideListener
+class KeyboardHideListener
         implements ViewPager.OnPageChangeListener {
 
     private final AppCompatActivity activity;
+
     public KeyboardHideListener(final AppCompatActivity pActivity) {
         activity = pActivity;
     }

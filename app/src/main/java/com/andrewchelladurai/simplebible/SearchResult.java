@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class SearchResult {
 
-    public static final List<Verse> ITEMS = new ArrayList<>();
-    public static final Map<String, Verse> ITEM_MAP = new HashMap<>();
+    private static final List<Verse> ITEMS = new ArrayList<>();
+    private static final Map<String, Verse> ITEM_MAP = new HashMap<>();
     private static final int COUNT = 25;
 
     static {
@@ -19,8 +19,12 @@ public class SearchResult {
 
     private static void addItem(int pBook, int pChapter, int pVerse, String pText) {
         Verse item = new Verse(pBook, pChapter, pVerse, pText);
-        ITEMS.add(item);
+        getITEMS().add(item);
         ITEM_MAP.put(item.getVerseID(), item);
+    }
+
+    public static List<Verse> getITEMS() {
+        return ITEMS;
     }
 
     public static class Verse {
@@ -46,8 +50,8 @@ public class SearchResult {
             return getBookNumber() + ":" + getChapterNumber() + ":" + getVerseNumber();
         }
 
-        public String getVerseReference() {
-            return getBookNumber() + ":" + getChapterNumber() + ":" + getVerseNumber();
+        public String getVerseText() {
+            return mVerseText;
         }
 
         public int getBookNumber() {
@@ -62,8 +66,8 @@ public class SearchResult {
             return mVerseNumber;
         }
 
-        public String getVerseText() {
-            return mVerseText;
+        public String getVerseReference() {
+            return getBookNumber() + ":" + getChapterNumber() + ":" + getVerseNumber();
         }
     }
 }

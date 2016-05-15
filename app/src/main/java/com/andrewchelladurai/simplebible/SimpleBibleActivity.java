@@ -1,8 +1,6 @@
 package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -22,9 +20,8 @@ public class SimpleBibleActivity
         extends AppCompatActivity {
 
     private static final String TAG = "SimpleBibleActivity";
-    private PagerAdapter mPagerAdapter;
+    //    private PagerAdapter mPagerAdapter;
     private ViewPager mViewPager;
-    private Utilities mUtilities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +30,10 @@ public class SimpleBibleActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_simple_bible_toolbar);
         setSupportActionBar(toolbar);
-        mPagerAdapter = new PagerAdapter(getSupportFragmentManager());
 
         mViewPager = (ViewPager) findViewById(R.id.activity_simple_bible_container);
         if (null != mViewPager) {
-            mViewPager.setAdapter(mPagerAdapter);
+            mViewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
         }
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.activity_simple_bible_tabs);
@@ -45,6 +41,7 @@ public class SimpleBibleActivity
             tabLayout.setupWithViewPager(mViewPager);
         }
 
+/*
         FloatingActionButton fab =
                 (FloatingActionButton) findViewById(R.id.activity_simple_bible_fab);
         if (null != fab) {
@@ -56,10 +53,11 @@ public class SimpleBibleActivity
                 }
             });
         }
+*/
 
+        Utilities.getInstance(getResources());
         mViewPager.addOnPageChangeListener(new KeyboardHideListener(this));
         Book.populateBooks(getResources().getStringArray(R.array.books_n_chapter_count_array));
-        mUtilities = Utilities.getInstance(getResources());
     }
 
     @Override
@@ -82,14 +80,14 @@ public class SimpleBibleActivity
         }
     }
 
-    private void aboutButtonClicked() {
-        Log.i(TAG, "aboutButtonClicked: ");
-        // FIXME: 14/5/16 Handle About Click
-    }
-
     private void settingsButtonClicked() {
         Log.i(TAG, "settingsButtonClicked: ");
         // FIXME: 14/5/16 Handle Settings Click
+    }
+
+    private void aboutButtonClicked() {
+        Log.i(TAG, "aboutButtonClicked: ");
+        // FIXME: 14/5/16 Handle About Click
     }
 
     public static class PlaceholderFragment
