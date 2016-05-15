@@ -6,20 +6,18 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.Book.Details;
 
-/**
- * A fragment representing a list of Items. <p /> Activities containing this fragment MUST implement
- * the {@link OnListFragmentInteractionListener} interface.
- */
 public class BookListFragment
         extends Fragment {
 
-    private static final String ARG_COLUMN_COUNT = "column-count";
+    private static final String TAG = "BookListFragment";
+    private static final String ARG_COLUMN_COUNT = "COLUMN_COUNT";
     private int mColumnCount = 2;
 
     public BookListFragment() {
@@ -47,7 +45,6 @@ public class BookListFragment
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_book_list, container, false);
 
-        // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
@@ -62,6 +59,6 @@ public class BookListFragment
     }
 
     public void bookItemClicked(final Details pItem) {
-
+        Log.i(TAG, "bookItemClicked: " + pItem.toString());
     }
 }

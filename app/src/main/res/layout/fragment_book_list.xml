@@ -6,7 +6,7 @@
     android:name="com.andrewchelladurai.simplebible.BookListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/activity_margin"
+    android:padding="@dimen/gap"
     app:layoutManager="LinearLayoutManager"
     tools:context="com.andrewchelladurai.simplebible.BookListFragment"
     tools:listitem="@layout/fragment_book" />

@@ -122,14 +122,14 @@ public class SimpleBibleActivity
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                case 0: // HOME
+                case 0:
                     return HomeFragment.newInstance();
-                case 1:  // BOOKS
+                case 1:
                     return BookListFragment.newInstance();
-                case 2:  // NOTES
-                    return PlaceholderFragment.newInstance(position + 1);
-                case 3:  // SEARCH
+                case 2:
                     return SearchFragment.newInstance();
+                case 3:
+                    return PlaceholderFragment.newInstance(position + 1);
                 default: // FIXME: 14/5/16
                     return HomeFragment.newInstance();
             }
@@ -148,9 +148,9 @@ public class SimpleBibleActivity
                 case 1:
                     return "BOOKS";
                 case 2:
-                    return "NOTES";
-                case 3:
                     return "SEARCH";
+                case 3:
+                    return "NOTES";
                 default: // FIXME:
                     return "BLANK";
             }

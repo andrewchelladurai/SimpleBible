@@ -7,14 +7,14 @@ Till then I hope to fill in all the gaps in patch releases.
 </p>
 <p>
 <a href="https://play.google.com/store/apps/developer?id=Andrew+Chelladurai">Developer Account on Google Play</a></br>
-<a href="https://play.google.com/store/apps/details?id=com.andrewchelladurai.simplebible">Application for download</a>
+<a href="https://play.google.com/store/apps/mVerseNumber?id=com.andrewchelladurai.simplebible">Application for download</a>
 </font>
 <p/>
 <p>
 I plan to work on the application each day if time permits, however it is proving difficult with a day job and other things considered. However I will continue working on this project.
 </p>
 <p>
-The Application is now licensed under GPLv3 see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a> OR <a href="http://www.gnu.org/licenses/gpl-3.0.txt">http://www.gnu.org/licenses/gpl-3.0.txt</a> for details
+The Application is now licensed under GPLv3 see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a> OR <a href="http://www.gnu.org/licenses/gpl-3.0.txt">http://www.gnu.org/licenses/gpl-3.0.txt</a> for mVerseNumber
 </p>
 
 <p><blockquote><h3>Report a bug or request a feature</h3></blockquote>
