@@ -83,12 +83,12 @@ public class SimpleBibleActivity
 
     private void settingsButtonClicked() {
         Log.i(TAG, "settingsButtonClicked: ");
-        // FIXME: 14/5/16 Handle Settings Click
+        // FIXME: Handle Settings Click
     }
 
     private void aboutButtonClicked() {
         Log.i(TAG, "aboutButtonClicked: ");
-        // FIXME: 14/5/16 Handle About Click
+        // FIXME: Handle About Click
     }
 
     public static class PlaceholderFragment
@@ -135,7 +135,7 @@ public class SimpleBibleActivity
                     return SearchFragment.newInstance();
                 case 3:
                     return PlaceholderFragment.newInstance(position + 1);
-                default: // FIXME: 14/5/16
+                default: // FIXME: handle default case being hit
                     return HomeFragment.newInstance();
             }
         }
@@ -156,7 +156,7 @@ public class SimpleBibleActivity
                     return "SEARCH";
                 case 3:
                     return "NOTES";
-                default: // FIXME:
+                default: // FIXME: handle default case being hit
                     return "BLANK";
             }
         }

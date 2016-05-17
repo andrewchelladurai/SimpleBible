@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,17 +32,30 @@ public class SearchViewAdapter
     @Override
     public void onBindViewHolder(final SearchVerse holder, int position) {
         holder.mItem = mVerses.get(position);
-        holder.mVerseId.setText(mVerses.get(position).getVerseReference());
-        holder.mVerseText.setText(mVerses.get(position).getVerseText());
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
+        String vText = mVerses.get(position).getVerseText();
+        String vId[] = mVerses.get(position).getVerseReference().split(":");
+        Book.Details book = Book.getBookDetails(Integer.parseInt(vId[0]));
+        String bookName = book != null ? book.name : "";
+
+        String template = getString(R.string.search_result_template);
+        template = template.replace(getString(R.string.search_result_template_text), vText);
+        template = template.replace(getString(R.string.search_result_template_book), bookName);
+        template = template.replace(getString(R.string.search_result_template_chapter), vId[1]);
+        template = template.replace(getString(R.string.search_result_template_verse), vId[2]);
+
+        holder.mVerse.setText(Html.fromHtml(template));
+
+        holder.mView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override public boolean onLongClick(final View v) {
+                mListener.searchResultLongClicked(holder.mItem);
+                return true;
             }
         });
+    }
+
+    private String getString(final int pStringId) {
+        return (mListener != null) ? mListener.getString(pStringId) : "";
     }
 
     @Override
@@ -52,21 +66,19 @@ public class SearchViewAdapter
     public class SearchVerse
             extends RecyclerView.ViewHolder {
 
-        public final View mView;
-        public final TextView mVerseId;
-        public final TextView mVerseText;
-        public SearchResult.Verse mItem;
+        SearchResult.Verse mItem;
+        final TextView mVerse;
+        final View mView;
 
         public SearchVerse(View view) {
             super(view);
             mView = view;
-            mVerseId = (TextView) view.findViewById(R.id.fragment_search_verse_Id);
-            mVerseText = (TextView) view.findViewById(R.id.fragment_search_verse_text);
+            mVerse = (TextView) view.findViewById(R.id.fragment_search_result_entry);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mVerseText.getText() + "'";
+            return super.toString() + " '" + mVerse.getText();
         }
     }
 }

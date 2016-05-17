@@ -38,7 +38,7 @@ public class SearchFragment
         return view;
     }
 
-    public void onListFragmentInteraction(final Verse pItem) {
-        Log.i(TAG, "onListFragmentInteraction: " + pItem.toString());
+    public void searchResultLongClicked(final Verse pItem) {
+        Log.i(TAG, "searchResultLongClicked: " + pItem.toString());
     }
 }

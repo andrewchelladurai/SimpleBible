@@ -91,7 +91,7 @@ public class HomeFragment
                     getString(R.string.daily_verse_template_ref), verseRef);
 
             Log.d(TAG, "setDailyVerse: " + verseContent);
-            // FIXME: 16/5/16 Center Align Text on the display
+            // FIXME: Center Align Text on the display
             mDailyVerse.setText(Html.fromHtml(verseContent));
         }
     }
