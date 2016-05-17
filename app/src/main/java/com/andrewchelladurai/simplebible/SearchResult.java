@@ -25,7 +25,7 @@ public class SearchResult {
         }
         Verse item = new Verse(pBook, pChapter, pVerse, verse);
         ITEMS.add(item);
-        ITEM_MAP.put(item.getVerseID(), item);
+        ITEM_MAP.put(item.getVerseReference(), item);
     }
 
     public static List<Verse> getITEMS() {
@@ -48,11 +48,7 @@ public class SearchResult {
 
         @Override
         public String toString() {
-            return getVerseID() + " = " + getVerseText();
-        }
-
-        public String getVerseID() {
-            return getBookNumber() + ":" + getChapterNumber() + ":" + getVerseNumber();
+            return getVerseReference() + " = " + getVerseText();
         }
 
         public String getVerseText() {
@@ -72,7 +68,7 @@ public class SearchResult {
         }
 
         public String getVerseReference() {
-            return getBookNumber() + ":" + getChapterNumber() + ":" + getVerseNumber();
+            return mBookNumber + ":" + mChapterNumber + ":" + mVerseNumber;
         }
     }
 }
