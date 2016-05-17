@@ -74,24 +74,19 @@ public class HomeFragment
         int chapter = Integer.parseInt(parts[1]);
         int verse = Integer.parseInt(parts[2]);
 
+        Book.Details bookDetails = Book.getBookDetails(book);
         String verseContent = getString(R.string.daily_verse_template);
         verseContent = verseContent.replace(getString(R.string.daily_verse_template_text),
                                             dbu.getSpecificVerse(book, chapter, verse));
 
-        Book.Details bookDetails = Book.getBookDetails(book);
         if (bookDetails != null) {
-            String verseRef = getString(R.string.daily_verse_ref_template);
-            verseRef = verseRef.replace(
-                    getString(R.string.daily_verse_ref_template_book_name), bookDetails.name);
-            verseRef = verseRef.replace(
-                    getString(R.string.daily_verse_ref_template_chapter_number), chapter + "");
-            verseRef = verseRef.replace(
-                    getString(R.string.daily_verse_ref_template_verse_number), verse + "");
             verseContent = verseContent.replace(
-                    getString(R.string.daily_verse_template_ref), verseRef);
+                    getString(R.string.daily_verse_template_book), bookDetails.name);
+            verseContent = verseContent.replace(
+                    getString(R.string.daily_verse_template_chapter), chapter + "");
+            verseContent = verseContent.replace(
+                    getString(R.string.daily_verse_template_verse), verse + "");
 
-            Log.d(TAG, "setDailyVerse: " + verseContent);
-            // FIXME: Center Align Text on the display
             mDailyVerse.setText(Html.fromHtml(verseContent));
         }
     }
