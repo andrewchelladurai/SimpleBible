@@ -287,7 +287,7 @@ public class DatabaseUtility
         Log.d(TAG, "getSpecificVerse() called with pBook = [" + pBook + "], pChapter = ["
                    + pChapter + "], pVerse = [" + pVerse + "]");
 
-        String value = "";
+        String value = null;
         final SQLiteDatabase dbu = getReadableDatabase();
 
         String[] showColumns = {VERSE_TEXT};

@@ -35,7 +35,11 @@ public class SearchViewAdapter
 
         String vText = mVerses.get(position).getVerseText();
         String vId[] = mVerses.get(position).getVerseReference().split(":");
-        Book.Details book = Book.getBookDetails(Integer.parseInt(vId[0]));
+        int bookNumber = Integer.parseInt(vId[0]);
+        int chapterNumber = Integer.parseInt(vId[1]);
+        int verseNumber = Integer.parseInt(vId[2]);
+
+        Book.Details book = Book.getBookDetails(bookNumber);
         String bookName = book != null ? book.name : "";
 
         String template = getString(R.string.search_result_template);

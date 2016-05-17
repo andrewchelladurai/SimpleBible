@@ -123,4 +123,5 @@
     <string name="search_result_template_book">BN</string>
     <string name="search_result_template_chapter">CN</string>
     <string name="search_result_template_verse">VN</string>
+    <string name="no_verse_found">No Verse Found for the reference</string>
 </resources>

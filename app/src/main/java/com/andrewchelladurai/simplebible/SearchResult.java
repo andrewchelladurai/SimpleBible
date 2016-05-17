@@ -13,13 +13,18 @@ public class SearchResult {
 
     static {
         for (int i = 1; i <= COUNT; i++) {
-            addItem(i, i, i, "Verse @ " + i + ":" + i + ":" + i);
+            addItem(i, i, i, "use R.string.no_verse_found");
         }
     }
 
-    private static void addItem(int pBook, int pChapter, int pVerse, String pText) {
-        Verse item = new Verse(pBook, pChapter, pVerse, pText);
-        getITEMS().add(item);
+    private static void addItem(int pBook, int pChapter, int pVerse, String noResultFound) {
+        DatabaseUtility dbu = DatabaseUtility.getInstance(null);
+        String verse = dbu.getSpecificVerse(pBook, pChapter, pVerse);
+        if (verse == null) {
+            verse = noResultFound;
+        }
+        Verse item = new Verse(pBook, pChapter, pVerse, verse);
+        ITEMS.add(item);
         ITEM_MAP.put(item.getVerseID(), item);
     }
 
@@ -27,7 +32,7 @@ public class SearchResult {
         return ITEMS;
     }
 
-    public static class Verse {
+    static class Verse {
 
         private final int mBookNumber;
         private final int mChapterNumber;
