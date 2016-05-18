@@ -1,5 +1,6 @@
 /*
- * This file 'KeyboardHideListener.java' is part of SimpleBible : SimpleBible
+ *
+ * This file 'KeyboardHideListener.java' is part of SimpleBible :  SimpleBible
  *
  * Copyright (c) 2016.
  *
@@ -20,6 +21,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * OR <http://www.gnu.org/licenses/gpl-3.0.txt>
+ *
  */
 
 package com.andrewchelladurai.simplebible;
