@@ -31,7 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SearchResult {
+class SearchResult {
 
     private static final List<Verse> ITEMS = new ArrayList<>();
     private static final Map<String, Verse> ITEM_MAP = new HashMap<>();
@@ -51,19 +51,19 @@ public class SearchResult {
         return ITEMS;
     }
 
-    public static void refreshList(final ArrayList<String> pResults) {
+    public static void refreshList(final ArrayList<String> pResults, String noResultFound) {
         ITEMS.clear();
         ITEM_MAP.clear();
         if (pResults.size() < 1) {
             return;
         }
-        String[] parts = null;
+        String[] parts;
         for (String result : pResults) {
             parts = result.split(":");
             addItem(Integer.parseInt(parts[0]),
                     Integer.parseInt(parts[1]),
                     Integer.parseInt(parts[2]),
-                    "use R.string.no_verse_found");
+                    noResultFound);
         }
     }
 

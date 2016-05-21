@@ -120,7 +120,7 @@ public class SearchFragment
                     Snackbar.make(mTextInput, R.string.search_no_results, Snackbar.LENGTH_SHORT)
                             .show();
                 }
-                SearchResult.refreshList(results);
+                SearchResult.refreshList(results, getString(R.string.no_verse_found));
                 String text = results.size() + getString(R.string.search_text_results_found);
                 mLabel.setText(text);
                 mButton.setText(getString(R.string.button_search_reset));
@@ -129,7 +129,7 @@ public class SearchFragment
             }
         } else if (mButton.getText().toString().equalsIgnoreCase(
                 getString(R.string.button_search_reset))) {
-            SearchResult.refreshList(new ArrayList<String>(0));
+            SearchResult.refreshList(new ArrayList<String>(0), getString(R.string.no_verse_found));
             mLabel.setText("");
             mButton.setText(getString(R.string.button_search_text));
             mTextInput.setText("");

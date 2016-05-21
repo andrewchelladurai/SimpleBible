@@ -93,7 +93,7 @@ public class HomeFragment
         mButton.setEnabled(false);
     }
 
-    public void setDailyVerse() {
+    private void setDailyVerse() {
         final DatabaseUtility dbu = DatabaseUtility.getInstance(null);
         final String[] parts = dbu.getVerseForToday().split(":");
         int book = Integer.parseInt(parts[0]);
