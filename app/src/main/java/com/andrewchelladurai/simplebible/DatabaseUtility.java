@@ -31,7 +31,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
 
 import java.io.File;
@@ -245,9 +244,11 @@ public class DatabaseUtility
         String whereCondition = " rowid = ?";
         String[] conditionParams = {"" + dayOfYear};
 
+/*
         String query = SQLiteQueryBuilder.buildQueryString(
                 true, DAILY_VERSE_TABLE, selectCols, whereCondition, null, null, null, null);
         Log.d(TAG, "getVerseForToday: Query = " + query);
+*/
 
         Cursor cursor = db.query(DAILY_VERSE_TABLE, selectCols, whereCondition, conditionParams,
                                  null, null, null);
@@ -285,10 +286,11 @@ public class DatabaseUtility
         String whereCondition =
                 BOOK_NUMBER + "=? AND " + CHAPTER_NUMBER + "=? AND " + VERSE_NUMBER + "=?";
         String[] conditionParams = {pBook + "", pChapter + "", pVerse + ""};
-
+/*
         String query = SQLiteQueryBuilder.buildQueryString(
                 true, BIBLE_TABLE, showColumns, whereCondition, null, null, null, null);
         Log.d(TAG, "getSpecificVerse: Query = " + query);
+*/
 
         Cursor cursor = dbu.query(BIBLE_TABLE, showColumns, whereCondition, conditionParams,
                                   null, null, null);
@@ -296,7 +298,6 @@ public class DatabaseUtility
             value = cursor.getString(cursor.getColumnIndex(VERSE_TEXT));
             cursor.close();
         }
-        Log.d(TAG, "getSpecificVerse() returned: " + value);
         return value;
     }
 }

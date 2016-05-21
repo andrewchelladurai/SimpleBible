@@ -43,17 +43,9 @@
 
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/fragment_search_text"
-            android:hint="@string/hint_text_to_search"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/fragment_search_label"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            style="?textAppearanceSearchResultSubtitle"
             android:layout_height="wrap_content"
-            android:padding="@dimen/gapSmall" />
+            android:hint="@string/hint_text_to_search" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/fragment_search_button"
@@ -62,6 +54,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/button_search_text" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/fragment_search_label"
+            style="?textAppearanceSearchResultSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="@dimen/gapSmall" />
     </android.support.v7.widget.LinearLayoutCompat>
 
     <android.support.v7.widget.RecyclerView

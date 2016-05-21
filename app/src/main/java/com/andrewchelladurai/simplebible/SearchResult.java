@@ -54,6 +54,9 @@ public class SearchResult {
     public static void refreshList(final ArrayList<String> pResults) {
         ITEMS.clear();
         ITEM_MAP.clear();
+        if (pResults.size() < 1) {
+            return;
+        }
         String[] parts = null;
         for (String result : pResults) {
             parts = result.split(":");

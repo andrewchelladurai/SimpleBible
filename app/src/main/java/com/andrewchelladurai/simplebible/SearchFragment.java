@@ -34,6 +34,8 @@ import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,12 +47,14 @@ import java.util.ArrayList;
 
 public class SearchFragment
         extends Fragment
-        implements View.OnClickListener {
+        implements View.OnClickListener, TextWatcher {
 
     private static final String TAG = "SearchFragment";
     private AppCompatEditText mTextInput;
     private AppCompatTextView mLabel;
     private SearchViewAdapter mAdapter;
+    private RecyclerView mRecyclerView;
+    private AppCompatButton mButton;
 
     public SearchFragment() {
     }
@@ -67,45 +71,18 @@ public class SearchFragment
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search_list, container, false);
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_search_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_search_list);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         mAdapter = new SearchViewAdapter(SearchResult.getITEMS(), this);
-        recyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mAdapter);
 
-        AppCompatButton button =
-                (AppCompatButton) view.findViewById(R.id.fragment_search_button);
-        button.setOnClickListener(this);
+        mButton = (AppCompatButton) view.findViewById(R.id.fragment_search_button);
+        mButton.setOnClickListener(this);
         mTextInput = (AppCompatEditText) view.findViewById(R.id.fragment_search_text);
+        mTextInput.addTextChangedListener(this);
         mLabel = (AppCompatTextView) view.findViewById(R.id.fragment_search_label);
 
         return view;
-    }
-
-    private void searchButtonClicked() {
-        Log.i(TAG, "searchButtonClicked");
-        String input = mTextInput.getText().toString();
-        if (input.isEmpty()) {
-            Snackbar.make(mTextInput, R.string.search_text_empty, Snackbar.LENGTH_SHORT).show();
-            return;
-        }
-        if (input.length() <= 2) {
-            Snackbar.make(mTextInput, R.string.search_text_length, Snackbar.LENGTH_SHORT).show();
-            return;
-        }
-
-        DatabaseUtility dbu = DatabaseUtility.getInstance(getContext());
-        final ArrayList<String> results = dbu.findText(input);
-
-        if (results != null) {
-            if (results.size() < 1) {
-                Snackbar.make(mTextInput, R.string.search_no_results, Snackbar.LENGTH_SHORT).show();
-            } else {
-                SearchResult.refreshList(results);
-            }
-        } else {
-            Snackbar.make(mTextInput, R.string.search_no_results, Snackbar.LENGTH_SHORT).show();
-        }
-        mAdapter.notifyDataSetChanged();
     }
 
     public void searchResultLongClicked(final Verse pItem) {
@@ -114,7 +91,61 @@ public class SearchFragment
 
     @Override public void onClick(final View view) {
         if (view instanceof AppCompatButton) {
-            searchButtonClicked();
+            handleButtonClick();
         }
+    }
+
+    private void handleButtonClick() {
+        Log.i(TAG, "handleButtonClick");
+
+        if (mButton.getText().toString().equalsIgnoreCase(
+                getString(R.string.button_search_text))) {
+            String input = mTextInput.getText().toString();
+            if (input.isEmpty()) {
+                Snackbar.make(mTextInput, R.string.search_text_empty, Snackbar.LENGTH_SHORT).show();
+                return;
+            }
+            if (input.length() <= 2) {
+                Snackbar.make(mTextInput, R.string.search_text_length, Snackbar.LENGTH_SHORT)
+                        .show();
+                return;
+            }
+
+            mRecyclerView.removeAllViews();
+            DatabaseUtility dbu = DatabaseUtility.getInstance(getContext());
+            final ArrayList<String> results = dbu.findText(input);
+
+            if (results != null) {
+                if (results.size() < 1) {
+                    Snackbar.make(mTextInput, R.string.search_no_results, Snackbar.LENGTH_SHORT)
+                            .show();
+                }
+                SearchResult.refreshList(results);
+                String text = results.size() + getString(R.string.search_text_results_found);
+                mLabel.setText(text);
+                mButton.setText(getString(R.string.button_search_reset));
+            } else {
+                Snackbar.make(mTextInput, R.string.search_no_results, Snackbar.LENGTH_SHORT).show();
+            }
+        } else if (mButton.getText().toString().equalsIgnoreCase(
+                getString(R.string.button_search_reset))) {
+            SearchResult.refreshList(new ArrayList<String>(0));
+            mLabel.setText("");
+            mButton.setText(getString(R.string.button_search_text));
+            mTextInput.setText("");
+        }
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override public void beforeTextChanged(final CharSequence s, final int start, final int count,
+                                            final int after) {
+    }
+
+    @Override public void onTextChanged(final CharSequence s, final int start, final int before,
+                                        final int count) {
+    }
+
+    @Override public void afterTextChanged(final Editable s) {
+        mButton.setText(getString(R.string.button_search_text));
     }
 }

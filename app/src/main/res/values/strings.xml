@@ -133,4 +133,6 @@
     <string name="search_text_empty">Search Text is Empty</string>
     <string name="search_text_length">Enter at least 3 alphabets</string>
     <string name="search_no_results">No Results Found</string>
+    <string name="search_text_results_found">" results found."</string>
+    <string name="button_search_reset">Reset Search</string>
 </resources>
