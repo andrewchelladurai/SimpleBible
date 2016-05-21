@@ -34,6 +34,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ChapterActivity
         extends AppCompatActivity {
 
@@ -44,11 +47,14 @@ public class ChapterActivity
 
     private int mColumnCount;
     private int mChapterNumber, mBookNumber;
+    private VerseViewAdapter mAdapter;
+    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chapter);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_chapter_toolbar);
         setSupportActionBar(toolbar);
 
@@ -56,29 +62,38 @@ public class ChapterActivity
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        mColumnCount = getIntent().getIntExtra(COLUMN_COUNT, 1);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.activity_chapter_verse_list);
-        if (recyclerView != null) {
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(
-                        getApplicationContext(), mColumnCount));
-            }
-            recyclerView.setAdapter(new VerseViewAdapter(
-                    ChapterContent.ITEMS, new VerseEventHandler(this,
-                                                                VerseEventHandler.HANDLE.CHAPTER)));
-        }
         mBookNumber = getIntent().getIntExtra(BOOK_NUMBER, 1);
         mChapterNumber = getIntent().getIntExtra(CHAPTER_NUMBER, 1);
         Log.i(TAG, "onCreate: " + mBookNumber + ":" + mChapterNumber);
         Book.Details book = Book.getBookDetails(mBookNumber);
-        Log.i(TAG, "onCreate: " + book.toString());
         if (book != null) {
-            String title = book.name + " : " + getString(R.string.title_activity_chapter) + " "
-                           + mChapterNumber;
-            setTitle(title);
+            setTitle(book.name + " : " + getString(R.string.title_activity_chapter) + " "
+                     + mChapterNumber);
         }
+
+        mColumnCount = getIntent().getIntExtra(COLUMN_COUNT, 1);
+        mRecyclerView = (RecyclerView) findViewById(R.id.activity_chapter_verse_list);
+        if (mRecyclerView != null) {
+            mAdapter = new VerseViewAdapter(new ArrayList<ChapterContent.VerseEntry>(0), this);
+            if (mColumnCount <= 1) {
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            } else {
+                mRecyclerView.setLayoutManager(new GridLayoutManager(
+                        getApplicationContext(), mColumnCount));
+            }
+            mRecyclerView.setAdapter(mAdapter);
+            refreshList();
+        }
+    }
+
+    private List<ChapterContent.VerseEntry> refreshList() {
+        List<ChapterContent.VerseEntry> entries =
+                ChapterContent.refreshList(mBookNumber, mChapterNumber);
+        mRecyclerView.removeAllViews();
+        mAdapter = new VerseViewAdapter(entries, this);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+        return entries;
     }
 
     public void handleLongClick(final ChapterContent.VerseEntry pItem) {

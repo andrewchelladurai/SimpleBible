@@ -26,39 +26,46 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.ChapterContent.VerseEntry;
 
 import java.util.List;
 
 public class VerseViewAdapter
-        extends RecyclerView.Adapter<VerseViewAdapter.ViewHolder> {
+        extends RecyclerView.Adapter<VerseViewAdapter.Verse> {
 
-    private final List<VerseEntry> mValues;
-    private final VerseEventHandler mListener;
+    private final List<VerseEntry> mVerseList;
+    private final ChapterActivity mListener;
 
-    public VerseViewAdapter(List<VerseEntry> items, VerseEventHandler listener) {
-        mValues = items;
+    public VerseViewAdapter(List<VerseEntry> items, ChapterActivity listener) {
+        mVerseList = items;
         mListener = listener;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                                  .inflate(R.layout.fragment_verses, parent, false);
-        return new ViewHolder(view);
+    public Verse onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new Verse(LayoutInflater.from(parent.getContext())
+                                       .inflate(R.layout.fragment_verses, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+    public void onBindViewHolder(final Verse holder, int position) {
+        holder.mItem = mVerseList.get(position);
+
+        String vText = mVerseList.get(position).getVerseText().toString();
+        String vNum = mVerseList.get(position).getVerseNumber();
+
+        String txt = mListener.getString(R.string.chapter_verse_template);
+        txt = txt.replace(mListener.getString(R.string.chapter_verse_template_text), vText);
+        txt = txt.replace(mListener.getString(R.string.chapter_verse_template_verse), vNum);
+
+        holder.mContent.setText(Html.fromHtml(txt));
 
         holder.mView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override public boolean onLongClick(final View v) {
@@ -70,26 +77,25 @@ public class VerseViewAdapter
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mVerseList.size();
     }
 
-    public class ViewHolder
+    class Verse
             extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public VerseEntry mItem;
 
-        public ViewHolder(View view) {
+        final View mView;
+        final AppCompatTextView mContent;
+        VerseEntry mItem;
+
+        public Verse(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mContent = (AppCompatTextView) view.findViewById(R.id.fragment_verse_content);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mContent.getText() + "'";
         }
     }
 }

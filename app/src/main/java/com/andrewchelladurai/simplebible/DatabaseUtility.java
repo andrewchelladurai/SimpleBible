@@ -195,6 +195,7 @@ public class DatabaseUtility
             } while (cursor.moveToNext());
             cursor.close();
         }
+        Log.d(TAG, "getAllVersesOfChapter() returned " + list.size() + " results");
         return list;
     }
 

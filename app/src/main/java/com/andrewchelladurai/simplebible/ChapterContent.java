@@ -36,46 +36,54 @@ public class ChapterContent {
     public static final List<VerseEntry> ITEMS = new ArrayList<>();
     public static final Map<String, VerseEntry> ITEM_MAP = new HashMap<>();
 
-    private static final int COUNT = 25;
+    public static List<VerseEntry> refreshList(int bookNumber, int chapterNumber) {
+        ITEMS.clear();
+        DatabaseUtility dbu = DatabaseUtility.getInstance(null);
+        ArrayList<String> list = dbu.getAllVersesOfChapter(bookNumber, chapterNumber);
 
-    static {
-        for (int i = 1; i <= COUNT; i++) {
-            addItem(createDummyItem(i));
+        if (list != null) {
+            int verseNumber;
+            String[] parts;
+            for (String result : list) {
+                parts = result.split(" - ");
+                verseNumber = Integer.parseInt(parts[0]);
+                VerseEntry entry = new VerseEntry(bookNumber, chapterNumber, verseNumber, parts[1]);
+                ITEMS.add(entry);
+                ITEM_MAP.put(entry.getReference(), entry);
+            }
         }
-    }
 
-    private static void addItem(VerseEntry item) {
-        ITEMS.add(item);
-        ITEM_MAP.put(item.id, item);
-    }
-
-    private static VerseEntry createDummyItem(int position) {
-        return new VerseEntry(String.valueOf(position), "Item " + position, makeDetails(position));
-    }
-
-    private static String makeDetails(int position) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Details about Item: ").append(position);
-        for (int i = 0; i < position; i++) {
-            builder.append("\nMore details information here.");
-        }
-        return builder.toString();
+        return ITEMS;
     }
 
     public static class VerseEntry {
-        public final String id;
-        public final String content;
-        public final String details;
+        public final String bookNumber;
+        public final String chapterNumber;
+        public final String verseNumber;
+        public final String verseText;
 
-        public VerseEntry(String id, String content, String details) {
-            this.id = id;
-            this.content = content;
-            this.details = details;
+        public VerseEntry(int bookNum, int chapterNum, int verseNum, String verseTxt) {
+            this.bookNumber = String.valueOf(bookNum);
+            this.chapterNumber = String.valueOf(chapterNum);
+            this.verseNumber = String.valueOf(verseNum);
+            this.verseText = verseTxt;
         }
 
         @Override
         public String toString() {
-            return content;
+            return getReference() + "=" + verseText;
+        }
+
+        public String getReference() {
+            return bookNumber + ":" + chapterNumber + ":" + verseNumber;
+        }
+
+        public CharSequence getVerseText() {
+            return verseText;
+        }
+
+        public String getVerseNumber() {
+            return verseNumber;
         }
     }
 }
