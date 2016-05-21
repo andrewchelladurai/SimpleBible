@@ -130,4 +130,7 @@
     <string name="tab_books">BOOKS</string>
     <string name="tab_search">SEARCH</string>
     <string name="tab_notes">NOTES</string>
+    <string name="search_text_empty">Search Text is Empty</string>
+    <string name="search_text_length">Enter at least 3 alphabets</string>
+    <string name="search_no_results">No Results Found</string>
 </resources>

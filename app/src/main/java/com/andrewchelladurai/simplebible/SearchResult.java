@@ -35,13 +35,6 @@ public class SearchResult {
 
     private static final List<Verse> ITEMS = new ArrayList<>();
     private static final Map<String, Verse> ITEM_MAP = new HashMap<>();
-    private static final int COUNT = 25;
-
-    static {
-        for (int i = 1; i <= COUNT; i++) {
-            addItem(i, i, i, "use R.string.no_verse_found");
-        }
-    }
 
     private static void addItem(int pBook, int pChapter, int pVerse, String noResultFound) {
         DatabaseUtility dbu = DatabaseUtility.getInstance(null);
@@ -56,6 +49,19 @@ public class SearchResult {
 
     public static List<Verse> getITEMS() {
         return ITEMS;
+    }
+
+    public static void refreshList(final ArrayList<String> pResults) {
+        ITEMS.clear();
+        ITEM_MAP.clear();
+        String[] parts = null;
+        for (String result : pResults) {
+            parts = result.split(":");
+            addItem(Integer.parseInt(parts[0]),
+                    Integer.parseInt(parts[1]),
+                    Integer.parseInt(parts[2]),
+                    "use R.string.no_verse_found");
+        }
     }
 
     static class Verse {

@@ -27,7 +27,11 @@
 package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -37,10 +41,16 @@ import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.SearchResult.Verse;
 
+import java.util.ArrayList;
+
 public class SearchFragment
-        extends Fragment {
+        extends Fragment
+        implements View.OnClickListener {
 
     private static final String TAG = "SearchFragment";
+    private AppCompatEditText mTextInput;
+    private AppCompatTextView mLabel;
+    private SearchViewAdapter mAdapter;
 
     public SearchFragment() {
     }
@@ -59,12 +69,52 @@ public class SearchFragment
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_search_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerView.setAdapter(new SearchViewAdapter(SearchResult.getITEMS(), this));
+        mAdapter = new SearchViewAdapter(SearchResult.getITEMS(), this);
+        recyclerView.setAdapter(mAdapter);
+
+        AppCompatButton button =
+                (AppCompatButton) view.findViewById(R.id.fragment_search_button);
+        button.setOnClickListener(this);
+        mTextInput = (AppCompatEditText) view.findViewById(R.id.fragment_search_text);
+        mLabel = (AppCompatTextView) view.findViewById(R.id.fragment_search_label);
 
         return view;
     }
 
+    private void searchButtonClicked() {
+        Log.i(TAG, "searchButtonClicked");
+        String input = mTextInput.getText().toString();
+        if (input.isEmpty()) {
+            Snackbar.make(mTextInput, R.string.search_text_empty, Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+        if (input.length() <= 2) {
+            Snackbar.make(mTextInput, R.string.search_text_length, Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+
+        DatabaseUtility dbu = DatabaseUtility.getInstance(getContext());
+        final ArrayList<String> results = dbu.findText(input);
+
+        if (results != null) {
+            if (results.size() < 1) {
+                Snackbar.make(mTextInput, R.string.search_no_results, Snackbar.LENGTH_SHORT).show();
+            } else {
+                SearchResult.refreshList(results);
+            }
+        } else {
+            Snackbar.make(mTextInput, R.string.search_no_results, Snackbar.LENGTH_SHORT).show();
+        }
+        mAdapter.notifyDataSetChanged();
+    }
+
     public void searchResultLongClicked(final Verse pItem) {
         Log.i(TAG, "searchResultLongClicked: " + pItem.toString());
+    }
+
+    @Override public void onClick(final View view) {
+        if (view instanceof AppCompatButton) {
+            searchButtonClicked();
+        }
     }
 }
