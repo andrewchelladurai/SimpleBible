@@ -46,7 +46,9 @@
             android:completionThreshold="1"
             android:hint="@string/hint_book_name"
             android:inputType="text|textNoSuggestions"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:minLines="1"
+            android:singleLine="true" />
 
         <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -60,7 +62,9 @@
                 android:completionThreshold="1"
                 android:hint="@string/hint_chapter_number"
                 android:inputType="numberSigned|textAutoComplete"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:minLines="1"
+                android:singleLine="true" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/fragment_home_button"
@@ -72,10 +76,9 @@
     </android.support.v7.widget.LinearLayoutCompat>
 
     <android.support.v7.widget.CardView
-        android:layout_marginTop="@dimen/gapBig"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/cardview_light_background"
+        android:layout_marginTop="@dimen/gapBig"
         app:cardCornerRadius="@dimen/cardview_default_radius"
         app:cardUseCompatPadding="true">
 

@@ -71,7 +71,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/gapBig"
-        app:cardBackgroundColor="@color/cardview_light_background"
         app:cardCornerRadius="@dimen/cardview_default_radius"
         app:cardUseCompatPadding="true">
 
