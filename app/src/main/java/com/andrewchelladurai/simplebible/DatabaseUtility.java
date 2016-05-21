@@ -211,38 +211,27 @@ public class DatabaseUtility
                                  null, null, BOOK_NUMBER);
 
         if (cursor != null && cursor.moveToFirst()) {
-            int verseTextIndex = cursor.getColumnIndex(VERSE_TEXT);
             int verseNumberIndex = cursor.getColumnIndex(VERSE_NUMBER);
             int chapterIndex = cursor.getColumnIndex(CHAPTER_NUMBER);
             int bookIndex = cursor.getColumnIndex(BOOK_NUMBER);
             int bookValue, chapterValue, verseValue;
             StringBuilder entry = new StringBuilder();
+
             do {
                 bookValue = cursor.getInt(bookIndex);
                 chapterValue = cursor.getInt(chapterIndex);
                 verseValue = cursor.getInt(verseNumberIndex);
-                entry.append("Book ")
-                     .append(bookValue)
-                     .append(" (")
+                entry.append(bookValue)
+                     .append(":")
                      .append(chapterValue)
                      .append(":")
-                     .append(verseValue)
-                     .append(") ")
-                     .append(cursor.getString(verseTextIndex));
-/*
-                entry.append(Book.getBookDetails(bookValue).getName())
-                        .append(" (")
-                        .append(chapterValue)
-                        .append(":")
-                        .append(verseValue)
-                        .append(") ")
-                        .append(cursor.getString(verseTextIndex));
-*/
+                     .append(verseValue);
                 values.add(entry.toString());
                 entry.delete(0, entry.length());
             } while (cursor.moveToNext());
             cursor.close();
         }
+
         Log.d(TAG, "findText() returned: " + values.size());
         return values;
     }
