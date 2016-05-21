@@ -22,7 +22,7 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
   ~
-  -->
+-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.andrewchelladurai.simplebible">
 
@@ -41,6 +41,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ChapterActivity"
+            android:label="@string/title_activity_chapter"
+            android:parentActivityName=".SimpleBibleActivity"
+            android:theme="@style/BrightTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.andrewchelladurai.simplebible.SimpleBibleActivity" />
         </activity>
     </application>
 

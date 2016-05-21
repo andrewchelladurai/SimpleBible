@@ -135,4 +135,6 @@
     <string name="search_no_results">No Results Found</string>
     <string name="search_text_results_found">" results found."</string>
     <string name="button_search_reset">Reset Search</string>
+    <string name="title_activity_chapter">Chapter</string>
+    <string name="action_settings">Settings</string>
 </resources>

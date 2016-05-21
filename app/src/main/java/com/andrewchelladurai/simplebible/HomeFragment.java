@@ -26,6 +26,7 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
@@ -136,7 +137,11 @@ public class HomeFragment
             }
             Log.i(TAG, "EventHandler.onClick: Button Goto Location Clicked"
                        + " [" + mBookNumber + "][" + mChapterNumber + "]");
+            Intent intent = new Intent(getContext(), ChapterActivity.class);
+            intent.putExtra(ChapterActivity.BOOK_NUMBER, mBookNumber);
+            intent.putExtra(ChapterActivity.CHAPTER_NUMBER, mChapterNumber);
             resetValues();
+            startActivity(intent);
         }
 
         @Override

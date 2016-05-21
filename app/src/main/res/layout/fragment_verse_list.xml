@@ -1,6 +1,6 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~
-  ~ This file 'dimens.xml' is part of SimpleBible :  SimpleBible
+  ~ This file 'fragment_verse_list.xml' is part of SimpleBible :
   ~
   ~ Copyright (c) 2016.
   ~
@@ -24,13 +24,15 @@
   ~
   -->
 
-<resources>
-    <dimen name="gap">12dp</dimen>
-    <dimen name="gapBig">18dp</dimen>
-    <dimen name="gapSmall">6dp</dimen>
-    <dimen name="text_margin">16dp</dimen>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-</resources>
+<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/list"
+    android:name="com.andrewchelladurai.simplebible.VerseFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    app:layoutManager="LinearLayoutManager"
+    tools:context="com.andrewchelladurai.simplebible.VerseFragment"
+    tools:listitem="@layout/fragment_chapter" />

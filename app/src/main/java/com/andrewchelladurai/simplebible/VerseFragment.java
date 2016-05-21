@@ -1,6 +1,6 @@
 /*
  *
- * This file 'BookListFragment.java' is part of SimpleBible :  SimpleBible
+ * This file 'VerseFragment.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.
  *
@@ -26,59 +26,64 @@
 
 package com.andrewchelladurai.simplebible;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.andrewchelladurai.simplebible.Book.Details;
+import com.andrewchelladurai.simplebible.ChapterContent.VerseEntry;
 
-public class BookListFragment
+public class VerseFragment
         extends Fragment {
 
-    private static final String TAG = "BookListFragment";
+    private static final String TAG = "VerseFragment";
+    private static final String COLUMN_COUNT = "COLUMN_COUNT";
+    private int mColumnCount = 1;
 
-    public BookListFragment() {
+    public VerseFragment() {
     }
 
-    public static BookListFragment newInstance() {
-        BookListFragment fragment = new BookListFragment();
+    public static VerseFragment newInstance(int columnCount) {
+        VerseFragment fragment = new VerseFragment();
         Bundle args = new Bundle();
+        args.putInt(COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mColumnCount = getArguments().getInt(COLUMN_COUNT);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_book_list, container, false);
-        final int count = Utilities.getInstance(null).getBooksColumnCount();
+        View view = inflater.inflate(R.layout.fragment_verse_list, container, false);
 
+/*
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (count <= 1) {
+            if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, count));
+                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new BookListAdapter(Book.getENTRIES(), this));
+            recyclerView.setAdapter(new VerseViewAdapter(
+                    ChapterContent.ITEMS, new VerseEventHandler(this,
+                                                                VerseEventHandler.HANDLE.CHAPTER)));
         }
+*/
         return view;
     }
 
-    public void bookItemClicked(final Details pItem) {
-        Log.i(TAG, "bookItemClicked: " + pItem.toString());
-        Intent intent = new Intent(getContext(), ChapterActivity.class);
-        intent.putExtra(ChapterActivity.BOOK_NUMBER, pItem.number);
-        intent.putExtra(ChapterActivity.CHAPTER_NUMBER, 1);
-        startActivity(intent);
+    public void handleLongClick(final VerseEntry pItem) {
+        Log.i(TAG, "handleLongClick : " + pItem.toString());
     }
 }
