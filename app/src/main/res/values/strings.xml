@@ -142,4 +142,6 @@
     <string name="search_no_results">No Results Found</string>
     <string name="search_text_results_found">" results found."</string>
     <string name="button_search_reset">Reset Search</string>
+    <string name="button_save">Save</string>
+    <string name="button_share">Share</string>
 </resources>

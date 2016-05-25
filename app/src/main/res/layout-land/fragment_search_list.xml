@@ -37,14 +37,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/gap"
+        android:animateLayoutChanges="true"
         android:padding="@dimen/gapBig">
 
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/fragment_search_text"
             android:layout_width="wrap_content"
-            android:hint="@string/hint_text_to_search"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:hint="@string/hint_text_to_search" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/fragment_search_button"

@@ -40,8 +40,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.andrewchelladurai.simplebible.SearchResult.Entry;
-
 import java.util.ArrayList;
 
 public class SearchFragment
@@ -84,18 +82,29 @@ public class SearchFragment
         return view;
     }
 
-    public void searchResultLongClicked(final Entry pItem) {
-        Log.i(TAG, "searchResultLongClicked: " + pItem.toString());
-    }
-
     @Override public void onClick(final View view) {
         if (view instanceof AppCompatButton) {
-            handleButtonClick();
+            String buttonLabel = ((AppCompatButton) view).getText().toString();
+            if (buttonLabel.equals(getString(R.string.button_search_text))) {
+                handleSearchButtonClick();
+            } else if (buttonLabel.equals(getString(R.string.button_save))) {
+                handleSaveButtonClick();
+            } else if (buttonLabel.equals(getString(R.string.button_share))) {
+                handleShareButtonClick();
+            }
         }
     }
 
-    private void handleButtonClick() {
-        Log.i(TAG, "handleButtonClick");
+    private void handleShareButtonClick() {
+        Log.i(TAG, "handleShareButtonClick: ");
+    }
+
+    private void handleSaveButtonClick() {
+        Log.i(TAG, "handleSaveButtonClick: ");
+    }
+
+    private void handleSearchButtonClick() {
+        Log.i(TAG, "handleSearchButtonClick");
 
         if (mButton.getText().toString().equalsIgnoreCase(
                 getString(R.string.button_search_text))) {

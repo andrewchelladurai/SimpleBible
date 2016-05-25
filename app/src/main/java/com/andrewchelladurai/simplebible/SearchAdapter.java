@@ -25,6 +25,7 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -92,8 +93,6 @@ public class SearchAdapter
                 // Set the current position to "expanded"
                 mExpandedPosition = holder.getAdapterPosition();
                 notifyItemChanged(mExpandedPosition);
-
-                mListener.searchResultLongClicked(holder.mItem);
             }
         });
     }
@@ -120,6 +119,14 @@ public class SearchAdapter
             mView = view;
             mVerse = (TextView) view.findViewById(R.id.fragment_search_result_entry);
             mActionBar = (ButtonBarLayout) view.findViewById(R.id.fragment_search_result_actions);
+
+            AppCompatButton button = (AppCompatButton) view.findViewById(
+                    R.id.fragment_search_result_button_save);
+            button.setOnClickListener(mListener);
+
+            button = (AppCompatButton) view.findViewById(
+                    R.id.fragment_search_result_button_share);
+            button.setOnClickListener(mListener);
         }
 
         @Override
