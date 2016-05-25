@@ -1,6 +1,5 @@
 /*
- *
- * This file 'DatabaseUtility.java' is part of SimpleBible :  SimpleBible
+ * This file 'DatabaseUtility.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.
  *
@@ -49,17 +48,17 @@ public class DatabaseUtility
 
     private static final String TAG = "DatabaseUtility";
 
-    private static final String DATABASE_NAME = "Bible.db";
-    private final static String BIBLE_TABLE = "BIBLE_VERSES";
-    private final static String DAILY_VERSE_TABLE = "DAILY_VERSE";
-    private final static String BOOK_NUMBER = "BOOK_NUMBER";
-    private final static String CHAPTER_NUMBER = "CHAPTER_NUMBER";
-    private final static String VERSE_NUMBER = "VERSE_NUMBER";
-    private final static String VERSE_TEXT = "VERSE_TEXT";
-    private static DatabaseUtility staticInstance = null;
-    private static String DB_PATH;
+    private static final String          DATABASE_NAME     = "Bible.db";
+    private final static String          BIBLE_TABLE       = "BIBLE_VERSES";
+    private final static String          DAILY_VERSE_TABLE = "DAILY_VERSE";
+    private final static String          BOOK_NUMBER       = "BOOK_NUMBER";
+    private final static String          CHAPTER_NUMBER    = "CHAPTER_NUMBER";
+    private final static String          VERSE_NUMBER      = "VERSE_NUMBER";
+    private final static String          VERSE_TEXT        = "VERSE_TEXT";
+    private static       DatabaseUtility staticInstance    = null;
+    private static String         DB_PATH;
     private static SQLiteDatabase database;
-    private static Context context;
+    private static Context        context;
 
     private DatabaseUtility(Context context) {
         super(context, DATABASE_NAME, null, 1);

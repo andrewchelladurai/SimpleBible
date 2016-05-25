@@ -1,5 +1,4 @@
 /*
- *
  * This file 'VerseEventHandler.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.
@@ -32,9 +31,6 @@ package com.andrewchelladurai.simplebible;
 public class VerseEventHandler {
 
     private final HANDLE mHandler;
-
-    enum HANDLE {CHAPTER, SEARCH}
-
     private final ChapterActivity mVerseFragment;
 
     public VerseEventHandler(final ChapterActivity pVerseFragment,
@@ -53,4 +49,6 @@ public class VerseEventHandler {
             default:// FIXME: handle this
         }
     }
+
+    enum HANDLE {CHAPTER, SEARCH}
 }

@@ -1,6 +1,5 @@
 /*
- *
- * This file 'BookListAdapter.java' is part of SimpleBible :  SimpleBible
+ * This file 'BookListAdapter.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.
  *
@@ -39,7 +38,7 @@ import java.util.List;
 public class BookListAdapter
         extends RecyclerView.Adapter<BookListAdapter.BookEntryView> {
 
-    private final List<Details> mValues;
+    private final List<Details>    mValues;
     private final BookListFragment mListener;
 
     public BookListAdapter(List<Details> items, BookListFragment listener) {
@@ -79,7 +78,7 @@ public class BookListAdapter
     public class BookEntryView
             extends RecyclerView.ViewHolder {
 
-        final View mView;
+        final View     mView;
         final TextView mName;
         final TextView mChapterCount;
         Details mDetails;

@@ -1,6 +1,5 @@
 /*
- *
- * This file 'SearchViewAdapter.java' is part of SimpleBible :  SimpleBible
+ * This file 'SearchAdapter.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.
  *
@@ -33,34 +32,34 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.andrewchelladurai.simplebible.SearchResult.Verse;
+import com.andrewchelladurai.simplebible.SearchResult.Entry;
 
 import java.util.List;
 
-public class SearchViewAdapter
-        extends RecyclerView.Adapter<SearchViewAdapter.SearchVerse> {
+public class SearchAdapter
+        extends RecyclerView.Adapter<SearchAdapter.ResultView> {
 
-    private final List<SearchResult.Verse> mVerses;
+    private final List<Entry>    mEntries;
     private final SearchFragment mListener;
 
-    public SearchViewAdapter(List<Verse> items, SearchFragment listener) {
-        mVerses = items;
+    public SearchAdapter(List<Entry> items, SearchFragment listener) {
+        mEntries = items;
         mListener = listener;
     }
 
     @Override
-    public SearchVerse onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ResultView onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                                   .inflate(R.layout.fragment_search, parent, false);
-        return new SearchVerse(view);
+        return new ResultView(view);
     }
 
     @Override
-    public void onBindViewHolder(final SearchVerse holder, int position) {
-        holder.mItem = mVerses.get(position);
+    public void onBindViewHolder(final ResultView holder, int position) {
+        holder.mItem = mEntries.get(position);
 
-        String vText = mVerses.get(position).getVerseText();
-        String vId[] = mVerses.get(position).getVerseReference().split(":");
+        String vText = mEntries.get(position).getVerseText();
+        String vId[] = mEntries.get(position).getVerseReference().split(":");
         int bookNumber = Integer.parseInt(vId[0]);
 //        int chapterNumber = Integer.parseInt(vId[1]);
 //        int verseNumber = Integer.parseInt(vId[2]);
@@ -90,17 +89,17 @@ public class SearchViewAdapter
 
     @Override
     public int getItemCount() {
-        return mVerses.size();
+        return mEntries.size();
     }
 
-    public class SearchVerse
+    public class ResultView
             extends RecyclerView.ViewHolder {
 
-        SearchResult.Verse mItem;
         final TextView mVerse;
-        final View mView;
+        final View     mView;
+        Entry mItem;
 
-        public SearchVerse(View view) {
+        public ResultView(View view) {
             super(view);
             mView = view;
             mVerse = (TextView) view.findViewById(R.id.fragment_search_result_entry);

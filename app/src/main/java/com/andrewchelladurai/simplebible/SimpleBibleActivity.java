@@ -1,6 +1,5 @@
 /*
- *
- * This file 'SimpleBibleActivity.java' is part of SimpleBible :  SimpleBible
+ * This file 'SimpleBibleActivity.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.
  *

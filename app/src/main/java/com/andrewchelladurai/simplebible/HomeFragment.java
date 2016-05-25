@@ -1,6 +1,5 @@
 /*
- *
- * This file 'HomeFragment.java' is part of SimpleBible :  SimpleBible
+ * This file 'HomeFragment.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.
  *
@@ -47,9 +46,9 @@ public class HomeFragment
     private static final String TAG = "HomeFragment";
     private AppCompatAutoCompleteTextView mBookName;
     private AppCompatAutoCompleteTextView mChapter;
-    private AppCompatTextView mDailyVerse;
-    private AppCompatButton mButton;
-    private int mBookNumber, mChapterNumber, mMaxChapterCount;
+    private AppCompatTextView             mDailyVerse;
+    private AppCompatButton               mButton;
+    private int                           mBookNumber, mChapterNumber, mMaxChapterCount;
 
     public HomeFragment() {
     }
@@ -82,18 +81,6 @@ public class HomeFragment
         return view;
     }
 
-    private void resetValues() {
-        mBookName.setText("");
-        mBookName.setError(null);
-
-        mChapter.setText("");
-        mChapter.setAdapter(null);
-        mChapter.setError(null);
-        mChapter.setHint(R.string.hint_chapter_number);
-        mBookNumber = mChapterNumber = mMaxChapterCount = 0;
-        mButton.setEnabled(false);
-    }
-
     private void setDailyVerse() {
         final DatabaseUtility dbu = DatabaseUtility.getInstance(null);
         final String[] parts = dbu.getVerseForToday().split(":");
@@ -116,6 +103,18 @@ public class HomeFragment
 
             mDailyVerse.setText(Html.fromHtml(verseContent));
         }
+    }
+
+    private void resetValues() {
+        mBookName.setText("");
+        mBookName.setError(null);
+
+        mChapter.setText("");
+        mChapter.setAdapter(null);
+        mChapter.setError(null);
+        mChapter.setHint(R.string.hint_chapter_number);
+        mBookNumber = mChapterNumber = mMaxChapterCount = 0;
+        mButton.setEnabled(false);
     }
 
     class EventHandler

@@ -1,6 +1,5 @@
 /*
- *
- * This file 'SearchFragment.java' is part of SimpleBible :  SimpleBible
+ * This file 'SearchFragment.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.
  *
@@ -41,7 +40,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.andrewchelladurai.simplebible.SearchResult.Verse;
+import com.andrewchelladurai.simplebible.SearchResult.Entry;
 
 import java.util.ArrayList;
 
@@ -52,9 +51,9 @@ public class SearchFragment
     private static final String TAG = "SearchFragment";
     private AppCompatEditText mTextInput;
     private AppCompatTextView mLabel;
-    private SearchViewAdapter mAdapter;
-    private RecyclerView mRecyclerView;
-    private AppCompatButton mButton;
+    private SearchAdapter     mAdapter;
+    private RecyclerView      mRecyclerView;
+    private AppCompatButton   mButton;
 
     public SearchFragment() {
     }
@@ -73,7 +72,7 @@ public class SearchFragment
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_search_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        mAdapter = new SearchViewAdapter(SearchResult.getITEMS(), this);
+        mAdapter = new SearchAdapter(SearchResult.getITEMS(), this);
         mRecyclerView.setAdapter(mAdapter);
 
         mButton = (AppCompatButton) view.findViewById(R.id.fragment_search_button);
@@ -85,7 +84,7 @@ public class SearchFragment
         return view;
     }
 
-    public void searchResultLongClicked(final Verse pItem) {
+    public void searchResultLongClicked(final Entry pItem) {
         Log.i(TAG, "searchResultLongClicked: " + pItem.toString());
     }
 

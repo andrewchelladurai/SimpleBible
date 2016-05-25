@@ -1,6 +1,5 @@
 /*
- *
- * This file 'DummyContent.java' is part of SimpleBible :
+ * This file 'ChapterContent.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.
  *
@@ -33,7 +32,7 @@ import java.util.Map;
 
 public class ChapterContent {
 
-    public static final List<VerseEntry> ITEMS = new ArrayList<>();
+    public static final List<VerseEntry>        ITEMS    = new ArrayList<>();
     public static final Map<String, VerseEntry> ITEM_MAP = new HashMap<>();
 
     public static List<VerseEntry> refreshList(int bookNumber, int chapterNumber) {

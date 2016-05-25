@@ -1,5 +1,4 @@
 /*
- *
  * This file 'ChapterActivity.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.
@@ -40,15 +39,14 @@ import java.util.List;
 public class ChapterActivity
         extends AppCompatActivity {
 
-    private static final String TAG = "ChapterActivity";
-    public static final String COLUMN_COUNT = "COLUMN_COUNT";
-    public static final String BOOK_NUMBER = "BOOK_NUMBER";
-    public static final String CHAPTER_NUMBER = "CHAPTER_NUMBER";
-
+    public static final  String COLUMN_COUNT   = "COLUMN_COUNT";
+    public static final  String BOOK_NUMBER    = "BOOK_NUMBER";
+    public static final  String CHAPTER_NUMBER = "CHAPTER_NUMBER";
+    private static final String TAG            = "ChapterActivity";
     private int mColumnCount;
     private int mChapterNumber, mBookNumber;
     private VerseViewAdapter mAdapter;
-    private RecyclerView mRecyclerView;
+    private RecyclerView     mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

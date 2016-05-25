@@ -1,6 +1,5 @@
 /*
- *
- * This file 'SearchResult.java' is part of SimpleBible :  SimpleBible
+ * This file 'SearchResult.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.
  *
@@ -33,21 +32,10 @@ import java.util.Map;
 
 class SearchResult {
 
-    private static final List<Verse> ITEMS = new ArrayList<>();
-    private static final Map<String, Verse> ITEM_MAP = new HashMap<>();
+    private static final List<Entry>        ITEMS    = new ArrayList<>();
+    private static final Map<String, Entry> ITEM_MAP = new HashMap<>();
 
-    private static void addItem(int pBook, int pChapter, int pVerse, String noResultFound) {
-        DatabaseUtility dbu = DatabaseUtility.getInstance(null);
-        String verse = dbu.getSpecificVerse(pBook, pChapter, pVerse);
-        if (verse == null) {
-            verse = noResultFound;
-        }
-        Verse item = new Verse(pBook, pChapter, pVerse, verse);
-        ITEMS.add(item);
-        ITEM_MAP.put(item.getVerseReference(), item);
-    }
-
-    public static List<Verse> getITEMS() {
+    public static List<Entry> getITEMS() {
         return ITEMS;
     }
 
@@ -67,14 +55,25 @@ class SearchResult {
         }
     }
 
-    static class Verse {
+    private static void addItem(int pBook, int pChapter, int pVerse, String noResultFound) {
+        DatabaseUtility dbu = DatabaseUtility.getInstance(null);
+        String verse = dbu.getSpecificVerse(pBook, pChapter, pVerse);
+        if (verse == null) {
+            verse = noResultFound;
+        }
+        Entry item = new Entry(pBook, pChapter, pVerse, verse);
+        ITEMS.add(item);
+        ITEM_MAP.put(item.getVerseReference(), item);
+    }
 
-        private final int mBookNumber;
-        private final int mChapterNumber;
-        private final int mVerseNumber;
+    static class Entry {
+
+        private final int    mBookNumber;
+        private final int    mChapterNumber;
+        private final int    mVerseNumber;
         private final String mVerseText;
 
-        public Verse(int bookNumber, int chapterNumber, int verseNumber, String verseText) {
+        public Entry(int bookNumber, int chapterNumber, int verseNumber, String verseText) {
             mBookNumber = bookNumber;
             mChapterNumber = chapterNumber;
             mVerseNumber = verseNumber;
@@ -84,6 +83,10 @@ class SearchResult {
         @Override
         public String toString() {
             return getVerseReference() + " = " + getVerseText();
+        }
+
+        public String getVerseReference() {
+            return mBookNumber + ":" + mChapterNumber + ":" + mVerseNumber;
         }
 
         public String getVerseText() {
@@ -100,10 +103,6 @@ class SearchResult {
 
         public int getVerseNumber() {
             return mVerseNumber;
-        }
-
-        public String getVerseReference() {
-            return mBookNumber + ":" + mChapterNumber + ":" + mVerseNumber;
         }
     }
 }

@@ -1,8 +1,7 @@
 /*
- * This file 'build.gradle' is part of SimpleBible :  An Android Bible application
- * with offline access, simple features and easy to use navigation.
+ * This file 'build.gradle' is part of SimpleBible :
  *
- * Copyright (c) Andrew Chelladurai - 2015.
+ * Copyright (c) 2016.
  *
  * This Application is available at below locations
  * Binary : https://play.google.com/store/apps/developer?id=Andrew+Chelladurai
@@ -21,6 +20,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * OR <http://www.gnu.org/licenses/gpl-3.0.txt>
+ *
  */
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 

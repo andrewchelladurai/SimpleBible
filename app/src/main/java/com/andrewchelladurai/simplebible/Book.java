@@ -1,6 +1,5 @@
 /*
- *
- * This file 'Book.java' is part of SimpleBible :  SimpleBible
+ * This file 'Book.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.
  *
@@ -35,8 +34,8 @@ import java.util.Map;
 
 public class Book {
 
-    private static final String TAG = "Book";
-    private static final List<Details> ENTRIES = new ArrayList<>();
+    private static final String                TAG       = "Book";
+    private static final List<Details>         ENTRIES   = new ArrayList<>();
     private static final Map<Integer, Details> ENTRY_MAP = new HashMap<>();
 
     public static void populateBooks(String[] values) {
@@ -81,9 +80,9 @@ public class Book {
     }
 
     public static class Details {
-        final int number;
+        final int    number;
         final String name;
-        final int chapterCount;
+        final int    chapterCount;
 
         public Details(int position, String name, int count) {
             number = position;

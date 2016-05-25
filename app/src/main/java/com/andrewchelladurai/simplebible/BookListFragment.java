@@ -1,6 +1,5 @@
 /*
- *
- * This file 'BookListFragment.java' is part of SimpleBible :  SimpleBible
+ * This file 'BookListFragment.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.
  *

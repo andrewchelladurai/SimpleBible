@@ -1,5 +1,4 @@
 /*
- *
  * This file 'VerseViewAdapter.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.
@@ -41,7 +40,7 @@ public class VerseViewAdapter
         extends RecyclerView.Adapter<VerseViewAdapter.Verse> {
 
     private final List<VerseEntry> mVerseList;
-    private final ChapterActivity mListener;
+    private final ChapterActivity  mListener;
 
     public VerseViewAdapter(List<VerseEntry> items, ChapterActivity listener) {
         mVerseList = items;
@@ -83,7 +82,7 @@ public class VerseViewAdapter
     class Verse
             extends RecyclerView.ViewHolder {
 
-        final View mView;
+        final View              mView;
         final AppCompatTextView mContent;
         VerseEntry mItem;
 
