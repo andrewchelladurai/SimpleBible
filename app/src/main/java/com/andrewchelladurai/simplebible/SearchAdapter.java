@@ -25,6 +25,7 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -41,6 +42,7 @@ public class SearchAdapter
 
     private final List<Entry>    mEntries;
     private final SearchFragment mListener;
+    private int mExpandedPosition = -1;
 
     public SearchAdapter(List<Entry> items, SearchFragment listener) {
         mEntries = items;
@@ -56,6 +58,11 @@ public class SearchAdapter
 
     @Override
     public void onBindViewHolder(final ResultView holder, int position) {
+        if (position == mExpandedPosition) {
+            holder.mActionBar.setVisibility(View.VISIBLE);
+        } else {
+            holder.mActionBar.setVisibility(View.GONE);
+        }
         holder.mItem = mEntries.get(position);
 
         String vText = mEntries.get(position).getVerseText();
@@ -75,10 +82,18 @@ public class SearchAdapter
 
         holder.mVerse.setText(Html.fromHtml(template));
 
-        holder.mView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override public boolean onLongClick(final View v) {
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                // Check for an expanded view, collapse if you find one
+                if (mExpandedPosition >= 0) {
+                    int prev = mExpandedPosition;
+                    notifyItemChanged(prev);
+                }
+                // Set the current position to "expanded"
+                mExpandedPosition = holder.getAdapterPosition();
+                notifyItemChanged(mExpandedPosition);
+
                 mListener.searchResultLongClicked(holder.mItem);
-                return true;
             }
         });
     }
@@ -98,11 +113,13 @@ public class SearchAdapter
         final TextView mVerse;
         final View     mView;
         Entry mItem;
+        ButtonBarLayout mActionBar;
 
         public ResultView(View view) {
             super(view);
             mView = view;
             mVerse = (TextView) view.findViewById(R.id.fragment_search_result_entry);
+            mActionBar = (ButtonBarLayout) view.findViewById(R.id.fragment_search_result_actions);
         }
 
         @Override

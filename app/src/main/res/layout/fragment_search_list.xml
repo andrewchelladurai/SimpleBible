@@ -38,6 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/gapSmall"
         android:orientation="vertical"
+        android:animateLayoutChanges="true"
         android:padding="@dimen/gapSmall">
 
         <android.support.v7.widget.AppCompatEditText
