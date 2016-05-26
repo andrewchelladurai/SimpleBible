@@ -85,7 +85,8 @@ public class SearchFragment
     @Override public void onClick(final View view) {
         if (view instanceof AppCompatButton) {
             String buttonLabel = ((AppCompatButton) view).getText().toString();
-            if (buttonLabel.equals(getString(R.string.button_search_text))) {
+            if (buttonLabel.equals(getString(R.string.button_search_text))
+                || buttonLabel.equals(getString(R.string.button_search_reset))) {
                 handleSearchButtonClick();
             } else if (buttonLabel.equals(getString(R.string.button_save))) {
                 handleSaveButtonClick();
@@ -104,10 +105,9 @@ public class SearchFragment
     }
 
     private void handleSearchButtonClick() {
-        Log.i(TAG, "handleSearchButtonClick");
-
         if (mButton.getText().toString().equalsIgnoreCase(
                 getString(R.string.button_search_text))) {
+            Log.i(TAG, "handleSearchButtonClick: Search Text");
             String input = mTextInput.getText().toString();
             if (input.isEmpty()) {
                 Snackbar.make(mTextInput, R.string.search_text_empty, Snackbar.LENGTH_SHORT).show();
@@ -137,6 +137,7 @@ public class SearchFragment
             }
         } else if (mButton.getText().toString().equalsIgnoreCase(
                 getString(R.string.button_search_reset))) {
+            Log.i(TAG, "handleSearchButtonClick: Reset Search");
             SearchResult.refreshList(new ArrayList<String>(0), getString(R.string.no_verse_found));
             mLabel.setText("");
             mButton.setText(getString(R.string.button_search_text));

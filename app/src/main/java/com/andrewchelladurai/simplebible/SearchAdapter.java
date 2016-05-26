@@ -60,7 +60,11 @@ public class SearchAdapter
     @Override
     public void onBindViewHolder(final ResultView holder, int position) {
         if (position == mExpandedPosition) {
-            holder.mActionBar.setVisibility(View.VISIBLE);
+            if (holder.mActionBar.getVisibility() == View.VISIBLE) {
+                holder.mActionBar.setVisibility(View.GONE);
+            } else {
+                holder.mActionBar.setVisibility(View.VISIBLE);
+            }
         } else {
             holder.mActionBar.setVisibility(View.GONE);
         }
@@ -106,12 +110,12 @@ public class SearchAdapter
         return mEntries.size();
     }
 
-    public class ResultView
+    class ResultView
             extends RecyclerView.ViewHolder {
 
         final TextView mVerse;
         final View     mView;
-        Entry mItem;
+        Entry           mItem;
         ButtonBarLayout mActionBar;
 
         public ResultView(View view) {
