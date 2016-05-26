@@ -61,12 +61,12 @@ public class SearchAdapter
     public void onBindViewHolder(final ResultView holder, int position) {
         if (position == mExpandedPosition) {
             if (holder.mActionBar.getVisibility() == View.VISIBLE) {
-                holder.mActionBar.setVisibility(View.GONE);
+                holder.hideActions();
             } else {
-                holder.mActionBar.setVisibility(View.VISIBLE);
+                holder.showActions();
             }
         } else {
-            holder.mActionBar.setVisibility(View.GONE);
+            holder.hideActions();
         }
         holder.mItem = mEntries.get(position);
 
@@ -136,6 +136,14 @@ public class SearchAdapter
         @Override
         public String toString() {
             return super.toString() + " '" + mVerse.getText();
+        }
+
+        public void hideActions() {
+            mActionBar.setVisibility(View.GONE);
+        }
+
+        public void showActions() {
+            mActionBar.setVisibility(View.VISIBLE);
         }
     }
 }
