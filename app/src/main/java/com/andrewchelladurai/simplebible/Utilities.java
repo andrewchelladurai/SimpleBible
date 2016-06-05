@@ -25,6 +25,7 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.util.Log;
 
@@ -65,5 +66,14 @@ public class Utilities {
         }
         Log.d(TAG, "getBooksColumnCount() returned: " + count);
         return count;
+    }
+
+    public static Intent shareVerse(String textToShare) {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, textToShare);
+        sendIntent.setType("text/plain");
+        Log.i(TAG, "shareVerse: " + textToShare);
+        return sendIntent;
     }
 }

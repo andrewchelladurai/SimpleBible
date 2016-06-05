@@ -101,12 +101,13 @@ public class SearchAdapter
     }
 
     class ResultView
-            extends RecyclerView.ViewHolder {
+            extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         final TextView mVerse;
         final View mView;
         Entry mItem;
         final ButtonBarLayout mActionBar;
+        private static final String TAG = "ResultView";
 
         public ResultView(View view) {
             super(view);
@@ -116,11 +117,11 @@ public class SearchAdapter
 
             AppCompatButton button = (AppCompatButton) view.findViewById(
                     R.id.fragment_search_result_button_save);
-            button.setOnClickListener(mListener);
+            button.setOnClickListener(this);
 
             button = (AppCompatButton) view.findViewById(
                     R.id.fragment_search_result_button_share);
-            button.setOnClickListener(mListener);
+            button.setOnClickListener(this);
         }
 
         @Override
@@ -134,6 +135,16 @@ public class SearchAdapter
 
         public void showActions() {
             mActionBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onClick(View v) {
+            String buttonText = ((AppCompatButton)v).getText().toString();
+            if (buttonText.equalsIgnoreCase(getString(R.string.button_share))){
+                mListener.handleShareButtonClick(mItem);
+            }else if (buttonText.equalsIgnoreCase(getString(R.string.button_save))){
+                mListener.handleSaveButtonClick(mItem);
+            }
         }
     }
 }

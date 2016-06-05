@@ -89,20 +89,8 @@ public class SearchFragment
             if (buttonLabel.equals(getString(R.string.button_search_text))
                     || buttonLabel.equals(getString(R.string.button_search_reset))) {
                 handleSearchButtonClick();
-            } else if (buttonLabel.equals(getString(R.string.button_save))) {
-                handleSaveButtonClick();
-            } else if (buttonLabel.equals(getString(R.string.button_share))) {
-                handleShareButtonClick();
             }
         }
-    }
-
-    private void handleShareButtonClick() {
-        Log.i(TAG, "handleShareButtonClick: ");
-    }
-
-    private void handleSaveButtonClick() {
-        Log.i(TAG, "handleSaveButtonClick: ");
     }
 
     private void handleSearchButtonClick() {
@@ -161,4 +149,23 @@ public class SearchFragment
     public void afterTextChanged(final Editable s) {
         mButton.setText(getString(R.string.button_search_text));
     }
+
+    void handleShareButtonClick(SearchResult.Entry searchEntry) {
+        Log.i(TAG, "handleShareButtonClick: ");
+        Book.Details bookDetails = Book.getBookDetails(searchEntry.getBookNumber());
+        if (bookDetails != null) {
+            String textToShare = searchEntry.getVerseText() +
+                    " - " + bookDetails.name + " " + searchEntry.getChapterNumber() + ":" +
+                    searchEntry.getVerseNumber() + " (NIV)";
+            startActivity(Utilities.shareVerse(textToShare));
+        } else {
+            Log.d(TAG, "handleShareButtonClick: Incorrect Verse Reference "
+                    + searchEntry.getVerseReference());
+        }
+    }
+
+    void handleSaveButtonClick(SearchResult.Entry mItem) {
+        Log.i(TAG, "handleSaveButtonClick: ");
+    }
+
 }
