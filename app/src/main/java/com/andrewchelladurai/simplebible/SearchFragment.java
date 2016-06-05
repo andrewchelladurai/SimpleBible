@@ -49,9 +49,9 @@ public class SearchFragment
     private static final String TAG = "SearchFragment";
     private AppCompatEditText mTextInput;
     private AppCompatTextView mLabel;
-    private SearchAdapter     mAdapter;
-    private RecyclerView      mRecyclerView;
-    private AppCompatButton   mButton;
+    private SearchAdapter mAdapter;
+    private RecyclerView mRecyclerView;
+    private AppCompatButton mButton;
 
     public SearchFragment() {
     }
@@ -82,11 +82,12 @@ public class SearchFragment
         return view;
     }
 
-    @Override public void onClick(final View view) {
+    @Override
+    public void onClick(final View view) {
         if (view instanceof AppCompatButton) {
             String buttonLabel = ((AppCompatButton) view).getText().toString();
             if (buttonLabel.equals(getString(R.string.button_search_text))
-                || buttonLabel.equals(getString(R.string.button_search_reset))) {
+                    || buttonLabel.equals(getString(R.string.button_search_reset))) {
                 handleSearchButtonClick();
             } else if (buttonLabel.equals(getString(R.string.button_save))) {
                 handleSaveButtonClick();
@@ -146,15 +147,18 @@ public class SearchFragment
         mAdapter.notifyDataSetChanged();
     }
 
-    @Override public void beforeTextChanged(final CharSequence s, final int start, final int count,
-                                            final int after) {
+    @Override
+    public void beforeTextChanged(final CharSequence s, final int start, final int count,
+                                  final int after) {
     }
 
-    @Override public void onTextChanged(final CharSequence s, final int start, final int before,
-                                        final int count) {
+    @Override
+    public void onTextChanged(final CharSequence s, final int start, final int before,
+                              final int count) {
     }
 
-    @Override public void afterTextChanged(final Editable s) {
+    @Override
+    public void afterTextChanged(final Editable s) {
         mButton.setText(getString(R.string.button_search_text));
     }
 }

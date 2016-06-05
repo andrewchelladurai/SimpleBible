@@ -46,9 +46,9 @@ public class HomeFragment
     private static final String TAG = "HomeFragment";
     private AppCompatAutoCompleteTextView mBookName;
     private AppCompatAutoCompleteTextView mChapter;
-    private AppCompatTextView             mDailyVerse;
-    private AppCompatButton               mButton;
-    private int                           mBookNumber, mChapterNumber, mMaxChapterCount;
+    private AppCompatTextView mDailyVerse;
+    private AppCompatButton mButton;
+    private int mBookNumber, mChapterNumber, mMaxChapterCount;
 
     public HomeFragment() {
     }
@@ -69,8 +69,8 @@ public class HomeFragment
 
         mBookName = (AppCompatAutoCompleteTextView) view.findViewById(R.id.fragment_home_book_name);
         mBookName.setAdapter(new ArrayAdapter<>(view.getContext(),
-                                                android.R.layout.simple_dropdown_item_1line,
-                                                Book.getAllBookNamed()));
+                android.R.layout.simple_dropdown_item_1line,
+                Book.getAllBookNamed()));
         mBookName.setValidator(eventHandler);
         mBookName.setOnItemClickListener(eventHandler);
 
@@ -91,7 +91,7 @@ public class HomeFragment
         Book.Details bookDetails = Book.getBookDetails(book);
         String verseContent = getString(R.string.daily_verse_template);
         verseContent = verseContent.replace(getString(R.string.daily_verse_template_text),
-                                            dbu.getSpecificVerse(book, chapter, verse));
+                dbu.getSpecificVerse(book, chapter, verse));
 
         if (bookDetails != null) {
             verseContent = verseContent.replace(
@@ -119,7 +119,7 @@ public class HomeFragment
 
     class EventHandler
             implements View.OnClickListener, AutoCompleteTextView.Validator,
-                       AdapterView.OnItemClickListener {
+            AdapterView.OnItemClickListener {
 
         @Override
         public void onClick(final View v) {
@@ -135,7 +135,7 @@ public class HomeFragment
                 return;
             }
             Log.i(TAG, "EventHandler.onClick: Button Goto Location Clicked"
-                       + " [" + mBookNumber + "][" + mChapterNumber + "]");
+                    + " [" + mBookNumber + "][" + mChapterNumber + "]");
             Intent intent = new Intent(getContext(), ChapterActivity.class);
             intent.putExtra(ChapterActivity.BOOK_NUMBER, mBookNumber);
             intent.putExtra(ChapterActivity.CHAPTER_NUMBER, mChapterNumber);
@@ -161,8 +161,8 @@ public class HomeFragment
                 chapters[i] = "" + (i + 1);
             }
             mChapter.setAdapter(new ArrayAdapter<>(mChapter.getContext(),
-                                                   android.R.layout.simple_dropdown_item_1line,
-                                                   chapters));
+                    android.R.layout.simple_dropdown_item_1line,
+                    chapters));
             mChapter.setHint("between 1 and " + chapters.length);
             mBookName.setError(null);
             mBookNumber = bookDetails.number;

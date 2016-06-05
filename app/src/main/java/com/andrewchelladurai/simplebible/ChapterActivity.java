@@ -39,14 +39,14 @@ import java.util.List;
 public class ChapterActivity
         extends AppCompatActivity {
 
-    public static final  String COLUMN_COUNT   = "COLUMN_COUNT";
-    public static final  String BOOK_NUMBER    = "BOOK_NUMBER";
-    public static final  String CHAPTER_NUMBER = "CHAPTER_NUMBER";
-    private static final String TAG            = "ChapterActivity";
+    private static final String COLUMN_COUNT = "COLUMN_COUNT";
+    public static final String BOOK_NUMBER = "BOOK_NUMBER";
+    public static final String CHAPTER_NUMBER = "CHAPTER_NUMBER";
+    private static final String TAG = "ChapterActivity";
     private int mColumnCount;
     private int mChapterNumber, mBookNumber;
     private VerseViewAdapter mAdapter;
-    private RecyclerView     mRecyclerView;
+    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,7 @@ public class ChapterActivity
         Book.Details book = Book.getBookDetails(mBookNumber);
         if (book != null) {
             setTitle(book.name + " : " + getString(R.string.title_activity_chapter) + " "
-                     + mChapterNumber);
+                    + mChapterNumber);
         }
 
         mColumnCount = getIntent().getIntExtra(COLUMN_COUNT, 1);
@@ -84,14 +84,13 @@ public class ChapterActivity
         }
     }
 
-    private List<ChapterContent.VerseEntry> refreshList() {
+    private void refreshList() {
         List<ChapterContent.VerseEntry> entries =
                 ChapterContent.refreshList(mBookNumber, mChapterNumber);
         mRecyclerView.removeAllViews();
         mAdapter = new VerseViewAdapter(entries, this);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
-        return entries;
     }
 
     public void handleLongClick(final ChapterContent.VerseEntry pItem) {

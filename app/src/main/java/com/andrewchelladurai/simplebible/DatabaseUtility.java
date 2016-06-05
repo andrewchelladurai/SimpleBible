@@ -48,17 +48,17 @@ public class DatabaseUtility
 
     private static final String TAG = "DatabaseUtility";
 
-    private static final String          DATABASE_NAME     = "Bible.db";
-    private final static String          BIBLE_TABLE       = "BIBLE_VERSES";
-    private final static String          DAILY_VERSE_TABLE = "DAILY_VERSE";
-    private final static String          BOOK_NUMBER       = "BOOK_NUMBER";
-    private final static String          CHAPTER_NUMBER    = "CHAPTER_NUMBER";
-    private final static String          VERSE_NUMBER      = "VERSE_NUMBER";
-    private final static String          VERSE_TEXT        = "VERSE_TEXT";
-    private static       DatabaseUtility staticInstance    = null;
-    private static String         DB_PATH;
+    private static final String DATABASE_NAME = "Bible.db";
+    private final static String BIBLE_TABLE = "BIBLE_VERSES";
+    private final static String DAILY_VERSE_TABLE = "DAILY_VERSE";
+    private final static String BOOK_NUMBER = "BOOK_NUMBER";
+    private final static String CHAPTER_NUMBER = "CHAPTER_NUMBER";
+    private final static String VERSE_NUMBER = "VERSE_NUMBER";
+    private final static String VERSE_TEXT = "VERSE_TEXT";
+    private static DatabaseUtility staticInstance = null;
+    private static String DB_PATH;
     private static SQLiteDatabase database;
-    private static Context        context;
+    private static Context context;
 
     private DatabaseUtility(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -67,6 +67,17 @@ public class DatabaseUtility
         DB_PATH = context.getDatabasePath(DATABASE_NAME).getParent();
         Log.d(TAG, "DatabaseUtility() called DB_PATH = [" + DB_PATH + "]");
         openDataBase();
+    }
+
+    public static DatabaseUtility getInstance(Context context)
+            throws NullPointerException {
+        if (staticInstance == null) {
+            if (context == null) {
+                throw new NullPointerException("NULL Context passed for instantiating DB");
+            }
+            staticInstance = new DatabaseUtility(context);
+        }
+        return staticInstance;
     }
 
     private void openDataBase()
@@ -140,17 +151,6 @@ public class DatabaseUtility
         Log.d(TAG, "copyDataBase: Finished");
     }
 
-    public static DatabaseUtility getInstance(Context context)
-            throws NullPointerException {
-        if (staticInstance == null) {
-            if (context == null) {
-                throw new NullPointerException("NULL Context passed for instantiating DB");
-            }
-            staticInstance = new DatabaseUtility(context);
-        }
-        return staticInstance;
-    }
-
     @Override
     public synchronized void close() {
         if (database != null) {
@@ -170,17 +170,17 @@ public class DatabaseUtility
     public ArrayList<String> getAllVersesOfChapter(
             final int pBookNumber, final int pChapterNumber) {
         Log.d(TAG, "getAllVersesOfChapter() called BookNumber = [" + pBookNumber +
-                   "], ChapterNumber = [" + pChapterNumber + "]");
+                "], ChapterNumber = [" + pChapterNumber + "]");
 
         final SQLiteDatabase db = getReadableDatabase();
 
         String[] selectCols = {VERSE_NUMBER, CHAPTER_NUMBER, BOOK_NUMBER, VERSE_TEXT};
         String whereCondition = BOOK_NUMBER + " = ? AND " +
-                                CHAPTER_NUMBER + " = ?";
+                CHAPTER_NUMBER + " = ?";
         String[] conditionParams = {pBookNumber + "", pChapterNumber + ""};
 
         Cursor cursor = db.query(BIBLE_TABLE, selectCols, whereCondition,
-                                 conditionParams, null, null, VERSE_NUMBER, null);
+                conditionParams, null, null, VERSE_NUMBER, null);
 
         ArrayList<String> list = new ArrayList<>(0);
 
@@ -207,7 +207,7 @@ public class DatabaseUtility
         String[] conditionParams = {"%" + pInput + "%"};
 
         Cursor cursor = db.query(BIBLE_TABLE, selectCols, whereCondition, conditionParams,
-                                 null, null, BOOK_NUMBER);
+                null, null, BOOK_NUMBER);
 
         if (cursor != null && cursor.moveToFirst()) {
             int verseNumberIndex = cursor.getColumnIndex(VERSE_NUMBER);
@@ -221,10 +221,10 @@ public class DatabaseUtility
                 chapterValue = cursor.getInt(chapterIndex);
                 verseValue = cursor.getInt(verseNumberIndex);
                 entry.append(bookValue)
-                     .append(":")
-                     .append(chapterValue)
-                     .append(":")
-                     .append(verseValue);
+                        .append(":")
+                        .append(chapterValue)
+                        .append(":")
+                        .append(verseValue);
                 values.add(entry.toString());
                 entry.delete(0, entry.length());
             } while (cursor.moveToNext());
@@ -251,7 +251,7 @@ public class DatabaseUtility
 */
 
         Cursor cursor = db.query(DAILY_VERSE_TABLE, selectCols, whereCondition, conditionParams,
-                                 null, null, null);
+                null, null, null);
 
         if (cursor != null && cursor.moveToFirst()) {
             int verseNumberIndex = cursor.getColumnIndex(VERSE_NUMBER);
@@ -263,10 +263,10 @@ public class DatabaseUtility
             chapterValue = cursor.getInt(chapterIndex);
             verseValue = cursor.getInt(verseNumberIndex);
             entry.append(bookValue)
-                 .append(":")
-                 .append(chapterValue)
-                 .append(":")
-                 .append(verseValue);
+                    .append(":")
+                    .append(chapterValue)
+                    .append(":")
+                    .append(verseValue);
             verseId = entry.toString();
             entry.delete(0, entry.length());
             cursor.close();
@@ -276,10 +276,7 @@ public class DatabaseUtility
     }
 
     public String getSpecificVerse(int pBook, int pChapter, int pVerse) {
-        Log.d(TAG, "getSpecificVerse() called with pBook = [" + pBook + "], pChapter = ["
-                   + pChapter + "], pVerse = [" + pVerse + "]");
-
-        String value = null;
+        String value = "";
         final SQLiteDatabase dbu = getReadableDatabase();
 
         String[] showColumns = {VERSE_TEXT};
@@ -293,11 +290,12 @@ public class DatabaseUtility
 */
 
         Cursor cursor = dbu.query(BIBLE_TABLE, showColumns, whereCondition, conditionParams,
-                                  null, null, null);
+                null, null, null);
         if (null != cursor && cursor.moveToFirst()) {
             value = cursor.getString(cursor.getColumnIndex(VERSE_TEXT));
             cursor.close();
         }
+        Log.d(TAG, "getSpecificVerse() returned: " + value.length());
         return value;
     }
 }

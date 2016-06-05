@@ -32,7 +32,7 @@ import java.util.Map;
 
 class SearchResult {
 
-    private static final List<Entry>        ITEMS    = new ArrayList<>();
+    private static final List<Entry> ITEMS = new ArrayList<>();
     private static final Map<String, Entry> ITEM_MAP = new HashMap<>();
 
     public static List<Entry> getITEMS() {
@@ -68,9 +68,9 @@ class SearchResult {
 
     static class Entry {
 
-        private final int    mBookNumber;
-        private final int    mChapterNumber;
-        private final int    mVerseNumber;
+        private final int mBookNumber;
+        private final int mChapterNumber;
+        private final int mVerseNumber;
         private final String mVerseText;
 
         public Entry(int bookNumber, int chapterNumber, int verseNumber, String verseText) {

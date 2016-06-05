@@ -38,7 +38,7 @@ import java.util.List;
 public class BookListAdapter
         extends RecyclerView.Adapter<BookListAdapter.BookEntryView> {
 
-    private final List<Details>    mValues;
+    private final List<Details> mValues;
     private final BookListFragment mListener;
 
     public BookListAdapter(List<Details> items, BookListFragment listener) {
@@ -49,7 +49,7 @@ public class BookListAdapter
     @Override
     public BookEntryView onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                                  .inflate(R.layout.fragment_book, parent, false);
+                .inflate(R.layout.fragment_book, parent, false);
         return new BookEntryView(view);
     }
 
@@ -58,7 +58,7 @@ public class BookListAdapter
         holder.mDetails = mValues.get(position);
         String bookName = mValues.get(position).name;
         String chapters = mValues.get(position).chapterCount +
-                          mListener.getString(R.string.book_details_append_chapters);
+                mListener.getString(R.string.book_details_append_chapters);
         holder.mName.setText(bookName);
         holder.mChapterCount.setText(chapters);
 
@@ -78,7 +78,7 @@ public class BookListAdapter
     public class BookEntryView
             extends RecyclerView.ViewHolder {
 
-        final View     mView;
+        final View mView;
         final TextView mName;
         final TextView mChapterCount;
         Details mDetails;

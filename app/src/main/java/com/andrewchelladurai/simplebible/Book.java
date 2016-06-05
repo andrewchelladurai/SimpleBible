@@ -34,8 +34,8 @@ import java.util.Map;
 
 public class Book {
 
-    private static final String                TAG       = "Book";
-    private static final List<Details>         ENTRIES   = new ArrayList<>();
+    private static final String TAG = "Book";
+    private static final List<Details> ENTRIES = new ArrayList<>();
     private static final Map<Integer, Details> ENTRY_MAP = new HashMap<>();
 
     public static void populateBooks(String[] values) {
@@ -46,8 +46,8 @@ public class Book {
         for (int i = 0; i < values.length; i++) {
             String[] str = values[i].split(":");
             item = new Details((i + 1), // BOOK NUMBER
-                               str[0], // BOOK NAME
-                               Integer.parseInt(str[1])); // BOOK CHAPTER COUNT
+                    str[0], // BOOK NAME
+                    Integer.parseInt(str[1])); // BOOK CHAPTER COUNT
             getENTRIES().add(item);
             ENTRY_MAP.put(item.number, item);
         }
@@ -80,9 +80,9 @@ public class Book {
     }
 
     public static class Details {
-        final int    number;
+        final int number;
         final String name;
-        final int    chapterCount;
+        final int chapterCount;
 
         public Details(int position, String name, int count) {
             number = position;

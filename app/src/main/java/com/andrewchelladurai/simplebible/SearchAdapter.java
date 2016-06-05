@@ -41,9 +41,8 @@ import java.util.List;
 public class SearchAdapter
         extends RecyclerView.Adapter<SearchAdapter.ResultView> {
 
-    private final List<Entry>    mEntries;
+    private final List<Entry> mEntries;
     private final SearchFragment mListener;
-    private int mExpandedPosition = -1;
 
     public SearchAdapter(List<Entry> items, SearchFragment listener) {
         mEntries = items;
@@ -53,21 +52,18 @@ public class SearchAdapter
     @Override
     public ResultView onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                                  .inflate(R.layout.fragment_search, parent, false);
+                .inflate(R.layout.fragment_search, parent, false);
         return new ResultView(view);
     }
 
     @Override
     public void onBindViewHolder(final ResultView holder, int position) {
-        if (position == mExpandedPosition) {
-            if (holder.mActionBar.getVisibility() == View.VISIBLE) {
-                holder.hideActions();
-            } else {
-                holder.showActions();
-            }
-        } else {
+        if (holder.mActionBar.getVisibility() == View.VISIBLE) {
             holder.hideActions();
+        } else {
+            holder.showActions();
         }
+        position = holder.getAdapterPosition();
         holder.mItem = mEntries.get(position);
 
         String vText = mEntries.get(position).getVerseText();
@@ -88,15 +84,9 @@ public class SearchAdapter
         holder.mVerse.setText(Html.fromHtml(template));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                // Check for an expanded view, collapse if you find one
-                if (mExpandedPosition >= 0) {
-                    int prev = mExpandedPosition;
-                    notifyItemChanged(prev);
-                }
-                // Set the current position to "expanded"
-                mExpandedPosition = holder.getAdapterPosition();
-                notifyItemChanged(mExpandedPosition);
+            @Override
+            public void onClick(View v) {
+                notifyItemChanged(holder.getAdapterPosition());
             }
         });
     }
@@ -114,9 +104,9 @@ public class SearchAdapter
             extends RecyclerView.ViewHolder {
 
         final TextView mVerse;
-        final View     mView;
-        Entry           mItem;
-        ButtonBarLayout mActionBar;
+        final View mView;
+        Entry mItem;
+        final ButtonBarLayout mActionBar;
 
         public ResultView(View view) {
             super(view);

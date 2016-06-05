@@ -32,8 +32,8 @@ import android.util.Log;
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 14-May-2016 @ 9:14 PM
  */
 public class Utilities {
-    private static final String    TAG            = "Utilities";
-    private static       Utilities staticInstance = null;
+    private static final String TAG = "Utilities";
+    private static Utilities staticInstance = null;
     private final Resources mResources;
 
     private Utilities(final Resources pResources) {

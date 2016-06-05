@@ -40,7 +40,7 @@ public class VerseViewAdapter
         extends RecyclerView.Adapter<VerseViewAdapter.Verse> {
 
     private final List<VerseEntry> mVerseList;
-    private final ChapterActivity  mListener;
+    private final ChapterActivity mListener;
 
     public VerseViewAdapter(List<VerseEntry> items, ChapterActivity listener) {
         mVerseList = items;
@@ -50,7 +50,7 @@ public class VerseViewAdapter
     @Override
     public Verse onCreateViewHolder(ViewGroup parent, int viewType) {
         return new Verse(LayoutInflater.from(parent.getContext())
-                                       .inflate(R.layout.fragment_verses, parent, false));
+                .inflate(R.layout.fragment_verses, parent, false));
     }
 
     @Override
@@ -67,7 +67,8 @@ public class VerseViewAdapter
         holder.mContent.setText(Html.fromHtml(txt));
 
         holder.mView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override public boolean onLongClick(final View v) {
+            @Override
+            public boolean onLongClick(final View v) {
                 mListener.handleLongClick(holder.mItem);
                 return true;
             }
@@ -82,7 +83,7 @@ public class VerseViewAdapter
     class Verse
             extends RecyclerView.ViewHolder {
 
-        final View              mView;
+        final View mView;
         final AppCompatTextView mContent;
         VerseEntry mItem;
 

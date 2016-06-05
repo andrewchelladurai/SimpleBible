@@ -32,8 +32,8 @@ import java.util.Map;
 
 public class ChapterContent {
 
-    public static final List<VerseEntry>        ITEMS    = new ArrayList<>();
-    public static final Map<String, VerseEntry> ITEM_MAP = new HashMap<>();
+    private static final List<VerseEntry> ITEMS = new ArrayList<>();
+    private static final Map<String, VerseEntry> ITEM_MAP = new HashMap<>();
 
     public static List<VerseEntry> refreshList(int bookNumber, int chapterNumber) {
         ITEMS.clear();
