@@ -55,6 +55,12 @@ public class DatabaseUtility
     private final static String CHAPTER_NUMBER = "CHAPTER_NUMBER";
     private final static String VERSE_NUMBER = "VERSE_NUMBER";
     private final static String VERSE_TEXT = "VERSE_TEXT";
+
+    private final static String BOOKMARK_TABLE = "BOOK_MARKS";
+    private final static String BM_TABLE_REFERENCES = "REFERENCE";
+    private final static String BM_TABLE_ID = "BM_ID";
+    private final static String BM_TABLE_NOTES = "NOTE";
+
     private static DatabaseUtility staticInstance = null;
     private static String DB_PATH;
     private static SQLiteDatabase database;
@@ -297,5 +303,19 @@ public class DatabaseUtility
         }
         Log.d(TAG, "getSpecificVerse() returned: " + value.length());
         return value;
+    }
+
+    public String isReferencePresent(String references) {
+        final SQLiteDatabase db = getReadableDatabase();
+        String[] selectCols = {BM_TABLE_REFERENCES};
+        String where = BM_TABLE_REFERENCES + " like ?";
+        String[] params = {references};
+        Cursor cursor = db.query(true, BOOKMARK_TABLE, selectCols, where, params, null, null, null, null);
+        if (null != cursor && cursor.moveToFirst()) {
+            String value = cursor.getString(0);
+            cursor.close();
+            return value;
+        }
+        return null;
     }
 }
