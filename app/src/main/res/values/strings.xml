@@ -145,4 +145,5 @@
     <string name="button_save">Save</string>
     <string name="button_share">Share</string>
     <string name="activity_chapter_animation">activity_chapter_animation</string>
+    <string name="title_activity_bookmark">Verse Notes</string>
 </resources>

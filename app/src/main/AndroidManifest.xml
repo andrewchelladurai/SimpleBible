@@ -21,7 +21,7 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
   ~
-  -->
+-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.andrewchelladurai.simplebible">
 
@@ -50,6 +50,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.andrewchelladurai.simplebible.SimpleBibleActivity" />
         </activity>
+        <activity
+            android:name=".BookmarkActivity"
+            android:label="@string/title_activity_bookmark"
+            android:theme="@style/BrightTheme"></activity>
     </application>
 
 </manifest>

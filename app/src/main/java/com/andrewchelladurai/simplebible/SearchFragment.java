@@ -25,6 +25,7 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -152,10 +153,10 @@ public class SearchFragment
 
     void handleShareButtonClick(SearchResult.Entry searchEntry) {
         Log.i(TAG, "handleShareButtonClick: ");
-        Book.Details bookDetails = Book.getBookDetails(searchEntry.getBookNumber());
-        if (bookDetails != null) {
+        Book.Details book = Book.getBookDetails(searchEntry.getBookNumber());
+        if (book != null) {
             String textToShare = searchEntry.getVerseText() +
-                    " - " + bookDetails.name + " " + searchEntry.getChapterNumber() + ":" +
+                    " - " + book.name + " " + searchEntry.getChapterNumber() + ":" +
                     searchEntry.getVerseNumber() + " (NIV)";
             startActivity(Utilities.shareVerse(textToShare));
         } else {
@@ -164,8 +165,18 @@ public class SearchFragment
         }
     }
 
-    void handleSaveButtonClick(SearchResult.Entry mItem) {
+    void handleSaveButtonClick(SearchResult.Entry searchEntry) {
         Log.i(TAG, "handleSaveButtonClick: ");
+        Book.Details book = Book.getBookDetails(searchEntry.getBookNumber());
+        if (book != null) {
+            Intent intent = new Intent(getContext(),BookmarkActivity.class);
+            intent.putExtra(BookmarkActivity.REFERENCES,searchEntry.getVerseReference());
+            intent.putExtra(BookmarkActivity.VERSE_TEXT,searchEntry.getVerseText());
+            startActivity(intent);
+        } else {
+            Log.d(TAG, "handleSaveButtonClick: Incorrect Verse Reference "
+                    + searchEntry.getVerseReference());
+        }
     }
 
 }
