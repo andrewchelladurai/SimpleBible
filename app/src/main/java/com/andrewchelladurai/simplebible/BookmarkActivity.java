@@ -57,21 +57,23 @@ public class BookmarkActivity
 
         final DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
         populateReferences(dbu);
-        populateNotes(dbu);
 
-        if (currentMode == MODE.VIEW){
+        if (currentMode == MODE.VIEW) {
             notesText.setFocusable(false);
         }
+        setTitle(R.string.title_activity_bookmark);
     }
 
     private void populateReferences(final DatabaseUtility dbu) {
-        // FIXME: 11/6/16
-        Log.i(TAG, "populateReferences: ");
-        String dbReferences = dbu.isReferencePresent(verseReferences);
-        if (null != dbReferences) {
-            verseReferences = dbReferences;
-            Log.i(TAG, "populateReferences: DB_References = " + dbReferences);
+        Log.i(TAG, "populateReferences: Top");
+        String dbReferences[] = dbu.isReferencePresent(verseReferences);
+
+        if (dbReferences != null) {
+            verseReferences = dbReferences[0];
         }
+
+        notesText.setText((dbReferences != null) ? dbReferences[1] : "");
+
         String individualReference[] = verseReferences.split("~");
         String verseText = "";
         StringBuilder enterText = new StringBuilder(0);
@@ -89,13 +91,9 @@ public class BookmarkActivity
             enterText.append(book.name).append(" (").append(parts[1]).append(":").append(parts[2])
                     .append(") - ").append(verseText);
             listAdapter.add(enterText.toString());
+            enterText.delete(0,enterText.length());
         }
         listAdapter.notifyDataSetChanged();
-    }
-
-    private void populateNotes(final DatabaseUtility dbu) {
-        // FIXME: 11/6/16
-        Log.i(TAG, "populateNotes: ");
     }
 
     private void bindButton(int resourceID) {

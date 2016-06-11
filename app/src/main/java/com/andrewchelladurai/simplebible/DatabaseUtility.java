@@ -30,6 +30,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
 
 import java.io.File;
@@ -305,16 +306,24 @@ public class DatabaseUtility
         return value;
     }
 
-    public String isReferencePresent(String references) {
+    public String[] isReferencePresent(String references) {
         final SQLiteDatabase db = getReadableDatabase();
-        String[] selectCols = {BM_TABLE_REFERENCES};
+        String[] selectCols = {BM_TABLE_REFERENCES, BM_TABLE_NOTES};
         String where = BM_TABLE_REFERENCES + " like ?";
-        String[] params = {references};
+        String[] params = {"%"+references+"%"};
         Cursor cursor = db.query(true, BOOKMARK_TABLE, selectCols, where, params, null, null, null, null);
+
+        String query = SQLiteQueryBuilder.buildQueryString(
+                true, BOOKMARK_TABLE, selectCols, where,null,null,null,null);
+        Log.d(TAG, "isReferencePresent: Query = " + query);
+
         if (null != cursor && cursor.moveToFirst()) {
-            String value = cursor.getString(0);
+            String results[] = new String[2];
+            results[0] = cursor.getString(0);
+            results[1] = cursor.getString(1);
+
             cursor.close();
-            return value;
+            return results;
         }
         return null;
     }
