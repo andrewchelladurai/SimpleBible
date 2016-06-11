@@ -172,6 +172,7 @@ public class SearchFragment
             Intent intent = new Intent(getContext(),BookmarkActivity.class);
             intent.putExtra(BookmarkActivity.REFERENCES,searchEntry.getVerseReference());
             intent.putExtra(BookmarkActivity.VERSE_TEXT,searchEntry.getVerseText());
+            intent.putExtra(BookmarkActivity.ACTIVITY_MODE,BookmarkActivity.MODE.EDIT.toString());
             startActivity(intent);
         } else {
             Log.d(TAG, "handleSaveButtonClick: Incorrect Verse Reference "
