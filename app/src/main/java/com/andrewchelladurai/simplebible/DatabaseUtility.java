@@ -340,10 +340,7 @@ public class DatabaseUtility
 
         long rowcount = -1;
         try {
-            db.beginTransaction();
             rowcount = db.insert(BOOKMARK_TABLE, null, values);
-            db.setTransactionSuccessful();
-            db.endTransaction();
             db.close();
             created = true;
         } catch (Exception e) {
@@ -366,10 +363,7 @@ public class DatabaseUtility
         String whereParams[] = {references};
         int rowcount = -1;
         try {
-            db.beginTransaction();
             rowcount = db.update(BOOKMARK_TABLE, values, whereClause, whereParams);
-            db.setTransactionSuccessful();
-            db.endTransaction();
             db.close();
             updated = true;
         } catch (Exception e) {

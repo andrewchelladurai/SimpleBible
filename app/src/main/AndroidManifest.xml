@@ -30,6 +30,7 @@
         android:icon="@mipmap/launcher_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:fullBackupContent="true"
         android:theme="@style/BrightTheme">
         <activity
             android:name=".SimpleBibleActivity"
@@ -45,7 +46,6 @@
         <activity
             android:name=".ChapterActivity"
             android:label="@string/title_activity_chapter"
-            android:parentActivityName=".SimpleBibleActivity"
             android:theme="@style/BrightTheme"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
             <meta-data
