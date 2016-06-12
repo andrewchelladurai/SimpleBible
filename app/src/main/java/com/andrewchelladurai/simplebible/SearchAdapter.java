@@ -25,7 +25,7 @@
 
 package com.andrewchelladurai.simplebible;
 
-import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -58,11 +58,11 @@ public class SearchAdapter
 
     @Override
     public void onBindViewHolder(final ResultView holder, int position) {
-        if (holder.mActionBar.getVisibility() == View.VISIBLE) {
+/*        if (holder.mActionBar.getVisibility() == View.VISIBLE) {
             holder.hideActions();
         } else {
             holder.showActions();
-        }
+        }*/
         position = holder.getAdapterPosition();
         holder.mItem = mEntries.get(position);
 
@@ -101,13 +101,13 @@ public class SearchAdapter
     }
 
     class ResultView
-            extends RecyclerView.ViewHolder implements View.OnClickListener {
+            extends RecyclerView.ViewHolder {
 
+        private static final String TAG = "ResultView";
         final TextView mVerse;
         final View mView;
-        Entry mItem;
         final ButtonBarLayout mActionBar;
-        private static final String TAG = "ResultView";
+        Entry mItem;
 
         public ResultView(View view) {
             super(view);
@@ -115,13 +115,23 @@ public class SearchAdapter
             mVerse = (TextView) view.findViewById(R.id.fragment_search_result_entry);
             mActionBar = (ButtonBarLayout) view.findViewById(R.id.fragment_search_result_actions);
 
-            AppCompatButton button = (AppCompatButton) view.findViewById(
+            AppCompatImageButton button = (AppCompatImageButton) view.findViewById(
                     R.id.fragment_search_result_button_save);
-            button.setOnClickListener(this);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.handleSaveButtonClick(mItem);
+                }
+            });
 
-            button = (AppCompatButton) view.findViewById(
+            button = (AppCompatImageButton) view.findViewById(
                     R.id.fragment_search_result_button_share);
-            button.setOnClickListener(this);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.handleShareButtonClick(mItem);
+                }
+            });
         }
 
         @Override
@@ -129,6 +139,7 @@ public class SearchAdapter
             return super.toString() + " '" + mVerse.getText();
         }
 
+/*
         public void hideActions() {
             mActionBar.setVisibility(View.GONE);
         }
@@ -136,15 +147,7 @@ public class SearchAdapter
         public void showActions() {
             mActionBar.setVisibility(View.VISIBLE);
         }
+*/
 
-        @Override
-        public void onClick(View v) {
-            String buttonText = ((AppCompatButton)v).getText().toString();
-            if (buttonText.equalsIgnoreCase(getString(R.string.button_share))){
-                mListener.handleShareButtonClick(mItem);
-            }else if (buttonText.equalsIgnoreCase(getString(R.string.button_save))){
-                mListener.handleSaveButtonClick(mItem);
-            }
-        }
     }
 }
