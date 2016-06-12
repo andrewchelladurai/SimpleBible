@@ -17,19 +17,15 @@ public class BookmarkActivity
         extends AppCompatActivity
         implements View.OnClickListener {
 
-    private static final String TAG           = "BookmarkActivity";
     public static final  String REFERENCES    = "REFERENCES";
     public static final  String VERSE_TEXT    = "VERSE_TEXT";
     public static final  String ACTIVITY_MODE = "ACTIVITY_MODE";
-
-    private MODE      currentMode;
-    private OPERATION currentOperation;
-    private String verseReferences = "";
-
+    private static final String TAG           = "BookmarkActivity";
+    private OPERATION mOperation;
+    private String mReferences = "";
     private TextInputEditText    mNotesField;
     private ArrayAdapter<String> mVerseListAdapter;
     private AppCompatButton      mButtonSave;
-    private AppCompatButton      mButtonDelete;
     private AppCompatButton      mButtonShare;
 
     @Override
@@ -39,18 +35,18 @@ public class BookmarkActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.bookmark_activity_toolbar);
         setSupportActionBar(toolbar);
 
-        currentOperation = OPERATION.INSERT;
-        currentMode = MODE.VIEW;
+        mOperation = OPERATION.INSERT;
+        MODE currentMode;
         if (getIntent().getStringExtra(ACTIVITY_MODE).equalsIgnoreCase(MODE.EDIT.toString())) {
             currentMode = MODE.EDIT;
         } else {
             currentMode = MODE.VIEW;
         }
 
-        verseReferences = getIntent().getStringExtra(REFERENCES);
+        mReferences = getIntent().getStringExtra(REFERENCES);
         Log.d(TAG,
               "onCreate: REFERENCES = " +
-              verseReferences);
+              mReferences);
 
         ListViewCompat verseList = (ListViewCompat) findViewById(R.id.bookmark_activity_verse_list);
         if (null != verseList) {
@@ -62,7 +58,7 @@ public class BookmarkActivity
 
         mNotesField = (TextInputEditText) findViewById(R.id.bookmark_activity_notes);
         mButtonSave = bindButton(R.id.bookmark_activity_button_save);
-        mButtonDelete = bindButton(R.id.bookmark_activity_button_delete);
+        AppCompatButton buttonDelete = bindButton(R.id.bookmark_activity_button_delete);
         mButtonShare = bindButton(R.id.bookmark_activity_button_share);
 
         populateReferences();
@@ -73,7 +69,7 @@ public class BookmarkActivity
                 mButtonSave.setVisibility(View.GONE);
                 break;
             case EDIT:
-                mButtonDelete.setVisibility(View.GONE);
+                buttonDelete.setVisibility(View.GONE);
         }
 
         mButtonShare.setVisibility(View.GONE);
@@ -93,16 +89,16 @@ public class BookmarkActivity
         Log.d(TAG, "populateReferences()");
         DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
 
-        String dbResult[] = dbu.isReferencePresent(verseReferences);
+        String dbResult[] = dbu.isReferencePresent(mReferences);
 
         if (dbResult != null) {
-            verseReferences = dbResult[0];
-            currentOperation = OPERATION.UPDATE;
+            mReferences = dbResult[0];
+            mOperation = OPERATION.UPDATE;
         }
 
         mNotesField.setText((dbResult != null) ? dbResult[1] : "");
 
-        String references[] = verseReferences.split("~");
+        String references[] = mReferences.split("~");
         String verseText;
         StringBuilder enterText = new StringBuilder(0);
         Book.Details book;
@@ -136,7 +132,7 @@ public class BookmarkActivity
                 mButtonShare.setVisibility(View.VISIBLE);
             }
         } else if (label.equalsIgnoreCase(getString(R.string.button_delete))) {
-            if (handleButtonDeleteClicked()){
+            if (handleButtonDeleteClicked()) {
                 finish();
             }
         } else if (label.equalsIgnoreCase(getString(R.string.button_share))) {
@@ -150,10 +146,10 @@ public class BookmarkActivity
         boolean successful = false;
         String notesText = mNotesField.getText().toString();
 
-        Log.i(TAG, "handleButtonSaveClicked: [" + verseReferences + "] [" + notesText + " ] [" +
-                   currentOperation.toString() + "]");
+        Log.i(TAG, "handleButtonSaveClicked: [" + mReferences + "] [" + notesText + " ] [" +
+                   mOperation.toString() + "]");
 
-        if (verseReferences.isEmpty()) {
+        if (mReferences.isEmpty()) {
             Snackbar.make(mNotesField, "No Verse Present to Bookmark",
                           Snackbar.LENGTH_SHORT).show();
             return false;
@@ -163,12 +159,12 @@ public class BookmarkActivity
         notesText = (notesText.isEmpty()) ? getString(R.string.empty_bookmark_notes) : notesText;
 
         String result = "Verse Notes could not be saved";
-        switch (currentOperation) {
+        switch (mOperation) {
             case INSERT:
-                successful = dbu.createNewBookmark(verseReferences, notesText);
+                successful = dbu.createNewBookmark(mReferences, notesText);
                 break;
             case UPDATE:
-                successful = dbu.updateExistingBookmark(verseReferences, notesText);
+                successful = dbu.updateExistingBookmark(mReferences, notesText);
                 break;
             default:
                 Log.d(TAG, "handleButtonSaveClicked: " + getString(R.string.how_am_i_here));
