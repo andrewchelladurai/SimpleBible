@@ -34,7 +34,8 @@
         <activity
             android:name=".SimpleBibleActivity"
             android:label="@string/title_activity_simple_bible"
-            android:theme="@style/BrightTheme">
+            android:theme="@style/BrightTheme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,7 +46,8 @@
             android:name=".ChapterActivity"
             android:label="@string/title_activity_chapter"
             android:parentActivityName=".SimpleBibleActivity"
-            android:theme="@style/BrightTheme">
+            android:theme="@style/BrightTheme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.andrewchelladurai.simplebible.SimpleBibleActivity" />
@@ -53,7 +55,8 @@
         <activity
             android:name=".BookmarkActivity"
             android:label="@string/title_activity_bookmark"
-            android:theme="@style/BrightTheme"></activity>
+            android:theme="@style/BrightTheme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
     </application>
 
 </manifest>

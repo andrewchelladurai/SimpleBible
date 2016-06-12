@@ -25,6 +25,7 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -310,11 +311,11 @@ public class DatabaseUtility
         final SQLiteDatabase db = getReadableDatabase();
         String[] selectCols = {BM_TABLE_REFERENCES, BM_TABLE_NOTES};
         String where = BM_TABLE_REFERENCES + " like ?";
-        String[] params = {"%"+references+"%"};
+        String[] params = {"%" + references + "%"};
         Cursor cursor = db.query(true, BOOKMARK_TABLE, selectCols, where, params, null, null, null, null);
 
         String query = SQLiteQueryBuilder.buildQueryString(
-                true, BOOKMARK_TABLE, selectCols, where,null,null,null,null);
+                true, BOOKMARK_TABLE, selectCols, where, null, null, null, null);
         Log.d(TAG, "isReferencePresent: Query = " + query);
 
         if (null != cursor && cursor.moveToFirst()) {
@@ -326,5 +327,49 @@ public class DatabaseUtility
             return results;
         }
         return null;
+    }
+
+    public boolean createNewBookmark(String references, String notes) {
+        Log.d(TAG, "createNewBookmark() : [" + references + "], [" + notes + "]");
+        boolean created;
+        final SQLiteDatabase db = getWritableDatabase();
+        final ContentValues values = new ContentValues();
+        values.put(BM_TABLE_REFERENCES, references);
+        values.put(BM_TABLE_NOTES, notes);
+
+        long rowcount = -1;
+        try {
+            rowcount = db.insert(BOOKMARK_TABLE, null, values);
+            db.close();
+            created = true;
+        } catch (Exception e) {
+            Log.wtf(TAG, "createNewBookmark: Bookmark Creation failed", e);
+            created = false;
+        }
+        Log.d(TAG, "createNewBookmark() returned: " + created+" : "+rowcount + " saved");
+        return created;
+    }
+
+    public boolean updateExistingBookmark(String references, String notes) {
+        Log.d(TAG, "updateExistingBookmark() called [" + references + "], [" + notes + "]");
+        boolean updated;
+        final SQLiteDatabase db = getWritableDatabase();
+
+        final ContentValues values = new ContentValues();
+        values.put(BM_TABLE_REFERENCES, references);
+        values.put(BM_TABLE_NOTES, notes);
+        String whereClause = BM_TABLE_REFERENCES +" = ?";
+        String whereParams[] = {references};
+        int rowcount = -1;
+        try {
+            rowcount = db.update(BOOKMARK_TABLE,values, whereClause, whereParams);
+            db.close();
+            updated = true;
+        }catch (Exception e){
+            updated = false;
+            Log.wtf(TAG, "updateExistingBookmark: Bookmark update failed", e);
+        }
+        Log.d(TAG, "updateExistingBookmark() returned: " + updated + " : "+rowcount + " updated");
+        return updated;
     }
 }
