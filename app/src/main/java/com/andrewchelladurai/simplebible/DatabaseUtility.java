@@ -77,17 +77,6 @@ public class DatabaseUtility
         openDataBase();
     }
 
-    public static DatabaseUtility getInstance(Context context)
-            throws NullPointerException {
-        if (staticInstance == null) {
-            if (context == null) {
-                throw new NullPointerException("NULL Context passed for instantiating DB");
-            }
-            staticInstance = new DatabaseUtility(context);
-        }
-        return staticInstance;
-    }
-
     private void openDataBase()
             throws SQLException {
         Log.d(TAG, "openDataBase: Entered");
@@ -157,6 +146,17 @@ public class DatabaseUtility
         localDatabase.close();
         assetDatabase.close();
         Log.d(TAG, "copyDataBase: Finished");
+    }
+
+    public static DatabaseUtility getInstance(Context context)
+            throws NullPointerException {
+        if (staticInstance == null) {
+            if (context == null) {
+                throw new NullPointerException("NULL Context passed for instantiating DB");
+            }
+            staticInstance = new DatabaseUtility(context);
+        }
+        return staticInstance;
     }
 
     @Override
@@ -303,7 +303,6 @@ public class DatabaseUtility
             value = cursor.getString(cursor.getColumnIndex(VERSE_TEXT));
             cursor.close();
         }
-        Log.d(TAG, "getSpecificVerse() returned: " + value.length());
         return value;
     }
 

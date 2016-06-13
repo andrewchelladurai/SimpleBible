@@ -24,14 +24,14 @@
   -->
 
 <android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:name="com.andrewchelladurai.simplebible.SearchFragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/gapBig"
-    tools:context="com.andrewchelladurai.simplebible.SearchFragment">
+                                              xmlns:app="http://schemas.android.com/apk/res-auto"
+                                              xmlns:tools="http://schemas.android.com/tools"
+                                              android:name="com.andrewchelladurai.simplebible.SearchFragment"
+                                              android:layout_width="match_parent"
+                                              android:layout_height="match_parent"
+                                              android:orientation="vertical"
+                                              android:padding="@dimen/gapBig"
+                                              tools:context="com.andrewchelladurai.simplebible.SearchFragment">
 
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="@string/hint_text_to_search" />
+            android:hint="@string/hint_text_to_search"/>
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/fragment_search_button"
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:text="@string/button_search_text" />
+            android:text="@string/button_search_text"/>
     </android.support.v7.widget.LinearLayoutCompat>
 
     <android.support.v7.widget.AppCompatTextView
@@ -62,13 +62,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:padding="@dimen/gapBig" />
+        android:padding="@dimen/gapBig"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_search_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="LinearLayoutManager"
-        tools:listitem="@layout/fragment_search" />
+        tools:listitem="@layout/fragment_search"/>
 </android.support.v7.widget.LinearLayoutCompat>
 

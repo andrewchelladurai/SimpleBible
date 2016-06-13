@@ -51,8 +51,8 @@ public class BookmarkActivity
         ListViewCompat verseList = (ListViewCompat) findViewById(R.id.bookmark_activity_verse_list);
         if (null != verseList) {
             ArrayList<String> listItems = new ArrayList<>(0);
-            mVerseListAdapter = new ArrayAdapter<>(
-                    this, android.R.layout.simple_list_item_1, listItems);
+            mVerseListAdapter =
+                    new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listItems);
             verseList.setAdapter(mVerseListAdapter);
         }
 
@@ -79,9 +79,8 @@ public class BookmarkActivity
 
     private AppCompatButton bindButton(int pButtonID) {
         AppCompatButton button = (AppCompatButton) findViewById(pButtonID);
-        if (null != button) {
-            button.setOnClickListener(this);
-        }
+        assert button != null : TAG + ".bindButton() : Invalid ID " + pButtonID;
+        button.setOnClickListener(this);
         return button;
     }
 
@@ -89,7 +88,7 @@ public class BookmarkActivity
         Log.d(TAG, "populateReferences()");
         DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
 
-        String dbResult[] = dbu.isReferencePresent(mReferences);
+        String[] dbResult = dbu.isReferencePresent(mReferences);
 
         if (dbResult != null) {
             mReferences = dbResult[0];
@@ -98,7 +97,7 @@ public class BookmarkActivity
 
         mNotesField.setText((dbResult != null) ? dbResult[1] : "");
 
-        String references[] = mReferences.split("~");
+        String[] references = mReferences.split("~");
         String verseText;
         StringBuilder enterText = new StringBuilder(0);
         Book.Details book;
@@ -179,7 +178,6 @@ public class BookmarkActivity
 //        boolean successful = false;
         Log.i(TAG, "handleButtonDeleteClicked: ");
 //        DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
-
         return false;
     }
 

@@ -25,10 +25,11 @@
 
 package com.andrewchelladurai.simplebible;
 
-import android.support.v7.widget.AppCompatImageButton;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,7 @@ import java.util.List;
 public class SearchAdapter
         extends RecyclerView.Adapter<SearchAdapter.ResultView> {
 
-    private final List<Entry> mEntries;
+    private final List<Entry>    mEntries;
     private final SearchFragment mListener;
 
     public SearchAdapter(List<Entry> items, SearchFragment listener) {
@@ -52,17 +53,12 @@ public class SearchAdapter
     @Override
     public ResultView onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_search, parent, false);
+                                  .inflate(R.layout.fragment_search, parent, false);
         return new ResultView(view);
     }
 
     @Override
     public void onBindViewHolder(final ResultView holder, int position) {
-/*        if (holder.mActionBar.getVisibility() == View.VISIBLE) {
-            holder.hideActions();
-        } else {
-            holder.showActions();
-        }*/
         position = holder.getAdapterPosition();
         holder.mItem = mEntries.get(position);
 
@@ -101,37 +97,36 @@ public class SearchAdapter
     }
 
     class ResultView
-            extends RecyclerView.ViewHolder {
+            extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
 
         private static final String TAG = "ResultView";
-        final TextView mVerse;
-        final View mView;
-        final ButtonBarLayout mActionBar;
-        Entry mItem;
+        private final TextView        mVerse;
+        private       View            mView;
+        private       ButtonBarLayout mActionBar;
+        private       Entry           mItem;
 
         public ResultView(View view) {
             super(view);
             mView = view;
             mVerse = (TextView) view.findViewById(R.id.fragment_search_result_entry);
+            mVerse.setOnClickListener(this);
+
             mActionBar = (ButtonBarLayout) view.findViewById(R.id.fragment_search_result_actions);
+            mActionBar.setVisibility(View.GONE);
 
-            AppCompatImageButton button = (AppCompatImageButton) view.findViewById(
+            AppCompatButton button = (AppCompatButton) view.findViewById(
                     R.id.fragment_search_result_button_save);
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.handleSaveButtonClick(mItem);
-                }
-            });
+            button.setOnClickListener(this);
 
-            button = (AppCompatImageButton) view.findViewById(
+            button = (AppCompatButton) view.findViewById(
                     R.id.fragment_search_result_button_share);
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.handleShareButtonClick(mItem);
-                }
-            });
+            button.setOnClickListener(this);
+        }
+
+        @Override protected void finalize() throws Throwable {
+            super.finalize();
+            mActionBar.setOnClickListener(null);
         }
 
         @Override
@@ -139,15 +134,21 @@ public class SearchAdapter
             return super.toString() + " '" + mVerse.getText();
         }
 
-/*
-        public void hideActions() {
-            mActionBar.setVisibility(View.GONE);
+        @Override public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.fragment_search_result_button_save:
+                    mListener.handleSaveButtonClick(mItem);
+                    break;
+                case R.id.fragment_search_result_button_share:
+                    mListener.handleShareButtonClick(mItem);
+                    break;
+                case R.id.fragment_search_result_entry:
+                    mActionBar.setVisibility(
+                            (mActionBar.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE);
+                    break;
+                default:
+                    Log.d(TAG, "onClick: " + getString(R.string.how_am_i_here));
+            }
         }
-
-        public void showActions() {
-            mActionBar.setVisibility(View.VISIBLE);
-        }
-*/
-
     }
 }
