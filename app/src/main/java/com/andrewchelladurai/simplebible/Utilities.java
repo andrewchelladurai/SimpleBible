@@ -49,25 +49,6 @@ public class Utilities {
         return staticInstance;
     }
 
-    public int getBooksColumnCount() {
-        boolean isLandscape = mResources.getBoolean(R.bool.isLandscape);
-        boolean isLarge = mResources.getBoolean(R.bool.isLarge);
-        int count = 2;
-        if (isLarge) {
-            if (isLandscape) {
-                count = 4;
-            } else {
-                count = 3;
-            }
-        } else {
-            if (isLandscape) {
-                count = 3;
-            }
-        }
-        Log.d(TAG, "getBooksColumnCount() returned: " + count);
-        return count;
-    }
-
     public static Intent shareVerse(String textToShare) {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
