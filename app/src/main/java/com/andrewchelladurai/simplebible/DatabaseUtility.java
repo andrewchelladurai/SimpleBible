@@ -243,7 +243,7 @@ public class DatabaseUtility
         return values;
     }
 
-    public String getVerseForToday() {
+    public String getVerseReferenceForToday() {
         String verseId = "43:3:16";
         int dayOfYear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
 
@@ -255,7 +255,7 @@ public class DatabaseUtility
 /*
         String query = SQLiteQueryBuilder.buildQueryString(
                 true, DAILY_VERSE_TABLE, selectCols, whereCondition, null, null, null, null);
-        Log.d(TAG, "getVerseForToday: Query = " + query);
+        Log.d(TAG, "getVerseReferenceForToday: Query = " + query);
 */
 
         Cursor cursor = db.query(DAILY_VERSE_TABLE, selectCols, whereCondition, conditionParams,
@@ -279,7 +279,7 @@ public class DatabaseUtility
             entry.delete(0, entry.length());
             cursor.close();
         }
-        Log.d(TAG, "getVerseForToday() returned: " + verseId + " for dayOfYear = " + dayOfYear);
+        Log.d(TAG, "getVerseReferenceForToday() returned: " + verseId + " for dayOfYear = " + dayOfYear);
         return verseId;
     }
 

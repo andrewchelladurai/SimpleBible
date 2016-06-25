@@ -60,6 +60,7 @@ public class ActivitySimpleBible
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simple_bible);
         DatabaseUtility.getInstance(getApplicationContext());
+        Utilities.getInstance(getResources());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.act_sb_toolbar);
         setSupportActionBar(toolbar);

@@ -30,6 +30,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,22 +43,28 @@ public class FragmentHome
     private static final String TAG = "SB_FragmentHome";
 
     public FragmentHome() {
+        // FIXME: Make the layout better for landscape position
+        // FIXME: make the Verse show text
     }
 
     public static FragmentHome newInstance() {
         FragmentHome fragment = new FragmentHome();
         Bundle args = new Bundle();
+        DatabaseUtility dbu = DatabaseUtility.getInstance(fragment.getContext());
+        String todayVerseRef = dbu.getVerseReferenceForToday();
+
+        args.putString(Utilities.TODAY_VERSE_REFERENCE, todayVerseRef);
         fragment.setArguments(args);
         return fragment;
     }
 
-    @Override
+    /*@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
 //            mParam2 = getArguments().getString(ARG_PARAM2);
         }
-    }
+    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
@@ -65,7 +72,16 @@ public class FragmentHome
         AppCompatButton button = (AppCompatButton) view.findViewById(R.id.frag_home_but_goto);
         button.setOnClickListener(this);
 
+        AppCompatTextView textView =
+                (AppCompatTextView) view.findViewById(R.id.frag_home_daily_verse);
+        displayVerse(textView);
+
         return view;
+    }
+
+    private void displayVerse(AppCompatTextView textView) {
+        String verseRef = getArguments().getString(Utilities.TODAY_VERSE_REFERENCE);
+        textView.setText(verseRef);
     }
 
     @Override
