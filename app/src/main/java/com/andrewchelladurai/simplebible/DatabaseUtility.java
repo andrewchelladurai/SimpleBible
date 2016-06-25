@@ -48,7 +48,7 @@ import java.util.Calendar;
 public class DatabaseUtility
         extends SQLiteOpenHelper {
 
-    private static final String TAG = "DatabaseUtility";
+    private static final String TAG = "SB_DatabaseUtility";
 
     private static final String DATABASE_NAME     = "Bible.db";
     private final static String BIBLE_TABLE       = "BIBLE_VERSES";

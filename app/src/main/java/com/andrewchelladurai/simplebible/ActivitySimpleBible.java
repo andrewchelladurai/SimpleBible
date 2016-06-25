@@ -47,6 +47,7 @@ public class ActivitySimpleBible
 
     static {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     }
 
     private static final String TAG = "SB_ActivitySimpleBible";
@@ -58,6 +59,7 @@ public class ActivitySimpleBible
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simple_bible);
+        DatabaseUtility.getInstance(getApplicationContext());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.act_sb_toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +68,7 @@ public class ActivitySimpleBible
         mPager = (ViewPager) findViewById(R.id.act_sb_container);
         if (mPager == null) throw new AssertionError(TAG + " mPager == null");
         mPager.setAdapter(mPagerAdapter);
+        mPager.addOnPageChangeListener(new KeyboardHideListener(this));
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.act_sb_tabs);
         if (tabLayout == null) throw new AssertionError(TAG + " tabLayout == null");
@@ -124,7 +127,7 @@ public class ActivitySimpleBible
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return PlaceholderFragment.newInstance(position + 1);
+                    return FragmentHome.newInstance();
                 case 1:
                     return PlaceholderFragment.newInstance(position + 1);
                 case 2:
