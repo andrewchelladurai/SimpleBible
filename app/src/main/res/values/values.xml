@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~ This file 'styles.xml' is part of SimpleBible :
+  ~ This file 'values.xml' is part of SimpleBible :
   ~
   ~ Copyright (c) 2016.
   ~
@@ -25,17 +26,7 @@
   -->
 
 <resources>
-
-    <style name="DawnTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@color/primary_dark</item>
-    </style>
-
-    <style name="DawnTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="android:statusBarColor">@color/primary_dark</item>
-        <item name="colorAccent">@color/accent</item>
-    </style>
+    <color name="primary">#42282F</color>
+    <color name="primary_dark">#261822</color>
+    <color name="accent">#A83F23</color>
 </resources>
