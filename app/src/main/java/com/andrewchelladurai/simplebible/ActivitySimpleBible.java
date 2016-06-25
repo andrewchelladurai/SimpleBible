@@ -46,8 +46,8 @@ public class ActivitySimpleBible
         extends AppCompatActivity {
 
     static {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
-//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     }
 
     private static final String TAG = "SB_ActivitySimpleBible";
@@ -132,7 +132,7 @@ public class ActivitySimpleBible
                 case 1:
                     return PlaceholderFragment.newInstance(position + 1);
                 case 2:
-                    return PlaceholderFragment.newInstance(position + 1);
+                    return FragmentSearch.newInstance();
                 default:
                     throw new AssertionError("Pager Position in default case" + position);
             }
