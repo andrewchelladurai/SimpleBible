@@ -63,15 +63,17 @@ public class VerseViewAdapter
         holder.mItem = mValues.get(position);
         holder.mContent.setText(mValues.get(position).mContent);
 
+/*
         holder.mView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 if (null != mListener & mListener instanceof FragmentSearch) {
-                    ((FragmentSearch) mListener).onListFragmentInteraction(holder.mItem);
+                    ((FragmentSearch) mListener).bookEntryClicked(holder.mItem);
                 }
             }
         });
+*/
     }
 
     @Override

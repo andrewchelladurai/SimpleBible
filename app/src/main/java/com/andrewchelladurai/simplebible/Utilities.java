@@ -36,6 +36,7 @@ public class Utilities {
 
     // constants for arguments used in Fragments and Activities.
     public static final String TODAY_VERSE_REFERENCE = "TODAY_VERSE_REFERENCE";
+    public static final String BOOKS_COLUMN_COUNT = "BOOKS_COLUMN_COUNT";
 
     private static final String    TAG            = "SB_Utilities";
     private static       Utilities staticInstance = null;

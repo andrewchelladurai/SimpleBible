@@ -110,6 +110,6 @@ public class FragmentSearch
     }
 
     public void onListFragmentInteraction(VerseList.Entry item) {
-        Log.d(TAG, "onListFragmentInteraction() called [" + item + "]");
+        Log.d(TAG, "bookEntryClicked() called [" + item + "]");
     }
 }
