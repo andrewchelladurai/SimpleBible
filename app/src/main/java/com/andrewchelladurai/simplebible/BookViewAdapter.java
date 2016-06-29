@@ -32,17 +32,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.andrewchelladurai.simplebible.dummy.DummyContent.DummyItem;
+import com.andrewchelladurai.simplebible.BooksList.Entry;
 
 import java.util.List;
 
 public class BookViewAdapter
         extends RecyclerView.Adapter<BookViewAdapter.ViewHolder> {
 
-    private final List<DummyItem>                   mValues;
+    private final List<Entry>   mValues;
     private final FragmentBooks mListener;
 
-    public BookViewAdapter(List<DummyItem> items, FragmentBooks listener) {
+    public BookViewAdapter(List<Entry> items, FragmentBooks listener) {
         mValues = items;
         mListener = listener;
     }
@@ -57,16 +57,16 @@ public class BookViewAdapter
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mName.setText(mValues.get(position).mName);
+        String chapterText = mValues.get(position).mChapterCount +
+                             mListener.getString(R.string.book_details_append_chapters);
+        holder.mChapter.setText(chapterText);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
-                    mListener.bookEntryClicked(holder.mItem);
-                }
+                mListener.bookEntryClicked(holder.mItem);
             }
         });
     }
@@ -79,21 +79,21 @@ public class BookViewAdapter
     public class ViewHolder
             extends RecyclerView.ViewHolder {
 
-        public final View      mView;
-        public final TextView  mIdView;
-        public final TextView  mContentView;
-        public       DummyItem mItem;
+        public final View     mView;
+        public final TextView mName;
+        public final TextView mChapter;
+        public       Entry    mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mName = (TextView) view.findViewById(R.id.book_content_name);
+            mChapter = (TextView) view.findViewById(R.id.book_content_chapter);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mChapter.getText() + "'";
         }
     }
 }

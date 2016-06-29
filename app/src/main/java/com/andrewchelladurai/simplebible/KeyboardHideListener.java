@@ -1,4 +1,5 @@
 /*
+ *
  * This file 'KeyboardHideListener.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.

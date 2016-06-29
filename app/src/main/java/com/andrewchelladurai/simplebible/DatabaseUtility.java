@@ -1,4 +1,5 @@
 /*
+ *
  * This file 'DatabaseUtility.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.

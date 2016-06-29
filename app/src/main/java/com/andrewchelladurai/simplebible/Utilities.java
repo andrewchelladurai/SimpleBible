@@ -1,4 +1,5 @@
 /*
+ *
  * This file 'Utilities.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.
@@ -36,7 +37,7 @@ public class Utilities {
 
     // constants for arguments used in Fragments and Activities.
     public static final String TODAY_VERSE_REFERENCE = "TODAY_VERSE_REFERENCE";
-    public static final String BOOKS_COLUMN_COUNT = "BOOKS_COLUMN_COUNT";
+    public static final String BOOKS_COLUMN_COUNT    = "BOOKS_COLUMN_COUNT";
 
     private static final String    TAG            = "SB_Utilities";
     private static       Utilities staticInstance = null;
@@ -49,7 +50,9 @@ public class Utilities {
     public static Utilities getInstance(final Resources pResources) {
         if (staticInstance == null) {
             staticInstance = new Utilities(pResources);
-            Log.i(TAG, "getInstance: staticInstance is Initiated");
+            BooksList.populateBooks(pResources.getStringArray(
+                    R.array.books_n_chapter_count_array));
+            Log.i(TAG, "getInstance: staticInstance initialized");
         }
         return staticInstance;
     }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
+  ~
   ~ This file 'AndroidManifest.xml' is part of SimpleBible :
   ~
   ~ Copyright (c) 2016.
@@ -22,7 +23,7 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
   ~
--->
+  -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.andrewchelladurai.simplebible">
 
