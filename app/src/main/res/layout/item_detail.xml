@@ -1,6 +1,6 @@
 <!--
   ~
-  ~ This file 'dimens.xml' is part of SimpleBible :
+  ~ This file 'item_detail.xml' is part of SimpleBible :
   ~
   ~ Copyright (c) 2016.
   ~
@@ -24,18 +24,12 @@
   ~
   -->
 
-<resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="appbar_padding_top">8dp</dimen>
-
-    <dimen name="gap_none">0dp</dimen>
-    <dimen name="gap_small">4dp</dimen>
-    <dimen name="gap">8dp</dimen>
-    <dimen name="gap_big">12dp</dimen>
-    <dimen name="text_margin">16dp</dimen>
-    <dimen name="app_bar_height">200dp</dimen>
-    <dimen name="item_width">200dp</dimen>
-</resources>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_detail"
+    style="?android:attr/textAppearanceLarge"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:textIsSelectable="true"
+    tools:context=".FragmentChapterVerses" />

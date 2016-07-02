@@ -27,6 +27,7 @@
 package com.andrewchelladurai.simplebible;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -85,5 +86,11 @@ public class FragmentBooks
 
     public void bookEntryClicked(Entry item) {
         Log.d(TAG, "bookEntryClicked() called with [" + item + "]");
+        Bundle args = new Bundle();
+        args.putParcelable(ActivityChapterList.CURRENT_BOOK, item);
+        args.putString(ActivityChapterList.CURRENT_CHAPTER_NUMBER, "1");
+        Intent intent = new Intent(getContext(), ActivityChapterList.class);
+        intent.putExtras(args);
+        startActivity(intent);
     }
 }

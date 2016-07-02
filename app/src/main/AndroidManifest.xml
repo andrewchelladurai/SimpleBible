@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~
   ~ This file 'AndroidManifest.xml' is part of SimpleBible :
   ~
@@ -23,9 +22,9 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
   ~
-  -->
+-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.andrewchelladurai.simplebible">
+    package="com.andrewchelladurai.simplebible">
 
     <application
         android:allowBackup="true"
@@ -40,10 +39,28 @@
             android:theme="@style/DawnTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ActivityChapterList"
+            android:label="@string/title_item_list"
+            android:parentActivityName=".ActivitySimpleBible"
+            android:theme="@style/DawnTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.andrewchelladurai.simplebible.ActivitySimpleBible" />
+        </activity>
+        <activity
+            android:name=".ActivityChapterVerses"
+            android:label="@string/title_item_detail"
+            android:parentActivityName=".ActivityChapterList"
+            android:theme="@style/DawnTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ActivityChapterList" />
         </activity>
     </application>
 

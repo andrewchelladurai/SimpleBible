@@ -36,7 +36,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="DawnTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="DawnTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="DawnTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="DawnTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

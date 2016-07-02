@@ -1,6 +1,6 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~
-  ~ This file 'dimens.xml' is part of SimpleBible :
+  ~ This file 'chapter_list.xmlxml' is part of SimpleBible :
   ~
   ~ Copyright (c) 2016.
   ~
@@ -24,18 +24,15 @@
   ~
   -->
 
-<resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="appbar_padding_top">8dp</dimen>
-
-    <dimen name="gap_none">0dp</dimen>
-    <dimen name="gap_small">4dp</dimen>
-    <dimen name="gap">8dp</dimen>
-    <dimen name="gap_big">12dp</dimen>
-    <dimen name="text_margin">16dp</dimen>
-    <dimen name="app_bar_height">200dp</dimen>
-    <dimen name="item_width">200dp</dimen>
-</resources>
+<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chapter_list"
+    android:name="com.andrewchelladurai.simplebible.ItemListFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    app:layoutManager="LinearLayoutManager"
+    tools:context=".ActivityChapterList"
+    tools:listitem="@layout/chapter_entry_content" />
