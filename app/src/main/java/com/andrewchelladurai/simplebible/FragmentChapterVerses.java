@@ -27,18 +27,21 @@
 package com.andrewchelladurai.simplebible;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 public class FragmentChapterVerses
         extends Fragment {
 
-    public static final String ARG_ITEM_ID            = "item_id";
+    public static final String ARG_ITEM_ID = "item_id";
 
     private ChapterList.Entry mItem;
 
@@ -64,6 +67,7 @@ public class FragmentChapterVerses
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+/*
         View rootView = inflater.inflate(R.layout.item_detail, container, false);
 
         if (mItem != null) {
@@ -71,5 +75,22 @@ public class FragmentChapterVerses
         }
 
         return rootView;
+*/
+        View view = inflater.inflate(R.layout.fragment_verse_list, container, false);
+
+        // Set the adapter
+        if (view instanceof RecyclerView) {
+            Context context = view.getContext();
+            RecyclerView recyclerView = (RecyclerView) view;
+            int mColumnCount = 1;
+            if (mColumnCount <= 1) {
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            } else {
+                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+            }
+            recyclerView.setAdapter(new VerseViewAdapter(VerseList.ITEMS, this));
+//            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS, this));
+        }
+        return view;
     }
 }

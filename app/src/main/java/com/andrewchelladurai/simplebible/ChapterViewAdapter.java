@@ -71,6 +71,7 @@ public class ChapterViewAdapter
                 if (mChapterList.isDualPane()) {
                     Bundle arguments = new Bundle();
                     arguments.putString(FragmentChapterVerses.ARG_ITEM_ID, holder.mItem.content);
+//                    FragmentVerses fragment = new FragmentVerses();
                     FragmentChapterVerses fragment = new FragmentChapterVerses();
                     fragment.setArguments(arguments);
                     mChapterList.getSupportFragmentManager().beginTransaction()

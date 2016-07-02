@@ -78,10 +78,11 @@ public class ActivityChapterVerses
             Bundle arguments = new Bundle();
             arguments.putString(FragmentChapterVerses.ARG_ITEM_ID,
                                 getIntent().getStringExtra(FragmentChapterVerses.ARG_ITEM_ID));
+//            FragmentVerses fragment = new FragmentVerses();
             FragmentChapterVerses fragment = new FragmentChapterVerses();
             fragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction()
-                                       .add(R.id.chapter_container, fragment).commit();
+            getSupportFragmentManager().beginTransaction().add(
+                    R.id.activity_chapter_detail_chapter_container, fragment).commit();
         }
     }
 

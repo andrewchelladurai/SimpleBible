@@ -1,6 +1,6 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~
-  ~ This file 'item_detail.xml' is part of SimpleBible :
+  ~ This file 'fragment_verse_list.xml' is part of SimpleBible :
   ~
   ~ Copyright (c) 2016.
   ~
@@ -24,12 +24,13 @@
   ~
   -->
 
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/item_detail"
-    style="?android:attr/textAppearanceLarge"
+    android:id="@+id/list"
+    android:name="com.andrewchelladurai.simplebible.FragmentVerses"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:textIsSelectable="true"
-    tools:context=".FragmentChapterVerses" />
+    android:padding="@dimen/gap"
+    app:layoutManager="LinearLayoutManager"
+    tools:listitem="@layout/content_verse" />
