@@ -46,7 +46,7 @@
         </activity>
         <activity
             android:name=".ActivityChapterList"
-            android:label="@string/title_item_list"
+            android:label="@string/title_activity_chapter"
             android:parentActivityName=".ActivitySimpleBible"
             android:theme="@style/DawnTheme.NoActionBar">
             <meta-data
@@ -55,7 +55,7 @@
         </activity>
         <activity
             android:name=".ActivityChapterVerses"
-            android:label="@string/title_item_detail"
+            android:label="@string/title_activity_chapter"
             android:parentActivityName=".ActivityChapterList"
             android:theme="@style/DawnTheme.NoActionBar">
             <meta-data

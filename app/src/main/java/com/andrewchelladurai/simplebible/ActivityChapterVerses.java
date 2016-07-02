@@ -44,7 +44,7 @@ public class ActivityChapterVerses
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chapter_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_chapter_detail_toolbar);
         setSupportActionBar(toolbar);
 
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -81,8 +81,7 @@ public class ActivityChapterVerses
             FragmentChapterVerses fragment = new FragmentChapterVerses();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
-                                       .add(R.id.chapter_container, fragment)
-                                       .commit();
+                                       .add(R.id.chapter_container, fragment).commit();
         }
     }
 
