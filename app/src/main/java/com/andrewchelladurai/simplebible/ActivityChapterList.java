@@ -32,7 +32,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
 public class ActivityChapterList
@@ -77,15 +76,14 @@ public class ActivityChapterList
         mBook = args.getParcelable(CURRENT_BOOK);
         if (mBook == null) throw new AssertionError(TAG + " onCreate : mBook == null");
 
-        Log.i(TAG, "onCreate: mCurrentChapterNumber = " + mCurrentChapterNumber);
-        Log.i(TAG, "onCreate: mBook = " + mBook);
-
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.chapter_list);
         if (recyclerView == null) {
             throw new AssertionError(
                     TAG + " onCreate : recyclerView == null");
         }
 
+        String chapterText = getString(R.string.chapter_list_prepend_text).trim();
+        ChapterList.populateList(Integer.parseInt(mBook.mChapterCount), chapterText);
         recyclerView.setAdapter(new ChapterViewAdapter(this, ChapterList.ITEMS));
 
         if (findViewById(R.id.chapter_container) != null) {

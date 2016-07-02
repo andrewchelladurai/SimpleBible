@@ -39,17 +39,6 @@ public class ChapterList {
     public static final List<Entry>        ITEMS    = new ArrayList<>();
     public static final Map<String, Entry> ITEM_MAP = new HashMap<>();
 
-    private static final int COUNT = 25;
-
-    static {
-        Entry entry;
-        for (int i = 1; i <= COUNT; i++) {
-            entry = new Entry("Item " + i, makeDetails(i));
-            ITEMS.add(entry);
-            ITEM_MAP.put(entry.content, entry);
-        }
-    }
-
     private static String makeDetails(int position) {
         StringBuilder builder = new StringBuilder();
         builder.append("Details about Item: ").append(position);
@@ -57,6 +46,17 @@ public class ChapterList {
             builder.append("\nMore details information here.");
         }
         return builder.toString();
+    }
+
+    public static void populateList(int chapterCount, String prependText) {
+        ITEMS.clear();
+        ITEM_MAP.clear();
+        Entry entry;
+        for (int i = 1; i <= chapterCount; i++) {
+            entry = new Entry(prependText + " " + i, makeDetails(i));
+            ITEMS.add(entry);
+            ITEM_MAP.put(entry.content, entry);
+        }
     }
 
     public static class Entry
