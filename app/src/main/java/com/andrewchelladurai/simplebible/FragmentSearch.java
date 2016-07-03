@@ -83,7 +83,7 @@ public class FragmentSearch
         } else {
             recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
-        recyclerView.setAdapter(new VerseViewAdapter(VerseList.ITEMS, this));
+        recyclerView.setAdapter(new AdapterVerseList(VerseList.getEntries(), this));
 
         return view;
     }

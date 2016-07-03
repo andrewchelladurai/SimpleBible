@@ -88,7 +88,7 @@ public class FragmentChapterVerses
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new VerseViewAdapter(VerseList.ITEMS, this));
+            recyclerView.setAdapter(new AdapterVerseList(VerseList.getEntries(), this));
 //            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS, this));
         }
         return view;

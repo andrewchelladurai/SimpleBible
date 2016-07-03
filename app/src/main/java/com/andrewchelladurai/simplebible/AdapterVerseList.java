@@ -40,40 +40,28 @@ import com.andrewchelladurai.simplebible.VerseList.Entry;
 
 import java.util.List;
 
-public class VerseViewAdapter
-        extends RecyclerView.Adapter<VerseViewAdapter.ViewHolder> {
+public class AdapterVerseList
+        extends RecyclerView.Adapter<AdapterVerseList.VerseView> {
 
     private final List<Entry> mValues;
     private final Fragment    mListener;
 
-    public VerseViewAdapter(List<Entry> items, Fragment listener) {
+    public AdapterVerseList(List<Entry> items, Fragment listener) {
         mValues = items;
         mListener = listener;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public VerseView onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                                   .inflate(R.layout.content_verse, parent, false);
-        return new ViewHolder(view);
+        return new VerseView(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final VerseView holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mContent.setText(mValues.get(position).mContent);
-
-/*
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (null != mListener & mListener instanceof FragmentSearch) {
-                    ((FragmentSearch) mListener).bookEntryClicked(holder.mItem);
-                }
-            }
-        });
-*/
+        holder.setContent(holder.mItem.getContent());
     }
 
     @Override
@@ -81,16 +69,16 @@ public class VerseViewAdapter
         return mValues.size();
     }
 
-    public class ViewHolder
+    public class VerseView
             extends RecyclerView.ViewHolder
             implements View.OnClickListener, View.OnLongClickListener {
 
         private static final String TAG = "SB_ViewHolder";
-        public final View              mView;
-        public final AppCompatTextView mContent;
-        public       Entry             mItem;
+        public final  View              mView;
+        private final AppCompatTextView mContent;
+        public        Entry             mItem;
 
-        public ViewHolder(View view) {
+        public VerseView(View view) {
             super(view);
             mView = view;
             mContent = (AppCompatTextView) view.findViewById(R.id.verse_content);
@@ -140,7 +128,15 @@ public class VerseViewAdapter
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContent.getText() + "'";
+            return getContent();
+        }
+
+        public String getContent() {
+            return mContent.getText().toString();
+        }
+
+        public void setContent(String newContent) {
+            mContent.setText(newContent);
         }
     }
 }

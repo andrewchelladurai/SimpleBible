@@ -36,8 +36,8 @@ import java.util.Map;
 
 public class VerseList {
 
-    public static final  List<Entry>        ITEMS    = new ArrayList<>();
-    public static final  Map<String, Entry> ITEM_MAP = new HashMap<>();
+    private static final List<Entry>        ITEMS    = new ArrayList<>();
+    private static final Map<String, Entry> ITEM_MAP = new HashMap<>();
     private static final int                COUNT    = 25;
 
     static {
@@ -48,11 +48,19 @@ public class VerseList {
         }
     }
 
+    public static List<Entry> getEntries() {
+        return ITEMS;
+    }
+
+    public static Map<String, Entry> getEntryMap() {
+        return ITEM_MAP;
+    }
+
     public static class Entry
             implements Parcelable {
 
-        public final String mReference;
-        public final String mContent;
+        private final String mReference;
+        private final String mContent;
 
         public Entry(String id, String content) {
             mReference = id;
@@ -89,6 +97,14 @@ public class VerseList {
         @Override public void writeToParcel(Parcel dest, int flags) {
             dest.writeString(mReference);
             dest.writeString(mContent);
+        }
+
+        public String getReference() {
+            return mReference;
+        }
+
+        public String getContent() {
+            return mContent;
         }
     }
 }
