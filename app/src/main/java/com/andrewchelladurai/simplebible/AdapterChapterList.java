@@ -41,28 +41,28 @@ import java.util.List;
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
  * on 30-Jun-2016 @ 1:49 AM
  */
-public class ChapterViewAdapter
-        extends RecyclerView.Adapter<ChapterViewAdapter.ViewHolder> {
+public class AdapterChapterList
+        extends RecyclerView.Adapter<AdapterChapterList.ChapterView> {
 
     private       ActivityChapterList     mChapterList;
     private final List<ChapterList.Entry> mValues;
 
-    public ChapterViewAdapter(ActivityChapterList chapterList, List<ChapterList.Entry> items) {
+    public AdapterChapterList(ActivityChapterList chapterList, List<ChapterList.Entry> items) {
         mChapterList = chapterList;
         mValues = items;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ChapterView onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                                   .inflate(R.layout.chapter_entry_content, parent, false);
-        return new ViewHolder(view);
+        return new ChapterView(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ChapterView holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mContent.setText(holder.mItem.getContent());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
 
@@ -70,8 +70,8 @@ public class ChapterViewAdapter
             public void onClick(View v) {
                 if (mChapterList.isDualPane()) {
                     Bundle arguments = new Bundle();
-                    arguments.putString(FragmentChapterVerses.ARG_ITEM_ID, holder.mItem.content);
-//                    FragmentVerses fragment = new FragmentVerses();
+                    arguments.putString(FragmentChapterVerses.ARG_ITEM_ID,
+                                        holder.mItem.getContent());
                     FragmentChapterVerses fragment = new FragmentChapterVerses();
                     fragment.setArguments(arguments);
                     mChapterList.getSupportFragmentManager().beginTransaction()
@@ -83,10 +83,10 @@ public class ChapterViewAdapter
                     args.putString(ActivityChapterVerses.CURRENT_CHAPTER_NUMBER,
                                    mChapterList.getCurrentChapterNumber());
                     args.putParcelable(ActivityChapterVerses.CURRENT_BOOK, mChapterList.getBook());
-                    args.putString(FragmentChapterVerses.ARG_ITEM_ID, holder.mItem.content);
+                    args.putString(FragmentChapterVerses.ARG_ITEM_ID, holder.mItem.getContent());
 
                     Intent intent = new Intent(context, ActivityChapterVerses.class);
-                    intent.putExtra(FragmentChapterVerses.ARG_ITEM_ID, holder.mItem.content);
+                    intent.putExtra(FragmentChapterVerses.ARG_ITEM_ID, holder.mItem.getContent());
                     intent.putExtras(args);
                     context.startActivity(intent);
                 }
@@ -99,22 +99,26 @@ public class ChapterViewAdapter
         return mValues.size();
     }
 
-    public class ViewHolder
+    public class ChapterView
             extends RecyclerView.ViewHolder {
 
-        public final View              mView;
-        public final TextView          mContentView;
-        public       ChapterList.Entry mItem;
+        public final  View              mView;
+        private final TextView          mContent;
+        public        ChapterList.Entry mItem;
 
-        public ViewHolder(View view) {
+        public ChapterView(View view) {
             super(view);
             mView = view;
-            mContentView = (TextView) view.findViewById(R.id.chapter_entry_content);
+            mContent = (TextView) view.findViewById(R.id.chapter_entry_content);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mContent.getText() + "'";
+        }
+
+        public String getContent() {
+            return mContent.getText().toString();
         }
     }
 }

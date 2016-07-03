@@ -53,13 +53,13 @@ public class FragmentChapterVerses
         super.onCreate(savedInstanceState);
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            mItem = ChapterList.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            mItem = ChapterList.getItem(getArguments().getString(ARG_ITEM_ID));
 
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(
                     R.id.activity_chapter_detail_toolbar_layout);
             if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.content);
+                appBarLayout.setTitle(mItem.getContent());
             }
         }
     }
@@ -67,15 +67,6 @@ public class FragmentChapterVerses
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-/*
-        View rootView = inflater.inflate(R.layout.item_detail, container, false);
-
-        if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.item_detail)).setText(mItem.details);
-        }
-
-        return rootView;
-*/
         View view = inflater.inflate(R.layout.fragment_verse_list, container, false);
 
         // Set the adapter

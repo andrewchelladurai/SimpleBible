@@ -30,6 +30,7 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -84,7 +85,12 @@ public class ActivityChapterList
 
         String chapterText = getString(R.string.chapter_list_prepend_text).trim();
         ChapterList.populateList(Integer.parseInt(mBook.getChapterCount()), chapterText);
-        recyclerView.setAdapter(new ChapterViewAdapter(this, ChapterList.ITEMS));
+        if (ChapterList.getCount() == 1) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(
+                    getApplicationContext(), LinearLayoutManager.HORIZONTAL, true
+            ));
+        }
+        recyclerView.setAdapter(new AdapterChapterList(this, ChapterList.getList()));
 
         if (findViewById(R.id.chapter_container) != null) {
             mTwoPane = true;

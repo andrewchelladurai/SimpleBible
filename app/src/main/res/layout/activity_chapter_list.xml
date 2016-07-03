@@ -21,14 +21,21 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/activity_chapter_list_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/gap"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include layout="@layout/chapter_list" />
-    </FrameLayout>
+        <include
+            layout="@layout/chapter_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </LinearLayout>
 
     <!--
         <android.support.design.widget.FloatingActionButton

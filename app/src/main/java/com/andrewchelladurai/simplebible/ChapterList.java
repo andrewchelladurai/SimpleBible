@@ -36,8 +36,8 @@ import java.util.Map;
 
 public class ChapterList {
 
-    public static final List<Entry>        ITEMS    = new ArrayList<>();
-    public static final Map<String, Entry> ITEM_MAP = new HashMap<>();
+    private static       List<Entry>        ITEMS    = new ArrayList<>();
+    private static final Map<String, Entry> ITEM_MAP = new HashMap<>();
 
     private static String makeDetails(int position) {
         StringBuilder builder = new StringBuilder();
@@ -59,11 +59,23 @@ public class ChapterList {
         }
     }
 
+    public static int getCount() {
+        return ITEMS.size();
+    }
+
+    public static List<Entry> getList() {
+        return ITEMS;
+    }
+
+    public static Entry getItem(String keyValue) {
+        return ITEM_MAP.get(keyValue);
+    }
+
     public static class Entry
             implements Parcelable {
 
-        public final String content;
-        public final String details;
+        private final String content;
+        public final  String details;
 
         public Entry(String content, String details) {
             this.content = content;
@@ -100,6 +112,10 @@ public class ChapterList {
         @Override public void writeToParcel(Parcel dest, int flags) {
             dest.writeString(content);
             dest.writeString(details);
+        }
+
+        public String getContent() {
+            return content;
         }
     }
 }
