@@ -36,7 +36,7 @@ import java.util.Map;
 
 public class ChapterList {
 
-    private static       List<Entry>        ITEMS    = new ArrayList<>();
+    private static final List<Entry>        ITEMS    = new ArrayList<>();
     private static final Map<String, Entry> ITEM_MAP = new HashMap<>();
 
     private static String makeDetails(int position) {

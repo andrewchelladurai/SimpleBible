@@ -44,7 +44,7 @@ import java.util.List;
 public class AdapterChapterList
         extends RecyclerView.Adapter<AdapterChapterList.ChapterView> {
 
-    private       ActivityChapterList     mChapterList;
+    private final ActivityChapterList     mChapterList;
     private final List<ChapterList.Entry> mValues;
 
     public AdapterChapterList(ActivityChapterList chapterList, List<ChapterList.Entry> items) {

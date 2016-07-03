@@ -116,5 +116,6 @@ public class FragmentHome
     }
 
     private void buttonGotoClicked() {
+        Log.d(TAG, "buttonGotoClicked() called");
     }
 }
