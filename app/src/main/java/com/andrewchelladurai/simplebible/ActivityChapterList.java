@@ -55,17 +55,6 @@ public class ActivityChapterList
         if (toolbar == null) throw new AssertionError(TAG + "onCreate() toolbar == null");
         toolbar.setTitle(getTitle());
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id
-        .activity_chapter_list_fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
