@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~
   ~ This file 'values.xml' is part of SimpleBible :
   ~
@@ -25,8 +26,5 @@
   -->
 
 <resources>
-    <color name="primary">#42282F</color>
-    <color name="primary_dark">#261822</color>
-    <color name="accent">#A83F23</color>
-    <integer name="book_list_column_count">2</integer>
+    <integer name="book_list_column_count">4</integer>
 </resources>

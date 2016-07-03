@@ -26,12 +26,9 @@
 
 package com.andrewchelladurai.simplebible;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -70,17 +67,19 @@ public class FragmentBooks
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_books, container, false);
-
+/*
         if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            Context context = view.getContext();*/
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_books_list);
+/*
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new AdapterBookList(BooksList.getItems(), this));
-        }
+*/
+        recyclerView.setAdapter(new AdapterBookList(BooksList.getItems(), this));
+//        }
         return view;
     }
 

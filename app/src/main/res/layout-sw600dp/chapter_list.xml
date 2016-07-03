@@ -48,8 +48,10 @@
         android:name="com.andrewchelladurai.simplebible.ItemListFragment"
         android:layout_width="@dimen/item_width"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:paddingEnd="@dimen/gap_big"
+        android:paddingStart="@dimen/gap_big"
+        android:paddingRight="@dimen/gap_big"
+        android:paddingLeft="@dimen/gap_big"
         app:layoutManager="LinearLayoutManager"
         tools:context=".ActivityChapterList"
         tools:listitem="@layout/entry_chapter" />
