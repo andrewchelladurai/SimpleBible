@@ -37,4 +37,4 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layoutManager="LinearLayoutManager"
     tools:context="com.andrewchelladurai.simplebible.FragmentBooks"
-    tools:listitem="@layout/content_book" />
+    tools:listitem="@layout/entry_book" />

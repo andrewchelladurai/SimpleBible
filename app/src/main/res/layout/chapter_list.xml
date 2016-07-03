@@ -37,4 +37,4 @@
     app:layoutManager="GridLayoutManager"
     app:spanCount="2"
     tools:context=".ActivityChapterList"
-    tools:listitem="@layout/chapter_entry_content" />
+    tools:listitem="@layout/entry_chapter" />

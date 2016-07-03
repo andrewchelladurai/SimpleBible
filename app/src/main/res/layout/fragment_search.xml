@@ -37,7 +37,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.andrewchelladurai.simplebible.FragmentSearch"
-    tools:listitem="@layout/content_verse">
+    tools:listitem="@layout/entry_verse">
 
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -68,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        tools:listitem="@layout/content_verse"/>
+        tools:listitem="@layout/entry_verse"/>
 </android.support.v7.widget.LinearLayoutCompat>
     <!--
     <android.support.v7.widget.RecyclerView
@@ -83,5 +83,5 @@
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
         tools:context="com.andrewchelladurai.simplebible.FragmentSearch"
-        tools:listitem="@layout/content_verse"/>
+        tools:listitem="@layout/entry_verse"/>
     -->

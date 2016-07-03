@@ -54,7 +54,7 @@ public class AdapterVerseList
     @Override
     public VerseView onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                                  .inflate(R.layout.content_verse, parent, false);
+                                  .inflate(R.layout.entry_verse, parent, false);
         return new VerseView(view);
     }
 

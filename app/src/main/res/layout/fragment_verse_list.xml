@@ -33,4 +33,4 @@
     android:layout_height="match_parent"
     android:padding="@dimen/gap"
     app:layoutManager="LinearLayoutManager"
-    tools:listitem="@layout/content_verse" />
+    tools:listitem="@layout/entry_verse" />

@@ -55,7 +55,7 @@ public class AdapterChapterList
     @Override
     public ChapterView onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                                  .inflate(R.layout.chapter_entry_content, parent, false);
+                                  .inflate(R.layout.entry_chapter, parent, false);
         return new ChapterView(view);
     }
 

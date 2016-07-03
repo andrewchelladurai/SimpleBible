@@ -52,7 +52,7 @@
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
         tools:context=".ActivityChapterList"
-        tools:listitem="@layout/chapter_entry_content" />
+        tools:listitem="@layout/entry_chapter" />
 
     <FrameLayout
         android:id="@+id/chapter_container"
