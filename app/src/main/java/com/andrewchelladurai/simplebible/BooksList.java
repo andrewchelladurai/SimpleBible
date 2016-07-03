@@ -68,8 +68,8 @@ public class BooksList {
     public static class Entry
             implements Parcelable {
 
-        public final  String mName;
-        public final  String mChapterCount;
+        private final String mName;
+        private final String mChapterCount;
         private final String mBookNumber;
 
         public Entry(int bookNumber, String mName, String mChapter) {
@@ -110,6 +110,18 @@ public class BooksList {
             dest.writeString(mName);
             dest.writeString(mChapterCount);
             dest.writeString(mBookNumber);
+        }
+
+        public String getName() {
+            return mName;
+        }
+
+        public String getChapterCount() {
+            return mChapterCount;
+        }
+
+        public String getBookNumber() {
+            return mBookNumber;
         }
     }
 }

@@ -79,7 +79,7 @@ public class FragmentBooks
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new BookViewAdapter(BooksList.getItems(), this));
+            recyclerView.setAdapter(new AdapterBookList(BooksList.getItems(), this));
         }
         return view;
     }

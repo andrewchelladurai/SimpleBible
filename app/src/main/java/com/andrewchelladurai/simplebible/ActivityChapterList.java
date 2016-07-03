@@ -83,7 +83,7 @@ public class ActivityChapterList
         }
 
         String chapterText = getString(R.string.chapter_list_prepend_text).trim();
-        ChapterList.populateList(Integer.parseInt(mBook.mChapterCount), chapterText);
+        ChapterList.populateList(Integer.parseInt(mBook.getChapterCount()), chapterText);
         recyclerView.setAdapter(new ChapterViewAdapter(this, ChapterList.ITEMS));
 
         if (findViewById(R.id.chapter_container) != null) {
