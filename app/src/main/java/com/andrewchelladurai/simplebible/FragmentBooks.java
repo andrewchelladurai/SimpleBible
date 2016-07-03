@@ -40,8 +40,7 @@ import com.andrewchelladurai.simplebible.BooksList.Entry;
 public class FragmentBooks
         extends Fragment {
 
-    private static final String TAG          = "SB_FragmentBooks";
-    private              int    mColumnCount = 2;
+    private static final String TAG = "SB_FragmentBooks";
 
     public FragmentBooks() {
     }
@@ -56,38 +55,20 @@ public class FragmentBooks
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(Utilities.BOOKS_COLUMN_COUNT);
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_books, container, false);
-/*
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();*/
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_books_list);
-/*
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-*/
         recyclerView.setAdapter(new AdapterBookList(BooksList.getItems(), this));
-//        }
         return view;
     }
 
     public void bookEntryClicked(Entry item) {
         Log.d(TAG, "bookEntryClicked() called with [" + item + "]");
         Bundle args = new Bundle();
-        args.putParcelable(ActivityChapterList.CURRENT_BOOK, item);
-        args.putString(ActivityChapterList.CURRENT_CHAPTER_NUMBER, "1");
+        args.putParcelable(Utilities.CURRENT_BOOK, item);
+        args.putString(Utilities.CURRENT_CHAPTER_NUMBER, "1");
+
         Intent intent = new Intent(getContext(), ActivityChapterList.class);
         intent.putExtras(args);
         startActivity(intent);

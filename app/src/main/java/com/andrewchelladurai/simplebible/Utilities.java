@@ -36,8 +36,11 @@ import android.util.Log;
 public class Utilities {
 
     // constants for arguments used in Fragments and Activities.
-    public static final String TODAY_VERSE_REFERENCE = "TODAY_VERSE_REFERENCE";
-    public static final String BOOKS_COLUMN_COUNT    = "BOOKS_COLUMN_COUNT";
+    public static final String TODAY_VERSE_REFERENCE  = "TODAY_VERSE_REFERENCE";
+    public static final String BOOKS_COLUMN_COUNT     = "BOOKS_COLUMN_COUNT";
+    public static final String CURRENT_BOOK           = "CURRENT_BOOK";
+    public static final String CURRENT_CHAPTER        = "CURRENT_CHAPTER";
+    public static final String CURRENT_CHAPTER_NUMBER = "CURRENT_CHAPTER_NUMBER";
 
     private static final String    TAG            = "SB_Utilities";
     private static       Utilities staticInstance = null;
@@ -64,5 +67,9 @@ public class Utilities {
         sendIntent.setType("text/plain");
         Log.i(TAG, "shareVerse: " + textToShare);
         return sendIntent;
+    }
+
+    public static void showError(String errorMessage) {
+        throw new AssertionError(errorMessage);
     }
 }

@@ -26,7 +26,6 @@
 
 package com.andrewchelladurai.simplebible;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -44,11 +43,11 @@ import java.util.List;
 public class AdapterChapterList
         extends RecyclerView.Adapter<AdapterChapterList.ChapterView> {
 
-    private final ActivityChapterList     mChapterList;
+    private final ActivityChapterList     mActivity;
     private final List<ChapterList.Entry> mValues;
 
-    public AdapterChapterList(ActivityChapterList chapterList, List<ChapterList.Entry> items) {
-        mChapterList = chapterList;
+    public AdapterChapterList(ActivityChapterList activity, List<ChapterList.Entry> items) {
+        mActivity = activity;
         mValues = items;
     }
 
@@ -60,35 +59,34 @@ public class AdapterChapterList
     }
 
     @Override
-    public void onBindViewHolder(final ChapterView holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mContent.setText(holder.mItem.getContent());
+    public void onBindViewHolder(final ChapterView holder, final int position) {
+        final ChapterList.Entry currentItem = mValues.get(position);
+        holder.mItem = currentItem;
+        holder.mContent.setText(currentItem.getContent());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                if (mChapterList.isDualPane()) {
-                    Bundle arguments = new Bundle();
-                    arguments.putString(FragmentChapterVerses.ARG_ITEM_ID,
-                                        holder.mItem.getContent());
+                if (mActivity.isDualPane()) {
+                    Bundle args = new Bundle();
+                    args.putString(FragmentChapterVerses.ARG_ITEM_ID,
+                                   currentItem.getContent());
                     FragmentChapterVerses fragment = new FragmentChapterVerses();
-                    fragment.setArguments(arguments);
-                    mChapterList.getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.chapter_container, fragment)
-                                .commit();
+                    fragment.setArguments(args);
+                    mActivity.getSupportFragmentManager().beginTransaction()
+                             .replace(R.id.chapter_container, fragment)
+                             .commit();
                 } else {
-                    Context context = v.getContext();
                     Bundle args = new Bundle();
                     args.putString(ActivityChapterVerses.CURRENT_CHAPTER_NUMBER,
-                                   mChapterList.getCurrentChapterNumber());
-                    args.putParcelable(ActivityChapterVerses.CURRENT_BOOK, mChapterList.getBook());
+                                   holder.getAdapterPosition() + "");
+                    args.putParcelable(ActivityChapterVerses.CURRENT_BOOK, mActivity.getBook());
                     args.putString(FragmentChapterVerses.ARG_ITEM_ID, holder.mItem.getContent());
 
-                    Intent intent = new Intent(context, ActivityChapterVerses.class);
-                    intent.putExtra(FragmentChapterVerses.ARG_ITEM_ID, holder.mItem.getContent());
+                    Intent intent = new Intent(v.getContext(), ActivityChapterVerses.class);
                     intent.putExtras(args);
-                    context.startActivity(intent);
+                    v.getContext().startActivity(intent);
                 }
             }
         });

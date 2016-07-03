@@ -28,6 +28,7 @@ package com.andrewchelladurai.simplebible;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,8 +37,10 @@ import java.util.Map;
 
 public class ChapterList {
 
-    private static final List<Entry>        ITEMS    = new ArrayList<>();
-    private static final Map<String, Entry> ITEM_MAP = new HashMap<>();
+    private static final String             TAG          = "SB_ChapterList";
+    private static final StringBuilder      mPrependText = new StringBuilder();
+    private static final List<Entry>        ITEMS        = new ArrayList<>();
+    private static final Map<String, Entry> ITEM_MAP     = new HashMap<>();
 
     private static String makeDetails(int position) {
         StringBuilder builder = new StringBuilder();
@@ -49,14 +52,19 @@ public class ChapterList {
     }
 
     public static void populateList(int chapterCount, String prependText) {
+        Log.d(TAG, "populateList() called with: [" + chapterCount + "], [" + prependText + "]");
+        if (mPrependText.length() < 1) {
+            mPrependText.append(prependText);
+        }
         ITEMS.clear();
         ITEM_MAP.clear();
         Entry entry;
         for (int i = 1; i <= chapterCount; i++) {
-            entry = new Entry(prependText + " " + i, makeDetails(i));
+            entry = new Entry(String.valueOf(i), makeDetails(i));
             ITEMS.add(entry);
             ITEM_MAP.put(entry.content, entry);
         }
+        Log.d(TAG, "populateList() returned");
     }
 
     public static int getCount() {
@@ -102,7 +110,7 @@ public class ChapterList {
 
         @Override
         public String toString() {
-            return content;
+            return getContent();
         }
 
         @Override public int describeContents() {
@@ -115,7 +123,7 @@ public class ChapterList {
         }
 
         public String getContent() {
-            return content;
+            return mPrependText + " " + content;
         }
     }
 }

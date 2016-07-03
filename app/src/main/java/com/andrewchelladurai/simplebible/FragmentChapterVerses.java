@@ -56,7 +56,8 @@ public class FragmentChapterVerses
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(
                     R.id.activity_chapter_detail_toolbar_layout);
             if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.getContent());
+                appBarLayout.setTitle("Fix the title");
+                // FIXME: 3/7/16 Fix the title
             }
         }
     }
