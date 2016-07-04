@@ -28,6 +28,7 @@ package com.andrewchelladurai.simplebible;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,16 +37,25 @@ import java.util.Map;
 
 public class VerseList {
 
+    private static final String             TAG      = "VerseList";
     private static final List<Entry>        ITEMS    = new ArrayList<>();
     private static final Map<String, Entry> ITEM_MAP = new HashMap<>();
-    private static final int                COUNT    = 25;
 
-    static {
-        for (int i = 1; i <= COUNT; i++) {
-            Entry entry = new Entry(String.valueOf(i), "Item " + i);
+    public static void populateEntries(ArrayList<String> verseList, int bookNumber,
+                                       int chapterNumber) {
+        Log.d(TAG, "populateEntries() called");
+        clearEntries();
+        Entry entry;
+        for (int i = 0; i < verseList.size(); i++) {
+            entry = new Entry(bookNumber + ":" + chapterNumber + ":" + (i + 1), verseList.get(i));
             ITEMS.add(entry);
-            ITEM_MAP.put(entry.mReference, entry);
+            ITEM_MAP.put(entry.getReference(), entry);
         }
+    }
+
+    public static void clearEntries() {
+        ITEMS.clear();
+        ITEM_MAP.clear();
     }
 
     public static List<Entry> getEntries() {
@@ -59,6 +69,18 @@ public class VerseList {
     public static class Entry
             implements Parcelable {
 
+        public static final Creator<Entry> CREATOR = new Creator<Entry>() {
+
+            @Override
+            public Entry createFromParcel(Parcel in) {
+                return new Entry(in);
+            }
+
+            @Override
+            public Entry[] newArray(int size) {
+                return new Entry[size];
+            }
+        };
         private final String mReference;
         private final String mContent;
 
@@ -76,19 +98,6 @@ public class VerseList {
         public String toString() {
             return mContent;
         }
-
-        public static final Creator<Entry> CREATOR = new Creator<Entry>() {
-
-            @Override
-            public Entry createFromParcel(Parcel in) {
-                return new Entry(in);
-            }
-
-            @Override
-            public Entry[] newArray(int size) {
-                return new Entry[size];
-            }
-        };
 
         @Override public int describeContents() {
             return 0;

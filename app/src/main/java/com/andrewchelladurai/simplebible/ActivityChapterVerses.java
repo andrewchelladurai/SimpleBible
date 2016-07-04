@@ -46,7 +46,7 @@ public class ActivityChapterVerses
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_chapter_detail_toolbar);
         if (toolbar == null) {
-            Utilities.showError(TAG + " onCreate : toolbar == null");
+            Utilities.throwError(TAG + " onCreate : toolbar == null");
         }
         setSupportActionBar(toolbar);
 

@@ -34,10 +34,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 public class FragmentChapterVerses
         extends Fragment {
 
     private static final String TAG = "SB_FragChapterVerses";
+    private BooksList.Entry   mBook;
+    private ChapterList.Entry mChapter;
 
     public FragmentChapterVerses() {
     }
@@ -49,19 +53,19 @@ public class FragmentChapterVerses
         CollapsingToolbarLayout appBar = (CollapsingToolbarLayout) getActivity()
                 .findViewById(R.id.activity_chapter_detail_toolbar_layout);
 
-        BooksList.Entry book = getArguments().getParcelable(Utilities.CURRENT_BOOK);
-        if (book == null) {
-            Utilities.showError(TAG + " onCreate : book == null");
+        mBook = getArguments().getParcelable(Utilities.CURRENT_BOOK);
+        if (mBook == null) {
+            Utilities.throwError(TAG + " onCreate : mBook == null");
         }
-        ChapterList.Entry chapter = getArguments().getParcelable(Utilities.CURRENT_CHAPTER);
-        if (chapter == null) {
-            Utilities.showError(TAG + " onCreate : chapter == null");
+        mChapter = getArguments().getParcelable(Utilities.CURRENT_CHAPTER);
+        if (mChapter == null) {
+            Utilities.throwError(TAG + " onCreate : mChapter == null");
         }
-        String chapterNumber = chapter.getChapterNumber();
+        String chapterNumber = mChapter.getChapterNumber();
         if (chapterNumber == null) {
-            Utilities.showError(TAG + " onCreate : chapterNumber == null");
+            Utilities.throwError(TAG + " onCreate : chapterNumber == null");
         }
-        StringBuilder title = new StringBuilder(book.getName())
+        StringBuilder title = new StringBuilder(mBook.getName())
                 .append(" : ").append(getString(R.string.chapter_list_prepend_text))
                 .append(" ").append(chapterNumber);
         if (appBar != null) {
@@ -75,7 +79,22 @@ public class FragmentChapterVerses
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_verse_list, container, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_verse_list);
+
+        DatabaseUtility dbu = DatabaseUtility.getInstance(getContext());
+        int bookNumber = Integer.parseInt(mBook.getBookNumber());
+        int chapterNumber = Integer.parseInt(mChapter.getChapterNumber());
+        ArrayList<String> verseList = dbu.getAllVersesOfChapter(bookNumber, chapterNumber);
+        if (verseList == null || verseList.size() < 1) {
+            Utilities.throwError(TAG + " onCreateView : verseList == null || size() < 1");
+        }
+
+        VerseList.populateEntries(verseList, bookNumber, chapterNumber);
         recyclerView.setAdapter(new AdapterVerseList(VerseList.getEntries(), this));
         return view;
+    }
+
+    @Override public void onDestroyView() {
+        super.onDestroyView();
+        VerseList.clearEntries();
     }
 }

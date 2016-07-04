@@ -51,7 +51,7 @@ public class ActivityChapterList
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_chapter_list_toolbar);
         setSupportActionBar(toolbar);
         if (toolbar == null) {
-            Utilities.showError(TAG + "onCreate() toolbar == null");
+            Utilities.throwError(TAG + "onCreate() toolbar == null");
         }
 
         // Show the Up button in the action bar.
@@ -63,19 +63,19 @@ public class ActivityChapterList
         Bundle extras = getIntent().getExtras();
         mBook = extras.getParcelable(Utilities.CURRENT_BOOK);
         if (mBook == null) {
-            Utilities.showError(TAG + " onCreate : mBook == null");
+            Utilities.throwError(TAG + " onCreate : mBook == null");
         }
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.chapter_list);
         if (recyclerView == null) {
-            Utilities.showError(TAG + " onCreate : recyclerView == null");
+            Utilities.throwError(TAG + " onCreate : recyclerView == null");
         }
 
         String chapterText = getString(R.string.chapter_list_prepend_text).trim();
         ChapterList.populateList(Integer.parseInt(mBook.getChapterCount()), chapterText);
         mChapter = ChapterList.getItem(extras.getString(Utilities.CURRENT_CHAPTER_NUMBER));
         if (mChapter == null) {
-            Utilities.showError(TAG + " onCreate : mChapter == null");
+            Utilities.throwError(TAG + " onCreate : mChapter == null");
         }
 
         if (ChapterList.getCount() == 1) {

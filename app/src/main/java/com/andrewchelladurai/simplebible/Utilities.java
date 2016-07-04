@@ -69,7 +69,7 @@ public class Utilities {
         return sendIntent;
     }
 
-    public static void showError(String errorMessage) {
+    public static void throwError(String errorMessage) {
         throw new AssertionError(errorMessage);
     }
 }
