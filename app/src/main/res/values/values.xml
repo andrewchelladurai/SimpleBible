@@ -42,6 +42,6 @@
     <dimen name="gap">8dp</dimen>
     <dimen name="gap_big">12dp</dimen>
     <dimen name="text_margin">16dp</dimen>
-    <dimen name="app_bar_height">200dp</dimen>
+    <dimen name="app_bar_height">150dp</dimen>
     <dimen name="item_width">150dp</dimen>
 </resources>
