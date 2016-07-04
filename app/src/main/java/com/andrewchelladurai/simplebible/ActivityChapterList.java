@@ -41,7 +41,7 @@ public class ActivityChapterList
     private static final String TAG = "SB_ActivityChapterList";
     private boolean           mTwoPane;
     private BooksList.Entry   mBook;
-    private ChapterList.Entry mChapter;
+    private ChapterList.Entry mChapter; // FIXME: 4/7/16 decide if this is needed
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,6 @@ public class ActivityChapterList
         if (toolbar == null) {
             Utilities.showError(TAG + "onCreate() toolbar == null");
         }
-        toolbar.setTitle(getTitle());
 
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
@@ -61,8 +60,8 @@ public class ActivityChapterList
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        Bundle args = getIntent().getExtras();
-        mBook = args.getParcelable(Utilities.CURRENT_BOOK);
+        Bundle extras = getIntent().getExtras();
+        mBook = extras.getParcelable(Utilities.CURRENT_BOOK);
         if (mBook == null) {
             Utilities.showError(TAG + " onCreate : mBook == null");
         }
@@ -74,7 +73,7 @@ public class ActivityChapterList
 
         String chapterText = getString(R.string.chapter_list_prepend_text).trim();
         ChapterList.populateList(Integer.parseInt(mBook.getChapterCount()), chapterText);
-        mChapter = ChapterList.getItem(args.getString(Utilities.CURRENT_CHAPTER_NUMBER));
+        mChapter = ChapterList.getItem(extras.getString(Utilities.CURRENT_CHAPTER_NUMBER));
         if (mChapter == null) {
             Utilities.showError(TAG + " onCreate : mChapter == null");
         }
@@ -89,6 +88,11 @@ public class ActivityChapterList
         if (findViewById(R.id.chapter_container) != null) {
             mTwoPane = true;
         }
+        StringBuilder title = new StringBuilder(mBook.getName())
+                .append(" : ").append(mBook.getChapterCount()).append(" ")
+                .append(getString(R.string.book_details_append_chapters));
+        setTitle(title);
+        toolbar.setTitle(getTitle());
     }
 
     @Override

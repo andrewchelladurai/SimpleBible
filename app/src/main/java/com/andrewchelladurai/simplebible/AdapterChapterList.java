@@ -43,6 +43,7 @@ import java.util.List;
 public class AdapterChapterList
         extends RecyclerView.Adapter<AdapterChapterList.ChapterView> {
 
+    private static final String TAG = "SB_AdapterChapterList";
     private final ActivityChapterList     mActivity;
     private final List<ChapterList.Entry> mValues;
 
@@ -60,33 +61,29 @@ public class AdapterChapterList
 
     @Override
     public void onBindViewHolder(final ChapterView holder, final int position) {
-        final ChapterList.Entry currentItem = mValues.get(position);
-        holder.mItem = currentItem;
-        holder.mContent.setText(currentItem.getContent());
+        holder.mItem = mValues.get(position);
+        holder.mContent.setText(holder.mItem.getContent());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                Bundle args = new Bundle();
+                args.putParcelable(
+                        Utilities.CURRENT_BOOK,
+                        mActivity.getIntent().getExtras().getParcelable(Utilities.CURRENT_BOOK));
+                args.putParcelable(Utilities.CURRENT_CHAPTER, holder.mItem);
+
                 if (mActivity.isDualPane()) {
-                    Bundle args = new Bundle();
-                    args.putString(FragmentChapterVerses.ARG_ITEM_ID,
-                                   currentItem.getContent());
                     FragmentChapterVerses fragment = new FragmentChapterVerses();
                     fragment.setArguments(args);
                     mActivity.getSupportFragmentManager().beginTransaction()
                              .replace(R.id.chapter_container, fragment)
                              .commit();
                 } else {
-                    Bundle args = new Bundle();
-                    args.putString(ActivityChapterVerses.CURRENT_CHAPTER_NUMBER,
-                                   holder.getAdapterPosition() + "");
-                    args.putParcelable(ActivityChapterVerses.CURRENT_BOOK, mActivity.getBook());
-                    args.putString(FragmentChapterVerses.ARG_ITEM_ID, holder.mItem.getContent());
-
-                    Intent intent = new Intent(v.getContext(), ActivityChapterVerses.class);
+                    Intent intent = new Intent(view.getContext(), ActivityChapterVerses.class);
                     intent.putExtras(args);
-                    v.getContext().startActivity(intent);
+                    view.getContext().startActivity(intent);
                 }
             }
         });
@@ -97,12 +94,12 @@ public class AdapterChapterList
         return mValues.size();
     }
 
-    public class ChapterView
+    class ChapterView
             extends RecyclerView.ViewHolder {
 
-        public final  View              mView;
+        private final View              mView;
         private final TextView          mContent;
-        public        ChapterList.Entry mItem;
+        private       ChapterList.Entry mItem;
 
         public ChapterView(View view) {
             super(view);
@@ -113,10 +110,6 @@ public class AdapterChapterList
         @Override
         public String toString() {
             return super.toString() + " '" + mContent.getText() + "'";
-        }
-
-        public String getContent() {
-            return mContent.getText().toString();
         }
     }
 }

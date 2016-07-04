@@ -26,7 +26,6 @@
 
 package com.andrewchelladurai.simplebible;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
@@ -38,9 +37,7 @@ import android.view.ViewGroup;
 public class FragmentChapterVerses
         extends Fragment {
 
-    public static final String ARG_ITEM_ID = "item_id";
-
-    private ChapterList.Entry mItem;
+    private static final String TAG = "SB_FragChapterVerses";
 
     public FragmentChapterVerses() {
     }
@@ -49,17 +46,28 @@ public class FragmentChapterVerses
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
-            mItem = ChapterList.getItem(getArguments().getString(ARG_ITEM_ID));
+        CollapsingToolbarLayout appBar = (CollapsingToolbarLayout) getActivity()
+                .findViewById(R.id.activity_chapter_detail_toolbar_layout);
 
-            Activity activity = this.getActivity();
-            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(
-                    R.id.activity_chapter_detail_toolbar_layout);
-            if (appBarLayout != null) {
-                appBarLayout.setTitle("Fix the title");
-                // FIXME: 3/7/16 Fix the title
-            }
+        BooksList.Entry book = getArguments().getParcelable(Utilities.CURRENT_BOOK);
+        if (book == null) {
+            Utilities.showError(TAG + " onCreate : book == null");
         }
+        ChapterList.Entry chapter = getArguments().getParcelable(Utilities.CURRENT_CHAPTER);
+        if (chapter == null) {
+            Utilities.showError(TAG + " onCreate : chapter == null");
+        }
+        String chapterNumber = chapter.getChapterNumber();
+        if (chapterNumber == null) {
+            Utilities.showError(TAG + " onCreate : chapterNumber == null");
+        }
+        StringBuilder title = new StringBuilder(book.getName())
+                .append(" : ").append(getString(R.string.chapter_list_prepend_text))
+                .append(" ").append(chapterNumber);
+        if (appBar != null) {
+            appBar.setTitle(title);
+        }
+        getActivity().setTitle(title);
     }
 
     @Override

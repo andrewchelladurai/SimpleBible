@@ -62,7 +62,7 @@ public class ChapterList {
         for (int i = 1; i <= chapterCount; i++) {
             entry = new Entry(String.valueOf(i), makeDetails(i));
             ITEMS.add(entry);
-            ITEM_MAP.put(entry.content, entry);
+            ITEM_MAP.put(entry.chapterNumber, entry);
         }
         Log.d(TAG, "populateList() returned");
     }
@@ -82,16 +82,16 @@ public class ChapterList {
     public static class Entry
             implements Parcelable {
 
-        private final String content;
+        private final String chapterNumber;
         public final  String details;
 
-        public Entry(String content, String details) {
-            this.content = content;
+        public Entry(String position, String details) {
+            chapterNumber = position;
             this.details = details;
         }
 
         protected Entry(Parcel in) {
-            content = in.readString();
+            chapterNumber = in.readString();
             details = in.readString();
         }
 
@@ -118,12 +118,16 @@ public class ChapterList {
         }
 
         @Override public void writeToParcel(Parcel dest, int flags) {
-            dest.writeString(content);
+            dest.writeString(chapterNumber);
             dest.writeString(details);
         }
 
         public String getContent() {
-            return mPrependText + " " + content;
+            return mPrependText + " " + chapterNumber;
+        }
+
+        public String getChapterNumber() {
+            return chapterNumber;
         }
     }
 }
