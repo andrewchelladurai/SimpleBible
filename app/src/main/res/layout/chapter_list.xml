@@ -35,6 +35,7 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="GridLayoutManager"
-    app:spanCount="2"
+    app:spanCount="@integer/chapter_list_column_count"
     tools:context=".ActivityChapterList"
     tools:listitem="@layout/entry_chapter" />
+    <!--app:layoutManager="GridLayoutManager"-->

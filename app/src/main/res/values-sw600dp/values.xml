@@ -27,4 +27,5 @@
 
 <resources>
     <integer name="book_list_column_count">4</integer>
+    <dimen name="activity_horizontal_margin">64dp</dimen>
 </resources>

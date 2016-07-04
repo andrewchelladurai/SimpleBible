@@ -27,4 +27,5 @@
 
 <resources>
     <integer name="book_list_column_count">3</integer>
+    <integer name="chapter_list_column_count">4</integer>
 </resources>
