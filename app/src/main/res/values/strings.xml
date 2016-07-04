@@ -149,4 +149,6 @@
     <string name="title_activity_bookmark">Verse Notes</string>
     <string name="empty_bookmark_notes">No notes was saved for this verse</string>
     <string name="chapter_list_prepend_text">Chapter </string>
+    <string name="message_incorrect_book_name">Incorrect Book Name</string>
+    <string name="message_incorrect_chapter_number">Incorrect chapter number, using default</string>
 </resources>

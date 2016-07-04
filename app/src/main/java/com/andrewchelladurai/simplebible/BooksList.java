@@ -45,8 +45,9 @@ public class BooksList {
         return ITEMS;
     }
 
-    public static Entry getItem(String chapterNumber) {
-        return ITEM_MAP.get(chapterNumber);
+    public static Entry getItem(String bookNumber) {
+        Log.d(TAG, "getItem() called with bookNumber = [" + bookNumber + "]");
+        return ITEM_MAP.get(bookNumber);
     }
 
     public static void populateBooks(String[] bookArray) {
@@ -65,9 +66,31 @@ public class BooksList {
         Log.d(TAG, "populateBooks: All " + ITEMS.size() + " books created");
     }
 
+    public static Entry getBook(String bookName) {
+        Log.d(TAG, "getBook() called with bookName = [" + bookName + "]");
+        for (Entry item : ITEMS) {
+            if (item.getName().equalsIgnoreCase(bookName)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
     public static class Entry
             implements Parcelable {
 
+        public static final Creator<Entry> CREATOR = new Creator<Entry>() {
+
+            @Override
+            public Entry createFromParcel(Parcel in) {
+                return new Entry(in);
+            }
+
+            @Override
+            public Entry[] newArray(int size) {
+                return new Entry[size];
+            }
+        };
         private final String mName;
         private final String mChapterCount;
         private final String mBookNumber;
@@ -83,19 +106,6 @@ public class BooksList {
             mChapterCount = in.readString();
             mBookNumber = in.readString();
         }
-
-        public static final Creator<Entry> CREATOR = new Creator<Entry>() {
-
-            @Override
-            public Entry createFromParcel(Parcel in) {
-                return new Entry(in);
-            }
-
-            @Override
-            public Entry[] newArray(int size) {
-                return new Entry[size];
-            }
-        };
 
         @Override
         public String toString() {
