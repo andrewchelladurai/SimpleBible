@@ -35,7 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ChapterList {
+public class ListChapter {
 
     private static final String             TAG          = "SB_ChapterList";
     private static final StringBuilder      mPrependText = new StringBuilder();

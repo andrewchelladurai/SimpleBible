@@ -75,7 +75,7 @@ public class ActivityChapterVerses
         if (id == android.R.id.home) {
             Bundle extras = getIntent().getExtras();
             ListBooks.Entry book = extras.getParcelable(Utilities.CURRENT_BOOK);
-            ChapterList.Entry chapter = extras.getParcelable(Utilities.CURRENT_CHAPTER);
+            ListChapter.Entry chapter = extras.getParcelable(Utilities.CURRENT_CHAPTER);
 
             Bundle args = new Bundle();
             args.putParcelable(Utilities.CURRENT_CHAPTER, chapter);

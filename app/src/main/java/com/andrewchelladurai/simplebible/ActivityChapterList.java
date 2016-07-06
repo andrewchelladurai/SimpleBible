@@ -41,7 +41,7 @@ public class ActivityChapterList
     private static final String TAG = "SB_ActivityChapterList";
     private boolean           mTwoPane;
     private ListBooks.Entry   mBook;
-    private ChapterList.Entry mChapter; // FIXME: 4/7/16 decide if this is needed
+    private ListChapter.Entry mChapter; // FIXME: 4/7/16 decide if this is needed
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,18 +72,18 @@ public class ActivityChapterList
         }
 
         String chapterText = getString(R.string.chapter_list_prepend_text).trim();
-        ChapterList.populateList(Integer.parseInt(mBook.getChapterCount()), chapterText);
-        mChapter = ChapterList.getItem(extras.getString(Utilities.CURRENT_CHAPTER_NUMBER));
+        ListChapter.populateList(Integer.parseInt(mBook.getChapterCount()), chapterText);
+        mChapter = ListChapter.getItem(extras.getString(Utilities.CURRENT_CHAPTER_NUMBER));
         if (mChapter == null) {
             Utilities.throwError(TAG + " onCreate : mChapter == null");
         }
 
-        if (ChapterList.getCount() == 1) {
+        if (ListChapter.getCount() == 1) {
             recyclerView.setLayoutManager(new LinearLayoutManager(
                     getApplicationContext(), LinearLayoutManager.HORIZONTAL, true
             ));
         }
-        recyclerView.setAdapter(new AdapterChapterList(this, ChapterList.getList()));
+        recyclerView.setAdapter(new AdapterChapterList(this, ListChapter.getList()));
 
         if (findViewById(R.id.chapter_container) != null) {
             mTwoPane = true;

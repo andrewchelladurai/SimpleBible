@@ -45,9 +45,9 @@ public class AdapterChapterList
 
     private static final String TAG = "SB_AdapterChapterList";
     private final ActivityChapterList     mActivity;
-    private final List<ChapterList.Entry> mValues;
+    private final List<ListChapter.Entry> mValues;
 
-    public AdapterChapterList(ActivityChapterList activity, List<ChapterList.Entry> items) {
+    public AdapterChapterList(ActivityChapterList activity, List<ListChapter.Entry> items) {
         mActivity = activity;
         mValues = items;
     }
@@ -99,7 +99,7 @@ public class AdapterChapterList
 
         private final View              mView;
         private final TextView          mContent;
-        private       ChapterList.Entry mItem;
+        private       ListChapter.Entry mItem;
 
         public ChapterView(View view) {
             super(view);

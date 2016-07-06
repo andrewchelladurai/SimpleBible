@@ -41,7 +41,7 @@ public class FragmentChapterVerses
 
     private static final String TAG = "SB_FragChapterVerses";
     private ListBooks.Entry   mBook;
-    private ChapterList.Entry mChapter;
+    private ListChapter.Entry mChapter;
 
     public FragmentChapterVerses() {
     }

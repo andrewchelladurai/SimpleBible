@@ -154,8 +154,8 @@ public class FragmentHome
         Log.d(TAG, "buttonGotoClicked() called [" + book + "] [" + chapterNumber + "]");
 
         String chapterText = getString(R.string.chapter_list_prepend_text).trim();
-        ChapterList.populateList(Integer.parseInt(book.getChapterCount()), chapterText);
-        ChapterList.Entry chapter = ChapterList.getItem(String.valueOf(chapterNumber));
+        ListChapter.populateList(Integer.parseInt(book.getChapterCount()), chapterText);
+        ListChapter.Entry chapter = ListChapter.getItem(String.valueOf(chapterNumber));
         Log.d(TAG, "buttonGotoClicked() chapter parcel created");
 
         Intent intent = new Intent(getContext(), ActivityChapterVerses.class);
