@@ -195,11 +195,12 @@ public class DatabaseUtility
 
         if (null != cursor && cursor.moveToFirst()) {
             int verseIndex = cursor.getColumnIndex(VERSE_TEXT);
-            int verseIdIndex = cursor.getColumnIndex(VERSE_NUMBER);
-            //            int chapterIdIndex = cursor.getColumnIndex("ChapterId");
-            //            int bookIdIndex = cursor.getColumnIndex("BookId");
+//            int verseIdIndex = cursor.getColumnIndex(VERSE_NUMBER);
+//            int chapterIdIndex = cursor.getColumnIndex("ChapterId");
+//            int bookIdIndex = cursor.getColumnIndex("BookId");
             do {
-                list.add(cursor.getInt(verseIdIndex) + " - " + cursor.getString(verseIndex));
+                list.add(cursor.getString(verseIndex));
+//                list.add(cursor.getInt(verseIdIndex) + " - " + cursor.getString(verseIndex));
             } while (cursor.moveToNext());
             cursor.close();
         }
@@ -280,7 +281,8 @@ public class DatabaseUtility
             entry.delete(0, entry.length());
             cursor.close();
         }
-        Log.d(TAG, "getVerseReferenceForToday() returned: " + verseId + " for dayOfYear = " + dayOfYear);
+        Log.d(TAG,
+              "getVerseReferenceForToday() returned: " + verseId + " for dayOfYear = " + dayOfYear);
         return verseId;
     }
 
