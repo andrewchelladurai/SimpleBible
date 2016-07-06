@@ -31,6 +31,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,7 +62,7 @@ public class AdapterVerseList
     @Override
     public void onBindViewHolder(final VerseView holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.setContent(holder.mItem.getContent());
+        holder.setContent(position, holder.mItem.getContent());
     }
 
     @Override
@@ -135,8 +136,8 @@ public class AdapterVerseList
             return mContent.getText().toString();
         }
 
-        public void setContent(String newContent) {
-            mContent.setText(newContent);
+        public void setContent(int position, String newContent) {
+            mContent.setText(Html.fromHtml(Utilities.getFormattedChapterVerse(position + 1, newContent)));
         }
     }
 }

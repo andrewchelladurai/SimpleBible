@@ -80,21 +80,30 @@ public class Utilities {
                                                 Integer.parseInt(reference[1]),
                                                 Integer.parseInt(reference[2]));
 
-        String formattedText = getResourceString(R.string.daily_verse_template);
+        String fText = getResourceString(R.string.daily_verse_template);
 
-        formattedText = formattedText.replaceAll(getResourceString(
-                R.string.daily_verse_template_book), bookName);
-        formattedText = formattedText.replaceAll(getResourceString(
-                R.string.daily_verse_template_chapter), reference[1]);
-        formattedText = formattedText.replaceAll(getResourceString(
-                R.string.daily_verse_template_verse), reference[2]);
-        formattedText = formattedText.replaceAll(getResourceString(
+        fText = fText.replaceAll(
+                getResourceString(R.string.daily_verse_template_book), bookName);
+        fText = fText.replaceAll(
+                getResourceString(R.string.daily_verse_template_chapter), reference[1]);
+        fText = fText.replaceAll(
+                getResourceString(R.string.daily_verse_template_verse), reference[2]);
+        fText = fText.replaceAll(getResourceString(
                 R.string.daily_verse_template_text), verseText);
 
-        return formattedText;
+        return fText;
     }
 
     private static String getResourceString(int resourceID) {
         return mResources.getString(resourceID);
+    }
+
+    public static String getFormattedChapterVerse(int verseNumber, String verseText) {
+        String fText = getResourceString(R.string.chapter_verse_template);
+        fText = fText.replaceAll(getResourceString(R.string.chapter_verse_template_verse),
+                                 String.valueOf(verseNumber));
+        fText = fText.replaceAll(getResourceString(R.string.chapter_verse_template_text),
+                                 verseText);
+        return fText;
     }
 }
