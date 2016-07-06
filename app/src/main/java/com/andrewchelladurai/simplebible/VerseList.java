@@ -81,6 +81,7 @@ public class VerseList {
                 return new Entry[size];
             }
         };
+
         private final String mReference;
         private final String mContent;
 

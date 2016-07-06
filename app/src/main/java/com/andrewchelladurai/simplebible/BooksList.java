@@ -46,8 +46,6 @@ public class BooksList {
     }
 
     public static Entry getItem(String bookNumber) {
-        Log.d(TAG, "getItem() called with bookNumber = [" + bookNumber + "] & is present = " +
-                   ITEM_MAP.containsKey(bookNumber));
         return ITEM_MAP.get(bookNumber);
     }
 

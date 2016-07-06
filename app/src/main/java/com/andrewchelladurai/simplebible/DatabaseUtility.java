@@ -208,8 +208,8 @@ public class DatabaseUtility
         return list;
     }
 
-    public ArrayList<String> findText(String pInput) {
-        Log.d(TAG, "findText() called  pInput = [" + pInput + "]");
+    public ArrayList<String> searchText(String pInput) {
+        Log.d(TAG, "searchText() called  pInput = [" + pInput + "]");
         ArrayList<String> values = new ArrayList<>(0);
         final SQLiteDatabase db = getReadableDatabase();
         String[] selectCols = {VERSE_NUMBER, CHAPTER_NUMBER, BOOK_NUMBER, VERSE_TEXT};
@@ -241,7 +241,7 @@ public class DatabaseUtility
             cursor.close();
         }
 
-        Log.d(TAG, "findText() returned: " + values.size());
+        Log.d(TAG, "searchText() returned: " + values.size());
         return values;
     }
 

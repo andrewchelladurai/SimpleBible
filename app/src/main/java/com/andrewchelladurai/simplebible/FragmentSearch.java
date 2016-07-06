@@ -26,90 +26,97 @@
 
 package com.andrewchelladurai.simplebible;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
 
 public class FragmentSearch
         extends Fragment
         implements View.OnClickListener {
 
-    private static final String TAG              = "SB_FragmentSearch";
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    private              int    mColumnCount     = 1;
+    private static final String TAG = "SB_FragmentSearch";
+    private TextInputEditText mInput;
+    private AdapterSearchList mListAdapter;
+    private AppCompatButton   mButton;
+    private TextInputLayout   mLabel;
 
     public FragmentSearch() {
     }
 
     public static FragmentSearch newInstance() {
-        FragmentSearch fragment = new FragmentSearch();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, 1);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
+        return new FragmentSearch();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
+        mInput = (TextInputEditText) view.findViewById(R.id.frag_search_input);
+        mLabel = (TextInputLayout) view.findViewById(R.id.frag_search_label);
 
-        AppCompatButton button = (AppCompatButton) view.findViewById(R.id.frag_search_button);
-        button.setOnClickListener(this);
+        mButton = (AppCompatButton) view.findViewById(R.id.frag_search_button);
+        mButton.setOnClickListener(this);
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.frag_search_results);
-        Context context = view.getContext();
 
-        if (mColumnCount <= 1) {
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        } else {
-            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-        }
-        recyclerView.setAdapter(new AdapterVerseList(VerseList.getEntries(), this));
+        ListSearch.populate(null);
+        mListAdapter = new AdapterSearchList(ListSearch.getEntries());
+        resetButtonClicked();
+        recyclerView.setAdapter(mListAdapter);
 
         return view;
     }
 
+    private void resetButtonClicked() {
+        mInput.setText("");
+        mInput.setError(null);
+        mLabel.setError(null);
+        mListAdapter.notifyDataSetChanged();
+        mButton.setText(getString(R.string.button_search_text));
+    }
+
     @Override public void onClick(View v) {
-        if (v instanceof AppCompatButton & v.getId() == R.id.frag_search_button) {
-            searchButtonClicked();
+        if (v instanceof AppCompatButton & v.equals(mButton)) {
+            String buttonText = mButton.getText().toString();
+            if (buttonText.equalsIgnoreCase(getString(R.string.button_search_text))) {
+                searchButtonClicked();
+            } else if (buttonText.equalsIgnoreCase(getString(R.string.button_search_reset))) {
+                resetButtonClicked();
+            }
         }
     }
 
     private void searchButtonClicked() {
-        String input = getTextToSearch();
-    }
+        String input = mInput.getText().toString().trim();
+        if (input.isEmpty()) {
+            mInput.setError(getString(R.string.search_text_empty));
+            mInput.requestFocus();
+            return;
+        }
+        if (input.length() < 3) {
+            mInput.setError(getString(R.string.search_text_length));
+            mInput.requestFocus();
+            return;
+        }
+        DatabaseUtility dbu = DatabaseUtility.getInstance(getActivity().getApplicationContext());
+        ArrayList<String> list = dbu.searchText(input);
+        if (list.size() == 0) {
+            mLabel.setError(getString(R.string.search_no_results));
+            mInput.requestFocus();
+            return;
+        }
+        mLabel.setError(list.size() + " " + getString(+R.string.search_text_results_found));
 
-    private String getTextToSearch() {
-        View view = getView();
-        if (view == null) throw new AssertionError(TAG + " getTextToSearch() view == null");
-
-        TextInputEditText input = (TextInputEditText) view.findViewById(R.id.frag_search_input);
-        String text = input.getText().toString().trim();
-
-        Log.d(TAG, "getTextToSearch() returned: " + text);
-        return text;
-    }
-
-    public void onListFragmentInteraction(VerseList.Entry item) {
-        Log.d(TAG, "bookEntryClicked() called [" + item + "]");
+        ListSearch.populate(list);
+        mListAdapter.notifyDataSetChanged();
+        mButton.setText(getString(R.string.button_search_reset));
     }
 }

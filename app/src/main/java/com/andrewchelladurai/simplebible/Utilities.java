@@ -106,4 +106,19 @@ public class Utilities {
                                  verseText);
         return fText;
     }
+
+    public static String getFormattedSearchVerse(ListSearch.Entry entry) {
+        String bookName = BooksList.getItem(entry.getBookNumber()).getName();
+        String fText = getResourceString(R.string.search_result_template);
+        fText = fText.replaceAll(getResourceString(
+                R.string.search_result_template_book), bookName);
+        fText = fText.replaceAll(getResourceString(
+                R.string.search_result_template_chapter), entry.getChapterNumber());
+        fText = fText.replaceAll(getResourceString(
+                R.string.search_result_template_verse), entry.getVerseNumber());
+        fText = fText.replaceAll(getResourceString(
+                R.string.search_result_template_text), entry.getVerse());
+
+        return fText;
+    }
 }
