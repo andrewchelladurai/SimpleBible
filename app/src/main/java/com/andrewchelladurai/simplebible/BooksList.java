@@ -46,7 +46,8 @@ public class BooksList {
     }
 
     public static Entry getItem(String bookNumber) {
-        Log.d(TAG, "getItem() called with bookNumber = [" + bookNumber + "]");
+        Log.d(TAG, "getItem() called with bookNumber = [" + bookNumber + "] & is present = " +
+                   ITEM_MAP.containsKey(bookNumber));
         return ITEM_MAP.get(bookNumber);
     }
 
@@ -61,7 +62,7 @@ public class BooksList {
             values = bookArray[i].split(":");
             item = new Entry((i + 1), values[0], values[1]);
             ITEMS.add(item);
-            ITEM_MAP.put(item.mName, item);
+            ITEM_MAP.put(item.mBookNumber, item);
         }
         Log.d(TAG, "populateBooks: All " + ITEMS.size() + " books created");
     }
