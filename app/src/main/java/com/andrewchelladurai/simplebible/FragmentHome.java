@@ -33,6 +33,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,7 +83,7 @@ public class FragmentHome
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         mDailyVerse = (AppCompatTextView) view.findViewById(R.id.frag_home_daily_verse);
-        displayVerse(mDailyVerse);
+        displayVerse();
 
         AppCompatButton button = (AppCompatButton) view.findViewById(R.id.frag_home_but_goto);
         button.setOnClickListener(this);
@@ -106,9 +107,20 @@ public class FragmentHome
         return view;
     }
 
-    private void displayVerse(AppCompatTextView textView) {
+    private void displayVerse() {
         String verseRef = getArguments().getString(Utilities.TODAY_VERSE_REFERENCE);
-        textView.setText(verseRef);
+        if (verseRef == null || verseRef.isEmpty()) {
+            Log.d(TAG, "displayVerse: incorrect verseRef = " + verseRef + " using default");
+            verseRef = "43:3:16"; // John 3:16 - The Default verse
+        }
+        String parts[] = verseRef.split(":");
+        if (parts.length != 3) {
+            Log.d(TAG, "displayVerse: incorrect verseRef = " + verseRef + " using default");
+            verseRef = "43:3:16"; // John 3:16 - The Default verse
+        }
+        parts = verseRef.split(":");
+
+        mDailyVerse.setText(Html.fromHtml(Utilities.getFormattedDailyVerse(parts)));
     }
 
     @Override

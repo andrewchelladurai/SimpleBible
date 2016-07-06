@@ -44,7 +44,7 @@ public class Utilities {
 
     private static final String    TAG            = "SB_Utilities";
     private static       Utilities staticInstance = null;
-    private final Resources mResources;
+    private static Resources mResources;
 
     private Utilities(final Resources pResources) {
         mResources = pResources;
@@ -71,5 +71,30 @@ public class Utilities {
 
     public static void throwError(String errorMessage) {
         throw new AssertionError(errorMessage);
+    }
+
+    public static String getFormattedDailyVerse(String[] reference) {
+        String bookName = BooksList.getItem(reference[0]).getName();
+        DatabaseUtility dbu = DatabaseUtility.getInstance(null);
+        String verseText = dbu.getSpecificVerse(Integer.parseInt(reference[0]),
+                                                Integer.parseInt(reference[1]),
+                                                Integer.parseInt(reference[2]));
+
+        String formattedText = getResourceString(R.string.daily_verse_template);
+
+        formattedText = formattedText.replaceAll(getResourceString(
+                R.string.daily_verse_template_book), bookName);
+        formattedText = formattedText.replaceAll(getResourceString(
+                R.string.daily_verse_template_chapter), reference[1]);
+        formattedText = formattedText.replaceAll(getResourceString(
+                R.string.daily_verse_template_verse), reference[2]);
+        formattedText = formattedText.replaceAll(getResourceString(
+                R.string.daily_verse_template_text), verseText);
+
+        return formattedText;
+    }
+
+    private static String getResourceString(int resourceID) {
+        return mResources.getString(resourceID);
     }
 }
