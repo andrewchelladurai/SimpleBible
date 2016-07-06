@@ -26,6 +26,7 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -47,7 +48,10 @@ public class FragmentHome
         implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private static final String TAG = "SB_FragmentHome";
-    private ArrayAdapter<String> mChapterAdapter;
+    private ArrayAdapter<String>          mChapterAdapter;
+    private AppCompatAutoCompleteTextView mChapterInput;
+    private AppCompatTextView             mDailyVerse;
+    private AppCompatAutoCompleteTextView mBookInput;
 
     public FragmentHome() {
         // FIXME: Make the layout better for landscape position
@@ -76,27 +80,25 @@ public class FragmentHome
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        mDailyVerse = (AppCompatTextView) view.findViewById(R.id.frag_home_daily_verse);
+        displayVerse(mDailyVerse);
+
         AppCompatButton button = (AppCompatButton) view.findViewById(R.id.frag_home_but_goto);
         button.setOnClickListener(this);
 
-        AppCompatTextView textView =
-                (AppCompatTextView) view.findViewById(R.id.frag_home_daily_verse);
-        displayVerse(textView);
-
-        AppCompatAutoCompleteTextView mBookInput =
-                (AppCompatAutoCompleteTextView) view.findViewById(R.id.frag_home_book_name);
-
+        mBookInput = (AppCompatAutoCompleteTextView) view.findViewById(R.id.frag_home_book_name);
         List<BooksList.Entry> items = BooksList.getItems();
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
             list.add(i, items.get(i).getName());
         }
-        mBookInput.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout
-                .simple_dropdown_item_1line, list));
+        mBookInput.setAdapter(new ArrayAdapter<>(
+                getContext(), android.R.layout.simple_dropdown_item_1line, list));
         mBookInput.setOnItemClickListener(this);
 
-        AppCompatAutoCompleteTextView mChapterInput =
-                (AppCompatAutoCompleteTextView) view.findViewById(R.id.frag_home_chapter_number);
+        mChapterInput = (AppCompatAutoCompleteTextView)
+                view.findViewById(R.id.frag_home_chapter_number);
         mChapterAdapter = new ArrayAdapter<>(getContext(), android.R.layout
                 .simple_dropdown_item_1line, new ArrayList<String>(0));
         mChapterInput.setAdapter(mChapterAdapter);
@@ -128,25 +130,35 @@ public class FragmentHome
             chapterNumber = Integer.parseInt(getChapterNumber());
         } catch (NumberFormatException npe) {
             chapterNumber = 1;
-            Snackbar.make(view, R.string.message_incorrect_chapter_number, Snackbar.LENGTH_SHORT)
-                    .show();
+            Snackbar.make(view, R.string.message_incorrect_chapter_number,
+                          Snackbar.LENGTH_SHORT).show();
             Log.d(TAG, "buttonGotoClicked " + npe.getLocalizedMessage());
         }
         if (chapterNumber < 1 || chapterNumber > Integer.parseInt(book.getChapterCount())) {
             chapterNumber = 1;
-            Snackbar.make(view, R.string.message_incorrect_chapter_number, Snackbar.LENGTH_SHORT)
-                    .show();
+            Snackbar.make(view, R.string.message_incorrect_chapter_number,
+                          Snackbar.LENGTH_SHORT).show();
         }
         Log.d(TAG, "buttonGotoClicked() called [" + book + "] [" + chapterNumber + "]");
+
+        String chapterText = getString(R.string.chapter_list_prepend_text).trim();
+        ChapterList.populateList(Integer.parseInt(book.getChapterCount()), chapterText);
+        ChapterList.Entry chapter = ChapterList.getItem(String.valueOf(chapterNumber));
+        Log.d(TAG, "buttonGotoClicked() chapter parcel created");
+
+        Intent intent = new Intent(getContext(), ActivityChapterVerses.class);
+        Bundle args = new Bundle();
+        args.putParcelable(Utilities.CURRENT_BOOK, book);
+        args.putString(Utilities.CURRENT_CHAPTER_NUMBER, String.valueOf(chapterNumber));
+        args.putParcelable(Utilities.CURRENT_CHAPTER, chapter);
+        intent.putExtras(args);
+
+        resetValues();
+        startActivity(intent);
     }
 
     private BooksList.Entry getBookDetails() {
-        View view = getView();
-        if (view == null) Utilities.throwError(TAG + " view == null");
-
-        AppCompatAutoCompleteTextView input =
-                (AppCompatAutoCompleteTextView) view.findViewById(R.id.frag_home_book_name);
-        String bookName = input.getText().toString().trim();
+        String bookName = mBookInput.getText().toString().trim();
 
         BooksList.Entry book = BooksList.getBook(bookName);
         Log.d(TAG, "getBookDetails() returned: " + book);
@@ -154,15 +166,19 @@ public class FragmentHome
     }
 
     private String getChapterNumber() {
-        View view = getView();
-        if (view == null) Utilities.throwError(TAG + " view == null");
-
-        AppCompatAutoCompleteTextView input =
-                (AppCompatAutoCompleteTextView) view.findViewById(R.id.frag_home_chapter_number);
-        String chapterNumber = input.getText().toString().trim();
+        String chapterNumber = mChapterInput.getText().toString().trim();
 
         Log.d(TAG, "getChapterNumber() returned: " + chapterNumber);
         return chapterNumber;
+    }
+
+    private void resetValues() {
+        Log.d(TAG, "resetValues() called");
+        mChapterAdapter.clear();
+        mChapterAdapter.notifyDataSetChanged();
+        mBookInput.setText("");
+        mChapterInput.setText("");
+        mBookInput.requestFocus();
     }
 
     @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
