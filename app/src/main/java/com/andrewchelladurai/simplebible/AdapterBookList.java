@@ -32,7 +32,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.andrewchelladurai.simplebible.BooksList.Entry;
+import com.andrewchelladurai.simplebible.ListBooks.Entry;
 
 import java.util.List;
 

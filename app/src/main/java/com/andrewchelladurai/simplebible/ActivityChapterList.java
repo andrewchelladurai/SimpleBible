@@ -40,7 +40,7 @@ public class ActivityChapterList
 
     private static final String TAG = "SB_ActivityChapterList";
     private boolean           mTwoPane;
-    private BooksList.Entry   mBook;
+    private ListBooks.Entry   mBook;
     private ChapterList.Entry mChapter; // FIXME: 4/7/16 decide if this is needed
 
     @Override
@@ -109,7 +109,7 @@ public class ActivityChapterList
         return mTwoPane;
     }
 
-    public BooksList.Entry getBook() {
+    public ListBooks.Entry getBook() {
         return mBook;
     }
 }

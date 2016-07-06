@@ -35,7 +35,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.andrewchelladurai.simplebible.BooksList.Entry;
+import com.andrewchelladurai.simplebible.ListBooks.Entry;
 
 public class FragmentBooks
         extends Fragment {
@@ -59,7 +59,7 @@ public class FragmentBooks
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_books, container, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_books_list);
-        recyclerView.setAdapter(new AdapterBookList(BooksList.getItems(), this));
+        recyclerView.setAdapter(new AdapterBookList(ListBooks.getItems(), this));
         return view;
     }
 

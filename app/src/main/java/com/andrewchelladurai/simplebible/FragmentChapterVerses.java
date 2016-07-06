@@ -40,7 +40,7 @@ public class FragmentChapterVerses
         extends Fragment {
 
     private static final String TAG = "SB_FragChapterVerses";
-    private BooksList.Entry   mBook;
+    private ListBooks.Entry   mBook;
     private ChapterList.Entry mChapter;
 
     public FragmentChapterVerses() {

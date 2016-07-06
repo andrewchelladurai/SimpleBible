@@ -35,7 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BooksList {
+public class ListBooks {
 
     private static final String             TAG      = "SB_BooksList";
     private static final List<Entry>        ITEMS    = new ArrayList<>();

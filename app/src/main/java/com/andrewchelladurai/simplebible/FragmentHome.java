@@ -89,7 +89,7 @@ public class FragmentHome
         button.setOnClickListener(this);
 
         mBookInput = (AppCompatAutoCompleteTextView) view.findViewById(R.id.frag_home_book_name);
-        List<BooksList.Entry> items = BooksList.getItems();
+        List<ListBooks.Entry> items = ListBooks.getItems();
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
             list.add(i, items.get(i).getName());
@@ -131,7 +131,7 @@ public class FragmentHome
     }
 
     private void buttonGotoClicked(View view) {
-        BooksList.Entry book = getBookDetails();
+        ListBooks.Entry book = getBookDetails();
         if (book == null) {
             Snackbar.make(view, R.string.message_incorrect_book_name, Snackbar.LENGTH_SHORT).show();
             return;
@@ -169,10 +169,10 @@ public class FragmentHome
         startActivity(intent);
     }
 
-    private BooksList.Entry getBookDetails() {
+    private ListBooks.Entry getBookDetails() {
         String bookName = mBookInput.getText().toString().trim();
 
-        BooksList.Entry book = BooksList.getBook(bookName);
+        ListBooks.Entry book = ListBooks.getBook(bookName);
         Log.d(TAG, "getBookDetails() returned: " + book);
         return book;
     }
@@ -194,7 +194,7 @@ public class FragmentHome
     }
 
     @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        BooksList.Entry item = getBookDetails();
+        ListBooks.Entry item = getBookDetails();
         refreshChapterInput(item.getChapterCount());
     }
 

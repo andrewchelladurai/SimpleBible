@@ -53,7 +53,7 @@ public class Utilities {
     public static Utilities getInstance(final Resources pResources) {
         if (staticInstance == null) {
             staticInstance = new Utilities(pResources);
-            BooksList.populateBooks(pResources.getStringArray(
+            ListBooks.populateBooks(pResources.getStringArray(
                     R.array.books_n_chapter_count_array));
             Log.i(TAG, "getInstance: staticInstance initialized");
         }
@@ -74,7 +74,7 @@ public class Utilities {
     }
 
     public static String getFormattedDailyVerse(String[] reference) {
-        String bookName = BooksList.getItem(reference[0]).getName();
+        String bookName = ListBooks.getItem(reference[0]).getName();
         DatabaseUtility dbu = DatabaseUtility.getInstance(null);
         String verseText = dbu.getSpecificVerse(Integer.parseInt(reference[0]),
                                                 Integer.parseInt(reference[1]),
@@ -108,7 +108,7 @@ public class Utilities {
     }
 
     public static String getFormattedSearchVerse(ListSearch.Entry entry) {
-        String bookName = BooksList.getItem(entry.getBookNumber()).getName();
+        String bookName = ListBooks.getItem(entry.getBookNumber()).getName();
         String fText = getResourceString(R.string.search_result_template);
         fText = fText.replaceAll(getResourceString(
                 R.string.search_result_template_book), bookName);
