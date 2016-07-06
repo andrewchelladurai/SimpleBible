@@ -37,7 +37,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.andrewchelladurai.simplebible.VerseList.Entry;
+import com.andrewchelladurai.simplebible.ListVerse.Entry;
 
 import java.util.List;
 

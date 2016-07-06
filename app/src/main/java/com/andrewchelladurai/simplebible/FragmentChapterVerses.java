@@ -88,13 +88,13 @@ public class FragmentChapterVerses
             Utilities.throwError(TAG + " onCreateView : verseList == null || size() < 1");
         }
 
-        VerseList.populateEntries(verseList, bookNumber, chapterNumber);
-        recyclerView.setAdapter(new AdapterVerseList(VerseList.getEntries(), this));
+        ListVerse.populateEntries(verseList, bookNumber, chapterNumber);
+        recyclerView.setAdapter(new AdapterVerseList(ListVerse.getEntries(), this));
         return view;
     }
 
     @Override public void onDestroyView() {
         super.onDestroyView();
-        VerseList.clearEntries();
+        ListVerse.clearEntries();
     }
 }

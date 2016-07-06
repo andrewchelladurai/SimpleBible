@@ -35,9 +35,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class VerseList {
+public class ListVerse {
 
-    private static final String             TAG      = "VerseList";
+    private static final String             TAG      = "ListVerse";
     private static final List<Entry>        ITEMS    = new ArrayList<>();
     private static final Map<String, Entry> ITEM_MAP = new HashMap<>();
 
