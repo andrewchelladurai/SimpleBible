@@ -70,14 +70,6 @@ public class FragmentHome
         return fragment;
     }
 
-    /*@Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }*/
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -106,6 +98,14 @@ public class FragmentHome
 
         return view;
     }
+
+    /*@Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }*/
 
     private void displayVerse() {
         String verseRef = getArguments().getString(Utilities.TODAY_VERSE_REFERENCE);
@@ -137,19 +137,29 @@ public class FragmentHome
             return;
         }
 
-        int chapterNumber;
-        try {
-            chapterNumber = Integer.parseInt(getChapterNumber());
-        } catch (NumberFormatException npe) {
+        String chapterNumStr = getChapterNumber();
+        CHAPTER_ERROR_STATE inputState = CHAPTER_ERROR_STATE.SUCCESS;
+        int chapterNumber = 1;
+
+        if (chapterNumStr.isEmpty()) {
+            inputState = CHAPTER_ERROR_STATE.EMPTY;
             chapterNumber = 1;
-            Snackbar.make(view, R.string.message_incorrect_chapter_number,
-                          Snackbar.LENGTH_SHORT).show();
-            Log.d(TAG, "buttonGotoClicked " + npe.getLocalizedMessage());
-        }
-        if (chapterNumber < 1 || chapterNumber > Integer.parseInt(book.getChapterCount())) {
-            chapterNumber = 1;
-            Snackbar.make(view, R.string.message_incorrect_chapter_number,
-                          Snackbar.LENGTH_SHORT).show();
+        } else {
+            try {
+                chapterNumber = Integer.parseInt(chapterNumStr);
+            } catch (NumberFormatException npe) {
+                inputState = CHAPTER_ERROR_STATE.INCORRECT;
+                chapterNumber = 1;
+                Snackbar.make(view, R.string.message_incorrect_chapter_number,
+                              Snackbar.LENGTH_SHORT).show();
+                Log.d(TAG, "buttonGotoClicked " + npe.getLocalizedMessage());
+            }
+            if (chapterNumber < 1 || chapterNumber > Integer.parseInt(book.getChapterCount())) {
+                inputState = CHAPTER_ERROR_STATE.INCORRECT;
+                chapterNumber = 1   ;
+                Snackbar.make(view, R.string.message_incorrect_chapter_number,
+                              Snackbar.LENGTH_SHORT).show();
+            }
         }
         Log.d(TAG, "buttonGotoClicked() called [" + book + "] [" + chapterNumber + "]");
 
@@ -158,15 +168,27 @@ public class FragmentHome
         ListChapter.Entry chapter = ListChapter.getItem(String.valueOf(chapterNumber));
         Log.d(TAG, "buttonGotoClicked() chapter parcel created");
 
-        Intent intent = new Intent(getContext(), ActivityChapterVerses.class);
         Bundle args = new Bundle();
         args.putParcelable(Utilities.CURRENT_BOOK, book);
         args.putString(Utilities.CURRENT_CHAPTER_NUMBER, String.valueOf(chapterNumber));
         args.putParcelable(Utilities.CURRENT_CHAPTER, chapter);
+
+        Intent intent;
+        switch (inputState) {
+            case EMPTY:
+            case SUCCESS:
+                intent = new Intent(getContext(), ActivityChapterVerses.class);
+                break;
+            case INCORRECT:
+            default:
+                intent = new Intent(getContext(), ActivityChapterList.class);
+        }
+
         intent.putExtras(args);
 
         resetValues();
         startActivity(intent);
+
     }
 
     private ListBooks.Entry getBookDetails() {
@@ -210,4 +232,6 @@ public class FragmentHome
         Log.d(TAG, "refreshChapterInput() refreshed " + list.size() + " items");
         return list.size();
     }
+
+    enum CHAPTER_ERROR_STATE {EMPTY, INCORRECT, SUCCESS}
 }
