@@ -42,15 +42,6 @@ public class ListChapter {
     private static final List<Entry>        ITEMS        = new ArrayList<>();
     private static final Map<String, Entry> ITEM_MAP     = new HashMap<>();
 
-    private static String makeDetails(int position) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Details about Item: ").append(position);
-        for (int i = 0; i < position; i++) {
-            builder.append("\nMore details information here.");
-        }
-        return builder.toString();
-    }
-
     public static void populateList(int chapterCount, String prependText) {
         Log.d(TAG, "populateList() called with: [" + chapterCount + "], [" + prependText + "]");
         if (mPrependText.length() < 1) {
@@ -60,7 +51,7 @@ public class ListChapter {
         ITEM_MAP.clear();
         Entry entry;
         for (int i = 1; i <= chapterCount; i++) {
-            entry = new Entry(String.valueOf(i), makeDetails(i));
+            entry = new Entry(String.valueOf(i));
             ITEMS.add(entry);
             ITEM_MAP.put(entry.chapterNumber, entry);
         }
@@ -82,19 +73,6 @@ public class ListChapter {
     public static class Entry
             implements Parcelable {
 
-        private final String chapterNumber;
-        public final  String details;
-
-        public Entry(String position, String details) {
-            chapterNumber = position;
-            this.details = details;
-        }
-
-        protected Entry(Parcel in) {
-            chapterNumber = in.readString();
-            details = in.readString();
-        }
-
         public static final Creator<Entry> CREATOR = new Creator<Entry>() {
 
             @Override
@@ -107,10 +85,23 @@ public class ListChapter {
                 return new Entry[size];
             }
         };
+        private final String chapterNumber;
+
+        public Entry(String position) {
+            chapterNumber = position;
+        }
+
+        protected Entry(Parcel in) {
+            chapterNumber = in.readString();
+        }
 
         @Override
         public String toString() {
             return getContent();
+        }
+
+        public String getContent() {
+            return mPrependText + " " + chapterNumber;
         }
 
         @Override public int describeContents() {
@@ -119,11 +110,6 @@ public class ListChapter {
 
         @Override public void writeToParcel(Parcel dest, int flags) {
             dest.writeString(chapterNumber);
-            dest.writeString(details);
-        }
-
-        public String getContent() {
-            return mPrependText + " " + chapterNumber;
         }
 
         public String getChapterNumber() {
