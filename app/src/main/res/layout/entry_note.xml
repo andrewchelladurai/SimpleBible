@@ -27,7 +27,10 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:animateLayoutChanges="true"
+    app:cardUseCompatPadding="true"
+    app:cardPreventCornerOverlap="true"
     android:orientation="vertical">
 
     <android.support.v7.widget.LinearLayoutCompat
@@ -55,7 +58,7 @@
             android:text="Are Notes present : Yes / No"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <android.support.v7.widget.LinearLayoutCompat
+        <android.support.v7.widget.ButtonBarLayout
             android:id="@+id/note_action_bar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -66,27 +69,37 @@
                 android:id="@+id/note_but_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/button_view" />
+                android:background="@null"
+                android:contentDescription="@string/button_view"
+                android:padding="@dimen/gap"
+                android:src="@drawable/ic_favorite" />
 
             <android.support.v7.widget.AppCompatImageButton
                 android:id="@+id/note_but_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/button_edit" />
+                android:background="@null"
+                android:contentDescription="@string/button_edit"
+                android:padding="@dimen/gap"
+                android:src="@drawable/ic_edit" />
 
             <android.support.v7.widget.AppCompatImageButton
                 android:id="@+id/note_but_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/button_delete" />
+                android:background="@null"
+                android:contentDescription="@string/button_delete"
+                android:padding="@dimen/gap"
+                android:src="@drawable/ic_delete" />
 
             <android.support.v7.widget.AppCompatImageButton
                 android:id="@+id/note_but_share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/button_share" />
-        </android.support.v7.widget.LinearLayoutCompat>
-
+                android:background="@null"
+                android:contentDescription="@string/button_share"
+                android:padding="@dimen/gap"
+                android:src="@drawable/ic_share" />
+        </android.support.v7.widget.ButtonBarLayout>
     </android.support.v7.widget.LinearLayoutCompat>
-
 </android.support.v7.widget.CardView>
