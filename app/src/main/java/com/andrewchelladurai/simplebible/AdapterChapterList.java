@@ -60,33 +60,8 @@ public class AdapterChapterList
     }
 
     @Override
-    public void onBindViewHolder(final ChapterView holder, final int position) {
-        holder.mItem = mValues.get(position);
-        holder.mContent.setText(holder.mItem.getContent());
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Bundle args = new Bundle();
-                args.putParcelable(
-                        Utilities.CURRENT_BOOK,
-                        mActivity.getIntent().getExtras().getParcelable(Utilities.CURRENT_BOOK));
-                args.putParcelable(Utilities.CURRENT_CHAPTER, holder.mItem);
-
-                if (mActivity.isDualPane()) {
-                    FragmentChapterVerses fragment = new FragmentChapterVerses();
-                    fragment.setArguments(args);
-                    mActivity.getSupportFragmentManager().beginTransaction()
-                             .replace(R.id.chapter_container, fragment)
-                             .commit();
-                } else {
-                    Intent intent = new Intent(view.getContext(), ActivityChapterVerses.class);
-                    intent.putExtras(args);
-                    view.getContext().startActivity(intent);
-                }
-            }
-        });
+    public void onBindViewHolder(final ChapterView chapterView, final int position) {
+        chapterView.update(mValues.get(position));
     }
 
     @Override
@@ -95,7 +70,8 @@ public class AdapterChapterList
     }
 
     class ChapterView
-            extends RecyclerView.ViewHolder {
+            extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
 
         private final View              mView;
         private final TextView          mContent;
@@ -110,6 +86,33 @@ public class AdapterChapterList
         @Override
         public String toString() {
             return super.toString() + " '" + mContent.getText() + "'";
+        }
+
+        public void update(ListChapter.Entry entry) {
+            mItem = entry;
+            mContent.setText(mItem.getContent());
+
+            mView.setOnClickListener(this);
+        }
+
+        @Override public void onClick(View view) {
+            Bundle args = new Bundle();
+            args.putParcelable(
+                    Utilities.CURRENT_BOOK,
+                    mActivity.getIntent().getExtras().getParcelable(Utilities.CURRENT_BOOK));
+            args.putParcelable(Utilities.CURRENT_CHAPTER, mItem);
+
+            if (mActivity.isDualPane()) {
+                FragmentChapterVerses fragment = new FragmentChapterVerses();
+                fragment.setArguments(args);
+                mActivity.getSupportFragmentManager().beginTransaction()
+                         .replace(R.id.chapter_container, fragment)
+                         .commit();
+            } else {
+                Intent intent = new Intent(view.getContext(), ActivityChapterVerses.class);
+                intent.putExtras(args);
+                view.getContext().startActivity(intent);
+            }
         }
     }
 }
