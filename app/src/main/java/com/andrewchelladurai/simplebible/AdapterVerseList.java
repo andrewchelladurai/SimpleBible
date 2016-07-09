@@ -37,17 +37,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.andrewchelladurai.simplebible.ListVerse.Entry;
-
 import java.util.List;
 
 public class AdapterVerseList
         extends RecyclerView.Adapter<AdapterVerseList.VerseView> {
 
-    private final List<Entry> mValues;
+    private final List<ListVerse.Entry> mValues;
     private final Fragment    mListener;
 
-    public AdapterVerseList(List<Entry> items, Fragment listener) {
+    public AdapterVerseList(List<ListVerse.Entry> items, Fragment listener) {
         mValues = items;
         mListener = listener;
     }
@@ -61,8 +59,9 @@ public class AdapterVerseList
 
     @Override
     public void onBindViewHolder(final VerseView holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.setContent(position, holder.mItem.getContent());
+        holder.update(mValues.get(position), position);
+//        holder.mItem = mValues.get(position);
+//        holder.setContent(position, holder.mItem.getContent());
     }
 
     @Override
@@ -77,7 +76,7 @@ public class AdapterVerseList
         private static final String TAG = "SB_ViewHolder";
         public final  View              mView;
         private final AppCompatTextView mContent;
-        public        Entry             mItem;
+        public        ListVerse.Entry             mItem;
 
         public VerseView(View view) {
             super(view);
@@ -138,6 +137,11 @@ public class AdapterVerseList
 
         public void setContent(int position, String newContent) {
             mContent.setText(Html.fromHtml(Utilities.getFormattedChapterVerse(position + 1, newContent)));
+        }
+
+        public void update(ListVerse.Entry entry, int position) {
+            mItem = entry;
+            setContent(position, mItem.getContent());
         }
     }
 }
