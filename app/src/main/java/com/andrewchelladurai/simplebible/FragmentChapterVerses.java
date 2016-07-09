@@ -105,5 +105,11 @@ public class FragmentChapterVerses
 
     public void buttonShareClicked(ListVerse.Entry entry) {
         Log.d(TAG, "buttonSaveClicked() called with reference = [" + entry.getReference() + "]");
+        String text = mBook.getName() + " (" +
+                      mChapter.getChapterNumber() + ":" +
+                      entry.getVerseNumber() + ") " +
+                      entry.getVerseText() + " " +
+                      getString(R.string.share_append_text);
+        startActivity(Utilities.shareVerse(text));
     }
 }
