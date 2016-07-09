@@ -71,12 +71,23 @@ public class FragmentSearch
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.frag_search_results);
 
+        // FIXME: 9/7/16 Rotate resets everything.
         ListSearch.populate(null);
         mListAdapter = new AdapterSearchList(ListSearch.getEntries(), this);
         resetButtonClicked();
         recyclerView.setAdapter(mListAdapter);
 
         return view;
+    }
+
+    private void resetButtonClicked() {
+        ListSearch.truncate();
+        mInput.setText("");
+        mInput.setError(null);
+        mLabel.setError(null);
+        mButton.setText(getString(R.string.button_search_text));
+        mListAdapter.notifyDataSetChanged();
+        mInput.requestFocus();
     }
 
     @Override public void onClick(View v) {
@@ -116,22 +127,19 @@ public class FragmentSearch
         mButton.setText(getString(R.string.button_search_reset));
     }
 
-    private void resetButtonClicked() {
-        ListSearch.truncate();
-        mInput.setText("");
-        mInput.setError(null);
-        mLabel.setError(null);
-        mButton.setText(getString(R.string.button_search_text));
-        mListAdapter.notifyDataSetChanged();
-        mInput.requestFocus();
-    }
-
     public void buttonSaveClicked(ListSearch.Entry entry) {
         Log.d(TAG, "buttonSaveClicked() called with reference : [" + entry.getReference() + "]");
     }
 
     public void buttonShareClicked(ListSearch.Entry entry) {
         Log.d(TAG, "buttonSaveClicked() called with reference : [" + entry.getReference() + "]");
+        ListBooks.Entry mBook = ListBooks.getItem(entry.getBookNumber());
+        String text = mBook.getName() + " (" +
+                      entry.getChapterNumber() + ":" +
+                      entry.getVerseNumber() + ") " +
+                      entry.getVerse() + " " +
+                      getString(R.string.share_append_text);
+        startActivity(Utilities.shareVerse(text));
     }
 
     @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
