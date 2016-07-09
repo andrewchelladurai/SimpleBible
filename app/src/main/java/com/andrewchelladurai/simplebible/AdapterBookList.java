@@ -56,19 +56,7 @@ public class AdapterBookList
 
     @Override
     public void onBindViewHolder(final BookView holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mName.setText(holder.mItem.getName());
-        String chapterText = holder.mItem.getChapterCount() +
-                             mListener.getString(R.string.book_details_append_chapters);
-        holder.mChapter.setText(chapterText);
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                mListener.bookEntryClicked(holder.mItem);
-            }
-        });
+        holder.update(mValues.get(position));
     }
 
     @Override
@@ -77,7 +65,8 @@ public class AdapterBookList
     }
 
     public class BookView
-            extends RecyclerView.ViewHolder {
+            extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
 
         public final  View     mView;
         private final TextView mName;
@@ -102,6 +91,20 @@ public class AdapterBookList
 
         public TextView getChapter() {
             return mChapter;
+        }
+
+        public void update(Entry entry) {
+            mItem = entry;
+            mName.setText(mItem.getName());
+            String chapterText = mItem.getChapterCount() +
+                                 mListener.getString(R.string.book_details_append_chapters);
+            mChapter.setText(chapterText);
+
+            mView.setOnClickListener(this);
+        }
+
+        @Override public void onClick(View v) {
+            mListener.bookEntryClicked(mItem);
         }
     }
 }
