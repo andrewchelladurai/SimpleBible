@@ -56,7 +56,8 @@ public class FragmentNotes
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
         View view = inflater.inflate(R.layout.fragment_note, container, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.frag_notes_list);
-        recyclerView.setAdapter(new AdapterNoteList(ListNotes.ITEMS, this));
+        ListNotes.populate();
+        recyclerView.setAdapter(new AdapterNoteList(ListNotes.getITEMS(), this));
         return view;
     }
 }

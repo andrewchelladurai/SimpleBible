@@ -152,4 +152,6 @@
     <string name="message_incorrect_book_name">Incorrect Book Name</string>
     <string name="message_incorrect_chapter_number">Incorrect chapter number, using default</string>
     <string name="share_append_text">- NIV - shared using Simple Bible</string>
+    <string name="button_view">View</string>
+    <string name="button_edit">Edit</string>
 </resources>

@@ -26,11 +26,11 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.ListNotes.Entry;
 
@@ -55,20 +55,21 @@ public class AdapterNoteList
     }
 
     @Override
-    public void onBindViewHolder(final NoteView holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
-
+    public void onBindViewHolder(final NoteView noteView, int position) {
+        noteView.update(mValues.get(position));
 /*
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        noteView.mEntry = mValues.get(position);
+        noteView.mIdView.setText(mValues.get(position).id);
+        noteView.mContentView.setText(mValues.get(position).content);
+
+        noteView.mView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onListFragmentInteraction(noteView.mEntry);
                 }
             }
         });
@@ -83,21 +84,25 @@ public class AdapterNoteList
     public class NoteView
             extends RecyclerView.ViewHolder {
 
-        public final View     mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public       Entry    mItem;
+        private final View              mView;
+        private final AppCompatTextView mVerseText;
+        private final AppCompatTextView mNotesText;
+        private Entry                   mEntry;
 
         public NoteView(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mVerseText = (AppCompatTextView) view.findViewById(R.id.note_verse);
+            mNotesText = (AppCompatTextView) view.findViewById(R.id.note_text);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return mNotesText.getText().toString();
+        }
+
+        public void update(Entry entry) {
+            mEntry = entry;
         }
     }
 }

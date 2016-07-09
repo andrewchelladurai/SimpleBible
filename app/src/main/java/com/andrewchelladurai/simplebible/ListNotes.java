@@ -33,54 +33,86 @@ import java.util.Map;
 
 public class ListNotes {
 
-    public static final List<Entry>        ITEMS    = new ArrayList<Entry>();
-    public static final Map<String, Entry> ITEM_MAP = new HashMap<String, Entry>();
+    private static final List<Entry>        ITEMS    = new ArrayList<>();
+    private static final Map<String, Entry> ITEM_MAP = new HashMap<>();
 
-    private static final int COUNT = 25;
-
-    static {
-        // Add some sample items.
-        for (int i = 1; i <= COUNT; i++) {
-            addItem(createDummyItem(i));
+    public static void populate() {
+        ITEM_MAP.clear();
+        ITEMS.clear();
+        for (int i = 1; i <= 25; i++) {
+            Entry entry = new Entry(
+                    String.valueOf(i),
+                    String.valueOf(i),
+                    String.valueOf(i), "Verse Text for position " + i, makeDetails(i));
+            ITEMS.add(entry);
+            ITEM_MAP.put(entry.getReference(), entry);
         }
-    }
-
-    private static void addItem(Entry item) {
-        ITEMS.add(item);
-        ITEM_MAP.put(item.id, item);
-    }
-
-    private static Entry createDummyItem(int position) {
-        return new Entry(String.valueOf(position), "Item " + position, makeDetails(position));
     }
 
     private static String makeDetails(int position) {
         StringBuilder builder = new StringBuilder();
-        builder.append("Details about Item: ").append(position);
+        builder.append("Notes about Item: ").append(position);
         for (int i = 0; i < position; i++) {
             builder.append("\nMore details information here.");
         }
         return builder.toString();
     }
 
-    /**
-     * A dummy item representing a piece of content.
-     */
+    public static List<Entry> getITEMS() {
+        return ITEMS;
+    }
+
+    public static Entry getItem(int position) {
+        return ITEMS.get(position);
+    }
+
+    public static Entry getItem(String id) {
+        return ITEM_MAP.get(id);
+    }
+
     public static class Entry {
 
-        public final String id;
-        public final String content;
-        public final String details;
+        private final String bookNumber;
+        private final String chapterNumber;
+        private final String verseNumber;
+        private final String verse;
+        private final String notes;
 
-        public Entry(String id, String content, String details) {
-            this.id = id;
-            this.content = content;
-            this.details = details;
+        public Entry(String bookN, String chapterN, String verseN, String content, String details) {
+            bookNumber = bookN;
+            chapterNumber = chapterN;
+            verseNumber = verseN;
+            verse = content;
+            notes = details;
         }
 
         @Override
         public String toString() {
-            return content;
+            return getNotes();
+        }
+
+        public String getNotes() {
+            return notes;
+        }
+
+        public String getReference() {
+            return getBookNumber() + ":" + getChapterNumber() + ":" + getVerseNumber();
+        }
+
+        public String getBookNumber() {
+            return bookNumber;
+        }
+
+        public String getChapterNumber() {
+            return chapterNumber;
+        }
+
+        public String getVerseNumber() {
+            return verseNumber;
+        }
+
+        public String getVerse() {
+            return verse;
         }
     }
 }
