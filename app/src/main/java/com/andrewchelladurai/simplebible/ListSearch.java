@@ -88,6 +88,7 @@ public class ListSearch {
                 return new Entry[size];
             }
         };
+
         private final String bookNumber;
         private final String chapterNumber;
         private final String verseNumber;

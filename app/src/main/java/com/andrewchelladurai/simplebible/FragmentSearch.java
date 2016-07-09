@@ -32,6 +32,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +69,7 @@ public class FragmentSearch
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.frag_search_results);
 
         ListSearch.populate(null);
-        mListAdapter = new AdapterSearchList(ListSearch.getEntries());
+        mListAdapter = new AdapterSearchList(ListSearch.getEntries(), this);
         resetButtonClicked();
         recyclerView.setAdapter(mListAdapter);
 
@@ -118,5 +119,13 @@ public class FragmentSearch
         ListSearch.populate(list);
         mListAdapter.notifyDataSetChanged();
         mButton.setText(getString(R.string.button_search_reset));
+    }
+
+    public void buttonSaveClicked(ListSearch.Entry entry) {
+        Log.d(TAG, "buttonSaveClicked() called with reference : [" + entry.getReference() + "]");
+    }
+
+    public void buttonShareClicked(ListSearch.Entry entry) {
+        Log.d(TAG, "buttonSaveClicked() called with reference : [" + entry.getReference() + "]");
     }
 }

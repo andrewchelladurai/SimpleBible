@@ -31,7 +31,6 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,12 +42,12 @@ import java.util.List;
 public class AdapterSearchList
         extends RecyclerView.Adapter<AdapterSearchList.SearchView> {
 
-    private final List<Entry> mValues;
-//    private final FragmentSearch  mListener;
+    private final List<Entry>    mValues;
+    private final FragmentSearch mListener;
 
-    public AdapterSearchList(List<Entry> items/*, FragmentSearch listener*/) {
+    public AdapterSearchList(List<Entry> items, FragmentSearch listener) {
         mValues = items;
-//        mListener = listener;
+        mListener = listener;
     }
 
     @Override
@@ -73,9 +72,9 @@ public class AdapterSearchList
             implements View.OnClickListener, View.OnLongClickListener {
 
         private static final String TAG = "SB_SearchView";
-        final  View              mView;
-        final  AppCompatTextView mContent;
-        public Entry             mEntry;
+        private final View              mView;
+        private final AppCompatTextView mContent;
+        private       Entry             mEntry;
 
         public SearchView(View view) {
             super(view);
@@ -97,23 +96,15 @@ public class AdapterSearchList
             if (v instanceof AppCompatButton) {
                 switch (v.getId()) {
                     case R.id.verse_but_save:
-                        buttonSaveClicked();
+                        mListener.buttonSaveClicked(mEntry);
                         break;
                     case R.id.verse_but_share:
-                        buttonShareClicked();
+                        mListener.buttonShareClicked(mEntry);
                         break;
                     default:
-                        throw new AssertionError(TAG + " onClick() unknown Button ID" + v.getId());
+                        Utilities.throwError(TAG + " onClick() unknown Button ID" + v.getId());
                 }
             }
-        }
-
-        private void buttonSaveClicked() {
-            Log.i(TAG, "buttonSaveClicked");
-        }
-
-        private void buttonShareClicked() {
-            Log.i(TAG, "buttonShareClicked");
         }
 
         @Override
