@@ -42,8 +42,8 @@ public class ActivitySimpleBible
         extends AppCompatActivity {
 
     static {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     }
 
     private static final String TAG = "SB_ActivitySimpleBible";
@@ -101,6 +101,8 @@ public class ActivitySimpleBible
                     return FragmentBooks.newInstance();
                 case 2:
                     return FragmentSearch.newInstance();
+                case 3:
+                    return FragmentNotes.newInstance();
                 default:
                     throw new AssertionError("Pager Position in default case" + position);
             }
@@ -108,7 +110,7 @@ public class ActivitySimpleBible
 
         @Override
         public int getCount() {
-            return 3; // Show 3 total pages.
+            return 4; // Show 3 total pages.
         }
 
         @Override
@@ -120,6 +122,8 @@ public class ActivitySimpleBible
                     return getString(R.string.tab_books);
                 case 2:
                     return getString(R.string.tab_search);
+                case 3:
+                    return getString(R.string.tab_notes);
             }
             return null;
         }

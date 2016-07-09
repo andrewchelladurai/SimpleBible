@@ -128,8 +128,7 @@
     <string name="search_result_template_chapter">CN</string>
     <string name="search_result_template_verse">VN</string>
 
-    <string
-        name="chapter_verse_template"><![CDATA[<font color="#7a1631"><strong>VN - </strong></font> TEXT]]></string>
+    <string name="chapter_verse_template"><![CDATA[<font color="#7a1631"><strong>VN - </strong></font> TEXT]]></string>
     <string name="chapter_verse_template_text">TEXT</string>
     <string name="chapter_verse_template_verse">VN</string>
 
@@ -152,5 +151,5 @@
     <string name="chapter_list_prepend_text">Chapter </string>
     <string name="message_incorrect_book_name">Incorrect Book Name</string>
     <string name="message_incorrect_chapter_number">Incorrect chapter number, using default</string>
-    <string name="share_append_text" >- NIV - shared using Simple Bible</string>
+    <string name="share_append_text">- NIV - shared using Simple Bible</string>
 </resources>
