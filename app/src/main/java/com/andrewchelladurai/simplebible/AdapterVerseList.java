@@ -26,13 +26,11 @@
 
 package com.andrewchelladurai.simplebible;
 
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,9 +41,9 @@ public class AdapterVerseList
         extends RecyclerView.Adapter<AdapterVerseList.VerseView> {
 
     private final List<ListVerse.Entry> mValues;
-    private final Fragment    mListener;
+    private final FragmentChapterVerses mListener;
 
-    public AdapterVerseList(List<ListVerse.Entry> items, Fragment listener) {
+    public AdapterVerseList(List<ListVerse.Entry> items, FragmentChapterVerses listener) {
         mValues = items;
         mListener = listener;
     }
@@ -60,8 +58,6 @@ public class AdapterVerseList
     @Override
     public void onBindViewHolder(final VerseView holder, int position) {
         holder.update(mValues.get(position), position);
-//        holder.mItem = mValues.get(position);
-//        holder.setContent(position, holder.mItem.getContent());
     }
 
     @Override
@@ -76,7 +72,7 @@ public class AdapterVerseList
         private static final String TAG = "SB_ViewHolder";
         public final  View              mView;
         private final AppCompatTextView mContent;
-        public        ListVerse.Entry             mItem;
+        public        ListVerse.Entry   mEntry;
 
         public VerseView(View view) {
             super(view);
@@ -98,13 +94,13 @@ public class AdapterVerseList
             if (v instanceof AppCompatButton) {
                 switch (v.getId()) {
                     case R.id.verse_but_save:
-                        buttonSaveClicked();
+                        mListener.buttonSaveClicked(mEntry);
                         break;
                     case R.id.verse_but_share:
-                        buttonShareClicked();
+                        mListener.buttonShareClicked(mEntry);
                         break;
                     default:
-                        throw new AssertionError(TAG + " onClick() unknown Button ID" + v.getId());
+                        Utilities.throwError(TAG + " onClick() unknown Button ID" + v.getId());
                 }
             }
         }
@@ -118,14 +114,6 @@ public class AdapterVerseList
             return true;
         }
 
-        private void buttonShareClicked() {
-            Log.i(TAG, "buttonShareClicked");
-        }
-
-        private void buttonSaveClicked() {
-            Log.i(TAG, "buttonSaveClicked");
-        }
-
         @Override
         public String toString() {
             return getContent();
@@ -135,13 +123,14 @@ public class AdapterVerseList
             return mContent.getText().toString();
         }
 
-        public void setContent(int position, String newContent) {
-            mContent.setText(Html.fromHtml(Utilities.getFormattedChapterVerse(position + 1, newContent)));
+        public void update(ListVerse.Entry entry, int position) {
+            mEntry = entry;
+            setContent(position, mEntry.getVerseText());
         }
 
-        public void update(ListVerse.Entry entry, int position) {
-            mItem = entry;
-            setContent(position, mItem.getContent());
+        public void setContent(int position, String newContent) {
+            mContent.setText(
+                    Html.fromHtml(Utilities.getFormattedChapterVerse(position + 1, newContent)));
         }
     }
 }

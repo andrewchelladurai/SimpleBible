@@ -47,7 +47,7 @@ public class ListVerse {
         clearEntries();
         Entry entry;
         for (int i = 0; i < verseList.size(); i++) {
-            entry = new Entry(bookNumber + ":" + chapterNumber + ":" + (i + 1), verseList.get(i));
+            entry = new Entry(bookNumber, chapterNumber, (i + 1), verseList.get(i));
             ITEMS.add(entry);
             ITEM_MAP.put(entry.getReference(), entry);
         }
@@ -81,23 +81,48 @@ public class ListVerse {
                 return new Entry[size];
             }
         };
+        private final String mVerseText;
+        private final String mBookNumber;
+        private final String mChapterNumber;
+        private final String mVerseNumber;
 
-        private final String mReference;
-        private final String mContent;
-
-        public Entry(String id, String content) {
-            mReference = id;
-            mContent = content;
+        public Entry(int bookNumber, int chapterNumber, int verseNumber, String verseText) {
+            mBookNumber = String.valueOf(bookNumber);
+            mChapterNumber = String.valueOf(chapterNumber);
+            mVerseNumber = String.valueOf(verseNumber);
+            mVerseText = verseText;
         }
 
         protected Entry(Parcel in) {
-            mReference = in.readString();
-            mContent = in.readString();
+            mVerseText = in.readString();
+            mBookNumber = in.readString();
+            mChapterNumber = in.readString();
+            mVerseNumber = in.readString();
         }
 
         @Override
         public String toString() {
-            return mContent;
+            return getVerseText();
+        }
+
+        public String getVerseText() {
+            return mVerseText;
+        }
+
+        public String getReference() {
+            return getBookNumber() + ":" + getChapterNumber() + ":" + getVerseNumber();
+        }
+
+        public String getBookNumber() {
+            return mBookNumber;
+        }
+
+        public String getChapterNumber() {
+            return mChapterNumber;
+        }
+
+        public String getVerseNumber() {
+            return mVerseNumber;
         }
 
         @Override public int describeContents() {
@@ -105,16 +130,10 @@ public class ListVerse {
         }
 
         @Override public void writeToParcel(Parcel dest, int flags) {
-            dest.writeString(mReference);
-            dest.writeString(mContent);
-        }
-
-        public String getReference() {
-            return mReference;
-        }
-
-        public String getContent() {
-            return mContent;
+            dest.writeString(mBookNumber);
+            dest.writeString(mChapterNumber);
+            dest.writeString(mVerseNumber);
+            dest.writeString(mVerseText);
         }
     }
 }

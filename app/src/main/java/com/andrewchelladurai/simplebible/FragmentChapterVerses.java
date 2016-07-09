@@ -30,6 +30,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,5 +97,13 @@ public class FragmentChapterVerses
     @Override public void onDestroyView() {
         super.onDestroyView();
         ListVerse.clearEntries();
+    }
+
+    public void buttonSaveClicked(ListVerse.Entry entry) {
+        Log.d(TAG, "buttonSaveClicked() called with reference = [" + entry.getReference() + "]");
+    }
+
+    public void buttonShareClicked(ListVerse.Entry entry) {
+        Log.d(TAG, "buttonSaveClicked() called with reference = [" + entry.getReference() + "]");
     }
 }
