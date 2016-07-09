@@ -32,6 +32,8 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +43,7 @@ import java.util.ArrayList;
 
 public class FragmentSearch
         extends Fragment
-        implements View.OnClickListener {
+        implements View.OnClickListener, TextWatcher {
 
     private static final String TAG = "SB_FragmentSearch";
     private TextInputEditText mInput;
@@ -61,6 +63,7 @@ public class FragmentSearch
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         mInput = (TextInputEditText) view.findViewById(R.id.frag_search_input);
+        mInput.addTextChangedListener(this);
         mLabel = (TextInputLayout) view.findViewById(R.id.frag_search_label);
 
         mButton = (AppCompatButton) view.findViewById(R.id.frag_search_button);
@@ -74,14 +77,6 @@ public class FragmentSearch
         recyclerView.setAdapter(mListAdapter);
 
         return view;
-    }
-
-    private void resetButtonClicked() {
-        mInput.setText("");
-        mInput.setError(null);
-        mLabel.setError(null);
-        mListAdapter.notifyDataSetChanged();
-        mButton.setText(getString(R.string.button_search_text));
     }
 
     @Override public void onClick(View v) {
@@ -98,13 +93,13 @@ public class FragmentSearch
     private void searchButtonClicked() {
         String input = mInput.getText().toString().trim();
         if (input.isEmpty()) {
+            resetButtonClicked();
             mInput.setError(getString(R.string.search_text_empty));
-            mInput.requestFocus();
             return;
         }
         if (input.length() < 3) {
+            resetButtonClicked();
             mInput.setError(getString(R.string.search_text_length));
-            mInput.requestFocus();
             return;
         }
         DatabaseUtility dbu = DatabaseUtility.getInstance(getActivity().getApplicationContext());
@@ -121,11 +116,32 @@ public class FragmentSearch
         mButton.setText(getString(R.string.button_search_reset));
     }
 
+    private void resetButtonClicked() {
+        ListSearch.truncate();
+        mInput.setText("");
+        mInput.setError(null);
+        mLabel.setError(null);
+        mButton.setText(getString(R.string.button_search_text));
+        mListAdapter.notifyDataSetChanged();
+        mInput.requestFocus();
+    }
+
     public void buttonSaveClicked(ListSearch.Entry entry) {
         Log.d(TAG, "buttonSaveClicked() called with reference : [" + entry.getReference() + "]");
     }
 
     public void buttonShareClicked(ListSearch.Entry entry) {
         Log.d(TAG, "buttonSaveClicked() called with reference : [" + entry.getReference() + "]");
+    }
+
+    @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+    }
+
+    @Override public void afterTextChanged(Editable s) {
+        mButton.setText(getString(R.string.button_search_text));
     }
 }

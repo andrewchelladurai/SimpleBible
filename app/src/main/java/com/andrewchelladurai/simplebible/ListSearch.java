@@ -73,6 +73,11 @@ public class ListSearch {
         return ITEMS;
     }
 
+    public static void truncate() {
+        ITEMS.clear();
+        ITEM_MAP.clear();
+    }
+
     public static class Entry
             implements Parcelable {
 
