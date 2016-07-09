@@ -61,20 +61,6 @@ public class AdapterSearchList
     @Override
     public void onBindViewHolder(final SearchView holder, int position) {
         holder.updateView(mValues.get(position));
-//        holder.mEntry = mValues.get(position);
-//        holder.setContent(mValues.get(position).getContent());
-
-/*
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    mListener.onListFragmentInteraction(holder.mEntry);
-                }
-            }
-        });
-*/
     }
 
     @Override
