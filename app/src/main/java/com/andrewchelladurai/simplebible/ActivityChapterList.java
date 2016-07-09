@@ -26,6 +26,7 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
@@ -33,15 +34,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 public class ActivityChapterList
         extends AppCompatActivity {
 
     private static final String TAG = "SB_ActivityChapterList";
-    private boolean           mTwoPane;
-    private ListBooks.Entry   mBook;
-    private ListChapter.Entry mChapter; // FIXME: 4/7/16 decide if this is needed
+    private boolean              mTwoPane;
+    private RecyclerView.Adapter chapterAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class ActivityChapterList
         }
 
         Bundle extras = getIntent().getExtras();
-        mBook = extras.getParcelable(Utilities.CURRENT_BOOK);
+        ListBooks.Entry mBook = extras.getParcelable(Utilities.CURRENT_BOOK);
         if (mBook == null) {
             Utilities.throwError(TAG + " onCreate : mBook == null");
         }
@@ -73,7 +74,8 @@ public class ActivityChapterList
 
         String chapterText = getString(R.string.chapter_list_prepend_text).trim();
         ListChapter.populateList(Integer.parseInt(mBook.getChapterCount()), chapterText);
-        mChapter = ListChapter.getItem(extras.getString(Utilities.CURRENT_CHAPTER_NUMBER));
+        ListChapter.Entry mChapter = ListChapter.getItem(
+                extras.getString(Utilities.CURRENT_CHAPTER_NUMBER));
         if (mChapter == null) {
             Utilities.throwError(TAG + " onCreate : mChapter == null");
         }
@@ -83,16 +85,50 @@ public class ActivityChapterList
                     getApplicationContext(), LinearLayoutManager.HORIZONTAL, true
             ));
         }
-        recyclerView.setAdapter(new AdapterChapterList(this, ListChapter.getList()));
+        chapterAdapter = new AdapterChapterList(this, ListChapter.getList());
+        recyclerView.setAdapter(chapterAdapter);
 
         if (findViewById(R.id.chapter_container) != null) {
             mTwoPane = true;
+            extras.putString(Utilities.LOAD_CHAPTER, Utilities.LOAD_CHAPTER_YES);
         }
         StringBuilder title = new StringBuilder(mBook.getName())
                 .append(" : ").append(mBook.getChapterCount()).append(" ")
                 .append(getString(R.string.book_details_append_chapters));
         setTitle(title);
         toolbar.setTitle(getTitle());
+
+        if (extras.getString(Utilities.LOAD_CHAPTER).equalsIgnoreCase(Utilities.LOAD_CHAPTER_YES)) {
+            Log.i(TAG, "onCreate: LOAD_CHAPTER = YES");
+            Bundle args = new Bundle();
+            args.putParcelable(Utilities.CURRENT_BOOK,
+                               getIntent().getExtras().getParcelable(Utilities.CURRENT_BOOK));
+            args.putParcelable(Utilities.CURRENT_CHAPTER, mChapter);
+            chapterClicked(mChapter);
+        }
+    }
+
+    void chapterClicked(ListChapter.Entry chapterEntry) {
+        Bundle args = new Bundle();
+        args.putParcelable(Utilities.CURRENT_BOOK,
+                           getIntent().getExtras().getParcelable(Utilities.CURRENT_BOOK));
+        args.putParcelable(Utilities.CURRENT_CHAPTER, chapterEntry);
+
+        if (isDualPane()) {
+            FragmentChapterVerses fragment = new FragmentChapterVerses();
+            fragment.setArguments(args);
+            getSupportFragmentManager().beginTransaction()
+                                       .replace(R.id.chapter_container, fragment)
+                                       .commit();
+        } else {
+            Intent intent = new Intent(getApplicationContext(), ActivityChapterVerses.class);
+            intent.putExtras(args);
+            startActivity(intent);
+        }
+    }
+
+    public boolean isDualPane() {
+        return mTwoPane;
     }
 
     @Override
@@ -103,13 +139,5 @@ public class ActivityChapterList
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public boolean isDualPane() {
-        return mTwoPane;
-    }
-
-    public ListBooks.Entry getBook() {
-        return mBook;
     }
 }

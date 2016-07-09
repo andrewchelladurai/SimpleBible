@@ -138,25 +138,21 @@ public class FragmentHome
         }
 
         String chapterNumStr = getChapterNumber();
-        CHAPTER_ERROR_STATE inputState = CHAPTER_ERROR_STATE.SUCCESS;
         int chapterNumber = 1;
 
         if (chapterNumStr.isEmpty()) {
-            inputState = CHAPTER_ERROR_STATE.EMPTY;
             chapterNumber = 1;
         } else {
             try {
                 chapterNumber = Integer.parseInt(chapterNumStr);
             } catch (NumberFormatException npe) {
-                inputState = CHAPTER_ERROR_STATE.INCORRECT;
                 chapterNumber = 1;
                 Snackbar.make(view, R.string.message_incorrect_chapter_number,
                               Snackbar.LENGTH_SHORT).show();
                 Log.d(TAG, "buttonGotoClicked " + npe.getLocalizedMessage());
             }
             if (chapterNumber < 1 || chapterNumber > Integer.parseInt(book.getChapterCount())) {
-                inputState = CHAPTER_ERROR_STATE.INCORRECT;
-                chapterNumber = 1   ;
+                chapterNumber = 1;
                 Snackbar.make(view, R.string.message_incorrect_chapter_number,
                               Snackbar.LENGTH_SHORT).show();
             }
@@ -172,23 +168,12 @@ public class FragmentHome
         args.putParcelable(Utilities.CURRENT_BOOK, book);
         args.putString(Utilities.CURRENT_CHAPTER_NUMBER, String.valueOf(chapterNumber));
         args.putParcelable(Utilities.CURRENT_CHAPTER, chapter);
+        args.putString(Utilities.LOAD_CHAPTER, Utilities.LOAD_CHAPTER_YES);
 
-        Intent intent;
-        switch (inputState) {
-            case EMPTY:
-            case SUCCESS:
-                intent = new Intent(getContext(), ActivityChapterVerses.class);
-                break;
-            case INCORRECT:
-            default:
-                intent = new Intent(getContext(), ActivityChapterList.class);
-        }
-
+        Intent intent = new Intent(getContext(), ActivityChapterList.class);
         intent.putExtras(args);
-
         resetValues();
         startActivity(intent);
-
     }
 
     private ListBooks.Entry getBookDetails() {
@@ -232,6 +217,4 @@ public class FragmentHome
         Log.d(TAG, "refreshChapterInput() refreshed " + list.size() + " items");
         return list.size();
     }
-
-    enum CHAPTER_ERROR_STATE {EMPTY, INCORRECT, SUCCESS}
 }

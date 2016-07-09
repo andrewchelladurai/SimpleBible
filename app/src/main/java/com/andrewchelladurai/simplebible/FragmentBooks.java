@@ -68,6 +68,7 @@ public class FragmentBooks
         Bundle args = new Bundle();
         args.putParcelable(Utilities.CURRENT_BOOK, item);
         args.putString(Utilities.CURRENT_CHAPTER_NUMBER, "1");
+        args.putString(Utilities.LOAD_CHAPTER, Utilities.LOAD_CHAPTER_NO);
 
         Intent intent = new Intent(getContext(), ActivityChapterList.class);
         intent.putExtras(args);

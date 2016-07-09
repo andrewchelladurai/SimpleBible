@@ -26,8 +26,6 @@
 
 package com.andrewchelladurai.simplebible;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -96,23 +94,7 @@ public class AdapterChapterList
         }
 
         @Override public void onClick(View view) {
-            Bundle args = new Bundle();
-            args.putParcelable(
-                    Utilities.CURRENT_BOOK,
-                    mActivity.getIntent().getExtras().getParcelable(Utilities.CURRENT_BOOK));
-            args.putParcelable(Utilities.CURRENT_CHAPTER, mItem);
-
-            if (mActivity.isDualPane()) {
-                FragmentChapterVerses fragment = new FragmentChapterVerses();
-                fragment.setArguments(args);
-                mActivity.getSupportFragmentManager().beginTransaction()
-                         .replace(R.id.chapter_container, fragment)
-                         .commit();
-            } else {
-                Intent intent = new Intent(view.getContext(), ActivityChapterVerses.class);
-                intent.putExtras(args);
-                view.getContext().startActivity(intent);
-            }
+            mActivity.chapterClicked(mItem);
         }
     }
 }

@@ -63,6 +63,8 @@ public class ActivityChapterVerses
                                extras.getParcelable(Utilities.CURRENT_CHAPTER));
             args.putParcelable(Utilities.CURRENT_BOOK,
                                extras.getParcelable(Utilities.CURRENT_BOOK));
+            args.putString(Utilities.LOAD_CHAPTER, Utilities.LOAD_CHAPTER_NO);
+
             fragment.setArguments(args);
             getSupportFragmentManager().beginTransaction().add(
                     R.id.activity_chapter_detail_chapter_container, fragment).commit();
@@ -81,6 +83,7 @@ public class ActivityChapterVerses
             args.putParcelable(Utilities.CURRENT_CHAPTER, chapter);
             args.putParcelable(Utilities.CURRENT_BOOK, book);
             args.putString(Utilities.CURRENT_CHAPTER_NUMBER, chapter.getChapterNumber());
+            args.putString(Utilities.LOAD_CHAPTER, Utilities.LOAD_CHAPTER_NO);
 
             Intent intent = new Intent(this, ActivityChapterList.class);
             intent.putExtras(args);

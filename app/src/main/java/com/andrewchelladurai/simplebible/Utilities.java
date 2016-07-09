@@ -41,6 +41,9 @@ public class Utilities {
     public static final String CURRENT_BOOK           = "CURRENT_BOOK";
     public static final String CURRENT_CHAPTER        = "CURRENT_CHAPTER";
     public static final String CURRENT_CHAPTER_NUMBER = "CURRENT_CHAPTER_NUMBER";
+    public static final String LOAD_CHAPTER           = "LOAD_CHAPTER";
+    public static final String LOAD_CHAPTER_NO        = "NO";
+    public static final String LOAD_CHAPTER_YES       = "YES";
 
     private static final String    TAG            = "SB_Utilities";
     private static       Utilities staticInstance = null;
