@@ -85,10 +85,11 @@ public class AdapterNoteList
     public class NoteView
             extends RecyclerView.ViewHolder {
 
+        private static final String TAG = "SB_NoteView";
         private final View              mView;
         private final AppCompatTextView mVerseText;
         private final AppCompatTextView mNotesText;
-        private Entry                   mEntry;
+        private       Entry             mEntry;
 
         public NoteView(View view) {
             super(view);
@@ -111,8 +112,30 @@ public class AdapterNoteList
             return mNotesText.getText().toString();
         }
 
-        public void update(Entry entry) {
+        void update(Entry entry) {
             mEntry = entry;
+
+            String text;
+            String[] references = mEntry.getReference();
+            if (references == null) {
+                Utilities.throwError(TAG + " references == null");
+            }
+            if (references.length > 1) {
+                text = references.length + " " +
+                       mListener.getString(R.string.bookmark_multiple_references);
+            } else {
+                text = references[0];
+            }
+            mVerseText.setText(text);
+
+            text = mEntry.getNotes();
+            if (null == text || text.isEmpty()) {
+                text = mListener.getString(R.string.empty_bookmark_notes);
+            }
+            if (text.length() > 50) {
+                text = text.substring(0, 50) + " ...";
+            }
+            mNotesText.setText(text);
         }
     }
 }

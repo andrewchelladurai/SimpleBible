@@ -26,6 +26,8 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,57 +35,37 @@ import java.util.Map;
 
 public class ListNotes {
 
-    private static final List<Entry>        ITEMS    = new ArrayList<>();
-    private static final Map<String, Entry> ITEM_MAP = new HashMap<>();
+    private static final String               TAG      = "SB_ListNotes";
+    private static final List<Entry>          ITEMS    = new ArrayList<>();
+    private static final Map<String[], Entry> ITEM_MAP = new HashMap<>();
 
     public static void populate() {
         ITEM_MAP.clear();
         ITEMS.clear();
-        for (int i = 1; i <= 25; i++) {
-            Entry entry = new Entry(
-                    String.valueOf(i),
-                    String.valueOf(i),
-                    String.valueOf(i), "Verse Text for position " + i, makeDetails(i));
+
+        DatabaseUtility dbu = DatabaseUtility.getInstance(null);
+        ArrayList<String[]> list = dbu.getAllNotes();
+        for (String[] items : list) {
+            Entry entry = new Entry(items[0], items[1]);
             ITEMS.add(entry);
             ITEM_MAP.put(entry.getReference(), entry);
         }
-    }
-
-    private static String makeDetails(int position) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Notes about Item: ").append(position);
-        for (int i = 0; i < position; i++) {
-            builder.append("\nMore details information here.");
-        }
-        return builder.toString();
     }
 
     public static List<Entry> getITEMS() {
         return ITEMS;
     }
 
-    public static Entry getItem(int position) {
-        return ITEMS.get(position);
-    }
-
-    public static Entry getItem(String id) {
-        return ITEM_MAP.get(id);
-    }
-
     public static class Entry {
 
-        private final String bookNumber;
-        private final String chapterNumber;
-        private final String verseNumber;
-        private final String verse;
-        private final String notes;
+        private static final String TAG = "SB_ListNotes.Entry";
+        private final String[] reference;
+        private final String   notes;
 
-        public Entry(String bookN, String chapterN, String verseN, String content, String details) {
-            bookNumber = bookN;
-            chapterNumber = chapterN;
-            verseNumber = verseN;
-            verse = content;
+        public Entry(String id, String details) {
+            reference = id.split("~");
             notes = details;
+            Log.i(TAG, "Entry reference size " + reference.length);
         }
 
         @Override
@@ -95,24 +77,9 @@ public class ListNotes {
             return notes;
         }
 
-        public String getReference() {
-            return getBookNumber() + ":" + getChapterNumber() + ":" + getVerseNumber();
+        public String[] getReference() {
+            return reference;
         }
 
-        public String getBookNumber() {
-            return bookNumber;
-        }
-
-        public String getChapterNumber() {
-            return chapterNumber;
-        }
-
-        public String getVerseNumber() {
-            return verseNumber;
-        }
-
-        public String getVerse() {
-            return verse;
-        }
     }
 }

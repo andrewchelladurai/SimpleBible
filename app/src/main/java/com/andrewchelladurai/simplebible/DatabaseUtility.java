@@ -322,10 +322,7 @@ public class DatabaseUtility
         Log.d(TAG, "isReferencePresent: Query = " + query);
 
         if (null != cursor && cursor.moveToFirst()) {
-            String results[] = new String[2];
-            results[0] = cursor.getString(0);
-            results[1] = cursor.getString(1);
-
+            String results[] = {cursor.getString(0), cursor.getString(1)};
             cursor.close();
             return results;
         }
@@ -374,5 +371,27 @@ public class DatabaseUtility
         }
         Log.d(TAG, "updateExistingBookmark() returned: " + updated + " : " + rowcount + " updated");
         return updated;
+    }
+
+    public ArrayList<String[]> getAllNotes() {
+        ArrayList<String[]> results = new ArrayList<>();
+        final SQLiteDatabase db = getReadableDatabase();
+        String selectCols[] = {BM_TABLE_REFERENCES, BM_TABLE_NOTES};
+        String where = BM_TABLE_ID + " is not null";
+
+        String query = SQLiteQueryBuilder.buildQueryString(
+                true, BOOKMARK_TABLE, selectCols, where, null, null, null, null);
+        Log.d(TAG, "getAllNotes() called " + query);
+
+        Cursor cursor = db.query(true, BOOKMARK_TABLE, selectCols, where,
+                                 null, null, null, null, null);
+        if (null != cursor && cursor.moveToFirst()) {
+            do {
+                results.add(new String[]{cursor.getString(0), cursor.getString(1)});
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        Log.d(TAG, "getAllNotes() returned " + results.size() + " entries");
+        return results;
     }
 }
