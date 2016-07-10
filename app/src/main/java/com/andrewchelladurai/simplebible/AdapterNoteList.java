@@ -26,6 +26,7 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -93,7 +94,16 @@ public class AdapterNoteList
             super(view);
             mView = view;
             mVerseText = (AppCompatTextView) view.findViewById(R.id.note_verse);
+            mVerseText.setOnClickListener(mListener);
             mNotesText = (AppCompatTextView) view.findViewById(R.id.note_text);
+            bindButton(R.id.note_but_edit);
+            bindButton(R.id.note_but_delete);
+            bindButton(R.id.note_but_share);
+        }
+
+        private void bindButton(int buttonId) {
+            AppCompatImageButton button = (AppCompatImageButton) mView.findViewById(buttonId);
+            button.setOnClickListener(mListener);
         }
 
         @Override

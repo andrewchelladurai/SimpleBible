@@ -28,13 +28,19 @@ package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatImageButton;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 public class FragmentNotes
-        extends Fragment {
+        extends Fragment
+        implements View.OnClickListener {
+
+    private static final String TAG = "SB_FragmentNotes";
 
     public FragmentNotes() {
     }
@@ -59,5 +65,42 @@ public class FragmentNotes
         ListNotes.populate();
         recyclerView.setAdapter(new AdapterNoteList(ListNotes.getITEMS(), this));
         return view;
+    }
+
+    @Override public void onClick(View view) {
+        if (view instanceof AppCompatTextView) {
+            handleVerseClick();
+        } else if (view instanceof AppCompatImageButton) {
+            AppCompatImageButton button = (AppCompatImageButton) view;
+            switch (button.getId()) {
+                case R.id.note_but_edit:
+                    handleEditButtonClick();
+                    break;
+                case R.id.note_but_delete:
+                    handleDeleteButtonClick();
+                    break;
+                case R.id.note_but_share:
+                    handleShareButtonClick();
+                    break;
+                default:
+                    Utilities.throwError(TAG + "onClick : unknown buttonID = " + button.getId());
+            }
+        }
+    }
+
+    private void handleVerseClick() {
+        Log.d(TAG, "handleVerseClick() called");
+    }
+
+    private void handleEditButtonClick() {
+        Log.d(TAG, "handleEditButtonClick() called");
+    }
+
+    private void handleDeleteButtonClick() {
+        Log.d(TAG, "handleDeleteButtonClick() called");
+    }
+
+    private void handleShareButtonClick() {
+        Log.d(TAG, "handleShareButtonClick() called");
     }
 }
