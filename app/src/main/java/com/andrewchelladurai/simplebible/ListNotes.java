@@ -26,8 +26,6 @@
 
 package com.andrewchelladurai.simplebible;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,12 +37,20 @@ public class ListNotes {
     private static final List<Entry>          ITEMS    = new ArrayList<>();
     private static final Map<String[], Entry> ITEM_MAP = new HashMap<>();
 
-    public static void populate() {
+    public static void populate(String ifEmptyValues[]) {
         ITEM_MAP.clear();
         ITEMS.clear();
 
         DatabaseUtility dbu = DatabaseUtility.getInstance(null);
         ArrayList<String[]> list = dbu.getAllNotes();
+        if (list == null) {
+            Utilities.throwError(TAG + " getAllNotes == null");
+        }
+        if (list.size() == 0) {
+            String reference = ifEmptyValues[0];
+            String notes = ifEmptyValues[1];
+            list.add(new String[]{reference, notes});
+        }
         for (String[] items : list) {
             Entry entry = new Entry(items[0], items[1]);
             ITEMS.add(entry);
@@ -65,7 +71,6 @@ public class ListNotes {
         public Entry(String id, String details) {
             reference = id.split("~");
             notes = details;
-            Log.i(TAG, "Entry reference size " + reference.length);
         }
 
         @Override

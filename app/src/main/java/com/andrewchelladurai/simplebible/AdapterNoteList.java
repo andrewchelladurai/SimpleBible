@@ -130,10 +130,10 @@ public class AdapterNoteList
 
             text = mEntry.getNotes();
             if (null == text || text.isEmpty()) {
-                text = mListener.getString(R.string.empty_bookmark_notes);
+                text = mListener.getString(R.string.bookmark_empty_notes);
             }
-            if (text.length() > 50) {
-                text = text.substring(0, 50) + " ...";
+            if (text.length() > 60) {
+                text = text.substring(0, 60) + " ...";
             }
             mNotesText.setText(text);
         }
