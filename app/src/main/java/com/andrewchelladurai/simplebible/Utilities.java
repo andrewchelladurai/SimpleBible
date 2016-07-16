@@ -46,6 +46,9 @@ public class Utilities {
     public static final String LOAD_CHAPTER           = "LOAD_CHAPTER";
     public static final String LOAD_CHAPTER_NO        = "NO";
     public static final String LOAD_CHAPTER_YES       = "YES";
+    public static final String BOOKMARK_MODE          = "BOOKMARK_MODE";
+    public static final String BOOKMARK_SAVE          = "BOOKMARK_SAVE";
+    public static final String BOOKMARK_EDIT          = "BOOKMARK_EDIT";
 
     private static final String    TAG            = "SB_Utilities";
     private static       Utilities staticInstance = null;
@@ -125,5 +128,11 @@ public class Utilities {
                 R.string.search_result_template_text), entry.getVerse());
 
         return fText;
+    }
+
+    public static String getFormattedBookmarkVerse(String bookNumber, String chapterNumber,
+                                                   String verseNumber, String verseText) {
+        String bookName = ListBooks.getItem(bookNumber).getName();
+        return bookName + " (" + chapterNumber +":" + verseNumber + ") " + verseText;
     }
 }

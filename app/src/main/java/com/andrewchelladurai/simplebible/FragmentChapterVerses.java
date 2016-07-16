@@ -106,6 +106,7 @@ public class FragmentChapterVerses
         ArrayList<String> references = new ArrayList<>();
         references.add(entry.getReference());
         getArguments().putStringArrayList(Utilities.REFERENCES, references);
+        getArguments().putString(Utilities.BOOKMARK_MODE, Utilities.BOOKMARK_SAVE);
 
         Intent intent = new Intent(getContext(), ActivityBookmark.class);
         intent.putExtras(getArguments());

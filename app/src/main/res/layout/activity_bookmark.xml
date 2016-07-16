@@ -46,5 +46,15 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_activity_bookmark" />
+    <include layout="@layout/content_activity_bookmark"/>
+
+<!--
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/activity_bookmark_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin" />
+-->
+
 </android.support.design.widget.CoordinatorLayout>

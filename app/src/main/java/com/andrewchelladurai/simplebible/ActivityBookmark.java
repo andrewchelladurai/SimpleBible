@@ -28,8 +28,11 @@ package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 
@@ -40,17 +43,69 @@ public class ActivityBookmark
     private ArrayList<String> mReferences;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle savedState) {
+        super.onCreate(savedState);
         setContentView(R.layout.activity_bookmark);
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_bookmark_toolbar);
         setSupportActionBar(toolbar);
+
+        if (savedState != null) {
+            return;
+        }
+
+/*
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.activity_bookmark_fab);
+        if (fab == null) {
+            Utilities.throwError(TAG + " fab == null");
+        }
+*/
 
         mReferences = getIntent().getExtras().getStringArrayList(Utilities.REFERENCES);
         if (mReferences == null) {
             Utilities.throwError(TAG + " mReferences == null");
         }
         Log.d(TAG, "onCreate: mReferences.size = " + mReferences.size());
+
+        updateTopPanel();
+
+        switch (getIntent().getExtras().getString(Utilities.BOOKMARK_MODE)) {
+            case Utilities.BOOKMARK_SAVE:
+                break;
+            case Utilities.BOOKMARK_EDIT:
+                break;
+            default:
+        }
     }
 
+    private void updateTopPanel() {
+        AppCompatTextView referenceView = (AppCompatTextView)
+                findViewById(R.id.activity_bookmark_reference);
+        if (referenceView == null) {
+            Utilities.throwError(TAG + " referenceView == null");
+        }
+        ListViewCompat verseList = (ListViewCompat)
+                findViewById(R.id.activity_bookmark_verse_list);
+        if (verseList == null) {
+            Utilities.throwError(TAG + " verseList == null");
+        }
+
+        String value = mReferences.size() + " " +
+                       getString(R.string.bookmark_multiple_references);
+        referenceView.setText(value);
+
+        DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
+        String[] parts;
+        ArrayList<String> verses = new ArrayList<>(mReferences.size());
+        for (String reference : mReferences) {
+            parts = reference.split(":");
+            verses.add(Utilities.getFormattedBookmarkVerse(
+                    parts[0], parts[1], parts[2],
+                    dbu.getSpecificVerse(
+                            Integer.parseInt(parts[0]),
+                            Integer.parseInt(parts[1]),
+                            Integer.parseInt(parts[2]))));
+        }
+        verseList.setAdapter(new ArrayAdapter<>(
+                this, android.R.layout.simple_list_item_1, verses));
+    }
 }
