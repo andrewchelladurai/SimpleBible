@@ -60,13 +60,16 @@ public class FragmentNotes
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
-        View view = inflater.inflate(R.layout.fragment_note, container, false);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.frag_notes_list);
+        ListNotes.populate();
+        if (ListNotes.getCount() > 0) {
+            View view = inflater.inflate(R.layout.fragment_note, container, false);
+            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.frag_notes_list);
 
-        ListNotes.populate(new String[]{getString(R.string.bookmark_no_entry_verse),
-                                        getString(R.string.bookmark_no_entry_note)});
-        recyclerView.setAdapter(new AdapterNoteList(ListNotes.getITEMS(), this));
-        return view;
+            recyclerView.setAdapter(new AdapterNoteList(ListNotes.getITEMS(), this));
+            return view;
+        } else {
+            return inflater.inflate(R.layout.fragment_note_empty, container, false);
+        }
     }
 
     @Override public void onClick(View view) {

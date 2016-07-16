@@ -154,6 +154,6 @@
     <string name="button_edit">Edit</string>
     <string name="bookmark_multiple_references">verses bookmarked in this entry</string>
     <string name="bookmark_empty_notes">No notes was saved for this verse</string>
-    <string name="bookmark_no_entry_verse">No Bookmarked Verses.</string>
+    <string name="bookmark_no_entry_verse">No Bookmarked Verses exist</string>
     <string name="bookmark_no_entry_note">Long click on a Search Result or Chapter Verse to Bookmark</string>
 </resources>

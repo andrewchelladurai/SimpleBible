@@ -37,7 +37,7 @@ public class ListNotes {
     private static final List<Entry>          ITEMS    = new ArrayList<>();
     private static final Map<String[], Entry> ITEM_MAP = new HashMap<>();
 
-    public static void populate(String ifEmptyValues[]) {
+    public static void populate() {
         ITEM_MAP.clear();
         ITEMS.clear();
 
@@ -47,9 +47,7 @@ public class ListNotes {
             Utilities.throwError(TAG + " getAllNotes == null");
         }
         if (list.size() == 0) {
-            String reference = ifEmptyValues[0];
-            String notes = ifEmptyValues[1];
-            list.add(new String[]{reference, notes});
+            return;
         }
         for (String[] items : list) {
             Entry entry = new Entry(items[0], items[1]);
@@ -60,6 +58,10 @@ public class ListNotes {
 
     public static List<Entry> getITEMS() {
         return ITEMS;
+    }
+
+    public static int getCount() {
+        return ITEMS.size();
     }
 
     public static class Entry {
