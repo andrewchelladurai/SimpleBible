@@ -62,12 +62,14 @@ public class FragmentNotes
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
         ListNotes.populate();
         if (ListNotes.getCount() > 0) {
+            Log.d(TAG, "onCreateView: ListNotes.getCount() > 0 == true");
             View view = inflater.inflate(R.layout.fragment_note, container, false);
             RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.frag_notes_list);
 
             recyclerView.setAdapter(new AdapterNoteList(ListNotes.getITEMS(), this));
             return view;
         } else {
+            Log.d(TAG, "onCreateView: ListNotes.getCount() > 0 == false");
             return inflater.inflate(R.layout.fragment_note_empty, container, false);
         }
     }
