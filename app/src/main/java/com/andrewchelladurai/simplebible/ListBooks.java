@@ -60,7 +60,7 @@ public class ListBooks {
             values = bookArray[i].split(":");
             item = new Entry((i + 1), values[0], values[1]);
             ITEMS.add(item);
-            ITEM_MAP.put(item.mBookNumber, item);
+            ITEM_MAP.put(item.getBookNumber(), item);
         }
         Log.d(TAG, "populateBooks: All " + ITEMS.size() + " books created");
     }

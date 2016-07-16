@@ -26,6 +26,7 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
@@ -101,6 +102,14 @@ public class FragmentChapterVerses
 
     public void buttonSaveClicked(ListVerse.Entry entry) {
         Log.d(TAG, "buttonSaveClicked() called with reference = [" + entry.getReference() + "]");
+
+        ArrayList<String> references = new ArrayList<>();
+        references.add(entry.getReference());
+        getArguments().putStringArrayList(Utilities.REFERENCES, references);
+
+        Intent intent = new Intent(getContext(), ActivityBookmark.class);
+        intent.putExtras(getArguments());
+        startActivity(intent);
     }
 
     public void buttonShareClicked(ListVerse.Entry entry) {

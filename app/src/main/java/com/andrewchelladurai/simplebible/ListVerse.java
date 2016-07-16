@@ -69,6 +69,25 @@ public class ListVerse {
     public static class Entry
             implements Parcelable {
 
+        private final String mBookNumber;
+        private final String mChapterNumber;
+        private final String mVerseNumber;
+        private final String mVerseText;
+
+        public Entry(int bookNumber, int chapterNumber, int verseNumber, String verseText) {
+            mBookNumber = String.valueOf(bookNumber);
+            mChapterNumber = String.valueOf(chapterNumber);
+            mVerseNumber = String.valueOf(verseNumber);
+            mVerseText = verseText;
+        }
+
+        protected Entry(Parcel in) {
+            mBookNumber = in.readString();
+            mChapterNumber = in.readString();
+            mVerseNumber = in.readString();
+            mVerseText = in.readString();
+        }
+
         public static final Creator<Entry> CREATOR = new Creator<Entry>() {
 
             @Override
@@ -81,24 +100,6 @@ public class ListVerse {
                 return new Entry[size];
             }
         };
-        private final String mVerseText;
-        private final String mBookNumber;
-        private final String mChapterNumber;
-        private final String mVerseNumber;
-
-        public Entry(int bookNumber, int chapterNumber, int verseNumber, String verseText) {
-            mBookNumber = String.valueOf(bookNumber);
-            mChapterNumber = String.valueOf(chapterNumber);
-            mVerseNumber = String.valueOf(verseNumber);
-            mVerseText = verseText;
-        }
-
-        protected Entry(Parcel in) {
-            mVerseText = in.readString();
-            mBookNumber = in.readString();
-            mChapterNumber = in.readString();
-            mVerseNumber = in.readString();
-        }
 
         @Override
         public String toString() {

@@ -26,6 +26,7 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -127,6 +128,16 @@ public class FragmentSearch
 
     public void buttonSaveClicked(ListSearch.Entry entry) {
         Log.d(TAG, "buttonSaveClicked() called with reference : [" + entry.getReference() + "]");
+
+        ArrayList<String> references = new ArrayList<>();
+        references.add(entry.getReference());
+
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList(Utilities.REFERENCES, references);
+
+        Intent intent = new Intent(getContext(), ActivityBookmark.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     public void buttonShareClicked(ListSearch.Entry entry) {

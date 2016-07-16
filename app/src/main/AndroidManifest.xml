@@ -62,6 +62,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ActivityChapterList" />
         </activity>
+        <activity
+            android:name=".ActivityBookmark"
+            android:label="@string/title_activity_bookmark"
+            android:theme="@style/DawnTheme.NoActionBar" />
     </application>
 
 </manifest>
