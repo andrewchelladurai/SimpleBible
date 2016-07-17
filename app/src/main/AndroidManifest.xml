@@ -48,7 +48,8 @@
             android:name=".ActivityChapterList"
             android:label="@string/title_activity_chapter"
             android:parentActivityName=".ActivitySimpleBible"
-            android:theme="@style/DawnTheme.NoActionBar">
+            android:theme="@style/DawnTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.andrewchelladurai.simplebible.ActivitySimpleBible" />
@@ -57,7 +58,8 @@
             android:name=".ActivityChapterVerses"
             android:label="@string/title_activity_chapter"
             android:parentActivityName=".ActivityChapterList"
-            android:theme="@style/DawnTheme.NoActionBar">
+            android:theme="@style/DawnTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ActivityChapterList" />
@@ -65,7 +67,8 @@
         <activity
             android:name=".ActivityBookmark"
             android:label="@string/title_activity_bookmark"
-            android:theme="@style/DawnTheme.NoActionBar" />
+            android:theme="@style/DawnTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
     </application>
 
 </manifest>

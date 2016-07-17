@@ -134,7 +134,7 @@ public class FragmentSearch
 
         Bundle bundle = new Bundle();
         bundle.putStringArrayList(Utilities.REFERENCES, references);
-        bundle.putString(Utilities.BOOKMARK_MODE, Utilities.BOOKMARK_SAVE);
+        bundle.putString(Utilities.BOOKMARK_MODE, Utilities.BOOKMARK_VIEW);
 
         Intent intent = new Intent(getContext(), ActivityBookmark.class);
         intent.putExtras(bundle);

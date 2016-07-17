@@ -157,4 +157,5 @@
     <string name="bookmark_empty_notes">No notes was saved for this verse</string>
     <string name="bookmark_no_entry_verse">No Bookmarked Verses exist</string>
     <string name="bookmark_no_entry_note">Long click on a Search Result or Chapter Verse to Bookmark</string>
+    <string name="bookmark_enter_notes">Click to enter notes for the verse</string>
 </resources>

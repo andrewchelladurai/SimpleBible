@@ -28,11 +28,7 @@ package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 
@@ -48,36 +44,10 @@ public class ActivityBookmark
         setContentView(R.layout.activity_bookmark);
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_bookmark_toolbar);
         setSupportActionBar(toolbar);
-
-        if (savedState != null) {
-            return;
-        }
-
-/*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.activity_bookmark_fab);
-        if (fab == null) {
-            Utilities.throwError(TAG + " fab == null");
-        }
-*/
-
         mReferences = getIntent().getExtras().getStringArrayList(Utilities.REFERENCES);
-        if (mReferences == null) {
-            Utilities.throwError(TAG + " mReferences == null");
-        }
-        Log.d(TAG, "onCreate: mReferences.size = " + mReferences.size());
-
-        updateTopPanel();
-
-        switch (getIntent().getExtras().getString(Utilities.BOOKMARK_MODE)) {
-            case Utilities.BOOKMARK_SAVE:
-                break;
-            case Utilities.BOOKMARK_EDIT:
-                break;
-            default:
-        }
     }
 
-    private void updateTopPanel() {
+/*    private void updateTopPanel() {
         AppCompatTextView referenceView = (AppCompatTextView)
                 findViewById(R.id.activity_bookmark_reference);
         if (referenceView == null) {
@@ -108,4 +78,62 @@ public class ActivityBookmark
         verseList.setAdapter(new ArrayAdapter<>(
                 this, android.R.layout.simple_list_item_1, verses));
     }
+
+    private void updateBottomPanel(boolean isEditMode) {
+        mNotesInput = (AppCompatEditText) findViewById(R.id.activity_bookmark_notes);
+        if (isEditMode){
+            bindButton(R.id.activity_bookmark_but_save, true);
+        }
+        bindButton(R.id.activity_bookmark_but_edit, );
+        bindButton(R.id.activity_bookmark_but_delete, isEditMode);
+        bindButton(R.id.activity_bookmark_but_cancel, isEditMode);
+    }
+
+    private void bindButton(int buttonId, boolean invisible) {
+        AppCompatImageButton button = (AppCompatImageButton) findViewById(buttonId);
+        if (button == null) {
+            Utilities.throwError(TAG + " button == null : " + buttonId);
+        }
+        if (invisible) {
+            button.setVisibility(View.GONE);
+        }
+        button.setOnClickListener(this);
+    }
+
+    @Override public void onClick(View view) {
+        if (view instanceof AppCompatImageButton) {
+            switch (view.getId()) {
+                case R.id.activity_bookmark_but_save:
+                    buttonSaveClicked();
+                    break;
+                case R.id.activity_bookmark_but_edit:
+                    buttonEditClicked();
+                    break;
+                case R.id.activity_bookmark_but_delete:
+                    buttonDeleteClicked();
+                    break;
+                case R.id.activity_bookmark_but_cancel:
+                    buttonCancelClicked();
+                    break;
+                default:
+                    Utilities.throwError(TAG + getString(R.string.how_am_i_here));
+            }
+        }
+    }
+
+    private void buttonSaveClicked() {
+        Log.d(TAG, "buttonSaveClicked() called");
+    }
+
+    private void buttonEditClicked() {
+        Log.d(TAG, "buttonEditClicked() called");
+    }
+
+    private void buttonDeleteClicked() {
+        Log.d(TAG, "buttonDeleteClicked() called");
+    }
+
+    private void buttonCancelClicked() {
+        Log.d(TAG, "buttonCancelClicked() called");
+    }*/
 }
