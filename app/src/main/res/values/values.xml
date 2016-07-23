@@ -25,6 +25,7 @@
   -->
 
 <resources>
+    <color name="long_press_background">#A83F23</color>
     <color name="primary">#42282F</color>
     <color name="primary_dark">#261822</color>
     <color name="accent">#A83F23</color>

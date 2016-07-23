@@ -65,17 +65,6 @@ public class AdapterSearchList
         return mValues.size();
     }
 
-    /*@Override public void onViewAttachedToWindow(SearchView holder) {
-        super.onViewAttachedToWindow(holder);
-        holder.mContent.setSelected(ListSearch.isEntrySelected(holder.mEntry));
-    }
-
-    @Override public void onViewDetachedFromWindow(SearchView holder) {
-        super.onViewDetachedFromWindow(holder);
-        holder.mContent.setSelected(ListSearch.isEntrySelected(holder.mEntry));
-        holder.resetState();
-    }*/
-
     public class SearchView
             extends RecyclerView.ViewHolder
             implements View.OnLongClickListener {

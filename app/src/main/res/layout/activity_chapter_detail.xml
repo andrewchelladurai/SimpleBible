@@ -24,71 +24,72 @@
   ~
   -->
 
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".ActivityChapterVerses"
     tools:ignore="MergeRootFrame">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/activity_chapter_detail_app_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
+        android:layout_height="?attr/actionBarSize"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/activity_chapter_detail_toolbar_layout"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/activity_chapter_detail_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/activity_chapter_detail_toolbar">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/activity_chapter_detail_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
-        </android.support.design.widget.CollapsingToolbarLayout>
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.v7.widget.LinearLayoutCompat
         android:id="@+id/activity_chapter_detail_chapter_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <LinearLayout
-        android:id="@+id/verse_actions"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView
+        android:id="@+id/activity_chapter_detail_verse_actions"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/gap_small"
+        android:layout_marginEnd="@dimen/gap"
+        android:layout_marginLeft="@dimen/gap"
+        android:layout_marginRight="@dimen/gap"
+        android:layout_marginStart="@dimen/gap"
         android:visibility="gone"
-        app:layout_anchor="@+id/activity_chapter_detail_chapter_container"
-        app:layout_anchorGravity="top|end">
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/activity_chapter_fab_share"
+        <android.support.v7.widget.ButtonBarLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_share"
-            android:text="@string/button_share"
-            app:fabSize="mini" />
+            android:layout_gravity="center"
+            android:orientation="horizontal">
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/activity_chapter_fab_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_save"
-            android:text="@string/button_save"
-            app:fabSize="mini" />
-    </LinearLayout>
-</android.support.design.widget.CoordinatorLayout>
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/activity_chapter_fab_share"
+                style="@style/Base.Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_share" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/activity_chapter_fab_save"
+                style="@style/Base.Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_save" />
+        </android.support.v7.widget.ButtonBarLayout>
+    </android.support.v7.widget.CardView>
+</android.support.v7.widget.LinearLayoutCompat>

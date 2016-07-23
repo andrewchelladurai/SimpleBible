@@ -28,15 +28,15 @@ package com.andrewchelladurai.simplebible;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
@@ -55,8 +55,8 @@ public class FragmentChapterVerses
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        CollapsingToolbarLayout appBar = (CollapsingToolbarLayout) getActivity()
-                .findViewById(R.id.activity_chapter_detail_toolbar_layout);
+        Toolbar appBar = (Toolbar) getActivity()
+                .findViewById(R.id.activity_chapter_detail_toolbar);
 
         mBook = getArguments().getParcelable(Utilities.CURRENT_BOOK);
         if (mBook == null) {
@@ -96,11 +96,11 @@ public class FragmentChapterVerses
         ListVerse.populateEntries(verseList, bookNumber, chapterNumber);
         recyclerView.setAdapter(new AdapterVerseList(ListVerse.getEntries(), this));
 
-        FloatingActionButton button =
-                (FloatingActionButton) getActivity().findViewById(R.id.activity_chapter_fab_save);
+        AppCompatButton button =
+                (AppCompatButton) getActivity().findViewById(R.id.activity_chapter_fab_save);
         button.setOnClickListener(this);
 
-        button = (FloatingActionButton) getActivity().findViewById(R.id.activity_chapter_fab_share);
+        button = (AppCompatButton) getActivity().findViewById(R.id.activity_chapter_fab_share);
         button.setOnClickListener(this);
 
         return view;
@@ -113,7 +113,7 @@ public class FragmentChapterVerses
 
     @Override
     public void onClick(View v) {
-        if (v instanceof FloatingActionButton) {
+        if (v instanceof AppCompatButton) {
             if (ListVerse.isSelectedEntriesEmpty()) {
                 Log.d(TAG, "onClick: isSelectedEntriesEmpty = true, but button was clicked");
                 return;
@@ -173,8 +173,8 @@ public class FragmentChapterVerses
     }
 
     public void showActionBar() {
-        // FIXME: 23/7/16 rename id below to avoid ambiguity
-        LinearLayout view = (LinearLayout) getActivity().findViewById(R.id.verse_actions);
+        CardView view = (CardView)
+                getActivity().findViewById(R.id.activity_chapter_detail_verse_actions);
         view.setVisibility(ListVerse.isSelectedEntriesEmpty() ? View.GONE : View.VISIBLE);
     }
 }
