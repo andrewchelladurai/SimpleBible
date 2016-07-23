@@ -24,7 +24,7 @@
   ~
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -41,25 +41,54 @@
     This layout is a two-pane layout for the Items
     master/detail flow.
     -->
-
-    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/chapter_list"
-        android:name="com.andrewchelladurai.simplebible.ItemListFragment"
-        android:layout_width="@dimen/item_width"
+    <LinearLayout
+        android:id="@+id/main_panel"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingEnd="@dimen/gap_big"
-        android:paddingStart="@dimen/gap_big"
-        android:paddingRight="@dimen/gap_big"
-        android:paddingLeft="@dimen/gap_big"
-        app:layoutManager="LinearLayoutManager"
-        tools:context=".ActivityChapterList"
-        tools:listitem="@layout/entry_chapter" />
+        android:orientation="horizontal">
 
-    <FrameLayout
-        android:id="@+id/chapter_container"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/chapter_list"
+            android:layout_width="@dimen/item_width"
+            android:layout_height="match_parent"
+            android:paddingEnd="@dimen/gap_big"
+            android:paddingLeft="@dimen/gap_big"
+            android:paddingRight="@dimen/gap_big"
+            android:paddingStart="@dimen/gap_big"
+            app:layoutManager="LinearLayoutManager"
+            tools:context=".ActivityChapterList"
+            tools:listitem="@layout/entry_chapter" />
 
-</LinearLayout>
+        <FrameLayout
+            android:id="@+id/chapter_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/verse_actions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/main_panel"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/activity_chapter_fab_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_share"
+            android:text="@string/button_share"
+            app:fabSize="mini" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/activity_chapter_fab_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_save"
+            android:text="@string/button_save"
+            app:fabSize="mini" />
+    </LinearLayout>
+</RelativeLayout>

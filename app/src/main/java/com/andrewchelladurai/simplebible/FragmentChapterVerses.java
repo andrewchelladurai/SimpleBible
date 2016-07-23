@@ -31,12 +31,12 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
@@ -98,10 +98,10 @@ public class FragmentChapterVerses
         recyclerView.setAdapter(adapter);
 
         FloatingActionButton button =
-                (FloatingActionButton) getActivity().findViewById(R.id.verse_but_save);
+                (FloatingActionButton) getActivity().findViewById(R.id.activity_chapter_fab_save);
         button.setOnClickListener(this);
 
-        button = (FloatingActionButton) getActivity().findViewById(R.id.verse_but_share);
+        button = (FloatingActionButton) getActivity().findViewById(R.id.activity_chapter_fab_share);
         button.setOnClickListener(this);
 
         return view;
@@ -120,10 +120,10 @@ public class FragmentChapterVerses
                 return;
             }
             switch (v.getId()) {
-                case R.id.verse_but_save:
+                case R.id.activity_chapter_fab_save:
                     buttonSaveClicked();
                     break;
-                case R.id.verse_but_share:
+                case R.id.activity_chapter_fab_share:
                     buttonShareClicked();
                     break;
                 default:
@@ -174,7 +174,7 @@ public class FragmentChapterVerses
     }
 
     public void showActionBar() {
-        ButtonBarLayout view = (ButtonBarLayout) getActivity().findViewById(R.id.verse_actions);
+        LinearLayout view = (LinearLayout) getActivity().findViewById(R.id.verse_actions);
         view.setVisibility(ListVerse.isSelectedEntriesEmpty() ? View.GONE : View.VISIBLE);
     }
 }
