@@ -41,54 +41,56 @@
     This layout is a two-pane layout for the Items
     master/detail flow.
     -->
-    <LinearLayout
-        android:id="@+id/main_panel"
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/chapter_list"
+        android:layout_width="@dimen/item_width"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:paddingEnd="@dimen/gap_big"
+        android:paddingLeft="@dimen/gap_big"
+        android:paddingRight="@dimen/gap_big"
+        android:paddingStart="@dimen/gap_big"
+        app:layoutManager="LinearLayoutManager"
+        tools:context=".ActivityChapterList"
+        tools:listitem="@layout/entry_chapter" />
+
+    <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/chapter_list"
-            android:layout_width="@dimen/item_width"
-            android:layout_height="match_parent"
-            android:paddingEnd="@dimen/gap_big"
-            android:paddingLeft="@dimen/gap_big"
-            android:paddingRight="@dimen/gap_big"
-            android:paddingStart="@dimen/gap_big"
-            app:layoutManager="LinearLayoutManager"
-            tools:context=".ActivityChapterList"
-            tools:listitem="@layout/entry_chapter" />
+        android:layout_toEndOf="@+id/chapter_list"
+        android:layout_toRightOf="@+id/chapter_list"
+        android:orientation="vertical">
 
         <FrameLayout
             android:id="@+id/chapter_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
-    <LinearLayout
-        android:id="@+id/verse_actions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/main_panel"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/activity_chapter_fab_share"
+        <android.support.v7.widget.ButtonBarLayout
+            android:id="@+id/activity_chapter_detail_verse_actions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_share"
-            android:text="@string/button_share"
-            app:fabSize="mini" />
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/activity_chapter_fab_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_save"
-            android:text="@string/button_save"
-            app:fabSize="mini" />
-    </LinearLayout>
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/activity_chapter_fab_share"
+                style="@style/Base.Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_share" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/activity_chapter_fab_save"
+                style="@style/Base.Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_save" />
+        </android.support.v7.widget.ButtonBarLayout>
+    </android.support.v7.widget.LinearLayoutCompat>
 </RelativeLayout>

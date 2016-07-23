@@ -30,7 +30,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.CardView;
+import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -173,7 +173,7 @@ public class FragmentChapterVerses
     }
 
     public void showActionBar() {
-        CardView view = (CardView)
+        ButtonBarLayout view = (ButtonBarLayout)
                 getActivity().findViewById(R.id.activity_chapter_detail_verse_actions);
         view.setVisibility(ListVerse.isSelectedEntriesEmpty() ? View.GONE : View.VISIBLE);
     }
