@@ -88,6 +88,10 @@ public class ListVerse {
         return SELECTED_ENTRIES;
     }
 
+    public static boolean isEntrySelected(Entry entry) {
+        return SELECTED_ENTRIES.contains(entry);
+    }
+
     public static class Entry
             implements Parcelable {
 

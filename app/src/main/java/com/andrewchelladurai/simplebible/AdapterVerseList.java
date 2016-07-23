@@ -83,15 +83,14 @@ public class AdapterVerseList
         @Override
         public boolean onLongClick(View v) {
             if (v instanceof AppCompatTextView) {
-                isSelected = !isSelected;
-                if (isSelected) {
-                    ListVerse.addSelectedEntry(mEntry);
-                } else {
+                if (ListVerse.isEntrySelected(mEntry)) {
                     ListVerse.removeSelectedEntry(mEntry);
+                } else {
+                    ListVerse.addSelectedEntry(mEntry);
                 }
-                mContent.setSelected(isSelected);
-                mListener.showActionBar();
+                mContent.setSelected(ListVerse.isEntrySelected(mEntry));
             }
+            mListener.showActionBar();
             return true;
         }
 
@@ -107,6 +106,7 @@ public class AdapterVerseList
         public void update(ListVerse.Entry entry, int position) {
             mEntry = entry;
             setContent(position, mEntry.getVerseText());
+            mContent.setSelected(ListVerse.isEntrySelected(mEntry));
         }
 
         public void setContent(int position, String newContent) {
