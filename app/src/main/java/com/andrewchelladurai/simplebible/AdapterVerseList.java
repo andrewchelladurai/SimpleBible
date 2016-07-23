@@ -29,7 +29,6 @@ package com.andrewchelladurai.simplebible;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +67,7 @@ public class AdapterVerseList
             extends RecyclerView.ViewHolder
             implements View.OnLongClickListener {
 
-        private static final String TAG = "SB_ViewHolder";
+        private static final String TAG = "SB_VerseView";
         public final  View              mView;
         private final AppCompatTextView mContent;
         public        ListVerse.Entry   mEntry;
@@ -90,7 +89,7 @@ public class AdapterVerseList
                 } else {
                     ListVerse.removeSelectedEntry(mEntry);
                 }
-                Log.i(TAG, mEntry.getReference() + " selected = " + isSelected);
+                mContent.setSelected(isSelected);
                 mListener.showActionBar();
             }
             return true;

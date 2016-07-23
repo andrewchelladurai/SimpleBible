@@ -94,8 +94,7 @@ public class FragmentChapterVerses
         }
 
         ListVerse.populateEntries(verseList, bookNumber, chapterNumber);
-        AdapterVerseList adapter = new AdapterVerseList(ListVerse.getEntries(), this);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(new AdapterVerseList(ListVerse.getEntries(), this));
 
         FloatingActionButton button =
                 (FloatingActionButton) getActivity().findViewById(R.id.activity_chapter_fab_save);
