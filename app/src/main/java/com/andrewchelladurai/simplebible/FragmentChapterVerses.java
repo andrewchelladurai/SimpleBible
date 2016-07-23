@@ -173,6 +173,7 @@ public class FragmentChapterVerses
     }
 
     public void showActionBar() {
+        // FIXME: 23/7/16 rename id below to avoid ambiguity
         LinearLayout view = (LinearLayout) getActivity().findViewById(R.id.verse_actions);
         view.setVisibility(ListVerse.isSelectedEntriesEmpty() ? View.GONE : View.VISIBLE);
     }

@@ -37,7 +37,7 @@ import java.util.Map;
 
 public class ListVerse {
 
-    private static final String             TAG              = "SB_ListVerse";
+    private static final String             TAG              = "ListVerse";
     private static final ArrayList<Entry>   ITEMS            = new ArrayList<>();
     private static final Map<String, Entry> ITEM_MAP         = new HashMap<>();
     private static final ArrayList<Entry>   SELECTED_ENTRIES = new ArrayList<>();
@@ -55,7 +55,6 @@ public class ListVerse {
     }
 
     public static void clearEntries() {
-        Log.d(TAG, "clearEntries() called");
         ITEMS.clear();
         ITEM_MAP.clear();
         SELECTED_ENTRIES.clear();

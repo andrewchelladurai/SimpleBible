@@ -28,6 +28,7 @@ package com.andrewchelladurai.simplebible;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -39,6 +40,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
@@ -70,22 +72,50 @@ public class FragmentSearch
         mButton = (AppCompatButton) view.findViewById(R.id.frag_search_button);
         mButton.setOnClickListener(this);
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.frag_search_results);
+        RecyclerView listResults = (RecyclerView) view.findViewById(R.id.frag_search_results);
         if (savedInstanceState == null) {
             ListSearch.truncate();
         }
         mListAdapter = new AdapterSearchList(ListSearch.getEntries(), this);
-        recyclerView.setAdapter(mListAdapter);
+        listResults.setAdapter(mListAdapter);
+
+        FloatingActionButton button =
+                (FloatingActionButton) view.findViewById(R.id.frag_search_but_save);
+        button.setOnClickListener(this);
+
+        button = (FloatingActionButton) view.findViewById(R.id.frag_search_but_share);
+        button.setOnClickListener(this);
+
         return view;
     }
 
-    @Override public void onClick(View v) {
-        if (v instanceof AppCompatButton & v.equals(mButton)) {
-            String buttonText = mButton.getText().toString();
-            if (buttonText.equalsIgnoreCase(getString(R.string.button_search_text))) {
-                searchButtonClicked();
-            } else if (buttonText.equalsIgnoreCase(getString(R.string.button_search_reset))) {
-                resetButtonClicked();
+    @Override
+    public void onClick(View v) {
+        if (v instanceof AppCompatButton) {
+            switch (v.getId()) {
+                case R.id.frag_search_button:
+                    String buttonText = mButton.getText().toString();
+                    if (buttonText.equalsIgnoreCase(
+                            getString(R.string.button_search_text))) {
+                        searchButtonClicked();
+                    } else if (buttonText.equalsIgnoreCase(
+                            getString(R.string.button_search_reset))) {
+                        resetButtonClicked();
+                    }
+                    break;
+                default:
+                    Utilities.throwError(TAG + " onClick() unknown Button ID" + v.getId());
+            }
+        } else if (v instanceof FloatingActionButton) {
+            switch (v.getId()) {
+                case R.id.frag_search_but_save:
+                    buttonSaveClicked();
+                    break;
+                case R.id.frag_search_but_share:
+                    buttonShareClicked();
+                    break;
+                default:
+                    Utilities.throwError(TAG + " onClick() unknown Button ID" + v.getId());
             }
         }
     }
@@ -111,12 +141,15 @@ public class FragmentSearch
         }
         mLabel.setError(list.size() + " " + getString(+R.string.search_text_results_found));
 
+        ListSearch.truncate();
         ListSearch.populate(list);
+        showActionBar();
         mListAdapter.notifyDataSetChanged();
         mButton.setText(getString(R.string.button_search_reset));
     }
 
     private void resetButtonClicked() {
+        Log.d(TAG, "resetButtonClicked() called");
         ListSearch.truncate();
         mInput.setText("");
         mInput.setError(null);
@@ -124,13 +157,20 @@ public class FragmentSearch
         mButton.setText(getString(R.string.button_search_text));
         mListAdapter.notifyDataSetChanged();
         mInput.requestFocus();
+        showActionBar();
     }
 
-    public void buttonSaveClicked(ListSearch.Entry entry) {
-        Log.d(TAG, "buttonSaveClicked() called with reference : [" + entry.getReference() + "]");
-
+    public void buttonSaveClicked() {
+        Log.d(TAG, "buttonSaveClicked() called");
+        if (ListSearch.isSelectedEntriesEmpty()) {
+            Log.d(TAG, "buttonShareClicked: No Selected entries exist");
+            return;
+        }
+        ArrayList<ListSearch.Entry> entries = ListSearch.getSelectedEntries();
         ArrayList<String> references = new ArrayList<>();
-        references.add(entry.getReference());
+        for (ListSearch.Entry entry : entries) {
+            references.add(entry.getReference());
+        }
 
         Bundle bundle = new Bundle();
         bundle.putStringArrayList(Utilities.REFERENCES, references);
@@ -141,25 +181,46 @@ public class FragmentSearch
         startActivity(intent);
     }
 
-    public void buttonShareClicked(ListSearch.Entry entry) {
-        Log.d(TAG, "buttonSaveClicked() called with reference : [" + entry.getReference() + "]");
-        ListBooks.Entry mBook = ListBooks.getItem(entry.getBookNumber());
-        String text = mBook.getName() + " (" +
-                      entry.getChapterNumber() + ":" +
-                      entry.getVerseNumber() + ") " +
-                      entry.getVerse() + " " +
-                      getString(R.string.share_append_text);
-        startActivity(Utilities.shareVerse(text));
+    public void buttonShareClicked() {
+        Log.d(TAG, "buttonShareClicked() called");
+        if (ListSearch.isSelectedEntriesEmpty()) {
+            Log.d(TAG, "buttonShareClicked: No Selected entries exist");
+            return;
+        }
+        ArrayList<ListSearch.Entry> entries = ListSearch.getSelectedEntries();
+        String text;
+        StringBuilder shareText = new StringBuilder();
+        ListBooks.Entry mBook;
+        for (ListSearch.Entry entry : entries) {
+            mBook = ListBooks.getItem(entry.getBookNumber());
+            text = mBook.getName() + " (" +
+                   entry.getChapterNumber() + ":" +
+                   entry.getVerseNumber() + ") " +
+                   entry.getVerse() + "\n";
+            shareText.append(text);
+        }
+        shareText.append(getString(R.string.share_append_text));
+        startActivity(Utilities.shareVerse(shareText.toString()));
     }
 
     @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
     }
 
     @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
     }
 
     @Override public void afterTextChanged(Editable s) {
+        mInput.setError(null);
+        mLabel.setError(null);
         mButton.setText(getString(R.string.button_search_text));
+        ListSearch.truncate();
+        mListAdapter.notifyDataSetChanged();
+        showActionBar();
+    }
+
+    public void showActionBar() {
+        LinearLayout view = (LinearLayout) getActivity().findViewById(
+                R.id.frag_search_verse_actions);
+        view.setVisibility((ListSearch.isSelectedEntriesEmpty()) ? View.GONE : View.VISIBLE);
     }
 }

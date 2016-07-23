@@ -37,14 +37,12 @@ import java.util.Map;
 
 public class ListSearch {
 
-    static final         Map<String, Entry> ITEM_MAP = new HashMap<>();
-    private static final List<Entry>        ITEMS    = new ArrayList<>();
-    private static final String             TAG      = "SB_ListSearch";
+    static final         Map<String, Entry> ITEM_MAP         = new HashMap<>();
+    private static final ArrayList<Entry>   ITEMS            = new ArrayList<>();
+    private static final ArrayList<Entry>   SELECTED_ENTRIES = new ArrayList<>();
+    private static final String             TAG              = "SB_ListSearch";
 
     public static void populate(ArrayList<String> list) {
-        ITEMS.clear();
-        ITEM_MAP.clear();
-
         if (list == null) {
             Log.d(TAG, "populate: list == null, this should happen exactly once, no more");
             return;
@@ -76,6 +74,32 @@ public class ListSearch {
     public static void truncate() {
         ITEMS.clear();
         ITEM_MAP.clear();
+        SELECTED_ENTRIES.clear();
+        Log.d(TAG, "truncate() called");
+    }
+
+    public static void addSelectedEntry(Entry entry) {
+        SELECTED_ENTRIES.add(entry);
+    }
+
+    public static void removeSelectedEntry(Entry entry) {
+        if (SELECTED_ENTRIES.contains(entry)) {
+            SELECTED_ENTRIES.remove(entry);
+        } else {
+            Log.i(TAG, "removeSelectedEntry: " + entry.getReference() + " not present");
+        }
+    }
+
+    public static boolean isSelectedEntriesEmpty() {
+        return SELECTED_ENTRIES.isEmpty();
+    }
+
+    public static ArrayList<Entry> getSelectedEntries() {
+        return SELECTED_ENTRIES;
+    }
+
+    public static boolean isEntrySelected(Entry entry) {
+        return SELECTED_ENTRIES.contains(entry);
     }
 
     public static class Entry

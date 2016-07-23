@@ -30,40 +30,12 @@
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
     app:cardUseCompatPadding="true">
-
-    <android.support.v7.widget.LinearLayoutCompat
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/verse_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        android:orientation="vertical">
+        android:background="@drawable/long_press_state_list"
+        android:padding="@dimen/gap_big"
+        android:textAppearance="?attr/textAppearanceListItemSmall" />
 
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/verse_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/gap_big"
-            android:textAppearance="?attr/textAppearanceListItemSmall" />
-
-        <android.support.v7.widget.ButtonBarLayout
-            android:id="@+id/verse_actions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:visibility="gone">
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/verse_but_save"
-                style="?android:buttonBarButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/button_save" />
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/verse_but_share"
-                style="?android:buttonBarButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/button_share" />
-        </android.support.v7.widget.ButtonBarLayout>
-    </android.support.v7.widget.LinearLayoutCompat>
 </android.support.v7.widget.CardView>
