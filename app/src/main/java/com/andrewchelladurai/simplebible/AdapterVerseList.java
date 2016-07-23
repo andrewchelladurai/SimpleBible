@@ -26,11 +26,10 @@
 
 package com.andrewchelladurai.simplebible;
 
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,49 +66,32 @@ public class AdapterVerseList
 
     public class VerseView
             extends RecyclerView.ViewHolder
-            implements View.OnClickListener, View.OnLongClickListener {
+            implements View.OnLongClickListener {
 
         private static final String TAG = "SB_ViewHolder";
         public final  View              mView;
         private final AppCompatTextView mContent;
         public        ListVerse.Entry   mEntry;
+        private boolean isSelected = false;
 
         public VerseView(View view) {
             super(view);
             mView = view;
             mContent = (AppCompatTextView) view.findViewById(R.id.verse_content);
             mContent.setOnLongClickListener(this);
-
-            bindButton(R.id.verse_but_save);
-            bindButton(R.id.verse_but_share);
-        }
-
-        private void bindButton(int id) {
-            AppCompatButton button = (AppCompatButton) mView.findViewById(id);
-            button.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            if (v instanceof AppCompatButton) {
-                switch (v.getId()) {
-                    case R.id.verse_but_save:
-                        mListener.buttonSaveClicked(mEntry);
-                        break;
-                    case R.id.verse_but_share:
-                        mListener.buttonShareClicked(mEntry);
-                        break;
-                    default:
-                        Utilities.throwError(TAG + " onClick() unknown Button ID" + v.getId());
-                }
-            }
         }
 
         @Override
         public boolean onLongClick(View v) {
             if (v instanceof AppCompatTextView) {
-                ButtonBarLayout view = (ButtonBarLayout) mView.findViewById(R.id.verse_actions);
-                view.setVisibility((view.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE);
+                isSelected = !isSelected;
+                if (isSelected) {
+                    ListVerse.addSelectedEntry(mEntry);
+                } else {
+                    ListVerse.removeSelectedEntry(mEntry);
+                }
+                Log.i(TAG, mEntry.getReference() + " selected = " + isSelected);
+                mListener.showActionBar();
             }
             return true;
         }

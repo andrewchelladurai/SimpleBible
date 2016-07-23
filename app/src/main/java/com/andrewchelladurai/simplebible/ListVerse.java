@@ -37,9 +37,10 @@ import java.util.Map;
 
 public class ListVerse {
 
-    private static final String             TAG      = "ListVerse";
-    private static final List<Entry>        ITEMS    = new ArrayList<>();
-    private static final Map<String, Entry> ITEM_MAP = new HashMap<>();
+    private static final String             TAG              = "SB_ListVerse";
+    private static final ArrayList<Entry>   ITEMS            = new ArrayList<>();
+    private static final Map<String, Entry> ITEM_MAP         = new HashMap<>();
+    private static final ArrayList<Entry>   SELECTED_ENTRIES = new ArrayList<>();
 
     public static void populateEntries(ArrayList<String> verseList, int bookNumber,
                                        int chapterNumber) {
@@ -54,8 +55,10 @@ public class ListVerse {
     }
 
     public static void clearEntries() {
+        Log.d(TAG, "clearEntries() called");
         ITEMS.clear();
         ITEM_MAP.clear();
+        SELECTED_ENTRIES.clear();
     }
 
     public static List<Entry> getEntries() {
@@ -66,9 +69,41 @@ public class ListVerse {
         return ITEM_MAP;
     }
 
+    public static void addSelectedEntry(Entry entry) {
+        SELECTED_ENTRIES.add(entry);
+    }
+
+    public static void removeSelectedEntry(Entry entry) {
+        if (SELECTED_ENTRIES.contains(entry)) {
+            SELECTED_ENTRIES.remove(entry);
+        } else {
+            Log.i(TAG, "removeSelectedEntry: " + entry.getReference() + " not present");
+        }
+    }
+
+    public static boolean isSelectedEntriesEmpty() {
+        return SELECTED_ENTRIES.isEmpty();
+    }
+
+    public static ArrayList<Entry> getSelectedEntries() {
+        return SELECTED_ENTRIES;
+    }
+
     public static class Entry
             implements Parcelable {
 
+        public static final Creator<Entry> CREATOR = new Creator<Entry>() {
+
+            @Override
+            public Entry createFromParcel(Parcel in) {
+                return new Entry(in);
+            }
+
+            @Override
+            public Entry[] newArray(int size) {
+                return new Entry[size];
+            }
+        };
         private final String mBookNumber;
         private final String mChapterNumber;
         private final String mVerseNumber;
@@ -87,19 +122,6 @@ public class ListVerse {
             mVerseNumber = in.readString();
             mVerseText = in.readString();
         }
-
-        public static final Creator<Entry> CREATOR = new Creator<Entry>() {
-
-            @Override
-            public Entry createFromParcel(Parcel in) {
-                return new Entry(in);
-            }
-
-            @Override
-            public Entry[] newArray(int size) {
-                return new Entry[size];
-            }
-        };
 
         @Override
         public String toString() {

@@ -29,7 +29,9 @@ package com.andrewchelladurai.simplebible;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,7 +41,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 public class FragmentChapterVerses
-        extends Fragment {
+        extends Fragment
+        implements View.OnClickListener {
 
     private static final String TAG = "SB_FragChapterVerses";
     private ListBooks.Entry   mBook;
@@ -91,7 +94,16 @@ public class FragmentChapterVerses
         }
 
         ListVerse.populateEntries(verseList, bookNumber, chapterNumber);
-        recyclerView.setAdapter(new AdapterVerseList(ListVerse.getEntries(), this));
+        AdapterVerseList adapter = new AdapterVerseList(ListVerse.getEntries(), this);
+        recyclerView.setAdapter(adapter);
+
+        FloatingActionButton button =
+                (FloatingActionButton) getActivity().findViewById(R.id.verse_but_save);
+        button.setOnClickListener(this);
+
+        button = (FloatingActionButton) getActivity().findViewById(R.id.verse_but_share);
+        button.setOnClickListener(this);
+
         return view;
     }
 
@@ -100,11 +112,39 @@ public class FragmentChapterVerses
         ListVerse.clearEntries();
     }
 
-    public void buttonSaveClicked(ListVerse.Entry entry) {
-        Log.d(TAG, "buttonSaveClicked() called with reference = [" + entry.getReference() + "]");
+    @Override
+    public void onClick(View v) {
+        if (v instanceof FloatingActionButton) {
+            if (ListVerse.isSelectedEntriesEmpty()) {
+                Log.d(TAG, "onClick: isSelectedEntriesEmpty = true, but button was clicked");
+                return;
+            }
+            switch (v.getId()) {
+                case R.id.verse_but_save:
+                    buttonSaveClicked();
+                    break;
+                case R.id.verse_but_share:
+                    buttonShareClicked();
+                    break;
+                default:
+                    Utilities.throwError(TAG + " onClick() unknown Button ID" + v.getId());
+            }
+        }
+    }
 
+    public void buttonSaveClicked() {
+        Log.d(TAG, "buttonSaveClicked() called");
+
+        ArrayList<ListVerse.Entry> entries = ListVerse.getSelectedEntries();
+        if (entries.isEmpty()) {
+            Log.d(TAG, "buttonShareClicked: but no selected entries exist");
+            return;
+        }
         ArrayList<String> references = new ArrayList<>();
-        references.add(entry.getReference());
+        for (ListVerse.Entry entry : entries) {
+            references.add(entry.getReference());
+        }
+
         getArguments().putStringArrayList(Utilities.REFERENCES, references);
         getArguments().putString(Utilities.BOOKMARK_MODE, Utilities.BOOKMARK_VIEW);
 
@@ -113,13 +153,28 @@ public class FragmentChapterVerses
         startActivity(intent);
     }
 
-    public void buttonShareClicked(ListVerse.Entry entry) {
-        Log.d(TAG, "buttonSaveClicked() called with reference = [" + entry.getReference() + "]");
-        String text = mBook.getName() + " (" +
-                      mChapter.getChapterNumber() + ":" +
-                      entry.getVerseNumber() + ") " +
-                      entry.getVerseText() + " " +
-                      getString(R.string.share_append_text);
-        startActivity(Utilities.shareVerse(text));
+    public void buttonShareClicked() {
+        Log.d(TAG, "buttonShareClicked() called");
+        ArrayList<ListVerse.Entry> entries = ListVerse.getSelectedEntries();
+        if (entries.isEmpty()) {
+            Log.d(TAG, "buttonShareClicked: but no selected entries exist");
+            return;
+        }
+        StringBuilder shareText = new StringBuilder();
+        String text;
+        for (ListVerse.Entry entry : entries) {
+            text = mBook.getName() + " (" +
+                   mChapter.getChapterNumber() + ":" +
+                   entry.getVerseNumber() + ") " +
+                   entry.getVerseText() + "\n";
+            shareText.append(text);
+        }
+        shareText.append(getString(R.string.share_append_text));
+        startActivity(Utilities.shareVerse(shareText.toString()));
+    }
+
+    public void showActionBar() {
+        ButtonBarLayout view = (ButtonBarLayout) getActivity().findViewById(R.id.verse_actions);
+        view.setVisibility(ListVerse.isSelectedEntriesEmpty() ? View.GONE : View.VISIBLE);
     }
 }
