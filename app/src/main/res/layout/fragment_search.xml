@@ -47,10 +47,11 @@
             android:id="@+id/frag_search_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_text_to_search" />
+            android:hint="@string/hint_text_to_search"
+            android:maxLines="1" />
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.v7.widget.LinearLayoutCompat
+    <android.support.v7.widget.ButtonBarLayout
         android:id="@+id/frag_search_button_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,31 +61,39 @@
         android:animateLayoutChanges="true">
 
         <android.support.v7.widget.AppCompatButton
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:background="@color/button_background"
+            android:paddingRight="@dimen/gap_big"
+            android:paddingLeft="@dimen/gap_big"
             android:id="@+id/frag_search_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/button_search_text" />
 
-        <android.support.v7.widget.LinearLayoutCompat
+        <android.support.v7.widget.ButtonBarLayout
             android:id="@+id/frag_search_verse_actions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <android.support.v7.widget.AppCompatButton
+                style="@style/Base.Widget.AppCompat.Button.Colored"
+                android:background="@color/button_background"
                 android:id="@+id/frag_search_but_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/button_save" />
 
             <android.support.v7.widget.AppCompatButton
+                style="@style/Base.Widget.AppCompat.Button.Colored"
+                android:background="@color/button_background"
                 android:id="@+id/frag_search_but_share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/button_share" />
-        </android.support.v7.widget.LinearLayoutCompat>
-    </android.support.v7.widget.LinearLayoutCompat>
+        </android.support.v7.widget.ButtonBarLayout>
+    </android.support.v7.widget.ButtonBarLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/frag_search_results"

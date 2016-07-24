@@ -116,12 +116,12 @@ public class FragmentSearch
         String input = mInput.getText().toString().trim();
         if (input.isEmpty()) {
             resetButtonClicked();
-            mInput.setError(getString(R.string.search_text_empty));
+            mLabel.setError(getString(R.string.search_text_empty));
             return;
         }
         if (input.length() < 3) {
             resetButtonClicked();
-            mInput.setError(getString(R.string.search_text_length));
+            mLabel.setError(getString(R.string.search_text_length));
             return;
         }
         DatabaseUtility dbu = DatabaseUtility.getInstance(getActivity().getApplicationContext());
