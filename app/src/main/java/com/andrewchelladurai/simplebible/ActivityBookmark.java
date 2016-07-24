@@ -28,15 +28,24 @@ package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 
 public class ActivityBookmark
-        extends AppCompatActivity {
+        extends AppCompatActivity
+        implements View.OnClickListener {
 
     private static final String TAG = "SB_ActivityBookmark";
     private ArrayList<String> mReferences;
+    private String            mViewNode;
+    private AppCompatEditText mNotes;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -45,23 +54,29 @@ public class ActivityBookmark
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_bookmark_toolbar);
         setSupportActionBar(toolbar);
         mReferences = getIntent().getExtras().getStringArrayList(Utilities.REFERENCES);
+        if (mReferences == null) {
+            Utilities.throwError(TAG + " mReferences == null");
+        }
+        mViewNode = getIntent().getExtras().getString(
+                Utilities.BOOKMARK_MODE, Utilities.BOOKMARK_VIEW);
+
+        // // FIXME: 24/7/16 OVER RIDING FOR TESTING
+        mViewNode = Utilities.BOOKMARK_EDIT;
+
+        Log.d(TAG,
+              "onCreate: mReferences.size [" + mReferences.size() + "] mode [" + mViewNode + "]");
+
+        mNotes = (AppCompatEditText) findViewById(R.id.activity_bookmark_notes);
+        populateReferences();
+        prepareScreen();
     }
 
-/*    private void updateTopPanel() {
-        AppCompatTextView referenceView = (AppCompatTextView)
-                findViewById(R.id.activity_bookmark_reference);
-        if (referenceView == null) {
-            Utilities.throwError(TAG + " referenceView == null");
-        }
+    private void populateReferences() {
         ListViewCompat verseList = (ListViewCompat)
-                findViewById(R.id.activity_bookmark_verse_list);
+                findViewById(R.id.activity_bookmark_list);
         if (verseList == null) {
             Utilities.throwError(TAG + " verseList == null");
         }
-
-        String value = mReferences.size() + " " +
-                       getString(R.string.bookmark_multiple_references);
-        referenceView.setText(value);
 
         DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
         String[] parts;
@@ -79,29 +94,36 @@ public class ActivityBookmark
                 this, android.R.layout.simple_list_item_1, verses));
     }
 
-    private void updateBottomPanel(boolean isEditMode) {
-        mNotesInput = (AppCompatEditText) findViewById(R.id.activity_bookmark_notes);
-        if (isEditMode){
-            bindButton(R.id.activity_bookmark_but_save, true);
+    private void prepareScreen() {
+        switch (mViewNode) {
+            case Utilities.BOOKMARK_EDIT:
+                bindButton(R.id.activity_bookmark_but_save, View.VISIBLE);
+                bindButton(R.id.activity_bookmark_but_edit, View.GONE);
+                mNotes.setEnabled(true);
+                break;
+            case Utilities.BOOKMARK_VIEW:
+                bindButton(R.id.activity_bookmark_but_save, View.GONE);
+                bindButton(R.id.activity_bookmark_but_edit, View.VISIBLE);
+                mNotes.setEnabled(false);
+                break;
+            default:
+                Log.d(TAG, "prepareScreen: " + getString(R.string.how_am_i_here));
         }
-        bindButton(R.id.activity_bookmark_but_edit, );
-        bindButton(R.id.activity_bookmark_but_delete, isEditMode);
-        bindButton(R.id.activity_bookmark_but_cancel, isEditMode);
+        bindButton(R.id.activity_bookmark_but_delete, View.VISIBLE);
+        bindButton(R.id.activity_bookmark_but_share, View.VISIBLE);
     }
 
-    private void bindButton(int buttonId, boolean invisible) {
-        AppCompatImageButton button = (AppCompatImageButton) findViewById(buttonId);
+    private void bindButton(int buttonId, int visibilityMode) {
+        AppCompatButton button = (AppCompatButton) findViewById(buttonId);
         if (button == null) {
             Utilities.throwError(TAG + " button == null : " + buttonId);
         }
-        if (invisible) {
-            button.setVisibility(View.GONE);
-        }
         button.setOnClickListener(this);
+        button.setVisibility(visibilityMode);
     }
 
     @Override public void onClick(View view) {
-        if (view instanceof AppCompatImageButton) {
+        if (view instanceof AppCompatButton) {
             switch (view.getId()) {
                 case R.id.activity_bookmark_but_save:
                     buttonSaveClicked();
@@ -112,13 +134,17 @@ public class ActivityBookmark
                 case R.id.activity_bookmark_but_delete:
                     buttonDeleteClicked();
                     break;
-                case R.id.activity_bookmark_but_cancel:
-                    buttonCancelClicked();
+                case R.id.activity_bookmark_but_share:
+                    buttonShareClicked();
                     break;
                 default:
                     Utilities.throwError(TAG + getString(R.string.how_am_i_here));
             }
         }
+    }
+
+    private void buttonShareClicked() {
+        Log.d(TAG, "buttonShareClicked called");
     }
 
     private void buttonSaveClicked() {
@@ -132,8 +158,4 @@ public class ActivityBookmark
     private void buttonDeleteClicked() {
         Log.d(TAG, "buttonDeleteClicked() called");
     }
-
-    private void buttonCancelClicked() {
-        Log.d(TAG, "buttonCancelClicked() called");
-    }*/
 }
