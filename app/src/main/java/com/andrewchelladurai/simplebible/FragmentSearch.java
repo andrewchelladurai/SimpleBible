@@ -28,11 +28,11 @@ package com.andrewchelladurai.simplebible;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -40,7 +40,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
@@ -77,11 +76,11 @@ public class FragmentSearch
         mListAdapter = new AdapterSearchList(ListSearch.getEntries(), this);
         listResults.setAdapter(mListAdapter);
 
-        FloatingActionButton button =
-                (FloatingActionButton) view.findViewById(R.id.frag_search_but_save);
+        AppCompatButton button =
+                (AppCompatButton) view.findViewById(R.id.frag_search_but_save);
         button.setOnClickListener(this);
 
-        button = (FloatingActionButton) view.findViewById(R.id.frag_search_but_share);
+        button = (AppCompatButton) view.findViewById(R.id.frag_search_but_share);
         button.setOnClickListener(this);
 
         return view;
@@ -101,11 +100,6 @@ public class FragmentSearch
                         resetButtonClicked();
                     }
                     break;
-                default:
-                    Utilities.throwError(TAG + " onClick() unknown Button ID" + v.getId());
-            }
-        } else if (v instanceof FloatingActionButton) {
-            switch (v.getId()) {
                 case R.id.frag_search_but_save:
                     buttonSaveClicked();
                     break;
@@ -215,7 +209,7 @@ public class FragmentSearch
     }
 
     public void showActionBar() {
-        LinearLayout view = (LinearLayout) getActivity().findViewById(
+        LinearLayoutCompat view = (LinearLayoutCompat) getActivity().findViewById(
                 R.id.frag_search_verse_actions);
         view.setVisibility((ListSearch.isSelectedEntriesEmpty()) ? View.GONE : View.VISIBLE);
     }
