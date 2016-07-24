@@ -37,7 +37,7 @@ import java.util.Map;
 
 public class ListChapter {
 
-    private static final String             TAG          = "SB_ChapterList";
+    private static final String             TAG          = "SB_ListChapter";
     private static final StringBuilder      mPrependText = new StringBuilder();
     private static final List<Entry>        ITEMS        = new ArrayList<>();
     private static final Map<String, Entry> ITEM_MAP     = new HashMap<>();
@@ -85,6 +85,8 @@ public class ListChapter {
                 return new Entry[size];
             }
         };
+
+        private static final String TAG = "SB_ListChapter.Entry";
         private final String chapterNumber;
 
         public Entry(String position) {

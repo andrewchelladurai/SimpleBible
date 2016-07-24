@@ -56,7 +56,6 @@ public class FragmentHome
 
     public FragmentHome() {
         // FIXME: Make the layout better for landscape position
-        // FIXME: make the Verse show text
     }
 
     public static FragmentHome newInstance() {
@@ -98,14 +97,6 @@ public class FragmentHome
 
         return view;
     }
-
-    /*@Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }*/
 
     private void displayVerse() {
         String verseRef = getArguments().getString(Utilities.TODAY_VERSE_REFERENCE);
@@ -200,7 +191,8 @@ public class FragmentHome
         mBookInput.requestFocus();
     }
 
-    @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ListBooks.Entry item = getBookDetails();
         refreshChapterInput(item.getChapterCount());
     }

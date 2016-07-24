@@ -56,12 +56,12 @@ public class ListNotes {
         }
     }
 
-    public static List<Entry> getITEMS() {
-        return ITEMS;
-    }
-
     public static int getCount() {
         return ITEMS.size();
+    }
+
+    public static List<Entry> getEntries() {
+        return ITEMS;
     }
 
     public static class Entry {

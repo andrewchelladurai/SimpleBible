@@ -71,7 +71,6 @@ public class AdapterVerseList
         public final  View              mView;
         private final AppCompatTextView mContent;
         public        ListVerse.Entry   mEntry;
-        private boolean isSelected = false;
 
         public VerseView(View view) {
             super(view);

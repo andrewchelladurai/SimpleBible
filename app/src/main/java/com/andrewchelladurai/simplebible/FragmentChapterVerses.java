@@ -49,6 +49,7 @@ public class FragmentChapterVerses
     private ListChapter.Entry mChapter;
 
     public FragmentChapterVerses() {
+        // FIXME: 24/7/16 Rotating device clears selected data
     }
 
     @Override
@@ -108,7 +109,7 @@ public class FragmentChapterVerses
 
     @Override public void onDestroyView() {
         super.onDestroyView();
-        ListVerse.clearEntries();
+        ListVerse.truncate();
     }
 
     @Override

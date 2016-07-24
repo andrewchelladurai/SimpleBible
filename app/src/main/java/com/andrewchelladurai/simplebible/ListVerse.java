@@ -37,15 +37,15 @@ import java.util.Map;
 
 public class ListVerse {
 
-    private static final String             TAG              = "ListVerse";
-    private static final ArrayList<Entry>   ITEMS            = new ArrayList<>();
-    private static final Map<String, Entry> ITEM_MAP         = new HashMap<>();
-    private static final ArrayList<Entry>   SELECTED_ENTRIES = new ArrayList<>();
+    private static final String             TAG      = "SB_ListVerse";
+    private static final ArrayList<Entry>   ITEMS    = new ArrayList<>();
+    private static final Map<String, Entry> ITEM_MAP = new HashMap<>();
+    private static final ArrayList<Entry>   SELECTED = new ArrayList<>();
 
     public static void populateEntries(ArrayList<String> verseList, int bookNumber,
                                        int chapterNumber) {
         Log.d(TAG, "populateEntries() called");
-        clearEntries();
+        truncate();
         Entry entry;
         for (int i = 0; i < verseList.size(); i++) {
             entry = new Entry(bookNumber, chapterNumber, (i + 1), verseList.get(i));
@@ -54,42 +54,38 @@ public class ListVerse {
         }
     }
 
-    public static void clearEntries() {
+    public static void truncate() {
         ITEMS.clear();
         ITEM_MAP.clear();
-        SELECTED_ENTRIES.clear();
+        SELECTED.clear();
     }
 
     public static List<Entry> getEntries() {
         return ITEMS;
     }
 
-    public static Map<String, Entry> getEntryMap() {
-        return ITEM_MAP;
-    }
-
     public static void addSelectedEntry(Entry entry) {
-        SELECTED_ENTRIES.add(entry);
+        SELECTED.add(entry);
     }
 
     public static void removeSelectedEntry(Entry entry) {
-        if (SELECTED_ENTRIES.contains(entry)) {
-            SELECTED_ENTRIES.remove(entry);
+        if (SELECTED.contains(entry)) {
+            SELECTED.remove(entry);
         } else {
             Log.i(TAG, "removeSelectedEntry: " + entry.getReference() + " not present");
         }
     }
 
     public static boolean isSelectedEntriesEmpty() {
-        return SELECTED_ENTRIES.isEmpty();
+        return SELECTED.isEmpty();
     }
 
     public static ArrayList<Entry> getSelectedEntries() {
-        return SELECTED_ENTRIES;
+        return SELECTED;
     }
 
     public static boolean isEntrySelected(Entry entry) {
-        return SELECTED_ENTRIES.contains(entry);
+        return SELECTED.contains(entry);
     }
 
     public static class Entry
@@ -107,6 +103,8 @@ public class ListVerse {
                 return new Entry[size];
             }
         };
+
+        private static final String TAG = "SB_ListVerse.Entry";
         private final String mBookNumber;
         private final String mChapterNumber;
         private final String mVerseNumber;

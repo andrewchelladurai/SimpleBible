@@ -90,6 +90,8 @@ public class ListBooks {
                 return new Entry[size];
             }
         };
+
+        private static final String TAG = "SB_BooksList.Entry";
         private final String mName;
         private final String mChapterCount;
         private final String mBookNumber;
