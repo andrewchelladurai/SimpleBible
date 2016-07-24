@@ -77,13 +77,16 @@
     </android.support.v7.widget.LinearLayoutCompat>
 
     <android.support.v7.widget.ButtonBarLayout
-        android:layout_marginBottom="@dimen/gap"
         android:id="@+id/activity_bookmark_button_bar"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/gap_small"
+        android:layout_marginStart="@dimen/gap_big"
+        android:layout_marginLeft="@dimen/gap_big"
+        android:layout_marginEnd="@dimen/gap_big"
+        android:layout_marginRight="@dimen/gap_big"
         android:gravity="top|center">
 
         <android.support.v7.widget.AppCompatButton
@@ -91,7 +94,7 @@
             style="@style/Base.Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/button_background"
+            android:layout_weight="1"
             android:contentDescription="@string/button_save"
             android:text="@string/button_save" />
 
@@ -100,7 +103,7 @@
             style="@style/Base.Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/button_background"
+            android:layout_weight="1"
             android:contentDescription="@string/button_edit"
             android:text="@string/button_edit" />
 
@@ -109,7 +112,7 @@
             style="@style/Base.Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/button_background"
+            android:layout_weight="1"
             android:contentDescription="@string/button_delete"
             android:text="@string/button_delete" />
 
@@ -118,7 +121,7 @@
             style="@style/Base.Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/button_background"
+            android:layout_weight="1"
             android:contentDescription="@string/button_share"
             android:text="@string/button_share" />
     </android.support.v7.widget.ButtonBarLayout>

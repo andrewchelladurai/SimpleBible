@@ -32,7 +32,6 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -50,8 +49,8 @@ public class FragmentSearch
     private static final String TAG = "SB_FragmentSearch";
     private TextInputEditText mInput;
     private AdapterSearchList mListAdapter;
-    private AppCompatButton   mButton;
     private TextInputLayout   mLabel;
+    private AppCompatButton   mSearchButton, mSaveButton, mShareButton;
 
     public FragmentSearch() {
     }
@@ -69,19 +68,18 @@ public class FragmentSearch
         mInput.addTextChangedListener(this);
         mLabel = (TextInputLayout) view.findViewById(R.id.frag_search_label);
 
-        mButton = (AppCompatButton) view.findViewById(R.id.frag_search_button);
-        mButton.setOnClickListener(this);
+        mSearchButton = (AppCompatButton) view.findViewById(R.id.frag_search_button);
+        mSearchButton.setOnClickListener(this);
 
         RecyclerView listResults = (RecyclerView) view.findViewById(R.id.frag_search_results);
         mListAdapter = new AdapterSearchList(ListSearch.getEntries(), this);
         listResults.setAdapter(mListAdapter);
 
-        AppCompatButton button =
-                (AppCompatButton) view.findViewById(R.id.frag_search_but_save);
-        button.setOnClickListener(this);
+        mSaveButton = (AppCompatButton) view.findViewById(R.id.frag_search_but_save);
+        mSaveButton.setOnClickListener(this);
 
-        button = (AppCompatButton) view.findViewById(R.id.frag_search_but_share);
-        button.setOnClickListener(this);
+        mShareButton = (AppCompatButton) view.findViewById(R.id.frag_search_but_share);
+        mShareButton.setOnClickListener(this);
 
         return view;
     }
@@ -91,7 +89,7 @@ public class FragmentSearch
         if (v instanceof AppCompatButton) {
             switch (v.getId()) {
                 case R.id.frag_search_button:
-                    String buttonText = mButton.getText().toString();
+                    String buttonText = mSearchButton.getText().toString();
                     if (buttonText.equalsIgnoreCase(
                             getString(R.string.button_search_text))) {
                         searchButtonClicked();
@@ -137,7 +135,7 @@ public class FragmentSearch
         ListSearch.populate(list);
         showActionBar();
         mListAdapter.notifyDataSetChanged();
-        mButton.setText(getString(R.string.button_search_reset));
+        mSearchButton.setText(getString(R.string.button_search_reset));
     }
 
     private void resetButtonClicked() {
@@ -146,7 +144,7 @@ public class FragmentSearch
         mInput.setText("");
         mInput.setError(null);
         mLabel.setError(null);
-        mButton.setText(getString(R.string.button_search_text));
+        mSearchButton.setText(getString(R.string.button_search_text));
         mListAdapter.notifyDataSetChanged();
         mInput.requestFocus();
         showActionBar();
@@ -204,13 +202,13 @@ public class FragmentSearch
     @Override public void afterTextChanged(Editable s) {
         mInput.setError(null);
         mLabel.setError(null);
-        mButton.setText(getString(R.string.button_search_text));
+        mSearchButton.setText(getString(R.string.button_search_text));
         showActionBar();
     }
 
     public void showActionBar() {
-        LinearLayoutCompat view = (LinearLayoutCompat) getActivity().findViewById(
-                R.id.frag_search_verse_actions);
-        view.setVisibility((ListSearch.isSelectedEntriesEmpty()) ? View.GONE : View.VISIBLE);
+        int visibility = (ListSearch.isSelectedEntriesEmpty()) ? View.GONE : View.VISIBLE;
+        mSaveButton.setVisibility(visibility);
+        mShareButton.setVisibility(visibility);
     }
 }
