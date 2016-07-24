@@ -40,6 +40,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import static com.andrewchelladurai.simplebible.ListVerse.getEntries;
+
 public class FragmentChapterVerses
         extends Fragment
         implements View.OnClickListener {
@@ -53,8 +55,12 @@ public class FragmentChapterVerses
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate(Bundle savedState) {
+        super.onCreate(savedState);
+
+        if (savedState != null) {
+            return;
+        }
 
         Toolbar appBar = (Toolbar) getActivity()
                 .findViewById(R.id.activity_chapter_detail_toolbar);
@@ -81,8 +87,7 @@ public class FragmentChapterVerses
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
         View view = inflater.inflate(R.layout.fragment_verse_list, container, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_verse_list);
 
@@ -95,7 +100,7 @@ public class FragmentChapterVerses
         }
 
         ListVerse.populateEntries(verseList, bookNumber, chapterNumber);
-        recyclerView.setAdapter(new AdapterVerseList(ListVerse.getEntries(), this));
+        recyclerView.setAdapter(new AdapterVerseList(getEntries(), this));
 
         AppCompatButton button =
                 (AppCompatButton) getActivity().findViewById(R.id.activity_chapter_fab_save);
@@ -112,8 +117,7 @@ public class FragmentChapterVerses
         ListVerse.truncate();
     }
 
-    @Override
-    public void onClick(View v) {
+    @Override public void onClick(View v) {
         if (v instanceof AppCompatButton) {
             if (ListVerse.isSelectedEntriesEmpty()) {
                 Log.d(TAG, "onClick: isSelectedEntriesEmpty = true, but button was clicked");
@@ -132,7 +136,7 @@ public class FragmentChapterVerses
         }
     }
 
-    public void buttonSaveClicked() {
+    private void buttonSaveClicked() {
         Log.d(TAG, "buttonSaveClicked() called");
 
         ArrayList<ListVerse.Entry> entries = ListVerse.getSelectedEntries();
@@ -153,7 +157,7 @@ public class FragmentChapterVerses
         startActivity(intent);
     }
 
-    public void buttonShareClicked() {
+    private void buttonShareClicked() {
         Log.d(TAG, "buttonShareClicked() called");
         ArrayList<ListVerse.Entry> entries = ListVerse.getSelectedEntries();
         if (entries.isEmpty()) {
