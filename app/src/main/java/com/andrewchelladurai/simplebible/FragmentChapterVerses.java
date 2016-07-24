@@ -40,8 +40,6 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import static com.andrewchelladurai.simplebible.ListVerse.getEntries;
-
 public class FragmentChapterVerses
         extends Fragment
         implements View.OnClickListener {
@@ -49,6 +47,7 @@ public class FragmentChapterVerses
     private static final String TAG = "SB_FragChapterVerses";
     private ListBooks.Entry   mBook;
     private ListChapter.Entry mChapter;
+    private Bundle            mBundle;
 
     public FragmentChapterVerses() {
         // FIXME: 24/7/16 Rotating device clears selected data
@@ -57,11 +56,6 @@ public class FragmentChapterVerses
     @Override
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
-
-        if (savedState != null) {
-            return;
-        }
-
         Toolbar appBar = (Toolbar) getActivity()
                 .findViewById(R.id.activity_chapter_detail_toolbar);
 
@@ -77,6 +71,14 @@ public class FragmentChapterVerses
         if (chapterNumber == null) {
             Utilities.throwError(TAG + " onCreate : chapterNumber == null");
         }
+
+        mBundle = new Bundle();
+        mBundle.putParcelable(Utilities.CURRENT_BOOK, mBook);
+        mBundle.putParcelable(Utilities.CURRENT_CHAPTER, mChapter);
+        mBundle.putString(Utilities.CURRENT_CHAPTER_NUMBER, chapterNumber);
+        mBundle.putString(Utilities.LOAD_CHAPTER, getArguments().getString(Utilities.LOAD_CHAPTER));
+        Log.d(TAG, "onCreate: mBundle created " + mBook + " - " + mChapter + " - " + chapterNumber);
+
         StringBuilder title = new StringBuilder(mBook.getName())
                 .append(" : ").append(getString(R.string.chapter_list_prepend_text))
                 .append(" ").append(chapterNumber);
@@ -100,7 +102,7 @@ public class FragmentChapterVerses
         }
 
         ListVerse.populateEntries(verseList, bookNumber, chapterNumber);
-        recyclerView.setAdapter(new AdapterVerseList(getEntries(), this));
+        recyclerView.setAdapter(new AdapterVerseList(ListVerse.getEntries(), this));
 
         AppCompatButton button =
                 (AppCompatButton) getActivity().findViewById(R.id.activity_chapter_fab_save);
@@ -110,11 +112,6 @@ public class FragmentChapterVerses
         button.setOnClickListener(this);
 
         return view;
-    }
-
-    @Override public void onDestroyView() {
-        super.onDestroyView();
-        ListVerse.truncate();
     }
 
     @Override public void onClick(View v) {

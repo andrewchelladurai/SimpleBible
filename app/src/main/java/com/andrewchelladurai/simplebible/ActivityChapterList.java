@@ -43,6 +43,8 @@ public class ActivityChapterList
     private static final String TAG = "SB_ActivityChapterList";
     private boolean              mTwoPane;
     private RecyclerView.Adapter chapterAdapter;
+    private ListBooks.Entry      mBook;
+    private ListChapter.Entry    mChapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +64,7 @@ public class ActivityChapterList
         }
 
         Bundle extras = getIntent().getExtras();
-        ListBooks.Entry mBook = extras.getParcelable(Utilities.CURRENT_BOOK);
+        mBook = extras.getParcelable(Utilities.CURRENT_BOOK);
         if (mBook == null) {
             Utilities.throwError(TAG + " onCreate : mBook == null");
         }
@@ -74,8 +76,7 @@ public class ActivityChapterList
 
         String chapterText = getString(R.string.chapter_list_prepend_text).trim();
         ListChapter.populateList(Integer.parseInt(mBook.getChapterCount()), chapterText);
-        ListChapter.Entry mChapter = ListChapter.getItem(
-                extras.getString(Utilities.CURRENT_CHAPTER_NUMBER));
+        mChapter = ListChapter.getItem(extras.getString(Utilities.CURRENT_CHAPTER_NUMBER));
         if (mChapter == null) {
             Utilities.throwError(TAG + " onCreate : mChapter == null");
         }
@@ -100,27 +101,27 @@ public class ActivityChapterList
 
         if (extras.getString(Utilities.LOAD_CHAPTER).equalsIgnoreCase(Utilities.LOAD_CHAPTER_YES)) {
             Log.i(TAG, "onCreate: LOAD_CHAPTER = YES");
-            Bundle args = new Bundle();
-            args.putParcelable(Utilities.CURRENT_BOOK,
-                               getIntent().getExtras().getParcelable(Utilities.CURRENT_BOOK));
-            args.putParcelable(Utilities.CURRENT_CHAPTER, mChapter);
             chapterClicked(mChapter);
         }
     }
 
     void chapterClicked(ListChapter.Entry chapterEntry) {
         Bundle args = new Bundle();
-        args.putParcelable(Utilities.CURRENT_BOOK,
-                           getIntent().getExtras().getParcelable(Utilities.CURRENT_BOOK));
+        args.putParcelable(Utilities.CURRENT_BOOK, mBook);
         args.putParcelable(Utilities.CURRENT_CHAPTER, chapterEntry);
+        args.putString(Utilities.CURRENT_CHAPTER_NUMBER, chapterEntry.getChapterNumber());
+        args.putString(Utilities.LOAD_CHAPTER,
+                       getIntent().getExtras().getString(Utilities.LOAD_CHAPTER));
 
         if (isDualPane()) {
+            Log.d(TAG, "chapterClicked: isDualPane = true");
             FragmentChapterVerses fragment = new FragmentChapterVerses();
             fragment.setArguments(args);
             getSupportFragmentManager().beginTransaction()
                                        .replace(R.id.chapter_container, fragment)
                                        .commit();
         } else {
+            Log.d(TAG, "chapterClicked: isDualPane = false");
             Intent intent = new Intent(getApplicationContext(), ActivityChapterVerses.class);
             intent.putExtras(args);
             startActivity(intent);

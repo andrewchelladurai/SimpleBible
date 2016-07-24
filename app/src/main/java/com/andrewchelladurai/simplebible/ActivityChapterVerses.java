@@ -32,18 +32,44 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 public class ActivityChapterVerses
         extends AppCompatActivity {
 
-    private static final String TAG = "SB_ActivityChapterVerses";
+    private static final String TAG = "SB_ActivityChapterVerse";
+    private Bundle mBundle;
 
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
-        setContentView(R.layout.activity_chapter_detail);
 
+        // Start to get all the necessary arguments for operation
+        Bundle extras = getIntent().getExtras();
+        ListBooks.Entry book = extras.getParcelable(Utilities.CURRENT_BOOK);
+        if (book == null) {
+            Utilities.throwError(TAG + "onCreate: book == null");
+        }
+        ListChapter.Entry chapter = extras.getParcelable(Utilities.CURRENT_CHAPTER);
+        if (chapter == null) {
+            Utilities.throwError(TAG + "onCreate: chapter == null");
+        }
+        String chapterNumber = extras.getString(Utilities.CURRENT_CHAPTER_NUMBER);
+        if (chapterNumber == null) {
+            Utilities.throwError(TAG + "onCreate: chapterNumber == null");
+        }
+        String loadChapter = Utilities.LOAD_CHAPTER_NO;
+
+        mBundle = new Bundle();
+        mBundle.putParcelable(Utilities.CURRENT_BOOK, book);
+        mBundle.putParcelable(Utilities.CURRENT_CHAPTER, chapter);
+        mBundle.putString(Utilities.CURRENT_CHAPTER_NUMBER, chapterNumber);
+        mBundle.putString(Utilities.LOAD_CHAPTER, loadChapter);
+        Log.d(TAG, "onCreate: mBundle created " + book + " - " + chapter + " - " + chapterNumber);
+        // Got all the necessary arguments for operation
+
+        setContentView(R.layout.activity_chapter_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_chapter_detail_toolbar);
         if (toolbar == null) {
             Utilities.throwError(TAG + " onCreate : toolbar == null");
@@ -55,38 +81,18 @@ public class ActivityChapterVerses
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        if (savedState == null) {
-            FragmentChapterVerses fragment = new FragmentChapterVerses();
-            Bundle extras = getIntent().getExtras();
-            Bundle args = new Bundle();
-            args.putParcelable(Utilities.CURRENT_CHAPTER,
-                               extras.getParcelable(Utilities.CURRENT_CHAPTER));
-            args.putParcelable(Utilities.CURRENT_BOOK,
-                               extras.getParcelable(Utilities.CURRENT_BOOK));
-            args.putString(Utilities.LOAD_CHAPTER, Utilities.LOAD_CHAPTER_NO);
-
-            fragment.setArguments(args);
-            getSupportFragmentManager().beginTransaction().add(
-                    R.id.activity_chapter_detail_chapter_container, fragment).commit();
-        }
+        FragmentChapterVerses fragment = new FragmentChapterVerses();
+        fragment.setArguments(mBundle);
+        getSupportFragmentManager().beginTransaction().add(
+                R.id.activity_chapter_detail_chapter_container, fragment).commit();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            Bundle extras = getIntent().getExtras();
-            ListBooks.Entry book = extras.getParcelable(Utilities.CURRENT_BOOK);
-            ListChapter.Entry chapter = extras.getParcelable(Utilities.CURRENT_CHAPTER);
-
-            Bundle args = new Bundle();
-            args.putParcelable(Utilities.CURRENT_CHAPTER, chapter);
-            args.putParcelable(Utilities.CURRENT_BOOK, book);
-            args.putString(Utilities.CURRENT_CHAPTER_NUMBER, chapter.getChapterNumber());
-            args.putString(Utilities.LOAD_CHAPTER, Utilities.LOAD_CHAPTER_NO);
-
             Intent intent = new Intent(this, ActivityChapterList.class);
-            intent.putExtras(args);
+            intent.putExtras(mBundle);
             NavUtils.navigateUpTo(this, intent);
             return true;
         }
