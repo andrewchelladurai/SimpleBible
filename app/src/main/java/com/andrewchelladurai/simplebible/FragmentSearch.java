@@ -55,7 +55,6 @@ public class FragmentSearch
     private TextInputLayout   mLabel;
 
     public FragmentSearch() {
-        // FIXME: 24/7/16 Rotating device clears data
     }
 
     public static FragmentSearch newInstance() {
@@ -64,9 +63,9 @@ public class FragmentSearch
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
-        super.onCreateView(inflater,container,savedState);
-
+//        super.onCreateView(inflater, container, savedState);
         View view = inflater.inflate(R.layout.fragment_search, container, false);
+
         mInput = (TextInputEditText) view.findViewById(R.id.frag_search_input);
         mInput.addTextChangedListener(this);
         mLabel = (TextInputLayout) view.findViewById(R.id.frag_search_label);
@@ -75,9 +74,6 @@ public class FragmentSearch
         mButton.setOnClickListener(this);
 
         RecyclerView listResults = (RecyclerView) view.findViewById(R.id.frag_search_results);
-        if (savedState == null) {
-            ListSearch.truncate();
-        }
         mListAdapter = new AdapterSearchList(ListSearch.getEntries(), this);
         listResults.setAdapter(mListAdapter);
 
@@ -215,8 +211,6 @@ public class FragmentSearch
         mInput.setError(null);
         mLabel.setError(null);
         mButton.setText(getString(R.string.button_search_text));
-        ListSearch.truncate();
-        mListAdapter.notifyDataSetChanged();
         showActionBar();
     }
 
