@@ -48,6 +48,21 @@ class KeyboardHideListener
     public void onPageScrolled(final int position, final float positionOffset,
                                final int positionOffsetPixels) {
         hideKeyboard();
+        StringBuilder pageTitle = new StringBuilder(activity.getString(R.string.app_name));
+        switch (position) {
+            case 0:
+                pageTitle.append(" : ").append(activity.getString(R.string.tab_home));
+                break;
+            case 1:
+                pageTitle.append(" : ").append(activity.getString(R.string.tab_books));
+                break;
+            case 2:
+                pageTitle.append(" : ").append(activity.getString(R.string.tab_search));
+                break;
+            case 3:
+                pageTitle.append(" : ").append(activity.getString(R.string.tab_notes));
+        }
+        activity.setTitle(pageTitle);
     }
 
     private void hideKeyboard() {

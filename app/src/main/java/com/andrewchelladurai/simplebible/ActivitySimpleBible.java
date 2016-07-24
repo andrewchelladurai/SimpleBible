@@ -27,7 +27,6 @@
 package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -41,12 +40,12 @@ import android.view.MenuItem;
 public class ActivitySimpleBible
         extends AppCompatActivity {
 
-    static {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-    }
-
     private static final String TAG = "SB_ActivitySimpleBible";
+
+    static {
+//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+    }
 
     private PagerAdapter mPagerAdapter;
     private ViewPager    mPager;
@@ -63,13 +62,11 @@ public class ActivitySimpleBible
         mPagerAdapter = new PagerAdapter(getSupportFragmentManager());
 
         mPager = (ViewPager) findViewById(R.id.act_sb_container);
-        if (mPager == null) throw new AssertionError(TAG + " mPager == null");
+        if (mPager == null) {
+            Utilities.throwError(TAG + " mPager == null");
+        }
         mPager.setAdapter(mPagerAdapter);
         mPager.addOnPageChangeListener(new KeyboardHideListener(this));
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.act_sb_tabs);
-        if (tabLayout == null) throw new AssertionError(TAG + " tabLayout == null");
-        tabLayout.setupWithViewPager(mPager);
     }
 
     @Override
@@ -86,7 +83,7 @@ public class ActivitySimpleBible
     public class PagerAdapter
             extends FragmentPagerAdapter {
 
-        private static final String TAG = "SB_SectionsPagerAdapter";
+        private static final String TAG = "SB_PagerAdapter";
 
         public PagerAdapter(FragmentManager fm) {
             super(fm);
@@ -125,7 +122,7 @@ public class ActivitySimpleBible
                 case 3:
                     return getString(R.string.tab_notes);
             }
-            return null;
+            return getString(R.string.app_name);
         }
     }
 }
