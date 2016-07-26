@@ -159,4 +159,6 @@
     <string name="bookmark_no_entry_note">Long click on a Search Result or Chapter Verse to Bookmark</string>
     <string name="bookmark_enter_notes">Click to enter notes for the verse</string>
     <string name="bookmark_multiple_db_entry_for_single_reference">Multiple separate notes present for this Verse exist.</string>
+    <string name="bookmark_empty_ask_to_enter">No notes exist for this saved reference.</string>
+    <string name="bookmark_new_entry_note">Enter notes here to save along with this new bookmarked reference</string>
 </resources>
