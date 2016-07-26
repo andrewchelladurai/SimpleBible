@@ -61,7 +61,7 @@ public class ActivityBookmark
                 Utilities.BOOKMARK_MODE, Utilities.BOOKMARK_VIEW);
 
         // // FIXME: 24/7/16 OVER RIDING FOR TESTING
-        mViewNode = Utilities.BOOKMARK_EDIT;
+        mViewNode = Utilities.BOOKMARK_VIEW;
 
         Log.d(TAG,
               "onCreate: mReferences.size [" + mReferences.size() + "] mode [" + mViewNode + "]");
@@ -99,18 +99,23 @@ public class ActivityBookmark
             case Utilities.BOOKMARK_EDIT:
                 bindButton(R.id.activity_bookmark_but_save, View.VISIBLE);
                 bindButton(R.id.activity_bookmark_but_edit, View.GONE);
+                bindButton(R.id.activity_bookmark_but_delete, View.GONE);
+                bindButton(R.id.activity_bookmark_but_share, View.GONE);
                 mNotes.setEnabled(true);
                 break;
             case Utilities.BOOKMARK_VIEW:
                 bindButton(R.id.activity_bookmark_but_save, View.GONE);
                 bindButton(R.id.activity_bookmark_but_edit, View.VISIBLE);
+                bindButton(R.id.activity_bookmark_but_delete, View.VISIBLE);
+                bindButton(R.id.activity_bookmark_but_share, View.VISIBLE);
                 mNotes.setEnabled(false);
                 break;
             default:
                 Log.d(TAG, "prepareScreen: " + getString(R.string.how_am_i_here));
         }
-        bindButton(R.id.activity_bookmark_but_delete, View.VISIBLE);
-        bindButton(R.id.activity_bookmark_but_share, View.VISIBLE);
+        mNotes.setText((mNotes.getText().length() == 0)
+                       ? getString(R.string.bookmark_empty_notes)
+                       : mNotes.getText());
     }
 
     private void bindButton(int buttonId, int visibilityMode) {
@@ -143,19 +148,21 @@ public class ActivityBookmark
         }
     }
 
-    private void buttonShareClicked() {
-        Log.d(TAG, "buttonShareClicked called");
-    }
-
     private void buttonSaveClicked() {
         Log.d(TAG, "buttonSaveClicked() called");
     }
 
     private void buttonEditClicked() {
         Log.d(TAG, "buttonEditClicked() called");
+        mViewNode = Utilities.BOOKMARK_VIEW;
+        prepareScreen();
     }
 
     private void buttonDeleteClicked() {
         Log.d(TAG, "buttonDeleteClicked() called");
+    }
+
+    private void buttonShareClicked() {
+        Log.d(TAG, "buttonShareClicked called");
     }
 }
