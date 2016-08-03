@@ -115,22 +115,26 @@ public class AdapterNoteList
         void update(Entry entry) {
             mEntry = entry;
 
-            String text;
+            String text = "";
             String[] references = mEntry.getReference();
             if (references == null) {
                 Utilities.throwError(TAG + " references == null");
             }
-            if (references.length > 1) {
+            if (references.length > 1) {// FIXME: 3/8/16
+/*
                 text = references.length + " " +
                        mListener.getString(R.string.bookmark_multiple_references);
+*/
+                text = "bookmark_multiple_references";
             } else {
                 text = references[0];
             }
             mVerseText.setText(text);
 
             text = mEntry.getNotes();
-            if (null == text || text.isEmpty()) {
-                text = mListener.getString(R.string.bookmark_empty_notes);
+            if (null == text || text.isEmpty()) {// FIXME: 3/8/16
+//                text = mListener.getString(R.string.bookmark_empty_notes);
+                text = "bookmark_empty_notes";
             }
             if (text.length() > 60) {
                 text = text.substring(0, 60) + " ...";

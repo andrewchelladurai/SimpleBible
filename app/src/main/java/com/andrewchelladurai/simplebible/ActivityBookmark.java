@@ -61,18 +61,18 @@ public class ActivityBookmark
                 Utilities.BOOKMARK_MODE, Utilities.BOOKMARK_VIEW);
 
         // // FIXME: 24/7/16 OVER RIDING FOR TESTING
-        mViewNode = Utilities.BOOKMARK_VIEW;
+        mViewNode = Utilities.BOOKMARK_EDIT;
 
         Log.d(TAG,
               "onCreate: mReferences.size [" + mReferences.size() + "] mode [" + mViewNode + "]");
 
         mNotes = (AppCompatEditText) findViewById(R.id.activity_bookmark_notes);
-        populateReferences();
+        populateContent();
         prepareScreen();
     }
 
-    private void populateReferences() {
-        Log.d(TAG, "populateReferences() : Populate references in list");
+    private void populateContent() {
+        Log.d(TAG, "populateContent() : Populate references in list");
         ListViewCompat verseList = (ListViewCompat)
                 findViewById(R.id.activity_bookmark_list);
         if (verseList == null) {
@@ -93,22 +93,6 @@ public class ActivityBookmark
         }
         verseList.setAdapter(new ArrayAdapter<>(
                 this, android.R.layout.simple_list_item_1, verses));
-
-        Log.d(TAG, "populateReferences: Populate Notes for references");
-        if (mReferences.size() == 1) { // check only if one reference is passed
-            String[] refData = dbu.isReferencePresent(mReferences.get(0));
-            if (refData != null) { // we have some entry for the reference
-                if (refData[1].isEmpty()) { // but the notes is empty
-                    mNotes.setHint(getString(R.string.bookmark_empty_ask_to_enter));
-                } else {
-                    mNotes.setText(refData[1]);
-                }
-            } else {
-                mNotes.setHint(getString(R.string.bookmark_new_entry_note));
-            }
-        } else {
-            mNotes.setHint(getString(R.string.bookmark_multiple_db_entry_for_single_reference));
-        }
     }
 
     private void prepareScreen() {
