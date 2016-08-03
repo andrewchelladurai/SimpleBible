@@ -108,8 +108,6 @@
     <string name="menu_item_settings">Settings</string>
     <string name="menu_item_about">About</string>
 
-    <string name="section_format">Hello World from section: %1$d</string>
-
     <string name="hint_book_name">Enter Book Name</string>
     <string name="hint_chapter_number">Chapter #</string>
     <string name="hint_text_to_search">Enter exact text to search</string>
@@ -155,8 +153,10 @@
     <string name="button_edit">Edit</string>
     <string name="bookmark_multiple_references">verses bookmarked in this entry</string>
     <string name="bookmark_empty_notes">No notes was saved for this verse</string>
-    <string name="bookmark_no_entry_verse">No Bookmarked Verses exist</string>
-    <string name="bookmark_no_entry_note">Long click on a Search Result or Chapter Verse to Bookmark</string>
+    <string name="fragment_note_empty_header">No Bookmarked Verses exist</string>
+    <string name="fragment_note_empty_instruction">To start Bookmarking Verses, with or
+        without notes, you can either Long Click on a Search Result or Verse within a Chapter
+        and then select Save from the bottom list of options.</string>
     <string name="bookmark_enter_notes">Click to enter notes for the verse</string>
     <string name="bookmark_multiple_db_entry_for_single_reference">Multiple separate notes present for this Verse exist.</string>
     <string name="bookmark_empty_ask_to_enter">No notes exist for this saved reference.</string>
