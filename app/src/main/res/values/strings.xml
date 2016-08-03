@@ -156,4 +156,7 @@
     <string name="fragment_note_empty_instruction">To start Bookmarking Verses, with or
         without notes, you can either Long Click on a Search Result or Verse within a Chapter
         and then select Save from the bottom list of options.</string>
+    <string name="activity_bookmark_reference_present">This verse is already bookmarked</string>
+    <string name="activity_bookmark_reference_absent">This verse is not bookmarked previously. If
+        you wish, enter a note to associate with this verse.</string>
 </resources>

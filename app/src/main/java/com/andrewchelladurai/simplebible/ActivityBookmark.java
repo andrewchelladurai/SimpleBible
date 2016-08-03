@@ -93,6 +93,13 @@ public class ActivityBookmark
         }
         verseList.setAdapter(new ArrayAdapter<>(
                 this, android.R.layout.simple_list_item_1, verses));
+
+        if (mReferences.size() == 1) {
+            populateSingleReference();
+        } else {
+            populateMultipleReference();
+        }
+
     }
 
     private void prepareScreen() {
@@ -114,6 +121,24 @@ public class ActivityBookmark
             default:
                 Log.d(TAG, "prepareScreen: " + getString(R.string.how_am_i_here));
         }
+    }
+
+    private void populateSingleReference() {
+        Log.d(TAG, "populateSingleReference() called");
+        String reference = mReferences.get(0);
+        DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
+        switch (Integer.parseInt(dbu.isReferencePresent(reference))) {
+            case 0:// NO reference found
+                mNotes.setHint(getString(R.string.activity_bookmark_reference_absent));
+                break;
+            default:// Reference found
+                // FIXME: 4/8/16 handle when the reference is alredy present
+                mNotes.setHint(getString(R.string.activity_bookmark_reference_present));
+        }
+    }
+
+    private void populateMultipleReference() {
+        Log.d(TAG, "populateMultipleReference() called");
     }
 
     private void bindButton(int buttonId, int visibilityMode) {
