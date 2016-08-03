@@ -309,7 +309,7 @@ public class DatabaseUtility
         return value;
     }
 
-    public String[] isReferencePresent(String references) {
+    public String[] getReferenceDetails(String references) {
         final SQLiteDatabase db = getReadableDatabase();
         String[] selectCols = {BM_TABLE_REFERENCES, BM_TABLE_NOTES};
         String where = BM_TABLE_REFERENCES + " like ?";
@@ -319,7 +319,7 @@ public class DatabaseUtility
 
         String query = SQLiteQueryBuilder.buildQueryString(
                 true, BOOKMARK_TABLE, selectCols, where, null, null, null, null);
-        Log.d(TAG, "isReferencePresent: Query = " + query);
+        Log.d(TAG, "getReferenceDetails: Query = " + query);
 
         if (null != cursor && cursor.moveToFirst()) {
             String results[] = {cursor.getString(0), cursor.getString(1)};
@@ -327,6 +327,27 @@ public class DatabaseUtility
             return results;
         }
         return null;
+    }
+
+    public String isReferencePresent(String references) {
+        final SQLiteDatabase db = getReadableDatabase();
+        String[] selectCols = {"COUNT(" + BM_TABLE_REFERENCES + ")"};
+        String where = BM_TABLE_REFERENCES + " like ?";
+        String params[] = {"%" + references + "%"};
+        Cursor cursor = db.query(true, BOOKMARK_TABLE, selectCols, where, params,
+                                 null, null, null, null);
+
+        String query = SQLiteQueryBuilder.buildQueryString(
+                true, BOOKMARK_TABLE, selectCols, where, null, null, null, null);
+        Log.d(TAG, "isReferencePresent: Query = " + query);
+
+        String result = "0";
+        if (null != cursor && cursor.moveToFirst()) {
+            result = cursor.getString(0);
+            cursor.close();
+        }
+        Log.d(TAG, "isReferencePresent() returned: " + result);
+        return result; // Zero to indicate no reference exists.
     }
 
     public boolean createNewBookmark(String references, String notes) {
