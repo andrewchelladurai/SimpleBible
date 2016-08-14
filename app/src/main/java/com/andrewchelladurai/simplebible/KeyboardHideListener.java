@@ -26,11 +26,7 @@
 
 package com.andrewchelladurai.simplebible;
 
-import android.content.Context;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 23-Apr-2016 @ 1:44 PM
@@ -38,16 +34,16 @@ import android.view.inputmethod.InputMethodManager;
 class KeyboardHideListener
         implements ViewPager.OnPageChangeListener {
 
-    private final AppCompatActivity activity;
+    private final ActivitySimpleBible activity;
 
-    public KeyboardHideListener(final AppCompatActivity pActivity) {
+    public KeyboardHideListener(final ActivitySimpleBible pActivity) {
         activity = pActivity;
     }
 
     @Override
     public void onPageScrolled(final int position, final float positionOffset,
                                final int positionOffsetPixels) {
-        hideKeyboard();
+        Utilities.hideKeyboard(activity);
         StringBuilder pageTitle = new StringBuilder(activity.getString(R.string.app_name));
         switch (position) {
             case 0:
@@ -60,18 +56,10 @@ class KeyboardHideListener
                 pageTitle.append(" : ").append(activity.getString(R.string.tab_search));
                 break;
             case 3:
+                activity.refreshNotesScreen();
                 pageTitle.append(" : ").append(activity.getString(R.string.tab_notes));
         }
         activity.setTitle(pageTitle);
-    }
-
-    private void hideKeyboard() {
-        InputMethodManager im = (InputMethodManager)
-                activity.getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        View view = activity.getCurrentFocus();
-        if (view != null) {
-            im.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
     }
 
     @Override

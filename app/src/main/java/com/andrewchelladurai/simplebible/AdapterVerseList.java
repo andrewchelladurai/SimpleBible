@@ -49,7 +49,7 @@ public class AdapterVerseList
     @Override
     public VerseView onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                                  .inflate(R.layout.entry_verse, parent, false);
+                .inflate(R.layout.entry_verse, parent, false);
         return new VerseView(view);
     }
 
@@ -68,9 +68,9 @@ public class AdapterVerseList
             implements View.OnLongClickListener {
 
         private static final String TAG = "SB_VerseView";
-        public final  View              mView;
+        public final View mView;
         private final AppCompatTextView mContent;
-        public        ListVerse.Entry   mEntry;
+        public ListVerse.Entry mEntry;
 
         public VerseView(View view) {
             super(view);

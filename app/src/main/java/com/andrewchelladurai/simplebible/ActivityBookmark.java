@@ -27,16 +27,24 @@
 package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
+
+/* FIXME: 13/8/16 Implement the below flow
+    - IMPLEMENTED Single Verse Passed but does not Exist
+    - Single Verse Passed but it Exists
+    - Multiple Verse Passed but None Exist
+    - Multiple Verse Passed but One Exist
+    - Multiple Verse Passed but more than One Exist
+ */
 
 public class ActivityBookmark
         extends AppCompatActivity
@@ -44,7 +52,7 @@ public class ActivityBookmark
 
     private static final String TAG = "SB_ActivityBookmark";
     private ArrayList<String> mReferences;
-    private String            mViewNode;
+    private String mViewNode;
     private AppCompatEditText mNotes;
 
     @Override
@@ -63,8 +71,8 @@ public class ActivityBookmark
         // // FIXME: 24/7/16 OVER RIDING FOR TESTING
         mViewNode = Utilities.BOOKMARK_EDIT;
 
-        Log.d(TAG,
-              "onCreate: mReferences.size [" + mReferences.size() + "] mode [" + mViewNode + "]");
+        Utilities.log(TAG,
+                "onCreate: mReferences.size [" + mReferences.size() + "] mode [" + mViewNode + "]");
 
         mNotes = (AppCompatEditText) findViewById(R.id.activity_bookmark_notes);
         populateContent();
@@ -72,7 +80,7 @@ public class ActivityBookmark
     }
 
     private void populateContent() {
-        Log.d(TAG, "populateContent() : Populate references in list");
+        Utilities.log(TAG, "populateContent() : Populate references in list");
         ListViewCompat verseList = (ListViewCompat)
                 findViewById(R.id.activity_bookmark_list);
         if (verseList == null) {
@@ -99,7 +107,6 @@ public class ActivityBookmark
         } else {
             populateMultipleReference();
         }
-
     }
 
     private void prepareScreen() {
@@ -119,12 +126,12 @@ public class ActivityBookmark
                 mNotes.setEnabled(false);
                 break;
             default:
-                Log.d(TAG, "prepareScreen: " + getString(R.string.how_am_i_here));
+                Utilities.log(TAG, "prepareScreen: " + getString(R.string.how_am_i_here));
         }
     }
 
     private void populateSingleReference() {
-        Log.d(TAG, "populateSingleReference() called");
+        Utilities.log(TAG, "populateSingleReference() called");
         String reference = mReferences.get(0);
         DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
         switch (Integer.parseInt(dbu.isReferencePresent(reference))) {
@@ -132,13 +139,18 @@ public class ActivityBookmark
                 mNotes.setHint(getString(R.string.activity_bookmark_reference_absent));
                 break;
             default:// Reference found
-                // FIXME: 4/8/16 handle when the reference is alredy present
-                mNotes.setHint(getString(R.string.activity_bookmark_reference_present));
+                loadSingleReferenceFromDatabase();
         }
     }
 
+    private void loadSingleReferenceFromDatabase() {
+        // FIXME: 4/8/16 handle when the reference is already present
+        mNotes.setHint(getString(R.string.activity_bookmark_reference_present));
+    }
+
     private void populateMultipleReference() {
-        Log.d(TAG, "populateMultipleReference() called");
+        // FIXME: 8/8/16 handle when multiple reference is passed
+        Utilities.log(TAG, "populateMultipleReference() called");
     }
 
     private void bindButton(int buttonId, int visibilityMode) {
@@ -150,7 +162,8 @@ public class ActivityBookmark
         button.setVisibility(visibilityMode);
     }
 
-    @Override public void onClick(View view) {
+    @Override
+    public void onClick(View view) {
         if (view instanceof AppCompatButton) {
             switch (view.getId()) {
                 case R.id.activity_bookmark_but_save:
@@ -172,20 +185,46 @@ public class ActivityBookmark
     }
 
     private void buttonSaveClicked() {
-        Log.d(TAG, "buttonSaveClicked() called");
+        Utilities.log(TAG, "buttonSaveClicked() called");
+        StringBuilder referencesEntry = new StringBuilder();
+        String delimiter = Utilities.DELIMITER_BETWEEN_REFERENCE;
+        for (String reference : mReferences) {
+            referencesEntry.append(reference).append(delimiter);
+        }
+        String reference = referencesEntry.substring(
+                0, referencesEntry.length() - delimiter.length());
+        String notes = mNotes.getText().toString().trim();
+
+        DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
+        boolean saved = dbu.createNewBookmark(reference, notes);
+
+        AppCompatButton button = (AppCompatButton) findViewById(R.id.activity_bookmark_but_save);
+        if (button == null) {
+            Utilities.throwError(TAG + " buttonSaveClicked : Save Button == null");
+        }
+        button.setOnClickListener(this);
+        button.setVisibility(View.GONE);
+
+        if (saved) {
+            mNotes.setFocusable(false);
+            Snackbar.make(mNotes, "Bookmark saved", Snackbar.LENGTH_LONG).show();
+        } else {
+            Snackbar.make(mNotes, "Bookmark could not be saved", Snackbar.LENGTH_LONG).show();
+        }
+        Utilities.hideKeyboard(this);
     }
 
     private void buttonEditClicked() {
-        Log.d(TAG, "buttonEditClicked() called");
+        Utilities.log(TAG, "buttonEditClicked() called");
         mViewNode = Utilities.BOOKMARK_EDIT;
         prepareScreen();
     }
 
     private void buttonDeleteClicked() {
-        Log.d(TAG, "buttonDeleteClicked() called");
+        Utilities.log(TAG, "buttonDeleteClicked() called");
     }
 
     private void buttonShareClicked() {
-        Log.d(TAG, "buttonShareClicked called");
+        Utilities.log(TAG, "buttonShareClicked called");
     }
 }

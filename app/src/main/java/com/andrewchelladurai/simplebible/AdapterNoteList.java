@@ -40,7 +40,7 @@ import java.util.List;
 public class AdapterNoteList
         extends RecyclerView.Adapter<AdapterNoteList.NoteView> {
 
-    private final List<Entry>   mValues;
+    private final List<Entry> mValues;
     private final FragmentNotes mListener;
 
     public AdapterNoteList(List<Entry> items, FragmentNotes listener) {
@@ -51,7 +51,7 @@ public class AdapterNoteList
     @Override
     public NoteView onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                                  .inflate(R.layout.entry_note, parent, false);
+                .inflate(R.layout.entry_note, parent, false);
         return new NoteView(view);
     }
 
@@ -86,10 +86,10 @@ public class AdapterNoteList
             extends RecyclerView.ViewHolder {
 
         private static final String TAG = "SB_NoteView";
-        private final View              mView;
+        private final View mView;
         private final AppCompatTextView mVerseText;
         private final AppCompatTextView mNotesText;
-        private       Entry             mEntry;
+        private Entry mEntry;
 
         public NoteView(View view) {
             super(view);

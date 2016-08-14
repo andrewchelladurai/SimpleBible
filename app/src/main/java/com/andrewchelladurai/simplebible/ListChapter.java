@@ -28,7 +28,6 @@ package com.andrewchelladurai.simplebible;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,13 +36,13 @@ import java.util.Map;
 
 public class ListChapter {
 
-    private static final String             TAG          = "SB_ListChapter";
-    private static final StringBuilder      mPrependText = new StringBuilder();
-    private static final List<Entry>        ITEMS        = new ArrayList<>();
-    private static final Map<String, Entry> ITEM_MAP     = new HashMap<>();
+    private static final String TAG = "SB_ListChapter";
+    private static final StringBuilder mPrependText = new StringBuilder();
+    private static final List<Entry> ITEMS = new ArrayList<>();
+    private static final Map<String, Entry> ITEM_MAP = new HashMap<>();
 
     public static void populateList(int chapterCount, String prependText) {
-        Log.d(TAG, "populateList() called with: [" + chapterCount + "], [" + prependText + "]");
+        Utilities.log(TAG, "populateList() called with: [" + chapterCount + "], [" + prependText + "]");
         if (mPrependText.length() < 1) {
             mPrependText.append(prependText);
         }
@@ -55,7 +54,7 @@ public class ListChapter {
             ITEMS.add(entry);
             ITEM_MAP.put(entry.chapterNumber, entry);
         }
-        Log.d(TAG, "populateList() returned");
+        Utilities.log(TAG, "populateList() returned");
     }
 
     public static int getCount() {
@@ -106,11 +105,13 @@ public class ListChapter {
             return mPrependText + " " + chapterNumber;
         }
 
-        @Override public int describeContents() {
+        @Override
+        public int describeContents() {
             return 0;
         }
 
-        @Override public void writeToParcel(Parcel dest, int flags) {
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
             dest.writeString(chapterNumber);
         }
 

@@ -157,6 +157,5 @@
         without notes, you can either Long Click on a Search Result or Verse within a Chapter
         and then select Save from the bottom list of options.</string>
     <string name="activity_bookmark_reference_present">This verse is already bookmarked</string>
-    <string name="activity_bookmark_reference_absent">This verse is not bookmarked previously. If
-        you wish, enter a note to associate with this verse.</string>
+    <string name="activity_bookmark_reference_absent">This verse is not already bookmarked. You may enter a note here to associate with the verse if you wish. </string>
 </resources>

@@ -34,7 +34,6 @@ import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,9 +48,9 @@ public class FragmentHome
         implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private static final String TAG = "SB_FragmentHome";
-    private ArrayAdapter<String>          mChapterAdapter;
+    private ArrayAdapter<String> mChapterAdapter;
     private AppCompatAutoCompleteTextView mChapterInput;
-    private AppCompatTextView             mDailyVerse;
+    private AppCompatTextView mDailyVerse;
     private AppCompatAutoCompleteTextView mBookInput;
 
     public FragmentHome() {
@@ -101,12 +100,12 @@ public class FragmentHome
     private void displayVerse() {
         String verseRef = getArguments().getString(Utilities.TODAY_VERSE_REFERENCE);
         if (verseRef == null || verseRef.isEmpty()) {
-            Log.d(TAG, "displayVerse: incorrect verseRef = " + verseRef + " using default");
+            Utilities.log(TAG, "displayVerse: incorrect verseRef = " + verseRef + " using default");
             verseRef = "43:3:16"; // John 3:16 - The Default verse
         }
         String parts[] = verseRef.split(":");
         if (parts.length != 3) {
-            Log.d(TAG, "displayVerse: incorrect verseRef = " + verseRef + " using default");
+            Utilities.log(TAG, "displayVerse: incorrect verseRef = " + verseRef + " using default");
             verseRef = "43:3:16"; // John 3:16 - The Default verse
         }
         parts = verseRef.split(":");
@@ -139,21 +138,21 @@ public class FragmentHome
             } catch (NumberFormatException npe) {
                 chapterNumber = 1;
                 Snackbar.make(view, R.string.message_incorrect_chapter_number,
-                              Snackbar.LENGTH_SHORT).show();
-                Log.d(TAG, "buttonGotoClicked " + npe.getLocalizedMessage());
+                        Snackbar.LENGTH_SHORT).show();
+                Utilities.log(TAG, "buttonGotoClicked " + npe.getLocalizedMessage());
             }
             if (chapterNumber < 1 || chapterNumber > Integer.parseInt(book.getChapterCount())) {
                 chapterNumber = 1;
                 Snackbar.make(view, R.string.message_incorrect_chapter_number,
-                              Snackbar.LENGTH_SHORT).show();
+                        Snackbar.LENGTH_SHORT).show();
             }
         }
-        Log.d(TAG, "buttonGotoClicked() called [" + book + "] [" + chapterNumber + "]");
+        Utilities.log(TAG, "buttonGotoClicked() called [" + book + "] [" + chapterNumber + "]");
 
         String chapterText = getString(R.string.chapter_list_prepend_text).trim();
         ListChapter.populateList(Integer.parseInt(book.getChapterCount()), chapterText);
         ListChapter.Entry chapter = ListChapter.getItem(String.valueOf(chapterNumber));
-        Log.d(TAG, "buttonGotoClicked() chapter parcel created");
+        Utilities.log(TAG, "buttonGotoClicked() chapter parcel created");
 
         Bundle args = new Bundle();
         args.putParcelable(Utilities.CURRENT_BOOK, book);
@@ -171,19 +170,19 @@ public class FragmentHome
         String bookName = mBookInput.getText().toString().trim();
 
         ListBooks.Entry book = ListBooks.getBook(bookName);
-        Log.d(TAG, "getBookDetails() returned: " + book);
+        Utilities.log(TAG, "getBookDetails() returned: " + book);
         return book;
     }
 
     private String getChapterNumber() {
         String chapterNumber = mChapterInput.getText().toString().trim();
 
-        Log.d(TAG, "getChapterNumber() returned: " + chapterNumber);
+        Utilities.log(TAG, "getChapterNumber() returned: " + chapterNumber);
         return chapterNumber;
     }
 
     private void resetValues() {
-        Log.d(TAG, "resetValues() called");
+        Utilities.log(TAG, "resetValues() called");
         mChapterAdapter.clear();
         mChapterAdapter.notifyDataSetChanged();
         mBookInput.setText("");
@@ -206,7 +205,7 @@ public class FragmentHome
         }
         mChapterAdapter.addAll(list);
         mChapterAdapter.notifyDataSetChanged();
-        Log.d(TAG, "refreshChapterInput() refreshed " + list.size() + " items");
+        Utilities.log(TAG, "refreshChapterInput() refreshed " + list.size() + " items");
         return list.size();
     }
 }

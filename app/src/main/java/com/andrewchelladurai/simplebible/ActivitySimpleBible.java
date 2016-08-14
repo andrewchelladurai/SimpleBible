@@ -48,7 +48,8 @@ public class ActivitySimpleBible
     }
 
     private PagerAdapter mPagerAdapter;
-    private ViewPager    mPager;
+    private ViewPager mPager;
+    private FragmentNotes fragmentNotes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +81,11 @@ public class ActivitySimpleBible
         return R.id.action_settings == item.getItemId() || super.onOptionsItemSelected(item);
     }
 
+    public void refreshNotesScreen() {
+        Utilities.log(TAG, "refreshNotesScreen() called");
+        fragmentNotes.refreshData();
+    }
+
     public class PagerAdapter
             extends FragmentPagerAdapter {
 
@@ -99,7 +105,10 @@ public class ActivitySimpleBible
                 case 2:
                     return FragmentSearch.newInstance();
                 case 3:
-                    return FragmentNotes.newInstance();
+                    if (fragmentNotes == null) {
+                        fragmentNotes = FragmentNotes.newInstance();
+                    }
+                    return fragmentNotes;
                 default:
                     throw new AssertionError("Pager Position in default case" + position);
             }

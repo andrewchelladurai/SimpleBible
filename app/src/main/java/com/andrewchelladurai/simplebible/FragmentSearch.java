@@ -35,7 +35,6 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,8 +48,8 @@ public class FragmentSearch
     private static final String TAG = "SB_FragmentSearch";
     private TextInputEditText mInput;
     private AdapterSearchList mListAdapter;
-    private TextInputLayout   mLabel;
-    private AppCompatButton   mSearchButton, mSaveButton, mShareButton;
+    private TextInputLayout mLabel;
+    private AppCompatButton mSearchButton, mSaveButton, mShareButton;
 
     public FragmentSearch() {
     }
@@ -139,7 +138,7 @@ public class FragmentSearch
     }
 
     private void resetButtonClicked() {
-        Log.d(TAG, "resetButtonClicked() called");
+        Utilities.log(TAG, "resetButtonClicked() called");
         ListSearch.truncate();
         mInput.setText("");
         mInput.setError(null);
@@ -151,16 +150,18 @@ public class FragmentSearch
     }
 
     public void buttonSaveClicked() {
-        Log.d(TAG, "buttonSaveClicked() called");
+        Utilities.log(TAG, "buttonSaveClicked() called");
         if (ListSearch.isSelectedEntriesEmpty()) {
-            Log.d(TAG, "buttonShareClicked: No Selected entries exist");
+            Utilities.log(TAG, "buttonShareClicked: No Selected entries exist");
             return;
         }
         ArrayList<ListSearch.Entry> entries = ListSearch.getSelectedEntries();
         ArrayList<String> references = new ArrayList<>();
         for (ListSearch.Entry entry : entries) {
             references.add(entry.getReference());
+            ListSearch.removeSelectedEntry(entry);
         }
+        showActionBar();
 
         Bundle bundle = new Bundle();
         bundle.putStringArrayList(Utilities.REFERENCES, references);
@@ -172,9 +173,9 @@ public class FragmentSearch
     }
 
     public void buttonShareClicked() {
-        Log.d(TAG, "buttonShareClicked() called");
+        Utilities.log(TAG, "buttonShareClicked() called");
         if (ListSearch.isSelectedEntriesEmpty()) {
-            Log.d(TAG, "buttonShareClicked: No Selected entries exist");
+            Utilities.log(TAG, "buttonShareClicked: No Selected entries exist");
             return;
         }
         ArrayList<ListSearch.Entry> entries = ListSearch.getSelectedEntries();
@@ -184,31 +185,37 @@ public class FragmentSearch
         for (ListSearch.Entry entry : entries) {
             mBook = ListBooks.getItem(entry.getBookNumber());
             text = mBook.getName() + " (" +
-                   entry.getChapterNumber() + ":" +
-                   entry.getVerseNumber() + ") " +
-                   entry.getVerse() + "\n";
+                    entry.getChapterNumber() + ":" +
+                    entry.getVerseNumber() + ") " +
+                    entry.getVerse() + "\n";
             shareText.append(text);
         }
         shareText.append(getString(R.string.share_append_text));
         startActivity(Utilities.shareVerse(shareText.toString()));
     }
 
-    @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
     }
 
-    @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
     }
 
-    @Override public void afterTextChanged(Editable s) {
+    @Override
+    public void afterTextChanged(Editable s) {
         mInput.setError(null);
         mLabel.setError(null);
         mSearchButton.setText(getString(R.string.button_search_text));
-        showActionBar();
+//        showActionBar();
     }
 
     public void showActionBar() {
         int visibility = (ListSearch.isSelectedEntriesEmpty()) ? View.GONE : View.VISIBLE;
+        Utilities.log(TAG, "showActionBar() called with visibility : " + visibility + "");
         mSaveButton.setVisibility(visibility);
         mShareButton.setVisibility(visibility);
+        mListAdapter.notifyDataSetChanged();
     }
+
 }

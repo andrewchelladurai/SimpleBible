@@ -33,7 +33,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
-import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -51,36 +50,47 @@ public class DatabaseUtility
 
     private static final String TAG = "SB_DatabaseUtility";
 
-    private static final String DATABASE_NAME     = "Bible.db";
-    private final static String BIBLE_TABLE       = "BIBLE_VERSES";
+    private static final String DATABASE_NAME = "Bible.db";
+    private final static String BIBLE_TABLE = "BIBLE_VERSES";
     private final static String DAILY_VERSE_TABLE = "DAILY_VERSE";
-    private final static String BOOK_NUMBER       = "BOOK_NUMBER";
-    private final static String CHAPTER_NUMBER    = "CHAPTER_NUMBER";
-    private final static String VERSE_NUMBER      = "VERSE_NUMBER";
-    private final static String VERSE_TEXT        = "VERSE_TEXT";
+    private final static String BOOK_NUMBER = "BOOK_NUMBER";
+    private final static String CHAPTER_NUMBER = "CHAPTER_NUMBER";
+    private final static String VERSE_NUMBER = "VERSE_NUMBER";
+    private final static String VERSE_TEXT = "VERSE_TEXT";
 
-    private final static String BOOKMARK_TABLE      = "BOOK_MARKS";
+    private final static String BOOKMARK_TABLE = "BOOK_MARKS";
     private final static String BM_TABLE_REFERENCES = "REFERENCE";
-    private final static String BM_TABLE_ID         = "BM_ID";
-    private final static String BM_TABLE_NOTES      = "NOTE";
+    private final static String BM_TABLE_ID = "BM_ID";
+    private final static String BM_TABLE_NOTES = "NOTE";
 
     private static DatabaseUtility staticInstance = null;
-    private static String         DB_PATH;
+    private static String DB_PATH;
     private static SQLiteDatabase database;
-    private static Context        context;
+    private static Context context;
 
     private DatabaseUtility(Context context) {
         super(context, DATABASE_NAME, null, 1);
         DatabaseUtility.context = context;
         //Write a full path to the databases of your application
         DB_PATH = context.getDatabasePath(DATABASE_NAME).getParent();
-        Log.d(TAG, "DatabaseUtility() called DB_PATH = [" + DB_PATH + "]");
+        Utilities.log(TAG,
+                "DatabaseUtility() called DB_PATH = [" +
+                        DB_PATH + "]");
         openDataBase();
     }
 
-    private void openDataBase()
-            throws SQLException {
-        Log.d(TAG, "openDataBase: Entered");
+    public static DatabaseUtility getInstance(Context context) throws NullPointerException {
+        if (staticInstance == null) {
+            if (context == null) {
+                throw new NullPointerException("NULL Context passed for instantiating DB");
+            }
+            staticInstance = new DatabaseUtility(context);
+        }
+        return staticInstance;
+    }
+
+    private void openDataBase() throws SQLException {
+        Utilities.log(TAG, "openDataBase: Entered");
         if (database == null) {
             createDataBase();
             String path = DB_PATH + File.separatorChar + DATABASE_NAME;
@@ -91,73 +101,64 @@ public class DatabaseUtility
     private void createDataBase() {
         boolean dbExist = checkDataBase();
         if (!dbExist) {
-            Log.d(TAG, "createDataBase: DB Does not Exist");
+            Utilities.log(TAG, "createDataBase: DB Does not Exist");
             getReadableDatabase();
             try {
                 copyDataBase();
             } catch (IOException e) {
-                Log.d(TAG, "createDataBase: Exception Copying Bible.db");
-                throw new Error("Error copying Bible.db!");
+                Utilities.log(TAG, "createDataBase: Exception Copying Bible.db");
+                throw new Error(
+                        "Error copying Bible.db!");
             }
         } else {
-            Log.d(TAG, "createDataBase: Database already exists");
+            Utilities.log(TAG, "createDataBase: Database already exists");
         }
     }
 
     private boolean checkDataBase() {
         SQLiteDatabase checkDb = null;
         String path = DB_PATH + File.separatorChar + DATABASE_NAME;
-        Log.d(TAG, "checkDataBase: at path" + path);
+        Utilities.log(TAG, "checkDataBase: at path" + path);
         File f = new File(path);
         if (f.exists()) {
             try {
                 checkDb = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
             } catch (SQLException sqle) {
-                Log.d(TAG, "checkDataBase: " + sqle.getLocalizedMessage());
+                Utilities.log(TAG, "checkDataBase: " + sqle.getLocalizedMessage());
                 sqle.printStackTrace();
             } finally {
                 if (checkDb != null) {
                     checkDb.close();
                 }
             }
-            Log.d(TAG, "checkDataBase: Exited returning checkDb != null");
+            Utilities.log(TAG, "checkDataBase: Exited returning checkDb != null");
             return checkDb != null;
         } else {
             return false;
         }
     }
 
-    private void copyDataBase()
-            throws IOException {
-        Log.d(TAG, "copyDataBase: Called");
+    private void copyDataBase() throws IOException {
+        Utilities.log(TAG, "copyDataBase: Called");
 
         InputStream assetDatabase = context.getAssets().open(DATABASE_NAME);
-        Log.i(TAG, "copyDataBase : externalDBStream" + assetDatabase.toString());
+        Utilities.log(TAG, "copyDataBase : externalDBStream" + assetDatabase.toString());
         String outFileName = DB_PATH + File.separatorChar + DATABASE_NAME;
-        Log.i(TAG, "copyDataBase : outFileName = " + outFileName);
+        Utilities.log(TAG, "copyDataBase : outFileName = " + outFileName);
 
         OutputStream localDatabase = new FileOutputStream(outFileName);
 
         //Copying the database
         byte[] buffer = new byte[1024];
         int bytesRead;
-        while ((bytesRead = assetDatabase.read(buffer)) > 0) {
+        while ((bytesRead = assetDatabase.read(
+                buffer)) > 0) {
             localDatabase.write(buffer, 0, bytesRead);
         }
         localDatabase.close();
         assetDatabase.close();
-        Log.d(TAG, "copyDataBase: Finished");
-    }
-
-    public static DatabaseUtility getInstance(Context context)
-            throws NullPointerException {
-        if (staticInstance == null) {
-            if (context == null) {
-                throw new NullPointerException("NULL Context passed for instantiating DB");
-            }
-            staticInstance = new DatabaseUtility(context);
-        }
-        return staticInstance;
+        Utilities.log(TAG,
+                "copyDataBase: Finished");
     }
 
     @Override
@@ -176,48 +177,49 @@ public class DatabaseUtility
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
     }
 
-    public ArrayList<String> getAllVersesOfChapter(
-            final int pBookNumber, final int pChapterNumber) {
-        Log.d(TAG, "getAllVersesOfChapter() called BookNumber = [" + pBookNumber +
-                   "], ChapterNumber = [" + pChapterNumber + "]");
+    public ArrayList<String> getAllVersesOfChapter(final int pBookNumber,
+                                                   final int pChapterNumber) {
+        Utilities.log(TAG, "getAllVersesOfChapter() called BookNumber = [" + pBookNumber +
+                "], ChapterNumber = [" + pChapterNumber + "]");
 
         final SQLiteDatabase db = getReadableDatabase();
 
         String[] selectCols = {VERSE_NUMBER, CHAPTER_NUMBER, BOOK_NUMBER, VERSE_TEXT};
         String whereCondition = BOOK_NUMBER + " = ? AND " +
-                                CHAPTER_NUMBER + " = ?";
+                CHAPTER_NUMBER + " = ?";
         String[] conditionParams = {pBookNumber + "", pChapterNumber + ""};
 
-        Cursor cursor = db.query(BIBLE_TABLE, selectCols, whereCondition,
-                                 conditionParams, null, null, VERSE_NUMBER, null);
+        Cursor cursor = db.query(BIBLE_TABLE, selectCols, whereCondition, conditionParams, null,
+                null, VERSE_NUMBER, null);
 
         ArrayList<String> list = new ArrayList<>(0);
 
         if (null != cursor && cursor.moveToFirst()) {
             int verseIndex = cursor.getColumnIndex(VERSE_TEXT);
-//            int verseIdIndex = cursor.getColumnIndex(VERSE_NUMBER);
-//            int chapterIdIndex = cursor.getColumnIndex("ChapterId");
-//            int bookIdIndex = cursor.getColumnIndex("BookId");
+            //            int verseIdIndex = cursor.getColumnIndex(VERSE_NUMBER);
+            //            int chapterIdIndex = cursor.getColumnIndex("ChapterId");
+            //            int bookIdIndex = cursor.getColumnIndex("BookId");
             do {
                 list.add(cursor.getString(verseIndex));
-//                list.add(cursor.getInt(verseIdIndex) + " - " + cursor.getString(verseIndex));
+                //                list.add(cursor.getInt(verseIdIndex) + " - " + cursor.getString
+                // (verseIndex));
             } while (cursor.moveToNext());
             cursor.close();
         }
-        Log.d(TAG, "getAllVersesOfChapter() returned " + list.size() + " results");
+        Utilities.log(TAG, "getAllVersesOfChapter() returned " + list.size() + " results");
         return list;
     }
 
     public ArrayList<String> searchText(String pInput) {
-        Log.d(TAG, "searchText() called  pInput = [" + pInput + "]");
+        Utilities.log(TAG, "searchText() called  pInput = [" + pInput + "]");
         ArrayList<String> values = new ArrayList<>(0);
         final SQLiteDatabase db = getReadableDatabase();
         String[] selectCols = {VERSE_NUMBER, CHAPTER_NUMBER, BOOK_NUMBER, VERSE_TEXT};
         String whereCondition = VERSE_TEXT + " like ?";
         String[] conditionParams = {"%" + pInput + "%"};
 
-        Cursor cursor = db.query(BIBLE_TABLE, selectCols, whereCondition, conditionParams,
-                                 null, null, BOOK_NUMBER);
+        Cursor cursor = db.query(BIBLE_TABLE, selectCols, whereCondition, conditionParams, null,
+                null, BOOK_NUMBER);
 
         if (cursor != null && cursor.moveToFirst()) {
             int verseNumberIndex = cursor.getColumnIndex(VERSE_NUMBER);
@@ -230,24 +232,24 @@ public class DatabaseUtility
                 bookValue = cursor.getInt(bookIndex);
                 chapterValue = cursor.getInt(chapterIndex);
                 verseValue = cursor.getInt(verseNumberIndex);
-                entry.append(bookValue)
-                     .append(":")
-                     .append(chapterValue)
-                     .append(":")
-                     .append(verseValue);
-                values.add(entry.toString());
+                entry.append(bookValue).append(":")
+                        .append(chapterValue).append(":")
+                        .append(verseValue);
+                values.add(
+                        entry.toString());
                 entry.delete(0, entry.length());
             } while (cursor.moveToNext());
             cursor.close();
         }
 
-        Log.d(TAG, "searchText() returned: " + values.size());
+        Utilities.log(TAG, "searchText() returned: " + values.size());
         return values;
     }
 
     public String getVerseReferenceForToday() {
         String verseId = "43:3:16";
-        int dayOfYear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+        int dayOfYear = Calendar.getInstance().get(
+                Calendar.DAY_OF_YEAR);
 
         final SQLiteDatabase db = getReadableDatabase();
         String[] selectCols = {BOOK_NUMBER, CHAPTER_NUMBER, VERSE_NUMBER};
@@ -257,11 +259,11 @@ public class DatabaseUtility
 /*
         String query = SQLiteQueryBuilder.buildQueryString(
                 true, DAILY_VERSE_TABLE, selectCols, whereCondition, null, null, null, null);
-        Log.d(TAG, "getVerseReferenceForToday: Query = " + query);
+        Utilities.log(TAG, "getVerseReferenceForToday: Query = " + query);
 */
 
         Cursor cursor = db.query(DAILY_VERSE_TABLE, selectCols, whereCondition, conditionParams,
-                                 null, null, null);
+                null, null, null);
 
         if (cursor != null && cursor.moveToFirst()) {
             int verseNumberIndex = cursor.getColumnIndex(VERSE_NUMBER);
@@ -272,17 +274,16 @@ public class DatabaseUtility
             bookValue = cursor.getInt(bookIndex);
             chapterValue = cursor.getInt(chapterIndex);
             verseValue = cursor.getInt(verseNumberIndex);
-            entry.append(bookValue)
-                 .append(":")
-                 .append(chapterValue)
-                 .append(":")
-                 .append(verseValue);
+            entry.append(bookValue).append(":")
+                    .append(chapterValue).append(":")
+                    .append(verseValue);
             verseId = entry.toString();
             entry.delete(0, entry.length());
             cursor.close();
         }
-        Log.d(TAG,
-              "getVerseReferenceForToday() returned: " + verseId + " for dayOfYear = " + dayOfYear);
+        Utilities.log(TAG,
+                "getVerseReferenceForToday() returned: " + verseId + " for dayOfYear = " +
+                        dayOfYear);
         return verseId;
     }
 
@@ -297,11 +298,11 @@ public class DatabaseUtility
 /*
         String query = SQLiteQueryBuilder.buildQueryString(
                 true, BIBLE_TABLE, showColumns, whereCondition, null, null, null, null);
-        Log.d(TAG, "getSpecificVerse: Query = " + query);
+        Utilities.log(TAG, "getSpecificVerse: Query = " + query);
 */
 
-        Cursor cursor = dbu.query(BIBLE_TABLE, showColumns, whereCondition, conditionParams,
-                                  null, null, null);
+        Cursor cursor = dbu.query(BIBLE_TABLE, showColumns, whereCondition, conditionParams, null,
+                null, null);
         if (null != cursor && cursor.moveToFirst()) {
             value = cursor.getString(cursor.getColumnIndex(VERSE_TEXT));
             cursor.close();
@@ -315,11 +316,12 @@ public class DatabaseUtility
         String where = BM_TABLE_REFERENCES + " like ?";
         String[] params = {"%" + references + "%"};
         Cursor cursor = db.query(true, BOOKMARK_TABLE, selectCols, where, params, null, null, null,
-                                 null);
+                null);
 
-        String query = SQLiteQueryBuilder.buildQueryString(
-                true, BOOKMARK_TABLE, selectCols, where, null, null, null, null);
-        Log.d(TAG, "getReferenceDetails: Query = " + query);
+        String query = SQLiteQueryBuilder.buildQueryString(true, BOOKMARK_TABLE, selectCols, where,
+                null, null, null, null);
+        Utilities.log(
+                TAG, "getReferenceDetails: Query = " + query);
 
         if (null != cursor && cursor.moveToFirst()) {
             String results[] = {cursor.getString(0), cursor.getString(1)};
@@ -334,51 +336,57 @@ public class DatabaseUtility
         String[] selectCols = {"COUNT(" + BM_TABLE_REFERENCES + ")"};
         String where = BM_TABLE_REFERENCES + " like ?";
         String params[] = {"%" + references + "%"};
-        Cursor cursor = db.query(true, BOOKMARK_TABLE, selectCols, where, params,
-                                 null, null, null, null);
+        Cursor cursor = db.query(true, BOOKMARK_TABLE, selectCols, where, params, null, null, null,
+                null);
 
-        String query = SQLiteQueryBuilder.buildQueryString(
-                true, BOOKMARK_TABLE, selectCols, where, null, null, null, null);
-        Log.d(TAG, "isReferencePresent: Query = " + query);
+        String query = SQLiteQueryBuilder.buildQueryString(true, BOOKMARK_TABLE, selectCols, where,
+                null, null, null, null);
+        Utilities.log(
+                TAG, "isReferencePresent: Query = " + query);
 
         String result = "0";
         if (null != cursor && cursor.moveToFirst()) {
             result = cursor.getString(0);
             cursor.close();
         }
-        Log.d(TAG, "isReferencePresent() returned: " + result);
+        Utilities.log(TAG, "isReferencePresent() returned: " + result);
         return result; // Zero to indicate no reference exists.
     }
 
     public boolean createNewBookmark(String references, String notes) {
-        Log.d(TAG, "createNewBookmark() : [" + references + "], [" + notes + "]");
+        Utilities.log(TAG,
+                "createNewBookmark() called : references = [" + references + "], notes = [" +
+                        notes + "]");
         boolean created;
         final SQLiteDatabase db = getWritableDatabase();
         final ContentValues values = new ContentValues();
         values.put(BM_TABLE_REFERENCES, references);
         values.put(BM_TABLE_NOTES, notes);
 
-        long rowcount = -1;
+        long rowCount = -1;
         try {
-            rowcount = db.insert(BOOKMARK_TABLE, null, values);
+            rowCount = db.insert(BOOKMARK_TABLE, null, values);
             db.close();
             created = true;
         } catch (Exception e) {
-            Log.wtf(TAG, "createNewBookmark: Bookmark Creation failed", e);
+            Utilities.throwError("createNewBookmark: Bookmark Creation failed");
             created = false;
         }
-        Log.d(TAG, "createNewBookmark() returned: " + created + " : " + rowcount + " saved");
+        Utilities.log(TAG,
+                "createNewBookmark() returned: " + created + " : " + rowCount + " saved");
         return created;
     }
 
     public boolean updateExistingBookmark(String references, String notes) {
-        Log.d(TAG, "updateExistingBookmark() called [" + references + "], [" + notes + "]");
+        Utilities.log(TAG, "updateExistingBookmark() called [" + references + "], [" + notes + "]");
         boolean updated;
         final SQLiteDatabase db = getWritableDatabase();
 
         final ContentValues values = new ContentValues();
-        values.put(BM_TABLE_REFERENCES, references);
-        values.put(BM_TABLE_NOTES, notes);
+        values.put(BM_TABLE_REFERENCES,
+                references);
+        values.put(
+                BM_TABLE_NOTES, notes);
         String whereClause = BM_TABLE_REFERENCES + " = ?";
         String whereParams[] = {references};
         int rowcount = -1;
@@ -388,9 +396,10 @@ public class DatabaseUtility
             updated = true;
         } catch (Exception e) {
             updated = false;
-            Log.wtf(TAG, "updateExistingBookmark: Bookmark update failed", e);
+            Utilities.throwError("updateExistingBookmark: Bookmark update failed");
         }
-        Log.d(TAG, "updateExistingBookmark() returned: " + updated + " : " + rowcount + " updated");
+        Utilities.log(TAG, "updateExistingBookmark() returned: " + updated + " : " + rowcount +
+                " updated");
         return updated;
     }
 
@@ -400,19 +409,20 @@ public class DatabaseUtility
         String selectCols[] = {BM_TABLE_REFERENCES, BM_TABLE_NOTES};
         String where = BM_TABLE_ID + " is not null";
 
-        String query = SQLiteQueryBuilder.buildQueryString(
-                true, BOOKMARK_TABLE, selectCols, where, null, null, null, null);
-        Log.d(TAG, "getAllNotes() called " + query);
+        String query = SQLiteQueryBuilder.buildQueryString(true, BOOKMARK_TABLE, selectCols, where,
+                null, null, null, null);
+        Utilities.log(
+                TAG, "getAllNotes() called " + query);
 
-        Cursor cursor = db.query(true, BOOKMARK_TABLE, selectCols, where,
-                                 null, null, null, null, null);
+        Cursor cursor = db.query(true, BOOKMARK_TABLE, selectCols, where, null, null, null, null,
+                null);
         if (null != cursor && cursor.moveToFirst()) {
             do {
                 results.add(new String[]{cursor.getString(0), cursor.getString(1)});
             } while (cursor.moveToNext());
             cursor.close();
         }
-        Log.d(TAG, "getAllNotes() returned " + results.size() + " entries");
+        Utilities.log(TAG, "getAllNotes() returned " + results.size() + " entries");
         return results;
     }
 }

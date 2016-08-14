@@ -31,7 +31,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +40,7 @@ public class FragmentNotes
         implements View.OnClickListener {
 
     private static final String TAG = "SB_FragmentNotes";
+    private AdapterNoteList noteListAdapter;
 
     public FragmentNotes() {
     }
@@ -52,7 +52,6 @@ public class FragmentNotes
     @Override
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
-
         if (getArguments() != null) {
 //            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
@@ -62,19 +61,21 @@ public class FragmentNotes
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
         ListNotes.populate();
         if (ListNotes.getCount() > 0) {
-            Log.d(TAG, "onCreateView: ListNotes.getCount() > 0 == true");
+            Utilities.log(TAG, "onCreateView: ListNotes.getCount() > 0 == true");
             View view = inflater.inflate(R.layout.fragment_note, container, false);
-            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.frag_notes_list);
+            RecyclerView notesList = (RecyclerView) view.findViewById(R.id.frag_notes_list);
 
-            recyclerView.setAdapter(new AdapterNoteList(ListNotes.getEntries(), this));
+            noteListAdapter = new AdapterNoteList(ListNotes.getEntries(), this);
+            notesList.setAdapter(noteListAdapter);
             return view;
         } else {
-            Log.d(TAG, "onCreateView: ListNotes.getCount() > 0 == false");
+            Utilities.log(TAG, "onCreateView: ListNotes.getCount() > 0 == false");
             return inflater.inflate(R.layout.fragment_note_empty, container, false);
         }
     }
 
-    @Override public void onClick(View view) {
+    @Override
+    public void onClick(View view) {
         if (view instanceof AppCompatTextView) {
             handleVerseClick();
         } else if (view instanceof AppCompatImageButton) {
@@ -96,18 +97,24 @@ public class FragmentNotes
     }
 
     private void handleVerseClick() {
-        Log.d(TAG, "handleVerseClick() called");
+        Utilities.log(TAG, "handleVerseClick() called");
     }
 
     private void handleEditButtonClick() {
-        Log.d(TAG, "handleEditButtonClick() called");
+        Utilities.log(TAG, "handleEditButtonClick() called");
     }
 
     private void handleDeleteButtonClick() {
-        Log.d(TAG, "handleDeleteButtonClick() called");
+        Utilities.log(TAG, "handleDeleteButtonClick() called");
     }
 
     private void handleShareButtonClick() {
-        Log.d(TAG, "handleShareButtonClick() called");
+        Utilities.log(TAG, "handleShareButtonClick() called");
+    }
+
+    public void refreshData() {
+        Utilities.log(TAG, "refreshData() called");
+        ListNotes.populate();
+        noteListAdapter.notifyDataSetChanged();
     }
 }

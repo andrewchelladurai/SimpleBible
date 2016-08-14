@@ -40,7 +40,7 @@ import java.util.List;
 public class AdapterSearchList
         extends RecyclerView.Adapter<AdapterSearchList.SearchView> {
 
-    private final List<Entry>    mValues;
+    private final List<Entry> mValues;
     private final FragmentSearch mListener;
 
     public AdapterSearchList(List<Entry> items, FragmentSearch listener) {
@@ -51,7 +51,7 @@ public class AdapterSearchList
     @Override
     public SearchView onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                                  .inflate(R.layout.entry_search, parent, false);
+                .inflate(R.layout.entry_search, parent, false);
         return new SearchView(view);
     }
 
@@ -70,9 +70,9 @@ public class AdapterSearchList
             implements View.OnLongClickListener {
 
         private static final String TAG = "SB_SearchView";
-        private final View              mView;
+        private final View mView;
         private final AppCompatTextView mContent;
-        private       Entry             mEntry;
+        private Entry mEntry;
 
         public SearchView(View view) {
             super(view);

@@ -28,7 +28,6 @@ package com.andrewchelladurai.simplebible;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,8 +36,8 @@ import java.util.Map;
 
 public class ListBooks {
 
-    private static final String             TAG      = "SB_BooksList";
-    private static final List<Entry>        ITEMS    = new ArrayList<>();
+    private static final String TAG = "SB_BooksList";
+    private static final List<Entry> ITEMS = new ArrayList<>();
     private static final Map<String, Entry> ITEM_MAP = new HashMap<>();
 
     public static List<Entry> getItems() {
@@ -51,7 +50,7 @@ public class ListBooks {
 
     public static void populateBooks(String[] bookArray) {
         if (ITEM_MAP.get("66") != null & ITEMS.size() == 66) {
-            Log.d(TAG, "populateBooks: Books already populated");
+            Utilities.log(TAG, "populateBooks: Books already populated");
             return;
         }
         String[] values;
@@ -62,11 +61,11 @@ public class ListBooks {
             ITEMS.add(item);
             ITEM_MAP.put(item.getBookNumber(), item);
         }
-        Log.d(TAG, "populateBooks: All " + ITEMS.size() + " books created");
+        Utilities.log(TAG, "populateBooks: All " + ITEMS.size() + " books created");
     }
 
     public static Entry getBook(String bookName) {
-        Log.d(TAG, "getBook() called with bookName = [" + bookName + "]");
+        Utilities.log(TAG, "getBook() called with bookName = [" + bookName + "]");
         for (Entry item : ITEMS) {
             if (item.getName().equalsIgnoreCase(bookName)) {
                 return item;
@@ -113,11 +112,13 @@ public class ListBooks {
             return mBookNumber + ":" + mName + ":" + mChapterCount;
         }
 
-        @Override public int describeContents() {
+        @Override
+        public int describeContents() {
             return 0;
         }
 
-        @Override public void writeToParcel(Parcel dest, int flags) {
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
             dest.writeString(mName);
             dest.writeString(mChapterCount);
             dest.writeString(mBookNumber);

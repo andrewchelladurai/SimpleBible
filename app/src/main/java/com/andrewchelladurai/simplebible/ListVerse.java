@@ -28,7 +28,6 @@ package com.andrewchelladurai.simplebible;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,14 +36,14 @@ import java.util.Map;
 
 public class ListVerse {
 
-    private static final String             TAG      = "SB_ListVerse";
-    private static final ArrayList<Entry>   ITEMS    = new ArrayList<>();
+    private static final String TAG = "SB_ListVerse";
+    private static final ArrayList<Entry> ITEMS = new ArrayList<>();
     private static final Map<String, Entry> ITEM_MAP = new HashMap<>();
-    private static final ArrayList<Entry>   SELECTED = new ArrayList<>();
+    private static final ArrayList<Entry> SELECTED = new ArrayList<>();
 
     public static void populateEntries(ArrayList<String> verseList, int bookNumber,
                                        int chapterNumber) {
-        Log.d(TAG, "populateEntries() called");
+        Utilities.log(TAG, "populateEntries() called");
         truncate();
         Entry entry;
         for (int i = 0; i < verseList.size(); i++) {
@@ -72,7 +71,7 @@ public class ListVerse {
         if (SELECTED.contains(entry)) {
             SELECTED.remove(entry);
         } else {
-            Log.i(TAG, "removeSelectedEntry: " + entry.getReference() + " not present");
+            Utilities.log(TAG, "removeSelectedEntry: " + entry.getReference() + " not present");
         }
     }
 
@@ -149,11 +148,13 @@ public class ListVerse {
             return mVerseNumber;
         }
 
-        @Override public int describeContents() {
+        @Override
+        public int describeContents() {
             return 0;
         }
 
-        @Override public void writeToParcel(Parcel dest, int flags) {
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
             dest.writeString(mBookNumber);
             dest.writeString(mChapterNumber);
             dest.writeString(mVerseNumber);

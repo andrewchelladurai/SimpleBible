@@ -28,7 +28,6 @@ package com.andrewchelladurai.simplebible;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,17 +36,17 @@ import java.util.Map;
 
 public class ListSearch {
 
-    static final         Map<String, Entry> ITEM_MAP = new HashMap<>();
-    private static final ArrayList<Entry>   ITEMS    = new ArrayList<>();
-    private static final ArrayList<Entry>   SELECTED = new ArrayList<>();
-    private static final String             TAG      = "SB_ListSearch";
+    static final Map<String, Entry> ITEM_MAP = new HashMap<>();
+    private static final ArrayList<Entry> ITEMS = new ArrayList<>();
+    private static final ArrayList<Entry> SELECTED = new ArrayList<>();
+    private static final String TAG = "SB_ListSearch";
 
     public static void populate(ArrayList<String> list) {
         if (list == null) {
-            Log.d(TAG, "populate: list == null, this should happen exactly once, no more");
+            Utilities.log(TAG, "populate: list == null, this should happen exactly once, no more");
             return;
         }
-        Log.d(TAG, "populate() called with list size = [" + list.size() + "]");
+        Utilities.log(TAG, "populate() called with list size = [" + list.size() + "]");
 
         String parts[];
         Entry entry;
@@ -58,13 +57,13 @@ public class ListSearch {
                 continue;
             }
             entry = new Entry(parts[0], parts[1], parts[2],
-                              dbu.getSpecificVerse(Integer.parseInt(parts[0]),
-                                                   Integer.parseInt(parts[1]),
-                                                   Integer.parseInt(parts[2])));
+                    dbu.getSpecificVerse(Integer.parseInt(parts[0]),
+                            Integer.parseInt(parts[1]),
+                            Integer.parseInt(parts[2])));
             ITEMS.add(entry);
             ITEM_MAP.put(entry.getReference(), entry);
         }
-        Log.d(TAG, "populate() returned");
+        Utilities.log(TAG, "populate() returned");
     }
 
     public static List<Entry> getEntries() {
@@ -75,7 +74,7 @@ public class ListSearch {
         ITEMS.clear();
         ITEM_MAP.clear();
         SELECTED.clear();
-        Log.d(TAG, "truncate() called");
+        Utilities.log(TAG, "truncate() called");
     }
 
     public static void addSelectedEntry(Entry entry) {
@@ -83,10 +82,11 @@ public class ListSearch {
     }
 
     public static void removeSelectedEntry(Entry entry) {
+        Utilities.log(TAG, "removeSelectedEntry() called reference [" + entry.getReference() + "]");
         if (SELECTED.contains(entry)) {
             SELECTED.remove(entry);
         } else {
-            Log.i(TAG, "removeSelectedEntry: " + entry.getReference() + " not present");
+            Utilities.log(TAG, "removeSelectedEntry: " + entry.getReference() + " not present");
         }
     }
 
@@ -147,11 +147,13 @@ public class ListSearch {
             return bookNumber + ":" + chapterNumber + ":" + verseNumber;
         }
 
-        @Override public int describeContents() {
+        @Override
+        public int describeContents() {
             return 0;
         }
 
-        @Override public void writeToParcel(Parcel dest, int flags) {
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
             dest.writeString(bookNumber);
             dest.writeString(chapterNumber);
             dest.writeString(verseNumber);

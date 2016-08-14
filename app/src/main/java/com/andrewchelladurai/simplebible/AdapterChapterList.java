@@ -42,7 +42,7 @@ public class AdapterChapterList
         extends RecyclerView.Adapter<AdapterChapterList.ChapterView> {
 
     private static final String TAG = "SB_AdapterChapterList";
-    private final ActivityChapterList     mActivity;
+    private final ActivityChapterList mActivity;
     private final List<ListChapter.Entry> mValues;
 
     public AdapterChapterList(ActivityChapterList activity, List<ListChapter.Entry> items) {
@@ -53,7 +53,7 @@ public class AdapterChapterList
     @Override
     public ChapterView onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                                  .inflate(R.layout.entry_chapter, parent, false);
+                .inflate(R.layout.entry_chapter, parent, false);
         return new ChapterView(view);
     }
 
@@ -71,9 +71,9 @@ public class AdapterChapterList
             extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
-        private final View              mView;
-        private final TextView          mContent;
-        private       ListChapter.Entry mItem;
+        private final View mView;
+        private final TextView mContent;
+        private ListChapter.Entry mItem;
 
         public ChapterView(View view) {
             super(view);
@@ -93,7 +93,8 @@ public class AdapterChapterList
             mView.setOnClickListener(this);
         }
 
-        @Override public void onClick(View view) {
+        @Override
+        public void onClick(View view) {
             mActivity.chapterClicked(mItem);
         }
     }

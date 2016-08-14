@@ -45,9 +45,9 @@ public class FragmentChapterVerses
         implements View.OnClickListener {
 
     private static final String TAG = "SB_FragChapterVerses";
-    private ListBooks.Entry   mBook;
+    private ListBooks.Entry mBook;
     private ListChapter.Entry mChapter;
-    private Bundle            mBundle;
+    private Bundle mBundle;
 
     public FragmentChapterVerses() {
         // FIXME: 24/7/16 Rotating device clears selected data
@@ -114,7 +114,8 @@ public class FragmentChapterVerses
         return view;
     }
 
-    @Override public void onClick(View v) {
+    @Override
+    public void onClick(View v) {
         if (v instanceof AppCompatButton) {
             if (ListVerse.isSelectedEntriesEmpty()) {
                 Log.d(TAG, "onClick: isSelectedEntriesEmpty = true, but button was clicked");
@@ -165,9 +166,9 @@ public class FragmentChapterVerses
         String text;
         for (ListVerse.Entry entry : entries) {
             text = mBook.getName() + " (" +
-                   mChapter.getChapterNumber() + ":" +
-                   entry.getVerseNumber() + ") " +
-                   entry.getVerseText() + "\n";
+                    mChapter.getChapterNumber() + ":" +
+                    entry.getVerseNumber() + ") " +
+                    entry.getVerseText() + "\n";
             shareText.append(text);
         }
         shareText.append(getString(R.string.share_append_text));
