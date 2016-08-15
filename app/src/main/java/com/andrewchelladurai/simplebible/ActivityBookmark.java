@@ -134,17 +134,16 @@ public class ActivityBookmark
         Utilities.log(TAG, "populateSingleReference() called");
         String reference = mReferences.get(0);
         DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
-        switch (Integer.parseInt(dbu.isReferencePresent(reference))) {
-            case 0:// NO reference found
-                mNotes.setHint(getString(R.string.activity_bookmark_reference_absent));
-                break;
-            default:// Reference found
-                loadSingleReferenceFromDatabase();
+        if (dbu.isAlreadyBookmarked(reference)){
+            loadSingleReferenceFromDatabase(reference);
+        }else {
+            mNotes.setHint(getString(R.string.activity_bookmark_reference_absent));
         }
     }
 
-    private void loadSingleReferenceFromDatabase() {
-        // FIXME: 4/8/16 handle when the reference is already present
+    private void loadSingleReferenceFromDatabase(String reference) {
+        DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
+        String note = dbu.getBookmarkedNote(reference);
         mNotes.setHint(getString(R.string.activity_bookmark_reference_present));
     }
 

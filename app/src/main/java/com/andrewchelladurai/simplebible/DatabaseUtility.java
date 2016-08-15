@@ -331,7 +331,7 @@ public class DatabaseUtility
         return null;
     }
 
-    public String isReferencePresent(String references) {
+    public boolean isAlreadyBookmarked(String references) {
         final SQLiteDatabase db = getReadableDatabase();
         String[] selectCols = {"COUNT(" + BM_TABLE_REFERENCES + ")"};
         String where = BM_TABLE_REFERENCES + " like ?";
@@ -342,15 +342,16 @@ public class DatabaseUtility
         String query = SQLiteQueryBuilder.buildQueryString(true, BOOKMARK_TABLE, selectCols, where,
                 null, null, null, null);
         Utilities.log(
-                TAG, "isReferencePresent: Query = " + query);
+                TAG, "isAlreadyBookmarked: Query = " + query);
 
-        String result = "0";
+        String result = "0"; // Zero to indicate no reference exists.
         if (null != cursor && cursor.moveToFirst()) {
             result = cursor.getString(0);
             cursor.close();
         }
-        Utilities.log(TAG, "isReferencePresent() returned: " + result);
-        return result; // Zero to indicate no reference exists.
+        Utilities.log(TAG, "isAlreadyBookmarked() returned: " + result);
+//        boolean present = (Integer.parseInt(result) == 0)?false:true;
+        return (Integer.parseInt(result) == 0) ? false : true;
     }
 
     public boolean createNewBookmark(String references, String notes) {
@@ -424,5 +425,10 @@ public class DatabaseUtility
         }
         Utilities.log(TAG, "getAllNotes() returned " + results.size() + " entries");
         return results;
+    }
+
+    public String getBookmarkedNote(String reference) {
+        String note = "";
+        return note;
     }
 }
