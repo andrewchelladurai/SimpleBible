@@ -31,7 +31,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +41,7 @@ public class FragmentNotes
 
     private static final String TAG = "SB_FragmentNotes";
     private AdapterNoteList noteListAdapter;
-    private RecyclerView notesList;
+    private RecyclerView    notesList;
 
     public FragmentNotes() {
     }
@@ -55,7 +54,7 @@ public class FragmentNotes
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         if (getArguments() != null) {
-//            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            //            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
     }
 
@@ -118,10 +117,7 @@ public class FragmentNotes
         Utilities.log(TAG, "refreshData() called");
         ListNotes.populate();
         if (notesList == null || noteListAdapter == null) {
-            getFragmentManager().beginTransaction()
-                    .detach(this)
-                    .attach(this)
-                    .commit();
+            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
         } else {
             noteListAdapter.notifyDataSetChanged();
         }

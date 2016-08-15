@@ -46,18 +46,18 @@ public class FragmentBooks
     }
 
     public static FragmentBooks newInstance() {
-        int columnCount = 2;
-        FragmentBooks fragment = new FragmentBooks();
-        Bundle args = new Bundle();
+        int           columnCount = 2;
+        FragmentBooks fragment    = new FragmentBooks();
+        Bundle        args        = new Bundle();
         args.putInt(Utilities.BOOKS_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_books, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+            savedInstanceState) {
+        View         view         = inflater.inflate(R.layout.fragment_books, container, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_books_list);
         recyclerView.setAdapter(new AdapterBookList(ListBooks.getItems(), this));
         return view;

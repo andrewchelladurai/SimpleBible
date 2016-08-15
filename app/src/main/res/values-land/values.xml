@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~
   ~ This file 'values.xml' is part of SimpleBible :
   ~
@@ -26,6 +25,6 @@
   -->
 
 <resources>
-    <integer name="book_list_column_count">3</integer>
-    <integer name="chapter_list_column_count">4</integer>
+    <integer name = "book_list_column_count">3</integer>
+    <integer name = "chapter_list_column_count">4</integer>
 </resources>

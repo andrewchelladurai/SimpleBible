@@ -48,8 +48,8 @@ public class FragmentSearch
     private static final String TAG = "SB_FragmentSearch";
     private TextInputEditText mInput;
     private AdapterSearchList mListAdapter;
-    private TextInputLayout mLabel;
-    private AppCompatButton mSearchButton, mSaveButton, mShareButton;
+    private TextInputLayout   mLabel;
+    private AppCompatButton   mSearchButton, mSaveButton, mShareButton;
 
     public FragmentSearch() {
     }
@@ -60,7 +60,7 @@ public class FragmentSearch
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
-//        super.onCreateView(inflater, container, savedState);
+        //        super.onCreateView(inflater, container, savedState);
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         mInput = (TextInputEditText) view.findViewById(R.id.frag_search_input);
@@ -89,8 +89,7 @@ public class FragmentSearch
             switch (v.getId()) {
                 case R.id.frag_search_button:
                     String buttonText = mSearchButton.getText().toString();
-                    if (buttonText.equalsIgnoreCase(
-                            getString(R.string.button_search_text))) {
+                    if (buttonText.equalsIgnoreCase(getString(R.string.button_search_text))) {
                         searchButtonClicked();
                     } else if (buttonText.equalsIgnoreCase(
                             getString(R.string.button_search_reset))) {
@@ -121,7 +120,7 @@ public class FragmentSearch
             mLabel.setError(getString(R.string.search_text_length));
             return;
         }
-        DatabaseUtility dbu = DatabaseUtility.getInstance(getActivity().getApplicationContext());
+        DatabaseUtility   dbu  = DatabaseUtility.getInstance(getActivity().getApplicationContext());
         ArrayList<String> list = dbu.searchText(input);
         if (list.size() == 0) {
             mLabel.setError(getString(R.string.search_no_results));
@@ -155,8 +154,8 @@ public class FragmentSearch
             Utilities.log(TAG, "buttonShareClicked: No Selected entries exist");
             return;
         }
-        ArrayList<ListSearch.Entry> entries = ListSearch.getSelectedEntries();
-        ArrayList<String> references = new ArrayList<>();
+        ArrayList<ListSearch.Entry> entries    = ListSearch.getSelectedEntries();
+        ArrayList<String>           references = new ArrayList<>();
         for (ListSearch.Entry entry : entries) {
             references.add(entry.getReference());
             ListSearch.removeSelectedEntry(entry);
@@ -178,16 +177,16 @@ public class FragmentSearch
             Utilities.log(TAG, "buttonShareClicked: No Selected entries exist");
             return;
         }
-        ArrayList<ListSearch.Entry> entries = ListSearch.getSelectedEntries();
-        String text;
-        StringBuilder shareText = new StringBuilder();
-        ListBooks.Entry mBook;
+        ArrayList<ListSearch.Entry> entries   = ListSearch.getSelectedEntries();
+        String                      text;
+        StringBuilder               shareText = new StringBuilder();
+        ListBooks.Entry             mBook;
         for (ListSearch.Entry entry : entries) {
             mBook = ListBooks.getItem(entry.getBookNumber());
             text = mBook.getName() + " (" +
-                    entry.getChapterNumber() + ":" +
-                    entry.getVerseNumber() + ") " +
-                    entry.getVerse() + "\n";
+                   entry.getChapterNumber() + ":" +
+                   entry.getVerseNumber() + ") " +
+                   entry.getVerse() + "\n";
             shareText.append(text);
         }
         shareText.append(getString(R.string.share_append_text));
@@ -207,7 +206,7 @@ public class FragmentSearch
         mInput.setError(null);
         mLabel.setError(null);
         mSearchButton.setText(getString(R.string.button_search_text));
-//        showActionBar();
+        //        showActionBar();
     }
 
     public void showActionBar() {

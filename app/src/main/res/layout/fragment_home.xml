@@ -24,84 +24,84 @@
   ~
   -->
 
-<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.andrewchelladurai.simplebible.FragmentHome">
+<android.support.v7.widget.LinearLayoutCompat xmlns:android = "http://schemas.android.com/apk/res/android"
+    xmlns:app = "http://schemas.android.com/apk/res-auto"
+    xmlns:tools = "http://schemas.android.com/tools"
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent"
+    android:orientation = "vertical"
+    android:paddingBottom = "@dimen/activity_vertical_margin"
+    android:paddingLeft = "@dimen/activity_horizontal_margin"
+    android:paddingRight = "@dimen/activity_horizontal_margin"
+    android:paddingTop = "@dimen/activity_vertical_margin"
+    tools:context = "com.andrewchelladurai.simplebible.FragmentHome">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/gap_big"
-        android:paddingTop="@dimen/gap_big">
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:orientation = "vertical"
+        android:paddingBottom = "@dimen/gap_big"
+        android:paddingTop = "@dimen/gap_big">
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content">
 
             <android.support.v7.widget.AppCompatAutoCompleteTextView
-                android:id="@+id/frag_home_book_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:completionThreshold="1"
-                android:hint="@string/hint_book_name"
-                android:inputType="textNoSuggestions"
-                android:lines="1"
-                android:maxLines="1"
-                android:minLines="1"
-                android:selectAllOnFocus="true" />
+                android:id = "@+id/frag_home_book_name"
+                android:layout_width = "match_parent"
+                android:layout_height = "wrap_content"
+                android:completionThreshold = "1"
+                android:hint = "@string/hint_book_name"
+                android:inputType = "textNoSuggestions"
+                android:lines = "1"
+                android:maxLines = "1"
+                android:minLines = "1"
+                android:selectAllOnFocus = "true" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content">
 
             <android.support.v7.widget.AppCompatAutoCompleteTextView
-                android:id="@+id/frag_home_chapter_number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:completionThreshold="1"
-                android:hint="@string/hint_chapter_number"
-                android:inputType="number|textNoSuggestions"
-                android:lines="1"
-                android:maxLines="1"
-                android:minLines="1"
-                android:selectAllOnFocus="true" />
+                android:id = "@+id/frag_home_chapter_number"
+                android:layout_width = "match_parent"
+                android:layout_height = "wrap_content"
+                android:completionThreshold = "1"
+                android:hint = "@string/hint_chapter_number"
+                android:inputType = "number|textNoSuggestions"
+                android:lines = "1"
+                android:maxLines = "1"
+                android:minLines = "1"
+                android:selectAllOnFocus = "true" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/frag_home_but_goto"
-            style="@style/Base.Widget.AppCompat.Button.Colored"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/gap_big"
-            android:text="@string/button_goto_location" />
+            android:id = "@+id/frag_home_but_goto"
+            style = "@style/Base.Widget.AppCompat.Button.Colored"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_margin = "@dimen/gap_big"
+            android:text = "@string/button_goto_location" />
 
     </LinearLayout>
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/gap_big"
-        android:layout_weight="1">
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:layout_gravity = "center"
+        android:layout_marginTop = "@dimen/gap_big"
+        android:layout_weight = "1">
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/frag_home_daily_verse"
-            style="?textAppearanceListItemSmall"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="@dimen/gap_big"
-            android:text="@string/app_name"
-            app:textAllCaps="false" />
+            android:id = "@+id/frag_home_daily_verse"
+            style = "?textAppearanceListItemSmall"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:gravity = "center"
+            android:padding = "@dimen/gap_big"
+            android:text = "@string/app_name"
+            app:textAllCaps = "false" />
     </ScrollView>
 </android.support.v7.widget.LinearLayoutCompat>

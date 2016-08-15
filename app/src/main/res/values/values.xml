@@ -30,25 +30,25 @@ https://coolors.co/ac3931-e5d352-d9e76c-537d8d-482c3d
 -->
 
 <resources>
-    <color name="long_press_background">#D9E76C</color>
+    <color name = "long_press_background">#D9E76C</color>
     <!--<color name="button_background">#A83F23</color>-->
-    <color name="primary">#42282F</color>
-    <color name="primary_dark">#261822</color>
-    <color name="accent">#A83F23</color>
-    <integer name="book_list_column_count">2</integer>
-    <integer name="chapter_list_column_count">3</integer>
+    <color name = "primary">#42282F</color>
+    <color name = "primary_dark">#261822</color>
+    <color name = "accent">#A83F23</color>
+    <integer name = "book_list_column_count">2</integer>
+    <integer name = "chapter_list_column_count">3</integer>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="appbar_padding_top">8dp</dimen>
+    <dimen name = "activity_horizontal_margin">16dp</dimen>
+    <dimen name = "activity_vertical_margin">16dp</dimen>
+    <dimen name = "fab_margin">16dp</dimen>
+    <dimen name = "appbar_padding_top">8dp</dimen>
 
-    <dimen name="gap_none">0dp</dimen>
-    <dimen name="gap_small">4dp</dimen>
-    <dimen name="gap">8dp</dimen>
-    <dimen name="gap_big">12dp</dimen>
-    <dimen name="text_margin">16dp</dimen>
-    <dimen name="app_bar_height">150dp</dimen>
-    <dimen name="item_width">150dp</dimen>
+    <dimen name = "gap_none">0dp</dimen>
+    <dimen name = "gap_small">4dp</dimen>
+    <dimen name = "gap">8dp</dimen>
+    <dimen name = "gap_big">12dp</dimen>
+    <dimen name = "text_margin">16dp</dimen>
+    <dimen name = "app_bar_height">150dp</dimen>
+    <dimen name = "item_width">150dp</dimen>
 </resources>

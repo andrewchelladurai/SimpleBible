@@ -26,17 +26,20 @@
 
 <resources>
 
-    <style name="DawnTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name = "DawnTheme"
+        parent = "Theme.AppCompat.DayNight.DarkActionBar">
         <!--<item name="colorPrimary">@color/primary</item>-->
         <!--<item name="colorAccent">@color/accent</item>-->
     </style>
 
-    <style name="DawnTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name = "DawnTheme.NoActionBar">
+        <item name = "windowActionBar">false</item>
+        <item name = "windowNoTitle">true</item>
     </style>
 
-    <style name="DawnTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name = "DawnTheme.AppBarOverlay"
+        parent = "ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="DawnTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name = "DawnTheme.PopupOverlay"
+        parent = "ThemeOverlay.AppCompat.Light" />
 </resources>

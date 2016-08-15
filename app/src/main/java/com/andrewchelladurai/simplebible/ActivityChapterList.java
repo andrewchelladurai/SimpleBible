@@ -41,10 +41,10 @@ public class ActivityChapterList
         extends AppCompatActivity {
 
     private static final String TAG = "SB_ActivityChapterList";
-    private boolean mTwoPane;
+    private boolean              mTwoPane;
     private RecyclerView.Adapter chapterAdapter;
-    private ListBooks.Entry mBook;
-    private ListChapter.Entry mChapter;
+    private ListBooks.Entry      mBook;
+    private ListChapter.Entry    mChapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,9 +82,9 @@ public class ActivityChapterList
         }
 
         if (ListChapter.getCount() == 1) {
-            recyclerView.setLayoutManager(new LinearLayoutManager(
-                    getApplicationContext(), LinearLayoutManager.HORIZONTAL, true
-            ));
+            recyclerView.setLayoutManager(
+                    new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL,
+                                            true));
         }
         chapterAdapter = new AdapterChapterList(this, ListChapter.getList());
         recyclerView.setAdapter(chapterAdapter);
@@ -93,9 +93,9 @@ public class ActivityChapterList
             mTwoPane = true;
             extras.putString(Utilities.LOAD_CHAPTER, Utilities.LOAD_CHAPTER_YES);
         }
-        StringBuilder title = new StringBuilder(mBook.getName())
-                .append(" : ").append(mBook.getChapterCount()).append(" ")
-                .append(getString(R.string.book_details_append_chapters));
+        StringBuilder title = new StringBuilder(mBook.getName()).append(" : ").append(
+                mBook.getChapterCount()).append(" ").append(
+                getString(R.string.book_details_append_chapters));
         setTitle(title);
         toolbar.setTitle(getTitle());
 
@@ -111,15 +111,14 @@ public class ActivityChapterList
         args.putParcelable(Utilities.CURRENT_CHAPTER, chapterEntry);
         args.putString(Utilities.CURRENT_CHAPTER_NUMBER, chapterEntry.getChapterNumber());
         args.putString(Utilities.LOAD_CHAPTER,
-                getIntent().getExtras().getString(Utilities.LOAD_CHAPTER));
+                       getIntent().getExtras().getString(Utilities.LOAD_CHAPTER));
 
         if (isDualPane()) {
             Log.d(TAG, "chapterClicked: isDualPane = true");
             FragmentChapterVerses fragment = new FragmentChapterVerses();
             fragment.setArguments(args);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.chapter_container, fragment)
-                    .commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.chapter_container, fragment)
+                                       .commit();
         } else {
             Log.d(TAG, "chapterClicked: isDualPane = false");
             Intent intent = new Intent(getApplicationContext(), ActivityChapterVerses.class);

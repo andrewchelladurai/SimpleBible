@@ -36,10 +36,10 @@ import java.util.Map;
 
 public class ListSearch {
 
-    static final Map<String, Entry> ITEM_MAP = new HashMap<>();
-    private static final ArrayList<Entry> ITEMS = new ArrayList<>();
-    private static final ArrayList<Entry> SELECTED = new ArrayList<>();
-    private static final String TAG = "SB_ListSearch";
+    static final         Map<String, Entry> ITEM_MAP = new HashMap<>();
+    private static final ArrayList<Entry>   ITEMS    = new ArrayList<>();
+    private static final ArrayList<Entry>   SELECTED = new ArrayList<>();
+    private static final String             TAG      = "SB_ListSearch";
 
     public static void populate(ArrayList<String> list) {
         if (list == null) {
@@ -48,8 +48,8 @@ public class ListSearch {
         }
         Utilities.log(TAG, "populate() called with list size = [" + list.size() + "]");
 
-        String parts[];
-        Entry entry;
+        String          parts[];
+        Entry           entry;
         DatabaseUtility dbu = DatabaseUtility.getInstance(null);
         for (String reference : list) {
             parts = reference.split(":");
@@ -57,9 +57,9 @@ public class ListSearch {
                 continue;
             }
             entry = new Entry(parts[0], parts[1], parts[2],
-                    dbu.getSpecificVerse(Integer.parseInt(parts[0]),
-                            Integer.parseInt(parts[1]),
-                            Integer.parseInt(parts[2])));
+                              dbu.getSpecificVerse(Integer.parseInt(parts[0]),
+                                                   Integer.parseInt(parts[1]),
+                                                   Integer.parseInt(parts[2])));
             ITEMS.add(entry);
             ITEM_MAP.put(entry.getReference(), entry);
         }

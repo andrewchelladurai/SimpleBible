@@ -33,15 +33,15 @@ import java.util.Map;
 
 public class ListNotes {
 
-    private static final String TAG = "SB_ListNotes";
-    private static final List<Entry> ITEMS = new ArrayList<>();
+    private static final String               TAG      = "SB_ListNotes";
+    private static final List<Entry>          ITEMS    = new ArrayList<>();
     private static final Map<String[], Entry> ITEM_MAP = new HashMap<>();
 
     public static void populate() {
         ITEM_MAP.clear();
         ITEMS.clear();
 
-        DatabaseUtility dbu = DatabaseUtility.getInstance(null);
+        DatabaseUtility     dbu  = DatabaseUtility.getInstance(null);
         ArrayList<String[]> list = dbu.getAllNotes();
         if (list == null) {
             Utilities.throwError(TAG + " getAllNotes == null");
@@ -68,7 +68,7 @@ public class ListNotes {
 
         private static final String TAG = "SB_ListNotes.Entry";
         private final String[] reference;
-        private final String notes;
+        private final String   notes;
 
         public Entry(String id, String details) {
             reference = id.split("~");

@@ -36,8 +36,8 @@ import java.util.Map;
 
 public class ListBooks {
 
-    private static final String TAG = "SB_BooksList";
-    private static final List<Entry> ITEMS = new ArrayList<>();
+    private static final String             TAG      = "SB_BooksList";
+    private static final List<Entry>        ITEMS    = new ArrayList<>();
     private static final Map<String, Entry> ITEM_MAP = new HashMap<>();
 
     public static List<Entry> getItems() {
@@ -54,7 +54,7 @@ public class ListBooks {
             return;
         }
         String[] values;
-        Entry item;
+        Entry    item;
         for (int i = 0; i < bookArray.length; i++) {
             values = bookArray[i].split(":");
             item = new Entry((i + 1), values[0], values[1]);

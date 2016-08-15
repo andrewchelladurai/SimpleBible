@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".ActivityChapterList">
+<android.support.design.widget.CoordinatorLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+    xmlns:app = "http://schemas.android.com/apk/res-auto"
+    xmlns:tools = "http://schemas.android.com/tools"
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent"
+    android:fitsSystemWindows = "true"
+    tools:context = ".ActivityChapterList">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/activity_chapter_list_app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/DawnTheme.AppBarOverlay">
+        android:id = "@+id/activity_chapter_list_app_bar"
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:theme = "@style/DawnTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/activity_chapter_list_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/DawnTheme.PopupOverlay" />
+            android:id = "@+id/activity_chapter_list_toolbar"
+            android:layout_width = "match_parent"
+            android:layout_height = "?attr/actionBarSize"
+            app:popupTheme = "@style/DawnTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
-        android:id="@+id/activity_chapter_list_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="@dimen/gap"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:id = "@+id/activity_chapter_list_container"
+        android:layout_width = "match_parent"
+        android:layout_height = "match_parent"
+        android:gravity = "center"
+        android:orientation = "vertical"
+        android:padding = "@dimen/gap"
+        app:layout_behavior = "@string/appbar_scrolling_view_behavior">
 
         <include
-            layout="@layout/chapter_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            layout = "@layout/chapter_list"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_gravity = "center" />
     </LinearLayout>
 
     <!--

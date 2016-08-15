@@ -24,64 +24,64 @@
   ~
   -->
 
-<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    tools:context=".ActivityChapterVerses"
-    tools:ignore="MergeRootFrame">
+<android.support.v7.widget.LinearLayoutCompat xmlns:android = "http://schemas.android.com/apk/res/android"
+    xmlns:app = "http://schemas.android.com/apk/res-auto"
+    xmlns:tools = "http://schemas.android.com/tools"
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent"
+    android:animateLayoutChanges = "true"
+    android:fitsSystemWindows = "true"
+    android:orientation = "vertical"
+    tools:context = ".ActivityChapterVerses"
+    tools:ignore = "MergeRootFrame">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/activity_chapter_detail_app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:id = "@+id/activity_chapter_detail_app_bar"
+        android:layout_width = "match_parent"
+        android:layout_height = "?attr/actionBarSize"
+        android:fitsSystemWindows = "true"
+        android:theme = "@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/activity_chapter_detail_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            android:id = "@+id/activity_chapter_detail_toolbar"
+            android:layout_width = "match_parent"
+            android:layout_height = "?attr/actionBarSize"
+            app:popupTheme = "@style/ThemeOverlay.AppCompat.Light" />
 
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.LinearLayoutCompat
-        android:id="@+id/activity_chapter_detail_chapter_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:id = "@+id/activity_chapter_detail_chapter_container"
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:layout_weight = "1"
+        app:layout_behavior = "@string/appbar_scrolling_view_behavior" />
 
     <android.support.v7.widget.ButtonBarLayout
-        android:id="@+id/activity_chapter_detail_verse_actions"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/gap"
-        android:layout_marginLeft="@dimen/gap"
-        android:layout_marginRight="@dimen/gap"
-        android:orientation="horizontal"
-        android:visibility="gone">
+        android:id = "@+id/activity_chapter_detail_verse_actions"
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:layout_gravity = "center"
+        android:layout_marginBottom = "@dimen/gap"
+        android:layout_marginLeft = "@dimen/gap"
+        android:layout_marginRight = "@dimen/gap"
+        android:orientation = "horizontal"
+        android:visibility = "gone">
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/activity_chapter_fab_share"
-            style="@style/Base.Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/button_share" />
+            android:id = "@+id/activity_chapter_fab_share"
+            style = "@style/Base.Widget.AppCompat.Button.Colored"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:layout_weight = "1"
+            android:text = "@string/button_share" />
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/activity_chapter_fab_save"
-            style="@style/Base.Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/button_save" />
+            android:id = "@+id/activity_chapter_fab_save"
+            style = "@style/Base.Widget.AppCompat.Button.Colored"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:layout_weight = "1"
+            android:text = "@string/button_save" />
     </android.support.v7.widget.ButtonBarLayout>
 </android.support.v7.widget.LinearLayoutCompat>

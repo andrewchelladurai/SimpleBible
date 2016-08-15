@@ -36,13 +36,13 @@ import java.util.Map;
 
 public class ListVerse {
 
-    private static final String TAG = "SB_ListVerse";
-    private static final ArrayList<Entry> ITEMS = new ArrayList<>();
+    private static final String             TAG      = "SB_ListVerse";
+    private static final ArrayList<Entry>   ITEMS    = new ArrayList<>();
     private static final Map<String, Entry> ITEM_MAP = new HashMap<>();
-    private static final ArrayList<Entry> SELECTED = new ArrayList<>();
+    private static final ArrayList<Entry>   SELECTED = new ArrayList<>();
 
-    public static void populateEntries(ArrayList<String> verseList, int bookNumber,
-                                       int chapterNumber) {
+    public static void populateEntries(ArrayList<String> verseList, int bookNumber, int
+            chapterNumber) {
         Utilities.log(TAG, "populateEntries() called");
         truncate();
         Entry entry;

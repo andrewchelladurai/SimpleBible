@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~
   ~ This file 'values.xml' is part of SimpleBible :
   ~
@@ -26,6 +25,6 @@
   -->
 
 <resources>
-    <integer name="book_list_column_count">4</integer>
-    <dimen name="activity_horizontal_margin">48dp</dimen>
+    <integer name = "book_list_column_count">4</integer>
+    <dimen name = "activity_horizontal_margin">48dp</dimen>
 </resources>

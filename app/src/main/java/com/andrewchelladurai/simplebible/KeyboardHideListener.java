@@ -41,8 +41,8 @@ class KeyboardHideListener
     }
 
     @Override
-    public void onPageScrolled(final int position, final float positionOffset,
-                               final int positionOffsetPixels) {
+    public void onPageScrolled(final int position, final float positionOffset, final int
+            positionOffsetPixels) {
         Utilities.hideKeyboard(activity);
         StringBuilder pageTitle = new StringBuilder(activity.getString(R.string.app_name));
         switch (position) {

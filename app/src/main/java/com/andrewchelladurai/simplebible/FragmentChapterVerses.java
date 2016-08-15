@@ -45,9 +45,9 @@ public class FragmentChapterVerses
         implements View.OnClickListener {
 
     private static final String TAG = "SB_FragChapterVerses";
-    private ListBooks.Entry mBook;
+    private ListBooks.Entry   mBook;
     private ListChapter.Entry mChapter;
-    private Bundle mBundle;
+    private Bundle            mBundle;
 
     public FragmentChapterVerses() {
         // FIXME: 24/7/16 Rotating device clears selected data
@@ -56,8 +56,7 @@ public class FragmentChapterVerses
     @Override
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
-        Toolbar appBar = (Toolbar) getActivity()
-                .findViewById(R.id.activity_chapter_detail_toolbar);
+        Toolbar appBar = (Toolbar) getActivity().findViewById(R.id.activity_chapter_detail_toolbar);
 
         mBook = getArguments().getParcelable(Utilities.CURRENT_BOOK);
         if (mBook == null) {
@@ -79,9 +78,8 @@ public class FragmentChapterVerses
         mBundle.putString(Utilities.LOAD_CHAPTER, getArguments().getString(Utilities.LOAD_CHAPTER));
         Log.d(TAG, "onCreate: mBundle created " + mBook + " - " + mChapter + " - " + chapterNumber);
 
-        StringBuilder title = new StringBuilder(mBook.getName())
-                .append(" : ").append(getString(R.string.chapter_list_prepend_text))
-                .append(" ").append(chapterNumber);
+        StringBuilder title = new StringBuilder(mBook.getName()).append(" : ").append(
+                getString(R.string.chapter_list_prepend_text)).append(" ").append(chapterNumber);
         if (appBar != null) {
             appBar.setTitle(title);
         }
@@ -90,13 +88,14 @@ public class FragmentChapterVerses
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
-        View view = inflater.inflate(R.layout.fragment_verse_list, container, false);
+        View         view         = inflater.inflate(R.layout.fragment_verse_list, container,
+                                                     false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_verse_list);
 
-        DatabaseUtility dbu = DatabaseUtility.getInstance(getContext());
-        int bookNumber = Integer.parseInt(mBook.getBookNumber());
-        int chapterNumber = Integer.parseInt(mChapter.getChapterNumber());
-        ArrayList<String> verseList = dbu.getAllVersesOfChapter(bookNumber, chapterNumber);
+        DatabaseUtility   dbu           = DatabaseUtility.getInstance(getContext());
+        int               bookNumber    = Integer.parseInt(mBook.getBookNumber());
+        int               chapterNumber = Integer.parseInt(mChapter.getChapterNumber());
+        ArrayList<String> verseList     = dbu.getAllVersesOfChapter(bookNumber, chapterNumber);
         if (verseList == null || verseList.size() < 1) {
             Utilities.throwError(TAG + " onCreateView : verseList == null || size() < 1");
         }
@@ -104,8 +103,8 @@ public class FragmentChapterVerses
         ListVerse.populateEntries(verseList, bookNumber, chapterNumber);
         recyclerView.setAdapter(new AdapterVerseList(ListVerse.getEntries(), this));
 
-        AppCompatButton button =
-                (AppCompatButton) getActivity().findViewById(R.id.activity_chapter_fab_save);
+        AppCompatButton button = (AppCompatButton) getActivity().findViewById(
+                R.id.activity_chapter_fab_save);
         button.setOnClickListener(this);
 
         button = (AppCompatButton) getActivity().findViewById(R.id.activity_chapter_fab_share);
@@ -163,12 +162,12 @@ public class FragmentChapterVerses
             return;
         }
         StringBuilder shareText = new StringBuilder();
-        String text;
+        String        text;
         for (ListVerse.Entry entry : entries) {
             text = mBook.getName() + " (" +
-                    mChapter.getChapterNumber() + ":" +
-                    entry.getVerseNumber() + ") " +
-                    entry.getVerseText() + "\n";
+                   mChapter.getChapterNumber() + ":" +
+                   entry.getVerseNumber() + ") " +
+                   entry.getVerseText() + "\n";
             shareText.append(text);
         }
         shareText.append(getString(R.string.share_append_text));
@@ -176,8 +175,8 @@ public class FragmentChapterVerses
     }
 
     public void showActionBar() {
-        ButtonBarLayout view = (ButtonBarLayout)
-                getActivity().findViewById(R.id.activity_chapter_detail_verse_actions);
+        ButtonBarLayout view = (ButtonBarLayout) getActivity().findViewById(
+                R.id.activity_chapter_detail_verse_actions);
         view.setVisibility(ListVerse.isSelectedEntriesEmpty() ? View.GONE : View.VISIBLE);
     }
 }

@@ -48,9 +48,9 @@ public class FragmentHome
         implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private static final String TAG = "SB_FragmentHome";
-    private ArrayAdapter<String> mChapterAdapter;
+    private ArrayAdapter<String>          mChapterAdapter;
     private AppCompatAutoCompleteTextView mChapterInput;
-    private AppCompatTextView mDailyVerse;
+    private AppCompatTextView             mDailyVerse;
     private AppCompatAutoCompleteTextView mBookInput;
 
     public FragmentHome() {
@@ -58,10 +58,10 @@ public class FragmentHome
     }
 
     public static FragmentHome newInstance() {
-        FragmentHome fragment = new FragmentHome();
-        Bundle args = new Bundle();
-        DatabaseUtility dbu = DatabaseUtility.getInstance(fragment.getContext());
-        String todayVerseRef = dbu.getVerseReferenceForToday();
+        FragmentHome    fragment      = new FragmentHome();
+        Bundle          args          = new Bundle();
+        DatabaseUtility dbu           = DatabaseUtility.getInstance(fragment.getContext());
+        String          todayVerseRef = dbu.getVerseReferenceForToday();
 
         args.putString(Utilities.TODAY_VERSE_REFERENCE, todayVerseRef);
         fragment.setArguments(args);
@@ -80,18 +80,20 @@ public class FragmentHome
 
         mBookInput = (AppCompatAutoCompleteTextView) view.findViewById(R.id.frag_home_book_name);
         List<ListBooks.Entry> items = ListBooks.getItems();
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<String>     list  = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
             list.add(i, items.get(i).getName());
         }
-        mBookInput.setAdapter(new ArrayAdapter<>(
-                getContext(), android.R.layout.simple_dropdown_item_1line, list));
+        mBookInput.setAdapter(
+                new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line,
+                                   list));
         mBookInput.setOnItemClickListener(this);
 
-        mChapterInput = (AppCompatAutoCompleteTextView)
-                view.findViewById(R.id.frag_home_chapter_number);
-        mChapterAdapter = new ArrayAdapter<>(getContext(), android.R.layout
-                .simple_dropdown_item_1line, new ArrayList<String>(0));
+        mChapterInput = (AppCompatAutoCompleteTextView) view.findViewById(
+                R.id.frag_home_chapter_number);
+        mChapterAdapter = new ArrayAdapter<>(getContext(),
+                                             android.R.layout.simple_dropdown_item_1line,
+                                             new ArrayList<String>(0));
         mChapterInput.setAdapter(mChapterAdapter);
 
         return view;
@@ -128,7 +130,7 @@ public class FragmentHome
         }
 
         String chapterNumStr = getChapterNumber();
-        int chapterNumber = 1;
+        int    chapterNumber = 1;
 
         if (chapterNumStr.isEmpty()) {
             chapterNumber = 1;
@@ -138,13 +140,13 @@ public class FragmentHome
             } catch (NumberFormatException npe) {
                 chapterNumber = 1;
                 Snackbar.make(view, R.string.message_incorrect_chapter_number,
-                        Snackbar.LENGTH_SHORT).show();
+                              Snackbar.LENGTH_SHORT).show();
                 Utilities.log(TAG, "buttonGotoClicked " + npe.getLocalizedMessage());
             }
             if (chapterNumber < 1 || chapterNumber > Integer.parseInt(book.getChapterCount())) {
                 chapterNumber = 1;
                 Snackbar.make(view, R.string.message_incorrect_chapter_number,
-                        Snackbar.LENGTH_SHORT).show();
+                              Snackbar.LENGTH_SHORT).show();
             }
         }
         Utilities.log(TAG, "buttonGotoClicked() called [" + book + "] [" + chapterNumber + "]");

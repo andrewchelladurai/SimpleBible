@@ -40,25 +40,25 @@ import android.view.inputmethod.InputMethodManager;
 public class Utilities {
 
     // constants for arguments used in Fragments and Activities.
-    public static final String TODAY_VERSE_REFERENCE = "TODAY_VERSE_REFERENCE";
-    public static final String BOOKS_COLUMN_COUNT = "BOOKS_COLUMN_COUNT";
-    public static final String CURRENT_BOOK = "CURRENT_BOOK";
-    public static final String CURRENT_CHAPTER = "CURRENT_CHAPTER";
+    public static final String TODAY_VERSE_REFERENCE  = "TODAY_VERSE_REFERENCE";
+    public static final String BOOKS_COLUMN_COUNT     = "BOOKS_COLUMN_COUNT";
+    public static final String CURRENT_BOOK           = "CURRENT_BOOK";
+    public static final String CURRENT_CHAPTER        = "CURRENT_CHAPTER";
     public static final String CURRENT_CHAPTER_NUMBER = "CURRENT_CHAPTER_NUMBER";
-    public static final String CURRENT_VERSE = "CURRENT_VERSE";
-    public static final String REFERENCES = "REFERENCES";
-    public static final String LOAD_CHAPTER = "LOAD_CHAPTER";
-    public static final String LOAD_CHAPTER_NO = "LOAD_CHAPTER_NO";
-    public static final String LOAD_CHAPTER_YES = "LOAD_CHAPTER_YES";
-    public static final String BOOKMARK_MODE = "BOOKMARK_MODE";
-    public static final String BOOKMARK_VIEW = "BOOKMARK_VIEW";
-    public static final String BOOKMARK_EDIT = "BOOKMARK_EDIT";
+    public static final String CURRENT_VERSE          = "CURRENT_VERSE";
+    public static final String REFERENCES             = "REFERENCES";
+    public static final String LOAD_CHAPTER           = "LOAD_CHAPTER";
+    public static final String LOAD_CHAPTER_NO        = "LOAD_CHAPTER_NO";
+    public static final String LOAD_CHAPTER_YES       = "LOAD_CHAPTER_YES";
+    public static final String BOOKMARK_MODE          = "BOOKMARK_MODE";
+    public static final String BOOKMARK_VIEW          = "BOOKMARK_VIEW";
+    public static final String BOOKMARK_EDIT          = "BOOKMARK_EDIT";
 
-    public static final String DELIMITER_IN_REFERENCE = ":";
+    public static final String DELIMITER_IN_REFERENCE      = ":";
     public static final String DELIMITER_BETWEEN_REFERENCE = "~";
 
-    private static final String TAG = "SB_Utilities";
-    private static Utilities staticInstance = null;
+    private static final String    TAG            = "SB_Utilities";
+    private static       Utilities staticInstance = null;
     private static Resources mResources;
 
     private Utilities(final Resources pResources) {
@@ -68,11 +68,14 @@ public class Utilities {
     public static Utilities getInstance(final Resources pResources) {
         if (staticInstance == null) {
             staticInstance = new Utilities(pResources);
-            ListBooks.populateBooks(
-                    pResources.getStringArray(R.array.books_n_chapter_count_array));
+            ListBooks.populateBooks(pResources.getStringArray(R.array.books_n_chapter_count_array));
             Utilities.log(TAG, "getInstance: staticInstance initialized");
         }
         return staticInstance;
+    }
+
+    public static void log(String TAG, String message) {
+        Log.i(TAG, message);
     }
 
     public static Intent shareVerse(String textToShare) {
@@ -89,19 +92,19 @@ public class Utilities {
     }
 
     public static String getFormattedDailyVerse(String[] reference) {
-        String bookName = ListBooks.getItem(reference[0]).getName();
-        DatabaseUtility dbu = DatabaseUtility.getInstance(null);
+        String          bookName = ListBooks.getItem(reference[0]).getName();
+        DatabaseUtility dbu      = DatabaseUtility.getInstance(null);
         String verseText = dbu.getSpecificVerse(Integer.parseInt(reference[0]),
-                Integer.parseInt(reference[1]),
-                Integer.parseInt(reference[2]));
+                                                Integer.parseInt(reference[1]),
+                                                Integer.parseInt(reference[2]));
 
         String fText = getResourceString(R.string.daily_verse_template);
 
         fText = fText.replaceAll(getResourceString(R.string.daily_verse_template_book), bookName);
         fText = fText.replaceAll(getResourceString(R.string.daily_verse_template_chapter),
-                reference[1]);
-        fText = fText.replaceAll(
-                getResourceString(R.string.daily_verse_template_verse), reference[2]);
+                                 reference[1]);
+        fText = fText.replaceAll(getResourceString(R.string.daily_verse_template_verse),
+                                 reference[2]);
         fText = fText.replaceAll(getResourceString(R.string.daily_verse_template_text), verseText);
 
         return fText;
@@ -113,25 +116,23 @@ public class Utilities {
 
     public static String getFormattedChapterVerse(int verseNumber, String verseText) {
         String fText = getResourceString(R.string.chapter_verse_template);
-        fText = fText.replaceAll(
-                getResourceString(R.string.chapter_verse_template_verse),
-                String.valueOf(verseNumber));
-        fText = fText.replaceAll(
-                getResourceString(R.string.chapter_verse_template_text), verseText);
+        fText = fText.replaceAll(getResourceString(R.string.chapter_verse_template_verse),
+                                 String.valueOf(verseNumber));
+        fText = fText.replaceAll(getResourceString(R.string.chapter_verse_template_text),
+                                 verseText);
         return fText;
     }
 
     public static String getFormattedSearchVerse(ListSearch.Entry entry) {
         String bookName = ListBooks.getItem(entry.getBookNumber()).getName();
-        String fText = getResourceString(R.string.search_result_template);
-        fText = fText.replaceAll(
-                getResourceString(R.string.search_result_template_book), bookName);
+        String fText    = getResourceString(R.string.search_result_template);
+        fText = fText.replaceAll(getResourceString(R.string.search_result_template_book), bookName);
         fText = fText.replaceAll(getResourceString(R.string.search_result_template_chapter),
-                entry.getChapterNumber());
-        fText = fText.replaceAll(
-                getResourceString(R.string.search_result_template_verse), entry.getVerseNumber());
+                                 entry.getChapterNumber());
+        fText = fText.replaceAll(getResourceString(R.string.search_result_template_verse),
+                                 entry.getVerseNumber());
         fText = fText.replaceAll(getResourceString(R.string.search_result_template_text),
-                entry.getVerse());
+                                 entry.getVerse());
 
         return fText;
     }
@@ -142,13 +143,10 @@ public class Utilities {
         return bookName + " (" + chapterNumber + ":" + verseNumber + ") " + verseText;
     }
 
-    public static void log(String TAG, String message) {
-        Log.i(TAG, message);
-    }
-
     public static void hideKeyboard(Activity activity) {
-        InputMethodManager im = (InputMethodManager)
-                activity.getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager im = (InputMethodManager) activity.getApplicationContext()
+                                                             .getSystemService(
+                                                                     Context.INPUT_METHOD_SERVICE);
         View view = activity.getCurrentFocus();
         if (view != null) {
             im.hideSoftInputFromWindow(view.getWindowToken(), 0);

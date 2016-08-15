@@ -26,14 +26,15 @@
 
 <resources>
 
-    <style name="DawnTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    <style name = "DawnTheme.NoActionBar">
+        <item name = "windowActionBar">false</item>
+        <item name = "windowNoTitle">true</item>
+        <item name = "android:windowDrawsSystemBarBackgrounds">true</item>
         <!--<item name="android:statusBarColor">@color/primary_dark</item>-->
     </style>
 
-    <style name="DawnTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name = "DawnTheme"
+        parent = "Theme.AppCompat.DayNight.DarkActionBar">
         <!--<item name="colorPrimary">@color/primary</item>-->
         <!--<item name="android:statusBarColor">@color/primary_dark</item>-->
         <!--<item name="colorAccent">@color/accent</item>-->

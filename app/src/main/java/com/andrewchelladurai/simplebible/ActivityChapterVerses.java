@@ -46,8 +46,8 @@ public class ActivityChapterVerses
         super.onCreate(savedState);
 
         // Start to get all the necessary arguments for operation
-        Bundle extras = getIntent().getExtras();
-        ListBooks.Entry book = extras.getParcelable(Utilities.CURRENT_BOOK);
+        Bundle          extras = getIntent().getExtras();
+        ListBooks.Entry book   = extras.getParcelable(Utilities.CURRENT_BOOK);
         if (book == null) {
             Utilities.throwError(TAG + "onCreate: book == null");
         }

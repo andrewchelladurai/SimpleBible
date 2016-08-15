@@ -35,14 +35,13 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
- * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
- * on 30-Jun-2016 @ 1:49 AM
+ * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 30-Jun-2016 @ 1:49 AM
  */
 public class AdapterChapterList
         extends RecyclerView.Adapter<AdapterChapterList.ChapterView> {
 
     private static final String TAG = "SB_AdapterChapterList";
-    private final ActivityChapterList mActivity;
+    private final ActivityChapterList     mActivity;
     private final List<ListChapter.Entry> mValues;
 
     public AdapterChapterList(ActivityChapterList activity, List<ListChapter.Entry> items) {
@@ -52,8 +51,8 @@ public class AdapterChapterList
 
     @Override
     public ChapterView onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.entry_chapter, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.entry_chapter, parent,
+                                                                     false);
         return new ChapterView(view);
     }
 
@@ -71,9 +70,9 @@ public class AdapterChapterList
             extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
-        private final View mView;
-        private final TextView mContent;
-        private ListChapter.Entry mItem;
+        private final View              mView;
+        private final TextView          mContent;
+        private       ListChapter.Entry mItem;
 
         public ChapterView(View view) {
             super(view);

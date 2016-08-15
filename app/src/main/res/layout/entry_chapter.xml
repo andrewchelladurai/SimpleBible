@@ -24,18 +24,18 @@
   ~
   -->
 
-<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+<android.support.v7.widget.LinearLayoutCompat xmlns:android = "http://schemas.android.com/apk/res/android"
+    android:layout_width = "match_parent"
+    android:layout_height = "wrap_content"
+    android:orientation = "horizontal">
 
     <TextView
-        android:id="@+id/chapter_entry_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="@dimen/gap"
-        android:text="@string/app_name"
-        android:textAppearance="?attr/textAppearanceListItem"
-        android:textStyle="bold" />
+        android:id = "@+id/chapter_entry_content"
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:gravity = "center"
+        android:padding = "@dimen/gap"
+        android:text = "@string/app_name"
+        android:textAppearance = "?attr/textAppearanceListItem"
+        android:textStyle = "bold" />
 </android.support.v7.widget.LinearLayoutCompat>
