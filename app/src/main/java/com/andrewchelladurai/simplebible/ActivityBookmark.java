@@ -51,12 +51,12 @@ public class ActivityBookmark
         extends AppCompatActivity
         implements View.OnClickListener {
 
-    private static final String TAG = "SB_ActivityBookmark";
+    private static final String    TAG              = "SB_ActivityBookmark";
+    private              OPERATION currentOperation = OPERATION.SAVE_SINGLE_REFERENCE;
     private ArrayList<String> mReferences;
     private String            mViewNode;
     private AppCompatEditText mNotes;
     private ButtonBarLayout   actionBar;
-    private OPERATION currentOperation = OPERATION.SAVE_SINGLE_REFERENCE;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -70,15 +70,14 @@ public class ActivityBookmark
         if (mReferences == null) {
             Utilities.throwError(TAG + " mReferences == null");
         }
-        mViewNode = getIntent().getExtras().getString(Utilities.BOOKMARK_MODE,
-                                                      Utilities.BOOKMARK_VIEW);
+        mViewNode = getIntent().getExtras()
+                               .getString(Utilities.BOOKMARK_MODE, Utilities.BOOKMARK_VIEW);
 
         // // FIXME: 24/7/16 OVER RIDING FOR TESTING
         mViewNode = Utilities.BOOKMARK_EDIT;
 
-        Utilities.log(TAG,
-                      "onCreate: mReferences.size [" + mReferences.size() + "] mode [" + mViewNode +
-                      "]");
+        Utilities.log(TAG, "onCreate: mReferences.size [" + mReferences.size() +
+                           "] mode [" + mViewNode + "]");
 
         mNotes = (AppCompatEditText) findViewById(R.id.activity_bookmark_notes);
         populateContent();
@@ -92,11 +91,11 @@ public class ActivityBookmark
             Utilities.throwError(TAG + " verseList == null");
         }
 
-        DatabaseUtility   dbu    = DatabaseUtility.getInstance(getApplicationContext());
-        String[]          parts;
+        DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
+        String[] parts;
         ArrayList<String> verses = new ArrayList<>(mReferences.size());
         for (String reference : mReferences) {
-            parts = reference.split(":");
+            parts = reference.split(Utilities.DELIMITER_IN_REFERENCE);
             verses.add(Utilities.getFormattedBookmarkVerse(parts[0], parts[1], parts[2],
                                                            dbu.getSpecificVerse(
                                                                    Integer.parseInt(parts[0]),
@@ -135,8 +134,8 @@ public class ActivityBookmark
 
     private void populateSingleReference() {
         Utilities.log(TAG, "populateSingleReference() called");
-        String          reference = mReferences.get(0);
-        DatabaseUtility dbu       = DatabaseUtility.getInstance(getApplicationContext());
+        String reference = mReferences.get(0);
+        DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
         if (dbu.isAlreadyBookmarked(reference)) {
             currentOperation = OPERATION.UPDATE_SINGLE_REFERENCE;
             Utilities.log(TAG,
@@ -219,17 +218,17 @@ public class ActivityBookmark
     private void singleReferenceSaveUpdate() {
         Utilities.log(TAG, "singleReferenceSaveUpdate() called");
         StringBuilder referencesEntry = new StringBuilder();
-        String        delimiter       = Utilities.DELIMITER_BETWEEN_REFERENCE;
+        String delimiter = Utilities.DELIMITER_BETWEEN_REFERENCE;
         for (String reference : mReferences) {
             referencesEntry.append(reference).append(delimiter);
         }
-        String reference = referencesEntry.substring(0,
-                                                     referencesEntry.length() - delimiter.length());
+        String reference = referencesEntry
+                .substring(0, referencesEntry.length() - delimiter.length());
         String notes = mNotes.getText().toString().trim();
 
-        DatabaseUtility dbu          = DatabaseUtility.getInstance(getApplicationContext());
-        boolean         success      = false;
-        String          feedbackText = "";
+        DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
+        boolean success = false;
+        String feedbackText = "";
         switch (currentOperation) {
             case SAVE_SINGLE_REFERENCE:
                 feedbackText = "Bookmark Saved";
