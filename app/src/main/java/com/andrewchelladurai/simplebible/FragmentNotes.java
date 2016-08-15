@@ -31,6 +31,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -116,6 +117,13 @@ public class FragmentNotes
     public void refreshData() {
         Utilities.log(TAG, "refreshData() called");
         ListNotes.populate();
-        noteListAdapter.notifyDataSetChanged();
+        if (notesList == null || noteListAdapter == null) {
+            getFragmentManager().beginTransaction()
+                    .detach(this)
+                    .attach(this)
+                    .commit();
+        } else {
+            noteListAdapter.notifyDataSetChanged();
+        }
     }
 }
