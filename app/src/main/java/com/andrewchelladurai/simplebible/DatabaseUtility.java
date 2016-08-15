@@ -357,22 +357,19 @@ public class DatabaseUtility
         final SQLiteDatabase db = getWritableDatabase();
 
         final ContentValues values = new ContentValues();
-        values.put(BM_TABLE_REFERENCES,
-                references);
-        values.put(
-                BM_TABLE_NOTES, notes);
+        values.put(BM_TABLE_REFERENCES, references);
+        values.put(BM_TABLE_NOTES, notes);
         String whereClause = BM_TABLE_REFERENCES + " = ?";
         String whereParams[] = {references};
-        int rowcount = -1;
-        try {
-            rowcount = db.update(BOOKMARK_TABLE, values, whereClause, whereParams);
-            db.close();
-            updated = true;
-        } catch (Exception e) {
-            updated = false;
-            Utilities.throwError("updateExistingBookmark: Bookmark update failed");
-        }
-        Utilities.log(TAG, "updateExistingBookmark() returned: " + updated + " : " + rowcount +
+//        try {
+        int rowCount = db.update(BOOKMARK_TABLE, values, whereClause, whereParams);
+        db.close();
+        updated = (rowCount > 0);
+//        } catch (Exception e) {
+//            updated = false;
+//            Utilities.throwError("updateExistingBookmark: Bookmark update failed");
+//        }
+        Utilities.log(TAG, "updateExistingBookmark() returned: " + updated + " : " + rowCount +
                 " updated");
         return updated;
     }
@@ -411,7 +408,7 @@ public class DatabaseUtility
 
         String query = SQLiteQueryBuilder.buildQueryString(true, BOOKMARK_TABLE, selectCols, where,
                 null, null, null, null);
-        Utilities.log(TAG, "getReferenceDetails: Query = " + query);
+        Utilities.log(TAG, "getBookmarkedNote: Query = " + query);
 
         if (null != cursor && cursor.moveToFirst()) {
             note = cursor.getString(0);

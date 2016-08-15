@@ -34,7 +34,6 @@ import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
@@ -42,7 +41,7 @@ import java.util.ArrayList;
 
 /* FIXME: 13/8/16 Implement the below flow
     - IMPLEMENTED Single Verse Passed but does not Exist
-    - Single Verse Passed but it Exists
+    - IMPLEMENTED Single Verse Passed but it Exists
     - Multiple Verse Passed but None Exist
     - Multiple Verse Passed but One Exist
     - Multiple Verse Passed but more than One Exist
@@ -150,7 +149,9 @@ public class ActivityBookmark
             currentOperation = OPERATION.UPDATE_SINGLE_REFERENCE;
             Utilities.log(TAG, "populateSingleReference: currentOperation = UPDATE_SINGLE_REFERENCE");
             String note = dbu.getBookmarkedNote(reference);
-            mNotes.setHint(note.isEmpty() ? getString(R.string.activity_bookmark_reference_absent) : "");
+            mNotes.setHint(note.isEmpty() ?
+                    getString(R.string.activity_bookmark_reference_absent) :
+                    getString(R.string.activity_bookmark_reference_present));
             mNotes.setText(note);
         } else {
             currentOperation = OPERATION.SAVE_SINGLE_REFERENCE;
@@ -199,10 +200,8 @@ public class ActivityBookmark
         Utilities.log(TAG, "buttonSaveClicked() called");
         switch (currentOperation) {
             case SAVE_SINGLE_REFERENCE:
-                saveSingleReference();
-                break;
             case UPDATE_SINGLE_REFERENCE:
-                updateSingleReference();
+                singleReferenceSaveUpdate();
                 break;
             case SAVE_MULTIPLE_REFERENCE:
                 break;
@@ -211,12 +210,8 @@ public class ActivityBookmark
         }
     }
 
-    private void updateSingleReference() {
-        Utilities.log(TAG, "updateSingleReference() called");
-    }
-
-    private void saveSingleReference() {
-        Utilities.log(TAG, "saveSingleReference() called with: " + "");
+    private void singleReferenceSaveUpdate() {
+        Utilities.log(TAG, "singleReferenceSaveUpdate() called");
         StringBuilder referencesEntry = new StringBuilder();
         String delimiter = Utilities.DELIMITER_BETWEEN_REFERENCE;
         for (String reference : mReferences) {
@@ -227,17 +222,29 @@ public class ActivityBookmark
         String notes = mNotes.getText().toString().trim();
 
         DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
-        boolean saved = dbu.createNewBookmark(reference, notes);
+        boolean success = false;
+        String feedbackText = "";
+        switch (currentOperation) {
+            case SAVE_SINGLE_REFERENCE:
+                feedbackText = "Bookmark Saved";
+                success = dbu.createNewBookmark(reference, notes);
+                if (!success) {
+                    feedbackText = "Bookmark Not Saved";
+                }
+                break;
+            case UPDATE_SINGLE_REFERENCE:
+                feedbackText = "Bookmark Updated";
+                success = dbu.updateExistingBookmark(reference, notes);
+                if (!success) {
+                    feedbackText = "Bookmark Not Updated";
+                }
+        }
 
         actionBar.setVisibility(View.INVISIBLE);
-
-        if (saved) {
-            mNotes.setFocusable(false);
-            Snackbar.make(mNotes, "Bookmark saved", Snackbar.LENGTH_LONG).show();
-        } else {
-            Snackbar.make(mNotes, "Bookmark could not be saved", Snackbar.LENGTH_LONG).show();
-        }
+        mNotes.setFocusable(false);
         Utilities.hideKeyboard(this);
+
+        Snackbar.make(mNotes, feedbackText, Snackbar.LENGTH_LONG).show();
     }
 
     private void buttonEditClicked() {
