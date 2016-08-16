@@ -116,6 +116,7 @@ public class FragmentNotes
     public void refreshData() {
         Utilities.log(TAG, "refreshData() called");
         ListNotes.populate();
+        if (ListNotes.getCount() == 0) {return;}
         if (notesList == null || noteListAdapter == null) {
             getFragmentManager().beginTransaction().detach(this).attach(this).commit();
         } else {

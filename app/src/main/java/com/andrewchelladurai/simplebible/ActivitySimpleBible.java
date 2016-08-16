@@ -83,6 +83,7 @@ public class ActivitySimpleBible
 
     public void refreshNotesScreen() {
         Utilities.log(TAG, "refreshNotesScreen() called");
+        if (fragmentNotes == null) {return;}
         fragmentNotes.refreshData();
     }
 
