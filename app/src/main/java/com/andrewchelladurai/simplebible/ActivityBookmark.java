@@ -141,7 +141,7 @@ public class ActivityBookmark
             Utilities.log(TAG,
                           "populateSingleReference: currentOperation = UPDATE_SINGLE_REFERENCE");
             String note = dbu.getBookmarkedNote(reference);
-            mNotes.setHint(note.isEmpty() ? getString(R.string.activity_bookmark_reference_absent) :
+            mNotes.setHint(note.isEmpty() ? getString(R.string.activity_bookmark_empty_note) :
                            getString(R.string.activity_bookmark_reference_present));
             mNotes.setText(note);
         } else {
@@ -154,6 +154,7 @@ public class ActivityBookmark
     private void populateMultipleReference() {
         // FIXME: 8/8/16 handle when multiple reference is passed
         Utilities.log(TAG, "populateMultipleReference() called");
+
     }
 
     private void bindButton(int buttonId, int visibilityMode) {

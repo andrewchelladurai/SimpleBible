@@ -158,4 +158,5 @@
         and then select Save from the bottom list of options.</string>
     <string name = "activity_bookmark_reference_present">This verse is already bookmarked</string>
     <string name = "activity_bookmark_reference_absent">This verse is not already bookmarked. You may enter a note here to associate with the verse if you wish. </string>
+    <string name = "activity_bookmark_empty_note">No Notes saved for this reference.</string>
 </resources>
