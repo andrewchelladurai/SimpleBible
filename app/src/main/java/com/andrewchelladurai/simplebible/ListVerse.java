@@ -33,13 +33,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ListVerse {
 
-    private static final String             TAG      = "SB_ListVerse";
-    private static final ArrayList<Entry>   ITEMS    = new ArrayList<>();
-    private static final Map<String, Entry> ITEM_MAP = new HashMap<>();
-    private static final ArrayList<Entry>   SELECTED = new ArrayList<>();
+    private static final String                      TAG      = "SB_ListVerse";
+    private static final CopyOnWriteArrayList<Entry> ITEMS    = new CopyOnWriteArrayList<>();
+    private static final Map<String, Entry>          ITEM_MAP = new HashMap<>();
+    private static final ArrayList<Entry>            SELECTED = new ArrayList<>();
 
     public static void populateEntries(ArrayList<String> verseList, int bookNumber, int
             chapterNumber) {

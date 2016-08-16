@@ -33,12 +33,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ListBooks {
 
-    private static final String             TAG      = "SB_BooksList";
-    private static final List<Entry>        ITEMS    = new ArrayList<>();
-    private static final Map<String, Entry> ITEM_MAP = new HashMap<>();
+    private static final String                      TAG      = "SB_BooksList";
+    private static final CopyOnWriteArrayList<Entry> ITEMS    = new CopyOnWriteArrayList<>();
+    private static final Map<String, Entry>          ITEM_MAP = new HashMap<>();
 
     public static List<Entry> getItems() {
         return ITEMS;
