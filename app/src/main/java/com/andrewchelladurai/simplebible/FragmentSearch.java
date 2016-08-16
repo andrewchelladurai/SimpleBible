@@ -40,6 +40,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class FragmentSearch
         extends Fragment
@@ -91,8 +92,8 @@ public class FragmentSearch
                     String buttonText = mSearchButton.getText().toString();
                     if (buttonText.equalsIgnoreCase(getString(R.string.button_search_text))) {
                         searchButtonClicked();
-                    } else if (buttonText.equalsIgnoreCase(
-                            getString(R.string.button_search_reset))) {
+                    } else if (buttonText
+                            .equalsIgnoreCase(getString(R.string.button_search_reset))) {
                         resetButtonClicked();
                     }
                     break;
@@ -120,7 +121,7 @@ public class FragmentSearch
             mLabel.setError(getString(R.string.search_text_length));
             return;
         }
-        DatabaseUtility   dbu  = DatabaseUtility.getInstance(getActivity().getApplicationContext());
+        DatabaseUtility dbu = DatabaseUtility.getInstance(getActivity().getApplicationContext());
         ArrayList<String> list = dbu.searchText(input);
         if (list.size() == 0) {
             mLabel.setError(getString(R.string.search_no_results));
@@ -154,8 +155,8 @@ public class FragmentSearch
             Utilities.log(TAG, "buttonShareClicked: No Selected entries exist");
             return;
         }
-        ArrayList<ListSearch.Entry> entries    = ListSearch.getSelectedEntries();
-        ArrayList<String>           references = new ArrayList<>();
+        CopyOnWriteArrayList<ListSearch.Entry> entries = ListSearch.getSelectedEntries();
+        ArrayList<String> references = new ArrayList<>();
         for (ListSearch.Entry entry : entries) {
             references.add(entry.getReference());
             ListSearch.removeSelectedEntry(entry);
@@ -177,10 +178,10 @@ public class FragmentSearch
             Utilities.log(TAG, "buttonShareClicked: No Selected entries exist");
             return;
         }
-        ArrayList<ListSearch.Entry> entries   = ListSearch.getSelectedEntries();
-        String                      text;
-        StringBuilder               shareText = new StringBuilder();
-        ListBooks.Entry             mBook;
+        CopyOnWriteArrayList    <ListSearch.Entry> entries = ListSearch.getSelectedEntries();
+        String text;
+        StringBuilder shareText = new StringBuilder();
+        ListBooks.Entry mBook;
         for (ListSearch.Entry entry : entries) {
             mBook = ListBooks.getItem(entry.getBookNumber());
             text = mBook.getName() + " (" +

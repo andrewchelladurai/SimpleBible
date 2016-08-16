@@ -33,13 +33,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ListSearch {
 
-    static final         Map<String, Entry> ITEM_MAP = new HashMap<>();
-    private static final ArrayList<Entry>   ITEMS    = new ArrayList<>();
-    private static final ArrayList<Entry>   SELECTED = new ArrayList<>();
-    private static final String             TAG      = "SB_ListSearch";
+    static final         Map<String, Entry>          ITEM_MAP = new HashMap<>();
+    private static final CopyOnWriteArrayList<Entry> ITEMS    = new CopyOnWriteArrayList<>();
+    private static final CopyOnWriteArrayList<Entry> SELECTED = new CopyOnWriteArrayList<>();
+    private static final String                      TAG      = "SB_ListSearch";
 
     public static void populate(ArrayList<String> list) {
         if (list == null) {
@@ -48,8 +49,8 @@ public class ListSearch {
         }
         Utilities.log(TAG, "populate() called with list size = [" + list.size() + "]");
 
-        String          parts[];
-        Entry           entry;
+        String parts[];
+        Entry entry;
         DatabaseUtility dbu = DatabaseUtility.getInstance(null);
         for (String reference : list) {
             parts = reference.split(":");
@@ -94,7 +95,7 @@ public class ListSearch {
         return SELECTED.isEmpty();
     }
 
-    public static ArrayList<Entry> getSelectedEntries() {
+    public static CopyOnWriteArrayList<Entry> getSelectedEntries() {
         return SELECTED;
     }
 
