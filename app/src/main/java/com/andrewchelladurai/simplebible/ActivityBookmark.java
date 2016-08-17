@@ -34,7 +34,6 @@ import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
@@ -45,7 +44,7 @@ public class ActivityBookmark
         implements View.OnClickListener {
 
     private static final String    TAG              = "SB_ActivityBookmark";
-    private              OPERATION currentOperation = OPERATION.SAVE_SINGLE_REFERENCE;
+    private              OPERATION currentOperation = OPERATION.SAVE;
     private ArrayList<String> mReferences;
     private String            mViewNode;
     private AppCompatEditText mNotes;
@@ -65,9 +64,6 @@ public class ActivityBookmark
         }
         mViewNode = getIntent().getExtras()
                                .getString(Utilities.BOOKMARK_MODE, Utilities.BOOKMARK_VIEW);
-
-        // // FIXME: 24/7/16 OVER RIDING FOR TESTING
-        mViewNode = Utilities.BOOKMARK_EDIT;
 
         Utilities.log(TAG, "onCreate: mReferences.size [" + mReferences.size() +
                            "] mode [" + mViewNode + "]");
@@ -97,11 +93,7 @@ public class ActivityBookmark
         }
         verseList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, verses));
 
-        if (mReferences.size() == 1) {
-            populateSingleReference();
-        } else {
-            populateMultipleReference();
-        }
+        populateReference();
     }
 
     private void prepareScreen() {
@@ -125,28 +117,8 @@ public class ActivityBookmark
         }
     }
 
-    private void populateSingleReference() {
-        Utilities.log(TAG, "populateSingleReference() called");
-        String reference = mReferences.get(0);
-        DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
-        if (dbu.isAlreadyBookmarked(reference)) {
-            currentOperation = OPERATION.UPDATE_SINGLE_REFERENCE;
-            Utilities.log(TAG,
-                          "populateSingleReference: currentOperation = UPDATE_SINGLE_REFERENCE");
-            String note = dbu.getBookmarkedEntry(reference);
-            mNotes.setHint(note.isEmpty() ? getString(R.string.activity_bookmark_empty_note) :
-                           getString(R.string.activity_bookmark_reference_present));
-            mNotes.setText(note);
-        } else {
-            currentOperation = OPERATION.SAVE_SINGLE_REFERENCE;
-            Utilities.log(TAG, "populateSingleReference: currentOperation = SAVE_SINGLE_REFERENCE");
-            mNotes.setHint(getString(R.string.activity_bookmark_reference_absent));
-        }
-    }
-
-    private void populateMultipleReference() {
-        // FIXME: 8/8/16 handle when multiple reference is passed
-        Utilities.log(TAG, "populateMultipleReference() called");
+    private void populateReference() {
+        Utilities.log(TAG, "populateReference() called");
         StringBuilder reference = new StringBuilder();
         String delimiter = Utilities.DELIMITER_BETWEEN_REFERENCE;
         for (String entry : mReferences) {
@@ -157,17 +129,15 @@ public class ActivityBookmark
 
         DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
         if (dbu.isAlreadyBookmarked(reference.toString())) {
-            currentOperation = OPERATION.UPDATE_MULTIPLE_REFERENCE;
-            Utilities.log(TAG, "populateMultipleReference: currentOperation = " +
-                               "UPDATE_MULTIPLE_REFERENCE");
+            currentOperation = OPERATION.UPDATE;
+            Utilities.log(TAG, "populateReference: currentOperation = UPDATE");
             String note = dbu.getBookmarkedEntry(reference.toString());
             mNotes.setHint(note.isEmpty() ? getString(R.string.activity_bookmark_empty_note) :
                            getString(R.string.activity_bookmark_reference_present));
             mNotes.setText(note);
         } else {
-            currentOperation = OPERATION.SAVE_MULTIPLE_REFERENCE;
-            Utilities.log(TAG,
-                          "populateMultipleReference: currentOperation = SAVE_MULTIPLE_REFERENCE");
+            currentOperation = OPERATION.SAVE;
+            Utilities.log(TAG, "populateReference: currentOperation = SAVE");
             mNotes.setHint(getString(R.string.activity_bookmark_reference_absent));
         }
     }
@@ -205,19 +175,38 @@ public class ActivityBookmark
 
     private void buttonSaveClicked() {
         Utilities.log(TAG, "buttonSaveClicked() called");
-        switch (currentOperation) {
-            case SAVE_SINGLE_REFERENCE:
-            case UPDATE_SINGLE_REFERENCE:
-                singleReferenceSaveUpdate();
-                break;
-            case SAVE_MULTIPLE_REFERENCE:
-            case UPDATE_MULTIPLE_REFERENCE:
-                multipleReferenceSaveUpdate();
-                break;
-            default:
-                Utilities.throwError(TAG + "incorrect currentOperation value : " +
-                                     getString(R.string.how_am_i_here));
+        StringBuilder reference = new StringBuilder();
+        String delimiter = Utilities.DELIMITER_BETWEEN_REFERENCE;
+        for (String entry : mReferences) {
+            reference.append(entry).append(delimiter);
         }
+        reference.delete(reference.length() - delimiter.length(), reference.length());
+        String notes = mNotes.getText().toString().trim();
+
+        DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
+        boolean success = false;
+        String feedbackText = "";
+        switch (currentOperation) {
+            case SAVE:
+                feedbackText = "Bookmark Saved";
+                success = dbu.createNewBookmark(reference.toString(), notes);
+                if (!success) {
+                    feedbackText = "Bookmark Not Saved";
+                }
+                break;
+            case UPDATE:
+                feedbackText = "Bookmark Updated";
+                success = dbu.updateExistingBookmark(reference.toString(), notes);
+                if (!success) {
+                    feedbackText = "Bookmark Not Updated";
+                }
+        }
+
+        actionBar.setVisibility(View.INVISIBLE);
+        mNotes.setFocusable(false);
+        Utilities.hideKeyboard(this);
+
+        Snackbar.make(mNotes, feedbackText, Snackbar.LENGTH_LONG).show();
     }
 
     private void buttonEditClicked() {
@@ -234,86 +223,8 @@ public class ActivityBookmark
         Utilities.log(TAG, "buttonShareClicked called");
     }
 
-    private void singleReferenceSaveUpdate() {
-        Utilities.log(TAG, "singleReferenceSaveUpdate() called");
-        StringBuilder referencesEntry = new StringBuilder();
-        String delimiter = Utilities.DELIMITER_BETWEEN_REFERENCE;
-        for (String reference : mReferences) {
-            referencesEntry.append(reference).append(delimiter);
-        }
-        String reference = referencesEntry
-                .substring(0, referencesEntry.length() - delimiter.length());
-        String notes = mNotes.getText().toString().trim();
-
-        DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
-        boolean success = false;
-        String feedbackText = "";
-        switch (currentOperation) {
-            case SAVE_SINGLE_REFERENCE:
-                feedbackText = "Bookmark Saved";
-                success = dbu.createNewBookmark(reference, notes);
-                if (!success) {
-                    feedbackText = "Bookmark Not Saved";
-                }
-                break;
-            case UPDATE_SINGLE_REFERENCE:
-                feedbackText = "Bookmark Updated";
-                success = dbu.updateExistingBookmark(reference, notes);
-                if (!success) {
-                    feedbackText = "Bookmark Not Updated";
-                }
-        }
-
-        actionBar.setVisibility(View.INVISIBLE);
-        mNotes.setFocusable(false);
-        Utilities.hideKeyboard(this);
-
-        Snackbar.make(mNotes, feedbackText, Snackbar.LENGTH_LONG).show();
-    }
-
-    private void multipleReferenceSaveUpdate() {
-        Utilities.log(TAG, "multipleReferenceSaveUpdate() called");
-        StringBuilder referencesEntry = new StringBuilder();
-        String delimiter = Utilities.DELIMITER_BETWEEN_REFERENCE;
-        for (String reference : mReferences) {
-            referencesEntry.append(reference).append(delimiter);
-        }
-        Log.d(TAG, "multipleReferenceSaveUpdate: before " + referencesEntry.toString());
-        String reference = referencesEntry
-                .substring(0, referencesEntry.length() - delimiter.length());
-        Log.d(TAG, "multipleReferenceSaveUpdate: after " + reference);
-        String notes = mNotes.getText().toString().trim();
-
-        DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
-        boolean success = false;
-        String feedbackText = "";
-        switch (currentOperation) {
-            case SAVE_MULTIPLE_REFERENCE:
-                feedbackText = "Bookmark Saved";
-                success = dbu.createNewBookmark(reference, notes);
-                if (!success) {
-                    feedbackText = "Bookmark Not Saved";
-                }
-                break;
-            case UPDATE_MULTIPLE_REFERENCE:
-                feedbackText = "Bookmark Updated";
-                success = dbu.updateExistingBookmark(reference, notes);
-                if (!success) {
-                    feedbackText = "Bookmark Not Updated";
-                }
-        }
-
-        actionBar.setVisibility(View.INVISIBLE);
-        mNotes.setFocusable(false);
-        Utilities.hideKeyboard(this);
-
-        Snackbar.make(mNotes, feedbackText, Snackbar.LENGTH_LONG).show();
-    }
-
     private enum OPERATION {
-        SAVE_SINGLE_REFERENCE,
-        SAVE_MULTIPLE_REFERENCE,
-        UPDATE_SINGLE_REFERENCE,
-        UPDATE_MULTIPLE_REFERENCE
+        SAVE,
+        UPDATE
     }
 }

@@ -315,8 +315,7 @@ public class DatabaseUtility
 
         String query = SQLiteQueryBuilder
                 .buildQueryString(true, BOOKMARK_TABLE, selectCols, where, null, null, null, null);
-        Utilities.log(TAG, "isAlreadyBookmarked: Query = " + query);
-        Utilities.log(TAG, "isAlreadyBookmarked: reference = " + params[0]);
+        Utilities.log(TAG, "isAlreadyBookmarked: Query = " + query + " : " + params[0]);
 
         String result = "0"; // Zero to indicate no reference exists.
         if (null != cursor && cursor.moveToFirst()) {
@@ -409,8 +408,7 @@ public class DatabaseUtility
 
         String query = SQLiteQueryBuilder
                 .buildQueryString(true, BOOKMARK_TABLE, selectCols, where, null, null, null, null);
-        Utilities.log(TAG, "getBookmarkedEntry: Query = " + query);
-        Utilities.log(TAG, "getBookmarkedEntry: reference = " + params[0]);
+        Utilities.log(TAG, "getBookmarkedEntry: Query = " + query + " : " + params[0]);
 
         if (null != cursor && cursor.moveToFirst()) {
             note = cursor.getString(0);
