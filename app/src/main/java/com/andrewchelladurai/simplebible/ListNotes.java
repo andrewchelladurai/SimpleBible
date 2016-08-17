@@ -43,9 +43,9 @@ public class ListNotes {
         ITEMS.clear();
 
         DatabaseUtility     dbu  = DatabaseUtility.getInstance(null);
-        ArrayList<String[]> list = dbu.getAllNotes();
+        ArrayList<String[]> list = dbu.getAllBookmarkedEntries();
         if (list == null) {
-            Utilities.throwError(TAG + " getAllNotes == null");
+            Utilities.throwError(TAG + " getAllBookmarkedEntries == null");
         }
         if (list.size() == 0) {
             return;
