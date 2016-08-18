@@ -43,7 +43,7 @@ public class ListNotes {
         ITEMS.clear();
 
         DatabaseUtility     dbu  = DatabaseUtility.getInstance(null);
-        ArrayList<String[]> list = dbu.getAllBookmarkedEntries();
+        CopyOnWriteArrayList<String[]> list = dbu.getAllBookmarkedEntries();
         if (list == null) {
             Utilities.throwError(TAG + " getAllBookmarkedEntries == null");
         }

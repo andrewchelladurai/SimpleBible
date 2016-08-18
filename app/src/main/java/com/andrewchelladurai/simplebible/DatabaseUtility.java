@@ -42,6 +42,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 26-Feb-2016 @ 1:15 AM
@@ -61,7 +62,6 @@ public class DatabaseUtility
 
     private final static String BOOKMARK_TABLE      = "BOOK_MARKS";
     private final static String BM_TABLE_REFERENCES = "REFERENCE";
-    private final static String BM_TABLE_ID         = "BM_ID";
     private final static String BM_TABLE_NOTES      = "NOTE";
 
     private static DatabaseUtility staticInstance = null;
@@ -209,7 +209,7 @@ public class DatabaseUtility
     }
 
     public ArrayList<String> searchText(String pInput) {
-        Utilities.log(TAG, "searchText() called  pInput = [" + pInput + "]");
+        Utilities.log(TAG, "searchText() : using [" + pInput + "]");
         ArrayList<String> values = new ArrayList<>(0);
         final SQLiteDatabase db = getReadableDatabase();
         String[] selectCols = {VERSE_NUMBER, CHAPTER_NUMBER, BOOK_NUMBER, VERSE_TEXT};
@@ -239,7 +239,7 @@ public class DatabaseUtility
             cursor.close();
         }
 
-        Utilities.log(TAG, "searchText() returned: " + values.size());
+        Utilities.log(TAG, "searchText() returned " + values.size());
         return values;
     }
 
@@ -249,18 +249,15 @@ public class DatabaseUtility
 
         final SQLiteDatabase db = getReadableDatabase();
         String[] selectCols = {BOOK_NUMBER, CHAPTER_NUMBER, VERSE_NUMBER};
-        String whereCondition = " rowid = ?";
-        String[] conditionParams = {"" + dayOfYear};
+        String where = " rowid = ?";
+        String[] param = {Integer.toString(dayOfYear)};
 
-/*
-        String query = SQLiteQueryBuilder.buildQueryString(
-                true, DAILY_VERSE_TABLE, selectCols, whereCondition, null, null, null, null);
-        Utilities.log(TAG, "getVerseReferenceForToday: Query = " + query);
-*/
+        String query = SQLiteQueryBuilder
+                .buildQueryString(true, DAILY_VERSE_TABLE, selectCols, where, null, null, null,
+                                  null);
+        Utilities.log(TAG, "getVerseReferenceForToday [" + query + "]:[" + param[0] + "]");
 
-        Cursor cursor = db
-                .query(DAILY_VERSE_TABLE, selectCols, whereCondition, conditionParams, null, null,
-                       null);
+        Cursor cursor = db.query(DAILY_VERSE_TABLE, selectCols, where, param, null, null, null);
 
         if (cursor != null && cursor.moveToFirst()) {
             int verseNumberIndex = cursor.getColumnIndex(VERSE_NUMBER);
@@ -287,17 +284,16 @@ public class DatabaseUtility
         final SQLiteDatabase dbu = getReadableDatabase();
 
         String[] showColumns = {VERSE_TEXT};
-        String whereCondition = BOOK_NUMBER + "=? AND " + CHAPTER_NUMBER + "=? AND " +
-                                VERSE_NUMBER + "=?";
-        String[] conditionParams = {pBook + "", pChapter + "", pVerse + ""};
-/*
-        String query = SQLiteQueryBuilder.buildQueryString(
-                true, BIBLE_TABLE, showColumns, whereCondition, null, null, null, null);
-        Utilities.log(TAG, "getSpecificVerse: Query = " + query);
-*/
+        String where = BOOK_NUMBER + "=? AND " + CHAPTER_NUMBER + "=? AND " +
+                       VERSE_NUMBER + "=?";
+        String[] params = {pBook + "", pChapter + "", pVerse + ""};
 
-        Cursor cursor = dbu
-                .query(BIBLE_TABLE, showColumns, whereCondition, conditionParams, null, null, null);
+        String query = SQLiteQueryBuilder
+                .buildQueryString(true, BIBLE_TABLE, showColumns, where, null, null, null, null);
+        Utilities.log(TAG, "getSpecificVerse [" + query + "]:[" + pBook + ", " + pChapter + ", " +
+                           pVerse + "]");
+
+        Cursor cursor = dbu.query(BIBLE_TABLE, showColumns, where, params, null, null, null);
         if (null != cursor && cursor.moveToFirst()) {
             value = cursor.getString(cursor.getColumnIndex(VERSE_TEXT));
             cursor.close();
@@ -315,7 +311,7 @@ public class DatabaseUtility
 
         String query = SQLiteQueryBuilder
                 .buildQueryString(true, BOOKMARK_TABLE, selectCols, where, null, null, null, null);
-        Utilities.log(TAG, "isAlreadyBookmarked: Query = " + query + " : " + params[0]);
+        Utilities.log(TAG, "isAlreadyBookmarked [" + query + "]:[" + params[0] + "]");
 
         String result = "0"; // Zero to indicate no reference exists.
         if (null != cursor && cursor.moveToFirst()) {
@@ -323,7 +319,6 @@ public class DatabaseUtility
             cursor.close();
         }
         Utilities.log(TAG, "isAlreadyBookmarked() returned: " + result);
-        //        boolean present = (Integer.parseInt(result) == 0)?false:true;
         return (Integer.parseInt(result) == 0) ? false : true;
     }
 
@@ -337,17 +332,10 @@ public class DatabaseUtility
         values.put(BM_TABLE_REFERENCES, references);
         values.put(BM_TABLE_NOTES, notes);
 
-        //        try {
         long rowCount = db.insert(BOOKMARK_TABLE, "", values);
         db.close();
-        //            created = true;
-        //        } catch (Exception e) {
-        //            Utilities.throwError("createNewBookmark: Bookmark Creation failed");
-        //            created = false;
-        //        }
         created = (rowCount > 0);
-        Utilities
-                .log(TAG, "createNewBookmark() returned: " + created + " : " + rowCount + " saved");
+        Utilities.log(TAG, "createNewBookmark returned " + created + " : " + rowCount + " saved");
         return created;
     }
 
@@ -360,28 +348,22 @@ public class DatabaseUtility
         values.put(BM_TABLE_NOTES, notes);
         String whereClause = BM_TABLE_REFERENCES + " = ?";
         String whereParams[] = {reference};
-        //        try {
         int rowCount = db.update(BOOKMARK_TABLE, values, whereClause, whereParams);
         db.close();
         updated = (rowCount > 0);
-        //        } catch (Exception e) {
-        //            updated = false;
-        //            Utilities.throwError("updateExistingBookmark: Bookmark update failed");
-        //        }
         Utilities.log(TAG, "updateExistingBookmark() returned: " + updated + " : " + rowCount +
                            " updated");
         return updated;
     }
 
-    // FIXME: 17/8/16 Move to CopyOnWriteArrayList
-    public ArrayList<String[]> getAllBookmarkedEntries() {
-        ArrayList<String[]> results = new ArrayList<>();
+    public CopyOnWriteArrayList<String[]> getAllBookmarkedEntries() {
+        CopyOnWriteArrayList<String[]> results = new CopyOnWriteArrayList<>();
         final SQLiteDatabase db = getReadableDatabase();
         String selectCols[] = {BM_TABLE_REFERENCES, BM_TABLE_NOTES};
 
         String query = SQLiteQueryBuilder
                 .buildQueryString(true, BOOKMARK_TABLE, selectCols, null, null, null, null, null);
-        Utilities.log(TAG, "getAllBookmarkedEntries() called " + query);
+        Utilities.log(TAG, "getAllBookmarkedEntries [" + query + "]");
 
         Cursor cursor = db
                 .query(true, BOOKMARK_TABLE, selectCols, null, null, null, null, null, null);
@@ -408,7 +390,7 @@ public class DatabaseUtility
 
         String query = SQLiteQueryBuilder
                 .buildQueryString(true, BOOKMARK_TABLE, selectCols, where, null, null, null, null);
-        Utilities.log(TAG, "getBookmarkedEntry: Query = " + query + " : " + params[0]);
+        Utilities.log(TAG, "getBookmarkedEntry [" + query + "]:[" + params[0] + "]");
 
         if (null != cursor && cursor.moveToFirst()) {
             note = cursor.getString(0);
