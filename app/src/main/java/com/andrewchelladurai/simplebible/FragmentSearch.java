@@ -188,7 +188,9 @@ public class FragmentSearch
                    entry.getVerseNumber() + ") " +
                    entry.getVerse() + "\n";
             shareText.append(text);
+            ListSearch.removeSelectedEntry(entry);
         }
+        showActionBar();
         shareText.append(getString(R.string.share_append_text));
         startActivity(Utilities.shareVerse(shareText.toString()));
     }
