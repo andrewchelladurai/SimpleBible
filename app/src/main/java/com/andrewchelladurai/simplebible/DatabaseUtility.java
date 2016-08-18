@@ -288,10 +288,12 @@ public class DatabaseUtility
                        VERSE_NUMBER + "=?";
         String[] params = {pBook + "", pChapter + "", pVerse + ""};
 
+/*
         String query = SQLiteQueryBuilder
                 .buildQueryString(true, BIBLE_TABLE, showColumns, where, null, null, null, null);
         Utilities.log(TAG, "getSpecificVerse [" + query + "]:[" + pBook + ", " + pChapter + ", " +
                            pVerse + "]");
+*/
 
         Cursor cursor = dbu.query(BIBLE_TABLE, showColumns, where, params, null, null, null);
         if (null != cursor && cursor.moveToFirst()) {
