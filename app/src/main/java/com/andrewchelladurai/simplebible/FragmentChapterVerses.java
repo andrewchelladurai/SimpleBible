@@ -159,7 +159,6 @@ public class FragmentChapterVerses
         showActionBar();
 
         getArguments().putStringArrayList(Utilities.REFERENCES, references);
-        getArguments().putString(Utilities.BOOKMARK_MODE, Utilities.BOOKMARK_VIEW);
 
         Intent intent = new Intent(getContext(), ActivityBookmark.class);
         intent.putExtras(getArguments());

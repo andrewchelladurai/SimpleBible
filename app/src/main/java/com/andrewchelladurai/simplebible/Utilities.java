@@ -45,14 +45,13 @@ public class Utilities {
     public static final String CURRENT_BOOK           = "CURRENT_BOOK";
     public static final String CURRENT_CHAPTER        = "CURRENT_CHAPTER";
     public static final String CURRENT_CHAPTER_NUMBER = "CURRENT_CHAPTER_NUMBER";
-    public static final String CURRENT_VERSE          = "CURRENT_VERSE";
+//    public static final String CURRENT_VERSE          = "CURRENT_VERSE";
     public static final String REFERENCES             = "REFERENCES";
     public static final String LOAD_CHAPTER           = "LOAD_CHAPTER";
     public static final String LOAD_CHAPTER_NO        = "LOAD_CHAPTER_NO";
     public static final String LOAD_CHAPTER_YES       = "LOAD_CHAPTER_YES";
-    public static final String BOOKMARK_MODE          = "BOOKMARK_MODE";
-    public static final String BOOKMARK_VIEW          = "BOOKMARK_VIEW";
     public static final String BOOKMARK_EDIT          = "BOOKMARK_EDIT";
+    public static final String BOOKMARK_SAVE          = "BOOKMARK_SAVE";
 
     public static final String DELIMITER_IN_REFERENCE      = ":";
     public static final String DELIMITER_BETWEEN_REFERENCE = "~";

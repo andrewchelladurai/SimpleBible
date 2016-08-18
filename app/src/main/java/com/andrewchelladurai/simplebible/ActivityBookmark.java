@@ -34,6 +34,7 @@ import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
@@ -43,8 +44,7 @@ public class ActivityBookmark
         extends AppCompatActivity
         implements View.OnClickListener {
 
-    private static final String    TAG              = "SB_ActivityBookmark";
-    private              OPERATION currentOperation = OPERATION.SAVE;
+    private static final String TAG = "SB_ActivityBookmark";
     private ArrayList<String> mReferences;
     private String            mViewNode;
     private AppCompatEditText mNotes;
@@ -62,19 +62,15 @@ public class ActivityBookmark
         if (mReferences == null) {
             Utilities.throwError(TAG + " mReferences == null");
         }
-        mViewNode = getIntent().getExtras()
-                               .getString(Utilities.BOOKMARK_MODE, Utilities.BOOKMARK_VIEW);
-
-        Utilities.log(TAG, "onCreate: mReferences.size [" + mReferences.size() +
-                           "] mode [" + mViewNode + "]");
-
         mNotes = (AppCompatEditText) findViewById(R.id.activity_bookmark_notes);
         populateContent();
         prepareScreen();
+        Utilities.log(TAG, "onCreate: mReferences.size [" + mReferences.size() +
+                           "] mode [" + mViewNode + "]");
     }
 
     private void populateContent() {
-        Utilities.log(TAG, "populateContent() : Populate references in list");
+        Log.d(TAG, "populateContent() called");
         ListViewCompat verseList = (ListViewCompat) findViewById(R.id.activity_bookmark_list);
         if (verseList == null) {
             Utilities.throwError(TAG + " verseList == null");
@@ -92,20 +88,19 @@ public class ActivityBookmark
                                                                    Integer.parseInt(parts[2]))));
         }
         verseList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, verses));
-
         populateReference();
     }
 
     private void prepareScreen() {
         switch (mViewNode) {
-            case Utilities.BOOKMARK_EDIT:
+            case Utilities.BOOKMARK_SAVE:
                 bindButton(R.id.activity_bookmark_but_save, View.VISIBLE);
                 bindButton(R.id.activity_bookmark_but_edit, View.GONE);
                 bindButton(R.id.activity_bookmark_but_delete, View.GONE);
                 bindButton(R.id.activity_bookmark_but_share, View.GONE);
                 mNotes.setEnabled(true);
                 break;
-            case Utilities.BOOKMARK_VIEW:
+            case Utilities.BOOKMARK_EDIT:
                 bindButton(R.id.activity_bookmark_but_save, View.GONE);
                 bindButton(R.id.activity_bookmark_but_edit, View.VISIBLE);
                 bindButton(R.id.activity_bookmark_but_delete, View.VISIBLE);
@@ -129,14 +124,15 @@ public class ActivityBookmark
 
         DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
         if (dbu.isAlreadyBookmarked(reference.toString())) {
-            currentOperation = OPERATION.UPDATE;
+            mViewNode = Utilities.BOOKMARK_EDIT;
             Utilities.log(TAG, "populateReference: currentOperation = UPDATE");
             String note = dbu.getBookmarkedEntry(reference.toString());
-            mNotes.setHint(note.isEmpty() ? getString(R.string.activity_bookmark_empty_note) :
-                           getString(R.string.activity_bookmark_reference_present));
+            mNotes.setHint(note.isEmpty() ? getString(R.string.activity_bookmark_empty_note)
+                                          : getString(
+                                                  R.string.activity_bookmark_reference_present));
             mNotes.setText(note);
         } else {
-            currentOperation = OPERATION.SAVE;
+            mViewNode = Utilities.BOOKMARK_SAVE;
             Utilities.log(TAG, "populateReference: currentOperation = SAVE");
             mNotes.setHint(getString(R.string.activity_bookmark_reference_absent));
         }
@@ -186,22 +182,21 @@ public class ActivityBookmark
         DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
         boolean success = false;
         String feedbackText = "";
-        switch (currentOperation) {
-            case SAVE:
+        switch (mViewNode) {
+            case Utilities.BOOKMARK_SAVE:
                 feedbackText = "Bookmark Saved";
                 success = dbu.createNewBookmark(reference.toString(), notes);
                 if (!success) {
                     feedbackText = "Bookmark Not Saved";
                 }
                 break;
-            case UPDATE:
+            case Utilities.BOOKMARK_EDIT:
                 feedbackText = "Bookmark Updated";
                 success = dbu.updateExistingBookmark(reference.toString(), notes);
                 if (!success) {
                     feedbackText = "Bookmark Not Updated";
                 }
         }
-
         actionBar.setVisibility(View.INVISIBLE);
         mNotes.setFocusable(false);
         Utilities.hideKeyboard(this);
@@ -211,8 +206,10 @@ public class ActivityBookmark
 
     private void buttonEditClicked() {
         Utilities.log(TAG, "buttonEditClicked() called");
-        mViewNode = Utilities.BOOKMARK_EDIT;
+        // Hack to make the screen show Save button but update the verse
+        mViewNode = Utilities.BOOKMARK_SAVE;
         prepareScreen();
+        mViewNode = Utilities.BOOKMARK_EDIT;
     }
 
     private void buttonDeleteClicked() {
@@ -223,8 +220,4 @@ public class ActivityBookmark
         Utilities.log(TAG, "buttonShareClicked called");
     }
 
-    private enum OPERATION {
-        SAVE,
-        UPDATE
-    }
 }
