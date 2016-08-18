@@ -58,10 +58,10 @@ public class FragmentHome
     }
 
     public static FragmentHome newInstance() {
-        FragmentHome    fragment      = new FragmentHome();
-        Bundle          args          = new Bundle();
-        DatabaseUtility dbu           = DatabaseUtility.getInstance(fragment.getContext());
-        String          todayVerseRef = dbu.getVerseReferenceForToday();
+        FragmentHome fragment = new FragmentHome();
+        Bundle args = new Bundle();
+        DatabaseUtility dbu = DatabaseUtility.getInstance(fragment.getContext());
+        String todayVerseRef = dbu.getVerseReferenceForToday();
 
         args.putString(Utilities.TODAY_VERSE_REFERENCE, todayVerseRef);
         fragment.setArguments(args);
@@ -80,7 +80,7 @@ public class FragmentHome
 
         mBookInput = (AppCompatAutoCompleteTextView) view.findViewById(R.id.frag_home_book_name);
         List<ListBooks.Entry> items = ListBooks.getItems();
-        ArrayList<String>     list  = new ArrayList<>();
+        ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
             list.add(i, items.get(i).getName());
         }
@@ -89,8 +89,8 @@ public class FragmentHome
                                    list));
         mBookInput.setOnItemClickListener(this);
 
-        mChapterInput = (AppCompatAutoCompleteTextView) view.findViewById(
-                R.id.frag_home_chapter_number);
+        mChapterInput = (AppCompatAutoCompleteTextView) view
+                .findViewById(R.id.frag_home_chapter_number);
         mChapterAdapter = new ArrayAdapter<>(getContext(),
                                              android.R.layout.simple_dropdown_item_1line,
                                              new ArrayList<String>(0));
@@ -105,12 +105,12 @@ public class FragmentHome
             Utilities.log(TAG, "displayVerse: incorrect verseRef = " + verseRef + " using default");
             verseRef = "43:3:16"; // John 3:16 - The Default verse
         }
-        String parts[] = verseRef.split(":");
+        String parts[] = verseRef.split(Utilities.DELIMITER_IN_REFERENCE);
         if (parts.length != 3) {
             Utilities.log(TAG, "displayVerse: incorrect verseRef = " + verseRef + " using default");
             verseRef = "43:3:16"; // John 3:16 - The Default verse
         }
-        parts = verseRef.split(":");
+        parts = verseRef.split(Utilities.DELIMITER_IN_REFERENCE);
 
         mDailyVerse.setText(Html.fromHtml(Utilities.getFormattedDailyVerse(parts)));
     }
@@ -130,7 +130,7 @@ public class FragmentHome
         }
 
         String chapterNumStr = getChapterNumber();
-        int    chapterNumber = 1;
+        int chapterNumber = 1;
 
         if (chapterNumStr.isEmpty()) {
             chapterNumber = 1;
