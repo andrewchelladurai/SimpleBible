@@ -28,14 +28,15 @@
 
     <style name = "DawnTheme"
         parent = "Theme.AppCompat.DayNight.DarkActionBar">
-        <!--<item name="colorPrimary">@color/primary</item>-->
-        <!--<item name="colorAccent">@color/accent</item>-->
     </style>
 
     <style name = "DawnTheme.NoActionBar">
         <item name = "windowActionBar">false</item>
         <item name = "windowNoTitle">true</item>
     </style>
+
+    <style name = "DawnTheme.AlertDialog"
+        parent = "Theme.AppCompat.DayNight.Dialog.Alert"/>
 
     <style name = "DawnTheme.AppBarOverlay"
         parent = "ThemeOverlay.AppCompat.Dark.ActionBar" />
