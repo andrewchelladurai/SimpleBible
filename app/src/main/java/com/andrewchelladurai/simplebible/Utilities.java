@@ -45,7 +45,7 @@ public class Utilities {
     public static final String CURRENT_BOOK           = "CURRENT_BOOK";
     public static final String CURRENT_CHAPTER        = "CURRENT_CHAPTER";
     public static final String CURRENT_CHAPTER_NUMBER = "CURRENT_CHAPTER_NUMBER";
-//    public static final String CURRENT_VERSE          = "CURRENT_VERSE";
+    //    public static final String CURRENT_VERSE          = "CURRENT_VERSE";
     public static final String REFERENCES             = "REFERENCES";
     public static final String LOAD_CHAPTER           = "LOAD_CHAPTER";
     public static final String LOAD_CHAPTER_NO        = "LOAD_CHAPTER_NO";
@@ -78,11 +78,11 @@ public class Utilities {
     }
 
     public static Intent shareVerse(String textToShare) {
+        Log.d(TAG, "shareVerse() textToShare of [" + textToShare.length() + "] length");
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, textToShare);
         sendIntent.setType("text/plain");
-        Utilities.log(TAG, "shareVerse: " + textToShare);
         return sendIntent;
     }
 
@@ -91,8 +91,8 @@ public class Utilities {
     }
 
     public static String getFormattedDailyVerse(String[] reference) {
-        String          bookName = ListBooks.getItem(reference[0]).getName();
-        DatabaseUtility dbu      = DatabaseUtility.getInstance(null);
+        String bookName = ListBooks.getItem(reference[0]).getName();
+        DatabaseUtility dbu = DatabaseUtility.getInstance(null);
         String verseText = dbu.getSpecificVerse(Integer.parseInt(reference[0]),
                                                 Integer.parseInt(reference[1]),
                                                 Integer.parseInt(reference[2]));
@@ -124,7 +124,7 @@ public class Utilities {
 
     public static String getFormattedSearchVerse(ListSearch.Entry entry) {
         String bookName = ListBooks.getItem(entry.getBookNumber()).getName();
-        String fText    = getResourceString(R.string.search_result_template);
+        String fText = getResourceString(R.string.search_result_template);
         fText = fText.replaceAll(getResourceString(R.string.search_result_template_book), bookName);
         fText = fText.replaceAll(getResourceString(R.string.search_result_template_chapter),
                                  entry.getChapterNumber());
@@ -136,8 +136,9 @@ public class Utilities {
         return fText;
     }
 
-    public static String getFormattedBookmarkVerse(String bookNumber, String chapterNumber,
-                                                   String verseNumber, String verseText) {
+    public static String getFormattedBookmarkVerse(
+            String bookNumber, String chapterNumber,
+            String verseNumber, String verseText) {
         String bookName = ListBooks.getItem(bookNumber).getName();
         return bookName + " (" + chapterNumber + ":" + verseNumber + ") " + verseText;
     }

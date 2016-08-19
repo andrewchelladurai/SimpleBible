@@ -39,6 +39,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -260,6 +261,22 @@ public class ActivityBookmark
 
     private void buttonShareClicked() {
         Utilities.log(TAG, "buttonShareClicked called");
+        ListViewCompat verseList = (ListViewCompat) findViewById(R.id.activity_bookmark_list);
+        ListAdapter adapter = verseList.getAdapter();
+        StringBuilder shareText = new StringBuilder();
+        for (int i = 0; i < adapter.getCount(); i++) {
+            shareText.append(adapter.getItem(i)).append('\n');
+        }
+
+        if (mNotes.getText().toString().isEmpty()) {
+            shareText.append(getString(R.string.activity_bookmark_empty_note)).append('\n');
+        } else {
+            shareText.append(getString(R.string.activity_bookmark_share_note_below_text))
+                     .append('\n')
+                     .append(mNotes.getText().toString().trim()).append('\n');
+        }
+        shareText.append(getString(R.string.share_append_text));
+        Utilities.shareVerse(shareText.toString());
     }
 
 }

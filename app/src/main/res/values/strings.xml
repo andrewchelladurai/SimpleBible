@@ -167,4 +167,5 @@
     <string name = "activity_bookmark_toast_update_success">Bookmark Updated</string>
     <string name = "activity_bookmark_toast_save_failure">Bookmark Not Saved</string>
     <string name = "activity_bookmark_toast_update_failure">Bookmark Not Updated</string>
+    <string name = "activity_bookmark_share_note_below_text">Bookmarked Notes are below:</string>
 </resources>
