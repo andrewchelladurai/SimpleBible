@@ -114,13 +114,7 @@ public class ActivityBookmark
 
     private void populateReference() {
         Utilities.log(TAG, "populateReference() called");
-        StringBuilder reference = new StringBuilder();
-        String delimiter = Utilities.DELIMITER_BETWEEN_REFERENCE;
-        for (String entry : mReferences) {
-            reference.append(entry).append(delimiter);
-        }
-        // remove the last appended DELIMITER_BETWEEN_REFERENCE
-        reference.delete(reference.length() - delimiter.length(), reference.length());
+        StringBuilder reference = getConvertedReference();
 
         DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
         if (dbu.isAlreadyBookmarked(reference.toString())) {
@@ -147,6 +141,17 @@ public class ActivityBookmark
         button.setVisibility(visibilityMode);
     }
 
+    private StringBuilder getConvertedReference() {
+        StringBuilder reference = new StringBuilder();
+        String delimiter = Utilities.DELIMITER_BETWEEN_REFERENCE;
+        for (String entry : mReferences) {
+            reference.append(entry).append(delimiter);
+        }
+        // remove the last appended DELIMITER_BETWEEN_REFERENCE
+        reference.delete(reference.length() - delimiter.length(), reference.length());
+        return reference;
+    }
+
     @Override
     public void onClick(View view) {
         if (view instanceof AppCompatButton) {
@@ -171,12 +176,7 @@ public class ActivityBookmark
 
     private void buttonSaveClicked() {
         Utilities.log(TAG, "buttonSaveClicked() called");
-        StringBuilder reference = new StringBuilder();
-        String delimiter = Utilities.DELIMITER_BETWEEN_REFERENCE;
-        for (String entry : mReferences) {
-            reference.append(entry).append(delimiter);
-        }
-        reference.delete(reference.length() - delimiter.length(), reference.length());
+        StringBuilder reference = getConvertedReference();
         String notes = mNotes.getText().toString().trim();
 
         DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
@@ -214,6 +214,7 @@ public class ActivityBookmark
 
     private void buttonDeleteClicked() {
         Utilities.log(TAG, "buttonDeleteClicked() called");
+
     }
 
     private void buttonShareClicked() {
