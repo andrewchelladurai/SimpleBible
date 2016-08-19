@@ -400,4 +400,12 @@ public class DatabaseUtility
         }
         return note;
     }
+
+    public boolean deleteBookmark(String reference) {
+        final SQLiteDatabase db = getWritableDatabase();
+        String where = BM_TABLE_REFERENCES + " = ?";
+        String[] condition = {reference};
+        int rowsDeleted = db.delete(BOOKMARK_TABLE, where, condition);
+        return (rowsDeleted > 0);
+    }
 }

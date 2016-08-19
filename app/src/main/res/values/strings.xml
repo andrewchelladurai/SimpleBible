@@ -153,10 +153,18 @@
     <string name = "button_edit">Edit</string>
 
     <string name = "fragment_note_empty_header">No Bookmarked Verses exist</string>
-    <string name = "fragment_note_empty_instruction">To start Bookmarking Verses, with or
-        without notes, you can either Long Click on a Search Result or Verse within a Chapter
-        and then select Save from the bottom list of options.</string>
+    <string name = "fragment_note_empty_instruction">To start Bookmarking Verses, with or without notes, you can either Long Click on a Search Result or Verse within a Chapter and then select Save from the bottom list of options.</string>
     <string name = "activity_bookmark_reference_present">This verse is already bookmarked</string>
     <string name = "activity_bookmark_reference_absent">This verse is not already bookmarked. You may enter a note here to associate with the verse if you wish. </string>
     <string name = "activity_bookmark_empty_note">No Notes saved for this reference.</string>
+    <string name = "activity_bookmark_alert_delete_title">Delete Bookmark</string>
+    <string name = "activity_bookmark_alert_delete_message">"Do you want to delete this bookmark? Note that when deleted, it cannot be restored.</string>
+    <string name = "activity_bookmark_alert_delete_positive_text">Delete</string>
+    <string name = "activity_bookmark_alert_delete_negative_text">Cancel</string>
+    <string name = "activity_bookmark_toast_delete_success">Bookmark Deleted</string>
+    <string name = "activity_bookmark_toast_delete_failure">Bookmark Not Deleted</string>
+    <string name = "activity_bookmark_toast_save_success">Bookmark Saved</string>
+    <string name = "activity_bookmark_toast_update_success">Bookmark Updated</string>
+    <string name = "activity_bookmark_toast_save_failure">Bookmark Not Saved</string>
+    <string name = "activity_bookmark_toast_update_failure">Bookmark Not Updated</string>
 </resources>

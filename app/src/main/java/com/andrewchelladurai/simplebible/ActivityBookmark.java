@@ -26,8 +26,10 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
@@ -37,6 +39,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -119,7 +122,7 @@ public class ActivityBookmark
         DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
         if (dbu.isAlreadyBookmarked(reference.toString())) {
             mViewNode = Utilities.BOOKMARK_EDIT;
-            Utilities.log(TAG, "populateReference: currentOperation = UPDATE");
+            Utilities.log(TAG, "populateReference: ViewNode = EDIT");
             String note = dbu.getBookmarkedEntry(reference.toString());
             mNotes.setHint(note.isEmpty() ? getString(R.string.activity_bookmark_empty_note)
                                           : getString(
@@ -127,7 +130,7 @@ public class ActivityBookmark
             mNotes.setText(note);
         } else {
             mViewNode = Utilities.BOOKMARK_SAVE;
-            Utilities.log(TAG, "populateReference: currentOperation = SAVE");
+            Utilities.log(TAG, "populateReference: ViewNode = SAVE");
             mNotes.setHint(getString(R.string.activity_bookmark_reference_absent));
         }
     }
@@ -181,27 +184,27 @@ public class ActivityBookmark
 
         DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
         boolean success = false;
-        String feedbackText = "";
+        int feedbackTextId = 0;
         switch (mViewNode) {
             case Utilities.BOOKMARK_SAVE:
-                feedbackText = "Bookmark Saved";
+                feedbackTextId = R.string.activity_bookmark_toast_save_success;
                 success = dbu.createNewBookmark(reference.toString(), notes);
                 if (!success) {
-                    feedbackText = "Bookmark Not Saved";
+                    feedbackTextId = R.string.activity_bookmark_toast_save_failure;
                 }
                 break;
             case Utilities.BOOKMARK_EDIT:
-                feedbackText = "Bookmark Updated";
+                feedbackTextId = R.string.activity_bookmark_toast_update_success;
                 success = dbu.updateExistingBookmark(reference.toString(), notes);
                 if (!success) {
-                    feedbackText = "Bookmark Not Updated";
+                    feedbackTextId = R.string.activity_bookmark_toast_update_failure;
                 }
         }
         actionBar.setVisibility(View.INVISIBLE);
         mNotes.setFocusable(false);
         Utilities.hideKeyboard(this);
 
-        Snackbar.make(mNotes, feedbackText, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(mNotes, getString(feedbackTextId), Snackbar.LENGTH_LONG).show();
     }
 
     private void buttonEditClicked() {
@@ -215,6 +218,44 @@ public class ActivityBookmark
     private void buttonDeleteClicked() {
         Utilities.log(TAG, "buttonDeleteClicked() called");
 
+        final AlertDialog.Builder builder = new AlertDialog.Builder(ActivityBookmark.this,
+                                                                    R.style.DawnTheme_AlertDialog);
+        builder.setTitle(R.string.activity_bookmark_alert_delete_title);
+        builder.setMessage(R.string.activity_bookmark_alert_delete_message);
+
+        builder.setCancelable(true);
+        final AlertDialog dialog = builder.create();
+        builder.setPositiveButton(
+                R.string.activity_bookmark_alert_delete_positive_text,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(
+                            DialogInterface pDialogInterface, int pI) {
+                        StringBuilder reference = getConvertedReference();
+                        DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
+                        if (dbu.deleteBookmark(reference.toString())) {
+                            Toast.makeText(ActivityBookmark.this,
+                                           R.string.activity_bookmark_toast_delete_success,
+                                           Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Toast.makeText(ActivityBookmark.this,
+                                           R.string.activity_bookmark_toast_delete_failure,
+                                           Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+        builder.setNegativeButton(R.string.activity_bookmark_alert_delete_negative_text,
+                                  new DialogInterface.OnClickListener() {
+                                      @Override
+                                      public void onClick(
+                                              DialogInterface pDialogInterface, int pI) {
+                                          dialog.dismiss();
+                                      }
+                                  });
+        builder.create();
+        builder.show();
     }
 
     private void buttonShareClicked() {
