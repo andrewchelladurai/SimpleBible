@@ -39,6 +39,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class FragmentChapterVerses
         extends Fragment
@@ -146,7 +147,7 @@ public class FragmentChapterVerses
     private void buttonSaveClicked() {
         Log.d(TAG, "buttonSaveClicked() called");
 
-        ArrayList<ListVerse.Entry> entries = ListVerse.getSelectedEntries();
+        CopyOnWriteArrayList<ListVerse.Entry> entries = ListVerse.getSelectedEntries();
         if (entries.isEmpty()) {
             Log.d(TAG, "buttonShareClicked: but no selected entries exist");
             return;
@@ -167,7 +168,7 @@ public class FragmentChapterVerses
 
     private void buttonShareClicked() {
         Log.d(TAG, "buttonShareClicked() called");
-        ArrayList<ListVerse.Entry> entries = ListVerse.getSelectedEntries();
+        CopyOnWriteArrayList<ListVerse.Entry> entries = ListVerse.getSelectedEntries();
         if (entries.isEmpty()) {
             Log.d(TAG, "buttonShareClicked: but no selected entries exist");
             return;

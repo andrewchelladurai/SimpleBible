@@ -28,7 +28,6 @@ package com.andrewchelladurai.simplebible;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +40,7 @@ public class ListVerse {
     private static final String                      TAG      = "SB_ListVerse";
     private static final CopyOnWriteArrayList<Entry> ITEMS    = new CopyOnWriteArrayList<>();
     private static final Map<String, Entry>          ITEM_MAP = new HashMap<>();
-    private static final ArrayList<Entry>            SELECTED = new ArrayList<>();
+    private static final CopyOnWriteArrayList<Entry> SELECTED = new CopyOnWriteArrayList<>();
 
     public static void populateEntries(ArrayList<String> verseList, int bookNumber, int
             chapterNumber) {
@@ -81,7 +80,7 @@ public class ListVerse {
         return SELECTED.isEmpty();
     }
 
-    public static ArrayList<Entry> getSelectedEntries() {
+    public static CopyOnWriteArrayList<Entry> getSelectedEntries() {
         return SELECTED;
     }
 
