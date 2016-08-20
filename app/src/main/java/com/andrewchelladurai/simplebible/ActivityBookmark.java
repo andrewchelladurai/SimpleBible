@@ -276,7 +276,7 @@ public class ActivityBookmark
                      .append(mNotes.getText().toString().trim()).append('\n');
         }
         shareText.append(getString(R.string.share_append_text));
-        Utilities.shareVerse(shareText.toString());
+        startActivity(Utilities.shareVerse(shareText.toString()));
     }
 
 }
