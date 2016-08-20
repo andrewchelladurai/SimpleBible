@@ -33,7 +33,6 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,7 +77,8 @@ public class FragmentChapterVerses
         mBundle.putParcelable(Utilities.CURRENT_CHAPTER, mChapter);
         mBundle.putString(Utilities.CURRENT_CHAPTER_NUMBER, chapterNumber);
         mBundle.putString(Utilities.LOAD_CHAPTER, getArguments().getString(Utilities.LOAD_CHAPTER));
-        Log.d(TAG, "onCreate: mBundle created " + mBook + " - " + mChapter + " - " + chapterNumber);
+        Utilities.log(TAG, "onCreate: mBundle created " + mBook + " - " + mChapter + " - " +
+                           chapterNumber);
 
         StringBuilder title = new StringBuilder(mBook.getName()).append(" : ").append(getString(
                 R.string.chapter_list_prepend_text)).append(" ").append(chapterNumber);
@@ -128,7 +128,8 @@ public class FragmentChapterVerses
     public void onClick(View v) {
         if (v instanceof AppCompatButton) {
             if (ListVerse.isSelectedEntriesEmpty()) {
-                Log.d(TAG, "onClick: isSelectedEntriesEmpty = true, but button was clicked");
+                Utilities
+                        .log(TAG, "onClick: isSelectedEntriesEmpty = true, but button was clicked");
                 return;
             }
             switch (v.getId()) {
@@ -145,11 +146,11 @@ public class FragmentChapterVerses
     }
 
     private void buttonSaveClicked() {
-        Log.d(TAG, "buttonSaveClicked() called");
+        Utilities.log(TAG, "buttonSaveClicked() called");
 
         CopyOnWriteArrayList<ListVerse.Entry> entries = ListVerse.getSelectedEntries();
         if (entries.isEmpty()) {
-            Log.d(TAG, "buttonShareClicked: but no selected entries exist");
+            Utilities.log(TAG, "buttonShareClicked: but no selected entries exist");
             return;
         }
         ArrayList<String> references = new ArrayList<>();
@@ -167,10 +168,10 @@ public class FragmentChapterVerses
     }
 
     private void buttonShareClicked() {
-        Log.d(TAG, "buttonShareClicked() called");
+        Utilities.log(TAG, "buttonShareClicked() called");
         CopyOnWriteArrayList<ListVerse.Entry> entries = ListVerse.getSelectedEntries();
         if (entries.isEmpty()) {
-            Log.d(TAG, "buttonShareClicked: but no selected entries exist");
+            Utilities.log(TAG, "buttonShareClicked: but no selected entries exist");
             return;
         }
         StringBuilder shareText = new StringBuilder();
