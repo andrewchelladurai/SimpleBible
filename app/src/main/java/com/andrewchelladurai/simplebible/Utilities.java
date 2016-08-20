@@ -78,7 +78,7 @@ public class Utilities {
     }
 
     public static Intent shareVerse(String textToShare) {
-        Log.d(TAG, "shareVerse() textToShare of [" + textToShare.length() + "] length");
+        Utilities.log(TAG, "shareVerse() textToShare of [" + textToShare.length() + "] length");
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, textToShare);
@@ -152,5 +152,4 @@ public class Utilities {
             im.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
-
 }
