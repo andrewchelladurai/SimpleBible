@@ -26,6 +26,7 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -65,7 +66,8 @@ public class AdapterNoteList
     }
 
     public class NoteView
-            extends RecyclerView.ViewHolder {
+            extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
 
         private static final String TAG = "SB_NoteView";
         private final View              mView;
@@ -77,10 +79,10 @@ public class AdapterNoteList
             super(view);
             mView = view;
             mVerseText = (AppCompatTextView) view.findViewById(R.id.entry_note_verse);
-            mVerseText.setOnClickListener(mListener);
+            mVerseText.setOnClickListener(this);
             mNotesText = (AppCompatTextView) view.findViewById(R.id.entry_note_text);
-            mView.findViewById(R.id.entry_note_but_delete).setOnClickListener(mListener);
-            mView.findViewById(R.id.entry_note_but_share).setOnClickListener(mListener);
+            mView.findViewById(R.id.entry_note_but_delete).setOnClickListener(this);
+            mView.findViewById(R.id.entry_note_but_share).setOnClickListener(this);
         }
 
         @Override
@@ -124,6 +126,25 @@ public class AdapterNoteList
                 text = text.substring(0, 173) + " ...";
             }
             mNotesText.setText(text);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (view instanceof AppCompatTextView) {
+                mListener.handleVerseClick(mEntry);
+            } else if (view instanceof AppCompatButton) {
+                AppCompatButton button = (AppCompatButton) view;
+                switch (button.getId()) {
+                    case R.id.entry_note_but_delete:
+                        mListener.handleDeleteButtonClick(mEntry);
+                        break;
+                    case R.id.entry_note_but_share:
+                        mListener.handleShareButtonClick(mEntry);
+                        break;
+                    default:
+                        Utilities.throwError(TAG + "onClick : unknown buttonID = " + button.getId());
+                }
+            }
         }
     }
 }

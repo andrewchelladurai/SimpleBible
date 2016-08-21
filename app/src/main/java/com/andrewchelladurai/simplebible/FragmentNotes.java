@@ -28,16 +28,14 @@ package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 public class FragmentNotes
-        extends Fragment
-        implements View.OnClickListener {
+        extends Fragment {
 
     private static final String TAG = "SB_FragmentNotes";
     private AdapterNoteList noteListAdapter;
@@ -76,34 +74,31 @@ public class FragmentNotes
         }
     }
 
-    @Override
-    public void onClick(View view) {
-        if (view instanceof AppCompatTextView) {
-            handleVerseClick();
-        } else if (view instanceof AppCompatButton) {
-            AppCompatButton button = (AppCompatButton) view;
-            switch (button.getId()) {
-                case R.id.entry_note_but_delete:
-                    handleDeleteButtonClick();
-                    break;
-                case R.id.entry_note_but_share:
-                    handleShareButtonClick();
-                    break;
-                default:
-                    Utilities.throwError(TAG + "onClick : unknown buttonID = " + button.getId());
-            }
-        }
-    }
-
-    private void handleVerseClick() {
+    void handleVerseClick(ListNotes.Entry entry) {
         Utilities.log(TAG, "handleVerseClick() called");
+        for (String s : entry.getReference()) {
+            Log.i(TAG, "handleVerseClick: " + s);
+        }
+
+/*
+        ArrayList<String> references = new ArrayList<>();
+        for (ListVerse.Entry entry : entries) {
+            references.add(entry.getReference());
+            ListVerse.removeSelectedEntry(entry); // remove the selection too
+        }
+        getArguments().putStringArrayList(Utilities.REFERENCES, entry.getReference());
+
+        Intent intent = new Intent(getContext(), ActivityBookmark.class);
+        intent.putExtras(getArguments());
+        startActivity(intent);
+*/
     }
 
-    private void handleDeleteButtonClick() {
+    void handleDeleteButtonClick(ListNotes.Entry pEntry) {
         Utilities.log(TAG, "handleDeleteButtonClick() called");
     }
 
-    private void handleShareButtonClick() {
+    void handleShareButtonClick(ListNotes.Entry pEntry) {
         Utilities.log(TAG, "handleShareButtonClick() called");
     }
 
