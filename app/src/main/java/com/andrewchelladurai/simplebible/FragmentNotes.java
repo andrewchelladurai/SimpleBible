@@ -83,9 +83,6 @@ public class FragmentNotes
         } else if (view instanceof AppCompatButton) {
             AppCompatButton button = (AppCompatButton) view;
             switch (button.getId()) {
-                case R.id.entry_note_but_view:
-                    handleViewButtonClick();
-                    break;
                 case R.id.entry_note_but_delete:
                     handleDeleteButtonClick();
                     break;
@@ -100,10 +97,6 @@ public class FragmentNotes
 
     private void handleVerseClick() {
         Utilities.log(TAG, "handleVerseClick() called");
-    }
-
-    private void handleViewButtonClick() {
-        Utilities.log(TAG, "handleViewButtonClick() called");
     }
 
     private void handleDeleteButtonClick() {

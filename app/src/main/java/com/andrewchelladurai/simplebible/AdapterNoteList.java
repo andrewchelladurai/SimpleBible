@@ -79,7 +79,6 @@ public class AdapterNoteList
             mVerseText = (AppCompatTextView) view.findViewById(R.id.entry_note_verse);
             mVerseText.setOnClickListener(mListener);
             mNotesText = (AppCompatTextView) view.findViewById(R.id.entry_note_text);
-            mView.findViewById(R.id.entry_note_but_view).setOnClickListener(mListener);
             mView.findViewById(R.id.entry_note_but_delete).setOnClickListener(mListener);
             mView.findViewById(R.id.entry_note_but_share).setOnClickListener(mListener);
         }
@@ -99,12 +98,9 @@ public class AdapterNoteList
             }
 
             //Populate Verse Text
-            if (references.length > 1) {// FIXME: 3/8/16
-/*
-                text = references.length + " " +
-                       mListener.getString(R.string.bookmark_multiple_references);
-*/
-                text = "bookmark_multiple_references";
+            if (references.length > 1) {
+                text = String.format(mListener.getString(
+                        R.string.fragment_note_entry_multiple_bookmark), references.length);
             } else {
                 DatabaseUtility dbu = DatabaseUtility.getInstance(
                         mListener.getActivity().getApplicationContext());
