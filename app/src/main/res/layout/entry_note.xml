@@ -41,7 +41,6 @@
         <android.support.v7.widget.AppCompatTextView
             android:id = "@+id/entry_note_verse"
             style = "@style/TextHeader"
-            android:textStyle="normal"
             android:layout_alignParentLeft = "true"
             android:layout_alignParentStart = "true"
             android:layout_alignParentTop = "true"
@@ -49,7 +48,8 @@
             android:paddingLeft = "@dimen/gap"
             android:paddingRight = "@dimen/gap"
             android:paddingStart = "@dimen/gap"
-            android:text = "@string/fragment_note_empty_header" />
+            android:text = "@string/fragment_note_empty_header"
+            android:textStyle = "normal" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id = "@+id/entry_note_text"
@@ -73,14 +73,6 @@
             android:gravity = "center_vertical"
             android:orientation = "horizontal"
             android:paddingTop = "@dimen/gap_small">
-
-            <android.support.v7.widget.AppCompatButton
-                android:id = "@+id/entry_note_but_view"
-                style = "@style/Widget.AppCompat.Button.Borderless.Colored"
-                android:layout_width = "wrap_content"
-                android:layout_height = "wrap_content"
-                android:contentDescription = "@string/button_view"
-                android:text = "@string/button_view" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id = "@+id/entry_note_but_delete"
