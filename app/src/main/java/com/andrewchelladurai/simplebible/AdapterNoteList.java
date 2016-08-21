@@ -57,23 +57,6 @@ public class AdapterNoteList
     @Override
     public void onBindViewHolder(final NoteView noteView, int position) {
         noteView.update(mValues.get(position));
-/*
-        noteView.mEntry = mValues.get(position);
-        noteView.mIdView.setText(mValues.get(position).id);
-        noteView.mContentView.setText(mValues.get(position).content);
-
-        noteView.mView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(noteView.mEntry);
-                }
-            }
-        });
-*/
     }
 
     @Override
@@ -109,7 +92,7 @@ public class AdapterNoteList
         void update(Entry entry) {
             mEntry = entry;
 
-            String text = "";
+            String text;
             String[] references = mEntry.getReference();
             if (references == null) {
                 Utilities.throwError(TAG + " references == null");
