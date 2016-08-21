@@ -26,9 +26,22 @@
 
 <resources>
 
-    <style name = "DawnTheme"
-        parent = "Theme.AppCompat.DayNight.DarkActionBar">
+    <style name = "TextHeader"
+        parent = "TextAppearance.AppCompat.Medium">
+        <item name = "android:textStyle">bold</item>
+        <item name = "android:layout_width">match_parent</item>
+        <item name = "android:layout_height">wrap_content</item>
     </style>
+
+    <style name = "TextSubHeader"
+        parent = "TextAppearance.AppCompat.Small">
+        <item name = "android:textStyle">normal</item>
+        <item name = "android:layout_width">match_parent</item>
+        <item name = "android:layout_height">wrap_content</item>
+    </style>
+
+    <style name = "DawnTheme"
+        parent = "Theme.AppCompat.DayNight.DarkActionBar"></style>
 
     <style name = "DawnTheme.NoActionBar">
         <item name = "windowActionBar">false</item>
@@ -36,7 +49,7 @@
     </style>
 
     <style name = "DawnTheme.AlertDialog"
-        parent = "Theme.AppCompat.DayNight.Dialog.Alert"/>
+        parent = "Theme.AppCompat.DayNight.Dialog.Alert" />
 
     <style name = "DawnTheme.AppBarOverlay"
         parent = "ThemeOverlay.AppCompat.Dark.ActionBar" />
