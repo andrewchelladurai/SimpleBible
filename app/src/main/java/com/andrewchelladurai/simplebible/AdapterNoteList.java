@@ -99,8 +99,11 @@ public class AdapterNoteList
 
             //Populate Verse Text
             if (references.length > 1) {
-                text = String.format(mListener.getString(
-                        R.string.fragment_note_entry_multiple_bookmark), references.length);
+                String part[] = references[0].split(Utilities.DELIMITER_IN_REFERENCE);
+                text = mListener.getString(R.string.fragment_note_entry_multiple_bookmark);
+                text = String.format(text, ListBooks.getItem(part[0]).getName(),
+                                     part[1], part[2], references.length - 1);
+
             } else {
                 DatabaseUtility dbu = DatabaseUtility.getInstance(
                         mListener.getActivity().getApplicationContext());

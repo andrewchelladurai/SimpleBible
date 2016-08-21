@@ -153,7 +153,7 @@
     <string name = "button_edit">Edit</string>
 
     <string name = "fragment_note_empty_header">No Bookmarked Verses exist</string>
-    <string name = "fragment_note_entry_multiple_bookmark">%1$d Bookmarked Verses exist in this entry</string>
+    <string name = "fragment_note_entry_multiple_bookmark">%1$s (%2$s : %3$s) and %4$d more Verses are Bookmarked in this entry</string>
     <string name = "fragment_note_empty_instruction">To start Bookmarking Verses, with or without notes, you can either Long Click on a Search Result or Verse within a Chapter and then select Save from the bottom list of options.</string>
     <string name = "activity_bookmark_reference_present">This verse is already bookmarked</string>
     <string name = "activity_bookmark_reference_absent">This verse is not already bookmarked. You may enter a note here to associate with the verse if you wish. </string>
