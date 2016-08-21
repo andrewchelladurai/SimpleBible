@@ -26,7 +26,6 @@
 
 package com.andrewchelladurai.simplebible;
 
-import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -94,17 +93,12 @@ public class AdapterNoteList
         public NoteView(View view) {
             super(view);
             mView = view;
-            mVerseText = (AppCompatTextView) view.findViewById(R.id.note_verse);
+            mVerseText = (AppCompatTextView) view.findViewById(R.id.entry_note_verse);
             mVerseText.setOnClickListener(mListener);
-            mNotesText = (AppCompatTextView) view.findViewById(R.id.note_text);
-            bindButton(R.id.note_but_edit);
-            bindButton(R.id.note_but_delete);
-            bindButton(R.id.note_but_share);
-        }
-
-        private void bindButton(int buttonId) {
-            AppCompatImageButton button = (AppCompatImageButton) mView.findViewById(buttonId);
-            button.setOnClickListener(mListener);
+            mNotesText = (AppCompatTextView) view.findViewById(R.id.entry_note_text);
+            mView.findViewById(R.id.entry_note_but_view).setOnClickListener(mListener);
+            mView.findViewById(R.id.entry_note_but_delete).setOnClickListener(mListener);
+            mView.findViewById(R.id.entry_note_but_share).setOnClickListener(mListener);
         }
 
         @Override
@@ -115,7 +109,7 @@ public class AdapterNoteList
         void update(Entry entry) {
             mEntry = entry;
 
-            String   text       = "";
+            String text = "";
             String[] references = mEntry.getReference();
             if (references == null) {
                 Utilities.throwError(TAG + " references == null");

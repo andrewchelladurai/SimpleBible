@@ -28,7 +28,7 @@ package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatImageButton;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -68,6 +68,7 @@ public class FragmentNotes
 
             noteListAdapter = new AdapterNoteList(ListNotes.getEntries(), this);
             notesList.setAdapter(noteListAdapter);
+
             return view;
         } else {
             Utilities.log(TAG, "onCreateView: ListNotes.getCount() > 0 == false");
@@ -79,16 +80,16 @@ public class FragmentNotes
     public void onClick(View view) {
         if (view instanceof AppCompatTextView) {
             handleVerseClick();
-        } else if (view instanceof AppCompatImageButton) {
-            AppCompatImageButton button = (AppCompatImageButton) view;
+        } else if (view instanceof AppCompatButton) {
+            AppCompatButton button = (AppCompatButton) view;
             switch (button.getId()) {
-                case R.id.note_but_edit:
-                    handleEditButtonClick();
+                case R.id.entry_note_but_view:
+                    handleViewButtonClick();
                     break;
-                case R.id.note_but_delete:
+                case R.id.entry_note_but_delete:
                     handleDeleteButtonClick();
                     break;
-                case R.id.note_but_share:
+                case R.id.entry_note_but_share:
                     handleShareButtonClick();
                     break;
                 default:
@@ -101,8 +102,8 @@ public class FragmentNotes
         Utilities.log(TAG, "handleVerseClick() called");
     }
 
-    private void handleEditButtonClick() {
-        Utilities.log(TAG, "handleEditButtonClick() called");
+    private void handleViewButtonClick() {
+        Utilities.log(TAG, "handleViewButtonClick() called");
     }
 
     private void handleDeleteButtonClick() {
