@@ -26,7 +26,6 @@
 
 package com.andrewchelladurai.simplebible;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +41,7 @@ public class ListNotes {
         ITEM_MAP.clear();
         ITEMS.clear();
 
-        DatabaseUtility     dbu  = DatabaseUtility.getInstance(null);
+        DatabaseUtility dbu = DatabaseUtility.getInstance(null);
         CopyOnWriteArrayList<String[]> list = dbu.getAllBookmarkedEntries();
         if (list == null) {
             Utilities.throwError(TAG + " getAllBookmarkedEntries == null");
@@ -72,7 +71,7 @@ public class ListNotes {
         private final String   notes;
 
         public Entry(String id, String details) {
-            reference = id.split("~");
+            reference = id.split(Utilities.DELIMITER_BETWEEN_REFERENCE);
             notes = details;
         }
 
