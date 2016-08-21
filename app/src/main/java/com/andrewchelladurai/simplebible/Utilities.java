@@ -143,9 +143,9 @@ public class Utilities {
     }
 
     public static void hideKeyboard(Activity activity) {
-        InputMethodManager im = (InputMethodManager) activity.getApplicationContext()
-                                                             .getSystemService(
-                                                                     Context.INPUT_METHOD_SERVICE);
+        InputMethodManager im =
+                (InputMethodManager) activity.getApplicationContext()
+                                             .getSystemService(Context.INPUT_METHOD_SERVICE);
         View view = activity.getCurrentFocus();
         if (view != null) {
             im.hideSoftInputFromWindow(view.getWindowToken(), 0);

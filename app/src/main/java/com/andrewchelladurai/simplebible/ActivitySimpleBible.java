@@ -43,8 +43,8 @@ public class ActivitySimpleBible
     private static final String TAG = "SB_ActivitySimpleBible";
 
     static {
-//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        //        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     }
 
     private PagerAdapter  mPagerAdapter;
@@ -67,7 +67,7 @@ public class ActivitySimpleBible
             Utilities.throwError(TAG + " mPager == null");
         }
         mPager.setAdapter(mPagerAdapter);
-        mPager.addOnPageChangeListener(new KeyboardHideListener(this));
+        mPager.addOnPageChangeListener(new PageChangeListener(this));
     }
 
     @Override
@@ -135,6 +135,45 @@ public class ActivitySimpleBible
                     return getString(R.string.tab_notes);
             }
             return getString(R.string.app_name);
+        }
+    }
+
+    private class PageChangeListener
+            implements ViewPager.OnPageChangeListener {
+
+        private ActivitySimpleBible mActivity;
+
+        public PageChangeListener(ActivitySimpleBible pActivity) {
+            mActivity = pActivity;
+        }
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            Utilities.hideKeyboard(mActivity);
+            StringBuilder pageTitle = new StringBuilder(getString(R.string.app_name));
+            switch (position) {
+                case 0:
+                    pageTitle.append(" : ").append(getString(R.string.tab_home));
+                    break;
+                case 1:
+                    pageTitle.append(" : ").append(getString(R.string.tab_books));
+                    break;
+                case 2:
+                    pageTitle.append(" : ").append(getString(R.string.tab_search));
+                    break;
+                case 3:
+                    refreshNotesScreen();
+                    pageTitle.append(" : ").append(getString(R.string.tab_notes));
+            }
+            setTitle(pageTitle);
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
         }
     }
 }
