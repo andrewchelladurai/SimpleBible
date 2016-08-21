@@ -26,6 +26,7 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -33,6 +34,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class FragmentNotes
         extends Fragment {
@@ -76,22 +80,16 @@ public class FragmentNotes
 
     void handleVerseClick(ListNotes.Entry entry) {
         Utilities.log(TAG, "handleVerseClick() called");
-        for (String s : entry.getReference()) {
-            Log.i(TAG, "handleVerseClick: " + s);
-        }
-
-/*
         ArrayList<String> references = new ArrayList<>();
-        for (ListVerse.Entry entry : entries) {
-            references.add(entry.getReference());
-            ListVerse.removeSelectedEntry(entry); // remove the selection too
-        }
-        getArguments().putStringArrayList(Utilities.REFERENCES, entry.getReference());
+        Collections.addAll(references, entry.getReference());
+        Utilities.log(TAG, "handleVerseClick: reference count = " + references.size());
+
+        Bundle bundle = (getArguments() != null) ? getArguments() : new Bundle();
+        bundle.putStringArrayList(Utilities.REFERENCES, references);
 
         Intent intent = new Intent(getContext(), ActivityBookmark.class);
-        intent.putExtras(getArguments());
+        intent.putExtras(bundle);
         startActivity(intent);
-*/
     }
 
     void handleDeleteButtonClick(ListNotes.Entry pEntry) {
