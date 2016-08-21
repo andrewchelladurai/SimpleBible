@@ -114,6 +114,8 @@ public class AdapterNoteList
             if (references == null) {
                 Utilities.throwError(TAG + " references == null");
             }
+
+            //Populate Verse Text
             if (references.length > 1) {// FIXME: 3/8/16
 /*
                 text = references.length + " " +
@@ -121,17 +123,23 @@ public class AdapterNoteList
 */
                 text = "bookmark_multiple_references";
             } else {
-                text = references[0];
+                DatabaseUtility dbu = DatabaseUtility.getInstance(
+                        mListener.getActivity().getApplicationContext());
+
+                String part[] = references[0].split(Utilities.DELIMITER_IN_REFERENCE);
+                text = dbu.getSpecificVerse(Integer.parseInt(part[0]), Integer.parseInt(part[1]),
+                                            Integer.parseInt(part[2]));
+                text = Utilities.getFormattedBookmarkVerse(part[0], part[1], part[2], text);
             }
             mVerseText.setText(text);
 
+            // Populate Notes here
             text = mEntry.getNotes();
-            if (null == text || text.isEmpty()) {// FIXME: 3/8/16
-                //                text = mListener.getString(R.string.bookmark_empty_notes);
-                text = "bookmark_empty_notes";
+            if (null == text || text.isEmpty()) {
+                text = mListener.getString(R.string.activity_bookmark_empty_note);
             }
-            if (text.length() > 60) {
-                text = text.substring(0, 60) + " ...";
+            if (text.length() > 173) {
+                text = text.substring(0, 173) + " ...";
             }
             mNotesText.setText(text);
         }

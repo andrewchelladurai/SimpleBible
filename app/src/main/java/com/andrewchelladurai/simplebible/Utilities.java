@@ -137,8 +137,7 @@ public class Utilities {
     }
 
     public static String getFormattedBookmarkVerse(
-            String bookNumber, String chapterNumber,
-            String verseNumber, String verseText) {
+            String bookNumber, String chapterNumber, String verseNumber, String verseText) {
         String bookName = ListBooks.getItem(bookNumber).getName();
         return bookName + " (" + chapterNumber + ":" + verseNumber + ") " + verseText;
     }

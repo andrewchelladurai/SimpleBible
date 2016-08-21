@@ -34,9 +34,9 @@
     app:cardUseCompatPadding = "true">
 
     <RelativeLayout
-        android:paddingTop="@dimen/gap"
         android:layout_width = "match_parent"
-        android:layout_height = "wrap_content">
+        android:layout_height = "wrap_content"
+        android:paddingTop = "@dimen/gap">
 
         <android.support.v7.widget.AppCompatTextView
             android:id = "@+id/entry_note_verse"
@@ -45,26 +45,24 @@
             android:layout_alignParentLeft = "true"
             android:layout_alignParentStart = "true"
             android:layout_alignParentTop = "true"
-            android:maxLines = "2"
             android:paddingEnd = "@dimen/gap"
             android:paddingLeft = "@dimen/gap"
             android:paddingRight = "@dimen/gap"
             android:paddingStart = "@dimen/gap"
-            android:text = "bookmark_no_entry_verse"
-            android:textAppearance = "?android:attr/textAppearanceMedium" />
+            android:text = "@string/fragment_note_empty_header" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id = "@+id/entry_note_text"
             android:layout_width = "wrap_content"
             android:layout_height = "wrap_content"
             android:layout_below = "@+id/entry_note_verse"
-            android:maxLines = "2"
             android:paddingEnd = "@dimen/gap"
             android:paddingLeft = "@dimen/gap"
             android:paddingRight = "@dimen/gap"
             android:paddingStart = "@dimen/gap"
-            android:text = "bookmark_no_entry_note"
-            android:textAppearance = "?android:attr/textAppearanceSmall" />
+            android:paddingTop = "@dimen/gap_small"
+            android:text = "@string/activity_bookmark_empty_note"
+            android:textStyle = "bold" />
 
         <android.support.v7.widget.ButtonBarLayout
             android:id = "@+id/note_action_bar"
