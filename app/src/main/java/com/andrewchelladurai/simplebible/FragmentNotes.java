@@ -171,4 +171,11 @@ public class FragmentNotes
         shareText.append(getString(R.string.share_append_text));
         startActivity(Utilities.shareVerse(shareText.toString()));
     }
+
+    public void refreshList() {
+        ListNotes.populate();
+        if (null != noteListAdapter) {
+            noteListAdapter.notifyDataSetChanged();
+        }
+    }
 }

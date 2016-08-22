@@ -167,10 +167,12 @@ public class ActivitySimpleBible
                     pageTitle.append(" : ").append(getString(R.string.tab_search));
                     break;
                 case 3:
-                    getSupportFragmentManager().beginTransaction()
-                                               .detach(fragmentNotes)
-                                               .attach(fragmentNotes)
-                                               .commit();
+                    if (null != fragmentNotes) {
+                        getSupportFragmentManager().beginTransaction()
+                                                   .detach(fragmentNotes)
+                                                   .attach(fragmentNotes)
+                                                   .commit();
+                    }
                     pageTitle.append(" : ").append(getString(R.string.tab_notes));
             }
             setTitle(pageTitle);
