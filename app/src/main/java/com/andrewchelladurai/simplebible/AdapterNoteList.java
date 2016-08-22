@@ -79,10 +79,11 @@ public class AdapterNoteList
             super(view);
             mView = view;
             mVerseText = (AppCompatTextView) view.findViewById(R.id.entry_note_verse);
-            mVerseText.setOnClickListener(this);
+            // mVerseText.setOnClickListener(this);
             mNotesText = (AppCompatTextView) view.findViewById(R.id.entry_note_text);
             mView.findViewById(R.id.entry_note_but_delete).setOnClickListener(this);
             mView.findViewById(R.id.entry_note_but_share).setOnClickListener(this);
+            mView.setOnClickListener(this);
         }
 
         @Override
@@ -130,9 +131,7 @@ public class AdapterNoteList
 
         @Override
         public void onClick(View view) {
-            if (view instanceof AppCompatTextView) {
-                mListener.handleVerseClick(mEntry);
-            } else if (view instanceof AppCompatButton) {
+            if (view instanceof AppCompatButton) {
                 AppCompatButton button = (AppCompatButton) view;
                 switch (button.getId()) {
                     case R.id.entry_note_but_delete:
@@ -142,8 +141,11 @@ public class AdapterNoteList
                         mListener.handleShareButtonClick(mEntry);
                         break;
                     default:
-                        Utilities.throwError(TAG + "onClick : unknown buttonID = " + button.getId());
+                        Utilities.throwError(
+                                TAG + "onClick : unknown buttonID = " + button.getId());
                 }
+            } else {
+                mListener.handleVerseClick(mEntry);
             }
         }
     }
