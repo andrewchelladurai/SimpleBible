@@ -54,7 +54,7 @@ public class ActivitySimpleBible
     @Override
     protected void onResume() {
         super.onResume();
-        if (fragmentNotes != null) {
+        if (null != fragmentNotes) {
             getSupportFragmentManager().beginTransaction()
                                        .detach(fragmentNotes)
                                        .attach(fragmentNotes)
