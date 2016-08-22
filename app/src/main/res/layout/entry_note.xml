@@ -55,6 +55,7 @@
             android:id = "@+id/entry_note_text"
             style = "@style/TextSubHeader"
             android:layout_below = "@+id/entry_note_verse"
+            android:maxLines = "5"
             android:paddingEnd = "@dimen/gap"
             android:paddingLeft = "@dimen/gap"
             android:paddingRight = "@dimen/gap"
