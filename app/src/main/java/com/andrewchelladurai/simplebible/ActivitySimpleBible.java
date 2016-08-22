@@ -59,6 +59,8 @@ public class ActivitySimpleBible
                                        .detach(fragmentNotes)
                                        .attach(fragmentNotes)
                                        .commit();
+            mPagerAdapter.notifyDataSetChanged();
+            mPager.refreshDrawableState();
         }
     }
 
@@ -165,7 +167,10 @@ public class ActivitySimpleBible
                     pageTitle.append(" : ").append(getString(R.string.tab_search));
                     break;
                 case 3:
-                    mPager.refreshDrawableState();
+                    getSupportFragmentManager().beginTransaction()
+                                               .detach(fragmentNotes)
+                                               .attach(fragmentNotes)
+                                               .commit();
                     pageTitle.append(" : ").append(getString(R.string.tab_notes));
             }
             setTitle(pageTitle);
