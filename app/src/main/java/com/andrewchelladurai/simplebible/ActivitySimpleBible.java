@@ -52,6 +52,17 @@ public class ActivitySimpleBible
     private FragmentNotes fragmentNotes;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (fragmentNotes != null) {
+            getSupportFragmentManager().beginTransaction()
+                                       .detach(fragmentNotes)
+                                       .attach(fragmentNotes)
+                                       .commit();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simple_bible);
@@ -79,14 +90,6 @@ public class ActivitySimpleBible
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return R.id.action_settings == item.getItemId() || super.onOptionsItemSelected(item);
-    }
-
-    public void refreshNotesScreen() {
-        Utilities.log(TAG, "refreshNotesScreen() called");
-        if (fragmentNotes == null) {
-            fragmentNotes = FragmentNotes.newInstance();
-        }
-        fragmentNotes.refreshData();
     }
 
     public class PagerAdapter
@@ -162,7 +165,7 @@ public class ActivitySimpleBible
                     pageTitle.append(" : ").append(getString(R.string.tab_search));
                     break;
                 case 3:
-                    refreshNotesScreen();
+                    mPagerAdapter.notifyDataSetChanged();
                     pageTitle.append(" : ").append(getString(R.string.tab_notes));
             }
             setTitle(pageTitle);

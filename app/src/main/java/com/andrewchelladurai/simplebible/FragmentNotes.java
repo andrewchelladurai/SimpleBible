@@ -30,7 +30,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +55,7 @@ public class FragmentNotes
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         if (getArguments() != null) {
-            //            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            // mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
     }
 
@@ -98,16 +97,5 @@ public class FragmentNotes
 
     void handleShareButtonClick(ListNotes.Entry pEntry) {
         Utilities.log(TAG, "handleShareButtonClick() called");
-    }
-
-    public void refreshData() {
-        Utilities.log(TAG, "refreshData() called");
-        ListNotes.populate();
-        if (ListNotes.getCount() == 0) {return;}
-        if (notesList == null || noteListAdapter == null) {
-            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
-        } else {
-            noteListAdapter.notifyDataSetChanged();
-        }
     }
 }
