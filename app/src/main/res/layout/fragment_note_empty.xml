@@ -35,27 +35,31 @@
     android:paddingRight = "@dimen/activity_horizontal_margin"
     android:paddingTop = "@dimen/activity_vertical_margin">
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id = "@+id/fragment_note_empty_header"
-        style = "@style/TextAppearance.AppCompat.SearchResult.Title"
-        android:layout_width = "wrap_content"
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width = "match_parent"
         android:layout_height = "wrap_content"
-        android:layout_alignParentTop = "true"
-        android:layout_centerHorizontal = "true"
-        android:layout_gravity = "center"
+        android:layout_centerInParent = "true"
         android:layout_margin = "@dimen/gap_big"
-        android:text = "@string/fragment_note_empty_header"
-        android:textStyle = "bold"
-        app:textAllCaps = "true" />
+        android:orientation = "vertical">
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id = "@+id/fragment_note_empty_instruction"
-        style = "@style/TextAppearance.AppCompat.SearchResult.Subtitle"
-        android:layout_width = "wrap_content"
-        android:layout_height = "wrap_content"
-        android:layout_below = "@+id/fragment_note_empty_header"
-        android:layout_centerHorizontal = "true"
-        android:gravity = "center"
-        android:text = "@string/fragment_note_empty_instruction" />
+        <android.support.v7.widget.AppCompatTextView
+            android:id = "@+id/fragment_note_empty_header"
+            style = "@style/TextAppearance.AppCompat.SearchResult.Title"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:layout_gravity = "center"
+            android:paddingBottom = "@dimen/gap_big"
+            android:text = "@string/fragment_note_empty_header"
+            android:textStyle = "bold"
+            app:textAllCaps = "true" />
 
+        <android.support.v7.widget.AppCompatTextView
+            android:id = "@+id/fragment_note_empty_instruction"
+            style = "@style/TextHeader"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:gravity = "center"
+            android:padding = "@dimen/gap_big"
+            android:text = "@string/fragment_note_empty_instruction" />
+    </android.support.v7.widget.LinearLayoutCompat>
 </RelativeLayout>
