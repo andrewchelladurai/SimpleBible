@@ -149,5 +149,26 @@ public class FragmentNotes
 
     void handleShareButtonClick(ListNotes.Entry pEntry) {
         Utilities.log(TAG, "handleShareButtonClick() called");
+        DatabaseUtility dbu = DatabaseUtility.getInstance(getContext());
+        String[] reference = pEntry.getReference();
+        StringBuilder shareText = new StringBuilder();
+        for (String str : reference) {
+            String part[] = str.split(Utilities.DELIMITER_IN_REFERENCE);
+            String verseText = dbu.getSpecificVerse(Integer.parseInt(part[0]),
+                                                    Integer.parseInt(part[1]),
+                                                    Integer.parseInt(part[2]));
+            shareText.append(Utilities.getFormattedBookmarkVerse(
+                    part[0], part[1], part[2], verseText)).append('\n');
+        }
+
+        if (pEntry.getNotes().isEmpty()) {
+            shareText.append(getString(R.string.activity_bookmark_empty_note)).append('\n');
+        } else {
+            shareText.append(getString(R.string.activity_bookmark_share_note_below_text))
+                     .append('\n')
+                     .append(pEntry.getNotes().trim()).append('\n');
+        }
+        shareText.append(getString(R.string.share_append_text));
+        startActivity(Utilities.shareVerse(shareText.toString()));
     }
 }
