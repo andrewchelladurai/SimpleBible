@@ -26,13 +26,16 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -91,8 +94,57 @@ public class FragmentNotes
         startActivity(intent);
     }
 
-    void handleDeleteButtonClick(ListNotes.Entry pEntry) {
+    void handleDeleteButtonClick(final ListNotes.Entry pEntry) {
         Utilities.log(TAG, "handleDeleteButtonClick() called");
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),
+                                                                    R.style.DawnTheme_AlertDialog);
+        builder.setTitle(R.string.activity_bookmark_alert_delete_title);
+        builder.setMessage(R.string.activity_bookmark_alert_delete_message);
+
+        builder.setCancelable(true);
+        final AlertDialog dialog = builder.create();
+        builder.setPositiveButton(
+                R.string.activity_bookmark_alert_delete_positive_text,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface pDialogInterface, int pI) {
+                        StringBuilder reference = getConvertedReference(pEntry.getReference());
+                        DatabaseUtility dbu = DatabaseUtility.getInstance(getContext());
+                        if (dbu.deleteBookmark(reference.toString())) {
+                            Toast.makeText(getContext(),
+                                           R.string.activity_bookmark_toast_delete_success,
+                                           Toast.LENGTH_SHORT).show();
+                            ((ActivitySimpleBible) getActivity()).onResume();
+                        } else {
+                            Toast.makeText(getContext(),
+                                           R.string.activity_bookmark_toast_delete_failure,
+                                           Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+        builder.setNegativeButton(R.string.activity_bookmark_alert_delete_negative_text,
+                                  new DialogInterface.OnClickListener() {
+                                      @Override
+                                      public void onClick(
+                                              DialogInterface pDialogInterface, int pI) {
+                                          dialog.dismiss();
+                                      }
+                                  });
+        builder.create();
+        builder.show();
+    }
+
+    private StringBuilder getConvertedReference(String[] pReferences) {
+        StringBuilder reference = new StringBuilder();
+        String delimiter = Utilities.DELIMITER_BETWEEN_REFERENCE;
+        for (String entry : pReferences) {
+            reference.append(entry).append(delimiter);
+        }
+        // remove the last appended DELIMITER_BETWEEN_REFERENCE
+        reference.delete(reference.lastIndexOf(delimiter), reference.length());
+        return reference;
     }
 
     void handleShareButtonClick(ListNotes.Entry pEntry) {

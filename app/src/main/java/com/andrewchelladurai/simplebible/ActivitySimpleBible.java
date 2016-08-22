@@ -165,7 +165,7 @@ public class ActivitySimpleBible
                     pageTitle.append(" : ").append(getString(R.string.tab_search));
                     break;
                 case 3:
-                    mPagerAdapter.notifyDataSetChanged();
+                    mPager.refreshDrawableState();
                     pageTitle.append(" : ").append(getString(R.string.tab_notes));
             }
             setTitle(pageTitle);
