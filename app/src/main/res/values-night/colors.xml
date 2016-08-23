@@ -3,8 +3,7 @@
     <color name = "long_press_background">#AC3931</color>
     <color name = "accent">#F29B30</color>
     <color name = "primary">#AC3931</color>
-    <color name = "black">#000000</color>
-    <color name = "cardBackground">#CBCBCB</color>
-    <color name = "windowBackground">#404040</color>
-    <color name = "textColor">#000000</color>
+    <color name = "cardBackground">#424242</color>
+    <color name = "windowBackground">#212121</color>
+    <color name = "textColor">#E0E0E0</color>
 </resources>

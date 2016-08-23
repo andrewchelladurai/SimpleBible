@@ -33,16 +33,14 @@
         <item name = "windowActionBar">false</item>
         <item name = "windowNoTitle">true</item>
         <item name = "android:windowDrawsSystemBarBackgrounds">true</item>
-        <!--<item name="android:statusBarColor">@color/primary_dark</item>-->
     </style>
 
     <style name = "DawnTheme"
         parent = "Theme.AppCompat.DayNight.DarkActionBar">
-        <!--<item name="android:statusBarColor">@color/primary_dark</item>-->
         <item name = "colorAccent">@color/accent</item>
         <item name = "colorPrimary">@color/primary</item>
-        <item name = "android:textColorPrimary">@color/black</item>
         <item name = "android:colorBackground">@color/windowBackground</item>
+        <item name = "android:textColorPrimary">@color/textColor</item>
         <item name = "android:windowBackground">@color/windowBackground</item>
     </style>
 </resources>

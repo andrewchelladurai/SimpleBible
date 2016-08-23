@@ -101,7 +101,7 @@
             android:layout_gravity = "center"
             android:gravity = "center"
             android:padding = "@dimen/gap_big"
-            android:text = "@string/app_name"
+
             app:textAllCaps = "false" />
     </ScrollView>
 </android.support.v7.widget.LinearLayoutCompat>

@@ -49,6 +49,7 @@
             android:layout_weight = "1">
 
             <android.support.v7.widget.AppCompatAutoCompleteTextView
+
                 android:id = "@+id/frag_home_book_name"
                 android:layout_width = "match_parent"
                 android:layout_height = "wrap_content"
@@ -67,6 +68,7 @@
             android:layout_weight = "1">
 
             <android.support.v7.widget.AppCompatAutoCompleteTextView
+                android:textColor="@color/textColor"
                 android:id = "@+id/frag_home_chapter_number"
                 android:layout_width = "match_parent"
                 android:layout_height = "wrap_content"
@@ -99,6 +101,7 @@
 
         <android.support.v7.widget.AppCompatTextView
             android:id = "@+id/frag_home_daily_verse"
+            android:textColor="@color/textColor"
             style = "?textAppearanceListItemSmall"
             android:layout_width = "match_parent"
             android:layout_height = "wrap_content"

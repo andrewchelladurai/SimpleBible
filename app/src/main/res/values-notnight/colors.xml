@@ -5,6 +5,5 @@
     <color name = "primary">#AC3931</color>
     <color name = "windowBackground">#E5E5E5</color>
     <color name = "cardBackground">#F2F2F2</color>
-    <color name = "black">#000000</color>
     <color name = "textColor">#000000</color>
 </resources>
