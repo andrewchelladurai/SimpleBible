@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name = "long_press_background">#AC3931</color>
-    <color name = "accent">#F29B30</color>
-    <color name = "primary">#AC3931</color>
+    <color name = "long_press_background">#D88B2B</color>
+    <color name = "accent">#ffb347</color>
+    <color name = "primary">#a96300</color>
     <color name = "cardBackground">#424242</color>
-    <color name = "windowBackground">#212121</color>
+    <color name = "windowBackground">#303030</color>
     <color name = "textColor">#E0E0E0</color>
 </resources>
