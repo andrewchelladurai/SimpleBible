@@ -30,6 +30,7 @@
     android:layout_height = "wrap_content"
     android:animateLayoutChanges = "true"
     android:orientation = "vertical"
+    app:cardBackgroundColor = "@color/cardBackground"
     app:cardPreventCornerOverlap = "true"
     app:cardUseCompatPadding = "true">
 

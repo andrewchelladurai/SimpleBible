@@ -67,10 +67,10 @@
         <android.support.v7.widget.AppCompatEditText
             android:id = "@+id/activity_bookmark_notes"
             android:layout_width = "match_parent"
-            android:gravity="start"
-            android:minLines="3"
             android:layout_height = "match_parent"
             android:layout_above = "@+id/activity_bookmark_button_bar"
+            android:gravity = "start"
+            android:minLines = "3"
             android:padding = "@dimen/gap_big"
             android:scrollbars = "vertical" />
 

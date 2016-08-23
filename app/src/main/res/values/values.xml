@@ -30,11 +30,6 @@ https://coolors.co/ac3931-e5d352-d9e76c-537d8d-482c3d
 -->
 
 <resources>
-    <color name = "long_press_background">#D9E76C</color>
-    <!--<color name="button_background">#A83F23</color>-->
-    <color name = "primary">#42282F</color>
-    <color name = "primary_dark">#261822</color>
-    <color name = "accent">#A83F23</color>
     <integer name = "book_list_column_count">2</integer>
     <integer name = "chapter_list_column_count">3</integer>
 
