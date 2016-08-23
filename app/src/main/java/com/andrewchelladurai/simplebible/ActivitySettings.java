@@ -1,7 +1,6 @@
 package com.andrewchelladurai.simplebible;
 
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.media.Ringtone;
@@ -51,10 +50,9 @@ public class ActivitySettings
                 int index = listPreference.findIndexOfValue(stringValue);
 
                 // Set the summary to reflect the new value.
-                preference.setSummary(
-                        index >= 0
-                        ? listPreference.getEntries()[index]
-                        : null);
+                preference.setSummary(index >= 0
+                                      ? listPreference.getEntries()[index]
+                                      : null);
 
             } else if (preference instanceof RingtonePreference) {
                 // For ringtone preferences, look up the correct display value
@@ -101,26 +99,14 @@ public class ActivitySettings
 
         // Trigger the listener immediately with the preference's
         // current value.
-        sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
-                                                                 PreferenceManager
-                                                                         .getDefaultSharedPreferences(
-                                                                                 preference
-                                                                                         .getContext())
-                                                                         .getString(preference
-                                                                                            .getKey(),
-                                                                                    ""));
+        sBindPreferenceSummaryToValueListener.onPreferenceChange(
+                preference, PreferenceManager.getDefaultSharedPreferences(
+                        preference.getContext()).getString(preference.getKey(), ""));
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupActionBar();
-    }
-
-    /**
-     * Set up the {@link android.app.ActionBar}, if the API is available.
-     */
-    private void setupActionBar() {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             // Show the Up button in the action bar.
@@ -143,15 +129,7 @@ public class ActivitySettings
     /** {@inheritDoc} */
     @Override
     public boolean onIsMultiPane() {
-        return isXLargeTablet(this);
-    }
-
-    /**
-     * Helper method to determine if the device has an extra-large screen. For example, 10" tablets
-     * are extra-large.
-     */
-    private static boolean isXLargeTablet(Context context) {
-        return (context.getResources().getConfiguration().screenLayout
+        return (getResources().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_XLARGE;
     }
 
@@ -168,8 +146,8 @@ public class ActivitySettings
      */
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
-               || GeneralPreferenceFragment.class.getName().equals(fragmentName)
-               || DataSyncPreferenceFragment.class.getName().equals(fragmentName)
+               || AboutPreferenceFragment.class.getName().equals(fragmentName)
+               || ThemePreferenceFragment.class.getName().equals(fragmentName)
                || NotificationPreferenceFragment.class.getName().equals(fragmentName);
     }
 
@@ -178,14 +156,14 @@ public class ActivitySettings
      * two-pane settings UI.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class GeneralPreferenceFragment
+    public static class AboutPreferenceFragment
             extends PreferenceFragment {
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_general);
-            setHasOptionsMenu(true);
+//            setHasOptionsMenu(true);
 
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are
@@ -243,7 +221,7 @@ public class ActivitySettings
      * two-pane settings UI.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class DataSyncPreferenceFragment
+    public static class ThemePreferenceFragment
             extends PreferenceFragment {
 
         @Override
