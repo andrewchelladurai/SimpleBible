@@ -48,7 +48,6 @@
         <item name = "colorPrimary">@color/primary</item>
         <item name = "android:colorBackground">@color/windowBackground</item>
         <item name = "android:textColorPrimary">@color/textColor</item>
-        <item name = "android:textColorHint">@color/accent</item>
         <item name = "android:windowBackground">@color/windowBackground</item>
     </style>
 
