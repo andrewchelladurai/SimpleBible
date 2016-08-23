@@ -27,8 +27,7 @@
 <resources>
     <string name = "app_name">Simple Bible</string>
 
-    <string name = "my_email_address">theunknownandrew+androidapps@gmail.com</string>
-    <string name = "my_mail_subject">Simple Bible - Feedback</string>
+    <string name = "mail_to_email">mailto:theunknownandrew+androidapps@gmail.com</string>
     <string name = "my_github_page">http://github.com/andrewchelladurai/</string>
     <string name = "my_gplus_page">http://plus.google.com/+AndrewChelladurai</string>
 
@@ -173,59 +172,44 @@
 
     <!-- Strings related to Settings -->
 
-    <!-- Example General settings -->
     <string name = "pref_header_about">About</string>
+    <string name = "pref_header_change_log">Changelog</string>
+    <string name = "pref_header_more_apps">More Apps by Developer</string>
+    <string name = "pref_header_rate">Rate this Application</string>
+    <string name = "pref_header_feedback">Provide Feedback</string>
+    <string name = "feedback_email_subject">Feedback : Simple Bible Android Application</string>
 
-    <string name = "pref_title_social_recommendations">Enable social recommendations</string>
-    <string name = "pref_description_social_recommendations">Recommendations for people to contact
-        based on your message history
-    </string>
-
-    <string name = "pref_title_display_name">Display name</string>
-    <string name = "pref_default_display_name">John Smith</string>
-
-    <string name = "pref_title_add_friends_to_messages">Add friends to messages</string>
-    <string-array name = "pref_example_list_titles">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name = "pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
-    </string-array>
-
-    <!-- Example settings for Data & Sync -->
     <string name = "pref_header_theme">Theme &amp; Colors</string>
-
-    <string name = "pref_title_sync_frequency">Sync frequency</string>
-    <string-array name = "pref_sync_frequency_titles">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>3 hours</item>
-        <item>6 hours</item>
-        <item>Never</item>
+    <string name = "pref_key_theme_dark_title">Use DARK Theme</string>
+    <string name = "pref_key_text_style_title">Style to use for verses</string>
+    <string-array name = "pref_key_text_style_entries">
+        <item>Normal</item>
+        <item>Old English</item>
+        <item>Typewriter</item>
     </string-array>
-    <string-array name = "pref_sync_frequency_values">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>360</item>
-        <item>-1</item>
+    <string-array name = "pref_key_text_style_value">
+        <item>Normal</item>
+        <item>Old English</item>
+        <item>Typewriter</item>
     </string-array>
+    <string name = "pref_key_text_style_value_default">Normal</string>
+    <string name = "pref_key_text_size_title">Size of text in verses</string>
+    <string-array name = "pref_key_text_size_entries">
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Big</item>
+        <item>Large</item>
+    </string-array>
+    <string-array name = "pref_key_text_size_value">
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Big</item>
+        <item>Large</item>
+    </string-array>
+    <string name = "pref_key_text_size_value_default">Medium</string>
 
-    <string name = "pref_title_system_sync_settings">System sync settings</string>
-
-    <!-- Example settings for Notifications -->
-    <string name = "pref_header_notifications">Notifications</string>
-
-    <string name = "pref_title_new_message_notifications">New message notifications</string>
-
-    <string name = "pref_title_ringtone">Ringtone</string>
-    <string name = "pref_ringtone_silent">Silent</string>
-
-    <string name = "pref_title_vibrate">Vibrate</string>
+    <string name = "pref_header_reminder">Reminder</string>
+    <string name = "pref_key_reminder_title">Reminder for daily devotion</string>
+    <string name = "pref_key_reminder_tone_title">Tone to use</string>
+    <string name = "pref_key_reminder_vibrate_title">Vibrate</string>
 </resources>

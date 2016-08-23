@@ -37,10 +37,12 @@ public class ActivitySettings
      * A preference value change listener that updates the preference's summary to reflect its new
      * value.
      */
-    private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener
-            = new Preference.OnPreferenceChangeListener() {
+/*
+    private static Preference.OnPreferenceChangeListener
+            sListener = new Preference.OnPreferenceChangeListener() {
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
+
             String stringValue = value.toString();
 
             if (preference instanceof ListPreference) {
@@ -84,6 +86,7 @@ public class ActivitySettings
             return true;
         }
     };
+*/
 
     /**
      * Binds a preference's summary to its value. More specifically, when the preference's value is
@@ -91,17 +94,18 @@ public class ActivitySettings
      * value. The summary is also immediately updated upon calling this method. The exact display
      * format is dependent on the type of preference.
      *
-     * @see #sBindPreferenceSummaryToValueListener
+//     * @see #sListener
      */
     private static void bindPreferenceSummaryToValue(Preference preference) {
         // Set the listener to watch for value changes.
-        preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
+//        preference.setOnPreferenceChangeListener(sListener);
 
-        // Trigger the listener immediately with the preference's
-        // current value.
-        sBindPreferenceSummaryToValueListener.onPreferenceChange(
+        // Trigger the listener immediately with the preference's current value.
+/*
+        sListener.onPreferenceChange(
                 preference, PreferenceManager.getDefaultSharedPreferences(
                         preference.getContext()).getString(preference.getKey(), ""));
+*/
     }
 
     @Override
@@ -133,12 +137,16 @@ public class ActivitySettings
                 & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_XLARGE;
     }
 
-    /** {@inheritDoc} */
+/*
+    */
+/** {@inheritDoc} *//*
+
     @Override
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void onBuildHeaders(List<Header> target) {
         loadHeadersFromResource(R.xml.pref_headers, target);
     }
+*/
 
     /**
      * This method stops fragment injection in malicious applications. Make sure to deny any unknown
@@ -147,8 +155,8 @@ public class ActivitySettings
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
                || AboutPreferenceFragment.class.getName().equals(fragmentName)
-               || ThemePreferenceFragment.class.getName().equals(fragmentName)
-               || NotificationPreferenceFragment.class.getName().equals(fragmentName);
+               /*|| ThemePreferenceFragment.class.getName().equals(fragmentName)
+               || NotificationPreferenceFragment.class.getName().equals(fragmentName)*/;
     }
 
     /**
@@ -162,15 +170,17 @@ public class ActivitySettings
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_general);
-//            setHasOptionsMenu(true);
+            addPreferencesFromResource(R.xml.pref_about);
+            //            setHasOptionsMenu(true);
 
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("example_text"));
-            bindPreferenceSummaryToValue(findPreference("example_list"));
+
+            //            bindPreferenceSummaryToValue(findPreference("pref_reminder"));
+//            bindPreferenceSummaryToValue(findPreference("pref_reminder_tone"));
+            //            bindPreferenceSummaryToValue(findPreference("pref_reminder_vibrate"));
         }
 
         @Override
@@ -184,10 +194,10 @@ public class ActivitySettings
         }
     }
 
-    /**
+/*    *//**
      * This fragment shows notification preferences only. It is used when the activity is showing a
      * two-pane settings UI.
-     */
+     *//*
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class NotificationPreferenceFragment
             extends PreferenceFragment {
@@ -216,10 +226,10 @@ public class ActivitySettings
         }
     }
 
-    /**
+    *//**
      * This fragment shows data and sync preferences only. It is used when the activity is showing a
      * two-pane settings UI.
-     */
+     *//*
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class ThemePreferenceFragment
             extends PreferenceFragment {
@@ -246,5 +256,5 @@ public class ActivitySettings
             }
             return super.onOptionsItemSelected(item);
         }
-    }
+    }*/
 }

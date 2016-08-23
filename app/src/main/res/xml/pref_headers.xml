@@ -2,6 +2,7 @@
 
     <!-- These settings headers are only used on tablets. -->
 
+<!--
     <header
         android:fragment = "com.andrewchelladurai.simplebible.ActivitySettings$NotificationPreferenceFragment"
         android:icon = "@drawable/ic_notifications"
@@ -11,10 +12,11 @@
         android:fragment = "com.andrewchelladurai.simplebible.ActivitySettings$ThemePreferenceFragment"
         android:icon = "@drawable/ic_theme"
         android:title = "@string/pref_header_theme" />
+-->
 
     <header
         android:fragment = "com.andrewchelladurai.simplebible.ActivitySettings$AboutPreferenceFragment"
         android:icon = "@drawable/ic_info"
-        android:title = "@string/pref_header_about" />
+        android:title = "@string/menu_item_settings" />
 
 </preference-headers>

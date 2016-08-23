@@ -26,6 +26,8 @@ public abstract class ActivityPreference
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
+        getFragmentManager().beginTransaction().replace(
+                android.R.id.content, new ActivitySettings.AboutPreferenceFragment()).commit();
     }
 
     @Override
@@ -66,9 +68,7 @@ public abstract class ActivityPreference
     }
 
     @Override
-    public void setContentView(
-            @LayoutRes
-            int layoutResID) {
+    public void setContentView(@LayoutRes int layoutResID) {
         getDelegate().setContentView(layoutResID);
     }
 
@@ -106,9 +106,7 @@ public abstract class ActivityPreference
         return getDelegate().getSupportActionBar();
     }
 
-    public void setSupportActionBar(
-            @Nullable
-            Toolbar toolbar) {
+    public void setSupportActionBar(@Nullable Toolbar toolbar) {
         getDelegate().setSupportActionBar(toolbar);
     }
 }
