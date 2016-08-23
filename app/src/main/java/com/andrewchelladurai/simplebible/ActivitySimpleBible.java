@@ -26,6 +26,7 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -43,7 +44,8 @@ public class ActivitySimpleBible
     private static final String TAG = "SB_ActivitySimpleBible";
 
     static {
-//                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        //                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate
+        // .MODE_NIGHT_NO);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     }
 
@@ -91,7 +93,14 @@ public class ActivitySimpleBible
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return R.id.action_settings == item.getItemId() || super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent intent = new Intent(this, ActivitySettings.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public class PagerAdapter
@@ -172,7 +181,7 @@ public class ActivitySimpleBible
                                                    .detach(fragmentNotes)
                                                    .attach(fragmentNotes)
                                                    .commit();
-//                        mPagerAdapter.notifyDataSetChanged();
+                        //                        mPagerAdapter.notifyDataSetChanged();
                         mPager.refreshDrawableState();
                     }
                     pageTitle.append(" : ").append(getString(R.string.tab_notes));
