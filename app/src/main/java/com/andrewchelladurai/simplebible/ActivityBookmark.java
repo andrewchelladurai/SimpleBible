@@ -220,7 +220,7 @@ public class ActivityBookmark
         Utilities.log(TAG, "buttonDeleteClicked() called");
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(ActivityBookmark.this,
-                                                                    R.style.DawnTheme_AlertDialog);
+                                                                    R.style.SBTheme_AlertDialog);
         builder.setTitle(R.string.activity_bookmark_alert_delete_title);
         builder.setMessage(R.string.activity_bookmark_alert_delete_message);
 

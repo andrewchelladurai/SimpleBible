@@ -42,26 +42,29 @@
         <item name = "android:layout_height">wrap_content</item>
     </style>
 
-    <style name = "DawnTheme"
+    <style name = "SBTheme"
         parent = "Theme.AppCompat.DayNight.DarkActionBar">
         <item name = "colorAccent">@color/accent</item>
         <item name = "colorPrimary">@color/primary</item>
         <item name = "android:colorBackground">@color/windowBackground</item>
         <item name = "android:textColorPrimary">@color/textColor</item>
+        <item name = "android:textColorHint">@color/accent</item>
         <item name = "android:windowBackground">@color/windowBackground</item>
     </style>
 
-    <style name = "DawnTheme.NoActionBar">
+    <style name = "SBTheme.NoActionBar">
         <item name = "windowActionBar">false</item>
         <item name = "windowNoTitle">true</item>
     </style>
 
-    <style name = "DawnTheme.AlertDialog"
-        parent = "Theme.AppCompat.DayNight.Dialog.Alert" />
+    <style name = "SBTheme.AlertDialog"
+        parent = "Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name = "colorAccent">@color/accent</item>
+    </style>
 
-    <style name = "DawnTheme.AppBarOverlay"
+    <style name = "SBTheme.AppBarOverlay"
         parent = "ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name = "DawnTheme.PopupOverlay"
+    <style name = "SBTheme.PopupOverlay"
         parent = "ThemeOverlay.AppCompat.Light" />
 </resources>

@@ -11,13 +11,13 @@
         android:id = "@+id/activity_chapter_list_app_bar"
         android:layout_width = "match_parent"
         android:layout_height = "wrap_content"
-        android:theme = "@style/DawnTheme.AppBarOverlay">
+        android:theme = "@style/SBTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
             android:id = "@+id/activity_chapter_list_toolbar"
             android:layout_width = "match_parent"
             android:layout_height = "?attr/actionBarSize"
-            app:popupTheme = "@style/DawnTheme.PopupOverlay" />
+            app:popupTheme = "@style/SBTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
 

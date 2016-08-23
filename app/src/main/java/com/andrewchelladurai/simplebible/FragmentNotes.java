@@ -98,7 +98,7 @@ public class FragmentNotes
         Utilities.log(TAG, "handleDeleteButtonClick() called");
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),
-                                                                    R.style.DawnTheme_AlertDialog);
+                                                                    R.style.SBTheme_AlertDialog);
         builder.setTitle(R.string.activity_bookmark_alert_delete_title);
         builder.setMessage(R.string.activity_bookmark_alert_delete_message);
 
