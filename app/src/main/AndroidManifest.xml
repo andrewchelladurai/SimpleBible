@@ -23,52 +23,60 @@
   ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
   ~
 -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.andrewchelladurai.simplebible">
+<manifest xmlns:android = "http://schemas.android.com/apk/res/android"
+    package = "com.andrewchelladurai.simplebible">
 
     <application
-        android:allowBackup="true"
-        android:fullBackupContent="true"
-        android:icon="@mipmap/launcher_icon"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/SBTheme">
+        android:allowBackup = "true"
+        android:fullBackupContent = "true"
+        android:icon = "@mipmap/launcher_icon"
+        android:label = "@string/app_name"
+        android:supportsRtl = "true"
+        android:theme = "@style/SBTheme">
         <activity
-            android:name=".ActivitySimpleBible"
-            android:label="@string/app_name"
-            android:theme="@style/SBTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize">
+            android:name = ".ActivitySimpleBible"
+            android:label = "@string/app_name"
+            android:theme = "@style/SBTheme.NoActionBar"
+            android:windowSoftInputMode = "stateHidden|adjustResize">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name = "android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name = "android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".ActivityChapterList"
-            android:label="@string/title_activity_chapter"
-            android:parentActivityName=".ActivitySimpleBible"
-            android:theme="@style/SBTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize">
+            android:name = ".ActivityChapterList"
+            android:label = "@string/title_activity_chapter"
+            android:parentActivityName = ".ActivitySimpleBible"
+            android:theme = "@style/SBTheme.NoActionBar"
+            android:windowSoftInputMode = "stateHidden|adjustResize">
             <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.andrewchelladurai.simplebible.ActivitySimpleBible" />
+                android:name = "android.support.PARENT_ACTIVITY"
+                android:value = "com.andrewchelladurai.simplebible.ActivitySimpleBible" />
         </activity>
         <activity
-            android:name=".ActivityChapterVerses"
-            android:label="@string/title_activity_chapter"
-            android:parentActivityName=".ActivityChapterList"
-            android:theme="@style/SBTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize">
+            android:name = ".ActivityChapterVerses"
+            android:label = "@string/title_activity_chapter"
+            android:parentActivityName = ".ActivityChapterList"
+            android:theme = "@style/SBTheme.NoActionBar"
+            android:windowSoftInputMode = "stateHidden|adjustResize">
             <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ActivityChapterList" />
+                android:name = "android.support.PARENT_ACTIVITY"
+                android:value = ".ActivityChapterList" />
         </activity>
         <activity
-            android:name=".ActivityBookmark"
-            android:label="@string/title_activity_bookmark"
-            android:theme="@style/SBTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
+            android:name = ".ActivityBookmark"
+            android:label = "@string/title_activity_bookmark"
+            android:theme = "@style/SBTheme.NoActionBar"
+            android:windowSoftInputMode = "stateHidden|adjustResize" />
+        <activity
+            android:name = ".ActivitySettings"
+            android:label = "@string/title_activity_activity_settings"
+            android:parentActivityName = ".ActivitySimpleBible">
+            <meta-data
+                android:name = "android.support.PARENT_ACTIVITY"
+                android:value = "com.andrewchelladurai.simplebible.ActivitySimpleBible" />
+        </activity>
     </application>
 
 </manifest>
