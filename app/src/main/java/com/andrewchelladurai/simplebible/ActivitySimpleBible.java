@@ -43,7 +43,7 @@ public class ActivitySimpleBible
     private static final String TAG = "SB_ActivitySimpleBible";
 
     static {
-        //                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     }
 
@@ -172,6 +172,8 @@ public class ActivitySimpleBible
                                                    .detach(fragmentNotes)
                                                    .attach(fragmentNotes)
                                                    .commit();
+//                        mPagerAdapter.notifyDataSetChanged();
+                        mPager.refreshDrawableState();
                     }
                     pageTitle.append(" : ").append(getString(R.string.tab_notes));
             }
