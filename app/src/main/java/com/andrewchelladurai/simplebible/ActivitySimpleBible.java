@@ -44,8 +44,8 @@ public class ActivitySimpleBible
     private static final String TAG = "SB_ActivitySimpleBible";
 
     static {
-//         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     }
 
     private PagerAdapter  mPagerAdapter;
@@ -94,8 +94,7 @@ public class ActivitySimpleBible
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                Intent intent = new Intent(this, ActivitySettings.class);
-                startActivity(intent);
+                startActivity(new Intent(this, ActivitySettings.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
