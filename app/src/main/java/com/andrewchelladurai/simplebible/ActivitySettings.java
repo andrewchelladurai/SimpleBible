@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
@@ -160,9 +159,10 @@ public class ActivitySettings
             @Override public boolean onPreferenceChange(Preference pPreference, Object pObject) {
                 Log.d(TAG, "onPreferenceChange: " + pPreference.getKey());
                 String value;
-                if (pPreference instanceof ListPreference) {
+                /*if (pPreference instanceof ListPreference) {
                     value = pObject.toString();
-                } else if (pPreference instanceof SwitchPreference) {
+                } else */
+                if (pPreference instanceof SwitchPreference) {
                     value = ((SwitchPreference) pPreference).isChecked()
                             ? "Disabled" : "Enabled";
                 } else if (pPreference instanceof RingtonePreference) {

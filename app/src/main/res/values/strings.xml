@@ -121,11 +121,7 @@
     <string name = "daily_verse_template_chapter">CN</string>
     <string name = "daily_verse_template_verse">VN</string>
 
-    <string name = "search_result_template"><![CDATA[<font color="#7a1631"><strong>BN CN:VN</strong></font> TEXT]]></string>
-    <string name = "search_result_template_text">TEXT</string>
-    <string name = "search_result_template_book">BN</string>
-    <string name = "search_result_template_chapter">CN</string>
-    <string name = "search_result_template_verse">VN</string>
+    <string name = "search_result_template">(%1$s %2$s:%3$s) %4$s</string>
 
     <string name = "chapter_verse_template"><![CDATA[<font color="#7a1631"><strong>VN - </strong></font> TEXT]]></string>
     <string name = "chapter_verse_template_text">TEXT</string>
@@ -181,32 +177,36 @@
 
     <string name = "pref_header_theme">Theme &amp; Appearance</string>
     <string name = "pref_key_theme_dark_title">Use DARK Theme</string>
+
+    <!-- Keys and strings related to Verse style begin here-->
     <string name = "pref_key_text_style_title">Style to use for verses</string>
-    <string-array name = "pref_key_text_style_entries">
-        <item>Normal</item>
-        <item>Old English</item>
-        <item>Typewriter</item>
+    <string name = "pref_key_text_style_normal">Normal</string>
+    <string name = "pref_key_text_style_old_english">Old English</string>
+    <string name = "pref_key_text_style_typewriter">Typewriter</string>
+    <string name = "pref_key_text_style_default">@string/pref_key_text_style_normal</string>
+
+    <string-array name = "pref_key_text_style_options">
+        <item>@string/pref_key_text_style_normal</item>
+        <item>@string/pref_key_text_style_old_english</item>
+        <item>@string/pref_key_text_style_typewriter</item>
     </string-array>
-    <string-array name = "pref_key_text_style_value">
-        <item>Normal</item>
-        <item>Old English</item>
-        <item>Typewriter</item>
-    </string-array>
-    <string name = "pref_key_text_style_value_default">Normal</string>
+    <!-- Keys and strings related to Verse style end here-->
+
+    <!-- Keys and strings related to Verse Size begin here-->
     <string name = "pref_key_text_size_title">Size of text in verses</string>
-    <string-array name = "pref_key_text_size_entries">
-        <item>Small</item>
-        <item>Medium</item>
-        <item>Big</item>
-        <item>Large</item>
+    <string name = "pref_key_text_size_small">Small</string>
+    <string name = "pref_key_text_size_medium">Medium</string>
+    <string name = "pref_key_text_size_big">Big</string>
+    <string name = "pref_key_text_size_large">Large</string>
+    <string name = "pref_key_text_size_default">@string/pref_key_text_size_medium</string>
+
+    <string-array name = "pref_key_text_size_options">
+        <item>@string/pref_key_text_size_small</item>
+        <item>@string/pref_key_text_size_medium</item>
+        <item>@string/pref_key_text_size_big</item>
+        <item>@string/pref_key_text_size_large</item>
     </string-array>
-    <string-array name = "pref_key_text_size_value">
-        <item>Small</item>
-        <item>Medium</item>
-        <item>Big</item>
-        <item>Large</item>
-    </string-array>
-    <string name = "pref_key_text_size_value_default">Medium</string>
+    <!-- Keys and strings related to Verse Size end here-->
 
     <string name = "pref_header_reminder">Reminder</string>
     <string name = "pref_key_reminder_title">Reminder for daily devotion</string>

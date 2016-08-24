@@ -31,7 +31,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.TypefaceSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -55,6 +63,13 @@ public class Utilities {
     public static final  String    BOOKMARK_SAVE               = "BOOKMARK_SAVE";
     public static final  String    DELIMITER_IN_REFERENCE      = ":";
     public static final  String    DELIMITER_BETWEEN_REFERENCE = "~";
+    public static final  int       VERSE_SIZE_SMALL            = -1;
+    public static final  int       VERSE_SIZE_MEDIUM           = 0;
+    public static final  int       VERSE_SIZE_BIG              = 1;
+    public static final  int       VERSE_SIZE_LARGE            = 2;
+    public static final  int       VERSE_STYLE_NORMAL          = 0;
+    public static final  int       VERSE_STYLE_OLD_ENGLISH     = 1;
+    public static final  int       VERSE_STYLE_TYPEWRITER      = 2;
     private static final String    TAG                         = "SB_Utilities";
     private static       Utilities staticInstance              = null;
     private static Resources         mResources;
@@ -123,18 +138,111 @@ public class Utilities {
         return fText;
     }
 
-    public static String getFormattedSearchVerse(ListSearch.Entry entry) {
-        String bookName = ListBooks.getItem(entry.getBookNumber()).getName();
-        String fText = getString(R.string.search_result_template);
-        fText = fText.replaceAll(getString(R.string.search_result_template_book), bookName);
-        fText = fText.replaceAll(getString(R.string.search_result_template_chapter),
-                                 entry.getChapterNumber());
-        fText = fText.replaceAll(getString(R.string.search_result_template_verse),
-                                 entry.getVerseNumber());
-        fText = fText.replaceAll(getString(R.string.search_result_template_text),
-                                 entry.getVerse());
+    public static SpannableString getFormattedSearchVerse(Context context, ListSearch.Entry entry) {
 
-        return fText;
+        // Get all necessary items ready
+        String bookName = ListBooks.getItem(entry.getBookNumber()).getName();
+        String chapterNumber = entry.getChapterNumber();
+        String verseNumber = entry.getVerseNumber();
+        String verseText = entry.getVerse();
+        String fText = String.format(getString(R.string.search_result_template),
+                                     bookName, chapterNumber, verseNumber, verseText);
+
+        // this is the text we will style
+        SpannableString sText = new SpannableString(fText);
+
+        // apply highlight color to verse reference
+        int referenceEnd = (fText.indexOf(verseNumber) + verseNumber.length()) + 1;
+        ForegroundColorSpan colorSpan = new ForegroundColorSpan(
+                ContextCompat.getColor(context, R.color.verse_reference_color));
+        sText.setSpan(colorSpan, 0, referenceEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        // apply size to verse according to preference
+        float size;
+        switch (Utilities.getPreferredVerseSize()) {
+            case VERSE_SIZE_SMALL:
+                size = 0.8f;
+                break;
+            case VERSE_SIZE_MEDIUM:
+                size = 1.0f;
+                break;
+            case VERSE_SIZE_BIG:
+                size = 1.2f;
+                break;
+            case VERSE_SIZE_LARGE:
+                size = 1.4f;
+                break;
+            default: // set to medium
+                size = 1.0f;
+        }
+        sText.setSpan(new RelativeSizeSpan(size), 0, fText.length(),
+                      Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        // apply style to verse according to preference
+        String typeface;
+        switch (getPreferredVerseStyle()) {
+            case VERSE_STYLE_NORMAL:
+                typeface = "sans-serif";
+                break;
+            case VERSE_STYLE_OLD_ENGLISH:
+                typeface = "serif";
+                break;
+            case VERSE_STYLE_TYPEWRITER:
+                typeface = "monospace";
+                break;
+            default:
+                typeface = Typeface.DEFAULT.toString();
+        }
+        sText.setSpan(new TypefaceSpan(typeface), 0, fText.length(),
+                      Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        return sText;
+    }
+
+    /**
+     * Checks for the preferred size to use for Verses.
+     *
+     * @return one of the VERSE_SIZE_(SMALL|MEDIUM|BIG|LARGE) values.
+     */
+    public static int getPreferredVerseSize() {
+        String value = mPreferences.getString(getString(R.string.pref_key_text_size),
+                                              getString(R.string.pref_key_text_size_default));
+        int size;
+        if (value.equalsIgnoreCase(getString(R.string.pref_key_text_size_small))) {
+            size = VERSE_SIZE_SMALL;
+        } else if (value.equalsIgnoreCase(getString(R.string.pref_key_text_size_medium))) {
+            size = VERSE_SIZE_MEDIUM;
+        } else if (value.equalsIgnoreCase(getString(R.string.pref_key_text_size_big))) {
+            size = VERSE_SIZE_BIG;
+        } else if (value.equalsIgnoreCase(getString(R.string.pref_key_text_size_large))) {
+            size = VERSE_SIZE_LARGE;
+        } else {
+            size = VERSE_SIZE_MEDIUM;
+        }
+        Log.d(TAG, "getPreferredVerseSize() returned: " + size);
+        return size;
+    }
+
+    /**
+     * Checks for the preferred style to use for Verses.
+     *
+     * @return one of the VERSE_STYLE_(NORMAL|OLD_ENGLISH|TYPEWRITER) values.
+     */
+    private static int getPreferredVerseStyle() {
+        String value = mPreferences.getString(getString(R.string.pref_key_text_style),
+                                              getString(R.string.pref_key_text_style_default));
+        int style;
+        if (value.equalsIgnoreCase(getString(R.string.pref_key_text_style_normal))) {
+            style = VERSE_STYLE_NORMAL;
+        } else if (value.equalsIgnoreCase(getString(R.string.pref_key_text_style_old_english))) {
+            style = VERSE_STYLE_OLD_ENGLISH;
+        } else if (value.equalsIgnoreCase(getString(R.string.pref_key_text_style_typewriter))) {
+            style = VERSE_STYLE_TYPEWRITER;
+        } else {
+            style = VERSE_STYLE_NORMAL;
+        }
+        Log.d(TAG, "getPreferredVerseStyle() returned: " + style);
+        return style;
     }
 
     public static String getFormattedBookmarkVerse(
@@ -156,5 +264,4 @@ public class Utilities {
     public static boolean isDarkModeEnabled() {
         return mPreferences.getBoolean(getString(R.string.pref_key_theme_dark), false);
     }
-
 }

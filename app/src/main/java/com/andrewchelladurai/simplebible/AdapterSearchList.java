@@ -28,7 +28,6 @@ package com.andrewchelladurai.simplebible;
 
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,7 +105,9 @@ public class AdapterSearchList
 
         public void updateView(Entry entry) {
             mEntry = entry;
-            mContent.setText(Html.fromHtml(Utilities.getFormattedSearchVerse(mEntry)));
+            // mContent.setText(Html.fromHtml(Utilities.getFormattedSearchVerse(mEntry)));
+
+            mContent.setText(Utilities.getFormattedSearchVerse(mListener.getContext(), mEntry));
             mContent.setSelected(ListSearch.isEntrySelected(mEntry));
         }
     }

@@ -34,20 +34,20 @@
             android:summary = "@string/pref_summary_disabled"
             android:title = "@string/pref_key_theme_dark_title" />
         <ListPreference
-            android:defaultValue = "@string/pref_key_text_style_value_default"
+            android:defaultValue = "@string/pref_key_text_style_default"
             android:dialogTitle = "@string/pref_key_text_style_title"
-            android:entries = "@array/pref_key_text_style_entries"
-            android:entryValues = "@array/pref_key_text_style_value"
+            android:entries = "@array/pref_key_text_style_options"
+            android:entryValues = "@array/pref_key_text_style_options"
             android:key = "pref_key_text_style"
-            android:summary = "@string/pref_key_text_style_value_default"
+            android:summary = "@string/pref_key_text_style_default"
             android:title = "@string/pref_key_text_style_title" />
         <ListPreference
-            android:defaultValue = "@string/pref_key_text_size_value_default"
+            android:defaultValue = "@string/pref_key_text_size_default"
             android:dialogTitle = "@string/pref_key_text_size_title"
-            android:entries = "@array/pref_key_text_size_entries"
-            android:entryValues = "@array/pref_key_text_size_value"
+            android:entries = "@array/pref_key_text_size_options"
+            android:entryValues = "@array/pref_key_text_size_options"
             android:key = "pref_key_text_size"
-            android:summary = "@string/pref_key_text_size_value_default"
+            android:summary = "@string/pref_key_text_size_default"
             android:title = "@string/pref_key_text_size_title" />
     </PreferenceCategory>
 

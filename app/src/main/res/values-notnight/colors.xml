@@ -6,4 +6,5 @@
     <color name = "windowBackground">#E5E5E5</color>
     <color name = "cardBackground">#F2F2F2</color>
     <color name = "textColor">#000000</color>
+    <color name = "verse_reference_color">@color/accent</color>
 </resources>
