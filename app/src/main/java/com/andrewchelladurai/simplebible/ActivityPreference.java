@@ -1,14 +1,27 @@
 package com.andrewchelladurai.simplebible;
 
+import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.preference.ListPreference;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
+import android.preference.RingtonePreference;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -18,6 +31,7 @@ import android.view.ViewGroup;
  */
 public abstract class ActivityPreference
         extends PreferenceActivity {
+
 
     private AppCompatDelegate mDelegate;
 

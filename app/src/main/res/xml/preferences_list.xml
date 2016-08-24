@@ -58,7 +58,6 @@
                 android:action = "android.intent.action.VIEW"
                 android:data = "https://play.google.com/store/apps/details?id=com.andrewchelladurai.simplebible" />
         </Preference>
-        <!--
                 <Preference android:title = "@string/pref_header_feedback">
                     <intent
                         android:action = "android.intent.action.VIEW"
@@ -68,7 +67,6 @@
                             android:value = "@string/feedback_email_subject" />
                     </intent>
                 </Preference>
-        -->
         <Preference android:title = "@string/pref_header_more_apps">
             <intent
                 android:action = "android.intent.action.VIEW"
