@@ -115,11 +115,8 @@
     <string name = "button_search_text">Search Text</string>
     <string name = "book_details_append_chapters">" Chapters"</string>
 
+    <!-- Format : V_TXT : B_NAME : C_NUM : V_NUM -->
     <string name = "daily_verse_template"><![CDATA[<h3>%1$s</h3><hr>%2$s : Chapter %3$s : Verse %4$s]]></string>
-    <string name = "daily_verse_template_text">TEXT</string>
-    <string name = "daily_verse_template_book">BN</string>
-    <string name = "daily_verse_template_chapter">CN</string>
-    <string name = "daily_verse_template_verse">VN</string>
 
     <!-- Format : (B_NUM C_NUM: V_NUM) V_TXT -->
     <string name = "search_result_template">(%1$s %2$s:%3$s) %4$s</string>
@@ -139,7 +136,6 @@
     <string name = "button_save">Save</string>
     <string name = "button_delete">Delete</string>
     <string name = "button_share">Share</string>
-    <string name = "activity_chapter_animation">activity_chapter_animation</string>
     <string name = "chapter_list_prepend_text">Chapter </string>
     <string name = "message_incorrect_book_name">Incorrect Book Name</string>
     <string name = "message_incorrect_chapter_number">Incorrect chapter number, using default</string>
