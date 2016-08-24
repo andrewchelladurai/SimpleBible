@@ -29,7 +29,9 @@ package com.andrewchelladurai.simplebible;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -40,34 +42,33 @@ import android.view.inputmethod.InputMethodManager;
 public class Utilities {
 
     // constants for arguments used in Fragments and Activities.
-    public static final String TODAY_VERSE_REFERENCE  = "TODAY_VERSE_REFERENCE";
-    public static final String BOOKS_COLUMN_COUNT     = "BOOKS_COLUMN_COUNT";
-    public static final String CURRENT_BOOK           = "CURRENT_BOOK";
-    public static final String CURRENT_CHAPTER        = "CURRENT_CHAPTER";
-    public static final String CURRENT_CHAPTER_NUMBER = "CURRENT_CHAPTER_NUMBER";
-    //    public static final String CURRENT_VERSE          = "CURRENT_VERSE";
-    public static final String REFERENCES             = "REFERENCES";
-    public static final String LOAD_CHAPTER           = "LOAD_CHAPTER";
-    public static final String LOAD_CHAPTER_NO        = "LOAD_CHAPTER_NO";
-    public static final String LOAD_CHAPTER_YES       = "LOAD_CHAPTER_YES";
-    public static final String BOOKMARK_EDIT          = "BOOKMARK_EDIT";
-    public static final String BOOKMARK_SAVE          = "BOOKMARK_SAVE";
+    public static final  String    TODAY_VERSE_REFERENCE       = "TODAY_VERSE_REFERENCE";
+    public static final  String    BOOKS_COLUMN_COUNT          = "BOOKS_COLUMN_COUNT";
+    public static final  String    CURRENT_BOOK                = "CURRENT_BOOK";
+    public static final  String    CURRENT_CHAPTER             = "CURRENT_CHAPTER";
+    public static final  String    CURRENT_CHAPTER_NUMBER      = "CURRENT_CHAPTER_NUMBER";
+    public static final  String    REFERENCES                  = "REFERENCES";
+    public static final  String    LOAD_CHAPTER                = "LOAD_CHAPTER";
+    public static final  String    LOAD_CHAPTER_NO             = "LOAD_CHAPTER_NO";
+    public static final  String    LOAD_CHAPTER_YES            = "LOAD_CHAPTER_YES";
+    public static final  String    BOOKMARK_EDIT               = "BOOKMARK_EDIT";
+    public static final  String    BOOKMARK_SAVE               = "BOOKMARK_SAVE";
+    public static final  String    DELIMITER_IN_REFERENCE      = ":";
+    public static final  String    DELIMITER_BETWEEN_REFERENCE = "~";
+    private static final String    TAG                         = "SB_Utilities";
+    private static       Utilities staticInstance              = null;
+    private static Resources         mResources;
+    private static SharedPreferences mPreferences;
 
-    public static final String DELIMITER_IN_REFERENCE      = ":";
-    public static final String DELIMITER_BETWEEN_REFERENCE = "~";
-
-    private static final String    TAG            = "SB_Utilities";
-    private static       Utilities staticInstance = null;
-    private static Resources mResources;
-
-    private Utilities(final Resources pResources) {
-        mResources = pResources;
+    private Utilities(ActivitySimpleBible pActivity) {
+        mResources = pActivity.getResources();
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(pActivity);
+        ListBooks.populateBooks(mResources.getStringArray(R.array.books_n_chapter_count_array));
     }
 
-    public static Utilities getInstance(final Resources pResources) {
+    public static Utilities getInstance(final ActivitySimpleBible pActivity) {
         if (staticInstance == null) {
-            staticInstance = new Utilities(pResources);
-            ListBooks.populateBooks(pResources.getStringArray(R.array.books_n_chapter_count_array));
+            staticInstance = new Utilities(pActivity);
             Utilities.log(TAG, "getInstance: staticInstance initialized");
         }
         return staticInstance;
@@ -77,6 +78,10 @@ public class Utilities {
         Log.i(TAG, message);
     }
 
+    public static void throwError(String errorMessage) {
+        throw new AssertionError(errorMessage);
+    }
+
     public static Intent shareVerse(String textToShare) {
         Utilities.log(TAG, "shareVerse() textToShare of [" + textToShare.length() + "] length");
         Intent sendIntent = new Intent();
@@ -84,10 +89,6 @@ public class Utilities {
         sendIntent.putExtra(Intent.EXTRA_TEXT, textToShare);
         sendIntent.setType("text/plain");
         return sendIntent;
-    }
-
-    public static void throwError(String errorMessage) {
-        throw new AssertionError(errorMessage);
     }
 
     public static String getFormattedDailyVerse(String[] reference) {
@@ -151,4 +152,10 @@ public class Utilities {
             im.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
+
+    public static boolean isDarkModeEnabled() {
+        return mPreferences.getBoolean(
+                getResourceString(R.string.pref_key_theme_dark), false);
+    }
+
 }

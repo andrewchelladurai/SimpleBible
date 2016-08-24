@@ -170,7 +170,7 @@
     <string name = "activity_bookmark_toast_update_failure">Bookmark Not Updated</string>
     <string name = "activity_bookmark_share_note_below_text">Bookmarked Notes are below:</string>
 
-    <!-- Strings related to Settings -->
+    <!-- Strings related to Settings Start Here -->
 
     <string name = "pref_header_about">About</string>
     <string name = "pref_header_change_log">Changelog</string>
@@ -213,12 +213,24 @@
     <string name = "pref_key_reminder_tone_title">Tone to use</string>
     <string name = "pref_key_reminder_vibrate_title">Vibrate</string>
     <string name = "pref_summary_disabled">Disabled</string>
+
+    <!--LIST OF PREFERENCE KEYS-->
+    <string name = "pref_key_reminder">pref_key_reminder</string>
+    <string name = "pref_key_reminder_tone">pref_key_reminder_tone</string>
+    <string name = "pref_key_reminder_vibrate">pref_key_reminder_vibrate</string>
+    <string name = "pref_key_theme_dark">pref_key_theme_dark</string>
+    <string name = "pref_key_text_style">pref_key_text_style</string>
+    <string name = "pref_key_text_size">pref_key_text_size</string>
+
     <string-array name = "pref_key_list">
-        <item>pref_key_reminder</item>
-        <item>pref_key_reminder_tone</item>
-        <item>pref_key_reminder_vibrate</item>
-        <item>pref_key_theme_dark</item>
-        <item>pref_key_text_style</item>
-        <item>pref_key_text_size</item>
+        <item>@string/pref_key_reminder</item>
+        <item>@string/pref_key_reminder_tone</item>
+        <item>@string/pref_key_reminder_vibrate</item>
+        <item>@string/pref_key_theme_dark</item>
+        <item>@string/pref_key_text_style</item>
+        <item>@string/pref_key_text_size</item>
     </string-array>
+
+    <!-- Strings related to Settings End Here -->
+
 </resources>

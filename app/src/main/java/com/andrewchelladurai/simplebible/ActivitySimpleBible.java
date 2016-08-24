@@ -28,6 +28,7 @@ package com.andrewchelladurai.simplebible;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -35,6 +36,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -42,12 +44,6 @@ public class ActivitySimpleBible
         extends AppCompatActivity {
 
     private static final String TAG = "SB_ActivitySimpleBible";
-
-    static {
-         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-    }
-
     private PagerAdapter  mPagerAdapter;
     private ViewPager     mPager;
     private FragmentNotes fragmentNotes;
@@ -67,10 +63,23 @@ public class ActivitySimpleBible
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Start Preference work
+        PreferenceManager.setDefaultValues(this, R.xml.preferences_list, false);
+        Utilities.getInstance(this);
+        if (Utilities.isDarkModeEnabled()) {
+            Log.d(TAG, "onCreate: Show Dark Mode");
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            Log.d(TAG, "onCreate: Show Light Mode");
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+        // End Preference work
+
+        // Start loading application
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_simple_bible);
         DatabaseUtility.getInstance(getApplicationContext());
-        Utilities.getInstance(getResources());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.act_sb_toolbar);
         setSupportActionBar(toolbar);
