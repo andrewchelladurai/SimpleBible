@@ -105,8 +105,6 @@ public class AdapterSearchList
 
         public void updateView(Entry entry) {
             mEntry = entry;
-            // mContent.setText(Html.fromHtml(Utilities.getFormattedSearchVerse(mEntry)));
-
             mContent.setText(Utilities.getFormattedSearchVerse(mListener.getContext(), mEntry));
             mContent.setSelected(ListSearch.isEntrySelected(mEntry));
         }

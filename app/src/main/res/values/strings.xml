@@ -122,10 +122,7 @@
     <string name = "daily_verse_template_verse">VN</string>
 
     <string name = "search_result_template">(%1$s %2$s:%3$s) %4$s</string>
-
-    <string name = "chapter_verse_template"><![CDATA[<font color="#7a1631"><strong>VN - </strong></font> TEXT]]></string>
-    <string name = "chapter_verse_template_text">TEXT</string>
-    <string name = "chapter_verse_template_verse">VN</string>
+    <string name = "chapter_verse_template">%1$d - %2$s></string>
 
     <string name = "no_verse_found">No Verse Found for the reference</string>
     <string name = "tab_home">HOME</string>

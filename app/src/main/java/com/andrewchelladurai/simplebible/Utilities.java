@@ -129,6 +129,7 @@ public class Utilities {
         return mResources.getString(resourceID);
     }
 
+/*
     public static String getFormattedChapterVerse(int verseNumber, String verseText) {
         String fText = getString(R.string.chapter_verse_template);
         fText = fText.replaceAll(getString(R.string.chapter_verse_template_verse),
@@ -136,6 +137,10 @@ public class Utilities {
         fText = fText.replaceAll(getString(R.string.chapter_verse_template_text),
                                  verseText);
         return fText;
+    }
+*/
+    public static String getFormattedChapterVerse(int verseNumber, String verseText) {
+        return String.format(getString(R.string.chapter_verse_template), verseNumber, verseText);
     }
 
     public static SpannableString getFormattedSearchVerse(Context context, ListSearch.Entry entry) {
