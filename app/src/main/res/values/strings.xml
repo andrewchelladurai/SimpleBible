@@ -121,8 +121,10 @@
     <string name = "daily_verse_template_chapter">CN</string>
     <string name = "daily_verse_template_verse">VN</string>
 
+    <!-- Format : (B_NUM C_NUM: V_NUM) V_TXT -->
     <string name = "search_result_template">(%1$s %2$s:%3$s) %4$s</string>
-    <string name = "chapter_verse_template">%1$d - %2$s></string>
+    <!-- Format V_NUM - V_TXT -->
+    <string name = "chapter_verse_template">%1$s - %2$s></string>
 
     <string name = "no_verse_found">No Verse Found for the reference</string>
     <string name = "tab_home">HOME</string>

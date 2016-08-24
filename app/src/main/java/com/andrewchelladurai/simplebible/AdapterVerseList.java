@@ -28,7 +28,6 @@ package com.andrewchelladurai.simplebible;
 
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,8 +108,8 @@ public class AdapterVerseList
         }
 
         public void setContent(int position, String newContent) {
-            mContent.setText(
-                    Html.fromHtml(Utilities.getFormattedChapterVerse(position + 1, newContent)));
+            mContent.setText(Utilities.getFormattedChapterVerse(
+                    mListener.getContext(),position + 1, newContent));
         }
     }
 }
