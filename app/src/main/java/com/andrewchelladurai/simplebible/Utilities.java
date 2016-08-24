@@ -250,50 +250,11 @@ public class Utilities {
         // this is the text we will style
         SpannableString sText = new SpannableString(fText);
 
-        // apply highlight color to verse reference
-        int referenceEnd = (fText.indexOf(verseNumber) + verseNumber.length()) + 1;
-        ForegroundColorSpan colorSpan = new ForegroundColorSpan(
-                ContextCompat.getColor(context, R.color.verse_reference_color));
-        sText.setSpan(colorSpan, 0, referenceEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        // apply size to verse according to preference
-        float size;
-        switch (Utilities.getPreferredVerseSize()) {
-            case VERSE_SIZE_SMALL:
-                size = 0.8f;
-                break;
-            case VERSE_SIZE_MEDIUM:
-                size = 1.0f;
-                break;
-            case VERSE_SIZE_BIG:
-                size = 1.2f;
-                break;
-            case VERSE_SIZE_LARGE:
-                size = 1.4f;
-                break;
-            default: // set to medium
-                size = 1.0f;
-        }
-        sText.setSpan(new RelativeSizeSpan(size), 0, fText.length(),
-                      Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        // apply style to verse according to preference
-        String typeface;
-        switch (getPreferredVerseStyle()) {
-            case VERSE_STYLE_NORMAL:
-                typeface = "sans-serif";
-                break;
-            case VERSE_STYLE_OLD_ENGLISH:
-                typeface = "serif";
-                break;
-            case VERSE_STYLE_TYPEWRITER:
-                typeface = "monospace";
-                break;
-            default:
-                typeface = Typeface.DEFAULT.toString();
-        }
-        sText.setSpan(new TypefaceSpan(typeface), 0, fText.length(),
-                      Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        int spanEnd = (fText.indexOf(verseNumber) + verseNumber.length()) + 1;
+        highlightRangeWithColorInVerse(sText,0,spanEnd,context);
+        spanEnd = fText.length();
+        setPreferredVerseSizeToText(sText, 0, spanEnd);
+        setPreferredVerseStyleToText(sText, 0, spanEnd);
 
         return sText;
     }
