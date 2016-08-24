@@ -6,6 +6,7 @@
         <SwitchPreference
             android:defaultValue = "false"
             android:key = "pref_key_reminder"
+            android:summary = "@string/pref_summary_disabled"
             android:title = "@string/pref_key_reminder_title" />
 
         <RingtonePreference
@@ -13,12 +14,14 @@
             android:dependency = "pref_key_reminder"
             android:key = "pref_key_reminder_tone"
             android:ringtoneType = "notification"
+            android:summary = "@string/pref_summary_disabled"
             android:title = "@string/pref_key_reminder_tone_title" />
 
         <SwitchPreference
-            android:defaultValue = "true"
+            android:defaultValue = "false"
             android:dependency = "pref_key_reminder"
             android:key = "pref_key_reminder_vibrate"
+            android:summary = "@string/pref_summary_disabled"
             android:title = "@string/pref_key_reminder_vibrate_title" />
     </PreferenceCategory>
 
@@ -28,6 +31,7 @@
         <SwitchPreference
             android:defaultValue = "false"
             android:key = "pref_key_theme_dark"
+            android:summary = "@string/pref_summary_disabled"
             android:title = "@string/pref_key_theme_dark_title" />
         <ListPreference
             android:defaultValue = "@string/pref_key_text_style_value_default"
@@ -35,6 +39,7 @@
             android:entries = "@array/pref_key_text_style_entries"
             android:entryValues = "@array/pref_key_text_style_value"
             android:key = "pref_key_text_style"
+            android:summary = "@string/pref_key_text_style_value_default"
             android:title = "@string/pref_key_text_style_title" />
         <ListPreference
             android:defaultValue = "@string/pref_key_text_size_value_default"
@@ -42,6 +47,7 @@
             android:entries = "@array/pref_key_text_size_entries"
             android:entryValues = "@array/pref_key_text_size_value"
             android:key = "pref_key_text_size"
+            android:summary = "@string/pref_key_text_size_value_default"
             android:title = "@string/pref_key_text_size_title" />
     </PreferenceCategory>
 
@@ -58,6 +64,7 @@
                 android:action = "android.intent.action.VIEW"
                 android:data = "https://play.google.com/store/apps/details?id=com.andrewchelladurai.simplebible" />
         </Preference>
+        <!--
                 <Preference android:title = "@string/pref_header_feedback">
                     <intent
                         android:action = "android.intent.action.VIEW"
@@ -67,6 +74,7 @@
                             android:value = "@string/feedback_email_subject" />
                     </intent>
                 </Preference>
+        -->
         <Preference android:title = "@string/pref_header_more_apps">
             <intent
                 android:action = "android.intent.action.VIEW"

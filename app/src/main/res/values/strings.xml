@@ -212,4 +212,13 @@
     <string name = "pref_key_reminder_title">Reminder for daily devotion</string>
     <string name = "pref_key_reminder_tone_title">Tone to use</string>
     <string name = "pref_key_reminder_vibrate_title">Vibrate</string>
+    <string name = "pref_summary_disabled">Disabled</string>
+    <string-array name = "pref_key_list">
+        <item>pref_key_reminder</item>
+        <item>pref_key_reminder_tone</item>
+        <item>pref_key_reminder_vibrate</item>
+        <item>pref_key_theme_dark</item>
+        <item>pref_key_text_style</item>
+        <item>pref_key_text_size</item>
+    </string-array>
 </resources>

@@ -4,15 +4,15 @@ import android.annotation.TargetApi;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
+import android.preference.RingtonePreference;
+import android.preference.SwitchPreference;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -123,6 +123,7 @@ public class ActivitySettings
         getDelegate().setTitle(title);
     }
 
+/*
     public ActionBar getSupportActionBar() {
         return getDelegate().getSupportActionBar();
     }
@@ -130,38 +131,49 @@ public class ActivitySettings
     public void setSupportActionBar(@Nullable Toolbar toolbar) {
         getDelegate().setSupportActionBar(toolbar);
     }
+*/
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class AboutPreferenceFragment
             extends PreferenceFragment {
 
+        private PreferenceListener mListener = new PreferenceListener();
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences_list);
-            //            setHasOptionsMenu(true);
 
-            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
-            // to their values. When their values change, their summaries are
-            // updated to reflect the new value, per the Android Design
-            // guidelines.
-
-            Preference preference = findPreference("pref_reminder");
-            if (preference != null) {
-                bindPreferenceSummaryToValue(preference);
-            }
-            preference = findPreference("pref_reminder_tone");
-            if (preference != null) {
-                bindPreferenceSummaryToValue(preference);
-            }
-            preference = findPreference("pref_reminder_vibrate");
-            if (preference != null) {
-                bindPreferenceSummaryToValue(preference);
+            String keyList[] = getResources().getStringArray(R.array.pref_key_list);
+            Preference preference;
+            for (String pref_key : keyList) {
+                preference = findPreference(pref_key);
+                if (preference != null) {
+                    preference.setOnPreferenceChangeListener(mListener);
+                }
             }
         }
 
-        private void bindPreferenceSummaryToValue(Preference pPreference) {
-            Log.d(TAG, "bindPreferenceSummaryToValue: ");
+        private class PreferenceListener
+                implements Preference.OnPreferenceChangeListener {
+
+            @Override public boolean onPreferenceChange(Preference pPreference, Object pObject) {
+                Log.d(TAG, "onPreferenceChange: " + pPreference.getKey());
+                String value;
+                if (pPreference instanceof ListPreference) {
+                    value = pObject.toString();
+                } else if (pPreference instanceof SwitchPreference) {
+                    value = ((SwitchPreference) pPreference).isChecked()
+                            ? "Disabled" : "Enabled";
+                } else if (pPreference instanceof RingtonePreference) {
+                    value = ((RingtonePreference) pPreference).getShowSilent()
+                            ? "Enabled" : "Silent";
+                } else {
+                    value = pObject.toString();
+                }
+                pPreference.setSummary(value);
+                return true;
+            }
         }
     }
 }
