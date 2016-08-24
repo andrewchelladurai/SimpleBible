@@ -98,40 +98,40 @@ public class Utilities {
                                                 Integer.parseInt(reference[1]),
                                                 Integer.parseInt(reference[2]));
 
-        String fText = getResourceString(R.string.daily_verse_template);
+        String fText = getString(R.string.daily_verse_template);
 
-        fText = fText.replaceAll(getResourceString(R.string.daily_verse_template_book), bookName);
-        fText = fText.replaceAll(getResourceString(R.string.daily_verse_template_chapter),
+        fText = fText.replaceAll(getString(R.string.daily_verse_template_book), bookName);
+        fText = fText.replaceAll(getString(R.string.daily_verse_template_chapter),
                                  reference[1]);
-        fText = fText.replaceAll(getResourceString(R.string.daily_verse_template_verse),
+        fText = fText.replaceAll(getString(R.string.daily_verse_template_verse),
                                  reference[2]);
-        fText = fText.replaceAll(getResourceString(R.string.daily_verse_template_text), verseText);
+        fText = fText.replaceAll(getString(R.string.daily_verse_template_text), verseText);
 
         return fText;
     }
 
-    private static String getResourceString(int resourceID) {
+    private static String getString(int resourceID) {
         return mResources.getString(resourceID);
     }
 
     public static String getFormattedChapterVerse(int verseNumber, String verseText) {
-        String fText = getResourceString(R.string.chapter_verse_template);
-        fText = fText.replaceAll(getResourceString(R.string.chapter_verse_template_verse),
+        String fText = getString(R.string.chapter_verse_template);
+        fText = fText.replaceAll(getString(R.string.chapter_verse_template_verse),
                                  String.valueOf(verseNumber));
-        fText = fText.replaceAll(getResourceString(R.string.chapter_verse_template_text),
+        fText = fText.replaceAll(getString(R.string.chapter_verse_template_text),
                                  verseText);
         return fText;
     }
 
     public static String getFormattedSearchVerse(ListSearch.Entry entry) {
         String bookName = ListBooks.getItem(entry.getBookNumber()).getName();
-        String fText = getResourceString(R.string.search_result_template);
-        fText = fText.replaceAll(getResourceString(R.string.search_result_template_book), bookName);
-        fText = fText.replaceAll(getResourceString(R.string.search_result_template_chapter),
+        String fText = getString(R.string.search_result_template);
+        fText = fText.replaceAll(getString(R.string.search_result_template_book), bookName);
+        fText = fText.replaceAll(getString(R.string.search_result_template_chapter),
                                  entry.getChapterNumber());
-        fText = fText.replaceAll(getResourceString(R.string.search_result_template_verse),
+        fText = fText.replaceAll(getString(R.string.search_result_template_verse),
                                  entry.getVerseNumber());
-        fText = fText.replaceAll(getResourceString(R.string.search_result_template_text),
+        fText = fText.replaceAll(getString(R.string.search_result_template_text),
                                  entry.getVerse());
 
         return fText;
@@ -154,8 +154,7 @@ public class Utilities {
     }
 
     public static boolean isDarkModeEnabled() {
-        return mPreferences.getBoolean(
-                getResourceString(R.string.pref_key_theme_dark), false);
+        return mPreferences.getBoolean(getString(R.string.pref_key_theme_dark), false);
     }
 
 }
