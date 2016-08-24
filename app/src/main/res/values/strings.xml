@@ -115,7 +115,7 @@
     <string name = "button_search_text">Search Text</string>
     <string name = "book_details_append_chapters">" Chapters"</string>
 
-    <string name = "daily_verse_template"><![CDATA[<h3>TEXT</h3><hr>BN : Chapter CN : Verse VN]]></string>
+    <string name = "daily_verse_template"><![CDATA[<h3>%1$s</h3><hr>%2$s : Chapter %3$s : Verse %4$s]]></string>
     <string name = "daily_verse_template_text">TEXT</string>
     <string name = "daily_verse_template_book">BN</string>
     <string name = "daily_verse_template_chapter">CN</string>

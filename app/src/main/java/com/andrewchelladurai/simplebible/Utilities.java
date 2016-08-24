@@ -107,22 +107,16 @@ public class Utilities {
     }
 
     public static String getFormattedDailyVerse(String[] reference) {
-        String bookName = ListBooks.getItem(reference[0]).getName();
         DatabaseUtility dbu = DatabaseUtility.getInstance(null);
+        String bookName = ListBooks.getItem(reference[0]).getName();
+        String chapterNumber = reference[1];
+        String verseNumber = reference[2];
         String verseText = dbu.getSpecificVerse(Integer.parseInt(reference[0]),
                                                 Integer.parseInt(reference[1]),
                                                 Integer.parseInt(reference[2]));
 
-        String fText = getString(R.string.daily_verse_template);
-
-        fText = fText.replaceAll(getString(R.string.daily_verse_template_book), bookName);
-        fText = fText.replaceAll(getString(R.string.daily_verse_template_chapter),
-                                 reference[1]);
-        fText = fText.replaceAll(getString(R.string.daily_verse_template_verse),
-                                 reference[2]);
-        fText = fText.replaceAll(getString(R.string.daily_verse_template_text), verseText);
-
-        return fText;
+        return String.format(getString(R.string.daily_verse_template),
+                             verseText, bookName, chapterNumber, verseNumber);
     }
 
     private static String getString(int resourceID) {
@@ -251,7 +245,7 @@ public class Utilities {
         SpannableString sText = new SpannableString(fText);
 
         int spanEnd = (fText.indexOf(verseNumber) + verseNumber.length()) + 1;
-        highlightRangeWithColorInVerse(sText,0,spanEnd,context);
+        highlightRangeWithColorInVerse(sText, 0, spanEnd, context);
         spanEnd = fText.length();
         setPreferredVerseSizeToText(sText, 0, spanEnd);
         setPreferredVerseStyleToText(sText, 0, spanEnd);
