@@ -1,31 +1,6 @@
 <PreferenceScreen xmlns:android = "http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:key = "@string/pref_header_reminder"
-        android:title = "@string/pref_header_reminder">
-        <SwitchPreference
-            android:defaultValue = "false"
-            android:key = "pref_key_reminder"
-            android:summary = "@string/pref_summary_disabled"
-            android:title = "@string/pref_key_reminder_title" />
-
-        <RingtonePreference
-            android:defaultValue = "content://settings/system/notification_sound"
-            android:dependency = "pref_key_reminder"
-            android:key = "pref_key_reminder_tone"
-            android:ringtoneType = "notification"
-            android:summary = "@string/pref_summary_disabled"
-            android:title = "@string/pref_key_reminder_tone_title" />
-
-        <SwitchPreference
-            android:defaultValue = "false"
-            android:dependency = "pref_key_reminder"
-            android:key = "pref_key_reminder_vibrate"
-            android:summary = "@string/pref_summary_disabled"
-            android:title = "@string/pref_key_reminder_vibrate_title" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
         android:key = "@string/pref_header_theme"
         android:title = "@string/pref_header_theme">
         <SwitchPreference
@@ -49,6 +24,32 @@
             android:key = "pref_key_text_size"
             android:summary = "@string/pref_key_text_size_default"
             android:title = "@string/pref_key_text_size_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key = "@string/pref_header_reminder"
+        android:title = "@string/pref_header_reminder">
+        <SwitchPreference
+            android:defaultValue = "false"
+            android:enabled="false"
+            android:key = "pref_key_reminder"
+            android:summary = "@string/pref_summary_disabled"
+            android:title = "@string/pref_key_reminder_title" />
+
+        <RingtonePreference
+            android:defaultValue = "content://settings/system/notification_sound"
+            android:dependency = "pref_key_reminder"
+            android:key = "pref_key_reminder_tone"
+            android:ringtoneType = "notification"
+            android:summary = "@string/pref_summary_disabled"
+            android:title = "@string/pref_key_reminder_tone_title" />
+
+        <SwitchPreference
+            android:defaultValue = "false"
+            android:dependency = "pref_key_reminder"
+            android:key = "pref_key_reminder_vibrate"
+            android:summary = "@string/pref_summary_disabled"
+            android:title = "@string/pref_key_reminder_vibrate_title" />
     </PreferenceCategory>
 
     <PreferenceCategory
