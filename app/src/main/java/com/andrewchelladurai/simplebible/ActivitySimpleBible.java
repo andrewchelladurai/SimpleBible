@@ -67,10 +67,10 @@ public class ActivitySimpleBible
         PreferenceManager.setDefaultValues(this, R.xml.preferences_list, false);
         Utilities.getInstance(this);
         if (Utilities.isDarkModeEnabled()) {
-            Log.d(TAG, "onCreate: Show Dark Mode");
+            Utilities.log(TAG, "onCreate: Show Dark Mode");
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
-            Log.d(TAG, "onCreate: Show Light Mode");
+            Utilities.log(TAG, "onCreate: Show Light Mode");
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
         // End Preference work

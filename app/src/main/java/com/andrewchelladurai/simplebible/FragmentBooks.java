@@ -64,7 +64,7 @@ public class FragmentBooks
     }
 
     public void bookEntryClicked(Entry item) {
-        Log.d(TAG, "bookEntryClicked() called with [" + item + "]");
+        Utilities.log(TAG, "bookEntryClicked() called with [" + item + "]");
         Bundle args = new Bundle();
         args.putParcelable(Utilities.CURRENT_BOOK, item);
         args.putString(Utilities.CURRENT_CHAPTER_NUMBER, "1");

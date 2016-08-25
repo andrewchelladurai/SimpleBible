@@ -66,7 +66,8 @@ public class ActivityChapterVerses
         mBundle.putParcelable(Utilities.CURRENT_CHAPTER, chapter);
         mBundle.putString(Utilities.CURRENT_CHAPTER_NUMBER, chapterNumber);
         mBundle.putString(Utilities.LOAD_CHAPTER, loadChapter);
-        Log.d(TAG, "onCreate: mBundle created " + book + " - " + chapter + " - " + chapterNumber);
+        Utilities.log(TAG, "onCreate: mBundle created " + book + " - " + chapter + " - " +
+                         chapterNumber);
         // Got all the necessary arguments for operation
 
         setContentView(R.layout.activity_chapter_detail);

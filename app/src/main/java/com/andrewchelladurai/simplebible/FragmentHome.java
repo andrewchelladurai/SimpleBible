@@ -54,7 +54,6 @@ public class FragmentHome
     private AppCompatAutoCompleteTextView mBookInput;
 
     public FragmentHome() {
-        // FIXME: Make the layout better for landscape position
     }
 
     public static FragmentHome newInstance() {

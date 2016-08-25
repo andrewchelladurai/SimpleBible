@@ -100,7 +100,7 @@ public class ActivityChapterList
         toolbar.setTitle(getTitle());
 
         if (extras.getString(Utilities.LOAD_CHAPTER).equalsIgnoreCase(Utilities.LOAD_CHAPTER_YES)) {
-            Log.i(TAG, "onCreate: LOAD_CHAPTER = YES");
+            Utilities.log(TAG, "onCreate: LOAD_CHAPTER = YES");
             chapterClicked(mChapter);
         }
     }
@@ -114,13 +114,13 @@ public class ActivityChapterList
                        getIntent().getExtras().getString(Utilities.LOAD_CHAPTER));
 
         if (isDualPane()) {
-            Log.d(TAG, "chapterClicked: isDualPane = true");
+            Utilities.log(TAG, "chapterClicked: isDualPane = true");
             FragmentChapterVerses fragment = new FragmentChapterVerses();
             fragment.setArguments(args);
             getSupportFragmentManager().beginTransaction().replace(R.id.chapter_container, fragment)
                                        .commit();
         } else {
-            Log.d(TAG, "chapterClicked: isDualPane = false");
+            Utilities.log(TAG, "chapterClicked: isDualPane = false");
             Intent intent = new Intent(getApplicationContext(), ActivityChapterVerses.class);
             intent.putExtras(args);
             startActivity(intent);

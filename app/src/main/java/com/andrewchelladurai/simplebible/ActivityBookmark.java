@@ -74,7 +74,7 @@ public class ActivityBookmark
     }
 
     private void populateContent() {
-        Log.d(TAG, "populateContent() called");
+        Utilities.log(TAG, "populateContent() called");
         ListViewCompat verseList = (ListViewCompat) findViewById(R.id.activity_bookmark_list);
         if (verseList == null) {
             Utilities.throwError(TAG + " verseList == null");
