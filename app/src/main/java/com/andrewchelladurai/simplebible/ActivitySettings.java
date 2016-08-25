@@ -122,16 +122,6 @@ public class ActivitySettings
         getDelegate().setTitle(title);
     }
 
-/*
-    public ActionBar getSupportActionBar() {
-        return getDelegate().getSupportActionBar();
-    }
-
-    public void setSupportActionBar(@Nullable Toolbar toolbar) {
-        getDelegate().setSupportActionBar(toolbar);
-    }
-*/
-
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class AboutPreferenceFragment
             extends PreferenceFragment {
