@@ -13,7 +13,6 @@ import android.preference.SwitchPreference;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatDelegate;
-import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -146,9 +145,22 @@ public class ActivitySettings
 
             String keyList[] = getResources().getStringArray(R.array.pref_key_list);
             Preference preference;
+            String value;
             for (String pref_key : keyList) {
                 preference = findPreference(pref_key);
                 if (preference != null) {
+                    if (preference instanceof ListPreference) {
+                        value = ((ListPreference) preference).getValue();
+                    } else if (preference instanceof SwitchPreference) {
+                        value = ((SwitchPreference) preference).isChecked()
+                                ? "Disabled" : "Enabled";
+                    } else if (preference instanceof RingtonePreference) {
+                        value = ((RingtonePreference) preference).getShowSilent()
+                                ? "Enabled" : "Silent";
+                    } else {
+                        value = "";
+                    }
+                    preference.setSummary(value);
                     preference.setOnPreferenceChangeListener(mListener);
                     preference.setOnPreferenceClickListener(mListener);
                 }
