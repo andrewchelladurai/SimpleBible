@@ -272,4 +272,15 @@ public class Utilities {
     public static boolean isDarkModeEnabled() {
         return mPreferences.getBoolean(getString(R.string.pref_key_theme_dark), false);
     }
+
+    public static void restartApplication(Activity pActivity) {
+        Utilities.log(TAG, "restartApplication() called");
+        Context baseContext = pActivity.getBaseContext();
+        Intent intent = baseContext.getPackageManager()
+                                   .getLaunchIntentForPackage(baseContext.getPackageName());
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        Utilities.log(TAG, "restarting Application");
+        baseContext.startActivity(intent);
+    }
 }

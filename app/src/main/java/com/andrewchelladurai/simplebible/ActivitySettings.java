@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
@@ -149,20 +150,21 @@ public class ActivitySettings
                 preference = findPreference(pref_key);
                 if (preference != null) {
                     preference.setOnPreferenceChangeListener(mListener);
+                    preference.setOnPreferenceClickListener(mListener);
                 }
             }
         }
 
         private class PreferenceListener
-                implements Preference.OnPreferenceChangeListener {
+                implements Preference.OnPreferenceChangeListener,
+                           Preference.OnPreferenceClickListener {
 
             @Override public boolean onPreferenceChange(Preference pPreference, Object pObject) {
-                Log.d(TAG, "onPreferenceChange: " + pPreference.getKey());
+                Utilities.log(TAG, "onPreferenceChange: " + pPreference.getKey());
                 String value;
-                /*if (pPreference instanceof ListPreference) {
+                if (pPreference instanceof ListPreference) {
                     value = pObject.toString();
-                } else */
-                if (pPreference instanceof SwitchPreference) {
+                } else if (pPreference instanceof SwitchPreference) {
                     value = ((SwitchPreference) pPreference).isChecked()
                             ? "Disabled" : "Enabled";
                 } else if (pPreference instanceof RingtonePreference) {
@@ -172,6 +174,15 @@ public class ActivitySettings
                     value = pObject.toString();
                 }
                 pPreference.setSummary(value);
+                return true;
+            }
+
+            @Override public boolean onPreferenceClick(Preference pPreference) {
+                String key = pPreference.getKey();
+                Utilities.log(TAG, "onPreferenceClick() called key = [" + key + "]");
+                if (key != null && key.equalsIgnoreCase(getString(R.string.pref_key_theme_dark))) {
+                    Utilities.restartApplication(getActivity());
+                }
                 return true;
             }
         }
