@@ -31,7 +31,7 @@
         android:title = "@string/pref_header_reminder">
         <SwitchPreference
             android:defaultValue = "false"
-            android:enabled="false"
+            android:enabled = "false"
             android:key = "pref_key_reminder"
             android:summary = "@string/pref_summary_disabled"
             android:title = "@string/pref_key_reminder_title" />
@@ -55,7 +55,9 @@
     <PreferenceCategory
         android:key = "@string/pref_header_about"
         android:title = "@string/pref_header_about">
-        <Preference android:title = "@string/pref_header_change_log">
+        <Preference
+            android:key = "pref_key_changelog"
+            android:title = "@string/pref_header_change_log">
             <intent
                 android:action = "android.intent.action.VIEW"
                 android:data = "https://play.google.com/store/apps/details?id=com.andrewchelladurai.simplebible" />

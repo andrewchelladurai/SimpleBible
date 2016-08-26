@@ -12,11 +12,14 @@ import android.preference.RingtonePreference;
 import android.preference.SwitchPreference;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDelegate;
+import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 
 public class ActivitySettings
         extends PreferenceActivity {
@@ -153,8 +156,22 @@ public class ActivitySettings
                     preference.setSummary(value);
                     preference.setOnPreferenceChangeListener(mListener);
                     preference.setOnPreferenceClickListener(mListener);
+                    Log.d(TAG, "onCreate: registered : " + pref_key);
                 }
             }
+        }
+
+        private void showChangeLogDialog() {
+            Log.d(TAG, "showChangeLogDialog: ");
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+            WebView webView = new WebView(getActivity());
+            webView.loadUrl("file:///android_asset/about_me.html");
+
+            builder.setView(webView);
+            builder.setNegativeButton(null, null);
+            builder.setPositiveButton(null, null);
+            builder.show();
         }
 
         private class PreferenceListener
@@ -181,9 +198,15 @@ public class ActivitySettings
 
             @Override public boolean onPreferenceClick(Preference pPreference) {
                 String key = pPreference.getKey();
+                if (key == null) {
+                    Utilities.log(TAG, "onPreferenceClick() returning : key = null");
+                    return false;
+                }
                 Utilities.log(TAG, "onPreferenceClick() called key = [" + key + "]");
-                if (key != null && key.equalsIgnoreCase(getString(R.string.pref_key_theme_dark))) {
+                if (key.equalsIgnoreCase(getString(R.string.pref_key_theme_dark))) {
                     Utilities.restartApplication(getActivity());
+                } else if (key.equalsIgnoreCase(getString(R.string.pref_key_changelog))) {
+                    showChangeLogDialog();
                 }
                 return true;
             }

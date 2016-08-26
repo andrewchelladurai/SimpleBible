@@ -216,6 +216,7 @@
     <string name = "pref_key_theme_dark">pref_key_theme_dark</string>
     <string name = "pref_key_text_style">pref_key_text_style</string>
     <string name = "pref_key_text_size">pref_key_text_size</string>
+    <string name = "pref_key_changelog">pref_key_changelog</string>
 
     <string-array name = "pref_key_list">
         <item>@string/pref_key_reminder</item>
@@ -224,6 +225,7 @@
         <item>@string/pref_key_theme_dark</item>
         <item>@string/pref_key_text_style</item>
         <item>@string/pref_key_text_size</item>
+        <item>@string/pref_key_changelog</item>
     </string-array>
 
     <!-- Strings related to Settings End Here -->
