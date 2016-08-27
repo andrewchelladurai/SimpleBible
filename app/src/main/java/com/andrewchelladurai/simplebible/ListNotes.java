@@ -26,25 +26,23 @@
 
 package com.andrewchelladurai.simplebible;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class ListNotes {
+class ListNotes {
 
-    private static final String                      TAG      = "SB_ListNotes";
-    private static final CopyOnWriteArrayList<Entry> ITEMS    = new CopyOnWriteArrayList<>();
-    private static final Map<String[], Entry>        ITEM_MAP = new HashMap<>();
+    private static final String                      TAG   = "SB_ListNotes";
+    private static final CopyOnWriteArrayList<Entry> ITEMS = new CopyOnWriteArrayList<>();
+    //    private static final Map<String[], Entry>        ITEM_MAP = new HashMap<>();
 
     public static void populate() {
-        ITEM_MAP.clear();
+        //        ITEM_MAP.clear();
         ITEMS.clear();
 
         DatabaseUtility dbu = DatabaseUtility.getInstance(null);
         CopyOnWriteArrayList<String[]> list = dbu.getAllBookmarkedEntries();
         if (list == null) {
-            Utilities.throwError(TAG + " getAllBookmarkedEntries == null");
+            Utilities.throwError(TAG, TAG + " getAllBookmarkedEntries == null");
         }
         if (list.size() == 0) {
             return;
@@ -52,7 +50,7 @@ public class ListNotes {
         for (String[] items : list) {
             Entry entry = new Entry(items[0], items[1]);
             ITEMS.add(entry);
-            ITEM_MAP.put(entry.getReference(), entry);
+            //            ITEM_MAP.put(entry.getReference(), entry);
         }
     }
 

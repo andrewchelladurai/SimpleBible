@@ -39,6 +39,7 @@
     <LinearLayout
         android:layout_width = "match_parent"
         android:layout_height = "wrap_content"
+        android:baselineAligned = "false"
         android:orientation = "horizontal"
         android:paddingBottom = "@dimen/gap_big"
         android:paddingTop = "@dimen/gap_big">
@@ -54,10 +55,8 @@
                 android:layout_height = "wrap_content"
                 android:completionThreshold = "1"
                 android:hint = "@string/hint_book_name"
-                android:inputType = "textNoSuggestions"
-                android:lines = "1"
+                android:inputType = "textNoSuggestions|text"
                 android:maxLines = "1"
-                android:minLines = "1"
                 android:selectAllOnFocus = "true" />
         </android.support.design.widget.TextInputLayout>
 
@@ -73,9 +72,7 @@
                 android:completionThreshold = "1"
                 android:hint = "@string/hint_chapter_number"
                 android:inputType = "number|textNoSuggestions"
-                android:lines = "1"
                 android:maxLines = "1"
-                android:minLines = "1"
                 android:selectAllOnFocus = "true" />
         </android.support.design.widget.TextInputLayout>
 

@@ -47,7 +47,7 @@ import android.view.inputmethod.InputMethodManager;
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 14-May-2016 @ 9:14 PM
  */
-public class Utilities {
+class Utilities {
 
     // constants for arguments used in Fragments and Activities.
     public static final  String    TODAY_VERSE_REFERENCE       = "TODAY_VERSE_REFERENCE";
@@ -63,13 +63,13 @@ public class Utilities {
     public static final  String    BOOKMARK_SAVE               = "BOOKMARK_SAVE";
     public static final  String    DELIMITER_IN_REFERENCE      = ":";
     public static final  String    DELIMITER_BETWEEN_REFERENCE = "~";
-    public static final  int       VERSE_SIZE_SMALL            = -1;
-    public static final  int       VERSE_SIZE_MEDIUM           = 0;
-    public static final  int       VERSE_SIZE_BIG              = 1;
-    public static final  int       VERSE_SIZE_LARGE            = 2;
-    public static final  int       VERSE_STYLE_NORMAL          = 0;
-    public static final  int       VERSE_STYLE_OLD_ENGLISH     = 1;
-    public static final  int       VERSE_STYLE_TYPEWRITER      = 2;
+    private static final int       VERSE_SIZE_SMALL            = -1;
+    private static final int       VERSE_SIZE_MEDIUM           = 0;
+    private static final int       VERSE_SIZE_BIG              = 1;
+    private static final int       VERSE_SIZE_LARGE            = 2;
+    private static final int       VERSE_STYLE_NORMAL          = 0;
+    private static final int       VERSE_STYLE_OLD_ENGLISH     = 1;
+    private static final int       VERSE_STYLE_TYPEWRITER      = 2;
     private static final String    TAG                         = "SB_Utilities";
     private static       Utilities staticInstance              = null;
     private static Resources         mResources;
@@ -81,20 +81,19 @@ public class Utilities {
         ListBooks.populateBooks(mResources.getStringArray(R.array.books_n_chapter_count_array));
     }
 
-    public static Utilities getInstance(final ActivitySimpleBible pActivity) {
+    public static void createInstance(final ActivitySimpleBible pActivity) {
         if (staticInstance == null) {
             staticInstance = new Utilities(pActivity);
-            Utilities.log(TAG, "getInstance: staticInstance initialized");
+            Utilities.log(TAG, "createInstance: staticInstance initialized");
         }
-        return staticInstance;
     }
 
     public static void log(String TAG, String message) {
         Log.i(TAG, message);
     }
 
-    public static void throwError(String errorMessage) {
-        throw new AssertionError(errorMessage);
+    public static void throwError(String tag, String errorMessage) {
+        throw new AssertionError(tag + ": " + errorMessage);
     }
 
     public static Intent shareVerse(String textToShare) {
@@ -192,7 +191,7 @@ public class Utilities {
      *
      * @return one of the VERSE_SIZE_(SMALL|MEDIUM|BIG|LARGE) values.
      */
-    public static int getPreferredVerseSize() {
+    private static int getPreferredVerseSize() {
         String value = mPreferences.getString(getString(R.string.pref_key_text_size),
                                               getString(R.string.pref_key_text_size_default));
         int size;

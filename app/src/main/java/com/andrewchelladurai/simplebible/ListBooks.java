@@ -29,7 +29,6 @@ package com.andrewchelladurai.simplebible;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +54,7 @@ public class ListBooks {
             return;
         }
         String[] values;
-        Entry    item;
+        Entry item;
         for (int i = 0; i < bookArray.length; i++) {
             values = bookArray[i].split(":");
             item = new Entry((i + 1), values[0], values[1]);
@@ -102,7 +101,7 @@ public class ListBooks {
             this.mBookNumber = String.valueOf(bookNumber);
         }
 
-        protected Entry(Parcel in) {
+        Entry(Parcel in) {
             mName = in.readString();
             mChapterCount = in.readString();
             mBookNumber = in.readString();

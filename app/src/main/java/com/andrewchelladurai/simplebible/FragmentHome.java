@@ -116,11 +116,11 @@ public class FragmentHome
     @Override
     public void onClick(View view) {
         if (view instanceof AppCompatButton & view.getId() == R.id.frag_home_but_goto) {
-            buttonGotoClicked(view);
+            buttonGotoClicked();
         }
     }
 
-    private void buttonGotoClicked(View view) {
+    private void buttonGotoClicked() {
         ListBooks.Entry book = getBookDetails();
         if (book == null) {
             mBookInput.setError(getString(R.string.message_incorrect_book_name));
@@ -128,7 +128,7 @@ public class FragmentHome
         }
 
         String chapterNumStr = getChapterNumber();
-        int chapterNumber = 1;
+        int chapterNumber;
 
         if (chapterNumStr.isEmpty()) {
             chapterNumber = 1;

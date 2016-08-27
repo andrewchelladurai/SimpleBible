@@ -11,6 +11,7 @@ import android.preference.PreferenceFragment;
 import android.preference.RingtonePreference;
 import android.preference.SwitchPreference;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDelegate;
@@ -113,7 +114,7 @@ public class ActivitySettings
         getDelegate().invalidateOptionsMenu();
     }
 
-    @Override
+    @NonNull @Override
     public MenuInflater getMenuInflater() {
         return getDelegate().getMenuInflater();
     }
@@ -128,7 +129,7 @@ public class ActivitySettings
     public static class AboutPreferenceFragment
             extends PreferenceFragment {
 
-        private PreferenceListener mListener = new PreferenceListener();
+        private final PreferenceListener mListener = new PreferenceListener();
 
         @Override
         public void onCreate(Bundle savedInstanceState) {

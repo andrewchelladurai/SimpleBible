@@ -47,7 +47,6 @@ public class FragmentChapterVerses
     private static final String TAG = "SB_FragChapterVerses";
     private ListBooks.Entry   mBook;
     private ListChapter.Entry mChapter;
-    private Bundle            mBundle;
     private AdapterVerseList  verseListAdapter;
 
     public FragmentChapterVerses() {
@@ -61,22 +60,22 @@ public class FragmentChapterVerses
 
         mBook = getArguments().getParcelable(Utilities.CURRENT_BOOK);
         if (mBook == null) {
-            Utilities.throwError(TAG + " onCreate : mBook == null");
+            Utilities.throwError(TAG, TAG + " onCreate : mBook == null");
         }
         mChapter = getArguments().getParcelable(Utilities.CURRENT_CHAPTER);
         if (mChapter == null) {
-            Utilities.throwError(TAG + " onCreate : mChapter == null");
+            Utilities.throwError(TAG, TAG + " onCreate : mChapter == null");
         }
         String chapterNumber = mChapter.getChapterNumber();
         if (chapterNumber == null) {
-            Utilities.throwError(TAG + " onCreate : chapterNumber == null");
+            Utilities.throwError(TAG, TAG + " onCreate : chapterNumber == null");
         }
 
-        mBundle = new Bundle();
-        mBundle.putParcelable(Utilities.CURRENT_BOOK, mBook);
-        mBundle.putParcelable(Utilities.CURRENT_CHAPTER, mChapter);
-        mBundle.putString(Utilities.CURRENT_CHAPTER_NUMBER, chapterNumber);
-        mBundle.putString(Utilities.LOAD_CHAPTER, getArguments().getString(Utilities.LOAD_CHAPTER));
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Utilities.CURRENT_BOOK, mBook);
+        bundle.putParcelable(Utilities.CURRENT_CHAPTER, mChapter);
+        bundle.putString(Utilities.CURRENT_CHAPTER_NUMBER, chapterNumber);
+        bundle.putString(Utilities.LOAD_CHAPTER, getArguments().getString(Utilities.LOAD_CHAPTER));
         Utilities.log(TAG, "onCreate: mBundle created " + mBook + " - " + mChapter + " - " +
                            chapterNumber);
 
@@ -98,7 +97,7 @@ public class FragmentChapterVerses
         int chapterNumber = Integer.parseInt(mChapter.getChapterNumber());
         ArrayList<String> verseList = dbu.getAllVersesOfChapter(bookNumber, chapterNumber);
         if (verseList == null || verseList.size() < 1) {
-            Utilities.throwError(TAG + " onCreateView : recyclerView == null || size() < 1");
+            Utilities.throwError(TAG, TAG + " onCreateView : recyclerView == null || size() < 1");
         }
 
         ListVerse.populateEntries(verseList, bookNumber, chapterNumber);
@@ -140,7 +139,7 @@ public class FragmentChapterVerses
                     buttonShareClicked();
                     break;
                 default:
-                    Utilities.throwError(TAG + " onClick() unknown Button ID" + v.getId());
+                    Utilities.throwError(TAG, TAG + " onClick() unknown Button ID" + v.getId());
             }
         }
     }

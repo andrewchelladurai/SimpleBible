@@ -97,7 +97,7 @@ public class AdapterNoteList
             String text;
             String[] references = mEntry.getReference();
             if (references == null) {
-                Utilities.throwError(TAG + " references == null");
+                Utilities.throwError(TAG, TAG + " references == null");
             }
 
             //Populate Verse Text
@@ -142,7 +142,7 @@ public class AdapterNoteList
                         break;
                     default:
                         Utilities.throwError(
-                                TAG + "onClick : unknown buttonID = " + button.getId());
+                                TAG, TAG + "onClick : unknown buttonID = " + button.getId());
                 }
             } else {
                 mListener.handleVerseClick(mEntry);

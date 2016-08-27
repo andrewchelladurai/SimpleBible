@@ -30,19 +30,18 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ListVerse {
 
     private static final String                      TAG      = "SB_ListVerse";
     private static final CopyOnWriteArrayList<Entry> ITEMS    = new CopyOnWriteArrayList<>();
-    private static final Map<String, Entry>          ITEM_MAP = new HashMap<>();
+    //    private static final Map<String, Entry>          ITEM_MAP = new HashMap<>();
     private static final CopyOnWriteArrayList<Entry> SELECTED = new CopyOnWriteArrayList<>();
 
-    public static void populateEntries(ArrayList<String> verseList, int bookNumber, int
+    public static void populateEntries(
+            ArrayList<String> verseList, int bookNumber, int
             chapterNumber) {
         Utilities.log(TAG, "populateEntries() called");
         truncate();
@@ -50,13 +49,13 @@ public class ListVerse {
         for (int i = 0; i < verseList.size(); i++) {
             entry = new Entry(bookNumber, chapterNumber, (i + 1), verseList.get(i));
             ITEMS.add(entry);
-            ITEM_MAP.put(entry.getReference(), entry);
+            //            ITEM_MAP.put(entry.getReference(), entry);
         }
     }
 
-    public static void truncate() {
+    private static void truncate() {
         ITEMS.clear();
-        ITEM_MAP.clear();
+        //        ITEM_MAP.clear();
         SELECTED.clear();
     }
 
@@ -117,7 +116,7 @@ public class ListVerse {
             mVerseText = verseText;
         }
 
-        protected Entry(Parcel in) {
+        Entry(Parcel in) {
             mBookNumber = in.readString();
             mChapterNumber = in.readString();
             mVerseNumber = in.readString();

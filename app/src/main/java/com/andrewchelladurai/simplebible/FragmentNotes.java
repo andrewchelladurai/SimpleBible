@@ -45,7 +45,6 @@ public class FragmentNotes
 
     private static final String TAG = "SB_FragmentNotes";
     private AdapterNoteList noteListAdapter;
-    private RecyclerView    notesList;
 
     public FragmentNotes() {
     }
@@ -54,6 +53,7 @@ public class FragmentNotes
         return new FragmentNotes();
     }
 
+/*
     @Override
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
@@ -61,6 +61,7 @@ public class FragmentNotes
             // mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
     }
+*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
@@ -68,7 +69,7 @@ public class FragmentNotes
         if (ListNotes.getCount() > 0) {
             Utilities.log(TAG, "onCreateView: ListNotes.getCount() > 0 == true");
             View view = inflater.inflate(R.layout.fragment_note, container, false);
-            notesList = (RecyclerView) view.findViewById(R.id.frag_notes_list);
+            RecyclerView notesList = (RecyclerView) view.findViewById(R.id.frag_notes_list);
 
             noteListAdapter = new AdapterNoteList(ListNotes.getEntries(), this);
             notesList.setAdapter(noteListAdapter);

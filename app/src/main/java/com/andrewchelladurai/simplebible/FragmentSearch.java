@@ -105,7 +105,7 @@ public class FragmentSearch
                     buttonShareClicked();
                     break;
                 default:
-                    Utilities.throwError(TAG + " onClick() unknown Button ID" + v.getId());
+                    Utilities.throwError(TAG, TAG + " onClick() unknown Button ID" + v.getId());
             }
         }
     }
@@ -152,7 +152,7 @@ public class FragmentSearch
         showActionBar();
     }
 
-    public void buttonSaveClicked() {
+    private void buttonSaveClicked() {
         Utilities.log(TAG, "buttonSaveClicked() called");
         if (ListSearch.isSelectedEntriesEmpty()) {
             Utilities.log(TAG, "buttonShareClicked: No Selected entries exist");
@@ -174,7 +174,7 @@ public class FragmentSearch
         startActivity(intent);
     }
 
-    public void buttonShareClicked() {
+    private void buttonShareClicked() {
         Utilities.log(TAG, "buttonShareClicked() called");
         if (ListSearch.isSelectedEntriesEmpty()) {
             Utilities.log(TAG, "buttonShareClicked: No Selected entries exist");

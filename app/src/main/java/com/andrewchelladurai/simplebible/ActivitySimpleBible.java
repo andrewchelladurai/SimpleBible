@@ -46,9 +46,9 @@ public class ActivitySimpleBible
         extends AppCompatActivity {
 
     private static final String TAG = "SB_ActivitySimpleBible";
-    private PagerAdapter  mPagerAdapter;
-    private ViewPager     mPager;
-    private FragmentNotes fragmentNotes;
+    private PagerAdapter        mPagerAdapter;
+    private ViewPager           mPager;
+    private FragmentNotes       fragmentNotes;
     private WelcomeScreenHelper welcomeScreen;
 
     @Override
@@ -64,16 +64,11 @@ public class ActivitySimpleBible
         }
     }
 
-    @Override protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        welcomeScreen.onSaveInstanceState(outState);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Start Preference work
         PreferenceManager.setDefaultValues(this, R.xml.preferences_list, false);
-        Utilities.getInstance(this);
+        Utilities.createInstance(this);
         if (Utilities.isDarkModeEnabled()) {
             Utilities.log(TAG, "onCreate: Show Dark Mode");
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -98,16 +93,21 @@ public class ActivitySimpleBible
 
         mPager = (ViewPager) findViewById(R.id.act_sb_container);
         if (mPager == null) {
-            Utilities.throwError(TAG + " mPager == null");
+            Utilities.throwError(TAG, TAG + " mPager == null");
         }
         mPager.setAdapter(mPagerAdapter);
         mPager.addOnPageChangeListener(new PageChangeListener(this));
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.act_sb_tabs);
         if (tabLayout == null) {
-            Utilities.throwError(TAG + " tabLayout == null");
+            Utilities.throwError(TAG, TAG + " tabLayout == null");
         }
         tabLayout.setupWithViewPager(mPager);
+    }
+
+    @Override protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        welcomeScreen.onSaveInstanceState(outState);
     }
 
     @Override
@@ -151,8 +151,9 @@ public class ActivitySimpleBible
                     }
                     return fragmentNotes;
                 default:
-                    throw new AssertionError("Pager Position in default case" + position);
+                    Utilities.throwError(TAG, "Pager Position in default case" + position);
             }
+            return FragmentHome.newInstance();
         }
 
         @Override
@@ -179,7 +180,7 @@ public class ActivitySimpleBible
     private class PageChangeListener
             implements ViewPager.OnPageChangeListener {
 
-        private ActivitySimpleBible mActivity;
+        private final ActivitySimpleBible mActivity;
 
         public PageChangeListener(ActivitySimpleBible pActivity) {
             mActivity = pActivity;

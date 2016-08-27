@@ -34,7 +34,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
 public class ActivityChapterList
@@ -42,9 +41,7 @@ public class ActivityChapterList
 
     private static final String TAG = "SB_ActivityChapterList";
     private boolean              mTwoPane;
-    private RecyclerView.Adapter chapterAdapter;
     private ListBooks.Entry      mBook;
-    private ListChapter.Entry    mChapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +51,7 @@ public class ActivityChapterList
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_chapter_list_toolbar);
         setSupportActionBar(toolbar);
         if (toolbar == null) {
-            Utilities.throwError(TAG + "onCreate() toolbar == null");
+            Utilities.throwError(TAG, TAG + "onCreate() toolbar == null");
         }
 
         // Show the Up button in the action bar.
@@ -66,19 +63,20 @@ public class ActivityChapterList
         Bundle extras = getIntent().getExtras();
         mBook = extras.getParcelable(Utilities.CURRENT_BOOK);
         if (mBook == null) {
-            Utilities.throwError(TAG + " onCreate : mBook == null");
+            Utilities.throwError(TAG, TAG + " onCreate : mBook == null");
         }
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.chapter_list);
         if (recyclerView == null) {
-            Utilities.throwError(TAG + " onCreate : recyclerView == null");
+            Utilities.throwError(TAG, TAG + " onCreate : recyclerView == null");
         }
 
         String chapterText = getString(R.string.chapter_list_prepend_text).trim();
         ListChapter.populateList(Integer.parseInt(mBook.getChapterCount()), chapterText);
-        mChapter = ListChapter.getItem(extras.getString(Utilities.CURRENT_CHAPTER_NUMBER));
-        if (mChapter == null) {
-            Utilities.throwError(TAG + " onCreate : mChapter == null");
+        ListChapter.Entry chapter = ListChapter
+                .getItem(extras.getString(Utilities.CURRENT_CHAPTER_NUMBER));
+        if (chapter == null) {
+            Utilities.throwError(TAG, TAG + " onCreate : mChapter == null");
         }
 
         if (ListChapter.getCount() == 1) {
@@ -86,7 +84,7 @@ public class ActivityChapterList
                     new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL,
                                             true));
         }
-        chapterAdapter = new AdapterChapterList(this, ListChapter.getList());
+        RecyclerView.Adapter chapterAdapter = new AdapterChapterList(this, ListChapter.getList());
         recyclerView.setAdapter(chapterAdapter);
 
         if (findViewById(R.id.chapter_container) != null) {
@@ -101,7 +99,7 @@ public class ActivityChapterList
 
         if (extras.getString(Utilities.LOAD_CHAPTER).equalsIgnoreCase(Utilities.LOAD_CHAPTER_YES)) {
             Utilities.log(TAG, "onCreate: LOAD_CHAPTER = YES");
-            chapterClicked(mChapter);
+            chapterClicked(chapter);
         }
     }
 
@@ -127,7 +125,7 @@ public class ActivityChapterList
         }
     }
 
-    public boolean isDualPane() {
+    private boolean isDualPane() {
         return mTwoPane;
     }
 

@@ -152,7 +152,7 @@ public class DatabaseUtility
             throws NullPointerException {
         if (staticInstance == null) {
             if (context == null) {
-                Log.wtf(TAG, "getInstance:",
+                Log.wtf(TAG, "createInstance:",
                         new NullPointerException("NULL Context passed for instantiating DB"));
             }
             staticInstance = new DatabaseUtility(context);
@@ -321,7 +321,7 @@ public class DatabaseUtility
             cursor.close();
         }
         Utilities.log(TAG, "isAlreadyBookmarked() returned: " + result);
-        return (Integer.parseInt(result) == 0) ? false : true;
+        return Integer.parseInt(result) != 0;
     }
 
     public boolean createNewBookmark(String references, String notes) {

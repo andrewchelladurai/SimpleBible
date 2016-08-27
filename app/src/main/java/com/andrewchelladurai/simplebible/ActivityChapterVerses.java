@@ -32,7 +32,6 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
 public class ActivityChapterVerses
@@ -49,15 +48,15 @@ public class ActivityChapterVerses
         Bundle          extras = getIntent().getExtras();
         ListBooks.Entry book   = extras.getParcelable(Utilities.CURRENT_BOOK);
         if (book == null) {
-            Utilities.throwError(TAG + "onCreate: book == null");
+            Utilities.throwError(TAG, TAG + "onCreate: book == null");
         }
         ListChapter.Entry chapter = extras.getParcelable(Utilities.CURRENT_CHAPTER);
         if (chapter == null) {
-            Utilities.throwError(TAG + "onCreate: chapter == null");
+            Utilities.throwError(TAG, TAG + "onCreate: chapter == null");
         }
         String chapterNumber = extras.getString(Utilities.CURRENT_CHAPTER_NUMBER);
         if (chapterNumber == null) {
-            Utilities.throwError(TAG + "onCreate: chapterNumber == null");
+            Utilities.throwError(TAG, TAG + "onCreate: chapterNumber == null");
         }
         String loadChapter = Utilities.LOAD_CHAPTER_NO;
 
@@ -73,7 +72,7 @@ public class ActivityChapterVerses
         setContentView(R.layout.activity_chapter_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_chapter_detail_toolbar);
         if (toolbar == null) {
-            Utilities.throwError(TAG + " onCreate : toolbar == null");
+            Utilities.throwError(TAG, TAG + " onCreate : toolbar == null");
         }
         setSupportActionBar(toolbar);
 

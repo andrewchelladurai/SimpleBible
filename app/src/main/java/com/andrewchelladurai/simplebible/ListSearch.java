@@ -30,14 +30,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ListSearch {
 
-    static final         Map<String, Entry>          ITEM_MAP = new HashMap<>();
+    //    private static final         Map<String, Entry>          ITEM_MAP = new HashMap<>();
     private static final CopyOnWriteArrayList<Entry> ITEMS    = new CopyOnWriteArrayList<>();
     private static final CopyOnWriteArrayList<Entry> SELECTED = new CopyOnWriteArrayList<>();
     private static final String                      TAG      = "SB_ListSearch";
@@ -62,7 +60,7 @@ public class ListSearch {
                                                    Integer.parseInt(parts[1]),
                                                    Integer.parseInt(parts[2])));
             ITEMS.add(entry);
-            ITEM_MAP.put(entry.getReference(), entry);
+            //            ITEM_MAP.put(entry.getReference(), entry);
         }
         Utilities.log(TAG, "populate() returned");
     }
@@ -73,7 +71,7 @@ public class ListSearch {
 
     public static void truncate() {
         ITEMS.clear();
-        ITEM_MAP.clear();
+        //        ITEM_MAP.clear();
         SELECTED.clear();
         Utilities.log(TAG, "truncate() called");
     }
@@ -132,7 +130,7 @@ public class ListSearch {
             verse = text;
         }
 
-        protected Entry(Parcel in) {
+        Entry(Parcel in) {
             bookNumber = in.readString();
             chapterNumber = in.readString();
             verseNumber = in.readString();

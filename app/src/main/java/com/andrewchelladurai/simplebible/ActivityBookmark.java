@@ -64,7 +64,7 @@ public class ActivityBookmark
 
         mReferences = getIntent().getExtras().getStringArrayList(Utilities.REFERENCES);
         if (mReferences == null) {
-            Utilities.throwError(TAG + " mReferences == null");
+            Utilities.throwError(TAG, TAG + " mReferences == null");
         }
         mNotes = (AppCompatEditText) findViewById(R.id.activity_bookmark_notes);
         populateContent();
@@ -77,7 +77,7 @@ public class ActivityBookmark
         Utilities.log(TAG, "populateContent() called");
         ListViewCompat verseList = (ListViewCompat) findViewById(R.id.activity_bookmark_list);
         if (verseList == null) {
-            Utilities.throwError(TAG + " verseList == null");
+            Utilities.throwError(TAG, TAG + " verseList == null");
         }
 
         DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
@@ -139,7 +139,7 @@ public class ActivityBookmark
     private void bindButton(int buttonId, int visibilityMode) {
         AppCompatButton button = (AppCompatButton) findViewById(buttonId);
         if (button == null) {
-            Utilities.throwError(TAG + " button == null : " + buttonId);
+            Utilities.throwError(TAG, TAG + " button == null : " + buttonId);
         }
         button.setOnClickListener(this);
         button.setVisibility(visibilityMode);
@@ -173,7 +173,7 @@ public class ActivityBookmark
                     buttonShareClicked();
                     break;
                 default:
-                    Utilities.throwError(TAG + getString(R.string.how_am_i_here));
+                    Utilities.throwError(TAG, TAG + getString(R.string.how_am_i_here));
             }
         }
     }
@@ -184,7 +184,7 @@ public class ActivityBookmark
         String notes = mNotes.getText().toString().trim();
 
         DatabaseUtility dbu = DatabaseUtility.getInstance(getApplicationContext());
-        boolean success = false;
+        boolean success;
         int feedbackTextId = 0;
         switch (mViewNode) {
             case Utilities.BOOKMARK_SAVE:
@@ -262,8 +262,12 @@ public class ActivityBookmark
     private void buttonShareClicked() {
         Utilities.log(TAG, "buttonShareClicked called");
         ListViewCompat verseList = (ListViewCompat) findViewById(R.id.activity_bookmark_list);
-        ListAdapter adapter = verseList.getAdapter();
+        if (verseList == null) {
+            Log.d(TAG, "buttonShareClicked returning coz verseList == null");
+            return;
+        }
         StringBuilder shareText = new StringBuilder();
+        ListAdapter adapter = verseList.getAdapter();
         for (int i = 0; i < adapter.getCount(); i++) {
             shareText.append(adapter.getItem(i)).append('\n');
         }

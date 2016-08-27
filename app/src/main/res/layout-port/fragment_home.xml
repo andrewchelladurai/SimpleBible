@@ -55,9 +55,7 @@
                 android:completionThreshold = "1"
                 android:hint = "@string/hint_book_name"
                 android:inputType = "textNoSuggestions"
-                android:lines = "1"
                 android:maxLines = "1"
-                android:minLines = "1"
                 android:selectAllOnFocus = "true" />
         </android.support.design.widget.TextInputLayout>
 
@@ -73,9 +71,7 @@
                 android:completionThreshold = "1"
                 android:hint = "@string/hint_chapter_number"
                 android:inputType = "number|textNoSuggestions"
-                android:lines = "1"
                 android:maxLines = "1"
-                android:minLines = "1"
                 android:selectAllOnFocus = "true" />
         </android.support.design.widget.TextInputLayout>
 
