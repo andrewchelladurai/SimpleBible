@@ -95,6 +95,7 @@ public class FragmentSearch
                     } else if (buttonText
                             .equalsIgnoreCase(getString(R.string.button_search_reset))) {
                         resetButtonClicked();
+                        Utilities.hideKeyboard(getActivity());
                     }
                     break;
                 case R.id.frag_search_but_save:
@@ -135,6 +136,7 @@ public class FragmentSearch
         showActionBar();
         mListAdapter.notifyDataSetChanged();
         mSearchButton.setText(getString(R.string.button_search_reset));
+        Utilities.hideKeyboard(getActivity());
     }
 
     private void resetButtonClicked() {
