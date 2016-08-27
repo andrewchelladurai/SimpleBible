@@ -40,6 +40,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.stephentuso.welcome.WelcomeScreenHelper;
+
 public class ActivitySimpleBible
         extends AppCompatActivity {
 
@@ -47,6 +49,7 @@ public class ActivitySimpleBible
     private PagerAdapter  mPagerAdapter;
     private ViewPager     mPager;
     private FragmentNotes fragmentNotes;
+    private WelcomeScreenHelper welcomeScreen;
 
     @Override
     protected void onResume() {
@@ -59,6 +62,11 @@ public class ActivitySimpleBible
             mPagerAdapter.notifyDataSetChanged();
             mPager.refreshDrawableState();
         }
+    }
+
+    @Override protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        welcomeScreen.onSaveInstanceState(outState);
     }
 
     @Override
@@ -74,6 +82,9 @@ public class ActivitySimpleBible
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
         // End Preference work
+
+        welcomeScreen = new WelcomeScreenHelper(this, SplashActivity.class);
+        welcomeScreen.show(savedInstanceState);
 
         // Start loading application
         super.onCreate(savedInstanceState);

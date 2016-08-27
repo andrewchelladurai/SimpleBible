@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name = "long_press_background">#D88B2B</color>
-    <color name = "accent">#E5A452</color>
+    <color name = "accent">#F85247</color>
     <color name = "primary">#AC3931</color>
+    <color name = "primary_darker">#6C241F</color>
     <color name = "cardBackground">#424242</color>
     <color name = "windowBackground">#303030</color>
     <color name = "textColor">#E0E0E0</color>
     <color name = "verse_reference_color">@color/accent</color>
+    <color name = "splash_title_page">#bfd988</color>
+    <color name = "splash_thank_you_page">#D88B2B</color>
+    <color name = "splash_bookmark_page">#AC3931</color>
 </resources>
