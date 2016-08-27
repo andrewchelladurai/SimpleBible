@@ -1,19 +1,17 @@
 <PreferenceScreen xmlns:android = "http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
-        android:key = "@string/pref_header_theme"
-        android:title = "@string/pref_header_theme">
+    <PreferenceCategory android:title = "@string/pref_cat_theme_title">
         <SwitchPreference
             android:defaultValue = "false"
-            android:key = "pref_key_theme_dark"
-            android:summary = "@string/pref_summary_disabled"
-            android:title = "@string/pref_key_theme_dark_title" />
+            android:key = "@string/pref_key_theme_dark"
+            android:summary = "@string/text_disabled"
+            android:title = "@string/pref_key_theme_title" />
         <ListPreference
             android:defaultValue = "@string/pref_key_text_style_default"
             android:dialogTitle = "@string/pref_key_text_style_title"
             android:entries = "@array/pref_key_text_style_options"
             android:entryValues = "@array/pref_key_text_style_options"
-            android:key = "pref_key_text_style"
+            android:key = "@string/pref_key_text_style"
             android:summary = "@string/pref_key_text_style_default"
             android:title = "@string/pref_key_text_style_title" />
         <ListPreference
@@ -21,53 +19,54 @@
             android:dialogTitle = "@string/pref_key_text_size_title"
             android:entries = "@array/pref_key_text_size_options"
             android:entryValues = "@array/pref_key_text_size_options"
-            android:key = "pref_key_text_size"
+            android:key = "@string/pref_key_text_size"
             android:summary = "@string/pref_key_text_size_default"
             android:title = "@string/pref_key_text_size_title" />
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:key = "@string/pref_header_reminder"
-        android:title = "@string/pref_header_reminder">
+    <PreferenceCategory android:title = "@string/pref_cat_reminder_title">
         <SwitchPreference
             android:defaultValue = "false"
             android:enabled = "false"
-            android:key = "pref_key_reminder"
-            android:summary = "@string/pref_summary_disabled"
+            android:key = "@string/pref_key_reminder"
+            android:summary = "@string/text_disabled"
             android:title = "@string/pref_key_reminder_title" />
-
         <RingtonePreference
             android:defaultValue = "content://settings/system/notification_sound"
-            android:dependency = "pref_key_reminder"
-            android:key = "pref_key_reminder_tone"
+            android:dependency = "@string/pref_key_reminder"
+            android:key = "@string/pref_key_reminder_tone"
             android:ringtoneType = "notification"
-            android:summary = "@string/pref_summary_disabled"
+            android:summary = "@string/text_disabled"
             android:title = "@string/pref_key_reminder_tone_title" />
-
         <SwitchPreference
             android:defaultValue = "false"
-            android:dependency = "pref_key_reminder"
-            android:key = "pref_key_reminder_vibrate"
-            android:summary = "@string/pref_summary_disabled"
+            android:dependency = "@string/pref_key_reminder"
+            android:key = "@string/pref_key_reminder_vibrate"
+            android:summary = "@string/text_disabled"
             android:title = "@string/pref_key_reminder_vibrate_title" />
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:key = "@string/pref_header_about"
-        android:title = "@string/pref_header_about">
+    <PreferenceCategory android:title = "@string/pref_cat_about_title">
         <Preference
-            android:key = "pref_key_changelog"
+            android:key = "@string/pref_key_changelog"
+            android:summary = "@string/pref_key_changelog_summary"
             android:title = "@string/pref_header_change_log">
             <intent
                 android:action = "android.intent.action.VIEW"
                 android:data = "https://play.google.com/store/apps/details?id=com.andrewchelladurai.simplebible" />
         </Preference>
-        <Preference android:title = "@string/pref_header_rate">
+        <Preference
+            android:key = "@string/pref_key_rate"
+            android:summary = "@string/pref_key_rate_summary"
+            android:title = "@string/pref_key_rate_title">
             <intent
                 android:action = "android.intent.action.VIEW"
                 android:data = "https://play.google.com/store/apps/details?id=com.andrewchelladurai.simplebible" />
         </Preference>
-        <Preference android:title = "@string/pref_header_feedback">
+        <Preference
+            android:key = "@string/pref_key_feedback"
+            android:summary = "@string/pref_key_feedback_summary"
+            android:title = "@string/pref_key_feedback_title">
             <intent
                 android:action = "android.intent.action.VIEW"
                 android:data = "@string/mail_to_email">
@@ -76,7 +75,10 @@
                     android:value = "@string/feedback_email_subject" />
             </intent>
         </Preference>
-        <Preference android:title = "@string/pref_header_more_apps">
+        <Preference
+            android:key = "@string/pref_key_more_apps"
+            android:summary = "@string/pref_key_more_apps_summary"
+            android:title = "@string/pref_key_more_apps_title">
             <intent
                 android:action = "android.intent.action.VIEW"
                 android:data = "https://play.google.com/store/search?q=andrew%20chelladurai&amp;c=apps" />

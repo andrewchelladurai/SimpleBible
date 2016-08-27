@@ -14,7 +14,6 @@ import android.support.annotation.LayoutRes;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDelegate;
-import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -156,13 +155,12 @@ public class ActivitySettings
                     preference.setSummary(value);
                     preference.setOnPreferenceChangeListener(mListener);
                     preference.setOnPreferenceClickListener(mListener);
-                    Log.d(TAG, "onCreate: registered : " + pref_key);
                 }
             }
         }
 
         private void showChangeLogDialog() {
-            Log.d(TAG, "showChangeLogDialog: ");
+            Utilities.log(TAG, "showChangeLogDialog");
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
             WebView webView = new WebView(getActivity());

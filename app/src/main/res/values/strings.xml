@@ -161,19 +161,18 @@
     <string name = "activity_bookmark_toast_update_failure">Bookmark Not Updated</string>
     <string name = "activity_bookmark_share_note_below_text">Bookmarked Notes are below:</string>
 
+    <string name = "text_disabled">Disabled</string>
+
     <!-- Strings related to Settings Start Here -->
 
-    <string name = "pref_header_about">About</string>
-    <string name = "pref_header_change_log">Changelog</string>
-    <string name = "pref_header_more_apps">More Apps by Developer</string>
-    <string name = "pref_header_rate">Rate this Application</string>
-    <string name = "pref_header_feedback">Provide Feedback</string>
-    <string name = "feedback_email_subject">Feedback : Simple Bible Android Application</string>
+    <!--Keys and strings related to Theme begin here-->
+    <string name = "pref_cat_theme_title">Theme &amp; Appearance</string>
+    <string name = "pref_key_theme_dark">pref_key_theme_dark</string>
+    <string name = "pref_key_theme_title">Use DARK Theme</string>
+    <!--Keys and strings related to Theme end here-->
 
-    <string name = "pref_header_theme">Theme &amp; Appearance</string>
-    <string name = "pref_key_theme_dark_title">Use DARK Theme</string>
-
-    <!-- Keys and strings related to Verse style begin here-->
+    <!--Keys and strings related to Verse style begin here-->
+    <string name = "pref_key_text_style">pref_key_text_style</string>
     <string name = "pref_key_text_style_title">Style to use for verses</string>
     <string name = "pref_key_text_style_normal">Normal</string>
     <string name = "pref_key_text_style_old_english">Old English</string>
@@ -185,9 +184,10 @@
         <item>@string/pref_key_text_style_old_english</item>
         <item>@string/pref_key_text_style_typewriter</item>
     </string-array>
-    <!-- Keys and strings related to Verse style end here-->
+    <!--Keys and strings related to Verse style end here-->
 
-    <!-- Keys and strings related to Verse Size begin here-->
+    <!--Keys and strings related to Verse Size begin here-->
+    <string name = "pref_key_text_size">pref_key_text_size</string>
     <string name = "pref_key_text_size_title">Size of text in verses</string>
     <string name = "pref_key_text_size_small">Small</string>
     <string name = "pref_key_text_size_medium">Medium</string>
@@ -201,31 +201,53 @@
         <item>@string/pref_key_text_size_big</item>
         <item>@string/pref_key_text_size_large</item>
     </string-array>
-    <!-- Keys and strings related to Verse Size end here-->
+    <!--Keys and strings related to Verse Size end here-->
 
-    <string name = "pref_header_reminder">Reminder</string>
+    <!--Keys and strings related to Reminder start here-->
+    <string name = "pref_cat_reminder_title">Reminder</string>
+    <string name = "pref_key_reminder">pref_key_reminder</string>
     <string name = "pref_key_reminder_title">Reminder : Coming Soon</string>
     <string name = "pref_key_reminder_tone_title">Tone to use</string>
-    <string name = "pref_key_reminder_vibrate_title">Vibrate</string>
-    <string name = "pref_summary_disabled">Disabled</string>
-
-    <!--LIST OF PREFERENCE KEYS-->
-    <string name = "pref_key_reminder">pref_key_reminder</string>
     <string name = "pref_key_reminder_tone">pref_key_reminder_tone</string>
+    <string name = "pref_key_reminder_vibrate_title">Vibrate</string>
     <string name = "pref_key_reminder_vibrate">pref_key_reminder_vibrate</string>
-    <string name = "pref_key_theme_dark">pref_key_theme_dark</string>
-    <string name = "pref_key_text_style">pref_key_text_style</string>
-    <string name = "pref_key_text_size">pref_key_text_size</string>
+    <!--Keys and strings related to Reminder end here-->
+
+    <!--Keys and strings related to About Category start here-->
+    <string name = "pref_cat_about_title">About</string>
+
     <string name = "pref_key_changelog">pref_key_changelog</string>
+    <string name = "pref_key_changelog_summary">Current Version : 2016-AUG-27</string>
+    <string name = "pref_header_change_log">Changelog</string>
+
+    <string name = "pref_key_rate">pref_key_rate_app</string>
+    <string name = "pref_key_rate_title">Rate this Application</string>
+    <string name = "pref_key_rate_summary">On Google Play</string>
+
+    <string name = "pref_key_feedback">pref_key_feedback</string>
+    <string name = "pref_key_feedback_title">Provide Feedback</string>
+    <string name = "pref_key_feedback_summary">By Email to Developer</string>
+    <string name = "feedback_email_subject">Feedback : Simple Bible Android Application</string>
+
+    <string name = "pref_key_more_apps">pref_key_more_apps</string>
+    <string name = "pref_key_more_apps_title">More Apps by Developer</string>
+    <string name = "pref_key_more_apps_summary">More Apps by Developer</string>
+
+    <!--Keys and strings related to About Category end here-->
 
     <string-array name = "pref_key_list">
-        <item>@string/pref_key_reminder</item>
-        <item>@string/pref_key_reminder_tone</item>
-        <item>@string/pref_key_reminder_vibrate</item>
         <item>@string/pref_key_theme_dark</item>
         <item>@string/pref_key_text_style</item>
         <item>@string/pref_key_text_size</item>
+        <item>@string/pref_key_reminder</item>
+        <item>@string/pref_key_reminder_tone</item>
+        <item>@string/pref_key_reminder_vibrate</item>
         <item>@string/pref_key_changelog</item>
+<!--
+        <item>@string/pref_key_rate</item>
+        <item>@string/pref_key_feedback</item>
+        <item>@string/pref_key_more_apps</item>
+-->
     </string-array>
 
     <!-- Strings related to Settings End Here -->
