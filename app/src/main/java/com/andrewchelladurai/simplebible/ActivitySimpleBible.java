@@ -178,28 +178,14 @@ public class ActivitySimpleBible
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             Utilities.hideKeyboard(mActivity);
             StringBuilder pageTitle = new StringBuilder(getString(R.string.app_name));
-            switch (position) {
-                case 0:
-                    pageTitle.append(" : ").append(getString(R.string.tab_home));
-                    break;
-                case 1:
-                    pageTitle.append(" : ").append(getString(R.string.tab_books));
-                    break;
-                case 2:
-                    pageTitle.append(" : ").append(getString(R.string.tab_search));
-                    break;
-                case 3:
-                    if (null != fragmentNotes) {
-                        getSupportFragmentManager().beginTransaction()
-                                                   .detach(fragmentNotes)
-                                                   .attach(fragmentNotes)
-                                                   .commit();
-                        //                        mPagerAdapter.notifyDataSetChanged();
-                        mPager.refreshDrawableState();
-                    }
-                    pageTitle.append(" : ").append(getString(R.string.tab_notes));
+            if (position == 3 && null != fragmentNotes) {
+                getSupportFragmentManager().beginTransaction()
+                                           .detach(fragmentNotes)
+                                           .attach(fragmentNotes)
+                                           .commit();
+                mPager.refreshDrawableState();
             }
-            setTitle(pageTitle);
+            setTitle(pageTitle); // This is required to refresh the page on Scroll
         }
 
         @Override
