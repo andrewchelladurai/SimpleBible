@@ -113,22 +113,22 @@ public class FragmentSearch
         String input = mInput.getText().toString().trim();
         if (input.isEmpty()) {
             resetButtonClicked();
-            mLabel.setError(getString(R.string.search_text_empty));
+            mInput.setError(getString(R.string.search_text_empty));
             return;
         }
         if (input.length() < 3) {
             resetButtonClicked();
-            mLabel.setError(getString(R.string.search_text_length));
+            mInput.setError(getString(R.string.search_text_length));
             return;
         }
         DatabaseUtility dbu = DatabaseUtility.getInstance(getActivity().getApplicationContext());
         ArrayList<String> list = dbu.searchText(input);
         if (list.size() == 0) {
-            mLabel.setError(getString(R.string.search_no_results));
+            mInput.setError(getString(R.string.search_no_results));
             mInput.requestFocus();
             return;
         }
-        mLabel.setError(list.size() + " " + getString(+R.string.search_text_results_found));
+        mLabel.setHint(list.size() + " " + getString(+R.string.search_text_results_found));
 
         ListSearch.truncate();
         ListSearch.populate(list);
@@ -143,6 +143,7 @@ public class FragmentSearch
         mInput.setText("");
         mInput.setError(null);
         mLabel.setError(null);
+        mLabel.setHint(getString(R.string.hint_text_to_search));
         mSearchButton.setText(getString(R.string.button_search_text));
         mListAdapter.notifyDataSetChanged();
         mInput.requestFocus();
@@ -177,7 +178,7 @@ public class FragmentSearch
             Utilities.log(TAG, "buttonShareClicked: No Selected entries exist");
             return;
         }
-        CopyOnWriteArrayList    <ListSearch.Entry> entries = ListSearch.getSelectedEntries();
+        CopyOnWriteArrayList<ListSearch.Entry> entries = ListSearch.getSelectedEntries();
         String text;
         StringBuilder shareText = new StringBuilder();
         ListBooks.Entry mBook;
@@ -206,14 +207,13 @@ public class FragmentSearch
     @Override
     public void afterTextChanged(Editable s) {
         mInput.setError(null);
-        mLabel.setError(null);
+        mLabel.setHint(getString(R.string.hint_text_to_search));
         mSearchButton.setText(getString(R.string.button_search_text));
-        //        showActionBar();
     }
 
     public void showActionBar() {
         int visibility = (ListSearch.isSelectedEntriesEmpty()) ? View.GONE : View.VISIBLE;
-        Utilities.log(TAG, "showActionBar() called with visibility : " + visibility + "");
+        Utilities.log(TAG, "showActionBar() called : visibility=" + visibility + "");
         mSaveButton.setVisibility(visibility);
         mShareButton.setVisibility(visibility);
         mListAdapter.notifyDataSetChanged();
