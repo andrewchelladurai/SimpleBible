@@ -193,6 +193,10 @@ public class ActivitySettings
                     value = pObject.toString();
                 }
                 pPreference.setSummary(value);
+                if (pPreference.getKey().equalsIgnoreCase(
+                        getString(R.string.pref_key_theme_dark))) {
+                    Utilities.restartApplication(getActivity());
+                }
                 return true;
             }
 
@@ -203,9 +207,7 @@ public class ActivitySettings
                     return false;
                 }
                 Utilities.log(TAG, "onPreferenceClick() called key = [" + key + "]");
-                if (key.equalsIgnoreCase(getString(R.string.pref_key_theme_dark))) {
-                    Utilities.restartApplication(getActivity());
-                } else if (key.equalsIgnoreCase(getString(R.string.pref_key_changelog))) {
+                if (key.equalsIgnoreCase(getString(R.string.pref_key_changelog))) {
                     showChangeLogDialog();
                 }
                 return true;
