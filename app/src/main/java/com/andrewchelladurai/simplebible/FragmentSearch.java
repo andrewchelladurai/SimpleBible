@@ -111,7 +111,7 @@ public class FragmentSearch
     }
 
     private void searchButtonClicked() {
-        String input = mInput.getText().toString().trim();
+        String input = mInput.getText().toString();
         if (input.isEmpty()) {
             resetButtonClicked();
             mInput.setError(getString(R.string.search_text_empty));
