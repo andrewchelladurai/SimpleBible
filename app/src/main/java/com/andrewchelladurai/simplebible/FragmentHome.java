@@ -28,7 +28,6 @@ package com.andrewchelladurai.simplebible;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.AppCompatButton;
@@ -84,15 +83,15 @@ public class FragmentHome
             list.add(i, items.get(i).getName());
         }
         mBookInput.setAdapter(
-                new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line,
-                                   list));
+                new ArrayAdapter<>(getContext(),
+                                   android.R.layout.simple_dropdown_item_1line, list));
         mBookInput.setOnItemClickListener(this);
 
-        mChapterInput = (AppCompatAutoCompleteTextView) view
-                .findViewById(R.id.frag_home_chapter_number);
-        mChapterAdapter = new ArrayAdapter<>(getContext(),
-                                             android.R.layout.simple_dropdown_item_1line,
-                                             new ArrayList<String>(0));
+        mChapterInput =
+                (AppCompatAutoCompleteTextView) view.findViewById(R.id.frag_home_chapter_number);
+        mChapterAdapter = new ArrayAdapter<>(
+                getContext(), android.R.layout.simple_dropdown_item_1line,
+                new ArrayList<String>(0));
         mChapterInput.setAdapter(mChapterAdapter);
 
         return view;
@@ -124,7 +123,7 @@ public class FragmentHome
     private void buttonGotoClicked(View view) {
         ListBooks.Entry book = getBookDetails();
         if (book == null) {
-            Snackbar.make(view, R.string.message_incorrect_book_name, Snackbar.LENGTH_SHORT).show();
+            mBookInput.setError(getString(R.string.message_incorrect_book_name));
             return;
         }
 
@@ -138,14 +137,12 @@ public class FragmentHome
                 chapterNumber = Integer.parseInt(chapterNumStr);
             } catch (NumberFormatException npe) {
                 chapterNumber = 1;
-                Snackbar.make(view, R.string.message_incorrect_chapter_number,
-                              Snackbar.LENGTH_SHORT).show();
+                mChapterInput.setError(getString(R.string.message_incorrect_chapter_number));
                 Utilities.log(TAG, "buttonGotoClicked " + npe.getLocalizedMessage());
             }
             if (chapterNumber < 1 || chapterNumber > Integer.parseInt(book.getChapterCount())) {
                 chapterNumber = 1;
-                Snackbar.make(view, R.string.message_incorrect_chapter_number,
-                              Snackbar.LENGTH_SHORT).show();
+                mChapterInput.setError(getString(R.string.message_incorrect_chapter_number));
             }
         }
         Utilities.log(TAG, "buttonGotoClicked() called [" + book + "] [" + chapterNumber + "]");
@@ -185,6 +182,8 @@ public class FragmentHome
     private void resetValues() {
         Utilities.log(TAG, "resetValues() called");
         mChapterAdapter.clear();
+        mChapterInput.setError(null);
+        mBookInput.setError(null);
         mChapterAdapter.notifyDataSetChanged();
         mBookInput.setText("");
         mChapterInput.setText("");
