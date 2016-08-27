@@ -29,6 +29,7 @@ package com.andrewchelladurai.simplebible;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -36,7 +37,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -91,6 +91,12 @@ public class ActivitySimpleBible
         }
         mPager.setAdapter(mPagerAdapter);
         mPager.addOnPageChangeListener(new PageChangeListener(this));
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.act_sb_tabs);
+        if (tabLayout == null) {
+            Utilities.throwError(TAG + " tabLayout == null");
+        }
+        tabLayout.setupWithViewPager(mPager);
     }
 
     @Override

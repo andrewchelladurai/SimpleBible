@@ -24,14 +24,13 @@
   ~
   -->
 
-<android.support.v7.widget.LinearLayoutCompat xmlns:android = "http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android = "http://schemas.android.com/apk/res/android"
     xmlns:app = "http://schemas.android.com/apk/res-auto"
     xmlns:tools = "http://schemas.android.com/tools"
     android:id = "@+id/act_sb_main_content"
     android:layout_width = "match_parent"
     android:layout_height = "match_parent"
     android:fitsSystemWindows = "true"
-    android:orientation = "vertical"
     tools:context = "com.andrewchelladurai.simplebible.ActivitySimpleBible">
 
     <android.support.design.widget.AppBarLayout
@@ -47,12 +46,20 @@
             android:layout_height = "?attr/actionBarSize"
             android:background = "?attr/colorPrimary"
             app:layout_scrollFlags = "scroll|enterAlways"
-            app:popupTheme = "@style/SBTheme.PopupOverlay" />
+            app:popupTheme = "@style/SBTheme.PopupOverlay">
+
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.design.widget.TabLayout
+            android:id = "@+id/act_sb_tabs"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content" />
+
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
         android:id = "@+id/act_sb_container"
         android:layout_width = "match_parent"
         android:layout_height = "wrap_content"
-        android:layout_weight = "1" />
-</android.support.v7.widget.LinearLayoutCompat>
+        app:layout_behavior = "@string/appbar_scrolling_view_behavior" />
+</android.support.design.widget.CoordinatorLayout>
