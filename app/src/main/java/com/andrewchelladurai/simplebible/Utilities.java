@@ -282,4 +282,8 @@ class Utilities {
         Utilities.log(TAG, "restarting Application");
         baseContext.startActivity(intent);
     }
+
+    public static String[] getStringArray(int arrayId) {
+        return mResources.getStringArray(arrayId);
+    }
 }

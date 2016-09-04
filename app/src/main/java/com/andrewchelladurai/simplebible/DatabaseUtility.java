@@ -51,26 +51,27 @@ public class DatabaseUtility
         extends SQLiteOpenHelper {
 
     private static final String TAG = "SB_DatabaseUtility";
+    private static final int[] VERSIONS = {1, 2};
+    private static final int CURRENT_VERSION = VERSIONS[VERSIONS.length - 1];
 
-    private static final String DATABASE_NAME     = "Bible.db";
-    private final static String BIBLE_TABLE       = "BIBLE_VERSES";
+    private static final String DATABASE_NAME = "Bible.db";
+    private final static String BIBLE_TABLE = "BIBLE_VERSES";
     private final static String DAILY_VERSE_TABLE = "DAILY_VERSE";
-    private final static String BOOK_NUMBER       = "BOOK_NUMBER";
-    private final static String CHAPTER_NUMBER    = "CHAPTER_NUMBER";
-    private final static String VERSE_NUMBER      = "VERSE_NUMBER";
-    private final static String VERSE_TEXT        = "VERSE_TEXT";
+    private final static String BOOK_NUMBER = "BOOK_NUMBER";
+    private final static String CHAPTER_NUMBER = "CHAPTER_NUMBER";
+    private final static String VERSE_NUMBER = "VERSE_NUMBER";
+    private final static String VERSE_TEXT = "VERSE_TEXT";
 
-    private final static String BOOKMARK_TABLE      = "BOOK_MARKS";
+    private final static String BOOKMARK_TABLE = "BOOK_MARKS";
     private final static String BM_TABLE_REFERENCES = "REFERENCE";
-    private final static String BM_TABLE_NOTES      = "NOTE";
+    private final static String BM_TABLE_NOTES = "NOTE";
 
     private static DatabaseUtility staticInstance = null;
-    private static String         DB_PATH;
-    private static SQLiteDatabase database;
-    private static Context        context;
+    private static String DB_PATH;
+    private static Context context;
 
     private DatabaseUtility(Context context) {
-        super(context, DATABASE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, CURRENT_VERSION);
         DatabaseUtility.context = context;
         //Write a full path to the databases of your application
         DB_PATH = context.getDatabasePath(DATABASE_NAME).getParent();
@@ -81,11 +82,10 @@ public class DatabaseUtility
     private void openDataBase()
             throws SQLException {
         Utilities.log(TAG, "openDataBase: Entered");
-        if (database == null) {
-            createDataBase();
-            String path = DB_PATH + File.separatorChar + DATABASE_NAME;
-            database = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
-        }
+        createDataBase();
+        SQLiteDatabase database = getWritableDatabase();
+        int currentVersion = database.getVersion();
+        upgradeDatabase(database, currentVersion);
     }
 
     private void createDataBase() {
@@ -131,7 +131,7 @@ public class DatabaseUtility
         Utilities.log(TAG, "copyDataBase: Called");
 
         InputStream assetDatabase = context.getAssets().open(DATABASE_NAME);
-        Utilities.log(TAG, "copyDataBase : externalDBStream" + assetDatabase.toString());
+        Utilities.log(TAG, "copyDataBase : Steam obtained from  Source Asset");
         String outFileName = DB_PATH + File.separatorChar + DATABASE_NAME;
         Utilities.log(TAG, "copyDataBase : outFileName = " + outFileName);
 
@@ -162,24 +162,41 @@ public class DatabaseUtility
 
     @Override
     public synchronized void close() {
-        if (database != null) {
-            database.close();
-        }
         super.close();
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+//        openDataBase();
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldV, int newV) {
+        upgradeDatabase(sqLiteDatabase, oldV);
+    }
+
+    private void upgradeDatabase(SQLiteDatabase db, int oldV) {
+        Utilities.log(TAG, "Upgrading database from version " + oldV + " to " + CURRENT_VERSION);
+        switch (oldV) {
+            case 0:
+            case 1:
+                // Creation should ideally be handled in the Constructor
+                // Which is copying the Asset DB to Local Storage
+
+                // Now when moving to Version 1 => 2:
+                // Remove the Daily_Verse table (Made it a Resource String Array)
+                db.delete(DAILY_VERSE_TABLE, null, null);
+                db.execSQL("DROP TABLE IF EXISTS " + DAILY_VERSE_TABLE);
+                db.close();
+                Utilities.log(TAG, DAILY_VERSE_TABLE + " deleted");
+        }
+        Log.d(TAG, "upgradeDatabase() returned");
     }
 
     public ArrayList<String> getAllVersesOfChapter(final int pBookNumber, final int
             pChapterNumber) {
-        Utilities.log(TAG, "getAllVersesOfChapter() called BookNumber = [" + pBookNumber +
-                           "], ChapterNumber = [" + pChapterNumber + "]");
+        Utilities.log(TAG, "getAllVersesOfChapter() called BookNumber[" + pBookNumber +
+                "], ChapterNumber [" + pChapterNumber + "]");
 
         final SQLiteDatabase db = getReadableDatabase();
 
@@ -189,7 +206,7 @@ public class DatabaseUtility
 
         Cursor cursor = db
                 .query(BIBLE_TABLE, selectCols, whereCondition, conditionParams, null, null,
-                       VERSE_NUMBER, null);
+                        VERSE_NUMBER, null);
 
         ArrayList<String> list = new ArrayList<>(0);
 
@@ -218,7 +235,7 @@ public class DatabaseUtility
 
         Cursor cursor = db
                 .query(BIBLE_TABLE, selectCols, whereCondition, conditionParams, null, null,
-                       BOOK_NUMBER);
+                        BOOK_NUMBER);
 
         if (cursor != null && cursor.moveToFirst()) {
             int verseNumberIndex = cursor.getColumnIndex(VERSE_NUMBER);
@@ -232,7 +249,7 @@ public class DatabaseUtility
                 chapterValue = cursor.getInt(chapterIndex);
                 verseValue = cursor.getInt(verseNumberIndex);
                 entry.append(bookValue).append(":").append(chapterValue).append(":")
-                     .append(verseValue);
+                        .append(verseValue);
                 values.add(entry.toString());
                 entry.delete(0, entry.length());
             } while (cursor.moveToNext());
@@ -244,38 +261,19 @@ public class DatabaseUtility
     }
 
     public String getVerseReferenceForToday() {
-        String verseId = "43:3:16";
+        String verseId;
         int dayOfYear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
 
-        final SQLiteDatabase db = getReadableDatabase();
-        String[] selectCols = {BOOK_NUMBER, CHAPTER_NUMBER, VERSE_NUMBER};
-        String where = " rowid = ?";
-        String[] param = {Integer.toString(dayOfYear)};
-
-        String query = SQLiteQueryBuilder
-                .buildQueryString(true, DAILY_VERSE_TABLE, selectCols, where, null, null, null,
-                                  null);
-        Utilities.log(TAG, "getVerseReferenceForToday [" + query + "]:[" + param[0] + "]");
-
-        Cursor cursor = db.query(DAILY_VERSE_TABLE, selectCols, where, param, null, null, null);
-
-        if (cursor != null && cursor.moveToFirst()) {
-            int verseNumberIndex = cursor.getColumnIndex(VERSE_NUMBER);
-            int chapterIndex = cursor.getColumnIndex(CHAPTER_NUMBER);
-            int bookIndex = cursor.getColumnIndex(BOOK_NUMBER);
-            int bookValue, chapterValue, verseValue;
-            StringBuilder entry = new StringBuilder();
-            bookValue = cursor.getInt(bookIndex);
-            chapterValue = cursor.getInt(chapterIndex);
-            verseValue = cursor.getInt(verseNumberIndex);
-            entry.append(bookValue).append(":").append(chapterValue).append(":").append(verseValue);
-            verseId = entry.toString();
-            entry.delete(0, entry.length());
-            cursor.close();
+        String verseListArray[] = Utilities.getStringArray(R.array.daily_verse_list);
+        if (null != verseListArray && verseListArray.length >= dayOfYear) {
+            verseId = verseListArray[dayOfYear];
+        } else {
+            verseId = "43:3:16"; // John 3:16
+            Utilities.log(TAG, "Using default reference for Daily_Verse");
         }
-        Utilities
-                .log(TAG, "getVerseReferenceForToday() returned: " + verseId + " for dayOfYear = " +
-                          dayOfYear);
+
+        Utilities.log(TAG,
+                "getVerseReferenceForToday() returned: " + verseId + " : dayOfYear " + dayOfYear);
         return verseId;
     }
 
@@ -284,8 +282,7 @@ public class DatabaseUtility
         final SQLiteDatabase dbu = getReadableDatabase();
 
         String[] showColumns = {VERSE_TEXT};
-        String where = BOOK_NUMBER + "=? AND " + CHAPTER_NUMBER + "=? AND " +
-                       VERSE_NUMBER + "=?";
+        String where = BOOK_NUMBER + "=? AND " + CHAPTER_NUMBER + "=? AND " + VERSE_NUMBER + "=?";
         String[] params = {pBook + "", pChapter + "", pVerse + ""};
 
 /*
@@ -326,8 +323,7 @@ public class DatabaseUtility
 
     public boolean createNewBookmark(String references, String notes) {
         Utilities.log(TAG,
-                      "createNewBookmark() called : references = [" + references + "], notes = [" +
-                      notes + "]");
+                "createNewBookmark() references [" + references + "], notes [" + notes + "]");
         boolean created;
         final SQLiteDatabase db = getWritableDatabase();
         final ContentValues values = new ContentValues();
@@ -353,8 +349,7 @@ public class DatabaseUtility
         int rowCount = db.update(BOOKMARK_TABLE, values, whereClause, whereParams);
         db.close();
         updated = (rowCount > 0);
-        Utilities.log(TAG, "updateExistingBookmark() returned: " + updated + " : " + rowCount +
-                           " updated");
+        Utilities.log(TAG, "updateExistingBookmark() " + updated + " : " + rowCount + " updated");
         return updated;
     }
 

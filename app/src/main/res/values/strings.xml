@@ -25,11 +25,11 @@
   -->
 
 <resources>
-    <string name = "app_name">Simple Bible</string>
+    <string name="app_name">Simple Bible</string>
 
-    <string name = "mail_to_email">mailto:theunknownandrew+androidapps@gmail.com</string>
+    <string name="mail_to_email">mailto:theunknownandrew+androidapps@gmail.com</string>
 
-    <string-array name = "books_n_chapter_count_array">
+    <string-array name="books_n_chapter_count_array">
         <item>Genesis:50</item>
         <item>Exodus:40</item>
         <item>Leviticus:27</item>
@@ -98,83 +98,83 @@
         <item>Revelation:22</item>
     </string-array>
 
-    <string name = "how_am_i_here">How did I end up here?! Clearly something\'s wrong.</string>
-    <string name = "title_activity_chapter">Chapter</string>
-    <string name = "title_activity_bookmark">Bookmark Verse</string>
-    <string name = "title_activity_settings">Settings</string>
+    <string name="how_am_i_here">How did I end up here?! Clearly something\'s wrong.</string>
+    <string name="title_activity_chapter">Chapter</string>
+    <string name="title_activity_bookmark">Bookmark Verse</string>
+    <string name="title_activity_settings">Settings</string>
 
-    <string name = "menu_item_settings">Settings</string>
+    <string name="menu_item_settings">Settings</string>
 
-    <string name = "hint_book_name">Enter Book Name</string>
-    <string name = "hint_chapter_number">Chapter #</string>
-    <string name = "hint_text_to_search">Enter exact text to search</string>
-    <string name = "button_goto_location">Goto Location</string>
-    <string name = "button_search_text">Search Text</string>
-    <string name = "book_details_append_chapters">" Chapters"</string>
+    <string name="hint_book_name">Enter Book Name</string>
+    <string name="hint_chapter_number">Chapter #</string>
+    <string name="hint_text_to_search">Enter exact text to search</string>
+    <string name="button_goto_location">Goto Location</string>
+    <string name="button_search_text">Search Text</string>
+    <string name="book_details_append_chapters">" Chapters"</string>
 
     <!-- Format : V_TXT : B_NAME : C_NUM : V_NUM -->
-    <string name = "daily_verse_template"><![CDATA[<h3>%1$s</h3><hr>%2$s : Chapter %3$s : Verse %4$s]]></string>
+    <string name="daily_verse_template"><![CDATA[<h3>%1$s</h3><hr>%2$s : Chapter %3$s : Verse %4$s]]></string>
 
     <!-- Format : (B_NUM C_NUM: V_NUM) V_TXT -->
-    <string name = "search_result_template">(%1$s %2$s:%3$s) %4$s</string>
+    <string name="search_result_template">(%1$s %2$s:%3$s) %4$s</string>
     <!-- Format V_NUM - V_TXT -->
-    <string name = "chapter_verse_template">%1$s - %2$s</string>
+    <string name="chapter_verse_template">%1$s - %2$s</string>
 
-    <string name = "tab_home">HOME</string>
-    <string name = "tab_books">BOOKS</string>
-    <string name = "tab_search">SEARCH</string>
-    <string name = "tab_notes">NOTES</string>
-    <string name = "search_text_empty">Search Text is Empty</string>
-    <string name = "search_text_length">Enter at least 3 alphabets</string>
-    <string name = "search_no_results">No Results Found</string>
-    <string name = "search_text_results_found">" results found."</string>
-    <string name = "button_search_reset">Reset Search</string>
-    <string name = "button_save">Save</string>
-    <string name = "button_delete">Delete</string>
-    <string name = "button_share">Share</string>
-    <string name = "chapter_list_prepend_text">Chapter </string>
-    <string name = "message_incorrect_book_name">Incorrect Book Name</string>
-    <string name = "message_incorrect_chapter_number">Incorrect chapter number, using default</string>
-    <string name = "share_append_text">- NIV - shared using Simple Bible</string>
-    <string name = "button_edit">Edit</string>
+    <string name="tab_home">HOME</string>
+    <string name="tab_books">BOOKS</string>
+    <string name="tab_search">SEARCH</string>
+    <string name="tab_notes">NOTES</string>
+    <string name="search_text_empty">Search Text is Empty</string>
+    <string name="search_text_length">Enter at least 3 alphabets</string>
+    <string name="search_no_results">No Results Found</string>
+    <string name="search_text_results_found">" results found."</string>
+    <string name="button_search_reset">Reset Search</string>
+    <string name="button_save">Save</string>
+    <string name="button_delete">Delete</string>
+    <string name="button_share">Share</string>
+    <string name="chapter_list_prepend_text">Chapter </string>
+    <string name="message_incorrect_book_name">Incorrect Book Name</string>
+    <string name="message_incorrect_chapter_number">Incorrect chapter number, using default</string>
+    <string name="share_append_text">- NIV - shared using Simple Bible</string>
+    <string name="button_edit">Edit</string>
 
-    <string name = "fragment_note_empty_header">No Bookmarked Verses exist</string>
-    <string name = "fragment_note_entry_multiple_bookmark">%1$s (%2$s : %3$s) and %4$d more Verses are Bookmarked in this entry</string>
-    <string name = "fragment_note_empty_instruction">To start Bookmarking Verses, with or without notes, you can either Long Click on a Search Result or Verse within a Chapter and then select Save from the bottom list of options.</string>
-    <string name = "activity_bookmark_reference_present">This verse is already bookmarked</string>
-    <string name = "activity_bookmark_reference_absent">This verse is not already bookmarked. You may enter a note here to associate with the verse if you wish. </string>
-    <string name = "activity_bookmark_empty_note">No Notes saved for this reference.</string>
-    <string name = "activity_bookmark_alert_delete_title">Delete Bookmark</string>
-    <string name = "activity_bookmark_alert_delete_message">"Do you want to delete this bookmark? Note that when deleted, it cannot be restored.</string>
-    <string name = "activity_bookmark_alert_delete_positive_text">Delete</string>
-    <string name = "activity_bookmark_alert_delete_negative_text">Cancel</string>
-    <string name = "activity_bookmark_toast_delete_success">Bookmark Deleted</string>
-    <string name = "activity_bookmark_toast_delete_failure">Bookmark Not Deleted</string>
-    <string name = "activity_bookmark_toast_save_success">Bookmark Saved</string>
-    <string name = "activity_bookmark_toast_update_success">Bookmark Updated</string>
-    <string name = "activity_bookmark_toast_save_failure">Bookmark Not Saved</string>
-    <string name = "activity_bookmark_toast_update_failure">Bookmark Not Updated</string>
-    <string name = "activity_bookmark_share_note_below_text">Bookmarked Notes are below:</string>
+    <string name="fragment_note_empty_header">No Bookmarked Verses exist</string>
+    <string name="fragment_note_entry_multiple_bookmark">%1$s (%2$s : %3$s) and %4$d more Verses are Bookmarked in this entry</string>
+    <string name="fragment_note_empty_instruction">To start Bookmarking Verses, with or without notes, you can either Long Click on a Search Result or Verse within a Chapter and then select Save from the bottom list of options.</string>
+    <string name="activity_bookmark_reference_present">This verse is already bookmarked</string>
+    <string name="activity_bookmark_reference_absent">This verse is not already bookmarked. You may enter a note here to associate with the verse if you wish. </string>
+    <string name="activity_bookmark_empty_note">No Notes saved for this reference.</string>
+    <string name="activity_bookmark_alert_delete_title">Delete Bookmark</string>
+    <string name="activity_bookmark_alert_delete_message">"Do you want to delete this bookmark? Note that when deleted, it cannot be restored.</string>
+    <string name="activity_bookmark_alert_delete_positive_text">Delete</string>
+    <string name="activity_bookmark_alert_delete_negative_text">Cancel</string>
+    <string name="activity_bookmark_toast_delete_success">Bookmark Deleted</string>
+    <string name="activity_bookmark_toast_delete_failure">Bookmark Not Deleted</string>
+    <string name="activity_bookmark_toast_save_success">Bookmark Saved</string>
+    <string name="activity_bookmark_toast_update_success">Bookmark Updated</string>
+    <string name="activity_bookmark_toast_save_failure">Bookmark Not Saved</string>
+    <string name="activity_bookmark_toast_update_failure">Bookmark Not Updated</string>
+    <string name="activity_bookmark_share_note_below_text">Bookmarked Notes are below:</string>
 
-    <string name = "text_disabled">Disabled</string>
+    <string name="text_disabled">Disabled</string>
 
     <!-- Strings related to Settings Start Here -->
 
     <!--Keys and strings related to Theme begin here-->
-    <string name = "pref_cat_theme_title">Theme &amp; Appearance</string>
-    <string name = "pref_key_theme_dark">pref_key_theme_dark</string>
-    <string name = "pref_key_theme_title">Use DARK Theme</string>
+    <string name="pref_cat_theme_title">Theme &amp; Appearance</string>
+    <string name="pref_key_theme_dark">pref_key_theme_dark</string>
+    <string name="pref_key_theme_title">Use DARK Theme</string>
     <!--Keys and strings related to Theme end here-->
 
     <!--Keys and strings related to Verse style begin here-->
-    <string name = "pref_key_text_style">pref_key_text_style</string>
-    <string name = "pref_key_text_style_title">Style to use for verses</string>
-    <string name = "pref_key_text_style_normal">Normal</string>
-    <string name = "pref_key_text_style_old_english">Old English</string>
-    <string name = "pref_key_text_style_typewriter">Typewriter</string>
-    <string name = "pref_key_text_style_default">@string/pref_key_text_style_normal</string>
+    <string name="pref_key_text_style">pref_key_text_style</string>
+    <string name="pref_key_text_style_title">Style to use for verses</string>
+    <string name="pref_key_text_style_normal">Normal</string>
+    <string name="pref_key_text_style_old_english">Old English</string>
+    <string name="pref_key_text_style_typewriter">Typewriter</string>
+    <string name="pref_key_text_style_default">@string/pref_key_text_style_normal</string>
 
-    <string-array name = "pref_key_text_style_options">
+    <string-array name="pref_key_text_style_options">
         <item>@string/pref_key_text_style_normal</item>
         <item>@string/pref_key_text_style_old_english</item>
         <item>@string/pref_key_text_style_typewriter</item>
@@ -182,15 +182,15 @@
     <!--Keys and strings related to Verse style end here-->
 
     <!--Keys and strings related to Verse Size begin here-->
-    <string name = "pref_key_text_size">pref_key_text_size</string>
-    <string name = "pref_key_text_size_title">Size of text in verses</string>
-    <string name = "pref_key_text_size_small">Small</string>
-    <string name = "pref_key_text_size_medium">Medium</string>
-    <string name = "pref_key_text_size_big">Big</string>
-    <string name = "pref_key_text_size_large">Large</string>
-    <string name = "pref_key_text_size_default">@string/pref_key_text_size_medium</string>
+    <string name="pref_key_text_size">pref_key_text_size</string>
+    <string name="pref_key_text_size_title">Size of text in verses</string>
+    <string name="pref_key_text_size_small">Small</string>
+    <string name="pref_key_text_size_medium">Medium</string>
+    <string name="pref_key_text_size_big">Big</string>
+    <string name="pref_key_text_size_large">Large</string>
+    <string name="pref_key_text_size_default">@string/pref_key_text_size_medium</string>
 
-    <string-array name = "pref_key_text_size_options">
+    <string-array name="pref_key_text_size_options">
         <item>@string/pref_key_text_size_small</item>
         <item>@string/pref_key_text_size_medium</item>
         <item>@string/pref_key_text_size_big</item>
@@ -199,38 +199,38 @@
     <!--Keys and strings related to Verse Size end here-->
 
     <!--Keys and strings related to Reminder start here-->
-    <string name = "pref_cat_reminder_title">Reminder</string>
-    <string name = "pref_key_reminder">pref_key_reminder</string>
-    <string name = "pref_key_reminder_title">Reminder : Coming Soon</string>
-    <string name = "pref_key_reminder_tone_title">Tone to use</string>
-    <string name = "pref_key_reminder_tone">pref_key_reminder_tone</string>
-    <string name = "pref_key_reminder_vibrate_title">Vibrate</string>
-    <string name = "pref_key_reminder_vibrate">pref_key_reminder_vibrate</string>
+    <string name="pref_cat_reminder_title">Reminder</string>
+    <string name="pref_key_reminder">pref_key_reminder</string>
+    <string name="pref_key_reminder_title">Reminder : Coming Soon</string>
+    <string name="pref_key_reminder_tone_title">Tone to use</string>
+    <string name="pref_key_reminder_tone">pref_key_reminder_tone</string>
+    <string name="pref_key_reminder_vibrate_title">Vibrate</string>
+    <string name="pref_key_reminder_vibrate">pref_key_reminder_vibrate</string>
     <!--Keys and strings related to Reminder end here-->
 
     <!--Keys and strings related to About Category start here-->
-    <string name = "pref_cat_about_title">About</string>
+    <string name="pref_cat_about_title">About</string>
 
-    <string name = "pref_key_changelog">pref_key_changelog</string>
-    <string name = "pref_key_changelog_summary">Current Version : 2016-AUG-27</string>
-    <string name = "pref_header_change_log">Changelog</string>
+    <string name="pref_key_changelog">pref_key_changelog</string>
+    <string name="pref_key_changelog_summary">Current Version : 2016-AUG-27</string>
+    <string name="pref_header_change_log">Changelog</string>
 
-    <string name = "pref_key_rate">pref_key_rate_app</string>
-    <string name = "pref_key_rate_title">Rate this Application</string>
-    <string name = "pref_key_rate_summary">On Google Play</string>
+    <string name="pref_key_rate">pref_key_rate_app</string>
+    <string name="pref_key_rate_title">Rate this Application</string>
+    <string name="pref_key_rate_summary">On Google Play</string>
 
-    <string name = "pref_key_feedback">pref_key_feedback</string>
-    <string name = "pref_key_feedback_title">Provide Feedback</string>
-    <string name = "pref_key_feedback_summary">By Email to Developer</string>
-    <string name = "feedback_email_subject">Feedback : Simple Bible Android Application</string>
+    <string name="pref_key_feedback">pref_key_feedback</string>
+    <string name="pref_key_feedback_title">Provide Feedback</string>
+    <string name="pref_key_feedback_summary">By Email to Developer</string>
+    <string name="feedback_email_subject">Feedback : Simple Bible Android Application</string>
 
-    <string name = "pref_key_more_apps">pref_key_more_apps</string>
-    <string name = "pref_key_more_apps_title">More Apps by Developer</string>
-    <string name = "pref_key_more_apps_summary">More Apps by Developer</string>
+    <string name="pref_key_more_apps">pref_key_more_apps</string>
+    <string name="pref_key_more_apps_title">More Apps by Developer</string>
+    <string name="pref_key_more_apps_summary">More Apps by Developer</string>
 
     <!--Keys and strings related to About Category end here-->
 
-    <string-array name = "pref_key_list">
+    <string-array name="pref_key_list">
         <item>@string/pref_key_theme_dark</item>
         <item>@string/pref_key_text_style</item>
         <item>@string/pref_key_text_size</item>
@@ -244,5 +244,482 @@
     </string-array>
 
     <!-- Strings related to Settings End Here -->
+
+    <!--DAILY_VERSE_List_Array used to show the verse on the home page-->
+    <string-array name="daily_verse_list">
+        <item>1:1:01</item>
+        <item>1:1:26</item>
+        <item>1:1:26</item>
+        <item>1:1:27</item>
+        <item>1:1:27</item>
+        <item>1:9:07</item>
+        <item>1:1:1</item>
+        <item>1:1:19</item>
+        <item>1:1:43</item>
+        <item>1:1:56</item>
+        <item>1:1:66</item>
+        <item>1:11:58</item>
+        <item>1:12:45</item>
+        <item>1:12:58</item>
+        <item>1:133:19</item>
+        <item>1:136:19</item>
+        <item>1:17:06</item>
+        <item>1:17:07</item>
+        <item>1:2:1</item>
+        <item>1:23:19</item>
+        <item>1:27:19</item>
+        <item>1:8:45</item>
+        <item>10:10:43</item>
+        <item>10:18:20</item>
+        <item>10:18:44</item>
+        <item>10:2:49</item>
+        <item>10:3:45</item>
+        <item>10:41:23</item>
+        <item>10:5:40</item>
+        <item>10:6:49</item>
+        <item>15:119:19</item>
+        <item>11:119:19</item>
+        <item>11:16:13</item>
+        <item>11:17:44</item>
+        <item>11:18:44</item>
+        <item>11:29:24</item>
+        <item>11:5:40</item>
+        <item>11:6:49</item>
+        <item>12:1:43</item>
+        <item>12:1:59</item>
+        <item>12:10:20</item>
+        <item>12:12:45</item>
+        <item>12:20:2</item>
+        <item>12:3:51</item>
+        <item>12:4:44</item>
+        <item>12:4:58</item>
+        <item>12:5:45</item>
+        <item>12:6:49</item>
+        <item>13:10:46</item>
+        <item>13:12:46</item>
+        <item>13:15:43</item>
+        <item>13:15:45</item>
+        <item>13:16:42</item>
+        <item>13:20:2</item>
+        <item>13:28:20</item>
+        <item>13:4:50</item>
+        <item>14:1:43</item>
+        <item>14:14:2</item>
+        <item>14:19:19</item>
+        <item>14:2:50</item>
+        <item>14:20:15</item>
+        <item>14:20:2</item>
+        <item>14:27:19</item>
+        <item>14:5:40</item>
+        <item>14:6:49</item>
+        <item>15:2:55</item>
+        <item>15:20:2</item>
+        <item>15:23:20</item>
+        <item>15:3:60</item>
+        <item>15:4:54</item>
+        <item>15:4:58</item>
+        <item>15:6:49</item>
+        <item>16:3:43</item>
+        <item>16:3:55</item>
+        <item>16:3:62</item>
+        <item>16:4:58</item>
+        <item>16:5:40</item>
+        <item>16:5:48</item>
+        <item>16:5:59</item>
+        <item>16:6:49</item>
+        <item>165:119:19</item>
+        <item>17:10:45</item>
+        <item>17:27:20</item>
+        <item>17:3:43</item>
+        <item>17:3:55</item>
+        <item>17:4:59</item>
+        <item>17:5:47</item>
+        <item>17:5:52</item>
+        <item>17:7:43</item>
+        <item>18:28:40</item>
+        <item>18:3:60</item>
+        <item>18:38:19</item>
+        <item>18:4:47</item>
+        <item>18:5:52</item>
+        <item>19:1:03</item>
+        <item>19:3:03</item>
+        <item>19:4:03</item>
+        <item>19:4:05</item>
+        <item>19:4:08</item>
+        <item>19:17:08</item>
+        <item>19:19:07</item>
+        <item>19:19:08</item>
+        <item>19:27:11</item>
+        <item>19:27:14</item>
+        <item>19:28:40</item>
+        <item>19:3:44</item>
+        <item>19:30:06</item>
+        <item>19:37:04</item>
+        <item>19:4:50</item>
+        <item>19:4:62</item>
+        <item>19:6:46</item>
+        <item>2:1:1</item>
+        <item>2:1:19</item>
+        <item>2:1:43</item>
+        <item>2:1:56</item>
+        <item>2:1:59</item>
+        <item>2:100:19</item>
+        <item>2:12:45</item>
+        <item>2:12:58</item>
+        <item>2:133:19</item>
+        <item>2:23:19</item>
+        <item>2:3:51</item>
+        <item>2:33:13</item>
+        <item>20:1:07</item>
+        <item>20:3:05</item>
+        <item>20:3:06</item>
+        <item>20:4:23</item>
+        <item>20:10:19</item>
+        <item>20:10:22</item>
+        <item>20:11:25</item>
+        <item>20:16:03</item>
+        <item>20:16:09</item>
+        <item>20:18:22</item>
+        <item>20:19:13</item>
+        <item>20:2:48</item>
+        <item>20:26:44</item>
+        <item>20:28:40</item>
+        <item>20:3:49</item>
+        <item>20:3:66</item>
+        <item>20:31:10</item>
+        <item>20:59:11</item>
+        <item>21:00:45</item>
+        <item>21:6:02</item>
+        <item>21:10:05</item>
+        <item>21:13:01</item>
+        <item>21:13:01</item>
+        <item>21:13:02</item>
+        <item>21:13:03</item>
+        <item>21:5:47</item>
+        <item>22:1:02</item>
+        <item>22:1:45</item>
+        <item>22:1:59</item>
+        <item>22:15:20</item>
+        <item>22:21:40</item>
+        <item>22:3:62</item>
+        <item>22:5:48</item>
+        <item>22:8:44</item>
+        <item>23:26:03</item>
+        <item>23:26:03</item>
+        <item>23:3:45</item>
+        <item>23:3:51</item>
+        <item>23:32:18</item>
+        <item>23:40:31</item>
+        <item>23:40:31</item>
+        <item>23:41:10</item>
+        <item>23:41:10</item>
+        <item>23:5:48</item>
+        <item>23:53:04</item>
+        <item>23:53:04</item>
+        <item>23:53:05</item>
+        <item>23:53:05</item>
+        <item>23:53:06</item>
+        <item>23:53:06</item>
+        <item>23:55:08</item>
+        <item>23:55:09</item>
+        <item>23:6:45</item>
+        <item>24:1:05</item>
+        <item>24:1:19</item>
+        <item>24:118:19</item>
+        <item>24:2:60</item>
+        <item>24:29:11</item>
+        <item>24:29:11</item>
+        <item>24:5:43</item>
+        <item>25:10:58</item>
+        <item>25:11:43</item>
+        <item>26:1:1</item>
+        <item>27:1:1</item>
+        <item>27:14:32</item>
+        <item>27:14:43</item>
+        <item>27:9:58</item>
+        <item>28:11:40</item>
+        <item>28:40:23</item>
+        <item>28:8:45</item>
+        <item>29:11:40</item>
+        <item>3:1:19</item>
+        <item>3:1:43</item>
+        <item>3:1:56</item>
+        <item>3:1:59</item>
+        <item>3:1:62</item>
+        <item>3:1:66</item>
+        <item>3:13:42</item>
+        <item>3:133:19</item>
+        <item>3:20:2</item>
+        <item>3:23:19</item>
+        <item>3:26:09</item>
+        <item>3:26:12</item>
+        <item>3:26:23</item>
+        <item>3:5:40</item>
+        <item>3:5:62</item>
+        <item>3:56:19</item>
+        <item>30:11:40</item>
+        <item>31:10:46</item>
+        <item>31:16:44</item>
+        <item>31:40:23</item>
+        <item>31:6:42</item>
+        <item>32:10:58</item>
+        <item>32:4:49</item>
+        <item>32:8:45</item>
+        <item>33:6:08</item>
+        <item>33:6:08</item>
+        <item>33:1:20</item>
+        <item>33:16:43</item>
+        <item>33:6:40</item>
+        <item>35:3:19</item>
+        <item>35:13:43</item>
+        <item>36:3:43</item>
+        <item>37:22:40</item>
+        <item>38:2:44</item>
+        <item>38:8:41</item>
+        <item>38:8:45</item>
+        <item>39:8:45</item>
+        <item>4:1:19</item>
+        <item>4:1:43</item>
+        <item>4:1:59</item>
+        <item>4:1:61</item>
+        <item>4:14:18</item>
+        <item>4:20:2</item>
+        <item>4:23:19</item>
+        <item>4:37:19</item>
+        <item>4:4:45</item>
+        <item>4:4:50</item>
+        <item>4:5:40</item>
+        <item>4:53:23</item>
+        <item>4:6:5</item>
+        <item>40:1:23</item>
+        <item>40:4:04</item>
+        <item>40:5:16</item>
+        <item>40:5:16</item>
+        <item>40:6:33</item>
+        <item>40:6:33</item>
+        <item>40:7:24</item>
+        <item>40:11:28</item>
+        <item>40:11:29</item>
+        <item>40:11:30</item>
+        <item>40:22:37</item>
+        <item>40:22:37</item>
+        <item>40:25:40</item>
+        <item>40:28:18</item>
+        <item>40:28:18</item>
+        <item>40:28:19</item>
+        <item>40:28:20</item>
+        <item>42:6:38</item>
+        <item>42:2:44</item>
+        <item>43:1:01</item>
+        <item>43:1:12</item>
+        <item>43:3:16</item>
+        <item>43:3:17</item>
+        <item>43:5:24</item>
+        <item>43:10:10</item>
+        <item>43:10:10</item>
+        <item>43:11:25</item>
+        <item>43:11:25</item>
+        <item>43:13:35</item>
+        <item>43:14:06</item>
+        <item>43:14:27</item>
+        <item>43:15:13</item>
+        <item>43:16:33</item>
+        <item>43:17:15</item>
+        <item>44:1:08</item>
+        <item>44:1:08</item>
+        <item>44:2:38</item>
+        <item>44:2:38</item>
+        <item>44:4:12</item>
+        <item>44:4:12</item>
+        <item>44:10:43</item>
+        <item>44:17:11</item>
+        <item>44:17:11</item>
+        <item>44:18:09</item>
+        <item>44:18:10</item>
+        <item>44:18:11</item>
+        <item>45:1:16</item>
+        <item>45:3:23</item>
+        <item>45:3:23</item>
+        <item>45:5:08</item>
+        <item>45:5:08</item>
+        <item>45:6:23</item>
+        <item>45:6:23</item>
+        <item>45:8:28</item>
+        <item>45:8:28</item>
+        <item>45:8:38</item>
+        <item>45:8:39</item>
+        <item>45:10:09</item>
+        <item>45:10:09</item>
+        <item>45:10:17</item>
+        <item>45:10:17</item>
+        <item>45:12:01</item>
+        <item>45:12:01</item>
+        <item>45:12:02</item>
+        <item>45:12:02</item>
+        <item>45:15:04</item>
+        <item>45:15:13</item>
+        <item>45:15:13</item>
+        <item>46:1:09</item>
+        <item>46:6:14</item>
+        <item>46:6:19</item>
+        <item>46:6:19</item>
+        <item>46:10:13</item>
+        <item>46:10:13</item>
+        <item>47:5:17</item>
+        <item>47:5:17</item>
+        <item>47:5:21</item>
+        <item>47:5:21</item>
+        <item>47:9:15</item>
+        <item>47:12:09</item>
+        <item>47:12:09</item>
+        <item>48:2:16</item>
+        <item>48:2:20</item>
+        <item>48:2:20</item>
+        <item>48:5:22</item>
+        <item>48:5:23</item>
+        <item>49:2:08</item>
+        <item>49:2:09</item>
+        <item>49:2:10</item>
+        <item>49:2:10</item>
+        <item>49:3:20</item>
+        <item>49:3:20</item>
+        <item>49:4:15</item>
+        <item>49:4:26</item>
+        <item>49:4:31</item>
+        <item>49:4:32</item>
+        <item>5:2:07</item>
+        <item>5:8:18</item>
+        <item>5:1:19</item>
+        <item>5:1:59</item>
+        <item>5:13:58</item>
+        <item>5:15:43</item>
+        <item>5:23:19</item>
+        <item>5:3:20</item>
+        <item>5:3:56</item>
+        <item>5:33:11</item>
+        <item>5:4:45</item>
+        <item>5:5:40</item>
+        <item>5:53:23</item>
+        <item>5:6:5</item>
+        <item>5:86:19</item>
+        <item>50:1:06</item>
+        <item>50:1:06</item>
+        <item>50:4:06</item>
+        <item>50:4:06</item>
+        <item>50:4:07</item>
+        <item>50:4:07</item>
+        <item>50:4:08</item>
+        <item>50:4:08</item>
+        <item>50:4:13</item>
+        <item>50:4:13</item>
+        <item>50:4:19</item>
+        <item>50:4:19</item>
+        <item>51:1:09</item>
+        <item>51:3:12</item>
+        <item>51:3:23</item>
+        <item>51:3:23</item>
+        <item>52:5:11</item>
+        <item>52:5:23</item>
+        <item>55:1:07</item>
+        <item>55:1:07</item>
+        <item>55:2:15</item>
+        <item>55:3:15</item>
+        <item>55:3:16</item>
+        <item>58:4:12</item>
+        <item>58:4:12</item>
+        <item>58:4:15</item>
+        <item>58:4:15</item>
+        <item>58:4:16</item>
+        <item>58:4:16</item>
+        <item>58:10:25</item>
+        <item>58:10:25</item>
+        <item>58:11:01</item>
+        <item>58:11:01</item>
+        <item>58:11:06</item>
+        <item>58:11:06</item>
+        <item>58:12:01</item>
+        <item>58:12:01</item>
+        <item>58:12:02</item>
+        <item>58:12:02</item>
+        <item>58:13:04</item>
+        <item>58:13:05</item>
+        <item>58:13:05</item>
+        <item>58:13:06</item>
+        <item>58:15:46</item>
+        <item>59:1:02</item>
+        <item>59:1:03</item>
+        <item>59:1:12</item>
+        <item>59:1:12</item>
+        <item>59:5:16</item>
+        <item>59:5:16</item>
+        <item>6:1:08</item>
+        <item>6:1:08</item>
+        <item>6:1:09</item>
+        <item>6:1:09</item>
+        <item>6:1:19</item>
+        <item>6:1:50</item>
+        <item>6:11:58</item>
+        <item>6:14:43</item>
+        <item>6:150:19</item>
+        <item>6:23:19</item>
+        <item>6:3:20</item>
+        <item>6:4:50</item>
+        <item>6:5:40</item>
+        <item>6:53:23</item>
+        <item>6:6:5</item>
+        <item>6:6:54</item>
+        <item>6:8:46</item>
+        <item>6:9:23</item>
+        <item>60:2:02</item>
+        <item>60:2:17</item>
+        <item>60:2:24</item>
+        <item>60:2:24</item>
+        <item>60:3:15</item>
+        <item>60:4:08</item>
+        <item>60:5:05</item>
+        <item>60:5:06</item>
+        <item>60:5:07</item>
+        <item>60:5:07</item>
+        <item>60:5:08</item>
+        <item>61:1:04</item>
+        <item>61:3:18</item>
+        <item>62:1:09</item>
+        <item>62:1:09</item>
+        <item>62:3:16</item>
+        <item>62:3:16</item>
+        <item>62:4:19</item>
+        <item>64:1:02</item>
+        <item>7:1:55</item>
+        <item>7:15:43</item>
+        <item>7:3:50</item>
+        <item>7:34:19</item>
+        <item>7:4:50</item>
+        <item>7:4:59</item>
+        <item>7:4:62</item>
+        <item>7:5:40</item>
+        <item>7:5:5</item>
+        <item>7:5:60</item>
+        <item>7:6:5</item>
+        <item>8:1:44</item>
+        <item>8:1:6</item>
+        <item>8:13:58</item>
+        <item>8:2:49</item>
+        <item>8:20:2</item>
+        <item>8:21:66</item>
+        <item>8:3:50</item>
+        <item>8:4:50</item>
+        <item>8:5:40</item>
+        <item>8:5:45</item>
+        <item>8:55:23</item>
+        <item>8:6:33</item>
+        <item>9:1:6</item>
+        <item>9:1:62</item>
+        <item>9:10:45</item>
+        <item>9:12:47</item>
+        <item>9:18:44</item>
+        <item>9:2:49</item>
+        <item>9:3:61</item>
+        <item>9:5:40</item>
+    </string-array>
 
 </resources>
