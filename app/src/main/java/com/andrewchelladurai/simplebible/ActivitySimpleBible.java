@@ -46,9 +46,9 @@ public class ActivitySimpleBible
         extends AppCompatActivity {
 
     private static final String TAG = "SB_ActivitySimpleBible";
-    private PagerAdapter        mPagerAdapter;
-    private ViewPager           mPager;
-    private FragmentNotes       fragmentNotes;
+    private PagerAdapter mPagerAdapter;
+    private ViewPager mPager;
+    private FragmentNotes fragmentNotes;
     private WelcomeScreenHelper welcomeScreen;
 
     @Override
@@ -56,9 +56,9 @@ public class ActivitySimpleBible
         super.onResume();
         if (null != fragmentNotes) {
             getSupportFragmentManager().beginTransaction()
-                                       .detach(fragmentNotes)
-                                       .attach(fragmentNotes)
-                                       .commit();
+                    .detach(fragmentNotes)
+                    .attach(fragmentNotes)
+                    .commit();
             mPagerAdapter.notifyDataSetChanged();
             mPager.refreshDrawableState();
         }
@@ -105,7 +105,8 @@ public class ActivitySimpleBible
         tabLayout.setupWithViewPager(mPager);
     }
 
-    @Override protected void onSaveInstanceState(Bundle outState) {
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         welcomeScreen.onSaveInstanceState(outState);
     }
@@ -192,9 +193,9 @@ public class ActivitySimpleBible
             StringBuilder pageTitle = new StringBuilder(getString(R.string.app_name));
             if (position == 3 && null != fragmentNotes) {
                 getSupportFragmentManager().beginTransaction()
-                                           .detach(fragmentNotes)
-                                           .attach(fragmentNotes)
-                                           .commit();
+                        .detach(fragmentNotes)
+                        .attach(fragmentNotes)
+                        .commit();
                 mPager.refreshDrawableState();
             }
             setTitle(pageTitle); // This is required to refresh the page on Scroll

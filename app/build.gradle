@@ -33,7 +33,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 24
         versionName '16.08.27'
-        versionCode 12
+        versionCode 160827
     }
     buildTypes {
         release {
@@ -52,8 +52,8 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.stephentuso:welcome:0.7.2'
-    compile 'com.android.support:recyclerview-v7:24.2.0'
     compile 'com.android.support:cardview-v7:24.2.0'
-    compile 'com.android.support:support-v4:24.2.0'
+    compile 'com.android.support:recyclerview-v7:24.2.0'
     compile 'com.android.support:design:24.2.0'
+    compile 'com.android.support:appcompat-v7:24.2.0'
 }
