@@ -50,29 +50,29 @@ import android.view.inputmethod.InputMethodManager;
 class Utilities {
 
     // constants for arguments used in Fragments and Activities.
-    public static final  String    TODAY_VERSE_REFERENCE       = "TODAY_VERSE_REFERENCE";
-    public static final  String    BOOKS_COLUMN_COUNT          = "BOOKS_COLUMN_COUNT";
-    public static final  String    CURRENT_BOOK                = "CURRENT_BOOK";
-    public static final  String    CURRENT_CHAPTER             = "CURRENT_CHAPTER";
-    public static final  String    CURRENT_CHAPTER_NUMBER      = "CURRENT_CHAPTER_NUMBER";
-    public static final  String    REFERENCES                  = "REFERENCES";
-    public static final  String    LOAD_CHAPTER                = "LOAD_CHAPTER";
-    public static final  String    LOAD_CHAPTER_NO             = "LOAD_CHAPTER_NO";
-    public static final  String    LOAD_CHAPTER_YES            = "LOAD_CHAPTER_YES";
-    public static final  String    BOOKMARK_EDIT               = "BOOKMARK_EDIT";
-    public static final  String    BOOKMARK_SAVE               = "BOOKMARK_SAVE";
-    public static final  String    DELIMITER_IN_REFERENCE      = ":";
-    public static final  String    DELIMITER_BETWEEN_REFERENCE = "~";
-    private static final int       VERSE_SIZE_SMALL            = -1;
-    private static final int       VERSE_SIZE_MEDIUM           = 0;
-    private static final int       VERSE_SIZE_BIG              = 1;
-    private static final int       VERSE_SIZE_LARGE            = 2;
-    private static final int       VERSE_STYLE_NORMAL          = 0;
-    private static final int       VERSE_STYLE_OLD_ENGLISH     = 1;
-    private static final int       VERSE_STYLE_TYPEWRITER      = 2;
-    private static final String    TAG                         = "SB_Utilities";
-    private static       Utilities staticInstance              = null;
-    private static Resources         mResources;
+    public static final String TODAY_VERSE_REFERENCE = "TODAY_VERSE_REFERENCE";
+    public static final String BOOKS_COLUMN_COUNT = "BOOKS_COLUMN_COUNT";
+    public static final String CURRENT_BOOK = "CURRENT_BOOK";
+    public static final String CURRENT_CHAPTER = "CURRENT_CHAPTER";
+    public static final String CURRENT_CHAPTER_NUMBER = "CURRENT_CHAPTER_NUMBER";
+    public static final String REFERENCES = "REFERENCES";
+    public static final String LOAD_CHAPTER = "LOAD_CHAPTER";
+    public static final String LOAD_CHAPTER_NO = "LOAD_CHAPTER_NO";
+    public static final String LOAD_CHAPTER_YES = "LOAD_CHAPTER_YES";
+    public static final String BOOKMARK_EDIT = "BOOKMARK_EDIT";
+    public static final String BOOKMARK_SAVE = "BOOKMARK_SAVE";
+    public static final String DELIMITER_IN_REFERENCE = ":";
+    public static final String DELIMITER_BETWEEN_REFERENCE = "~";
+    private static final int VERSE_SIZE_SMALL = -1;
+    private static final int VERSE_SIZE_MEDIUM = 0;
+    private static final int VERSE_SIZE_BIG = 1;
+    private static final int VERSE_SIZE_LARGE = 2;
+    private static final int VERSE_STYLE_NORMAL = 0;
+    private static final int VERSE_STYLE_OLD_ENGLISH = 1;
+    private static final int VERSE_STYLE_TYPEWRITER = 2;
+    private static final String TAG = "SB_Utilities";
+    private static Utilities staticInstance = null;
+    private static Resources mResources;
     private static SharedPreferences mPreferences;
 
     private Utilities(ActivitySimpleBible pActivity) {
@@ -111,11 +111,11 @@ class Utilities {
         String chapterNumber = reference[1];
         String verseNumber = reference[2];
         String verseText = dbu.getSpecificVerse(Integer.parseInt(reference[0]),
-                                                Integer.parseInt(reference[1]),
-                                                Integer.parseInt(reference[2]));
+                Integer.parseInt(reference[1]),
+                Integer.parseInt(reference[2]));
 
         return String.format(getString(R.string.daily_verse_template),
-                             verseText, bookName, chapterNumber, verseNumber);
+                verseText, bookName, chapterNumber, verseNumber);
     }
 
     private static String getString(int resourceID) {
@@ -131,7 +131,7 @@ class Utilities {
 
         // Will be styling this
         SpannableString sText = new SpannableString(fText);
-        int spanEnd = fText.indexOf(verseNum) + verseNum.length();
+        int spanEnd = fText.indexOf(verseText) - 1;
         highlightRangeWithColorInVerse(sText, 0, spanEnd, context);
         spanEnd = fText.length();
         setPreferredVerseSizeToText(sText, 0, spanEnd);
@@ -193,7 +193,7 @@ class Utilities {
      */
     private static int getPreferredVerseSize() {
         String value = mPreferences.getString(getString(R.string.pref_key_text_size),
-                                              getString(R.string.pref_key_text_size_default));
+                getString(R.string.pref_key_text_size_default));
         int size;
         if (value.equalsIgnoreCase(getString(R.string.pref_key_text_size_small))) {
             size = VERSE_SIZE_SMALL;
@@ -216,7 +216,7 @@ class Utilities {
      */
     private static int getPreferredVerseStyle() {
         String value = mPreferences.getString(getString(R.string.pref_key_text_style),
-                                              getString(R.string.pref_key_text_style_default));
+                getString(R.string.pref_key_text_style_default));
         int style;
         if (value.equalsIgnoreCase(getString(R.string.pref_key_text_style_normal))) {
             style = VERSE_STYLE_NORMAL;
@@ -238,12 +238,12 @@ class Utilities {
         String verseNumber = entry.getVerseNumber();
         String verseText = entry.getVerse();
         String fText = String.format(getString(R.string.search_result_template),
-                                     bookName, chapterNumber, verseNumber, verseText);
+                bookName, chapterNumber, verseNumber, verseText);
 
         // this is the text we will style
         SpannableString sText = new SpannableString(fText);
 
-        int spanEnd = (fText.indexOf(verseNumber) + verseNumber.length()) + 1;
+        int spanEnd = fText.indexOf(verseText) - 1;
         highlightRangeWithColorInVerse(sText, 0, spanEnd, context);
         spanEnd = fText.length();
         setPreferredVerseSizeToText(sText, 0, spanEnd);
@@ -261,7 +261,7 @@ class Utilities {
     public static void hideKeyboard(Activity activity) {
         InputMethodManager im =
                 (InputMethodManager) activity.getApplicationContext()
-                                             .getSystemService(Context.INPUT_METHOD_SERVICE);
+                        .getSystemService(Context.INPUT_METHOD_SERVICE);
         View view = activity.getCurrentFocus();
         if (view != null) {
             im.hideSoftInputFromWindow(view.getWindowToken(), 0);
@@ -276,7 +276,7 @@ class Utilities {
         Utilities.log(TAG, "restartApplication() called");
         Context baseContext = pActivity.getBaseContext();
         Intent intent = baseContext.getPackageManager()
-                                   .getLaunchIntentForPackage(baseContext.getPackageName());
+                .getLaunchIntentForPackage(baseContext.getPackageName());
 
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         Utilities.log(TAG, "restarting Application");
