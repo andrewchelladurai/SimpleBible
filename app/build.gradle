@@ -32,8 +32,8 @@ android {
         applicationId "com.andrewchelladurai.simplebible"
         minSdkVersion 15
         targetSdkVersion 24
-        versionName '16.08.27'
-        versionCode 160827
+        versionName '16.09.04'
+        versionCode 160904
     }
     buildTypes {
         release {
