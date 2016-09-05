@@ -1,7 +1,10 @@
-package com.andrewchelladurai.simplebible;
+package com.andrewchelladurai.simplebible.presentation;
 
 import android.content.Context;
 import android.util.Log;
+
+import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityInterface;
 
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 05-Sep-2016 @ 4:54 PM
