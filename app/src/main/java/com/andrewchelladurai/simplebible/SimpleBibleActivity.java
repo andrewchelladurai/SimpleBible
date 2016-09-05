@@ -138,7 +138,7 @@ public class SimpleBibleActivity
 
         @Override
         public Fragment getItem(int position) {
-            Fragment fragment = mPresenter.getPageForTitle(getTitle().toString());
+            Fragment fragment = mPresenter.getPageForTitle(getPageTitle(position).toString());
             return (fragment == null) ? PlaceholderFragment.newInstance(position + 1) : fragment;
         }
 
