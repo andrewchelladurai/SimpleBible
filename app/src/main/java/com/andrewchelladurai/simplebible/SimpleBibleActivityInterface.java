@@ -7,5 +7,5 @@ import android.content.Context;
  */
 public interface SimpleBibleActivityInterface {
 
-    Context getAppContext();
+    Context getThisApplicationContext();
 }
