@@ -23,15 +23,26 @@
   ~ OR <http://www.gnu.org/licenses/gpl-3.0.txt>
   ~
 -->
-<manifest xmlns:android = "http://schemas.android.com/apk/res/android"
-    package = "com.andrewchelladurai.simplebible">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.andrewchelladurai.simplebible">
 
     <application
-        android:allowBackup = "true"
-        android:fullBackupContent = "true"
-        android:icon = "@mipmap/launcher_icon"
-        android:label = "@string/app_name"
-        android:supportsRtl = "true"
-        android:theme = "@style/SBTheme"></application>
+        android:allowBackup="true"
+        android:fullBackupContent="true"
+        android:icon="@mipmap/launcher_icon"
+        android:label="@string/application_name"
+        android:supportsRtl="true"
+        android:theme="@style/SBTheme">
+        <activity
+            android:name=".SimpleBibleActivity"
+            android:label="@string/title_activity_simple_bible"
+            android:theme="@style/SBTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
 
 </manifest>
