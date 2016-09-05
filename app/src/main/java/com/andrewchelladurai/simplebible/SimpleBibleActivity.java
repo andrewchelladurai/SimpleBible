@@ -27,29 +27,31 @@ public class SimpleBibleActivity
         implements SimpleBibleActivityInterface {
 
     private static final String TAG = "SB_SimpleBibleActivity";
+    private SimpleBibleActivityPresenter mPresenter;
     private PagerAdapter mPagerAdapter;
     private ViewPager mViewPager;
-    private SimpleBibleActivityPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // init the presenter so it can start the necessary DB and Alarm services.
         mPresenter = new SimpleBibleActivityPresenter(this);
 
         setContentView(R.layout.activity_simple_bible);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_simple_bible_toolbar);
         setSupportActionBar(toolbar);
         mPagerAdapter = new PagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = (ViewPager) findViewById(R.id.activity_simple_bible_container);
         mViewPager.setAdapter(mPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.activity_simple_bible_tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab =
+                (FloatingActionButton) findViewById(R.id.activity_simple_bible_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,7 +59,7 @@ public class SimpleBibleActivity
                         .setAction("Action", null).show();
             }
         });
-
+        Log.d(TAG, "onCreate() returned");
     }
 
     @Override
@@ -75,7 +77,7 @@ public class SimpleBibleActivity
 
     }
 
-    @Override public Context getAppContext() {
+    @Override public Context getThisApplicationContext() {
         return getApplicationContext();
     }
 
