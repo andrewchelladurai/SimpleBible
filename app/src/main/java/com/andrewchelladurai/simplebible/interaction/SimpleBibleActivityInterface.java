@@ -8,4 +8,5 @@ import android.content.Context;
 public interface SimpleBibleActivityInterface {
 
     Context getThisApplicationContext();
+    String getTabTitle(int position);
 }

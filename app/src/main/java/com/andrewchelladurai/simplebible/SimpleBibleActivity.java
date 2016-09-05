@@ -80,6 +80,10 @@ public class SimpleBibleActivity
         return getApplicationContext();
     }
 
+    @Override public String getTabTitle(int position) {
+        return mPagerAdapter.getPageTitle(position).toString();
+    }
+
     public static class PlaceholderFragment
             extends Fragment {
 
@@ -134,7 +138,8 @@ public class SimpleBibleActivity
 
         @Override
         public Fragment getItem(int position) {
-            return PlaceholderFragment.newInstance(position + 1);
+            Fragment fragment = mPresenter.getPageForTitle(getTitle().toString());
+            return (fragment == null) ? PlaceholderFragment.newInstance(position + 1) : fragment;
         }
 
         @Override
