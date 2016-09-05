@@ -51,8 +51,11 @@ public class DatabaseUtility
         extends SQLiteOpenHelper {
 
     private static final String TAG = "SB_DatabaseUtility";
-    private static final int[] VERSIONS = {1, 2};
-    private static final int CURRENT_VERSION = VERSIONS[VERSIONS.length - 1];
+    /*
+        private static final int[] VERSIONS = {1, 2};
+        private static final int CURRENT_VERSION = VERSIONS[VERSIONS.length - 1];
+    */
+    private static final int CURRENT_VERSION = 1;
 
     private static final String DATABASE_NAME = "Bible.db";
     private final static String BIBLE_TABLE = "BIBLE_VERSES";
@@ -83,9 +86,11 @@ public class DatabaseUtility
             throws SQLException {
         Utilities.log(TAG, "openDataBase: Entered");
         createDataBase();
+/*
         SQLiteDatabase database = getWritableDatabase();
         int currentVersion = database.getVersion();
         upgradeDatabase(database, currentVersion);
+*/
     }
 
     private void createDataBase() {
@@ -172,7 +177,7 @@ public class DatabaseUtility
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldV, int newV) {
-        upgradeDatabase(sqLiteDatabase, oldV);
+//        upgradeDatabase(sqLiteDatabase, oldV);
     }
 
     private void upgradeDatabase(SQLiteDatabase db, int oldV) {
@@ -196,7 +201,7 @@ public class DatabaseUtility
     public ArrayList<String> getAllVersesOfChapter(final int pBookNumber, final int
             pChapterNumber) {
         Utilities.log(TAG, "getAllVersesOfChapter() called BookNumber[" + pBookNumber +
-                "], ChapterNumber [" + pChapterNumber + "]");
+                           "], ChapterNumber [" + pChapterNumber + "]");
 
         final SQLiteDatabase db = getReadableDatabase();
 
@@ -206,7 +211,7 @@ public class DatabaseUtility
 
         Cursor cursor = db
                 .query(BIBLE_TABLE, selectCols, whereCondition, conditionParams, null, null,
-                        VERSE_NUMBER, null);
+                       VERSE_NUMBER, null);
 
         ArrayList<String> list = new ArrayList<>(0);
 
@@ -235,7 +240,7 @@ public class DatabaseUtility
 
         Cursor cursor = db
                 .query(BIBLE_TABLE, selectCols, whereCondition, conditionParams, null, null,
-                        BOOK_NUMBER);
+                       BOOK_NUMBER);
 
         if (cursor != null && cursor.moveToFirst()) {
             int verseNumberIndex = cursor.getColumnIndex(VERSE_NUMBER);
@@ -249,7 +254,7 @@ public class DatabaseUtility
                 chapterValue = cursor.getInt(chapterIndex);
                 verseValue = cursor.getInt(verseNumberIndex);
                 entry.append(bookValue).append(":").append(chapterValue).append(":")
-                        .append(verseValue);
+                     .append(verseValue);
                 values.add(entry.toString());
                 entry.delete(0, entry.length());
             } while (cursor.moveToNext());
@@ -273,7 +278,8 @@ public class DatabaseUtility
         }
 
         Utilities.log(TAG,
-                "getVerseReferenceForToday() returned: " + verseId + " : dayOfYear " + dayOfYear);
+                      "getVerseReferenceForToday() returned: " + verseId + " : dayOfYear " +
+                      dayOfYear);
         return verseId;
     }
 
@@ -323,7 +329,7 @@ public class DatabaseUtility
 
     public boolean createNewBookmark(String references, String notes) {
         Utilities.log(TAG,
-                "createNewBookmark() references [" + references + "], notes [" + notes + "]");
+                      "createNewBookmark() references [" + references + "], notes [" + notes + "]");
         boolean created;
         final SQLiteDatabase db = getWritableDatabase();
         final ContentValues values = new ContentValues();
