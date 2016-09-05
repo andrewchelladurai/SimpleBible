@@ -1,5 +1,6 @@
 package com.andrewchelladurai.simplebible;
 
+import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,14 +22,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class SimpleBibleActivity
-        extends AppCompatActivity {
+        extends AppCompatActivity
+        implements SimpleBibleActivityInterface {
 
+    private static final String TAG = "SB_SimpleBibleActivity";
     private PagerAdapter mPagerAdapter;
     private ViewPager mViewPager;
+    private SimpleBibleActivityPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter = new SimpleBibleActivityPresenter(this);
+
         setContentView(R.layout.activity_simple_bible);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -70,8 +77,13 @@ public class SimpleBibleActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @Override public Context getAppContext() {
+        return getApplicationContext();
+    }
+
     public static class PlaceholderFragment
             extends Fragment {
+
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         public PlaceholderFragment() {
@@ -110,18 +122,19 @@ public class SimpleBibleActivity
 
         @Override
         public int getCount() {
-            return 4;
+            return mPresenter.getTabsCount();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0: return "HOME";
-                case 1: return "BOOKS";
-                case 2: return "SEARCH";
-                case 3: return "NOTES";
-                default: return null;
+            String titles[] = mPresenter.getTabTitles();
+            int titleCount = titles.length;
+            Log.d(TAG, "getPageTitle() called : position = [" + position + "] " +
+                       "titleCount = [" + titleCount + "]");
+            if (position < 0 | position > titleCount) {
+                return getString(R.string.application_name);
             }
+            return titles[position];
         }
     }
 }
