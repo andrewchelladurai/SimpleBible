@@ -18,10 +18,9 @@ public class HomeFragmentPresenter {
 
     public HomeFragmentPresenter(HomeFragmentInterface fragment) {
         mFragment = fragment;
-        init();
     }
 
-    private void init() {
+    public void init() {
         Log.d(TAG, "init() called");
     }
 

@@ -99,4 +99,13 @@ public class HomeFragment
     @Override public void focusChapterInputField() {
         mChapterInput.requestFocus();
     }
+
+    @Override public void init() {
+        Log.d(TAG, "init() called");
+        mPresenter.init();
+    }
+
+    @Override public void refresh() {
+        Log.d(TAG, "refresh() called");
+    }
 }

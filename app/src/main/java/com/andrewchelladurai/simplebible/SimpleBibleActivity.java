@@ -36,7 +36,7 @@ public class SimpleBibleActivity
         super.onCreate(savedInstanceState);
         // init the presenter so it can start the necessary DB and Alarm services.
         mPresenter = new SimpleBibleActivityPresenter(this);
-
+        init();
         setContentView(R.layout.activity_simple_bible);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_simple_bible_toolbar);
@@ -82,6 +82,15 @@ public class SimpleBibleActivity
 
     @Override public String getTabTitle(int position) {
         return mPagerAdapter.getPageTitle(position).toString();
+    }
+
+    @Override public void init() {
+        Log.d(TAG, "init() called");
+        mPresenter.init();
+    }
+
+    @Override public void refresh() {
+        Log.d(TAG, "refresh() called");
     }
 
     public static class PlaceholderFragment

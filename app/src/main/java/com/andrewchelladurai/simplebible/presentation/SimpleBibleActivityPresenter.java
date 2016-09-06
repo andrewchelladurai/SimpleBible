@@ -22,13 +22,12 @@ public class SimpleBibleActivityPresenter {
      */
     public SimpleBibleActivityPresenter(SimpleBibleActivityInterface aInterface) {
         mInterface = aInterface;
-        init();
     }
 
     /**
      * Actual init work is done here.
      */
-    private void init() {
+    public void init() {
         Log.d(TAG, "init: called");
     }
 
