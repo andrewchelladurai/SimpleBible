@@ -13,7 +13,7 @@ import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityInterfac
  */
 public class SimpleBibleActivityPresenter {
 
-    private static final String TAG = "SB_SBActivityPresenter";
+    private static final String TAG = "SB_SBA_Presenter";
     private SimpleBibleActivityInterface mInterface;
 
     /**

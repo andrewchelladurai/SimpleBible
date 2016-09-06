@@ -26,7 +26,7 @@ public class SimpleBibleActivity
         extends AppCompatActivity
         implements SimpleBibleActivityInterface {
 
-    private static final String TAG = "SB_SimpleBibleActivity";
+    private static final String TAG = "SB_SBActivity";
     private SimpleBibleActivityPresenter mPresenter;
     private PagerAdapter mPagerAdapter;
     private ViewPager mViewPager;
