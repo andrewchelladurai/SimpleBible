@@ -1,46 +1,48 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/fragment_padding"
+    android:orientation="vertical"
+    android:padding="@dimen/screen_padding"
     tools:context="com.andrewchelladurai.simplebible.HomeFragment">
-
-
-    <TextView
-        android:id="@+id/fragment_home_daily_verse"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/fragment_padding"
-        android:layout_marginTop="@dimen/fragment_padding"
-        android:gravity="center"
-        android:text="@string/application_name"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ScrollView
         android:id="@+id/fragment_home_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/fragment_home_daily_verse"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/fragment_padding"
-        android:layout_marginTop="@dimen/fragment_padding">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/screen_padding"
+        android:layout_marginTop="@dimen/screen_padding">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/fragment_home_daily_verse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/application_name"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/screen_padding"
+        android:layout_marginTop="@dimen/screen_padding">
+
+        <LinearLayout
+            android:id="@+id/fragment_home_container_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
             android:baselineAligned="false"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/screen_padding"
+            android:paddingTop="@dimen/screen_padding">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingEnd="@dimen/fragment_padding"
-                android:paddingLeft="@dimen/fragment_padding"
-                android:paddingRight="@dimen/fragment_padding"
-                android:paddingStart="@dimen/fragment_padding">
+                android:layout_weight="1">
 
                 <android.support.v7.widget.AppCompatAutoCompleteTextView
                     android:id="@+id/fragment_home_input_book_name"
@@ -52,10 +54,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingEnd="@dimen/fragment_padding"
-                android:paddingLeft="@dimen/fragment_padding"
-                android:paddingRight="@dimen/fragment_padding">
+                android:layout_weight="1">
 
                 <android.support.v7.widget.AppCompatAutoCompleteTextView
                     android:id="@+id/fragment_home_input_chapter_number"
@@ -63,8 +62,25 @@
                     android:layout_height="wrap_content"
                     android:hint="Chapter Number" />
             </android.support.design.widget.TextInputLayout>
-
         </LinearLayout>
-    </ScrollView>
 
-</RelativeLayout>
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/fragment_home_message_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fragment_home_container_input"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:paddingBottom="@dimen/screen_padding"
+            android:text="Message Label" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/fragment_home_button_goto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fragment_home_message_label"
+            android:layout_centerHorizontal="true"
+            android:text="Go To Location" />
+    </RelativeLayout>
+
+</LinearLayout>
