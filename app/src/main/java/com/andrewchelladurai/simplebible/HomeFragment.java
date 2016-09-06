@@ -6,14 +6,21 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.andrewchelladurai.simplebible.interaction.HomeFragmentInterface;
+import com.andrewchelladurai.simplebible.presentation.HomeFragmentPresenter;
+
+import static com.andrewchelladurai.simplebible.R.*;
 
 public class HomeFragment
         extends Fragment
         implements View.OnClickListener, HomeFragmentInterface {
 
+    private static final String TAG = "SB_HomeFragment";
     private AppCompatAutoCompleteTextView mBookInput;
     private AppCompatAutoCompleteTextView mChapterInput;
     private AppCompatTextView mDailyVerse;
@@ -40,21 +47,25 @@ public class HomeFragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        mDailyVerse = (AppCompatTextView) view.findViewById(R.id.fragment_home_daily_verse);
+        View view = inflater.inflate(layout.fragment_home, container, false);
+        mDailyVerse = (AppCompatTextView) view.findViewById(id.fragment_home_daily_verse);
         mBookInput = (AppCompatAutoCompleteTextView)
-                view.findViewById(R.id.fragment_home_input_book_name);
+                view.findViewById(id.fragment_home_input_book_name);
         mChapterInput = (AppCompatAutoCompleteTextView)
-                view.findViewById(R.id.fragment_home_input_chapter_number);
-        mMessageLabel = (AppCompatTextView) view.findViewById(R.id.fragment_home_message_label);
-        mGotoButton = (AppCompatButton) view.findViewById(R.id.fragment_home_button_goto);
+                view.findViewById(id.fragment_home_input_chapter_number);
+        mMessageLabel = (AppCompatTextView) view.findViewById(id.fragment_home_message_label);
+        mGotoButton = (AppCompatButton) view.findViewById(id.fragment_home_button_goto);
         mGotoButton.setOnClickListener(this);
         return view;
     }
 
     @Override public void onClick(View v) {
         if (v instanceof AppCompatButton & v.equals(mGotoButton)) {
-            mPresenter.gotoLocationClicked();
+            if (mPresenter.gotoLocationClicked()) {
+                inputValidated();
+            }
+        } else {
+            Log.d(TAG, "onClick: " + getString(string.how_am_i_here));
         }
     }
 

@@ -1,4 +1,4 @@
-package com.andrewchelladurai.simplebible;
+package com.andrewchelladurai.simplebible.interaction;
 
 import android.content.Context;
 
