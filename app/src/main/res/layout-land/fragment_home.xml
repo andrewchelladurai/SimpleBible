@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,7 +13,7 @@
         android:layout_marginBottom="@dimen/screen_padding"
         android:layout_marginTop="@dimen/screen_padding">
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/fragment_home_daily_verse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         android:layout_marginBottom="@dimen/screen_padding"
         android:layout_marginTop="@dimen/screen_padding">
 
-        <LinearLayout
+        <android.support.v7.widget.LinearLayoutCompat
             android:id="@+id/fragment_home_container_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,13 +62,13 @@
                     android:layout_height="wrap_content"
                     android:hint="Chapter Number" />
             </android.support.design.widget.TextInputLayout>
-        </LinearLayout>
+        </android.support.v7.widget.LinearLayoutCompat>
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/fragment_home_message_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/fragment_home_container_input"
+            android:layout_below="@id/fragment_home_container_input"
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:paddingBottom="@dimen/screen_padding"
@@ -78,9 +78,9 @@
             android:id="@+id/fragment_home_button_goto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/fragment_home_message_label"
+            android:layout_below="@id/fragment_home_message_label"
             android:layout_centerHorizontal="true"
             android:text="Go To Location" />
     </RelativeLayout>
 
-</LinearLayout>
+</android.support.v7.widget.LinearLayoutCompat>
