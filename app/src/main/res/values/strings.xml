@@ -37,5 +37,11 @@
     <string name="main_activity_tab_title_books">BOOKS</string>
     <string name="main_activity_tab_title_search">SEARCH</string>
     <string name="main_activity_tab_title_notes">NOTES</string>
+    <string name="err_msg_goto_empty_chapter_input">No Chapter Entered</string>
+    <string name="err_msg_goto_empty_book_input">No Book Name Entered</string>
+    <string name="fragment_home_hint_book">Enter Book Name</string>
+    <string name="fragment_home_hint_chapter">Enter Chapter Number</string>
+    <string name="fragment_home_button_label_goto">Go To Location</string>
+    <string name="fragment_home_daily_verse_stub">For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life. - John 3:16New International Version (NIV)</string>
 
 </resources>

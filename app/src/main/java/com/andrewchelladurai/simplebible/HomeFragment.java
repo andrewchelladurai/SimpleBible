@@ -1,5 +1,6 @@
 package com.andrewchelladurai.simplebible;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
@@ -63,5 +64,28 @@ public class HomeFragment
 
     @Override public String getChapterInput() {
         return mChapterInput.getText().toString();
+    }
+
+    @Override public void showError(String message) {
+        mMessageLabel.setText(message);
+    }
+
+    @Override public Context getAppContext() {
+        return getActivity().getApplicationContext();
+    }
+
+    @Override public void inputValidated() {
+        mBookInput.setText(null);
+        mChapterInput.setText(null);
+        mMessageLabel.setText(null);
+        mBookInput.requestFocus();
+    }
+
+    @Override public void focusBookInputField() {
+        mBookInput.requestFocus();
+    }
+
+    @Override public void focusChapterInputField() {
+        mChapterInput.requestFocus();
     }
 }

@@ -9,24 +9,27 @@
     <ScrollView
         android:id="@+id/fragment_home_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginBottom="@dimen/screen_padding"
-        android:layout_marginTop="@dimen/screen_padding">
+        android:layout_marginTop="@dimen/screen_padding"
+        android:layout_weight="1"
+        android:scrollbars="vertical">
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/fragment_home_daily_verse"
+            style="@style/TextAppearance.AppCompat.Headline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/application_name"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:text="@string/fragment_home_daily_verse_stub" />
     </ScrollView>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginBottom="@dimen/screen_padding"
-        android:layout_marginTop="@dimen/screen_padding">
+        android:layout_marginTop="@dimen/screen_padding"
+        android:layout_weight="1">
 
         <android.support.v7.widget.LinearLayoutCompat
             android:id="@+id/fragment_home_container_input"
@@ -36,7 +39,6 @@
             android:layout_centerHorizontal="true"
             android:baselineAligned="false"
             android:orientation="horizontal"
-            android:paddingBottom="@dimen/screen_padding"
             android:paddingTop="@dimen/screen_padding">
 
             <android.support.design.widget.TextInputLayout
@@ -48,7 +50,7 @@
                     android:id="@+id/fragment_home_input_book_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Book Name" />
+                    android:hint="@string/fragment_home_hint_book" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -60,7 +62,7 @@
                     android:id="@+id/fragment_home_input_chapter_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Chapter Number" />
+                    android:hint="@string/fragment_home_hint_chapter" />
             </android.support.design.widget.TextInputLayout>
         </android.support.v7.widget.LinearLayoutCompat>
 
@@ -71,16 +73,16 @@
             android:layout_below="@id/fragment_home_container_input"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:paddingBottom="@dimen/screen_padding"
-            android:text="Message Label" />
+            android:paddingBottom="@dimen/screen_padding" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/fragment_home_button_goto"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/fragment_home_message_label"
             android:layout_centerHorizontal="true"
-            android:text="Go To Location" />
+            android:text="@string/fragment_home_button_label_goto" />
     </RelativeLayout>
 
 </android.support.v7.widget.LinearLayoutCompat>
