@@ -1,12 +1,7 @@
 package com.andrewchelladurai.simplebible.presentation;
 
-import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 
-import com.andrewchelladurai.simplebible.BooksListFragment;
-import com.andrewchelladurai.simplebible.HomeFragment;
-import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityInterface;
 
 /**

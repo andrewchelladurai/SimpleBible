@@ -17,13 +17,13 @@ public class TabsAdapter
         extends FragmentPagerAdapter {
 
     private static final String TAG = "SB_PagerAdapter";
-    private SimpleBibleActivity mActivity;
     String mTitles[] = null;
+    private SimpleBibleActivity mActivity;
 
     /**
      * Initializes the super class and also the titles to be used in the Tabs. A string-array
-     * "main_activity_tab_titles" is used for this. If the array is not present, the Tabs will
-     * have a single entry that uses the application_name resource string.
+     * "main_activity_tab_titles" is used for this. If the array is not present, the Tabs will have
+     * a single entry that uses the application_name resource string.
      *
      * @param fragmentManager
      */
@@ -37,7 +37,7 @@ public class TabsAdapter
                 Log.d(TAG, "string-array \"main_activity_tab_titles\" not found");
             }
             Log.d(TAG, "Tab Titles populated with " + mTitles.length + " entries <= " +
-                                           "This should ideally print only once during init.");
+                       "This should ideally print only once during init.");
         }
     }
 

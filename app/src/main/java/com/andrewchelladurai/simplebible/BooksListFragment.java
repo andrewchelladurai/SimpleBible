@@ -39,6 +39,14 @@ public class BooksListFragment
         return fragment;
     }
 
+    @Override public void init() {
+
+    }
+
+    @Override public void refresh() {
+
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,14 +79,6 @@ public class BooksListFragment
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    @Override public void init() {
-
-    }
-
-    @Override public void refresh() {
-
     }
 
     public void handleInteraction(DummyItem item) {

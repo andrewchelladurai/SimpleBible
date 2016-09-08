@@ -62,6 +62,15 @@ public class SimpleBibleActivity
         Log.d(TAG, "onCreate() returned");
     }
 
+    @Override public void init() {
+        Log.d(TAG, "init() called");
+        mPresenter.init();
+    }
+
+    @Override public void refresh() {
+        Log.d(TAG, "refresh() called");
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_simple_bible, menu);
@@ -71,8 +80,10 @@ public class SimpleBibleActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings: return true;
-            default: return super.onOptionsItemSelected(item);
+            case R.id.action_settings:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -82,15 +93,6 @@ public class SimpleBibleActivity
 
     @Override public String getTabTitle(int position) {
         return mPagerAdapter.getPageTitle(position).toString();
-    }
-
-    @Override public void init() {
-        Log.d(TAG, "init() called");
-        mPresenter.init();
-    }
-
-    @Override public void refresh() {
-        Log.d(TAG, "refresh() called");
     }
 
     public static class PlaceholderFragment
