@@ -15,10 +15,6 @@ import com.andrewchelladurai.simplebible.adapter.DummyContent;
 import com.andrewchelladurai.simplebible.adapter.DummyContent.DummyItem;
 import com.andrewchelladurai.simplebible.interaction.BasicOperations;
 
-/**
- * A fragment representing a list of Items. <p /> Activities containing this fragment MUST implement
- * the {@link OnListFragmentInteractionListener} interface.
- */
 public class BooksListFragment
         extends Fragment
         implements BasicOperations {
