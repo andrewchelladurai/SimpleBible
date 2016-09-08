@@ -13,8 +13,7 @@ import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.interaction.HomeFragmentInterface;
 import com.andrewchelladurai.simplebible.presentation.HomeFragmentPresenter;
-
-import static com.andrewchelladurai.simplebible.R.*;
+import com.andrewchelladurai.simplebible.utilities.Constants;
 
 public class HomeFragment
         extends Fragment
@@ -47,25 +46,37 @@ public class HomeFragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
-        View view = inflater.inflate(layout.fragment_home, container, false);
-        mDailyVerse = (AppCompatTextView) view.findViewById(id.fragment_home_daily_verse);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        mDailyVerse = (AppCompatTextView) view.findViewById(R.id.fragment_home_daily_verse);
         mBookInput = (AppCompatAutoCompleteTextView)
-                view.findViewById(id.fragment_home_input_book_name);
+                view.findViewById(R.id.fragment_home_input_book_name);
         mChapterInput = (AppCompatAutoCompleteTextView)
-                view.findViewById(id.fragment_home_input_chapter_number);
-        mMessageLabel = (AppCompatTextView) view.findViewById(id.fragment_home_message_label);
-        mGotoButton = (AppCompatButton) view.findViewById(id.fragment_home_button_goto);
+                view.findViewById(R.id.fragment_home_input_chapter_number);
+        mMessageLabel = (AppCompatTextView) view.findViewById(R.id.fragment_home_message_label);
+        mGotoButton = (AppCompatButton) view.findViewById(R.id.fragment_home_button_goto);
         mGotoButton.setOnClickListener(this);
         return view;
     }
 
     @Override public void onClick(View v) {
         if (v instanceof AppCompatButton & v.equals(mGotoButton)) {
-            if (mPresenter.gotoLocationClicked()) {
-                inputValidated();
+            // Check if Book Input is valid, return otherwise
+            String returnValue = mPresenter.validateBookInput(getBookInput());
+            if (!returnValue.equalsIgnoreCase(Constants.SUCCESS_RETURN_VALUE)) {
+                showError(returnValue);
+                focusBookInputField();
+                return;
             }
+            // Check if Chapter Input is valid, return otherwise
+            returnValue = mPresenter.validateChapterInput(getChapterInput());
+            if (!returnValue.equalsIgnoreCase(Constants.SUCCESS_RETURN_VALUE)) {
+                showError(returnValue);
+                focusChapterInputField();
+                return;
+            }
+            inputValidated();
         } else {
-            Log.d(TAG, "onClick: " + getString(string.how_am_i_here));
+            Log.d(TAG, "onClick: " + getString(R.string.how_am_i_here));
         }
     }
 
@@ -81,10 +92,6 @@ public class HomeFragment
         mMessageLabel.setText(message);
     }
 
-    @Override public Context getAppContext() {
-        return getActivity().getApplicationContext();
-    }
-
     @Override public void inputValidated() {
         mBookInput.setText(null);
         mChapterInput.setText(null);
@@ -98,6 +105,14 @@ public class HomeFragment
 
     @Override public void focusChapterInputField() {
         mChapterInput.requestFocus();
+    }
+
+    @Override public String getBookInputEmptyErrorMessage() {
+        return getString(R.string.err_msg_goto_empty_book_input);
+    }
+
+    @Override public String getChapterInputEmptyErrorMessage() {
+        return getString(R.string.err_msg_goto_empty_chapter_input);
     }
 
     @Override public void init() {

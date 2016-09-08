@@ -11,8 +11,9 @@ public interface HomeFragmentInterface
     String getBookInput();
     String getChapterInput();
     void showError(String message);
-    Context getAppContext();
     void inputValidated();
     void focusBookInputField();
     void focusChapterInputField();
+    String getBookInputEmptyErrorMessage();
+    String getChapterInputEmptyErrorMessage();
 }
