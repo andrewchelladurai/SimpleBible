@@ -13,13 +13,15 @@ import android.view.ViewGroup;
 import com.andrewchelladurai.simplebible.adapter.BooksListAdapter;
 import com.andrewchelladurai.simplebible.adapter.DummyContent;
 import com.andrewchelladurai.simplebible.adapter.DummyContent.DummyItem;
-import com.andrewchelladurai.simplebible.interaction.BasicOperations;
+import com.andrewchelladurai.simplebible.interaction.BooksListFragmentInterface;
+import com.andrewchelladurai.simplebible.presentation.BooksListFragmentPresenter;
 
 public class BooksListFragment
         extends Fragment
-        implements BasicOperations {
+        implements BooksListFragmentInterface {
 
     private static final String ARG_COLUMN_COUNT = "COLUMN_COUNT";
+    private static BooksListFragmentPresenter mPresenter;
     private int mColumnCount = 2;
     private BooksListFragment mListener;
 
@@ -36,11 +38,12 @@ public class BooksListFragment
     }
 
     @Override public void init() {
-
+        mPresenter = new BooksListFragmentPresenter(this);
+        mPresenter.init();
     }
 
     @Override public void refresh() {
-
+        mPresenter.refresh();
     }
 
     @Override
