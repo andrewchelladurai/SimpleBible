@@ -9,7 +9,7 @@ import org.mockito.runners.MockitoJUnitRunner;
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 05-Sep-2016 @ 7:43 PM
  */
 @RunWith(MockitoJUnitRunner.class)
-public class PagerAdapterTest {
+public class TabsAdapterTest {
 
     @Before
     public void setUp() throws Exception {

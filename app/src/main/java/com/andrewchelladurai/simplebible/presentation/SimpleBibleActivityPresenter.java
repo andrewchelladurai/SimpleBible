@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
+import com.andrewchelladurai.simplebible.BooksListFragment;
 import com.andrewchelladurai.simplebible.HomeFragment;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityInterface;
@@ -31,22 +32,4 @@ public class SimpleBibleActivityPresenter {
         Log.d(TAG, "init: called");
     }
 
-    public Fragment getPageForTitle(String title) {
-        Log.d(TAG, "getPageForTitle: " + title);
-        Context context = mInterface.getThisApplicationContext();
-        if (title.equalsIgnoreCase(context.getString(R.string.main_activity_tab_title_home))) {
-            Log.d(TAG, "returning HomeTabFragment()");
-            return HomeFragment.newInstance();
-        } else if (title.equalsIgnoreCase(
-                context.getString(R.string.main_activity_tab_title_books))) {
-            Log.d(TAG, "getPageForTitle: books");
-        } else if (title.equalsIgnoreCase(
-                context.getString(R.string.main_activity_tab_title_search))) {
-            Log.d(TAG, "getPageForTitle: search");
-        } else if (title.equalsIgnoreCase(
-                context.getString(R.string.main_activity_tab_title_notes))) {
-            Log.d(TAG, "getPageForTitle: notes");
-        }
-        return null;
-    }
 }
