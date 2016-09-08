@@ -6,24 +6,6 @@
     android:padding="@dimen/screen_padding"
     tools:context="com.andrewchelladurai.simplebible.HomeFragment">
 
-    <ScrollView
-        android:id="@+id/fragment_home_scroll_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/screen_padding"
-        android:layout_marginTop="@dimen/screen_padding"
-        android:layout_weight="1"
-        android:scrollbars="vertical">
-
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/fragment_home_daily_verse"
-            style="@style/TextAppearance.AppCompat.Headline"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/fragment_home_daily_verse_stub" />
-    </ScrollView>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -31,11 +13,23 @@
         android:layout_marginTop="@dimen/screen_padding"
         android:layout_weight="1">
 
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/fragment_home_goto_label"
+            style="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:paddingBottom="@dimen/screen_padding"
+            android:paddingTop="@dimen/screen_padding"
+            android:text="To Go To a specific location" />
+
         <android.support.v7.widget.LinearLayoutCompat
             android:id="@+id/fragment_home_container_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_below="@id/fragment_home_goto_label"
             android:layout_centerHorizontal="true"
             android:baselineAligned="false"
             android:orientation="horizontal"
@@ -84,5 +78,23 @@
             android:layout_centerHorizontal="true"
             android:text="@string/fragment_home_button_label_goto" />
     </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/fragment_home_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/screen_padding"
+        android:layout_marginTop="@dimen/screen_padding"
+        android:layout_weight="1"
+        android:scrollbars="vertical">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/fragment_home_daily_verse"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/fragment_home_daily_verse_stub" />
+    </ScrollView>
 
 </android.support.v7.widget.LinearLayoutCompat>
