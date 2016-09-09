@@ -21,37 +21,26 @@ public class BooksList {
 
     private static void addItem(BookItem item) {
         ITEMS.add(item);
-        ITEM_MAP.put(item.id, item);
+        ITEM_MAP.put(item.number, item);
     }
 
     private static BookItem createDummyItem(int position) {
-        return new BookItem(String.valueOf(position), "Item " + position, makeDetails(position));
-    }
-
-    private static String makeDetails(int position) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Details about Item: ").append(position);
-        for (int i = 0; i < position; i++) {
-            builder.append("\nMore details information here.");
-        }
-        return builder.toString();
+        return new BookItem(String.valueOf(position), "Book Name " + position);
     }
 
     public static class BookItem {
 
-        public final String id;
-        public final String content;
-        public final String details;
+        public final String number;
+        public final String name;
 
-        public BookItem(String id, String content, String details) {
-            this.id = id;
-            this.content = content;
-            this.details = details;
+        public BookItem(String number, String name) {
+            this.number = number;
+            this.name = name;
         }
 
         @Override
         public String toString() {
-            return content;
+            return number + " : " + name;
         }
     }
 }
