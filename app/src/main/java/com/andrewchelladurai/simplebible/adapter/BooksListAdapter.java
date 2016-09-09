@@ -8,30 +8,30 @@ import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.BooksListFragment;
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.adapter.DummyContent.DummyItem;
+import com.andrewchelladurai.simplebible.adapter.BooksList.BookItem;
 
 import java.util.List;
 
 public class BooksListAdapter
-        extends RecyclerView.Adapter<BooksListAdapter.ViewHolder> {
+        extends RecyclerView.Adapter<BooksListAdapter.BookItemViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<BookItem> mValues;
     private final BooksListFragment mListener;
 
-    public BooksListAdapter(List<DummyItem> items, BooksListFragment listener) {
+    public BooksListAdapter(List<BookItem> items, BooksListFragment listener) {
         mValues = items;
         mListener = listener;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BookItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                                   .inflate(R.layout.content_book, parent, false);
-        return new ViewHolder(view);
+        return new BookItemViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final BookItemViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).id);
         holder.mContentView.setText(mValues.get(position).content);
@@ -51,15 +51,15 @@ public class BooksListAdapter
         return mValues.size();
     }
 
-    public class ViewHolder
+    public class BookItemViewHolder
             extends RecyclerView.ViewHolder {
 
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public BookItem mItem;
 
-        public ViewHolder(View view) {
+        public BookItemViewHolder(View view) {
             super(view);
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.id);

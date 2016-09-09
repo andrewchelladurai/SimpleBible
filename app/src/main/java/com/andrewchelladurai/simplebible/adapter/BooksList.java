@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DummyContent {
+public class BooksList {
 
-    public static final List<DummyItem> ITEMS = new ArrayList<DummyItem>();
-    public static final Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
+    public static final List<BookItem> ITEMS = new ArrayList<BookItem>();
+    public static final Map<String, BookItem> ITEM_MAP = new HashMap<String, BookItem>();
 
     private static final int COUNT = 25;
 
@@ -19,13 +19,13 @@ public class DummyContent {
         }
     }
 
-    private static void addItem(DummyItem item) {
+    private static void addItem(BookItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
 
-    private static DummyItem createDummyItem(int position) {
-        return new DummyItem(String.valueOf(position), "Item " + position, makeDetails(position));
+    private static BookItem createDummyItem(int position) {
+        return new BookItem(String.valueOf(position), "Item " + position, makeDetails(position));
     }
 
     private static String makeDetails(int position) {
@@ -37,13 +37,13 @@ public class DummyContent {
         return builder.toString();
     }
 
-    public static class DummyItem {
+    public static class BookItem {
 
         public final String id;
         public final String content;
         public final String details;
 
-        public DummyItem(String id, String content, String details) {
+        public BookItem(String id, String content, String details) {
             this.id = id;
             this.content = content;
             this.details = details;

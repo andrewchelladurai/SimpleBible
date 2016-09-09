@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.adapter.BooksListAdapter;
-import com.andrewchelladurai.simplebible.adapter.DummyContent;
-import com.andrewchelladurai.simplebible.adapter.DummyContent.DummyItem;
+import com.andrewchelladurai.simplebible.adapter.BooksList;
+import com.andrewchelladurai.simplebible.adapter.BooksList.BookItem;
 import com.andrewchelladurai.simplebible.interaction.BooksListFragmentInterface;
 import com.andrewchelladurai.simplebible.presentation.BooksListFragmentPresenter;
 
@@ -69,7 +69,7 @@ public class BooksListFragment
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new BooksListAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new BooksListAdapter(BooksList.ITEMS, mListener));
         }
         return view;
     }
@@ -80,7 +80,7 @@ public class BooksListFragment
         mListener = null;
     }
 
-    public void handleInteraction(DummyItem item) {
+    public void handleInteraction(BookItem item) {
 
     }
 }
