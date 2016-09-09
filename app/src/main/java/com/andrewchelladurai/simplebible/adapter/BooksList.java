@@ -1,5 +1,7 @@
 package com.andrewchelladurai.simplebible.adapter;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,40 +9,61 @@ import java.util.Map;
 
 public class BooksList {
 
-    public static final List<BookItem> ITEMS = new ArrayList<BookItem>();
-    public static final Map<String, BookItem> ITEM_MAP = new HashMap<String, BookItem>();
+    private static final String TAG = "SB_BooksList";
+
+    private static final List<BookItem> ITEMS = new ArrayList<>();
+    private static final Map<String, BookItem> ITEM_MAP = new HashMap<>();
 
     private static final int COUNT = 25;
 
     static {
         // Add some sample items.
+        BookItem item;
         for (int i = 1; i <= COUNT; i++) {
-            addItem(createDummyItem(i));
+            item = new BookItem(i, "Book Name " + i, (i + 1));
+            ITEMS.add(item);
+            ITEM_MAP.put(String.valueOf(item.mBookNumber), item);
         }
+        Log.d(TAG, "static initializer: Books populated");
     }
 
-    private static void addItem(BookItem item) {
-        ITEMS.add(item);
-        ITEM_MAP.put(item.number, item);
-    }
-
-    private static BookItem createDummyItem(int position) {
-        return new BookItem(String.valueOf(position), "Book Name " + position);
+    public static List<BookItem> getListItems() throws Exception {
+        if (ITEMS.size() != 66) {
+            Exception exception = new Exception("ITEMS.size() != 66");
+            Log.wtf(TAG, "getListItems: ", exception);
+            throw exception;
+//            Log.e(TAG, "getListItems: ITEMS.size() != 66");
+        }
+        return ITEMS;
     }
 
     public static class BookItem {
 
-        public final String number;
-        public final String name;
+        private final int mBookNumber;
+        private final int mChapterCount;
+        private final String mBookName;
 
-        public BookItem(String number, String name) {
-            this.number = number;
-            this.name = name;
+        public BookItem(int position, String name, int count) {
+            mBookNumber = position;
+            mBookName = name;
+            mChapterCount = count;
+        }
+
+        public int getBookNumber() {
+            return mBookNumber;
+        }
+
+        public int getChapterCount() {
+            return mChapterCount;
+        }
+
+        public String getBookName() {
+            return mBookName;
         }
 
         @Override
         public String toString() {
-            return number + " : " + name;
+            return mBookNumber + " : " + mBookName;
         }
     }
 }

@@ -33,8 +33,10 @@ public class BooksListAdapter
     @Override
     public void onBindViewHolder(final BookItemViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).number);
-        holder.mContentView.setText(mValues.get(position).name);
+        String value = String.valueOf(mValues.get(position).getBookNumber());
+        holder.mIdView.setText(value);
+        value = mValues.get(position).getBookName();
+        holder.mContentView.setText(value);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

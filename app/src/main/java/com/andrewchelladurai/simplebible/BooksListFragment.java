@@ -9,10 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.andrewchelladurai.simplebible.adapter.BooksListAdapter;
 import com.andrewchelladurai.simplebible.adapter.BooksList;
-import com.andrewchelladurai.simplebible.adapter.BooksList.BookItem;
+import com.andrewchelladurai.simplebible.adapter.BooksListAdapter;
 import com.andrewchelladurai.simplebible.interaction.BooksListFragmentInterface;
 import com.andrewchelladurai.simplebible.presentation.BooksListFragmentPresenter;
 
@@ -60,27 +60,33 @@ public class BooksListFragment
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_book, container, false);
 
-        // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
+            BooksListAdapter adapter;
+            // Try to create the adapter using the list
+            try {
+                adapter = new BooksListAdapter(BooksList.getListItems(), mListener);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(getContext(), "BooksList could not be populated",
+                               Toast.LENGTH_SHORT).show();
+                adapter = null;
+            }
+            // set the adapter if it was successfully created
+            if (null != adapter) {
+                recyclerView.setAdapter(adapter);
+            }
+
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new BooksListAdapter(BooksList.ITEMS, mListener));
         }
         return view;
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    public void handleInteraction(BookItem item) {
-
+    public void handleInteraction(BooksList.BookItem item) {
     }
 }
