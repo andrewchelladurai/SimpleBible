@@ -8,6 +8,7 @@ import android.util.Log;
 import com.andrewchelladurai.simplebible.BooksListFragment;
 import com.andrewchelladurai.simplebible.HomeFragment;
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.SearchFragment;
 import com.andrewchelladurai.simplebible.SimpleBibleActivity;
 
 /**
@@ -54,6 +55,7 @@ public class TabsAdapter
         } else if (title.equalsIgnoreCase(
                 mActivity.getString(R.string.main_activity_tab_title_search))) {
             Log.d(TAG, "getPageForTitle: search");
+            return SearchFragment.newInstance(1);
         } else if (title.equalsIgnoreCase(
                 mActivity.getString(R.string.main_activity_tab_title_notes))) {
             Log.d(TAG, "getPageForTitle: notes");
