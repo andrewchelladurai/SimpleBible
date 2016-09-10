@@ -21,10 +21,10 @@ public class HomeFragment
     private static final String TAG = "SB_HomeFragment";
     private AppCompatAutoCompleteTextView mBookInput;
     private AppCompatAutoCompleteTextView mChapterInput;
-    private AppCompatTextView mDailyVerse;
-    private AppCompatTextView mMessageLabel;
-    private AppCompatButton mGotoButton;
-    private HomeFragmentPresenter mPresenter;
+    private AppCompatTextView             mDailyVerse;
+    private AppCompatTextView             mMessageLabel;
+    private AppCompatButton               mGotoButton;
+    private HomeFragmentPresenter         mPresenter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -57,7 +57,8 @@ public class HomeFragment
         return view;
     }
 
-    @Override public void onClick(View v) {
+    @Override
+    public void onClick(View v) {
         if (v instanceof AppCompatButton & v.equals(mGotoButton)) {
             // Check if Book Input is valid, return otherwise
             String returnValue = mPresenter.validateBookInput(getBookInput());
@@ -79,47 +80,57 @@ public class HomeFragment
         }
     }
 
-    @Override public String getBookInput() {
+    @Override
+    public String getBookInput() {
         return mBookInput.getText().toString();
     }
 
-    @Override public String getChapterInput() {
+    @Override
+    public String getChapterInput() {
         return mChapterInput.getText().toString();
     }
 
-    @Override public void showError(String message) {
+    @Override
+    public void showError(String message) {
         mMessageLabel.setText(message);
     }
 
-    @Override public void inputValidated() {
+    @Override
+    public void inputValidated() {
         mBookInput.setText(null);
         mChapterInput.setText(null);
         mMessageLabel.setText(null);
         mBookInput.requestFocus();
     }
 
-    @Override public void focusBookInputField() {
+    @Override
+    public void focusBookInputField() {
         mBookInput.requestFocus();
     }
 
-    @Override public void focusChapterInputField() {
+    @Override
+    public void focusChapterInputField() {
         mChapterInput.requestFocus();
     }
 
-    @Override public String getBookInputEmptyErrorMessage() {
+    @Override
+    public String getBookInputEmptyErrorMessage() {
         return getString(R.string.err_msg_goto_empty_book_input);
     }
 
-    @Override public String getChapterInputEmptyErrorMessage() {
+    @Override
+    public String getChapterInputEmptyErrorMessage() {
         return getString(R.string.err_msg_goto_empty_chapter_input);
     }
 
-    @Override public void init() {
+    @Override
+    public void init() {
         Log.d(TAG, "init() called");
         mPresenter.init();
     }
 
-    @Override public void refresh() {
+    @Override
+    public void refresh() {
         Log.d(TAG, "refresh() called");
     }
 }

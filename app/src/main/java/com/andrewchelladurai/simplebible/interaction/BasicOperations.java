@@ -6,5 +6,6 @@ package com.andrewchelladurai.simplebible.interaction;
 public interface BasicOperations {
 
     void init();
+
     void refresh();
 }

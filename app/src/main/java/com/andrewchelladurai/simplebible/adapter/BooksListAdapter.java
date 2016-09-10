@@ -15,7 +15,7 @@ import java.util.List;
 public class BooksListAdapter
         extends RecyclerView.Adapter<BooksListAdapter.BookItemViewHolder> {
 
-    private final List<BookItem> mValues;
+    private final List<BookItem>             mValues;
     private final BooksListFragmentInterface mListener;
 
     public BooksListAdapter(List<BookItem> items, BooksListFragmentInterface listener) {
@@ -26,7 +26,7 @@ public class BooksListAdapter
     @Override
     public BookItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.content_book, parent, false);
+                                  .inflate(R.layout.content_book, parent, false);
         return new BookItemViewHolder(view);
     }
 
@@ -56,10 +56,10 @@ public class BooksListAdapter
     public class BookItemViewHolder
             extends RecyclerView.ViewHolder {
 
-        public final View mView;
+        public final View     mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public BookItem mItem;
+        public       BookItem mItem;
 
         public BookItemViewHolder(View view) {
             super(view);

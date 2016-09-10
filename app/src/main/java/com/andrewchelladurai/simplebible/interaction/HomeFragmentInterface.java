@@ -7,11 +7,18 @@ public interface HomeFragmentInterface
         extends BasicOperations {
 
     String getBookInput();
+
     String getChapterInput();
+
     void showError(String message);
+
     void inputValidated();
+
     void focusBookInputField();
+
     void focusChapterInputField();
+
     String getBookInputEmptyErrorMessage();
+
     String getChapterInputEmptyErrorMessage();
 }

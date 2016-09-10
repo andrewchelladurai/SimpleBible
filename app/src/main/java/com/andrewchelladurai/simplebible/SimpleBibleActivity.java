@@ -28,8 +28,8 @@ public class SimpleBibleActivity
 
     private static final String TAG = "SB_SBActivity";
     private SimpleBibleActivityPresenter mPresenter;
-    private PagerAdapter mPagerAdapter;
-    private ViewPager mViewPager;
+    private PagerAdapter                 mPagerAdapter;
+    private ViewPager                    mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +62,14 @@ public class SimpleBibleActivity
         Log.d(TAG, "onCreate() returned");
     }
 
-    @Override public void init() {
+    @Override
+    public void init() {
         Log.d(TAG, "init() called");
         mPresenter.init();
     }
 
-    @Override public void refresh() {
+    @Override
+    public void refresh() {
         Log.d(TAG, "refresh() called");
     }
 
@@ -87,11 +89,13 @@ public class SimpleBibleActivity
         }
     }
 
-    @Override public Context getThisApplicationContext() {
+    @Override
+    public Context getThisApplicationContext() {
         return getApplicationContext();
     }
 
-    @Override public String getTabTitle(int position) {
+    @Override
+    public String getTabTitle(int position) {
         return mPagerAdapter.getPageTitle(position).toString();
     }
 

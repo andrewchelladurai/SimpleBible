@@ -23,7 +23,7 @@ public class BooksListFragment
         extends Fragment
         implements BooksListFragmentInterface {
 
-    private static final String TAG = "SB_BLFragment";
+    private static final String TAG              = "SB_BLFragment";
     private static final String ARG_COLUMN_COUNT = "COLUMN_COUNT";
     private static BooksListFragmentPresenter mPresenter;
     private int mColumnCount = 2;
@@ -75,7 +75,7 @@ public class BooksListFragment
             List<BooksList.BookItem> items = BooksList.getListItems();
             if (items.size() != 66) {
                 Toast.makeText(getContext(), "BooksList could not be populated",
-                        Toast.LENGTH_SHORT).show();
+                               Toast.LENGTH_SHORT).show();
             } else {
                 recyclerView.setAdapter(new BooksListAdapter(items, mListener));
             }
@@ -94,8 +94,8 @@ public class BooksListFragment
     }
 
     /**
-     * This will return the resource array books_n_chapter_count_array
-     * The format of the items must be like this : Book_Name:Chapter_Count Example Genesis:50
+     * This will return the resource array books_n_chapter_count_array The format of the items must
+     * be like this : Book_Name:Chapter_Count Example Genesis:50
      *
      * @return String array
      */

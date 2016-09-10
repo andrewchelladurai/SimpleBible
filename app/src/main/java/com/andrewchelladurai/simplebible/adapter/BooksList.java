@@ -13,7 +13,7 @@ public class BooksList {
 
     private static final String TAG = "SB_BooksList";
 
-    private static final List<BookItem> ITEMS = new ArrayList<>();
+    private static final List<BookItem>        ITEMS    = new ArrayList<>();
     private static final Map<String, BookItem> ITEM_MAP = new HashMap<>();
 
     public static boolean clearList() {
@@ -69,8 +69,8 @@ public class BooksList {
 
     public static class BookItem {
 
-        private final int mBookNumber;
-        private final int mChapterCount;
+        private final int    mBookNumber;
+        private final int    mChapterCount;
         private final String mBookName;
 
         public BookItem(int position, String name, int count) {

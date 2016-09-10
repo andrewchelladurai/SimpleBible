@@ -9,5 +9,6 @@ public interface SimpleBibleActivityInterface
         extends BasicOperations {
 
     Context getThisApplicationContext();
+
     String getTabTitle(int position);
 }
