@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +17,13 @@ import com.andrewchelladurai.simplebible.adapter.BooksListAdapter;
 import com.andrewchelladurai.simplebible.interaction.BooksListFragmentInterface;
 import com.andrewchelladurai.simplebible.presentation.BooksListFragmentPresenter;
 
+import java.util.List;
+
 public class BooksListFragment
         extends Fragment
         implements BooksListFragmentInterface {
 
+    private static final String TAG = "SB_BLFragment";
     private static final String ARG_COLUMN_COUNT = "COLUMN_COUNT";
     private static BooksListFragmentPresenter mPresenter;
     private int mColumnCount = 2;
@@ -33,16 +37,19 @@ public class BooksListFragment
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
-        fragment.init();
         return fragment;
     }
 
-    @Override public void init() {
+    @Override
+    public void init() {
+        Log.d(TAG, "init() called");
         mPresenter = new BooksListFragmentPresenter(this);
-        mPresenter.init();
+        boolean value = mPresenter.init();
+        Log.d(TAG, "init: " + value);
     }
 
-    @Override public void refresh() {
+    @Override
+    public void refresh() {
         mPresenter.refresh();
     }
 
@@ -58,24 +65,19 @@ public class BooksListFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        init();
         View view = inflater.inflate(R.layout.fragment_book, container, false);
 
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            BooksListAdapter adapter;
             // Try to create the adapter using the list
-            try {
-                adapter = new BooksListAdapter(BooksList.getListItems(), mListener);
-            } catch (Exception e) {
-                e.printStackTrace();
+            List<BooksList.BookItem> items = BooksList.getListItems();
+            if (items.size() != 66) {
                 Toast.makeText(getContext(), "BooksList could not be populated",
-                               Toast.LENGTH_SHORT).show();
-                adapter = null;
-            }
-            // set the adapter if it was successfully created
-            if (null != adapter) {
-                recyclerView.setAdapter(adapter);
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                recyclerView.setAdapter(new BooksListAdapter(items, mListener));
             }
 
             if (mColumnCount <= 1) {
@@ -88,5 +90,20 @@ public class BooksListFragment
     }
 
     public void handleInteraction(BooksList.BookItem item) {
+    }
+
+    /**
+     * This will return the resource array books_n_chapter_count_array
+     * The format of the items must be like this : Book_Name:Chapter_Count Example Genesis:50
+     *
+     * @return String array
+     */
+    @Override
+    public String[] getBookNameChapterCountArray() {
+        String array[] = getResources().getStringArray(R.array.books_n_chapter_count_array);
+        if (null != array && array.length > 0) {
+            return array;
+        }
+        return new String[0];
     }
 }

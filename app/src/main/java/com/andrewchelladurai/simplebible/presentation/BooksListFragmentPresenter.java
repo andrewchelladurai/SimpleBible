@@ -2,6 +2,7 @@ package com.andrewchelladurai.simplebible.presentation;
 
 import android.util.Log;
 
+import com.andrewchelladurai.simplebible.adapter.BooksList;
 import com.andrewchelladurai.simplebible.interaction.BooksListFragmentInterface;
 
 /**
@@ -20,7 +21,9 @@ public class BooksListFragmentPresenter {
         Log.d(TAG, "refresh() called");
     }
 
-    public void init() {
+    public boolean init() {
         Log.d(TAG, "init() called");
+        String array[] = mFragment.getBookNameChapterCountArray();
+        return BooksList.populateBooksList(array);
     }
 }
