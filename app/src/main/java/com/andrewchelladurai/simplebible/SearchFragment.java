@@ -152,15 +152,24 @@ public class SearchFragment
     @Override
     public void onClick(View v) {
         if (v.equals(mSearchButton)) {
-            String inputString = getInputText();
-            String message = mPresenter.searchButtonClicked(inputString);
-            if (message.equalsIgnoreCase(Constants.SUCCESS_RETURN_VALUE)) {
-                // mPresenter.getSearchResultsForText(getInputText());
-            }
-            showError(message);
+            searchButtonClicked();
         } else if (v.equals(mResetButton)) {
             mPresenter.resetButtonClicked();
+            focusInputField();
         }
+    }
+
+    private void focusInputField() {
+        mInput.requestFocus();
+    }
+
+    private void searchButtonClicked() {
+        String inputString = getInputText();
+        String message = mPresenter.searchButtonClicked(inputString);
+        if (message.equalsIgnoreCase(Constants.SUCCESS_RETURN_VALUE)) {
+            // mPresenter.getSearchResultsForText(getInputText());
+        }
+        showError(message);
     }
 
     private void showError(String message) {
