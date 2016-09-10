@@ -5,4 +5,5 @@ package com.andrewchelladurai.simplebible.interaction;
  */
 public interface BooksListFragmentInterface
         extends BasicOperations {
+    String[] getBookNameChapterCountArray();
 }
