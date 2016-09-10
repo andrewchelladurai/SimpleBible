@@ -27,7 +27,6 @@ public class BooksListFragment
     private static final String ARG_COLUMN_COUNT = "COLUMN_COUNT";
     private static BooksListFragmentPresenter mPresenter;
     private int mColumnCount = 2;
-    private BooksListFragment mListener;
 
     public BooksListFragment() {
     }
@@ -77,7 +76,7 @@ public class BooksListFragment
                 Toast.makeText(getContext(), "BooksList could not be populated",
                                Toast.LENGTH_SHORT).show();
             } else {
-                recyclerView.setAdapter(new BooksListAdapter(items, mListener));
+                recyclerView.setAdapter(new BooksListAdapter(items, this));
             }
 
             if (mColumnCount <= 1) {
