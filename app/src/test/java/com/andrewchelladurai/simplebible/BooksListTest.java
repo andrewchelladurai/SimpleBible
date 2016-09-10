@@ -24,7 +24,9 @@
  *
  */
 
-package com.andrewchelladurai.simplebible.adapter;
+package com.andrewchelladurai.simplebible;
+
+import com.andrewchelladurai.simplebible.adapter.BooksList;
 
 import org.junit.After;
 import org.junit.Assert;

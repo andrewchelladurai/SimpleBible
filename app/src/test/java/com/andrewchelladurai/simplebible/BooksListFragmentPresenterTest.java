@@ -24,9 +24,10 @@
  *
  */
 
-package com.andrewchelladurai.simplebible.presentation;
+package com.andrewchelladurai.simplebible;
 
 import com.andrewchelladurai.simplebible.interaction.BooksListFragmentInterface;
+import com.andrewchelladurai.simplebible.presentation.BooksListFragmentPresenter;
 
 import org.junit.After;
 import org.junit.Before;
