@@ -44,11 +44,8 @@ import com.andrewchelladurai.simplebible.adapter.SearchResultAdapter;
 import com.andrewchelladurai.simplebible.interaction.SearchFragmentInterface;
 import com.andrewchelladurai.simplebible.model.DummyContent;
 import com.andrewchelladurai.simplebible.presentation.SearchFragmentPresenter;
+import com.andrewchelladurai.simplebible.utilities.Constants;
 
-/**
- * A fragment representing a list of Items. <p /> Activities containing this fragment MUST implement
- * the {@link OnListFragmentInteractionListener} interface.
- */
 public class SearchFragment
         extends Fragment
         implements SearchFragmentInterface, View.OnClickListener {
@@ -132,14 +129,30 @@ public class SearchFragment
 
     @Override
     public void refresh() {
+        mInput.setText(null);
+        mLabel.setText(null);
+        showSearchButton();
     }
 
     @Override
     public void onClick(View v) {
         if (v.equals(mSearchButton)) {
-            mPresenter.searchButtonClicked();
+            String inputString = getInputText();
+            String message = mPresenter.searchButtonClicked(inputString);
+            if (message.equalsIgnoreCase(Constants.SUCCESS_RETURN_VALUE)) {
+                // mPresenter.getSearchResultsForText(getInputText());
+            }
+            showError(message);
         } else if (v.equals(mResetButton)) {
             mPresenter.resetButtonClicked();
         }
+    }
+
+    private void showError(String message) {
+        mLabel.setText(message);
+    }
+
+    private String getInputText() {
+        return mInput.getText().toString();
     }
 }

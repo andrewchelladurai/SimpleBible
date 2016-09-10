@@ -47,9 +47,10 @@ public class SearchFragmentPresenter {
         Log.d(TAG, "init() called:");
     }
 
-    public void searchButtonClicked() {
+    public String searchButtonClicked(String inputString) {
         Log.d(TAG, "searchButtonClicked() called");
         mInterface.showResetButton();
+        return inputString;
     }
 
     public void resetButtonClicked() {
