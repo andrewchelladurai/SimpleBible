@@ -6,9 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.andrewchelladurai.simplebible.BooksListFragment;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.adapter.BooksList.BookItem;
+import com.andrewchelladurai.simplebible.interaction.BooksListFragmentInterface;
 
 import java.util.List;
 
@@ -16,9 +16,9 @@ public class BooksListAdapter
         extends RecyclerView.Adapter<BooksListAdapter.BookItemViewHolder> {
 
     private final List<BookItem> mValues;
-    private final BooksListFragment mListener;
+    private final BooksListFragmentInterface mListener;
 
-    public BooksListAdapter(List<BookItem> items, BooksListFragment listener) {
+    public BooksListAdapter(List<BookItem> items, BooksListFragmentInterface listener) {
         mValues = items;
         mListener = listener;
     }
@@ -26,7 +26,7 @@ public class BooksListAdapter
     @Override
     public BookItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                                  .inflate(R.layout.content_book, parent, false);
+                .inflate(R.layout.content_book, parent, false);
         return new BookItemViewHolder(view);
     }
 

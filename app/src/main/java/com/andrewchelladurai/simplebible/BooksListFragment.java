@@ -90,6 +90,7 @@ public class BooksListFragment
     }
 
     public void handleInteraction(BooksList.BookItem item) {
+        Log.d(TAG, "handleInteraction() called for item [" + item.getBookName() + "]");
     }
 
     /**
