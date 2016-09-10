@@ -51,4 +51,8 @@
     <string name="book_item_name_template">%1$s</string>
     <string name="book_item_chapter_count_template">%1$d Chapters</string>
 
+    <string name="fragment_search_hint">Enter text to search</string>
+    <string name="fragment_search_button_default">Search</string>
+    <string name="fragment_search_button_reset">Reset</string>
+
 </resources>

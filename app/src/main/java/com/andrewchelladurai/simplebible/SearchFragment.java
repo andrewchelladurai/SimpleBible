@@ -28,7 +28,10 @@ package com.andrewchelladurai.simplebible;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -50,10 +53,13 @@ public class SearchFragment
         extends Fragment
         implements SearchFragmentInterface {
 
-    private static final String TAG = "SB_SearchFragment";
+    private static final String TAG              = "SB_SearchFragment";
     private static final String ARG_COLUMN_COUNT = "ARG_COLUMN_COUNT";
     private static SearchFragmentPresenter mPresenter;
     private int mColumnCount = 1;
+    private TextInputEditText mInput;
+    private AppCompatTextView mLabel;
+    private AppCompatButton   mButton;
 
     public SearchFragment() {
     }
@@ -79,19 +85,19 @@ public class SearchFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         init();
-        View view = inflater.inflate(R.layout.fragment_searchresult, container, false);
-
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new SearchResultAdapter(DummyContent.ITEMS, this));
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
+        Context context = view.getContext();
+        mInput = (TextInputEditText) view.findViewById(R.id.fragment_search_input);
+        mLabel = (AppCompatTextView) view.findViewById(R.id.fragment_search_label);
+        mButton = (AppCompatButton) view.findViewById(R.id.fragment_search_button);
+        RecyclerView recyclerView =
+                (RecyclerView) view.findViewById(R.id.fragment_search_list);
+        if (mColumnCount <= 1) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        } else {
+            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
+        recyclerView.setAdapter(new SearchResultAdapter(DummyContent.ITEMS, this));
         return view;
     }
 
