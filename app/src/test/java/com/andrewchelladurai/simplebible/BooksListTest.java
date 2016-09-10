@@ -26,7 +26,7 @@
 
 package com.andrewchelladurai.simplebible;
 
-import com.andrewchelladurai.simplebible.adapter.BooksList;
+import com.andrewchelladurai.simplebible.model.BooksList;
 
 import org.junit.After;
 import org.junit.Assert;

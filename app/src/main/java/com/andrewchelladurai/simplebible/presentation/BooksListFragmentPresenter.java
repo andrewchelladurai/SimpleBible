@@ -2,7 +2,7 @@ package com.andrewchelladurai.simplebible.presentation;
 
 import android.util.Log;
 
-import com.andrewchelladurai.simplebible.adapter.BooksList;
+import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.interaction.BooksListFragmentInterface;
 
 /**

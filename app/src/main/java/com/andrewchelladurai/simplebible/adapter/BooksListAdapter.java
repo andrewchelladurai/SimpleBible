@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.adapter.BooksList.BookItem;
+import com.andrewchelladurai.simplebible.model.BooksList.BookItem;
 import com.andrewchelladurai.simplebible.interaction.BooksListFragmentInterface;
 
 import java.util.List;
@@ -17,10 +17,14 @@ public class BooksListAdapter
 
     private final List<BookItem>             mValues;
     private final BooksListFragmentInterface mListener;
+    private final String                     bookNameTemplate;
+    private final String                     chapterCountTemplate;
 
     public BooksListAdapter(List<BookItem> items, BooksListFragmentInterface listener) {
         mValues = items;
         mListener = listener;
+        bookNameTemplate = mListener.getBookNameTemplateString();
+        chapterCountTemplate = mListener.chapterCountTemplateString();
     }
 
     @Override
@@ -32,20 +36,7 @@ public class BooksListAdapter
 
     @Override
     public void onBindViewHolder(final BookItemViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        String value = String.valueOf(mValues.get(position).getBookNumber());
-        holder.mIdView.setText(value);
-        value = mValues.get(position).getBookName();
-        holder.mContentView.setText(value);
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    mListener.handleInteraction(holder.mItem);
-                }
-            }
-        });
+        holder.updateItem(mValues.get(position));
     }
 
     @Override
@@ -56,10 +47,10 @@ public class BooksListAdapter
     public class BookItemViewHolder
             extends RecyclerView.ViewHolder {
 
-        public final View     mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public       BookItem mItem;
+        final View     mView;
+        final TextView mIdView;
+        final TextView mContentView;
+        BookItem mItem;
 
         public BookItemViewHolder(View view) {
             super(view);
@@ -71,6 +62,21 @@ public class BooksListAdapter
         @Override
         public String toString() {
             return super.toString() + " '" + mContentView.getText() + "'";
+        }
+
+        public void updateItem(BookItem bookItem) {
+            mItem = bookItem;
+            mIdView.setText(String.format(bookNameTemplate, mItem.getBookName()));
+            mContentView.setText(String.format(chapterCountTemplate, mItem.getChapterCount()));
+
+            mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (null != mListener) {
+                        mListener.handleInteraction(mItem);
+                    }
+                }
+            });
         }
     }
 }

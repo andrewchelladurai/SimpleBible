@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.andrewchelladurai.simplebible.adapter.BooksList;
+import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.adapter.BooksListAdapter;
 import com.andrewchelladurai.simplebible.interaction.BooksListFragmentInterface;
 import com.andrewchelladurai.simplebible.presentation.BooksListFragmentPresenter;
@@ -90,6 +90,24 @@ public class BooksListFragment
 
     public void handleInteraction(BooksList.BookItem item) {
         Log.d(TAG, "handleInteraction() called for item [" + item.getBookName() + "]");
+    }
+
+    @Override
+    public String getBookNameTemplateString() {
+        String value = getString(R.string.book_item_name_template);
+        if (value == null) {
+            return "%s";
+        }
+        return value;
+    }
+
+    @Override
+    public String chapterCountTemplateString() {
+        String value = getString(R.string.book_item_chapter_count_template);
+        if (value == null) {
+            return "%d";
+        }
+        return value;
     }
 
     /**
