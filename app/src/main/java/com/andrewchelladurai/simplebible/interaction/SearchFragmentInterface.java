@@ -39,4 +39,10 @@ public interface SearchFragmentInterface
     void showResetButton();
 
     void showSearchButton();
+
+    String getEmptyInputErrorMessage();
+
+    String getInputMinLengthErrorMessage();
+
+    String getInputMaxLengthErrorMessage();
 }

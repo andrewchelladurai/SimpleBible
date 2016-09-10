@@ -29,6 +29,7 @@ package com.andrewchelladurai.simplebible.presentation;
 import android.util.Log;
 
 import com.andrewchelladurai.simplebible.interaction.SearchFragmentInterface;
+import com.andrewchelladurai.simplebible.utilities.Constants;
 
 /**
  * Created by andrew on 10/9/16. Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
@@ -47,10 +48,27 @@ public class SearchFragmentPresenter {
         Log.d(TAG, "init() called:");
     }
 
-    public String searchButtonClicked(String inputString) {
+    public String searchButtonClicked(String input) {
         Log.d(TAG, "searchButtonClicked() called");
+        String returnValue = Constants.SUCCESS_RETURN_VALUE;
+
+        // check if the input is empty or null
+        if (null == input || input.length() == 0) {
+            returnValue = mInterface.getEmptyInputErrorMessage();
+            return returnValue;
+        }
+        // if input is only 2 chars, return
+        if (input.length() < 3) {
+            returnValue = mInterface.getInputMinLengthErrorMessage();
+            return returnValue;
+        }
+        // if input is more than 50 chars, return
+        if (input.length() > 50) {
+            returnValue = mInterface.getInputMaxLengthErrorMessage();
+            return returnValue;
+        }
         mInterface.showResetButton();
-        return inputString;
+        return returnValue;
     }
 
     public void resetButtonClicked() {

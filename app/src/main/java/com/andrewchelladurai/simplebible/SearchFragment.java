@@ -120,6 +120,21 @@ public class SearchFragment
     }
 
     @Override
+    public String getEmptyInputErrorMessage() {
+        return getString(R.string.fragment_search_err_msg_empty);
+    }
+
+    @Override
+    public String getInputMinLengthErrorMessage() {
+        return getString(R.string.fragment_search_err_msg_length_min);
+    }
+
+    @Override
+    public String getInputMaxLengthErrorMessage() {
+        return getString(R.string.fragment_search_err_msg_length_max);
+    }
+
+    @Override
     public void init() {
         Log.d(TAG, "init() called:");
         mPresenter = new SearchFragmentPresenter(this);
