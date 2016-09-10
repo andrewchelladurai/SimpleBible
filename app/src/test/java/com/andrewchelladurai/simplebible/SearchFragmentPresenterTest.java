@@ -55,7 +55,6 @@ public class SearchFragmentPresenterTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        mInterface = new SearchFragment();
         mPresenter = new SearchFragmentPresenter(mInterface);
     }
 
@@ -71,10 +70,35 @@ public class SearchFragmentPresenterTest {
     }
 
     @Test
-    public void searchButtonClicked_returns_empty_err_msg_when_null_is_passed() {
-        when(mInterface.getEmptyInputErrorMessage()).thenReturn("Empty Input");
+    public void searchButtonClicked_returns_err_msg_when_null_is_passed() {
+        String string = "Empty Input";
+        when(mInterface.getEmptyInputErrorMessage()).thenReturn(string);
         String returnValue = mPresenter.searchButtonClicked(null);
-        Assert.assertTrue(returnValue.equalsIgnoreCase("Empty Input"));
+        Assert.assertTrue(returnValue.equalsIgnoreCase(string));
+    }
+
+    @Test
+    public void searchButtonClicked_returns_err_msg_when_empty_str_is_passed() {
+        String string = "Empty Input";
+        when(mInterface.getEmptyInputErrorMessage()).thenReturn(string);
+        String returnValue = mPresenter.searchButtonClicked("");
+        Assert.assertTrue(returnValue.equalsIgnoreCase(string));
+    }
+
+    @Test
+    public void searchButtonClicked_returns_err_msg_when_str_len_is_less_than_3_chars() {
+        String string = "Length must be min 3 chars";
+        when(mInterface.getEmptyInputErrorMessage()).thenReturn(string);
+        String returnValue = mPresenter.searchButtonClicked(null);
+        Assert.assertTrue(returnValue.equalsIgnoreCase(string));
+    }
+
+    @Test
+    public void searchButtonClicked_returns_err_msg_when_str_len_is_more_than_50_chars() {
+        String string = "Length must not be more than 50 chars";
+        when(mInterface.getEmptyInputErrorMessage()).thenReturn(string);
+        String returnValue = mPresenter.searchButtonClicked(null);
+        Assert.assertTrue(returnValue.equalsIgnoreCase(string));
     }
 
     @Test
