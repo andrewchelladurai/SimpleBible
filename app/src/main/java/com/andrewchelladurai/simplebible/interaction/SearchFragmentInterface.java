@@ -35,4 +35,8 @@ import com.andrewchelladurai.simplebible.model.DummyContent;
 public interface SearchFragmentInterface
         extends BasicOperations {
         void onListFragmentInteraction(DummyContent.DummyItem item);
+
+    void showResetButton();
+
+    void showSearchButton();
 }

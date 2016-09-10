@@ -37,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:animateLayoutChanges="true"
         android:layout_centerHorizontal="true"
         android:orientation="vertical">
 
@@ -62,6 +63,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fragment_search_button_default" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/fragment_search_button_reset"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_search_button_reset"
+            android:visibility="gone" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

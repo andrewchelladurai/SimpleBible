@@ -51,7 +51,7 @@ import com.andrewchelladurai.simplebible.presentation.SearchFragmentPresenter;
  */
 public class SearchFragment
         extends Fragment
-        implements SearchFragmentInterface {
+        implements SearchFragmentInterface, View.OnClickListener {
 
     private static final String TAG              = "SB_SearchFragment";
     private static final String ARG_COLUMN_COUNT = "ARG_COLUMN_COUNT";
@@ -59,7 +59,8 @@ public class SearchFragment
     private int mColumnCount = 1;
     private TextInputEditText mInput;
     private AppCompatTextView mLabel;
-    private AppCompatButton   mButton;
+    private AppCompatButton   mSearchButton;
+    private AppCompatButton   mResetButton;
 
     public SearchFragment() {
     }
@@ -89,7 +90,10 @@ public class SearchFragment
         Context context = view.getContext();
         mInput = (TextInputEditText) view.findViewById(R.id.fragment_search_input);
         mLabel = (AppCompatTextView) view.findViewById(R.id.fragment_search_label);
-        mButton = (AppCompatButton) view.findViewById(R.id.fragment_search_button);
+        mSearchButton = (AppCompatButton) view.findViewById(R.id.fragment_search_button);
+        mSearchButton.setOnClickListener(this);
+        mResetButton = (AppCompatButton) view.findViewById(R.id.fragment_search_button_reset);
+        mResetButton.setOnClickListener(this);
         RecyclerView recyclerView =
                 (RecyclerView) view.findViewById(R.id.fragment_search_list);
         if (mColumnCount <= 1) {
@@ -107,6 +111,18 @@ public class SearchFragment
     }
 
     @Override
+    public void showResetButton() {
+        mResetButton.setVisibility(View.VISIBLE);
+        mSearchButton.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showSearchButton() {
+        mSearchButton.setVisibility(View.VISIBLE);
+        mResetButton.setVisibility(View.GONE);
+    }
+
+    @Override
     public void init() {
         Log.d(TAG, "init() called:");
         mPresenter = new SearchFragmentPresenter(this);
@@ -116,5 +132,14 @@ public class SearchFragment
 
     @Override
     public void refresh() {
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.equals(mSearchButton)) {
+            mPresenter.searchButtonClicked();
+        } else if (v.equals(mResetButton)) {
+            mPresenter.resetButtonClicked();
+        }
     }
 }
