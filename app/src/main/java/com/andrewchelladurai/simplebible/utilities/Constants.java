@@ -6,4 +6,5 @@ package com.andrewchelladurai.simplebible.utilities;
 public class Constants {
 
     public static final String SUCCESS_RETURN_VALUE = "SUCCESS";
+    public static final String DELIMITER_IN_REFERENCE = ":";
 }
