@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 
+import com.andrewchelladurai.simplebible.BookmarksFragment;
 import com.andrewchelladurai.simplebible.BooksFragment;
 import com.andrewchelladurai.simplebible.HomeFragment;
 import com.andrewchelladurai.simplebible.R;
@@ -54,14 +55,18 @@ public class TabsAdapter
             return BooksFragment.newInstance(2);
         } else if (title.equalsIgnoreCase(
                 mActivity.getString(R.string.main_activity_tab_title_search))) {
-            Log.d(TAG, "getPageForTitle: search");
+            Log.d(TAG, "returning SearchFragment()");
             return SearchFragment.newInstance(1);
         } else if (title.equalsIgnoreCase(
                 mActivity.getString(R.string.main_activity_tab_title_notes))) {
-            Log.d(TAG, "getPageForTitle: notes");
+            Log.d(TAG, "returning BookmarksFragment()");
+            return BookmarksFragment.newInstance(1);
+        } else {
+            Log.d(TAG, "getItem: " + mActivity.getString(R.string.how_am_i_here));
+            Log.d(TAG, "getItem: Returning another Home Fragment");
+            // TODO: 9/11/16 Handle this : may be return a blank fragment
+            return HomeFragment.newInstance();
         }
-
-        return SimpleBibleActivity.PlaceholderFragment.newInstance(position + 1);
     }
 
     @Override
