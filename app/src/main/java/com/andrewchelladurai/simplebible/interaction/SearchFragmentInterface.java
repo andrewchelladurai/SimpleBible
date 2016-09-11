@@ -26,7 +26,7 @@
 
 package com.andrewchelladurai.simplebible.interaction;
 
-import com.andrewchelladurai.simplebible.model.DummyContent;
+import com.andrewchelladurai.simplebible.model.SearchResultList;
 
 /**
  * Created by andrew on 10/9/16. Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
@@ -51,7 +51,7 @@ public interface SearchFragmentInterface
     @Override
     void refresh();
 
-    boolean searchResultLongClicked(DummyContent.SearchResultItem item);
+    boolean searchResultLongClicked(SearchResultList.SearchResultItem item);
 
-    void searchResultClicked(DummyContent.SearchResultItem item);
+    void searchResultClicked(SearchResultList.SearchResultItem item);
 }

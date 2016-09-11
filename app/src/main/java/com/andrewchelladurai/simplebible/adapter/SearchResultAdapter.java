@@ -34,7 +34,7 @@ import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.interaction.SearchFragmentInterface;
-import com.andrewchelladurai.simplebible.model.DummyContent.SearchResultItem;
+import com.andrewchelladurai.simplebible.model.SearchResultList.SearchResultItem;
 
 import java.util.List;
 
@@ -87,7 +87,7 @@ public class SearchResultAdapter
 
         public void updateContent(SearchResultItem item) {
             mItem = item;
-            mContent.setText(mItem.content);
+            mContent.setText(mItem.mContent);
             mView.setOnLongClickListener(this);
             mView.setOnClickListener(this);
         }

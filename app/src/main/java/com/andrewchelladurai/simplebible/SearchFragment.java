@@ -42,7 +42,7 @@ import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.adapter.SearchResultAdapter;
 import com.andrewchelladurai.simplebible.interaction.SearchFragmentInterface;
-import com.andrewchelladurai.simplebible.model.DummyContent;
+import com.andrewchelladurai.simplebible.model.SearchResultList;
 import com.andrewchelladurai.simplebible.presentation.SearchFragmentPresenter;
 import com.andrewchelladurai.simplebible.utilities.Constants;
 
@@ -98,7 +98,7 @@ public class SearchFragment
         } else {
             recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
-        recyclerView.setAdapter(new SearchResultAdapter(DummyContent.ITEMS, this));
+        recyclerView.setAdapter(new SearchResultAdapter(SearchResultList.ITEMS, this));
         return view;
     }
 
@@ -145,13 +145,13 @@ public class SearchFragment
     }
 
     @Override
-    public boolean searchResultLongClicked(DummyContent.SearchResultItem item) {
+    public boolean searchResultLongClicked(SearchResultList.SearchResultItem item) {
         Log.d(TAG, "searchResultLongClicked() called with: " + "item = [" + item + "]");
         return true;
     }
 
     @Override
-    public void searchResultClicked(DummyContent.SearchResultItem item) {
+    public void searchResultClicked(SearchResultList.SearchResultItem item) {
         Log.d(TAG, "searchResultClicked() called with: " + "item = [" + item + "]");
     }
 
