@@ -8,19 +8,19 @@ import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.model.BooksList.BookItem;
-import com.andrewchelladurai.simplebible.interaction.BooksListFragmentInterface;
+import com.andrewchelladurai.simplebible.interaction.BooksListOperations;
 
 import java.util.List;
 
 public class BooksListAdapter
         extends RecyclerView.Adapter<BooksListAdapter.BookItemViewHolder> {
 
-    private final List<BookItem>             mValues;
-    private final BooksListFragmentInterface mListener;
-    private final String                     bookNameTemplate;
-    private final String                     chapterCountTemplate;
+    private final List<BookItem>      mValues;
+    private final BooksListOperations mListener;
+    private final String              bookNameTemplate;
+    private final String              chapterCountTemplate;
 
-    public BooksListAdapter(List<BookItem> items, BooksListFragmentInterface listener) {
+    public BooksListAdapter(List<BookItem> items, BooksListOperations listener) {
         mValues = items;
         mListener = listener;
         bookNameTemplate = mListener.getBookNameTemplateString();

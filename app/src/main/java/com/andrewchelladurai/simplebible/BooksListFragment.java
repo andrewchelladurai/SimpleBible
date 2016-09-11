@@ -14,14 +14,14 @@ import android.widget.Toast;
 
 import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.adapter.BooksListAdapter;
-import com.andrewchelladurai.simplebible.interaction.BooksListFragmentInterface;
+import com.andrewchelladurai.simplebible.interaction.BooksListOperations;
 import com.andrewchelladurai.simplebible.presentation.BooksListFragmentPresenter;
 
 import java.util.List;
 
 public class BooksListFragment
         extends Fragment
-        implements BooksListFragmentInterface {
+        implements BooksListOperations {
 
     private static final String TAG              = "SB_BLFragment";
     private static final String ARG_COLUMN_COUNT = "COLUMN_COUNT";
