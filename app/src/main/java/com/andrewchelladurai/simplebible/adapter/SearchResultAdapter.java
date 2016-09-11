@@ -77,7 +77,7 @@ public class SearchResultAdapter
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mContent = (AppCompatTextView) view.findViewById(R.id.content);
+            mContent = (AppCompatTextView) view.findViewById(R.id.searchresult_content);
         }
 
         @Override
