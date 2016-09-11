@@ -34,7 +34,6 @@ import com.andrewchelladurai.simplebible.model.DummyContent;
  */
 public interface SearchFragmentInterface
         extends BasicOperations {
-        void onListFragmentInteraction(DummyContent.DummyItem item);
 
     void showResetButton();
 
@@ -45,4 +44,14 @@ public interface SearchFragmentInterface
     String getInputMinLengthErrorMessage();
 
     String getInputMaxLengthErrorMessage();
+
+    @Override
+    void init();
+
+    @Override
+    void refresh();
+
+    boolean searchResultLongClicked(DummyContent.SearchResultItem item);
+
+    void searchResultClicked(DummyContent.SearchResultItem item);
 }

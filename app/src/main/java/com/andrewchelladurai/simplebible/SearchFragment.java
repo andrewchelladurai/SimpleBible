@@ -103,11 +103,6 @@ public class SearchFragment
     }
 
     @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
-
-    }
-
-    @Override
     public void showResetButton() {
         mResetButton.setVisibility(View.VISIBLE);
         mSearchButton.setVisibility(View.GONE);
@@ -150,10 +145,20 @@ public class SearchFragment
     }
 
     @Override
-    public void onClick(View v) {
-        if (v.equals(mSearchButton)) {
+    public boolean searchResultLongClicked(DummyContent.SearchResultItem item) {
+        Log.d(TAG, "searchResultLongClicked() called with: " + "item = [" + item + "]");
+        return true;
+    }
+
+    @Override
+    public void searchResultClicked(DummyContent.SearchResultItem item) {
+        Log.d(TAG, "searchResultClicked() called with: " + "item = [" + item + "]");
+    }
+
+    public void onClick(View view) {
+        if (view.equals(mSearchButton)) {
             searchButtonClicked();
-        } else if (v.equals(mResetButton)) {
+        } else if (view.equals(mResetButton)) {
             mPresenter.resetButtonClicked();
             focusInputField();
         }

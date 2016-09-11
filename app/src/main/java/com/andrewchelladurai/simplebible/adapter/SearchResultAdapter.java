@@ -26,25 +26,25 @@
 
 package com.andrewchelladurai.simplebible.adapter;
 
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.interaction.SearchFragmentInterface;
-import com.andrewchelladurai.simplebible.model.DummyContent.DummyItem;
+import com.andrewchelladurai.simplebible.model.DummyContent.SearchResultItem;
 
 import java.util.List;
 
 public class SearchResultAdapter
         extends RecyclerView.Adapter<SearchResultAdapter.ViewHolder> {
 
-    private final List<DummyItem>         mValues;
+    private final List<SearchResultItem>  mValues;
     private final SearchFragmentInterface mListener;
 
-    public SearchResultAdapter(List<DummyItem> items, SearchFragmentInterface listener) {
+    public SearchResultAdapter(List<SearchResultItem> items, SearchFragmentInterface listener) {
         mValues = items;
         mListener = listener;
     }
@@ -58,19 +58,7 @@ public class SearchResultAdapter
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mContentView.setText(mValues.get(position).content);
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
-            }
-        });
+        holder.updateContent(mValues.get(position));
     }
 
     @Override
@@ -79,21 +67,39 @@ public class SearchResultAdapter
     }
 
     public class ViewHolder
-            extends RecyclerView.ViewHolder {
+            extends RecyclerView.ViewHolder
+            implements View.OnLongClickListener, View.OnClickListener {
 
-        public final View      mView;
-        public final TextView  mContentView;
-        public       DummyItem mItem;
+        private final View              mView;
+        private final AppCompatTextView mContent;
+        private       SearchResultItem  mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mContent = (AppCompatTextView) view.findViewById(R.id.content);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mContent.getText() + "'";
+        }
+
+        public void updateContent(SearchResultItem item) {
+            mItem = item;
+            mContent.setText(mItem.content);
+            mView.setOnLongClickListener(this);
+            mView.setOnClickListener(this);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            return mListener.searchResultLongClicked(mItem);
+        }
+
+        @Override
+        public void onClick(View v) {
+            mListener.searchResultClicked(mItem);
         }
     }
 }
