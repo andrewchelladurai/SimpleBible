@@ -46,6 +46,10 @@ public class SearchResultList {
         }
     }
 
+    public static List<SearchResultItem> getItems() {
+        return ITEMS;
+    }
+
     public static class SearchResultItem {
 
         public final String mReference;

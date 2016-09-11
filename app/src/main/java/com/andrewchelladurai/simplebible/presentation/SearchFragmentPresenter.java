@@ -29,6 +29,7 @@ package com.andrewchelladurai.simplebible.presentation;
 import android.util.Log;
 
 import com.andrewchelladurai.simplebible.interaction.SearchFragmentInterface;
+import com.andrewchelladurai.simplebible.model.SearchResultList.SearchResultItem;
 import com.andrewchelladurai.simplebible.utilities.Constants;
 
 /**
@@ -74,5 +75,13 @@ public class SearchFragmentPresenter {
     public void resetButtonClicked() {
         Log.d(TAG, "resetButtonClicked() called");
         mInterface.showSearchButton();
+    }
+
+    public void searchResultLongClicked(SearchResultItem item) {
+        Log.d(TAG, "searchResultLongClicked() called with: " + "item = [" + item + "]");
+    }
+
+    public void searchResultClicked(SearchResultItem item) {
+        Log.d(TAG, "searchResultClicked() called with: " + "item = [" + item + "]");
     }
 }

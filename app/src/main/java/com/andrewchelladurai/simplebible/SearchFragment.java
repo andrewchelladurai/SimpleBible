@@ -43,6 +43,7 @@ import android.view.ViewGroup;
 import com.andrewchelladurai.simplebible.adapter.SearchResultAdapter;
 import com.andrewchelladurai.simplebible.interaction.SearchFragmentInterface;
 import com.andrewchelladurai.simplebible.model.SearchResultList;
+import com.andrewchelladurai.simplebible.model.SearchResultList.SearchResultItem;
 import com.andrewchelladurai.simplebible.presentation.SearchFragmentPresenter;
 import com.andrewchelladurai.simplebible.utilities.Constants;
 
@@ -98,7 +99,7 @@ public class SearchFragment
         } else {
             recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
-        recyclerView.setAdapter(new SearchResultAdapter(SearchResultList.ITEMS, this));
+        recyclerView.setAdapter(new SearchResultAdapter(SearchResultList.getItems(), this));
         return view;
     }
 
@@ -145,14 +146,16 @@ public class SearchFragment
     }
 
     @Override
-    public boolean searchResultLongClicked(SearchResultList.SearchResultItem item) {
-        Log.d(TAG, "searchResultLongClicked() called with: " + "item = [" + item + "]");
+    public boolean searchResultLongClicked(SearchResultItem item) {
+        Log.d(TAG, "searchResultLongClicked() called");
+        mPresenter.searchResultLongClicked(item);
         return true;
     }
 
     @Override
-    public void searchResultClicked(SearchResultList.SearchResultItem item) {
-        Log.d(TAG, "searchResultClicked() called with: " + "item = [" + item + "]");
+    public void searchResultClicked(SearchResultItem item) {
+        Log.d(TAG, "searchResultClicked() called");
+        mPresenter.searchResultClicked(item);
     }
 
     public void onClick(View view) {
