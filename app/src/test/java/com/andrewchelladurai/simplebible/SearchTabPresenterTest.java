@@ -27,7 +27,7 @@
 package com.andrewchelladurai.simplebible;
 
 import com.andrewchelladurai.simplebible.interaction.SearchOperations;
-import com.andrewchelladurai.simplebible.presentation.SearchFragmentPresenter;
+import com.andrewchelladurai.simplebible.presentation.SearchTabPresenter;
 
 import junit.framework.Assert;
 
@@ -46,16 +46,16 @@ import static org.mockito.Mockito.when;
  * on 11-Sep-2016 @ 1:15 AM
  */
 @RunWith(MockitoJUnitRunner.class)
-public class SearchFragmentPresenterTest {
+public class SearchTabPresenterTest {
 
     @Mock
-    private SearchOperations        mInterface;
-    private SearchFragmentPresenter mPresenter;
+    private SearchOperations   mInterface;
+    private SearchTabPresenter mPresenter;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        mPresenter = new SearchFragmentPresenter(mInterface);
+        mPresenter = new SearchTabPresenter(mInterface);
     }
 
     @After

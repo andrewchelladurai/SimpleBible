@@ -36,12 +36,12 @@ import com.andrewchelladurai.simplebible.utilities.Constants;
  * Created by andrew on 10/9/16. Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
  * on 10-Sep-2016 @ 10:45 PM
  */
-public class SearchFragmentPresenter {
+public class SearchTabPresenter {
 
     private static final String TAG = "SB_SF_Presenter";
     private SearchOperations mInterface;
 
-    public SearchFragmentPresenter(SearchOperations fragmentInterface) {
+    public SearchTabPresenter(SearchOperations fragmentInterface) {
         mInterface = fragmentInterface;
     }
 

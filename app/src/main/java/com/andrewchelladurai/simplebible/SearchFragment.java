@@ -44,7 +44,7 @@ import com.andrewchelladurai.simplebible.adapter.SearchResultAdapter;
 import com.andrewchelladurai.simplebible.interaction.SearchOperations;
 import com.andrewchelladurai.simplebible.model.SearchResultList;
 import com.andrewchelladurai.simplebible.model.SearchResultList.SearchResultItem;
-import com.andrewchelladurai.simplebible.presentation.SearchFragmentPresenter;
+import com.andrewchelladurai.simplebible.presentation.SearchTabPresenter;
 import com.andrewchelladurai.simplebible.utilities.Constants;
 
 public class SearchFragment
@@ -53,7 +53,7 @@ public class SearchFragment
 
     private static final String TAG              = "SB_SearchFragment";
     private static final String ARG_COLUMN_COUNT = "ARG_COLUMN_COUNT";
-    private static SearchFragmentPresenter mPresenter;
+    private static SearchTabPresenter mPresenter;
     private int mColumnCount = 1;
     private TextInputEditText mInput;
     private AppCompatTextView mLabel;
@@ -133,7 +133,7 @@ public class SearchFragment
     @Override
     public void init() {
         Log.d(TAG, "init() called:");
-        mPresenter = new SearchFragmentPresenter(this);
+        mPresenter = new SearchTabPresenter(this);
         mPresenter.init();
         Log.d(TAG, "init() returned:");
     }
