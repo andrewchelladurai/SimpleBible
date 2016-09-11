@@ -8,12 +8,12 @@ import com.andrewchelladurai.simplebible.utilities.Constants;
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 07-Sep-2016 @ 1:40 AM
  */
-public class HomeFragmentPresenter {
+public class HomeTabPresenter {
 
     private static final String TAG = "SB_HF_Presenter";
     private HomeTabOperations mFragment;
 
-    public HomeFragmentPresenter(HomeTabOperations fragment) {
+    public HomeTabPresenter(HomeTabOperations fragment) {
         mFragment = fragment;
     }
 

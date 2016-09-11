@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.interaction.HomeTabOperations;
-import com.andrewchelladurai.simplebible.presentation.HomeFragmentPresenter;
+import com.andrewchelladurai.simplebible.presentation.HomeTabPresenter;
 import com.andrewchelladurai.simplebible.utilities.Constants;
 
 public class HomeFragment
@@ -24,7 +24,7 @@ public class HomeFragment
     private AppCompatTextView             mDailyVerse;
     private AppCompatTextView             mMessageLabel;
     private AppCompatButton               mGotoButton;
-    private HomeFragmentPresenter         mPresenter;
+    private HomeTabPresenter              mPresenter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -37,7 +37,7 @@ public class HomeFragment
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        mPresenter = new HomeFragmentPresenter(this);
+        mPresenter = new HomeTabPresenter(this);
         if (getArguments() != null) {
 //            mParam1 = getArguments().getString(ARG_PARAM1);
         }

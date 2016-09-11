@@ -1,7 +1,7 @@
 package com.andrewchelladurai.simplebible;
 
 import com.andrewchelladurai.simplebible.interaction.HomeTabOperations;
-import com.andrewchelladurai.simplebible.presentation.HomeFragmentPresenter;
+import com.andrewchelladurai.simplebible.presentation.HomeTabPresenter;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -18,16 +18,16 @@ import static org.mockito.Mockito.when;
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 07-Sep-2016 @ 2:37 AM
  */
 @RunWith(JUnit4.class)
-public class HomeFragmentPresenterTest {
+public class HomeTabPresenterTest {
 
     @Mock
     HomeTabOperations mFragment;
-    private HomeFragmentPresenter mPresenter;
+    private HomeTabPresenter mPresenter;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        mPresenter = new HomeFragmentPresenter(mFragment);
+        mPresenter = new HomeTabPresenter(mFragment);
     }
 
     @After
