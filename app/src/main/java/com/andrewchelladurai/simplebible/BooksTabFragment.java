@@ -14,25 +14,25 @@ import android.widget.Toast;
 
 import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.adapter.BooksListAdapter;
-import com.andrewchelladurai.simplebible.interaction.BooksListOperations;
+import com.andrewchelladurai.simplebible.interaction.BooksTabOperations;
 import com.andrewchelladurai.simplebible.presentation.BooksListFragmentPresenter;
 
 import java.util.List;
 
-public class BooksListFragment
+public class BooksTabFragment
         extends Fragment
-        implements BooksListOperations {
+        implements BooksTabOperations {
 
     private static final String TAG              = "SB_BLFragment";
     private static final String ARG_COLUMN_COUNT = "COLUMN_COUNT";
     private static BooksListFragmentPresenter mPresenter;
     private int mColumnCount = 2;
 
-    public BooksListFragment() {
+    public BooksTabFragment() {
     }
 
-    public static BooksListFragment newInstance(int columnCount) {
-        BooksListFragment fragment = new BooksListFragment();
+    public static BooksTabFragment newInstance(int columnCount) {
+        BooksTabFragment fragment = new BooksTabFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);

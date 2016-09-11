@@ -26,7 +26,7 @@
 
 package com.andrewchelladurai.simplebible;
 
-import com.andrewchelladurai.simplebible.interaction.BooksListOperations;
+import com.andrewchelladurai.simplebible.interaction.BooksTabOperations;
 import com.andrewchelladurai.simplebible.presentation.BooksListFragmentPresenter;
 
 import org.junit.After;
@@ -46,7 +46,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class BooksListFragmentPresenterTest {
 
     @Mock
-    private BooksListOperations        mInterface;
+    private BooksTabOperations         mInterface;
     private BooksListFragmentPresenter mPresenter;
 
     @Before

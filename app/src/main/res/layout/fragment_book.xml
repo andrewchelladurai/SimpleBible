@@ -6,5 +6,5 @@
     android:name="com.andrewchelladurai.simplebible.BooksListFragment"
     style="@style/StyleForMainScreens"
     app:layoutManager="LinearLayoutManager"
-    tools:context="com.andrewchelladurai.simplebible.BooksListFragment"
+    tools:context=".BooksTabFragment"
     tools:listitem="@layout/content_book" />

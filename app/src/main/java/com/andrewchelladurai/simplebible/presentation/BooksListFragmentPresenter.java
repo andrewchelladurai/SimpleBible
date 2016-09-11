@@ -2,8 +2,8 @@ package com.andrewchelladurai.simplebible.presentation;
 
 import android.util.Log;
 
+import com.andrewchelladurai.simplebible.interaction.BooksTabOperations;
 import com.andrewchelladurai.simplebible.model.BooksList;
-import com.andrewchelladurai.simplebible.interaction.BooksListOperations;
 
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 09-Sep-2016 @ 1:09 AM
@@ -11,9 +11,9 @@ import com.andrewchelladurai.simplebible.interaction.BooksListOperations;
 public class BooksListFragmentPresenter {
 
     private static final String TAG = "SB_BLF_Presenter";
-    private BooksListOperations mFragment;
+    private BooksTabOperations mFragment;
 
-    public BooksListFragmentPresenter(BooksListOperations fragment) {
+    public BooksListFragmentPresenter(BooksTabOperations fragment) {
         mFragment = fragment;
     }
 
