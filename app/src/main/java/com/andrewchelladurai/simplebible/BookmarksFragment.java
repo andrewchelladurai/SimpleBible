@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.adapter.BookmarkListAdapter;
-import com.andrewchelladurai.simplebible.model.DummyContent;
-import com.andrewchelladurai.simplebible.model.DummyContent.DummyItem;
+import com.andrewchelladurai.simplebible.model.BookmarkList;
+import com.andrewchelladurai.simplebible.model.BookmarkList.BookmarkItem;
 
 public class BookmarksFragment
         extends Fragment {
@@ -54,11 +54,11 @@ public class BookmarksFragment
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new BookmarkListAdapter(DummyContent.ITEMS, this));
+            recyclerView.setAdapter(new BookmarkListAdapter(BookmarkList.getItems(), this));
         }
         return view;
     }
 
-    public void onListFragmentInteraction(DummyItem item) {
+    public void onListFragmentInteraction(BookmarkItem item) {
     }
 }

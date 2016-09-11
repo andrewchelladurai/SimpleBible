@@ -8,17 +8,17 @@ import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.BookmarksFragment;
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.model.DummyContent.DummyItem;
+import com.andrewchelladurai.simplebible.model.BookmarkList.BookmarkItem;
 
 import java.util.List;
 
 public class BookmarkListAdapter
         extends RecyclerView.Adapter<BookmarkListAdapter.ViewHolder> {
 
-    private final List<DummyItem>   mValues;
-    private final BookmarksFragment mListener;
+    private final List<BookmarkItem> mValues;
+    private final BookmarksFragment  mListener;
 
-    public BookmarkListAdapter(List<DummyItem> items, BookmarksFragment listener) {
+    public BookmarkListAdapter(List<BookmarkItem> items, BookmarksFragment listener) {
         mValues = items;
         mListener = listener;
     }
@@ -33,8 +33,8 @@ public class BookmarkListAdapter
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mIdView.setText(mValues.get(position).getReferences());
+        holder.mContentView.setText(mValues.get(position).getNote());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,16 +54,16 @@ public class BookmarkListAdapter
     public class ViewHolder
             extends RecyclerView.ViewHolder {
 
-        public final View      mView;
-        public final TextView  mIdView;
-        public final TextView  mContentView;
-        public       DummyItem mItem;
+        public final View         mView;
+        public final TextView     mIdView;
+        public final TextView     mContentView;
+        public       BookmarkItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mContentView = (TextView) view.findViewById(R.id.content_bookmark_note);
         }
 
         @Override
