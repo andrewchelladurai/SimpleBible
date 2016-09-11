@@ -8,12 +8,12 @@ import com.andrewchelladurai.simplebible.model.BooksList;
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 09-Sep-2016 @ 1:09 AM
  */
-public class BooksListPresenter {
+public class BooksTabPresenter {
 
     private static final String TAG = "SB_BLF_Presenter";
     private BooksTabOperations mFragment;
 
-    public BooksListPresenter(BooksTabOperations fragment) {
+    public BooksTabPresenter(BooksTabOperations fragment) {
         mFragment = fragment;
     }
 
