@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_simple_bible_main_content"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/StyleForMainScreens"
     android:fitsSystemWindows="true"
+    android:padding="0dp"
     tools:context="com.andrewchelladurai.simplebible.SimpleBibleActivity">
 
     <android.support.design.widget.AppBarLayout
