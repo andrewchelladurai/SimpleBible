@@ -19,7 +19,7 @@ import com.andrewchelladurai.simplebible.presentation.BooksListFragmentPresenter
 
 import java.util.List;
 
-public class BooksTabFragment
+public class BooksFragment
         extends Fragment
         implements BooksTabOperations {
 
@@ -28,11 +28,11 @@ public class BooksTabFragment
     private static BooksListFragmentPresenter mPresenter;
     private int mColumnCount = 2;
 
-    public BooksTabFragment() {
+    public BooksFragment() {
     }
 
-    public static BooksTabFragment newInstance(int columnCount) {
-        BooksTabFragment fragment = new BooksTabFragment();
+    public static BooksFragment newInstance(int columnCount) {
+        BooksFragment fragment = new BooksFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
