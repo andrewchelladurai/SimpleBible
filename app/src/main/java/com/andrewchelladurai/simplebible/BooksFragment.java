@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.adapter.BooksListAdapter;
 import com.andrewchelladurai.simplebible.interaction.BooksTabOperations;
-import com.andrewchelladurai.simplebible.presentation.BooksListFragmentPresenter;
+import com.andrewchelladurai.simplebible.presentation.BooksListPresenter;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class BooksFragment
 
     private static final String TAG              = "SB_BLFragment";
     private static final String ARG_COLUMN_COUNT = "COLUMN_COUNT";
-    private static BooksListFragmentPresenter mPresenter;
+    private static BooksListPresenter mPresenter;
     private int mColumnCount = 2;
 
     public BooksFragment() {
@@ -42,7 +42,7 @@ public class BooksFragment
     @Override
     public void init() {
         Log.d(TAG, "init() called");
-        mPresenter = new BooksListFragmentPresenter(this);
+        mPresenter = new BooksListPresenter(this);
         boolean value = mPresenter.init();
         Log.d(TAG, "init: " + value);
     }

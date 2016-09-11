@@ -27,7 +27,7 @@
 package com.andrewchelladurai.simplebible;
 
 import com.andrewchelladurai.simplebible.interaction.BooksTabOperations;
-import com.andrewchelladurai.simplebible.presentation.BooksListFragmentPresenter;
+import com.andrewchelladurai.simplebible.presentation.BooksListPresenter;
 
 import org.junit.After;
 import org.junit.Before;
@@ -43,16 +43,16 @@ import org.mockito.runners.MockitoJUnitRunner;
  * on 10-Sep-2016 @ 3:03 PM
  */
 @RunWith(MockitoJUnitRunner.class)
-public class BooksListFragmentPresenterTest {
+public class BooksListPresenterTest {
 
     @Mock
-    private BooksTabOperations         mInterface;
-    private BooksListFragmentPresenter mPresenter;
+    private BooksTabOperations mInterface;
+    private BooksListPresenter mPresenter;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        mPresenter = new BooksListFragmentPresenter(mInterface);
+        mPresenter = new BooksListPresenter(mInterface);
     }
 
     @After
