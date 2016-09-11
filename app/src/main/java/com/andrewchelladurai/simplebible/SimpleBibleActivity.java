@@ -19,12 +19,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.adapter.TabsAdapter;
-import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityInterface;
+import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityOperations;
 import com.andrewchelladurai.simplebible.presentation.SimpleBibleActivityPresenter;
 
 public class SimpleBibleActivity
         extends AppCompatActivity
-        implements SimpleBibleActivityInterface {
+        implements SimpleBibleActivityOperations {
 
     private static final String TAG = "SB_SBActivity";
     private SimpleBibleActivityPresenter mPresenter;

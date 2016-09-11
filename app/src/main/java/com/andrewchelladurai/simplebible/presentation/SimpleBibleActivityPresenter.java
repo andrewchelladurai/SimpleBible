@@ -2,7 +2,7 @@ package com.andrewchelladurai.simplebible.presentation;
 
 import android.util.Log;
 
-import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityInterface;
+import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityOperations;
 
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 05-Sep-2016 @ 4:54 PM
@@ -10,13 +10,13 @@ import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityInterfac
 public class SimpleBibleActivityPresenter {
 
     private static final String TAG = "SB_SBA_Presenter";
-    private SimpleBibleActivityInterface mInterface;
+    private SimpleBibleActivityOperations mInterface;
 
     /**
      * This must be called in the onCreate of the Activity and also before any of the views is
      * created. Reason being, this constructor will init the DB connection etc...
      */
-    public SimpleBibleActivityPresenter(SimpleBibleActivityInterface aInterface) {
+    public SimpleBibleActivityPresenter(SimpleBibleActivityOperations aInterface) {
         mInterface = aInterface;
     }
 
