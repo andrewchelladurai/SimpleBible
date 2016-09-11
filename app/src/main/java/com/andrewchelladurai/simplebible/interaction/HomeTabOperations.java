@@ -3,7 +3,7 @@ package com.andrewchelladurai.simplebible.interaction;
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 07-Sep-2016 @ 1:41 AM
  */
-public interface HomeFragmentInterface
+public interface HomeTabOperations
         extends BasicOperations {
 
     String getBookInput();

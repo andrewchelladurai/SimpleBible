@@ -1,6 +1,6 @@
 package com.andrewchelladurai.simplebible;
 
-import com.andrewchelladurai.simplebible.interaction.HomeFragmentInterface;
+import com.andrewchelladurai.simplebible.interaction.HomeTabOperations;
 import com.andrewchelladurai.simplebible.presentation.HomeFragmentPresenter;
 
 import org.junit.After;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 public class HomeFragmentPresenterTest {
 
     @Mock
-    HomeFragmentInterface mFragment;
+    HomeTabOperations mFragment;
     private HomeFragmentPresenter mPresenter;
 
     @Before

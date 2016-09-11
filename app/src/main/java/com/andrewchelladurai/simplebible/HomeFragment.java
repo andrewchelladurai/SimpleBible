@@ -10,13 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.andrewchelladurai.simplebible.interaction.HomeFragmentInterface;
+import com.andrewchelladurai.simplebible.interaction.HomeTabOperations;
 import com.andrewchelladurai.simplebible.presentation.HomeFragmentPresenter;
 import com.andrewchelladurai.simplebible.utilities.Constants;
 
 public class HomeFragment
         extends Fragment
-        implements View.OnClickListener, HomeFragmentInterface {
+        implements View.OnClickListener, HomeTabOperations {
 
     private static final String TAG = "SB_HomeFragment";
     private AppCompatAutoCompleteTextView mBookInput;

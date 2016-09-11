@@ -2,7 +2,7 @@ package com.andrewchelladurai.simplebible.presentation;
 
 import android.util.Log;
 
-import com.andrewchelladurai.simplebible.interaction.HomeFragmentInterface;
+import com.andrewchelladurai.simplebible.interaction.HomeTabOperations;
 import com.andrewchelladurai.simplebible.utilities.Constants;
 
 /**
@@ -11,9 +11,9 @@ import com.andrewchelladurai.simplebible.utilities.Constants;
 public class HomeFragmentPresenter {
 
     private static final String TAG = "SB_HF_Presenter";
-    private HomeFragmentInterface mFragment;
+    private HomeTabOperations mFragment;
 
-    public HomeFragmentPresenter(HomeFragmentInterface fragment) {
+    public HomeFragmentPresenter(HomeTabOperations fragment) {
         mFragment = fragment;
     }
 
