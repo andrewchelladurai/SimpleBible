@@ -33,7 +33,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.interaction.SearchFragmentInterface;
+import com.andrewchelladurai.simplebible.interaction.SearchOperations;
 import com.andrewchelladurai.simplebible.model.SearchResultList.SearchResultItem;
 
 import java.util.List;
@@ -41,10 +41,10 @@ import java.util.List;
 public class SearchResultAdapter
         extends RecyclerView.Adapter<SearchResultAdapter.ViewHolder> {
 
-    private final List<SearchResultItem>  mValues;
-    private final SearchFragmentInterface mListener;
+    private final List<SearchResultItem> mValues;
+    private final SearchOperations       mListener;
 
-    public SearchResultAdapter(List<SearchResultItem> items, SearchFragmentInterface listener) {
+    public SearchResultAdapter(List<SearchResultItem> items, SearchOperations listener) {
         mValues = items;
         mListener = listener;
     }

@@ -26,7 +26,7 @@
 
 package com.andrewchelladurai.simplebible;
 
-import com.andrewchelladurai.simplebible.interaction.SearchFragmentInterface;
+import com.andrewchelladurai.simplebible.interaction.SearchOperations;
 import com.andrewchelladurai.simplebible.presentation.SearchFragmentPresenter;
 
 import junit.framework.Assert;
@@ -49,7 +49,7 @@ import static org.mockito.Mockito.when;
 public class SearchFragmentPresenterTest {
 
     @Mock
-    private SearchFragmentInterface mInterface;
+    private SearchOperations        mInterface;
     private SearchFragmentPresenter mPresenter;
 
     @Before

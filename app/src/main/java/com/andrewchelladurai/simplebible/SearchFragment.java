@@ -41,7 +41,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.adapter.SearchResultAdapter;
-import com.andrewchelladurai.simplebible.interaction.SearchFragmentInterface;
+import com.andrewchelladurai.simplebible.interaction.SearchOperations;
 import com.andrewchelladurai.simplebible.model.SearchResultList;
 import com.andrewchelladurai.simplebible.model.SearchResultList.SearchResultItem;
 import com.andrewchelladurai.simplebible.presentation.SearchFragmentPresenter;
@@ -49,7 +49,7 @@ import com.andrewchelladurai.simplebible.utilities.Constants;
 
 public class SearchFragment
         extends Fragment
-        implements SearchFragmentInterface, View.OnClickListener {
+        implements SearchOperations, View.OnClickListener {
 
     private static final String TAG              = "SB_SearchFragment";
     private static final String ARG_COLUMN_COUNT = "ARG_COLUMN_COUNT";
