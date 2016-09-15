@@ -55,6 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:listSelector="@android:color/transparent"
             tools:listitem="@layout/content_activity_bookmark_list" />
 
         <android.support.v7.widget.AppCompatTextView
@@ -72,13 +73,5 @@
             android:layout_below="@id/activity_bookmark_label"
             android:inputType="text|textAutoComplete|textAutoCorrect|textMultiLine" />
     </RelativeLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/activity_bookmark_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -27,18 +27,15 @@
 package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 
 public class BookmarkEntryActivity
-        extends AppCompatActivity {
+    extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +44,6 @@ public class BookmarkEntryActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_bookmark_toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.activity_bookmark_fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         // Is the UP / Back in the ActionBar required?
         // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -64,9 +53,9 @@ public class BookmarkEntryActivity
         }
 
         ListViewCompat listViewCompat = (ListViewCompat) findViewById(R.id.activity_bookmark_list);
-        listViewCompat.setAdapter(new ArrayAdapter<>
-                                          (getApplicationContext(),
-                                           R.layout.content_activity_bookmark_list, items));
+        listViewCompat.setAdapter(new ArrayAdapter<>(getApplicationContext(),
+                                                     R.layout.content_activity_bookmark_list,
+                                                     items));
     }
 
 }
