@@ -30,8 +30,7 @@
             android:layout_below="@+id/bookmark_item_note"
             android:layout_toLeftOf="@+id/bookmark_item_button_share"
             android:layout_toStartOf="@+id/bookmark_item_button_share"
-            android:text="@string/bookmark_item_label_delete"
-            android:visibility="gone" />
+            android:text="@string/bookmark_item_label_delete"/>
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/bookmark_item_button_share"
@@ -41,8 +40,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/bookmark_item_note"
-            android:text="@string/bookmark_item_label_share"
-            android:visibility="gone" />
+            android:text="@string/bookmark_item_label_share"/>
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>
