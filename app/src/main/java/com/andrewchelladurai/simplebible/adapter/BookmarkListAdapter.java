@@ -27,23 +27,13 @@ public class BookmarkListAdapter
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                                  .inflate(R.layout.content_bookmark, parent, false);
+                            .inflate(R.layout.content_bookmark, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mReference.setText(mValues.get(position).getNote());
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
-            }
-        });
+        holder.updateView(mValues.get(position));
     }
 
     @Override
@@ -64,22 +54,22 @@ public class BookmarkListAdapter
             super(view);
             mView = view;
             mReference = (AppCompatTextView) view.findViewById(R.id.bookmark_item_reference);
-            mReference.setOnClickListener(this);
+//            mReference.setOnClickListener(this);
             mNote = (AppCompatTextView) view.findViewById(R.id.bookmark_item_note);
-            mNote.setOnClickListener(this);
-            AppCompatButton button = (AppCompatButton) view
-                    .findViewById(R.id.bookmark_item_button_delete);
+//            mNote.setOnClickListener(this);
+            AppCompatButton button =
+                    (AppCompatButton) view.findViewById(R.id.bookmark_item_button_delete);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    mListener.deleteButtonClicked(mItem);
+                    mListener.deleteButtonClicked(mItem);
                 }
             });
             button = (AppCompatButton) view.findViewById(R.id.bookmark_item_button_share);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    mListener.shareButtonClicked(mItem);
+                    mListener.shareButtonClicked(mItem);
                 }
             });
         }
@@ -89,11 +79,16 @@ public class BookmarkListAdapter
             return super.toString() + " '" + mReference.getText() + "'";
         }
 
+        public void updateView(BookmarkItem bookmarkItem) {
+            mItem = bookmarkItem;
+            mReference.setText(mItem.getNote());
+
+            mView.setOnClickListener(this);
+        }
+
         @Override
         public void onClick(View view) {
-            if (view instanceof AppCompatTextView) {
-//                mListener.bookmarkClicked(mItem);
-            }
+            mListener.bookmarkClicked(mItem);
         }
     }
 }

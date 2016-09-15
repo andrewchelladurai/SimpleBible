@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,8 @@ import com.andrewchelladurai.simplebible.model.BookmarkList.BookmarkItem;
 public class BookmarksFragment
         extends Fragment {
 
-    private static final String ARG_COLUMN_COUNT = "column-count";
+    private static final String TAG = "SB_BM_Fragment";
+    private static final String ARG_COLUMN_COUNT = "COLUMN_COUNT";
     private              int    mColumnCount     = 1;
 
     public BookmarksFragment() {
@@ -59,6 +61,15 @@ public class BookmarksFragment
         return view;
     }
 
-    public void onListFragmentInteraction(BookmarkItem item) {
+    public void bookmarkClicked(BookmarkItem item) {
+        Log.d(TAG, "bookmarkClicked() called with: " + "item = [" + item + "]");
+    }
+
+    public void deleteButtonClicked(BookmarkItem item) {
+        Log.d(TAG, "deleteButtonClicked() called with: " + "item = [" + item + "]");
+    }
+
+    public void shareButtonClicked(BookmarkItem item) {
+        Log.d(TAG, "shareButtonClicked() called with: " + "item = [" + item + "]");
     }
 }
