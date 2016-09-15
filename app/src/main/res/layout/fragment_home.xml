@@ -13,7 +13,7 @@
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/fragment_home_goto_label"
-            style="@style/TextSubHeader"
+            style="@style/StyleForTextSubHeader"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:gravity="center"

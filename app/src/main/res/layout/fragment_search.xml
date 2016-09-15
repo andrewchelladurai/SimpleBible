@@ -51,7 +51,7 @@
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/fragment_search_label"
-            style="@style/TextSubHeader"
+            style="@style/StyleForTextSubHeader"
             android:gravity="center" />
 
         <android.support.v7.widget.AppCompatButton

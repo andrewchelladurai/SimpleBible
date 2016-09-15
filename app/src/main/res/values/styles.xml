@@ -26,6 +26,14 @@
 
 <resources>
 
+    <style name="StyleForCards">
+        <item name="cardUseCompatPadding">true</item>
+        <item name="cardPreventCornerOverlap">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
     <style name="StyleForTextInput" parent="Widget.AppCompat.EditText">
         <item name="android:lines">1</item>
         <item name="android:inputType">text|textAutoComplete|textAutoCorrect</item>
@@ -39,14 +47,14 @@
         <item name="android:padding">@dimen/screen_padding</item>
     </style>
 
-    <style name="TextHeader" parent="TextAppearance.AppCompat.Medium">
+    <style name="StyleForTextHeader" parent="TextAppearance.AppCompat.Medium">
         <item name="android:textStyle">bold</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/textColor</item>
     </style>
 
-    <style name="TextSubHeader" parent="TextAppearance.AppCompat.Small">
+    <style name="StyleForTextSubHeader" parent="TextAppearance.AppCompat.Small">
         <item name="android:textStyle">normal</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textColor">@color/textColor</item>
