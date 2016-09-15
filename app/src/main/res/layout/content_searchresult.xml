@@ -31,8 +31,6 @@
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/searchresult_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        style="@style/StyleForTextSubHeader"
+        android:layout_margin="@dimen/text_margin" />
 </android.support.v7.widget.CardView>
