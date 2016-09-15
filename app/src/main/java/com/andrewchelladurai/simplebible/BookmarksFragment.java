@@ -12,15 +12,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.adapter.BookmarkListAdapter;
+import com.andrewchelladurai.simplebible.interaction.BookmarksTabOperations;
 import com.andrewchelladurai.simplebible.model.BookmarkList;
 import com.andrewchelladurai.simplebible.model.BookmarkList.BookmarkItem;
+import com.andrewchelladurai.simplebible.presentation.BookmarksTabPresenter;
 
 public class BookmarksFragment
-        extends Fragment {
+        extends Fragment
+        implements BookmarksTabOperations {
 
-    private static final String TAG = "SB_BM_Fragment";
+    private static final String TAG              = "SB_BM_Fragment";
     private static final String ARG_COLUMN_COUNT = "COLUMN_COUNT";
     private              int    mColumnCount     = 1;
+    private BookmarksTabPresenter mPresenter;
 
     public BookmarksFragment() {
     }
@@ -58,18 +62,40 @@ public class BookmarksFragment
             }
             recyclerView.setAdapter(new BookmarkListAdapter(BookmarkList.getItems(), this));
         }
+        init();
         return view;
     }
 
-    public void bookmarkClicked(BookmarkItem item) {
+    @Override public void init() {
+        if (mPresenter == null) {
+            mPresenter = new BookmarksTabPresenter(this);
+        }
+    }
+
+    @Override public void refresh() {
+
+    }
+
+    @Override public void bookmarkClicked(BookmarkItem item) {
         Log.d(TAG, "bookmarkClicked() called with: " + "item = [" + item + "]");
+        mPresenter.bookmarkClicked(item);
     }
 
-    public void deleteButtonClicked(BookmarkItem item) {
+    @Override public void deleteButtonClicked(BookmarkItem item) {
         Log.d(TAG, "deleteButtonClicked() called with: " + "item = [" + item + "]");
+        mPresenter.deleteButtonClicked(item);
     }
 
-    public void shareButtonClicked(BookmarkItem item) {
+    @Override public void shareButtonClicked(BookmarkItem item) {
         Log.d(TAG, "shareButtonClicked() called with: " + "item = [" + item + "]");
+        mPresenter.shareButtonClicked(item);
+    }
+
+    @Override public String getDeleteButtonLabel() {
+        return getString(R.string.bookmark_item_label_delete);
+    }
+
+    @Override public String getShareButtonLabel() {
+        return getString(R.string.bookmark_item_label_share);
     }
 }

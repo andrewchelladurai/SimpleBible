@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.BookmarksFragment;
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.interaction.BookmarksTabOperations;
 import com.andrewchelladurai.simplebible.model.BookmarkList.BookmarkItem;
 
 import java.util.List;
@@ -16,8 +17,8 @@ import java.util.List;
 public class BookmarkListAdapter
         extends RecyclerView.Adapter<BookmarkListAdapter.ViewHolder> {
 
-    private final List<BookmarkItem> mValues;
-    private final BookmarksFragment  mListener;
+    private final List<BookmarkItem>     mValues;
+    private final BookmarksTabOperations mListener;
 
     public BookmarkListAdapter(List<BookmarkItem> items, BookmarksFragment listener) {
         mValues = items;
@@ -54,24 +55,12 @@ public class BookmarkListAdapter
             super(view);
             mView = view;
             mReference = (AppCompatTextView) view.findViewById(R.id.bookmark_item_reference);
-//            mReference.setOnClickListener(this);
             mNote = (AppCompatTextView) view.findViewById(R.id.bookmark_item_note);
-//            mNote.setOnClickListener(this);
             AppCompatButton button =
                     (AppCompatButton) view.findViewById(R.id.bookmark_item_button_delete);
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.deleteButtonClicked(mItem);
-                }
-            });
+            button.setOnClickListener(this);
             button = (AppCompatButton) view.findViewById(R.id.bookmark_item_button_share);
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.shareButtonClicked(mItem);
-                }
-            });
+            button.setOnClickListener(this);
         }
 
         @Override
@@ -88,7 +77,16 @@ public class BookmarkListAdapter
 
         @Override
         public void onClick(View view) {
-            mListener.bookmarkClicked(mItem);
+            if (view instanceof AppCompatButton) {
+                String label = ((AppCompatButton) view).getText().toString();
+                if (label.equalsIgnoreCase(mListener.getDeleteButtonLabel())) {
+                    mListener.deleteButtonClicked(mItem);
+                } else if (label.equalsIgnoreCase(mListener.getShareButtonLabel())) {
+                    mListener.shareButtonClicked(mItem);
+                }
+            } else {
+                mListener.bookmarkClicked(mItem);
+            }
         }
     }
 }
