@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,12 +11,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.andrewchelladurai.simplebible.adapter.BookmarkListAdapter;
 import com.andrewchelladurai.simplebible.interaction.BookmarksTabOperations;
 import com.andrewchelladurai.simplebible.model.BookmarkList;
 import com.andrewchelladurai.simplebible.model.BookmarkList.BookmarkItem;
 import com.andrewchelladurai.simplebible.presentation.BookmarksTabPresenter;
+import com.andrewchelladurai.simplebible.utilities.Constants;
 
 public class BookmarksFragment
         extends Fragment
@@ -77,8 +80,27 @@ public class BookmarksFragment
     }
 
     @Override public void bookmarkClicked(BookmarkItem item) {
-        Log.d(TAG, "bookmarkClicked() called with: " + "item = [" + item + "]");
-        mPresenter.bookmarkClicked(item);
+        Log.d(TAG, "bookmarkClicked() called");
+        String returnValue = mPresenter.isBookmarkAlreadyPresentInDatabase(item);
+        if (returnValue.equalsIgnoreCase(Constants.ERROR)) {
+            Toast.makeText(getContext(), "Invalid Bookmark Entry", Toast.LENGTH_SHORT).show();
+            Exception ex = new Exception("Invalid Bookmark Entry" + item);
+            Log.w(TAG, "bookmarkClicked: ", ex);
+            return;
+        }
+        Intent intent = new Intent(getContext(), BookmarkEntryActivity.class);
+        Bundle bundle = new Bundle();
+        intent.putExtras(bundle);
+//        bundle.putParcelable(Constants.BUNDLE_ARG_BOOKMARK_ITEM, item);
+
+        if (returnValue.equalsIgnoreCase(Constants.PRESENT_IN_DATABASE)) {
+//            bundle.putString(Constants.BOOKMARK_MODE, Constants.VIEW);
+        } else if (returnValue.equalsIgnoreCase(Constants.ABSENT_IN_DATABASE)) {
+//            bundle.putString(Constants.BOOKMARK_MODE, Constants.EDIT);
+        } else {
+            Log.d(TAG, "bookmarkClicked: " + getString(R.string.how_am_i_here));
+        }
+        startActivity(intent);
     }
 
     @Override public void deleteButtonClicked(BookmarkItem item) {

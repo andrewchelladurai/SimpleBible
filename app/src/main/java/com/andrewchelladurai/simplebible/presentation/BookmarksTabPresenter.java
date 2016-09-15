@@ -30,6 +30,7 @@ import android.util.Log;
 
 import com.andrewchelladurai.simplebible.interaction.BookmarksTabOperations;
 import com.andrewchelladurai.simplebible.model.BookmarkList;
+import com.andrewchelladurai.simplebible.utilities.Constants;
 
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 15-Sep-2016 @ 4:47 PM
@@ -41,8 +42,19 @@ public class BookmarksTabPresenter {
 
     public BookmarksTabPresenter(BookmarksTabOperations fragment) {mFragment = fragment;}
 
-    public void bookmarkClicked(BookmarkList.BookmarkItem item) {
-        Log.d(TAG, "bookmarkClicked() called with: " + "item = [" + item + "]");
+    /**
+     * Will check if the clciked bookmark is already present in the database.
+     *
+     * @param item
+     *
+     * @return Constants.Error | PRESENT_IN_DATABASE | ABSENT_IN_DATABASE
+     */
+    public String isBookmarkAlreadyPresentInDatabase(BookmarkList.BookmarkItem item) {
+        if (null == item) {
+            return Constants.ERROR;
+        }
+        return Constants.PRESENT_IN_DATABASE;
+//        return Constants.ABSENT_IN_DATABASE;
     }
 
     public void deleteButtonClicked(BookmarkList.BookmarkItem item) {

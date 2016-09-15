@@ -45,6 +45,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".BookmarkEntryActivity"
+            android:label="@string/title_activity_bookmark_entry"
+            android:parentActivityName=".SimpleBibleActivity"
+            android:theme="@style/SBTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.andrewchelladurai.simplebible.SimpleBibleActivity" />
+        </activity>
     </application>
 
 </manifest>
