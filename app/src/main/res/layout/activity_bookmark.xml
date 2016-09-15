@@ -24,17 +24,19 @@
   ~
   -->
 
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="com.andrewchelladurai.simplebible.BookmarkEntryActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:theme="@style/SBTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
@@ -46,32 +48,82 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <RelativeLayout
-        style="@style/StyleForMainScreens"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="@dimen/text_margin">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/activity_bookmark_label_reference"
+            style="@style/StyleForTextSubHeader"
+            android:gravity="center"
+            android:text="@string/application_name" />
 
         <android.support.v7.widget.ListViewCompat
             android:id="@+id/activity_bookmark_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:listSelector="@android:color/transparent"
             tools:listitem="@layout/content_activity_bookmark_list" />
+    </android.support.v7.widget.LinearLayoutCompat>
 
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/activity_bookmark_label"
-            style="@style/StyleForTextSubHeader"
-            android:layout_below="@id/activity_bookmark_list"
-            android:layout_margin="@dimen/text_margin"
-            android:gravity="center"
-            android:text="@string/title_activity_bookmark_entry" />
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/text_margin"
+        android:layout_weight="1">
 
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/activity_bookmark_note"
+        <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/activity_bookmark_label"
-            android:inputType="text|textAutoComplete|textAutoCorrect|textMultiLine" />
-    </RelativeLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/text_margin">
 
-</android.support.design.widget.CoordinatorLayout>
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/activity_bookmark_label_note"
+                style="@style/StyleForTextSubHeader"
+                android:gravity="center"
+                android:text="@string/application_name" />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="top"
+                android:padding="@dimen/text_margin"
+                android:text="@string/application_name" />
+
+            <android.support.v7.widget.ButtonBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatButton
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Save" />
+
+                <android.support.v7.widget.AppCompatButton
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Edit" />
+
+                <android.support.v7.widget.AppCompatButton
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Delete" />
+
+                <android.support.v7.widget.AppCompatButton
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Share" />
+            </android.support.v7.widget.ButtonBarLayout>
+        </android.support.v7.widget.LinearLayoutCompat>
+    </android.support.v7.widget.CardView>
+</android.support.v7.widget.LinearLayoutCompat>
