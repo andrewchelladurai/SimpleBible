@@ -28,7 +28,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:name="com.andrewchelladurai.simplebible.SearchFragment"
     style="@style/StyleForMainScreens"
-    tools:context="com.andrewchelladurai.simplebible.SearchFragment">
+    tools:context=".SearchFragment">
 
     <LinearLayout
         android:id="@+id/fragment_search_input_container"

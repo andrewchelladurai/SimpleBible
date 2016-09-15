@@ -26,7 +26,7 @@
 
 package com.andrewchelladurai.simplebible;
 
-import com.andrewchelladurai.simplebible.interaction.SearchOperations;
+import com.andrewchelladurai.simplebible.interaction.SearchTabOperations;
 import com.andrewchelladurai.simplebible.presentation.SearchTabPresenter;
 
 import junit.framework.Assert;
@@ -49,8 +49,8 @@ import static org.mockito.Mockito.when;
 public class SearchTabPresenterTest {
 
     @Mock
-    private SearchOperations   mInterface;
-    private SearchTabPresenter mPresenter;
+    private SearchTabOperations mInterface;
+    private SearchTabPresenter  mPresenter;
 
     @Before
     public void setUp() {

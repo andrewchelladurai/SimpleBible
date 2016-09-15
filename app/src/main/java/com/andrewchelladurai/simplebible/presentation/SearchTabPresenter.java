@@ -28,7 +28,7 @@ package com.andrewchelladurai.simplebible.presentation;
 
 import android.util.Log;
 
-import com.andrewchelladurai.simplebible.interaction.SearchOperations;
+import com.andrewchelladurai.simplebible.interaction.SearchTabOperations;
 import com.andrewchelladurai.simplebible.model.SearchResultList.SearchResultItem;
 import com.andrewchelladurai.simplebible.utilities.Constants;
 
@@ -39,9 +39,9 @@ import com.andrewchelladurai.simplebible.utilities.Constants;
 public class SearchTabPresenter {
 
     private static final String TAG = "SB_SF_Presenter";
-    private SearchOperations mInterface;
+    private SearchTabOperations mInterface;
 
-    public SearchTabPresenter(SearchOperations fragmentInterface) {
+    public SearchTabPresenter(SearchTabOperations fragmentInterface) {
         mInterface = fragmentInterface;
     }
 
