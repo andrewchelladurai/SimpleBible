@@ -90,8 +90,10 @@ public class SearchResultAdapter
             mItem = item;
             mContent.setText(mItem.mContent);
             mView.setOnLongClickListener(this);
-            boolean selected = mListener.isItemSelected(mItem);
-            updateItemColor(selected);
+
+            // check if this item is selected (may happen before a config change)
+            // if yes then update its color
+            updateItemColor(mListener.isItemSelected(mItem));
         }
 
         private void updateItemColor(boolean selected) {

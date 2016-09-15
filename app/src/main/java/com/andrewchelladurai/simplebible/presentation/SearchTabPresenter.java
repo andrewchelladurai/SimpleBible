@@ -54,7 +54,7 @@ public class SearchTabPresenter {
             mSelectedItems = new ArrayList<>(0);
             Log.d(TAG, "init: SelectedItems created");
         } else {
-            Log.d(TAG, "init: " + mSelectedItems.size() + "SelectedItems exist");
+            Log.d(TAG, "init: " + mSelectedItems.size() + " SelectedItems exist");
         }
     }
 
