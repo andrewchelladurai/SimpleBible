@@ -35,6 +35,7 @@ import android.view.ViewGroup;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.interaction.SearchTabOperations;
 import com.andrewchelladurai.simplebible.model.SearchResultList.SearchResultItem;
+import com.andrewchelladurai.simplebible.utilities.Constants;
 
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class SearchResultAdapter
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                                  .inflate(R.layout.content_searchresult, parent, false);
+                            .inflate(R.layout.content_searchresult, parent, false);
         return new ViewHolder(view);
     }
 
@@ -68,7 +69,7 @@ public class SearchResultAdapter
 
     public class ViewHolder
             extends RecyclerView.ViewHolder
-            implements View.OnLongClickListener, View.OnClickListener {
+            implements View.OnLongClickListener {
 
         private final View              mView;
         private final AppCompatTextView mContent;
@@ -89,17 +90,32 @@ public class SearchResultAdapter
             mItem = item;
             mContent.setText(mItem.mContent);
             mView.setOnLongClickListener(this);
-            mView.setOnClickListener(this);
+            boolean selected = mListener.isItemSelected(mItem);
+            updateItemColor(selected);
+        }
+
+        private void updateItemColor(boolean selected) {
+            int textColor, backgroundColor;
+            if (selected) {
+                backgroundColor = mListener.getLongClickBackgroundColor();
+                textColor = mListener.getLongClickTextColor();
+            } else {
+                backgroundColor = mListener.getDefaultBackgroundColor();
+                textColor = mListener.getDefaultTextColor();
+            }
+            mContent.setBackgroundColor(backgroundColor);
+            mContent.setTextColor(textColor);
         }
 
         @Override
         public boolean onLongClick(View v) {
-            return mListener.searchResultLongClicked(mItem);
-        }
-
-        @Override
-        public void onClick(View v) {
-            mListener.searchResultClicked(mItem);
+            String returnValue = mListener.searchResultLongClicked(mItem);
+            if (returnValue.equalsIgnoreCase(Constants.ADDED)) {
+                updateItemColor(true);
+            } else if (returnValue.equalsIgnoreCase(Constants.REMOVED)) {
+                updateItemColor(false);
+            }
+            return true;
         }
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name = "long_press_background">#391310</color>
+    <color name = "long_press_text_color">@color/textColor</color>
     <color name = "accent">#F85247</color>
     <color name = "primary">#AC3931</color>
     <color name = "primary_darker">#6C241F</color>

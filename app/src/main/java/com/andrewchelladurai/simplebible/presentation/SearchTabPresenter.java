@@ -32,6 +32,8 @@ import com.andrewchelladurai.simplebible.interaction.SearchTabOperations;
 import com.andrewchelladurai.simplebible.model.SearchResultList.SearchResultItem;
 import com.andrewchelladurai.simplebible.utilities.Constants;
 
+import java.util.ArrayList;
+
 /**
  * Created by andrew on 10/9/16. Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
  * on 10-Sep-2016 @ 10:45 PM
@@ -40,6 +42,7 @@ public class SearchTabPresenter {
 
     private static final String TAG = "SB_SF_Presenter";
     private SearchTabOperations mInterface;
+    ArrayList<SearchResultItem> mSelectedItems;
 
     public SearchTabPresenter(SearchTabOperations fragmentInterface) {
         mInterface = fragmentInterface;
@@ -47,6 +50,12 @@ public class SearchTabPresenter {
 
     public void init() {
         Log.d(TAG, "init() called:");
+        if (null == mSelectedItems || mSelectedItems.isEmpty()) {
+            mSelectedItems = new ArrayList<>(0);
+            Log.d(TAG, "init: SelectedItems created");
+        } else {
+            Log.d(TAG, "init: " + mSelectedItems.size() + "SelectedItems exist");
+        }
     }
 
     public String searchButtonClicked(String input) {
@@ -77,11 +86,27 @@ public class SearchTabPresenter {
         mInterface.showSearchButton();
     }
 
-    public void searchResultLongClicked(SearchResultItem item) {
-        Log.d(TAG, "searchResultLongClicked() called with: " + "item = [" + item + "]");
+    private String addOrRemoveSelectedItem(SearchResultItem item) {
+        if (null == item) {
+            return Constants.ERROR;
+        }
+        if (mSelectedItems.contains(item)) {
+            mSelectedItems.remove(item);
+            Log.d(TAG, "searchResultLongClicked: Item removed");
+            return Constants.REMOVED;
+        } else {
+            mSelectedItems.add(item);
+            Log.d(TAG, "searchResultLongClicked: Item Added");
+            return Constants.ADDED;
+        }
     }
 
-    public void searchResultClicked(SearchResultItem item) {
+    public String searchResultLongClicked(SearchResultItem item) {
         Log.d(TAG, "searchResultClicked() called with: " + "item = [" + item + "]");
+        return addOrRemoveSelectedItem(item);
+    }
+
+    public boolean isItemSelected(SearchResultItem item) {
+        return (null == item) ? false : mSelectedItems.contains(item);
     }
 }

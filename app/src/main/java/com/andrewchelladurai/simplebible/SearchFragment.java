@@ -30,6 +30,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.GridLayoutManager;
@@ -133,7 +134,9 @@ public class SearchFragment
     @Override
     public void init() {
         Log.d(TAG, "init() called:");
-        mPresenter = new SearchTabPresenter(this);
+        if (null == mPresenter) {
+            mPresenter = new SearchTabPresenter(this);
+        }
         mPresenter.init();
         Log.d(TAG, "init() returned:");
     }
@@ -146,16 +149,29 @@ public class SearchFragment
     }
 
     @Override
-    public boolean searchResultLongClicked(SearchResultItem item) {
+    public String searchResultLongClicked(SearchResultItem item) {
         Log.d(TAG, "searchResultLongClicked() called");
-        mPresenter.searchResultLongClicked(item);
-        return true;
+        return mPresenter.searchResultLongClicked(item);
     }
 
-    @Override
-    public void searchResultClicked(SearchResultItem item) {
-        Log.d(TAG, "searchResultClicked() called");
-        mPresenter.searchResultClicked(item);
+    @Override public int getDefaultBackgroundColor() {
+        return ContextCompat.getColor(getContext(), R.color.cardBackground);
+    }
+
+    @Override public int getLongClickBackgroundColor() {
+        return ContextCompat.getColor(getContext(), R.color.long_press_background);
+    }
+
+    @Override public int getLongClickTextColor() {
+        return ContextCompat.getColor(getContext(), R.color.long_press_text_color);
+    }
+
+    @Override public int getDefaultTextColor() {
+        return ContextCompat.getColor(getContext(), R.color.textColor);
+    }
+
+    @Override public boolean isItemSelected(SearchResultItem item) {
+        return mPresenter.isItemSelected(item);
     }
 
     public void onClick(View view) {

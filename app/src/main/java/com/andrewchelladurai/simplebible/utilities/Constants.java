@@ -7,4 +7,7 @@ public class Constants {
 
     public static final String SUCCESS_RETURN_VALUE   = "SUCCESS";
     public static final String DELIMITER_IN_REFERENCE = ":";
+    public static final String REMOVED                = "REMOVED";
+    public static final String ADDED                  = "ADDED";
+    public static final String ERROR                  = "ERROR";
 }

@@ -51,7 +51,15 @@ public interface SearchTabOperations
     @Override
     void refresh();
 
-    boolean searchResultLongClicked(SearchResultList.SearchResultItem item);
+    String searchResultLongClicked(SearchResultList.SearchResultItem item);
 
-    void searchResultClicked(SearchResultList.SearchResultItem item);
+    int getDefaultBackgroundColor();
+
+    int getLongClickBackgroundColor();
+
+    int getLongClickTextColor();
+
+    int getDefaultTextColor();
+
+    boolean isItemSelected(SearchResultList.SearchResultItem item);
 }
