@@ -31,7 +31,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.andrewchelladurai.simplebible.BookmarkEntryActivity">
+    tools:context=".BookmarkActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -95,6 +95,7 @@
                 android:layout_width="match_parent"
                 android:id="@+id/activity_bookmark_note"
                 android:layout_height="0dp"
+                android:minLines="3"
                 android:layout_weight="1"
                 android:gravity="top"
                 android:padding="@dimen/text_margin"
@@ -104,6 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:animateLayoutChanges="true"
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatButton

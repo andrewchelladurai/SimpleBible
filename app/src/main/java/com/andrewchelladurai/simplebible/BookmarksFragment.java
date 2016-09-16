@@ -88,7 +88,7 @@ public class BookmarksFragment
             Log.w(TAG, "bookmarkClicked: ", ex);
             return;
         }
-        Intent intent = new Intent(getContext(), BookmarkEntryActivity.class);
+        Intent intent = new Intent(getContext(), BookmarkActivity.class);
         Bundle bundle = new Bundle();
         intent.putExtras(bundle);
 //        bundle.putParcelable(Constants.BUNDLE_ARG_BOOKMARK_ITEM, item);

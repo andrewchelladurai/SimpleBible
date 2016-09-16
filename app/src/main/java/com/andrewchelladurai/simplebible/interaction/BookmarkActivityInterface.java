@@ -1,6 +1,6 @@
 /*
  *
- * This file 'SearchFragmentInterface.java' is part of SimpleBible :
+ * This file 'BookmarkEntryActivityInterface.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.
  *
@@ -26,34 +26,9 @@
 
 package com.andrewchelladurai.simplebible.interaction;
 
-import com.andrewchelladurai.simplebible.model.SearchResultList;
-
 /**
- * Created by andrew on 10/9/16. Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
- * on 10-Sep-2016 @ 10:43 PM
+ * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 17-Sep-2016 @ 12:49 AM
  */
-public interface SearchTabOperations
+public interface BookmarkActivityInterface
     extends BasicOperations {
-
-    void showResetButton();
-
-    void showSearchButton();
-
-    String getEmptyInputErrorMessage();
-
-    String getInputMinLengthErrorMessage();
-
-    String getInputMaxLengthErrorMessage();
-
-    String searchResultLongClicked(SearchResultList.SearchResultItem item);
-
-    int getDefaultBackgroundColor();
-
-    int getLongClickBackgroundColor();
-
-    int getLongClickTextColor();
-
-    int getDefaultTextColor();
-
-    boolean isItemSelected(SearchResultList.SearchResultItem item);
 }

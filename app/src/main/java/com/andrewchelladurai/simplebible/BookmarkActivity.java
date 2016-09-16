@@ -33,27 +33,34 @@ import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
+import com.andrewchelladurai.simplebible.interaction.BookmarkActivityInterface;
+import com.andrewchelladurai.simplebible.presentation.BookmarkActivityPresenter;
+
 import java.util.ArrayList;
 
-public class BookmarkEntryActivity
+public class BookmarkActivity
     extends AppCompatActivity
-    implements View.OnClickListener {
+    implements BookmarkActivityInterface, View.OnClickListener {
 
-    private AppCompatTextView mLabelReference;
-    private AppCompatTextView mLabelNote;
-    private ListViewCompat    mList;
-    private AppCompatEditText mNote;
-    private AppCompatButton   mButtonShare;
-    private AppCompatButton   mButtonDelete;
-    private AppCompatButton   mButtonEdit;
-    private AppCompatButton   mButtonSave;
+    private static final String TAG = "SB_BActivity";
+    private AppCompatTextView         mLabelReference;
+    private AppCompatTextView         mLabelNote;
+    private ListViewCompat            mList;
+    private AppCompatEditText         mNote;
+    private BookmarkActivityPresenter mPresenter;
+    private AppCompatButton           mButtonSave;
+    private AppCompatButton           mButtonEdit;
+    private AppCompatButton           mButtonDelete;
+    private AppCompatButton           mButtonShare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        init();
         setContentView(R.layout.activity_bookmark);
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_bookmark_toolbar);
         setSupportActionBar(toolbar);
@@ -77,17 +84,53 @@ public class BookmarkEntryActivity
         mNote = (AppCompatEditText) findViewById(R.id.activity_bookmark_note);
 
         mButtonSave = (AppCompatButton) findViewById(R.id.activity_bookmark_button_save);
-        mButtonEdit = (AppCompatButton) findViewById(R.id.activity_bookmark_button_edit);
-        mButtonDelete = (AppCompatButton) findViewById(R.id.activity_bookmark_button_delete);
-        mButtonShare = (AppCompatButton) findViewById(R.id.activity_bookmark_button_share);
-
         mButtonSave.setOnClickListener(this);
+        mButtonEdit = (AppCompatButton) findViewById(R.id.activity_bookmark_button_edit);
         mButtonEdit.setOnClickListener(this);
+        mButtonDelete = (AppCompatButton) findViewById(R.id.activity_bookmark_button_delete);
         mButtonDelete.setOnClickListener(this);
+        mButtonShare = (AppCompatButton) findViewById(R.id.activity_bookmark_button_share);
         mButtonShare.setOnClickListener(this);
     }
 
     @Override public void onClick(View v) {
+        if (v instanceof AppCompatButton) {
+            AppCompatButton button = (AppCompatButton) v;
+            if (button.equals(mButtonSave)) {
+                boolean status = mPresenter.buttonSaveClicked();
+                if (status) {
+                    mButtonSave.setVisibility(View.GONE);
+                    mButtonEdit.setVisibility(View.VISIBLE);
+                    mButtonDelete.setVisibility(View.VISIBLE);
+                    mButtonShare.setVisibility(View.VISIBLE);
+                    mNote.setFocusable(false);
+                }
+            } else if (button.equals(mButtonEdit)) {
+                boolean status = mPresenter.buttonEditClicked();
+                if (status) {
+                    mButtonSave.setVisibility(View.VISIBLE);
+                    mButtonEdit.setVisibility(View.GONE);
+                    mButtonDelete.setVisibility(View.GONE);
+                    mButtonShare.setVisibility(View.GONE);
+                    mNote.setFocusable(true);
+                }
+            } else if (button.equals(mButtonDelete)) {
+                boolean status = mPresenter.buttonDeleteClicked();
+            } else if (button.equals(mButtonShare)) {
+                boolean status = mPresenter.buttonShareClicked();
+            } else {
+                Log.d(TAG, "onClick: " + getString(R.string.how_am_i_here));
+            }
+        }
+    }
 
+    @Override public void init() {
+        if (null == mPresenter) {
+            mPresenter = new BookmarkActivityPresenter(this);
+        }
+    }
+
+    @Override public void refresh() {
+        Log.d(TAG, "refresh() called");
     }
 }
