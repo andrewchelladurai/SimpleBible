@@ -62,5 +62,9 @@
     <string name="bookmark_item_label_share">Share</string>
 
     <string name="title_activity_bookmark_entry">Bookmark Entry</string>
+    <string name="activity_bookmark_button_label_save">Save</string>
+    <string name="activity_bookmark_button_label_edit">Edit</string>
+    <string name="activity_bookmark_button_label_delete">Delete</string>
+    <string name="activity_bookmark_button_label_share">Share</string>
 
 </resources>
