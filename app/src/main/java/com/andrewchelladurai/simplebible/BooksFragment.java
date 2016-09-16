@@ -94,7 +94,7 @@ public class BooksFragment
 
     @Override
     public String getBookNameTemplateString() {
-        String value = getString(R.string.book_item_name_template);
+        String value = getString(R.string.fragment_books_book_name_template);
         if (value == null) {
             return "%s";
         }
@@ -103,7 +103,7 @@ public class BooksFragment
 
     @Override
     public String chapterCountTemplateString() {
-        String value = getString(R.string.book_item_chapter_count_template);
+        String value = getString(R.string.fragment_books_chapter_count_template);
         if (value == null) {
             return "%d";
         }

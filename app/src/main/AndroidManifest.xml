@@ -47,7 +47,7 @@
         </activity>
         <activity
             android:name=".BookmarkEntryActivity"
-            android:label="@string/title_activity_bookmark_entry"
+            android:label="@string/activity_bookmark_title"
             android:parentActivityName=".SimpleBibleActivity"
             android:theme="@style/SBTheme.NoActionBar">
             <meta-data

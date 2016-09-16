@@ -114,10 +114,10 @@ public class BookmarksFragment
     }
 
     @Override public String getDeleteButtonLabel() {
-        return getString(R.string.bookmark_item_label_delete);
+        return getString(R.string.fragment_bookmark_button_label_delete);
     }
 
     @Override public String getShareButtonLabel() {
-        return getString(R.string.bookmark_item_label_share);
+        return getString(R.string.fragment_bookmark_button_label_share);
     }
 }

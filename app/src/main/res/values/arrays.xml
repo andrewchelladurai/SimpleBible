@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="main_activity_tab_titles">
-        <item>@string/main_activity_tab_title_home</item>
-        <item>@string/main_activity_tab_title_books</item>
-        <item>@string/main_activity_tab_title_search</item>
-        <item>@string/main_activity_tab_title_notes</item>
+        <item>@string/activity_simple_bible_tab_title_home</item>
+        <item>@string/activity_simple_bible_tab_title_books</item>
+        <item>@string/activity_simple_bible_tab_title_search</item>
+        <item>@string/activity_simple_bible_tab_title_notes</item>
     </string-array>
 
     <string-array name="books_n_chapter_count_array">

@@ -46,19 +46,19 @@ public class TabsAdapter
     @Override
     public Fragment getItem(int position) {
         String title = getPageTitle(position).toString();
-        if (title.equalsIgnoreCase(mActivity.getString(R.string.main_activity_tab_title_home))) {
+        if (title.equalsIgnoreCase(mActivity.getString(R.string.activity_simple_bible_tab_title_home))) {
             Log.d(TAG, "returning HomeTabFragment()");
             return HomeFragment.newInstance();
         } else if (title.equalsIgnoreCase(
-                mActivity.getString(R.string.main_activity_tab_title_books))) {
+                mActivity.getString(R.string.activity_simple_bible_tab_title_books))) {
             Log.d(TAG, "returning BooksFragment()");
             return BooksFragment.newInstance(2);
         } else if (title.equalsIgnoreCase(
-                mActivity.getString(R.string.main_activity_tab_title_search))) {
+                mActivity.getString(R.string.activity_simple_bible_tab_title_search))) {
             Log.d(TAG, "returning SearchFragment()");
             return SearchFragment.newInstance(1);
         } else if (title.equalsIgnoreCase(
-                mActivity.getString(R.string.main_activity_tab_title_notes))) {
+                mActivity.getString(R.string.activity_simple_bible_tab_title_notes))) {
             Log.d(TAG, "returning BookmarksFragment()");
             return BookmarksFragment.newInstance(1);
         } else {

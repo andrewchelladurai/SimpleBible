@@ -33,23 +33,20 @@
     <string name="title_activity_simple_bible">@string/application_name</string>
     <string name="menu_action_settings">Settings</string>
 
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="activity_simple_bible_tab_title_home">HOME</string>
+    <string name="activity_simple_bible_tab_title_books">BOOKS</string>
+    <string name="activity_simple_bible_tab_title_search">SEARCH</string>
+    <string name="activity_simple_bible_tab_title_notes">NOTES</string>
 
-    <string name="main_activity_tab_title_home">HOME</string>
-    <string name="main_activity_tab_title_books">BOOKS</string>
-    <string name="main_activity_tab_title_search">SEARCH</string>
-    <string name="main_activity_tab_title_notes">NOTES</string>
-
-    <string name="err_msg_goto_empty_chapter_input">No Chapter Entered</string>
-    <string name="err_msg_goto_empty_book_input">No Book Name Entered</string>
-
+    <string name="fragment_home_err_msg_empty_chapter">No Chapter Entered</string>
+    <string name="fragment_home_err_msg_empty_book">No Book Name Entered</string>
     <string name="fragment_home_hint_book">Enter Book Name</string>
     <string name="fragment_home_hint_chapter">Enter Chapter Number</string>
     <string name="fragment_home_button_label_goto">Load Location</string>
-    <string name="fragment_home_daily_verse_stub">For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life. - John 3:16New International Version (NIV)</string>
+    <string name="fragment_home_daily_verse_stub">For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life. - John 3:16 : New International Version</string>
 
-    <string name="book_item_name_template">%1$s</string>
-    <string name="book_item_chapter_count_template">%1$d Chapters</string>
+    <string name="fragment_books_book_name_template">%1$s</string>
+    <string name="fragment_books_chapter_count_template">%1$d Chapters</string>
 
     <string name="fragment_search_hint">Enter text to search</string>
     <string name="fragment_search_button_default">Search</string>
@@ -58,10 +55,10 @@
     <string name="fragment_search_err_msg_length_min">Search Text must more than 3 chars</string>
     <string name="fragment_search_err_msg_length_max">Search Text must be lower than 50 chars</string>
 
-    <string name="bookmark_item_label_delete">Delete</string>
-    <string name="bookmark_item_label_share">Share</string>
+    <string name="fragment_bookmark_button_label_delete">Delete</string>
+    <string name="fragment_bookmark_button_label_share">Share</string>
 
-    <string name="title_activity_bookmark_entry">Bookmark Entry</string>
+    <string name="activity_bookmark_title">Bookmark Entry</string>
     <string name="activity_bookmark_button_label_save">Save</string>
     <string name="activity_bookmark_button_label_edit">Edit</string>
     <string name="activity_bookmark_button_label_delete">Delete</string>

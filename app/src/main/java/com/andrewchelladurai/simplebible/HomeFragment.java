@@ -115,12 +115,12 @@ public class HomeFragment
 
     @Override
     public String getBookInputEmptyErrorMessage() {
-        return getString(R.string.err_msg_goto_empty_book_input);
+        return getString(R.string.fragment_home_err_msg_empty_book);
     }
 
     @Override
     public String getChapterInputEmptyErrorMessage() {
-        return getString(R.string.err_msg_goto_empty_chapter_input);
+        return getString(R.string.fragment_home_err_msg_empty_chapter);
     }
 
     @Override
