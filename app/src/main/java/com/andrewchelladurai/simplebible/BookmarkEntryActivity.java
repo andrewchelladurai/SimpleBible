@@ -48,7 +48,7 @@ public class BookmarkEntryActivity
         // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ArrayList<String> items = new ArrayList<>(7);
-        for (int i = 1; i <= 7; i++) {
+        for (int i = 1; i <= 17; i++) {
             items.add("Entry " + i);
         }
 
