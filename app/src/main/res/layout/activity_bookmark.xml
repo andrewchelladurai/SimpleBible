@@ -93,6 +93,7 @@
 
             <android.support.v7.widget.AppCompatEditText
                 android:layout_width="match_parent"
+                android:id="@+id/activity_bookmark_note"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="top"

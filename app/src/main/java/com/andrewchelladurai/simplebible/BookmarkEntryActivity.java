@@ -28,14 +28,28 @@ package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 
 public class BookmarkEntryActivity
-    extends AppCompatActivity {
+    extends AppCompatActivity
+    implements View.OnClickListener {
+
+    private AppCompatTextView mLabelReference;
+    private AppCompatTextView mLabelNote;
+    private ListViewCompat    mList;
+    private AppCompatEditText mNote;
+    private AppCompatButton   mButtonShare;
+    private AppCompatButton   mButtonDelete;
+    private AppCompatButton   mButtonEdit;
+    private AppCompatButton   mButtonSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +61,33 @@ public class BookmarkEntryActivity
         // Is the UP / Back in the ActionBar required?
         // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Placeholder for entries
         ArrayList<String> items = new ArrayList<>(7);
-        for (int i = 1; i <= 17; i++) {
+        for (int i = 1; i <= 1; i++) {
             items.add("Entry " + i);
         }
 
-        ListViewCompat listViewCompat = (ListViewCompat) findViewById(R.id.activity_bookmark_list);
-        listViewCompat.setAdapter(new ArrayAdapter<>(getApplicationContext(),
-                                                     R.layout.content_activity_bookmark_list,
-                                                     items));
+        mLabelReference = (AppCompatTextView) findViewById(R.id.activity_bookmark_label_reference);
+
+        mList = (ListViewCompat) findViewById(R.id.activity_bookmark_list);
+        mList.setAdapter(new ArrayAdapter<>(getApplicationContext(),
+                                            R.layout.content_activity_bookmark_list,
+                                            items));
+        mLabelNote = (AppCompatTextView) findViewById(R.id.activity_bookmark_label_note);
+        mNote = (AppCompatEditText) findViewById(R.id.activity_bookmark_note);
+
+        mButtonSave = (AppCompatButton) findViewById(R.id.activity_bookmark_button_save);
+        mButtonEdit = (AppCompatButton) findViewById(R.id.activity_bookmark_button_edit);
+        mButtonDelete = (AppCompatButton) findViewById(R.id.activity_bookmark_button_delete);
+        mButtonShare = (AppCompatButton) findViewById(R.id.activity_bookmark_button_share);
+
+        mButtonSave.setOnClickListener(this);
+        mButtonEdit.setOnClickListener(this);
+        mButtonDelete.setOnClickListener(this);
+        mButtonShare.setOnClickListener(this);
     }
 
+    @Override public void onClick(View v) {
+
+    }
 }
