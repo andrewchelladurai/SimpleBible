@@ -107,17 +107,21 @@
 
                 <android.support.v7.widget.AppCompatButton
                     style="@style/StyleForButtons"
+                    android:id="@+id/activity_bookmark_button_save"
                     android:text="@string/activity_bookmark_button_label_save" />
 
                 <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/activity_bookmark_button_edit"
                     style="@style/StyleForButtons"
                     android:text="@string/activity_bookmark_button_label_edit" />
 
                 <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/activity_bookmark_button_delete"
                     style="@style/StyleForButtons"
                     android:text="@string/activity_bookmark_button_label_delete" />
 
                 <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/activity_bookmark_button_share"
                     style="@style/StyleForButtons"
                     android:text="@string/activity_bookmark_button_label_share" />
             </android.support.v7.widget.ButtonBarLayout>
