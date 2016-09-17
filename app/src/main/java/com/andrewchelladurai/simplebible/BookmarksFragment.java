@@ -24,10 +24,12 @@ public class BookmarksFragment
         extends Fragment
         implements BookmarksTabOperations {
 
-    private static final String TAG              = "SB_BM_Fragment";
+    private static final String TAG = "SB_BM_Fragment";
     private static final String ARG_COLUMN_COUNT = "COLUMN_COUNT";
-    private              int    mColumnCount     = 1;
+    private int mColumnCount = 1;
     private BookmarksTabPresenter mPresenter;
+    private BookmarkListAdapter mListAdapter;
+    private RecyclerView mList;
 
     public BookmarksFragment() {
     }
@@ -57,29 +59,36 @@ public class BookmarksFragment
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            mList = (RecyclerView) view;
             if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                mList.setLayoutManager(new LinearLayoutManager(context));
             } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+                mList.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new BookmarkListAdapter(BookmarkList.getItems(), this));
+            mListAdapter = new BookmarkListAdapter(BookmarkList.getItems(), this);
+            mList.setAdapter(mListAdapter);
         }
         init();
         return view;
     }
 
-    @Override public void init() {
+    @Override
+    public void init() {
         if (mPresenter == null) {
             mPresenter = new BookmarksTabPresenter(this);
         }
     }
 
-    @Override public void refresh() {
-
+    @Override
+    public void refresh() {
+        Log.d(TAG, "refresh() called");
+        mList.invalidate();
+        mListAdapter.notifyDataSetChanged();
+        mList.requestLayout();
     }
 
-    @Override public void bookmarkClicked(BookmarkItem item) {
+    @Override
+    public void bookmarkClicked(BookmarkItem item) {
         Log.d(TAG, "bookmarkClicked() called");
         String returnValue = mPresenter.isBookmarkAlreadyPresentInDatabase(item);
         if (returnValue.equalsIgnoreCase(Constants.ERROR)) {
@@ -103,21 +112,28 @@ public class BookmarksFragment
         startActivity(intent);
     }
 
-    @Override public void deleteButtonClicked(BookmarkItem item) {
+    @Override
+    public void deleteButtonClicked(BookmarkItem item) {
         Log.d(TAG, "deleteButtonClicked() called with: " + "item = [" + item + "]");
-        mPresenter.deleteButtonClicked(item);
+        boolean status = mPresenter.deleteButtonClicked(item);
+        if (status){
+            BookmarksTabPresenter.refreshList();
+        }
     }
 
-    @Override public void shareButtonClicked(BookmarkItem item) {
+    @Override
+    public void shareButtonClicked(BookmarkItem item) {
         Log.d(TAG, "shareButtonClicked() called with: " + "item = [" + item + "]");
         mPresenter.shareButtonClicked(item);
     }
 
-    @Override public String getDeleteButtonLabel() {
+    @Override
+    public String getDeleteButtonLabel() {
         return getString(R.string.fragment_bookmark_button_label_delete);
     }
 
-    @Override public String getShareButtonLabel() {
+    @Override
+    public String getShareButtonLabel() {
         return getString(R.string.fragment_bookmark_button_label_share);
     }
 }

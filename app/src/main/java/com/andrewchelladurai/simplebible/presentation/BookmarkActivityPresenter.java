@@ -50,6 +50,7 @@ public class BookmarkActivityPresenter {
 
     public boolean buttonDeleteClicked() {
         Log.d(TAG, "buttonDeleteClicked() called");
+        BookmarksTabPresenter.refreshList();
         return true;
     }
 

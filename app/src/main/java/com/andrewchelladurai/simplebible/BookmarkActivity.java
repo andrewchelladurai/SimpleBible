@@ -46,6 +46,8 @@ public class BookmarkActivity
     extends AppCompatActivity
     implements BookmarkActivityInterface, View.OnClickListener {
 
+    // FIXME: 9/17/16 Rotating the Screen shows all button again.
+
     private static final String TAG = "SB_BActivity";
     private AppCompatTextView         mLabelReference;
     private AppCompatTextView         mLabelNote;

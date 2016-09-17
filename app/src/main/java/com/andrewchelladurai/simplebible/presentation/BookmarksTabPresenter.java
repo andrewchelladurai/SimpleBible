@@ -38,7 +38,7 @@ import com.andrewchelladurai.simplebible.utilities.Constants;
 public class BookmarksTabPresenter {
 
     private static final String TAG = "SB_BM_Presenter";
-    private BookmarksTabOperations mFragment;
+    private static BookmarksTabOperations mFragment;
 
     public BookmarksTabPresenter(BookmarksTabOperations fragment) {mFragment = fragment;}
 
@@ -57,11 +57,16 @@ public class BookmarksTabPresenter {
 //        return Constants.ABSENT_IN_DATABASE;
     }
 
-    public void deleteButtonClicked(BookmarkList.BookmarkItem item) {
+    public boolean deleteButtonClicked(BookmarkList.BookmarkItem item) {
         Log.d(TAG, "deleteButtonClicked() called with: " + "item = [" + item + "]");
+        return true;
     }
 
     public void shareButtonClicked(BookmarkList.BookmarkItem item) {
         Log.d(TAG, "shareButtonClicked() called with: " + "item = [" + item + "]");
+    }
+
+    public static void refreshList() {
+        mFragment.refresh();
     }
 }
