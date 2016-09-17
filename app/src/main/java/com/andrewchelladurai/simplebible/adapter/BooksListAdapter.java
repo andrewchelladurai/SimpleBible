@@ -73,7 +73,7 @@ public class BooksListAdapter
                 @Override
                 public void onClick(View v) {
                     if (null != mListener) {
-                        mListener.handleInteraction(mItem);
+                        mListener.bookItemClicked(mItem);
                     }
                 }
             });

@@ -56,6 +56,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.andrewchelladurai.simplebible.SimpleBibleActivity" />
         </activity>
+        <activity
+            android:name=".ChapterListActivity"
+            android:label="@string/title_chapter_list"
+            android:parentActivityName=".SimpleBibleActivity"
+            android:theme="@style/SBTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.andrewchelladurai.simplebible.SimpleBibleActivity" />
+        </activity>
+        <activity
+            android:name=".ChapterDetailActivity"
+            android:label="@string/title_chapter_detail"
+            android:parentActivityName=".ChapterListActivity"
+            android:theme="@style/SBTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.andrewchelladurai.simplebible.ChapterListActivity" />
+        </activity>
     </application>
 
 </manifest>

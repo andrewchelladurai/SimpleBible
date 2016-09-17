@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -23,7 +24,7 @@ public class BooksFragment
         extends Fragment
         implements BooksTabOperations {
 
-    private static final String TAG              = "SB_BLFragment";
+    private static final String TAG = "SB_BLFragment";
     private static final String ARG_COLUMN_COUNT = "COLUMN_COUNT";
     private static BooksTabPresenter mPresenter;
     private int mColumnCount = 2;
@@ -74,7 +75,7 @@ public class BooksFragment
             List<BooksList.BookItem> items = BooksList.getListItems();
             if (items.size() != 66) {
                 Toast.makeText(getContext(), "BooksList could not be populated",
-                               Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_SHORT).show();
             } else {
                 recyclerView.setAdapter(new BooksListAdapter(items, this));
             }
@@ -88,8 +89,12 @@ public class BooksFragment
         return view;
     }
 
-    public void handleInteraction(BooksList.BookItem item) {
-        Log.d(TAG, "handleInteraction() called for item [" + item.getBookName() + "]");
+    public void bookItemClicked(BooksList.BookItem item) {
+        Log.d(TAG, "bookItemClicked() called for item [" + item.getBookName() + "]");
+        Intent intent = new Intent(getContext(), ChapterListActivity.class);
+        Bundle bundle = new Bundle();
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     @Override

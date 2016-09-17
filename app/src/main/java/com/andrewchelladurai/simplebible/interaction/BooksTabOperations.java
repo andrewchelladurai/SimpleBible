@@ -10,7 +10,7 @@ public interface BooksTabOperations
 
     String[] getBookNameChapterCountArray();
 
-    void handleInteraction(BooksList.BookItem mItem);
+    void bookItemClicked(BooksList.BookItem mItem);
 
     String getBookNameTemplateString();
 
