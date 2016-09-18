@@ -42,6 +42,10 @@ public class BookmarksTabPresenter {
 
     public BookmarksTabPresenter(BookmarksTabOperations fragment) {mFragment = fragment;}
 
+    public static void refreshList() {
+        mFragment.refresh();
+    }
+
     /**
      * Will check if the clciked bookmark is already present in the database.
      *
@@ -64,9 +68,5 @@ public class BookmarksTabPresenter {
 
     public void shareButtonClicked(BookmarkList.BookmarkItem item) {
         Log.d(TAG, "shareButtonClicked() called with: " + "item = [" + item + "]");
-    }
-
-    public static void refreshList() {
-        mFragment.refresh();
     }
 }

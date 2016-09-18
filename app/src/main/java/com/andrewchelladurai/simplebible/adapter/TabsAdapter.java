@@ -46,7 +46,8 @@ public class TabsAdapter
     @Override
     public Fragment getItem(int position) {
         String title = getPageTitle(position).toString();
-        if (title.equalsIgnoreCase(mActivity.getString(R.string.activity_simple_bible_tab_title_home))) {
+        if (title.equalsIgnoreCase(
+                mActivity.getString(R.string.activity_simple_bible_tab_title_home))) {
             Log.d(TAG, "returning HomeTabFragment()");
             return HomeFragment.newInstance();
         } else if (title.equalsIgnoreCase(

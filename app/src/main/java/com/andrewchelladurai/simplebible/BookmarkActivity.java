@@ -43,8 +43,8 @@ import com.andrewchelladurai.simplebible.presentation.BookmarkActivityPresenter;
 import java.util.ArrayList;
 
 public class BookmarkActivity
-    extends AppCompatActivity
-    implements BookmarkActivityInterface, View.OnClickListener {
+        extends AppCompatActivity
+        implements BookmarkActivityInterface, View.OnClickListener {
 
     // FIXME: 9/17/16 Rotating the Screen shows all button again.
 

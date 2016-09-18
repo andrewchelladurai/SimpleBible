@@ -33,7 +33,7 @@ import com.andrewchelladurai.simplebible.model.SearchResultList;
  * on 10-Sep-2016 @ 10:43 PM
  */
 public interface SearchTabOperations
-    extends BasicOperations {
+        extends BasicOperations {
 
     void showResetButton();
 

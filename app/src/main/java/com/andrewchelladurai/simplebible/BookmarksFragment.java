@@ -24,12 +24,12 @@ public class BookmarksFragment
         extends Fragment
         implements BookmarksTabOperations {
 
-    private static final String TAG = "SB_BM_Fragment";
+    private static final String TAG              = "SB_BM_Fragment";
     private static final String ARG_COLUMN_COUNT = "COLUMN_COUNT";
-    private int mColumnCount = 1;
+    private              int    mColumnCount     = 1;
     private BookmarksTabPresenter mPresenter;
-    private BookmarkListAdapter mListAdapter;
-    private RecyclerView mList;
+    private BookmarkListAdapter   mListAdapter;
+    private RecyclerView          mList;
 
     public BookmarksFragment() {
     }
@@ -116,7 +116,7 @@ public class BookmarksFragment
     public void deleteButtonClicked(BookmarkItem item) {
         Log.d(TAG, "deleteButtonClicked() called with: " + "item = [" + item + "]");
         boolean status = mPresenter.deleteButtonClicked(item);
-        if (status){
+        if (status) {
             BookmarksTabPresenter.refreshList();
         }
     }

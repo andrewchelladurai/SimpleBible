@@ -9,8 +9,8 @@ import java.util.Map;
 
 public class BookmarkList {
 
-    private static final String TAG = "SB_BookmarkList";
-    private static final List<BookmarkItem> ITEMS = new ArrayList<>();
+    private static final String                    TAG      = "SB_BookmarkList";
+    private static final List<BookmarkItem>        ITEMS    = new ArrayList<>();
     private static final Map<String, BookmarkItem> ITEM_MAP = new HashMap<>();
 
     public static List<BookmarkItem> getItems() {

@@ -13,9 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.adapter.BooksListAdapter;
 import com.andrewchelladurai.simplebible.interaction.BooksTabOperations;
+import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.presentation.BooksTabPresenter;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class BooksFragment
         extends Fragment
         implements BooksTabOperations {
 
-    private static final String TAG = "SB_BLFragment";
+    private static final String TAG              = "SB_BLFragment";
     private static final String ARG_COLUMN_COUNT = "COLUMN_COUNT";
     private static BooksTabPresenter mPresenter;
     private int mColumnCount = 2;
@@ -75,7 +75,7 @@ public class BooksFragment
             List<BooksList.BookItem> items = BooksList.getListItems();
             if (items.size() != 66) {
                 Toast.makeText(getContext(), "BooksList could not be populated",
-                        Toast.LENGTH_SHORT).show();
+                               Toast.LENGTH_SHORT).show();
             } else {
                 recyclerView.setAdapter(new BooksListAdapter(items, this));
             }

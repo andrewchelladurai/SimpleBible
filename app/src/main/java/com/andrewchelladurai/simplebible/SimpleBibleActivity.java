@@ -16,8 +16,8 @@ import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityOperatio
 import com.andrewchelladurai.simplebible.presentation.SimpleBibleActivityPresenter;
 
 public class SimpleBibleActivity
-    extends AppCompatActivity
-    implements SimpleBibleActivityOperations {
+        extends AppCompatActivity
+        implements SimpleBibleActivityOperations {
 
     private static final String TAG = "SB_SBActivity";
     private SimpleBibleActivityPresenter mPresenter;
