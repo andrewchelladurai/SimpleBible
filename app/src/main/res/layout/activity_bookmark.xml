@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:listSelector="@android:color/transparent"
             android:scrollbarAlwaysDrawVerticalTrack="true"
-            tools:listitem="@layout/content_activity_bookmark_list" />
+            tools:listitem="@layout/content_activity_bookmark_reference_entry" />
     </android.support.v7.widget.LinearLayoutCompat>
 
     <android.support.v7.widget.CardView

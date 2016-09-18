@@ -80,7 +80,7 @@ public class BookmarkActivity
 
         mList = (ListViewCompat) findViewById(R.id.activity_bookmark_list);
         mList.setAdapter(new ArrayAdapter<>(getApplicationContext(),
-                                            R.layout.content_activity_bookmark_list,
+                                            R.layout.content_activity_bookmark_reference_entry,
                                             items));
         mLabelNote = (AppCompatTextView) findViewById(R.id.activity_bookmark_label_note);
         mNote = (AppCompatEditText) findViewById(R.id.activity_bookmark_note);

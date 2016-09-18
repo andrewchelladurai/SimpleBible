@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~
-  ~ This file 'content_activity_bookmark_list.xmlxml' is part of SimpleBible :
+  ~ This file 'content_search_result_entry.xmltry.xml' is part of SimpleBible :
   ~
   ~ Copyright (c) 2016.
   ~
@@ -24,7 +24,13 @@
   ~
   -->
 
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/content_activity_bookmark_entry"
-    style="@style/StyleForTextSubHeader"
-    android:padding="@dimen/text_margin" />
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/StyleForCards"
+    app:cardBackgroundColor="@color/cardBackground">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/searchresult_content"
+        style="@style/StyleForTextSubHeader"
+        android:padding="@dimen/text_margin" />
+</android.support.v7.widget.CardView>

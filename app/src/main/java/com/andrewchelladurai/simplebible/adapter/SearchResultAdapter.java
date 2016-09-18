@@ -53,7 +53,7 @@ public class SearchResultAdapter
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                                  .inflate(R.layout.content_searchresult, parent, false);
+                                  .inflate(R.layout.content_search_result_entry, parent, false);
         return new ViewHolder(view);
     }
 

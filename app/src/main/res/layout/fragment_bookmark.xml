@@ -7,4 +7,4 @@
     style="@style/StyleForMainScreens"
     app:layoutManager="LinearLayoutManager"
     tools:context="com.andrewchelladurai.simplebible.BookmarksFragment"
-    tools:listitem="@layout/content_bookmark" />
+    tools:listitem="@layout/content_bookmark_entry" />

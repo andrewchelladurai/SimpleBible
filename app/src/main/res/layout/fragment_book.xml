@@ -7,4 +7,4 @@
     style="@style/StyleForMainScreens"
     app:layoutManager="LinearLayoutManager"
     tools:context=".BooksFragment"
-    tools:listitem="@layout/content_book" />
+    tools:listitem="@layout/content_book_entry" />

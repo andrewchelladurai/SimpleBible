@@ -79,5 +79,5 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/screen_padding"
         app:layoutManager="LinearLayoutManager"
-        tools:listitem="@layout/content_searchresult" />
+        tools:listitem="@layout/content_search_result_entry" />
 </RelativeLayout>

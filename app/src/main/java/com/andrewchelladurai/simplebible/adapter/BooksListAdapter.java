@@ -30,7 +30,7 @@ public class BooksListAdapter
     @Override
     public BookItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                                  .inflate(R.layout.content_book, parent, false);
+                                  .inflate(R.layout.content_book_entry, parent, false);
         return new BookItemViewHolder(view);
     }
 
