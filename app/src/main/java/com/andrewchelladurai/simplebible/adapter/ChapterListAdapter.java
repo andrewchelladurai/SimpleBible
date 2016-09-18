@@ -36,9 +36,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.ChapterActivity;
-import com.andrewchelladurai.simplebible.ChapterFragment;
 import com.andrewchelladurai.simplebible.ChapterListActivity;
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.ChapterFragment;
 import com.andrewchelladurai.simplebible.model.ChapterList.ChapterItem;
 
 import java.util.List;
@@ -105,7 +105,7 @@ public class ChapterListAdapter
             if (mActivity.showDualPanel()) {
                 Bundle arguments = new Bundle();
                 arguments.putString(ChapterFragment.ARG_ITEM_ID, mItem.id);
-                ChapterFragment fragment = new ChapterFragment();
+                ChapterFragment fragment = ChapterFragment.newInstance(1);
                 fragment.setArguments(arguments);
                 mActivity.getSupportFragmentManager().beginTransaction()
                          .replace(R.id.chapter_detail_container, fragment)

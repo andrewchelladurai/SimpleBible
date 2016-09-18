@@ -1,6 +1,6 @@
 /*
  *
- * This file 'ChapterDetailFragment.java' is part of SimpleBible :
+ * This file 'VerseFragment.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.
  *
@@ -27,29 +27,50 @@
 package com.andrewchelladurai.simplebible;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import com.andrewchelladurai.simplebible.adapter.VerseListAdapter;
 import com.andrewchelladurai.simplebible.model.ChapterList;
+import com.andrewchelladurai.simplebible.model.DummyContent;
+import com.andrewchelladurai.simplebible.model.DummyContent.DummyItem;
 
 public class ChapterFragment
         extends Fragment {
 
-    public static final String ARG_ITEM_ID = "item_id";
-
+    private static final String TAG = "SB_ChapterFragment";
+    private static final String ARG_COLUMN_COUNT = "column-count";
+    private              int    mColumnCount     = 1;
+    public static final  String ARG_ITEM_ID      = "item_id";
     private ChapterList.ChapterItem mItem;
 
     public ChapterFragment() {
     }
 
+    public static ChapterFragment newInstance(int columnCount) {
+        ChapterFragment fragment = new ChapterFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_COLUMN_COUNT, columnCount);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+        }
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             mItem = ChapterList.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
@@ -66,13 +87,22 @@ public class ChapterFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_chapter_content, container, false);
+        View view = inflater.inflate(R.layout.fragment_chapter, container, false);
 
-        // Show the dummy content as text in a TextView.
-        if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.chapter_detail)).setText(mItem.details);
+        // Set the adapter
+        Context context = view.getContext();
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_verse_list);
+        if (mColumnCount <= 1) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        } else {
+            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
+        recyclerView.setAdapter(new VerseListAdapter(DummyContent.ITEMS, this));
 
-        return rootView;
+        return view;
+    }
+
+    public void verseClicked(DummyItem item) {
+        Log.d(TAG, "verseClicked() called with: " + "item = [" + item + "]");
     }
 }
