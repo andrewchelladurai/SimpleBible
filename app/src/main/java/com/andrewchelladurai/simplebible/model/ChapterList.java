@@ -1,6 +1,6 @@
 /*
  *
- * This file 'DummyContent.java' is part of SimpleBible :
+ * This file 'ChapterList.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.
  *
@@ -24,18 +24,17 @@
  *
  */
 
-package com.andrewchelladurai.simplebible.dummy;
+package com.andrewchelladurai.simplebible.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DummyContent {
+public class ChapterList {
 
-    public static final List<DummyItem> ITEMS = new ArrayList<DummyItem>();
-
-    public static final Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
+    public static final List<ChapterItem>        ITEMS    = new ArrayList<>();
+    public static final Map<String, ChapterItem> ITEM_MAP = new HashMap<>();
 
     private static final int COUNT = 25;
 
@@ -46,31 +45,32 @@ public class DummyContent {
         }
     }
 
-    private static void addItem(DummyItem item) {
+    private static void addItem(ChapterItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
 
-    private static DummyItem createDummyItem(int position) {
-        return new DummyItem(String.valueOf(position), "Item " + position, makeDetails(position));
+    private static ChapterItem createDummyItem(int position) {
+        return new ChapterItem(String.valueOf(position), "Chapter " + position,
+                               makeDetails(position));
     }
 
     private static String makeDetails(int position) {
         StringBuilder builder = new StringBuilder();
-        builder.append("Details about Item: ").append(position);
+        builder.append("Verses for Chapter : ").append(position);
         for (int i = 0; i < position; i++) {
-            builder.append("\nMore details information here.");
+            builder.append("\nThis is a verse.");
         }
         return builder.toString();
     }
 
-    public static class DummyItem {
+    public static class ChapterItem {
 
         public final String id;
         public final String content;
         public final String details;
 
-        public DummyItem(String id, String content, String details) {
+        public ChapterItem(String id, String content, String details) {
             this.id = id;
             this.content = content;
             this.details = details;

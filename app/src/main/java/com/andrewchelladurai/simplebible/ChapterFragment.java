@@ -35,16 +35,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.andrewchelladurai.simplebible.dummy.DummyContent;
+import com.andrewchelladurai.simplebible.model.ChapterList;
 
-public class ChapterDetailFragment
+public class ChapterFragment
         extends Fragment {
 
     public static final String ARG_ITEM_ID = "item_id";
 
-    private DummyContent.DummyItem mItem;
+    private ChapterList.ChapterItem mItem;
 
-    public ChapterDetailFragment() {
+    public ChapterFragment() {
     }
 
     @Override
@@ -52,7 +52,7 @@ public class ChapterDetailFragment
         super.onCreate(savedInstanceState);
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            mItem = ChapterList.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
 
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout =

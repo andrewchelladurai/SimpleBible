@@ -37,7 +37,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-public class ChapterDetailActivity
+public class ChapterActivity
         extends AppCompatActivity {
 
     @Override
@@ -75,9 +75,9 @@ public class ChapterDetailActivity
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(ChapterDetailFragment.ARG_ITEM_ID,
-                                getIntent().getStringExtra(ChapterDetailFragment.ARG_ITEM_ID));
-            ChapterDetailFragment fragment = new ChapterDetailFragment();
+            arguments.putString(ChapterFragment.ARG_ITEM_ID,
+                                getIntent().getStringExtra(ChapterFragment.ARG_ITEM_ID));
+            ChapterFragment fragment = new ChapterFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                                        .add(R.id.chapter_detail_container, fragment)
