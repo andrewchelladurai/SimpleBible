@@ -47,7 +47,7 @@ public class BookmarksTabPresenter {
     }
 
     /**
-     * Will check if the clciked bookmark is already present in the database.
+     * Will check if the clicked bookmark is already present in the database.
      *
      * @param item
      *
