@@ -14,5 +14,5 @@ public interface BooksTabOperations
 
     String getBookNameTemplateString();
 
-    String chapterCountTemplateString();
+    String chapterCountTemplateString(int count);
 }

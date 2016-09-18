@@ -18,13 +18,13 @@ public class BooksListAdapter
     private final List<BookItem>     mValues;
     private final BooksTabOperations mListener;
     private final String             bookNameTemplate;
-    private final String             chapterCountTemplate;
+//    private final String             chapterCountTemplate;
 
     public BooksListAdapter(List<BookItem> items, BooksTabOperations listener) {
         mValues = items;
         mListener = listener;
         bookNameTemplate = mListener.getBookNameTemplateString();
-        chapterCountTemplate = mListener.chapterCountTemplateString();
+//        chapterCountTemplate = mListener.chapterCountTemplateString();
     }
 
     @Override
@@ -67,14 +67,14 @@ public class BooksListAdapter
         public void updateItem(BookItem bookItem) {
             mItem = bookItem;
             mIdView.setText(String.format(bookNameTemplate, mItem.getBookName()));
-            mContentView.setText(String.format(chapterCountTemplate, mItem.getChapterCount()));
+            int count = mItem.getChapterCount();
+            String text = mListener.chapterCountTemplateString(count);
+            mContentView.setText(String.format(text, count));
 
             mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (null != mListener) {
-                        mListener.bookItemClicked(mItem);
-                    }
+                    mListener.bookItemClicked(mItem);
                 }
             });
         }

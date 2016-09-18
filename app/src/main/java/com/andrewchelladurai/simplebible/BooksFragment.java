@@ -102,8 +102,9 @@ public class BooksFragment
     }
 
     @Override
-    public String chapterCountTemplateString() {
-        String value = getString(R.string.fragment_books_chapter_count_template);
+    public String chapterCountTemplateString(int count) {
+        String value = getResources().getQuantityString(
+                R.plurals.fragment_books_chapter_count_template, count, count);
         if (value == null) {
             return "%d";
         }

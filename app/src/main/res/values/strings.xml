@@ -46,7 +46,10 @@
     <string name="fragment_home_daily_verse_stub">For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life. - John 3:16 : New International Version</string>
 
     <string name="fragment_books_book_name_template">%1$s</string>
-    <string name="fragment_books_chapter_count_template">%1$d Chapters</string>
+    <plurals name="fragment_books_chapter_count_template">
+        <item quantity="one">%1$d Chapter</item>
+        <item quantity="other">%1$d Chapters</item>
+    </plurals>
 
     <string name="fragment_search_hint">Enter text to search</string>
     <string name="fragment_search_button_default">Search</string>
