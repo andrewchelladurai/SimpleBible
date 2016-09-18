@@ -92,25 +92,25 @@
                 android:text="@string/application_name" />
 
             <android.support.v7.widget.AppCompatEditText
-                android:layout_width="match_parent"
                 android:id="@+id/activity_bookmark_note"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:minLines="3"
                 android:layout_weight="1"
                 android:gravity="top"
+                android:minLines="3"
                 android:padding="@dimen/text_margin"
                 android:text="@string/application_name" />
 
             <android.support.v7.widget.ButtonBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:animateLayoutChanges="true"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatButton
-                    style="@style/StyleForButtons"
                     android:id="@+id/activity_bookmark_button_save"
+                    style="@style/StyleForButtons"
                     android:text="@string/activity_bookmark_button_label_save" />
 
                 <android.support.v7.widget.AppCompatButton

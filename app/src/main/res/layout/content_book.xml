@@ -12,11 +12,11 @@
 
         <TextView
             android:id="@+id/content_book_name"
-            style="@style/StyleForTextHeader"/>
+            style="@style/StyleForTextHeader" />
 
         <TextView
             android:id="@+id/content_book_details"
-            style="@style/StyleForTextSubHeader"/>
+            style="@style/StyleForTextSubHeader" />
     </LinearLayout>
 
 </android.support.v7.widget.CardView>
