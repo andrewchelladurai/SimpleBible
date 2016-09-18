@@ -27,10 +27,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    style="@style/StyleForMainScreens"
     android:baselineAligned="false"
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
@@ -45,20 +42,18 @@
 
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/chapter_list"
+        android:id="@+id/activity_chapter_list_chapter_list"
         android:name="com.andrewchelladurai.simplebible.ChapterListFragment"
         android:layout_width="@dimen/item_width"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
         tools:context="com.andrewchelladurai.simplebible.ChapterListActivity"
-        tools:listitem="@layout/chapter_list_content" />
+        tools:listitem="@layout/content_chapter_entry" />
 
     <FrameLayout
-        android:id="@+id/chapter_detail_container"
+        android:id="@+id/activity_chapter_list_chapter_detail_container"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="3" />
+        android:layout_weight="1" />
 
 </LinearLayout>

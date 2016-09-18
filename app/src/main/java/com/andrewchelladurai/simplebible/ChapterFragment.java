@@ -58,7 +58,7 @@ public class ChapterFragment
             CollapsingToolbarLayout appBarLayout =
                     (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.content);
+                appBarLayout.setTitle(mItem.toString());
             }
         }
     }

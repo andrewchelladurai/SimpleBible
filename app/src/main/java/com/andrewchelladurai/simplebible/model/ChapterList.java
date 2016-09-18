@@ -51,8 +51,7 @@ public class ChapterList {
     }
 
     private static ChapterItem createDummyItem(int position) {
-        return new ChapterItem(String.valueOf(position), "Chapter " + position,
-                               makeDetails(position));
+        return new ChapterItem(String.valueOf(position), makeDetails(position));
     }
 
     private static String makeDetails(int position) {
@@ -67,18 +66,16 @@ public class ChapterList {
     public static class ChapterItem {
 
         public final String id;
-        public final String content;
         public final String details;
 
-        public ChapterItem(String id, String content, String details) {
+        public ChapterItem(String id, String details) {
             this.id = id;
-            this.content = content;
             this.details = details;
         }
 
         @Override
         public String toString() {
-            return content;
+            return "Chapter " + id;
         }
     }
 }
