@@ -105,7 +105,7 @@ public class ChapterListAdapter
             if (mActivity.showDualPanel()) {
                 Bundle arguments = new Bundle();
                 arguments.putString(ChapterFragment.ARG_ITEM_ID, mItem.id);
-                ChapterFragment fragment = ChapterFragment.newInstance(1);
+                ChapterFragment fragment = ChapterFragment.newInstance();
                 fragment.setArguments(arguments);
                 mActivity.getSupportFragmentManager().beginTransaction()
                          .replace(R.id.chapter_detail_container, fragment)

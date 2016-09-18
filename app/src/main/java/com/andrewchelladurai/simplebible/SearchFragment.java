@@ -26,7 +26,6 @@
 
 package com.andrewchelladurai.simplebible;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
@@ -51,8 +50,8 @@ public class SearchFragment
         extends Fragment
         implements SearchTabOperations, View.OnClickListener {
 
-    private static final String TAG              = "SB_SearchFragment";
-    private static final String ARG_COLUMN_COUNT = "ARG_COLUMN_COUNT";
+    private static final String TAG = "SB_SearchFragment";
+    //    private static final String ARG_COLUMN_COUNT = "ARG_COLUMN_COUNT";
     private static SearchTabPresenter mPresenter;
     private int mColumnCount = 1;
     private TextInputEditText mInput;
@@ -63,10 +62,10 @@ public class SearchFragment
     public SearchFragment() {
     }
 
-    public static SearchFragment newInstance(int columnCount) {
+    public static SearchFragment newInstance() {
         SearchFragment fragment = new SearchFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
+//        args.putInt(ARG_COLUMN_COUNT, 1); // Backup
         fragment.setArguments(args);
         return fragment;
     }
@@ -76,7 +75,7 @@ public class SearchFragment
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+//            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
     }
 
@@ -85,16 +84,20 @@ public class SearchFragment
                              Bundle savedInstanceState) {
         init();
         View view = inflater.inflate(R.layout.fragment_search, container, false);
-        Context context = view.getContext();
+
         mInput = (TextInputEditText) view.findViewById(R.id.fragment_search_input);
         mLabel = (AppCompatTextView) view.findViewById(R.id.fragment_search_label);
+
         mSearchButton = (AppCompatButton) view.findViewById(R.id.fragment_search_button);
         mSearchButton.setOnClickListener(this);
+
         mResetButton = (AppCompatButton) view.findViewById(R.id.fragment_search_button_reset);
         mResetButton.setOnClickListener(this);
+
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_search_list);
-        recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+        recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), mColumnCount));
         recyclerView.setAdapter(new SearchResultAdapter(SearchResultList.getItems(), this));
+
         return view;
     }
 
@@ -132,6 +135,7 @@ public class SearchFragment
             mPresenter = new SearchTabPresenter(this);
         }
         mPresenter.init();
+        mColumnCount = getResources().getInteger(R.integer.column_count_search_result_list);
         Log.d(TAG, "init() returned:");
     }
 

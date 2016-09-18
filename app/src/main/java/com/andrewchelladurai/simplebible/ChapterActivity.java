@@ -65,7 +65,7 @@ public class ChapterActivity
             Bundle arguments = new Bundle();
             arguments.putString(ChapterFragment.ARG_ITEM_ID,
                                 getIntent().getStringExtra(ChapterFragment.ARG_ITEM_ID));
-            ChapterFragment fragment = ChapterFragment.newInstance(1);
+            ChapterFragment fragment = ChapterFragment.newInstance();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                                        .add(R.id.chapter_detail_container, fragment)

@@ -53,15 +53,15 @@ public class TabsAdapter
         } else if (title.equalsIgnoreCase(
                 mActivity.getString(R.string.activity_simple_bible_tab_title_books))) {
             Log.d(TAG, "returning BooksFragment()");
-            return BooksFragment.newInstance(2);
+            return BooksFragment.newInstance();
         } else if (title.equalsIgnoreCase(
                 mActivity.getString(R.string.activity_simple_bible_tab_title_search))) {
             Log.d(TAG, "returning SearchFragment()");
-            return SearchFragment.newInstance(1);
+            return SearchFragment.newInstance();
         } else if (title.equalsIgnoreCase(
                 mActivity.getString(R.string.activity_simple_bible_tab_title_notes))) {
             Log.d(TAG, "returning BookmarksFragment()");
-            return BookmarksFragment.newInstance(1);
+            return BookmarksFragment.newInstance();
         } else {
             Log.d(TAG, "getItem: " + mActivity.getString(R.string.how_am_i_here));
             Log.d(TAG, "getItem: Returning another Home Fragment");

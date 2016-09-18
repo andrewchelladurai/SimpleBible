@@ -23,18 +23,18 @@ public class BooksFragment
         extends Fragment
         implements BooksTabOperations {
 
-    private static final String TAG              = "SB_BLFragment";
-    private static final String ARG_COLUMN_COUNT = "COLUMN_COUNT";
+    private static final String TAG = "SB_BLFragment";
+    //    private static final String ARG_COLUMN_COUNT = "COLUMN_COUNT";
     private static BooksTabPresenter mPresenter;
     private int mColumnCount = 2;
 
     public BooksFragment() {
     }
 
-    public static BooksFragment newInstance(int columnCount) {
+    public static BooksFragment newInstance() {
         BooksFragment fragment = new BooksFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
+//        args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
         return fragment;
     }
@@ -44,6 +44,7 @@ public class BooksFragment
         Log.d(TAG, "init() called");
         mPresenter = new BooksTabPresenter(this);
         boolean value = mPresenter.init();
+        mColumnCount = getResources().getInteger(R.integer.column_count_books_list);
         Log.d(TAG, "init: " + value);
     }
 
@@ -57,7 +58,7 @@ public class BooksFragment
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+//            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
     }
 

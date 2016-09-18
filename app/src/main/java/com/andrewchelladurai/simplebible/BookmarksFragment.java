@@ -23,9 +23,9 @@ public class BookmarksFragment
         extends Fragment
         implements BookmarksTabOperations {
 
-    private static final String TAG              = "SB_BM_Fragment";
-    private static final String ARG_COLUMN_COUNT = "COLUMN_COUNT";
-    private              int    mColumnCount     = 1;
+    private static final String TAG          = "SB_BM_Fragment";
+    //    private static final String ARG_COLUMN_COUNT = "COLUMN_COUNT";
+    private              int    mColumnCount = 1;
     private BookmarksTabPresenter mPresenter;
     private BookmarkListAdapter   mListAdapter;
     private RecyclerView          mList;
@@ -33,10 +33,10 @@ public class BookmarksFragment
     public BookmarksFragment() {
     }
 
-    public static BookmarksFragment newInstance(int columnCount) {
+    public static BookmarksFragment newInstance() {
         BookmarksFragment fragment = new BookmarksFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
+//        args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
         return fragment;
     }
@@ -46,7 +46,7 @@ public class BookmarksFragment
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+//            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
     }
 
@@ -72,6 +72,7 @@ public class BookmarksFragment
         if (mPresenter == null) {
             mPresenter = new BookmarksTabPresenter(this);
         }
+        mColumnCount = getResources().getInteger(R.integer.column_count_bookmarks_list);
     }
 
     @Override

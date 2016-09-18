@@ -39,27 +39,28 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.adapter.VerseListAdapter;
+import com.andrewchelladurai.simplebible.interaction.BasicOperations;
 import com.andrewchelladurai.simplebible.model.ChapterList;
 import com.andrewchelladurai.simplebible.model.DummyContent;
 import com.andrewchelladurai.simplebible.model.DummyContent.DummyItem;
 
 public class ChapterFragment
-        extends Fragment {
+        extends Fragment
+        implements BasicOperations {
 
-    private static final String TAG              = "SB_ChapterFragment";
-    public static final  String ARG_COLUMN_COUNT = "column-count";
-    public static final  String ARG_ITEM_ID      = "item_id";
+    private static final String TAG         = "SB_ChapterFragment";
+    //    public static final  String ARG_COLUMN_COUNT = "column-count";
+    public static final  String ARG_ITEM_ID = "item_id";
     private ChapterList.ChapterItem mItem;
     private int mColumnCount = 1;
 
     public ChapterFragment() {
     }
 
-    public static ChapterFragment newInstance(int columnCount) {
+    public static ChapterFragment newInstance() {
         ChapterFragment fragment = new ChapterFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        Log.d(TAG, "newInstance() called with: " + "columnCount = [" + columnCount + "]");
+//        args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
         return fragment;
     }
@@ -78,12 +79,14 @@ public class ChapterFragment
                 appBarLayout.setTitle(mItem.toString());
             }
         }
+/*
         if (getArguments().containsKey(ARG_COLUMN_COUNT)){
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
             Log.d(TAG, "onCreate: inside if mColumnCount = " + mColumnCount);
         }else{
             mColumnCount = 1;
         }
+*/
     }
 
     @Override
@@ -103,5 +106,13 @@ public class ChapterFragment
 
     public void verseClicked(DummyItem item) {
         Log.d(TAG, "verseClicked() called with: " + "item = [" + item + "]");
+    }
+
+    @Override public void init() {
+        mColumnCount = getResources().getInteger(R.integer.column_count_chapter_list);
+    }
+
+    @Override public void refresh() {
+
     }
 }
