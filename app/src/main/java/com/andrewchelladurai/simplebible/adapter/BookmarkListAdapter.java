@@ -15,7 +15,7 @@ import com.andrewchelladurai.simplebible.model.BookmarkList.BookmarkItem;
 import java.util.List;
 
 public class BookmarkListAdapter
-        extends RecyclerView.Adapter<BookmarkListAdapter.ViewHolder> {
+        extends RecyclerView.Adapter<BookmarkListAdapter.BookmarkViewHolder> {
 
     private final List<BookmarkItem>     mValues;
     private final BookmarksTabOperations mListener;
@@ -26,14 +26,14 @@ public class BookmarkListAdapter
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BookmarkViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                                   .inflate(R.layout.content_bookmark_entry, parent, false);
-        return new ViewHolder(view);
+        return new BookmarkViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final BookmarkViewHolder holder, int position) {
         holder.updateView(mValues.get(position));
     }
 
@@ -42,7 +42,7 @@ public class BookmarkListAdapter
         return mValues.size();
     }
 
-    public class ViewHolder
+    public class BookmarkViewHolder
             extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
@@ -51,7 +51,7 @@ public class BookmarkListAdapter
         public final AppCompatTextView mNote;
         public       BookmarkItem      mItem;
 
-        public ViewHolder(View view) {
+        public BookmarkViewHolder(View view) {
             super(view);
             mView = view;
             mReference = (AppCompatTextView) view.findViewById(R.id.bookmark_item_reference);

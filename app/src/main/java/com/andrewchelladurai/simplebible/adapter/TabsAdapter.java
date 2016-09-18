@@ -19,7 +19,7 @@ public class TabsAdapter
         extends FragmentPagerAdapter {
 
     private static final String TAG = "SB_PagerAdapter";
-    String mTitles[] = null;
+    private String mTitles[] = null;
     private SimpleBibleActivity mActivity;
 
     /**

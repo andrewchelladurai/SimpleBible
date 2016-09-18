@@ -31,35 +31,34 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DummyContent {
+public class VerseList {
 
-    public static final List<DummyItem> ITEMS = new ArrayList<>();
-    public static final Map<String, DummyItem> ITEM_MAP = new HashMap<>();
+    static final List<VerseItem>        ITEMS    = new ArrayList<>();
+    static final Map<String, VerseItem> ITEM_MAP = new HashMap<>();
 
     private static final int COUNT = 25;
 
-    static {
-        // Add some sample items.
+    public static List<VerseItem> getItems() {
+        if (ITEMS.isEmpty() || ITEMS.size() == 0) {
+            populateList();
+        }
+        return ITEMS;
+    }
+
+    private static void populateList() {
         for (int i = 1; i <= COUNT; i++) {
-            addItem(createDummyItem(i));
+            VerseItem item = new VerseItem(String.valueOf(i), "Item " + i);
+            ITEMS.add(item);
+            ITEM_MAP.put(item.content, item);
         }
     }
 
-    private static void addItem(DummyItem item) {
-        ITEMS.add(item);
-        ITEM_MAP.put(item.content, item);
-    }
-
-    private static DummyItem createDummyItem(int position) {
-        return new DummyItem(String.valueOf(position), "Item " + position);
-    }
-
-    public static class DummyItem {
+    public static class VerseItem {
 
         public final String content;
         public final String details;
 
-        public DummyItem(String content, String details) {
+        public VerseItem(String content, String details) {
             this.content = content;
             this.details = details;
         }

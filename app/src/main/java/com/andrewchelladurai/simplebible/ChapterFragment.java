@@ -41,8 +41,8 @@ import android.view.ViewGroup;
 import com.andrewchelladurai.simplebible.adapter.VerseListAdapter;
 import com.andrewchelladurai.simplebible.interaction.BasicOperations;
 import com.andrewchelladurai.simplebible.model.ChapterList;
-import com.andrewchelladurai.simplebible.model.DummyContent;
-import com.andrewchelladurai.simplebible.model.DummyContent.DummyItem;
+import com.andrewchelladurai.simplebible.model.VerseList;
+import com.andrewchelladurai.simplebible.model.VerseList.VerseItem;
 
 public class ChapterFragment
         extends Fragment
@@ -79,14 +79,6 @@ public class ChapterFragment
                 appBarLayout.setTitle(mItem.toString());
             }
         }
-/*
-        if (getArguments().containsKey(ARG_COLUMN_COUNT)){
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-            Log.d(TAG, "onCreate: inside if mColumnCount = " + mColumnCount);
-        }else{
-            mColumnCount = 1;
-        }
-*/
     }
 
     @Override
@@ -99,12 +91,12 @@ public class ChapterFragment
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_verse_list);
         Log.d(TAG, "onCreateView: mColumnCount = " + mColumnCount);
         recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-        recyclerView.setAdapter(new VerseListAdapter(DummyContent.ITEMS, this));
+        recyclerView.setAdapter(new VerseListAdapter(VerseList.getItems(), this));
 
         return view;
     }
 
-    public void verseClicked(DummyItem item) {
+    public void verseClicked(VerseItem item) {
         Log.d(TAG, "verseClicked() called with: " + "item = [" + item + "]");
     }
 

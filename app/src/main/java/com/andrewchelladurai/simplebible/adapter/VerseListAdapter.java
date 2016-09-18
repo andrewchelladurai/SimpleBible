@@ -34,30 +34,30 @@ import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.ChapterFragment;
-import com.andrewchelladurai.simplebible.model.DummyContent.DummyItem;
+import com.andrewchelladurai.simplebible.model.VerseList.VerseItem;
 
 import java.util.List;
 
 public class VerseListAdapter
-        extends RecyclerView.Adapter<VerseListAdapter.ViewHolder> {
+        extends RecyclerView.Adapter<VerseListAdapter.VerseViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<VerseItem> mValues;
     private final ChapterFragment mListener;
 
-    public VerseListAdapter(List<DummyItem> items, ChapterFragment listener) {
+    public VerseListAdapter(List<VerseItem> items, ChapterFragment listener) {
         mValues = items;
         mListener = listener;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public VerseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                                   .inflate(R.layout.content_verse_entry, parent, false);
-        return new ViewHolder(view);
+        return new VerseViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final VerseViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mContentView.setText(mValues.get(position).content);
 
@@ -76,14 +76,14 @@ public class VerseListAdapter
         return mValues.size();
     }
 
-    public class ViewHolder
+    public class VerseViewHolder
             extends RecyclerView.ViewHolder {
 
         public final View      mView;
         public final TextView  mContentView;
-        public       DummyItem mItem;
+        public       VerseItem mItem;
 
-        public ViewHolder(View view) {
+        public VerseViewHolder(View view) {
             super(view);
             mView = view;
             mContentView = (TextView) view.findViewById(R.id.verse_entry_content);

@@ -41,7 +41,7 @@ import java.util.ArrayList;
 public class SearchTabPresenter {
 
     private static final String TAG = "SB_SF_Presenter";
-    ArrayList<SearchResultItem> mSelectedItems;
+    private ArrayList<SearchResultItem> mSelectedItems;
     private SearchTabOperations mInterface;
 
     public SearchTabPresenter(SearchTabOperations fragmentInterface) {

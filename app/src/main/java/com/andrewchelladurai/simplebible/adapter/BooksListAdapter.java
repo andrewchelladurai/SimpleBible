@@ -13,7 +13,7 @@ import com.andrewchelladurai.simplebible.model.BooksList.BookItem;
 import java.util.List;
 
 public class BooksListAdapter
-        extends RecyclerView.Adapter<BooksListAdapter.BookItemViewHolder> {
+        extends RecyclerView.Adapter<BooksListAdapter.BookViewHolder> {
 
     private final List<BookItem>     mValues;
     private final BooksTabOperations mListener;
@@ -28,14 +28,14 @@ public class BooksListAdapter
     }
 
     @Override
-    public BookItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BookViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                                   .inflate(R.layout.content_book_entry, parent, false);
-        return new BookItemViewHolder(view);
+        return new BookViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final BookItemViewHolder holder, int position) {
+    public void onBindViewHolder(final BookViewHolder holder, int position) {
         holder.updateItem(mValues.get(position));
     }
 
@@ -44,7 +44,7 @@ public class BooksListAdapter
         return mValues.size();
     }
 
-    public class BookItemViewHolder
+    public class BookViewHolder
             extends RecyclerView.ViewHolder {
 
         final View     mView;
@@ -52,7 +52,7 @@ public class BooksListAdapter
         final TextView mContentView;
         BookItem mItem;
 
-        public BookItemViewHolder(View view) {
+        public BookViewHolder(View view) {
             super(view);
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.content_book_name);

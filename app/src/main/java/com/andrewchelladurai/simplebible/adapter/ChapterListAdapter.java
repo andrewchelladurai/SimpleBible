@@ -48,7 +48,7 @@ import java.util.List;
  * on 18-Sep-2016 @ 3:51 PM
  */
 public class ChapterListAdapter
-        extends RecyclerView.Adapter<ChapterListAdapter.ChapterItemView> {
+        extends RecyclerView.Adapter<ChapterListAdapter.ChapterItemViewHolder> {
 
     private       ChapterListActivity mActivity;
     private final List<ChapterItem>   mValues;
@@ -59,14 +59,14 @@ public class ChapterListAdapter
     }
 
     @Override
-    public ChapterItemView onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ChapterItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                                   .inflate(R.layout.content_chapter_entry, parent, false);
-        return new ChapterItemView(view);
+        return new ChapterItemViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ChapterItemView holder, int position) {
+    public void onBindViewHolder(final ChapterItemViewHolder holder, int position) {
         holder.updateItem(mValues.get(position));
 
     }
@@ -76,7 +76,7 @@ public class ChapterListAdapter
         return mValues.size();
     }
 
-    public class ChapterItemView
+    public class ChapterItemViewHolder
             extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
@@ -84,7 +84,7 @@ public class ChapterListAdapter
         private final TextView    mContentView;
         private       ChapterItem mItem;
 
-        public ChapterItemView(View view) {
+        public ChapterItemViewHolder(View view) {
             super(view);
             mView = view;
             mContentView = (TextView) view.findViewById(R.id.chapter_entry_number);

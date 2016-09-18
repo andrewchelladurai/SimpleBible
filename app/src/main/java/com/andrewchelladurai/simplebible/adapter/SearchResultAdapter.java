@@ -40,7 +40,7 @@ import com.andrewchelladurai.simplebible.utilities.Constants;
 import java.util.List;
 
 public class SearchResultAdapter
-        extends RecyclerView.Adapter<SearchResultAdapter.ViewHolder> {
+        extends RecyclerView.Adapter<SearchResultAdapter.SearchResultViewHolder> {
 
     private final List<SearchResultItem> mValues;
     private final SearchTabOperations    mListener;
@@ -51,14 +51,14 @@ public class SearchResultAdapter
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SearchResultViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                                   .inflate(R.layout.content_search_result_entry, parent, false);
-        return new ViewHolder(view);
+        return new SearchResultViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final SearchResultViewHolder holder, int position) {
         holder.updateContent(mValues.get(position));
     }
 
@@ -67,7 +67,7 @@ public class SearchResultAdapter
         return mValues.size();
     }
 
-    public class ViewHolder
+    public class SearchResultViewHolder
             extends RecyclerView.ViewHolder
             implements View.OnLongClickListener {
 
@@ -75,7 +75,7 @@ public class SearchResultAdapter
         private final AppCompatTextView mContent;
         private       SearchResultItem  mItem;
 
-        public ViewHolder(View view) {
+        public SearchResultViewHolder(View view) {
             super(view);
             mView = view;
             mContent = (AppCompatTextView) view.findViewById(R.id.searchresult_content);
