@@ -34,7 +34,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -93,13 +92,8 @@ public class SearchFragment
         mSearchButton.setOnClickListener(this);
         mResetButton = (AppCompatButton) view.findViewById(R.id.fragment_search_button_reset);
         mResetButton.setOnClickListener(this);
-        RecyclerView recyclerView =
-                (RecyclerView) view.findViewById(R.id.fragment_search_list);
-        if (mColumnCount <= 1) {
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        } else {
-            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-        }
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_search_list);
+        recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         recyclerView.setAdapter(new SearchResultAdapter(SearchResultList.getItems(), this));
         return view;
     }

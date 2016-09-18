@@ -32,7 +32,6 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,11 +46,11 @@ import com.andrewchelladurai.simplebible.model.DummyContent.DummyItem;
 public class ChapterFragment
         extends Fragment {
 
-    private static final String TAG = "SB_ChapterFragment";
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    private              int    mColumnCount     = 1;
+    private static final String TAG              = "SB_ChapterFragment";
+    public static final  String ARG_COLUMN_COUNT = "column-count";
     public static final  String ARG_ITEM_ID      = "item_id";
     private ChapterList.ChapterItem mItem;
+    private int mColumnCount = 1;
 
     public ChapterFragment() {
     }
@@ -60,6 +59,7 @@ public class ChapterFragment
         ChapterFragment fragment = new ChapterFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
+        Log.d(TAG, "newInstance() called with: " + "columnCount = [" + columnCount + "]");
         fragment.setArguments(args);
         return fragment;
     }
@@ -67,10 +67,6 @@ public class ChapterFragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             mItem = ChapterList.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
@@ -82,6 +78,12 @@ public class ChapterFragment
                 appBarLayout.setTitle(mItem.toString());
             }
         }
+        if (getArguments().containsKey(ARG_COLUMN_COUNT)){
+            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            Log.d(TAG, "onCreate: inside if mColumnCount = " + mColumnCount);
+        }else{
+            mColumnCount = 1;
+        }
     }
 
     @Override
@@ -92,11 +94,8 @@ public class ChapterFragment
         // Set the adapter
         Context context = view.getContext();
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_verse_list);
-        if (mColumnCount <= 1) {
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        } else {
-            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-        }
+        Log.d(TAG, "onCreateView: mColumnCount = " + mColumnCount);
+        recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         recyclerView.setAdapter(new VerseListAdapter(DummyContent.ITEMS, this));
 
         return view;

@@ -78,6 +78,5 @@
         android:layout_below="@id/fragment_search_input_container"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/screen_padding"
-        app:layoutManager="LinearLayoutManager"
         tools:listitem="@layout/content_search_result_entry" />
 </RelativeLayout>

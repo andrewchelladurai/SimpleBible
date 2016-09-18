@@ -5,6 +5,5 @@
     android:id="@+id/fragment_bookmark_list"
     android:name="com.andrewchelladurai.simplebible.BookmarksFragment"
     style="@style/StyleForMainScreens"
-    app:layoutManager="LinearLayoutManager"
     tools:context="com.andrewchelladurai.simplebible.BookmarksFragment"
     tools:listitem="@layout/content_bookmark_entry" />
