@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~
-  ~ This file 'chapter_list.xml' is part of SimpleBible :
+  ~ This file 'activity_chapter_list_contentpter_list_content.xml' is part of SimpleBible :
   ~
   ~ Copyright (c) 2016.
   ~
@@ -27,7 +27,7 @@
 <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_chapter_list_chapter_list"
+    android:id="@+id/chapter_list"
     android:name="com.andrewchelladurai.simplebible.ChapterListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

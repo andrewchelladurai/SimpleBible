@@ -59,11 +59,11 @@ public class ChapterListActivity
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        View recyclerView = findViewById(R.id.activity_chapter_list_chapter_list);
+        View recyclerView = findViewById(R.id.chapter_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
 
-        if (findViewById(R.id.activity_chapter_list_chapter_detail_container) != null) {
+        if (findViewById(R.id.chapter_detail_container) != null) {
             mTwoPane = true;
         }
     }
