@@ -27,14 +27,12 @@
 package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.andrewchelladurai.simplebible.adapter.ChapterListAdapter;
 import com.andrewchelladurai.simplebible.model.ChapterList;
@@ -42,7 +40,11 @@ import com.andrewchelladurai.simplebible.model.ChapterList;
 public class ChapterListActivity
         extends AppCompatActivity {
 
-    private boolean mTwoPane;
+    /**
+     * Flag used to indicate if the Dual Pane mode needs to be shown.
+     * This is set looking at the layout file loaded at runtime.
+     */
+    private boolean showDualPane;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +61,12 @@ public class ChapterListActivity
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        View recyclerView = findViewById(R.id.chapter_list);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.chapter_list);
         assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView);
+        recyclerView.setAdapter(new ChapterListAdapter(this, ChapterList.ITEMS));
 
         if (findViewById(R.id.chapter_detail_container) != null) {
-            mTwoPane = true;
+            showDualPane = true;
         }
     }
 
@@ -78,11 +80,7 @@ public class ChapterListActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new ChapterListAdapter(this, ChapterList.ITEMS));
-    }
-
-    public boolean isDualPaneRequired() {
-        return mTwoPane;
+    public boolean showDualPanel() {
+        return showDualPane;
     }
 }

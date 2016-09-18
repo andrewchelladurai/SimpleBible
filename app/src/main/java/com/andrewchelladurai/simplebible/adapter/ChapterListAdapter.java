@@ -39,7 +39,7 @@ import com.andrewchelladurai.simplebible.ChapterActivity;
 import com.andrewchelladurai.simplebible.ChapterFragment;
 import com.andrewchelladurai.simplebible.ChapterListActivity;
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.model.ChapterList;
+import com.andrewchelladurai.simplebible.model.ChapterList.ChapterItem;
 
 import java.util.List;
 
@@ -48,49 +48,27 @@ import java.util.List;
  * on 18-Sep-2016 @ 3:51 PM
  */
 public class ChapterListAdapter
-        extends RecyclerView.Adapter<ChapterListAdapter.ViewHolder> {
+        extends RecyclerView.Adapter<ChapterListAdapter.ChapterItemView> {
 
-    private       ChapterListActivity           mChapterListActivity;
-    private final List<ChapterList.ChapterItem> mValues;
+    private       ChapterListActivity mActivity;
+    private final List<ChapterItem>   mValues;
 
-    public ChapterListAdapter(ChapterListActivity chapterListActivity,
-                              List<ChapterList.ChapterItem> items) {
-        mChapterListActivity = chapterListActivity;
+    public ChapterListAdapter(ChapterListActivity activity, List<ChapterItem> items) {
+        mActivity = activity;
         mValues = items;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ChapterItemView onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                                   .inflate(R.layout.content_chapter_entry, parent, false);
-        return new ViewHolder(view);
+        return new ChapterItemView(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mContentView.setText(mValues.get(position).id);
+    public void onBindViewHolder(final ChapterItemView holder, int position) {
+        holder.updateItem(mValues.get(position));
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mChapterListActivity.isDualPaneRequired()) {
-                    Bundle arguments = new Bundle();
-                    arguments.putString(ChapterFragment.ARG_ITEM_ID, holder.mItem.id);
-                    ChapterFragment fragment = new ChapterFragment();
-                    fragment.setArguments(arguments);
-                    mChapterListActivity.getSupportFragmentManager().beginTransaction()
-                                        .replace(R.id.chapter_detail_container, fragment)
-                                        .commit();
-                } else {
-                    Context context = v.getContext();
-                    Intent intent = new Intent(context, ChapterActivity.class);
-                    intent.putExtra(ChapterFragment.ARG_ITEM_ID, holder.mItem.id);
-
-                    context.startActivity(intent);
-                }
-            }
-        });
     }
 
     @Override
@@ -98,22 +76,46 @@ public class ChapterListAdapter
         return mValues.size();
     }
 
-    public class ViewHolder
-            extends RecyclerView.ViewHolder {
+    public class ChapterItemView
+            extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
 
-        public final View                    mView;
-        public final TextView                mContentView;
-        public       ChapterList.ChapterItem mItem;
+        private final View        mView;
+        private final TextView    mContentView;
+        private       ChapterItem mItem;
 
-        public ViewHolder(View view) {
+        public ChapterItemView(View view) {
             super(view);
             mView = view;
-            mContentView = (TextView) view.findViewById(R.id.content_chapter_entry_number);
+            mContentView = (TextView) view.findViewById(R.id.chapter_entry_number);
         }
 
         @Override
         public String toString() {
             return super.toString() + " '" + mContentView.getText() + "'";
+        }
+
+        public void updateItem(ChapterItem chapterItem) {
+            mItem = chapterItem;
+            mContentView.setText(mItem.id);
+            mView.setOnClickListener(this);
+        }
+
+        @Override public void onClick(View v) {
+            if (mActivity.showDualPanel()) {
+                Bundle arguments = new Bundle();
+                arguments.putString(ChapterFragment.ARG_ITEM_ID, mItem.id);
+                ChapterFragment fragment = new ChapterFragment();
+                fragment.setArguments(arguments);
+                mActivity.getSupportFragmentManager().beginTransaction()
+                         .replace(R.id.chapter_detail_container, fragment)
+                         .commit();
+            } else {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, ChapterActivity.class);
+                intent.putExtra(ChapterFragment.ARG_ITEM_ID, mItem.id);
+                context.startActivity(intent);
+            }
         }
     }
 }

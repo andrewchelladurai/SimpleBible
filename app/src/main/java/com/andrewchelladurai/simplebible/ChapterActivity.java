@@ -41,7 +41,7 @@ public class ChapterActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chapter_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.chapter_detail_toolbar);
         setSupportActionBar(toolbar);
 
         // Show the Up button in the action bar.
@@ -77,13 +77,6 @@ public class ChapterActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            // This ID represents the Home or Up button. In the case of this
-            // activity, the Up button is shown. Use NavUtils to allow users
-            // to navigate up one level in the application structure. For
-            // more details, see the Navigation pattern on Android Design:
-            //
-            // http://developer.android.com/design/patterns/navigation.html#up-vs-back
-            //
             NavUtils.navigateUpTo(this, new Intent(this, ChapterListActivity.class));
             return true;
         }
