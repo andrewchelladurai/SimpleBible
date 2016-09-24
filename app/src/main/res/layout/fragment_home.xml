@@ -19,7 +19,7 @@
             android:gravity="center"
             android:paddingBottom="@dimen/text_margin"
             android:paddingTop="@dimen/text_margin"
-            android:text="To Go To a specific location" />
+            android:text="@string/fragment_home_goto_label_text" />
 
         <android.support.v7.widget.LinearLayoutCompat
             android:id="@+id/fragment_home_container_input"

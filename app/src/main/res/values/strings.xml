@@ -68,5 +68,6 @@
     <string name="activity_bookmark_button_label_share">Share</string>
     <string name="title_chapter_list">Chapters</string>
     <string name="title_chapter_detail">Chapter Detail</string>
+    <string name="fragment_home_goto_label_text">Go To a specific location</string>
 
 </resources>

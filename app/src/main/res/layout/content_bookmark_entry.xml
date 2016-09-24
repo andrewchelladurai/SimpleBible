@@ -12,13 +12,13 @@
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/bookmark_item_reference"
             style="@style/StyleForTextHeader"
-            android:layout_alignParentTop="true"/>
+            android:layout_alignParentTop="true" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/bookmark_item_note"
             style="@style/StyleForTextSubHeader"
             android:layout_below="@+id/bookmark_item_reference"
-            android:paddingTop="@dimen/text_margin"/>
+            android:paddingTop="@dimen/text_margin" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/bookmark_item_button_delete"
