@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
@@ -82,4 +83,5 @@ public class SimpleBibleActivity
     public String getTabTitle(int position) {
         return mPagerAdapter.getPageTitle(position).toString();
     }
+
 }

@@ -107,6 +107,6 @@ public class SearchTabPresenter {
     }
 
     public boolean isItemSelected(SearchResultItem item) {
-        return (null == item) ? false : mSelectedItems.contains(item);
+        return null != item && mSelectedItems.contains(item);
     }
 }
