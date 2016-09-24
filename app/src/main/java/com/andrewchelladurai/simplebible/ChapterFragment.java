@@ -48,9 +48,9 @@ public class ChapterFragment
         extends Fragment
         implements BasicOperations {
 
-    private static final String TAG         = "SB_ChapterFragment";
     //    public static final  String ARG_COLUMN_COUNT = "column-count";
     public static final  String ARG_ITEM_ID = "item_id";
+    private static final String TAG         = "SB_ChapterFragment";
     private ChapterList.ChapterItem mItem;
     private int mColumnCount = 1;
 

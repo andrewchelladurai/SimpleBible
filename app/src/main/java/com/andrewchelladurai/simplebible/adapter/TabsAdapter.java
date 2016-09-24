@@ -18,8 +18,8 @@ import com.andrewchelladurai.simplebible.SimpleBibleActivity;
 public class TabsAdapter
         extends FragmentPagerAdapter {
 
-    private static final String TAG = "SB_PagerAdapter";
-    private String mTitles[] = null;
+    private static final String TAG       = "SB_PagerAdapter";
+    private              String mTitles[] = null;
     private SimpleBibleActivity mActivity;
 
     /**
@@ -27,20 +27,18 @@ public class TabsAdapter
      * "main_activity_tab_titles" is used for this. If the array is not present, the Tabs will have
      * a single entry that uses the application_name resource string.
      *
-     * @param fragmentManager
+     * @param fragmentManager passed to the superclass.
      */
     public TabsAdapter(SimpleBibleActivity activity, FragmentManager fragmentManager) {
         super(fragmentManager);
         mActivity = activity;
-        if (null == mTitles || mTitles.length == 0) {
-            mTitles = mActivity.getResources().getStringArray(R.array.main_activity_tab_titles);
-            if (mTitles == null || mTitles.length == 0) {
-                mTitles = new String[]{mActivity.getString(R.string.application_name)};
-                Log.d(TAG, "string-array \"main_activity_tab_titles\" not found");
-            }
-            Log.d(TAG, "Tab Titles populated with " + mTitles.length + " entries <= " +
-                       "This should ideally print only once during init.");
+        mTitles = mActivity.getResources().getStringArray(R.array.main_activity_tab_titles);
+        if (mTitles.length == 0) {
+            mTitles = new String[]{mActivity.getString(R.string.application_name)};
+            Log.d(TAG, "string-array \"main_activity_tab_titles\" not found");
         }
+        Log.d(TAG, "Tab Titles populated with " + mTitles.length + " entries <= " +
+                   "This should ideally print only once during init.");
     }
 
     @Override

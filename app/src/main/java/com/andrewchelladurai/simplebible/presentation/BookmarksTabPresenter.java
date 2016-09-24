@@ -49,8 +49,7 @@ public class BookmarksTabPresenter {
     /**
      * Will check if the clicked bookmark is already present in the database.
      *
-     * @param item
-     *
+     * @param item the item to check
      * @return Constants.Error | PRESENT_IN_DATABASE | ABSENT_IN_DATABASE
      */
     public String isBookmarkAlreadyPresentInDatabase(BookmarkList.BookmarkItem item) {
@@ -58,7 +57,6 @@ public class BookmarksTabPresenter {
             return Constants.ERROR;
         }
         return Constants.PRESENT_IN_DATABASE;
-//        return Constants.ABSENT_IN_DATABASE;
     }
 
     public boolean deleteButtonClicked(BookmarkList.BookmarkItem item) {

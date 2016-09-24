@@ -32,8 +32,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.ChapterFragment;
+import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.model.VerseList.VerseItem;
 
 import java.util.List;

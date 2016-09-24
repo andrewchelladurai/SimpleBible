@@ -5,9 +5,6 @@ package com.andrewchelladurai.simplebible.utilities;
  */
 public abstract class Constants {
 
-    private Constants() {
-    }
-
     public static final String SUCCESS_RETURN_VALUE     = "SUCCESS";
     public static final String DELIMITER_IN_REFERENCE   = ":";
     public static final String REMOVED                  = "REMOVED";
@@ -18,14 +15,16 @@ public abstract class Constants {
     public static final String BUNDLE_ARG_BOOKMARK_ITEM = "BOOKMARK_ITEM";
     static final        String DATABASE_NAME            = "Bible.db";
     static final        int    DATABASE_VERSION         = 20160922; // 20160922
+    private Constants() {
+    }
 
     static abstract class SimpleBibleTable {
 
+        public static final String COLUMN_VERSION        = "VERSION";
         static final        String NAME                  = "BIBLE_VERSES";
         static final        String COLUMN_VERSE_NUMBER   = "VERSE_NUMBER";
         static final        String COLUMN_CHAPTER_NUMBER = "CHAPTER_NUMBER";
         static final        String COLUMN_BOOK_NUMBER    = "BOOK_NUMBER";
-        public static final String COLUMN_VERSION        = "VERSION";
         static final        String COLUMN_VERSE_TEXT     = "VERSE_TEXT";
     }
 

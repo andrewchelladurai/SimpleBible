@@ -49,6 +49,10 @@ public class DBUtility
     private static       InputStreamReader mUpgradeScript   = null;
     private static       InputStreamReader mDowngradeScript = null;
 
+    private DBUtility(Context context) {
+        super(context, Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION);
+    }
+
     public static DBUtility getInstance(Context context,
                                         InputStreamReader mainDbStream,
                                         InputStreamReader upgradeStream,
@@ -61,10 +65,6 @@ public class DBUtility
             Log.d(TAG, "getInstance: Initialized Static Instance");
         }
         return thisInstance;
-    }
-
-    private DBUtility(Context context) {
-        super(context, Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION);
     }
 
     @Override public void onCreate(SQLiteDatabase db) {
@@ -120,7 +120,7 @@ public class DBUtility
 
     @Override public void onDowngrade(SQLiteDatabase db, int oldV, int newV) {
         Log.d(TAG, "onDowngrade() called with oldV = [" + oldV + "], newV = [" + newV + "]");
-        boolean downgradeSuccessful = false;
+        boolean downgradeSuccessful;
         if (null != mDowngradeScript) {
             downgradeSuccessful = executeScriptFile(mDowngradeScript, db);
             Log.d(TAG, "onDowngrade: successful = " + downgradeSuccessful);
@@ -132,7 +132,7 @@ public class DBUtility
 
     @Override public void onUpgrade(SQLiteDatabase db, int oldV, int newV) {
         Log.d(TAG, "onUpgrade() called with: oldV = [" + oldV + "], newV = [" + newV + "]");
-        boolean upgradeSuccessful = false;
+        boolean upgradeSuccessful;
         if (null != mUpgradeScript) {
             upgradeSuccessful = executeScriptFile(mUpgradeScript, db);
             Log.d(TAG, "onUpgrade: successful = " + upgradeSuccessful);

@@ -41,8 +41,8 @@ public class ChapterListActivity
         extends AppCompatActivity {
 
     /**
-     * Flag used to indicate if the Dual Pane mode needs to be shown.
-     * This is set looking at the layout file loaded at runtime.
+     * Flag used to indicate if the Dual Pane mode needs to be shown. This is set looking at the
+     * layout file loaded at runtime.
      */
     private boolean showDualPane;
 

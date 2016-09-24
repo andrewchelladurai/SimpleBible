@@ -36,22 +36,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.ChapterActivity;
+import com.andrewchelladurai.simplebible.ChapterFragment;
 import com.andrewchelladurai.simplebible.ChapterListActivity;
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.ChapterFragment;
 import com.andrewchelladurai.simplebible.model.ChapterList.ChapterItem;
 
 import java.util.List;
 
 /**
- * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
- * on 18-Sep-2016 @ 3:51 PM
+ * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 18-Sep-2016 @ 3:51 PM
  */
 public class ChapterListAdapter
         extends RecyclerView.Adapter<ChapterListAdapter.ChapterItemViewHolder> {
 
-    private       ChapterListActivity mActivity;
     private final List<ChapterItem>   mValues;
+    private       ChapterListActivity mActivity;
 
     public ChapterListAdapter(ChapterListActivity activity, List<ChapterItem> items) {
         mActivity = activity;
