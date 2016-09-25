@@ -26,31 +26,26 @@
 
 package com.andrewchelladurai.simplebible;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+
+import com.andrewchelladurai.simplebible.model.BooksList;
 
 public class ChapterActivity
         extends AppCompatActivity {
 
+    private int                mChapterNumber;
+    private BooksList.BookItem mBookItem;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle savedState) {
+        super.onCreate(savedState);
         setContentView(R.layout.activity_chapter_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.chapter_detail_toolbar);
         setSupportActionBar(toolbar);
 
-        // Show the Up button in the action bar.
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
-        // savedInstanceState is non-null when there is fragment state
+        // savedState is non-null when there is fragment state
         // saved from previous configurations of this activity
         // (e.g. when rotating the screen from portrait to landscape).
         // In this case, the fragment will automatically be re-added
@@ -59,15 +54,23 @@ public class ChapterActivity
         //
         // http://developer.android.com/guide/components/fragments.html
         //
-        if (savedInstanceState == null) {
+        if (savedState == null) {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
-            Bundle argsToPassOn = new Bundle();
             Bundle argsReceived = getIntent().getExtras();
-            argsToPassOn.putParcelable(ChapterFragment.ARG_BOOK_ITEM,
-                                       argsReceived.getParcelable(ChapterFragment.ARG_BOOK_ITEM));
-            argsToPassOn.putInt(ChapterFragment.ARG_CHAPTER_NUMBER,
-                                argsReceived.getInt(ChapterFragment.ARG_CHAPTER_NUMBER));
+            mBookItem = argsReceived.getParcelable(ChapterFragment.ARG_BOOK_ITEM);
+            mChapterNumber = argsReceived.getInt(ChapterFragment.ARG_CHAPTER_NUMBER);
+
+            String bookName = mBookItem.getBookName();
+            int count = mBookItem.getChapterCount();
+            String appendText = getResources().getQuantityString(
+                    R.plurals.fragment_books_chapter_count_template, count, count);
+            toolbar.setTitle(bookName + " : " + appendText);
+            setTitle(bookName + " : " + appendText);
+
+            Bundle argsToPassOn = new Bundle();
+            argsToPassOn.putParcelable(ChapterFragment.ARG_BOOK_ITEM, mBookItem);
+            argsToPassOn.putInt(ChapterFragment.ARG_CHAPTER_NUMBER, mChapterNumber);
 
             ChapterFragment fragment = ChapterFragment.newInstance();
             fragment.setArguments(argsToPassOn);
@@ -77,13 +80,4 @@ public class ChapterActivity
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            NavUtils.navigateUpTo(this, new Intent(this, ChapterListActivity.class));
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

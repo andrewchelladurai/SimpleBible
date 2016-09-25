@@ -5,6 +5,7 @@ import android.widget.ArrayAdapter;
 
 import com.andrewchelladurai.simplebible.interaction.HomeTabOperations;
 import com.andrewchelladurai.simplebible.model.BooksList;
+import com.andrewchelladurai.simplebible.model.ChapterList;
 import com.andrewchelladurai.simplebible.utilities.Constants;
 import com.andrewchelladurai.simplebible.utilities.DBUtility;
 
@@ -155,5 +156,9 @@ public class HomeTabPresenter {
 
     public BooksList.BookItem getBookItemUsingName(String bookName) {
         return BooksList.getBookItem(bookName);
+    }
+
+    public boolean loadChapterList(BooksList.BookItem item, String prependText) {
+        return ChapterList.populateListItems(item.getChapterCount(), prependText);
     }
 }

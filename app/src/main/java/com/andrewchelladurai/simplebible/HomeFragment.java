@@ -105,6 +105,11 @@ public class HomeFragment
         // get parameters to pass on
         BooksList.BookItem item = mPresenter.getBookItemUsingName(getBookInput());
         int chapterNumber = Integer.parseInt(getChapterInput());
+        boolean returnValue = mPresenter.loadChapterList(item, getString(R.string.chapter));
+        if (!returnValue) {
+            Log.d(TAG, "inputValidated: presenter could not load Chapter List");
+            return;
+        }
         // load parameters on a bundle to pass on
         Bundle bundle = new Bundle();
         bundle.putParcelable(ChapterFragment.ARG_BOOK_ITEM, item);
@@ -117,7 +122,7 @@ public class HomeFragment
         focusBookInputField();
 
         // start new activity using parameters
-        Intent intent = new Intent(getContext(), ChapterActivity.class);
+        Intent intent = new Intent(getContext(), ChapterListActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
     }

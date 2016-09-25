@@ -26,6 +26,7 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -33,23 +34,25 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.andrewchelladurai.simplebible.adapter.ChapterListAdapter;
-import com.andrewchelladurai.simplebible.interaction.BasicOperations;
+import com.andrewchelladurai.simplebible.interaction.ChapterListActivityOperations;
 import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.model.ChapterList;
+import com.andrewchelladurai.simplebible.presentation.ChapterListActivityPresenter;
 
 public class ChapterListActivity
         extends AppCompatActivity
-        implements BasicOperations {
+        implements ChapterListActivityOperations {
 
     private static final String TAG = "SB_ChapterListActivity";
     /**
      * Flag used to indicate if the Dual Pane mode needs to be shown. This is set looking at the
      * layout file loaded at runtime.
      */
-    private boolean            showDualPane;
-    private int                mChapterNumber;
-    private BooksList.BookItem mBookItem;
-    private boolean            isAllSet;
+    private boolean                      showDualPane;
+    private int                          mChapterNumber;
+    private BooksList.BookItem           mBookItem;
+    private boolean                      isAllSet;
+    private ChapterListActivityPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -60,6 +63,19 @@ public class ChapterListActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_chapter_list_toolbar);
         setSupportActionBar(toolbar);
         Log.d(TAG, "onCreate: isAllSet = " + isAllSet);
+
+        ChapterListAdapter listAdapter = null;
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.chapter_list);
+        if (recyclerView != null) {
+            listAdapter = new ChapterListAdapter(this, ChapterList.getAllItems());
+            recyclerView.setAdapter(listAdapter);
+        }
+        if (findViewById(R.id.chapter_detail_container) != null) {
+            showDualPane = true;
+        }
+        if (listAdapter != null & mChapterNumber != 0) {
+            chapterItemClicked(ChapterList.getChapterItem(mChapterNumber));
+        }
         if (isAllSet) {
             String bookName = mBookItem.getBookName();
             int count = mBookItem.getChapterCount();
@@ -67,14 +83,6 @@ public class ChapterListActivity
                     R.plurals.fragment_books_chapter_count_template, count, count);
             toolbar.setTitle(bookName + " : " + appendText);
             setTitle(bookName + " : " + appendText);
-        }
-
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.chapter_list);
-        if (recyclerView != null) {
-            recyclerView.setAdapter(new ChapterListAdapter(this, ChapterList.getAllItems()));
-        }
-        if (findViewById(R.id.chapter_detail_container) != null) {
-            showDualPane = true;
         }
     }
 
@@ -84,6 +92,7 @@ public class ChapterListActivity
 
     @Override public void init() {
         isAllSet = false;
+        mPresenter = new ChapterListActivityPresenter(this);
         Bundle bundle = getIntent().getExtras();
         mBookItem = bundle.getParcelable(ChapterFragment.ARG_BOOK_ITEM);
         mChapterNumber = bundle.getInt(ChapterFragment.ARG_CHAPTER_NUMBER);
@@ -95,5 +104,23 @@ public class ChapterListActivity
 
     public BooksList.BookItem getBookItem() {
         return mBookItem;
+    }
+
+    @Override public void chapterItemClicked(ChapterList.ChapterItem chapterItem) {
+        Bundle args = new Bundle();
+        args.putParcelable(ChapterFragment.ARG_BOOK_ITEM, getBookItem());
+        args.putInt(ChapterFragment.ARG_CHAPTER_NUMBER, chapterItem.getChapterNumber());
+
+        if (showDualPanel()) {
+            ChapterFragment fragment = ChapterFragment.newInstance();
+            fragment.setArguments(args);
+            getSupportFragmentManager().beginTransaction()
+                                       .replace(R.id.chapter_detail_container, fragment)
+                                       .commit();
+        } else {
+            Intent intent = new Intent(getApplicationContext(), ChapterActivity.class);
+            intent.putExtras(args);
+            startActivity(intent);
+        }
     }
 }

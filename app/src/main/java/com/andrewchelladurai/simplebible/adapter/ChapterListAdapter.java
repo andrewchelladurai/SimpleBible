@@ -26,19 +26,14 @@
 
 package com.andrewchelladurai.simplebible.adapter;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.andrewchelladurai.simplebible.ChapterActivity;
-import com.andrewchelladurai.simplebible.ChapterFragment;
-import com.andrewchelladurai.simplebible.ChapterListActivity;
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.interaction.ChapterListActivityOperations;
 import com.andrewchelladurai.simplebible.model.ChapterList.ChapterItem;
 
 import java.util.List;
@@ -49,11 +44,11 @@ import java.util.List;
 public class ChapterListAdapter
         extends RecyclerView.Adapter<ChapterListAdapter.ChapterItemViewHolder> {
 
-    private final List<ChapterItem>   mValues;
-    private       ChapterListActivity mActivity;
+    private final List<ChapterItem>             mValues;
+    private       ChapterListActivityOperations mOperations;
 
-    public ChapterListAdapter(ChapterListActivity activity, List<ChapterItem> items) {
-        mActivity = activity;
+    public ChapterListAdapter(ChapterListActivityOperations operations, List<ChapterItem> items) {
+        mOperations = operations;
         mValues = items;
     }
 
@@ -75,7 +70,7 @@ public class ChapterListAdapter
         return mValues.size();
     }
 
-    public class ChapterItemViewHolder
+    class ChapterItemViewHolder
             extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
@@ -83,7 +78,7 @@ public class ChapterListAdapter
         private final TextView    mContentView;
         private       ChapterItem mItem;
 
-        public ChapterItemViewHolder(View view) {
+        ChapterItemViewHolder(View view) {
             super(view);
             mView = view;
             mContentView = (TextView) view.findViewById(R.id.chapter_entry_number);
@@ -94,28 +89,14 @@ public class ChapterListAdapter
             return super.toString() + " '" + mContentView.getText() + "'";
         }
 
-        public void updateItem(ChapterItem chapterItem) {
+        void updateItem(ChapterItem chapterItem) {
             mItem = chapterItem;
             mContentView.setText(mItem.getLabel());
             mView.setOnClickListener(this);
         }
 
         @Override public void onClick(View v) {
-            Bundle args = new Bundle();
-            args.putParcelable(ChapterFragment.ARG_BOOK_ITEM, mActivity.getBookItem());
-            args.putInt(ChapterFragment.ARG_CHAPTER_NUMBER, mItem.getChapterNumber());
-            if (mActivity.showDualPanel()) {
-                ChapterFragment fragment = ChapterFragment.newInstance();
-                fragment.setArguments(args);
-                mActivity.getSupportFragmentManager().beginTransaction()
-                         .replace(R.id.chapter_detail_container, fragment)
-                         .commit();
-            } else {
-                Context context = v.getContext();
-                Intent intent = new Intent(context, ChapterActivity.class);
-                intent.putExtras(args);
-                context.startActivity(intent);
-            }
+            mOperations.chapterItemClicked(mItem);
         }
     }
 }
