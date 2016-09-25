@@ -37,13 +37,13 @@ public class SimpleBibleActivityPresenter {
                 Log.d(TAG, "init: context is null");
                 return;
             }
-            InputStreamReader mainDbStream = null;
-            InputStreamReader upgradeStream = null;
-            InputStreamReader downgradeStream = null;
+            InputStreamReader mainSteps = null;
+            InputStreamReader upgradeSteps = null;
+            InputStreamReader downgradeSteps = null;
             boolean allSet = true;
             Log.d(TAG, "init: Context != null, Preparing to obtain Script Files");
             try {
-                mainDbStream = new InputStreamReader(
+                mainSteps = new InputStreamReader(
                         context.getAssets().open("mainSteps.sql"));
             } catch (IOException ioe) {
                 allSet = false;
@@ -51,7 +51,7 @@ public class SimpleBibleActivityPresenter {
                 ioe.printStackTrace();
             }
             try {
-                upgradeStream = new InputStreamReader(
+                upgradeSteps = new InputStreamReader(
                         context.getAssets().open("upgradeSteps.sql"));
             } catch (IOException ioe) {
                 allSet = false;
@@ -59,7 +59,7 @@ public class SimpleBibleActivityPresenter {
                 ioe.printStackTrace();
             }
             try {
-                downgradeStream = new InputStreamReader(
+                downgradeSteps = new InputStreamReader(
                         context.getAssets().open("downgradeSteps.sql"));
             } catch (IOException ioe) {
                 allSet = false;
@@ -69,8 +69,7 @@ public class SimpleBibleActivityPresenter {
             if (allSet) {
                 Log.d(TAG, "init: allSet, proceeding now");
                 dbUtility = DBUtility.getInstance(
-                        context, mainDbStream, upgradeStream, downgradeStream);
-                dbUtility.getVerseOfTheDay();
+                        context, mainSteps, upgradeSteps, downgradeSteps);
             }
         } else {
             Log.d(TAG, "init() dbUtility != null");

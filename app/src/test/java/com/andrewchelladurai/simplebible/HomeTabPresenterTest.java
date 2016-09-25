@@ -1,5 +1,7 @@
 package com.andrewchelladurai.simplebible;
 
+import android.content.Context;
+
 import com.andrewchelladurai.simplebible.interaction.HomeTabOperations;
 import com.andrewchelladurai.simplebible.presentation.HomeTabPresenter;
 
@@ -22,29 +24,36 @@ public class HomeTabPresenterTest {
 
     @Mock
     HomeTabOperations mFragment;
+    @Mock
+    Context           mContext;
     private HomeTabPresenter mPresenter;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp()
+    throws Exception {
         MockitoAnnotations.initMocks(this);
         mPresenter = new HomeTabPresenter(mFragment);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown()
+    throws Exception {
         mFragment = null;
         mPresenter = null;
     }
 
     @Test
-    public void validateBookInput_returns_empty_message_when_input_is_empty() throws Exception {
+    public void validateBookInput_returns_empty_message_when_input_is_empty()
+    throws Exception {
         String expectedResult = "No Book Name Entered";
         when(mFragment.getBookInputEmptyErrorMessage()).thenReturn(expectedResult);
         String result = mPresenter.validateBookInput("");
         Assert.assertTrue(result.equalsIgnoreCase(expectedResult));
     }
+
     @Test
-    public void validateBookInput_returns_empty_message_when_input_is_null() throws Exception {
+    public void validateBookInput_returns_empty_message_when_input_is_null()
+    throws Exception {
         String expectedResult = "No Book Name Entered";
         when(mFragment.getBookInputEmptyErrorMessage()).thenReturn(expectedResult);
         String result = mPresenter.validateBookInput(null);
@@ -52,14 +61,17 @@ public class HomeTabPresenterTest {
     }
 
     @Test
-    public void validateChapterInput_returns_empty_message_when_input_is_empty() throws Exception {
+    public void validateChapterInput_returns_empty_message_when_input_is_empty()
+    throws Exception {
         String expectedResult = "No Chapter Entered";
         when(mFragment.getChapterInputEmptyErrorMessage()).thenReturn(expectedResult);
         String result = mPresenter.validateChapterInput("");
         Assert.assertTrue(result.equalsIgnoreCase(expectedResult));
     }
+
     @Test
-    public void validateChapterInput_returns_empty_message_when_input_is_null() throws Exception {
+    public void validateChapterInput_returns_empty_message_when_input_is_null()
+    throws Exception {
         String expectedResult = "No Chapter Entered";
         when(mFragment.getChapterInputEmptyErrorMessage()).thenReturn(expectedResult);
         String result = mPresenter.validateChapterInput(null);

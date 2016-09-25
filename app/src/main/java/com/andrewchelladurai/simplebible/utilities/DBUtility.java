@@ -30,8 +30,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
+
+import com.andrewchelladurai.simplebible.utilities.Constants.SimpleBibleTable;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -65,6 +66,16 @@ public class DBUtility
             Log.d(TAG, "getInstance: Initialized Static Instance");
         }
         return thisInstance;
+    }
+
+    public static DBUtility getInstance()
+    throws NullPointerException {
+        if (thisInstance == null
+            | mBaseScript == null | mUpgradeScript == null | mDowngradeScript == null) {
+            throw new NullPointerException("Static Instance is not yet initialized");
+        } else {
+            return thisInstance;
+        }
     }
 
     @Override public void onCreate(SQLiteDatabase db) {
@@ -142,23 +153,23 @@ public class DBUtility
         }
     }
 
-    public void getVerseOfTheDay() {
-        Log.d(TAG, "getVerseOfTheDay: called");
+    public String getVerseForReference(int bookNumber, int chapterNumber, int verseNumber) {
+        String table = SimpleBibleTable.NAME;
+        String[] columns = {SimpleBibleTable.COLUMN_BOOK_NUMBER,
+                            SimpleBibleTable.COLUMN_CHAPTER_NUMBER,
+                            SimpleBibleTable.COLUMN_VERSE_NUMBER,
+                            SimpleBibleTable.COLUMN_VERSE_TEXT};
 
-        String table = Constants.SimpleBibleTable.NAME;
-        String[] columns = {Constants.SimpleBibleTable.COLUMN_BOOK_NUMBER,
-                            Constants.SimpleBibleTable.COLUMN_CHAPTER_NUMBER,
-                            Constants.SimpleBibleTable.COLUMN_VERSE_NUMBER,
-                            Constants.SimpleBibleTable.COLUMN_VERSE_TEXT};
+        String where = SimpleBibleTable.COLUMN_BOOK_NUMBER + " = ? AND " +
+                       SimpleBibleTable.COLUMN_CHAPTER_NUMBER + " = ? AND " +
+                       SimpleBibleTable.COLUMN_VERSE_NUMBER + " = ? ";
+        String[] args = {bookNumber + "", chapterNumber + "", verseNumber + ""};
 
-        String where = Constants.SimpleBibleTable.COLUMN_BOOK_NUMBER + " = ? AND " +
-                       Constants.SimpleBibleTable.COLUMN_CHAPTER_NUMBER + " = ? AND " +
-                       Constants.SimpleBibleTable.COLUMN_VERSE_NUMBER + " = ? ";
-        String[] args = {"1", "1", "1"};
-
+/*
         String query = SQLiteQueryBuilder.buildQueryString(
                 true, table, columns, where, null, null, null, null);
-        Log.d(TAG, "getVerseOfTheDay: Query : " + query);
+        Log.d(TAG, "getVerseForReference: Query : " + query);
+*/
 
         SQLiteDatabase database = getReadableDatabase();
         database.beginTransaction();
@@ -168,10 +179,24 @@ public class DBUtility
         database.endTransaction();
 
         if (cursor == null) {
-            Log.d(TAG, "getVerseOfTheDay: cursor = null");
-        } else {
-            Log.d(TAG, "getVerseOfTheDay: returned " + cursor.getCount() + " rows");
+            Log.d(TAG, "getVerseForReference: cursor = null, returning null");
+            return null;
+        }
+        if (cursor.getCount() == 0) {
+            Log.d(TAG, "getVerseForReference: got Zero rows, returning null");
             cursor.close();
+            return null;
+        }
+        if (cursor.moveToFirst()) {
+            String verseText = cursor.getString(
+                    cursor.getColumnIndex(SimpleBibleTable.COLUMN_VERSE_TEXT));
+            cursor.close();
+            Log.d(TAG, "getVerseForReference() returning " + verseText.length() + " chars");
+            return verseText;
+        } else {
+            cursor.close();
+            Log.d(TAG, "getVerseForReference: did not moveToFirst, returning null");
+            return null;
         }
     }
 }

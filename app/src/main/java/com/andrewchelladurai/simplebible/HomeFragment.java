@@ -1,5 +1,6 @@
 package com.andrewchelladurai.simplebible;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
@@ -54,6 +55,7 @@ public class HomeFragment
         mMessageLabel = (AppCompatTextView) view.findViewById(R.id.fragment_home_message_label);
         mGotoButton = (AppCompatButton) view.findViewById(R.id.fragment_home_button_goto);
         mGotoButton.setOnClickListener(this);
+        init();
         return view;
     }
 
@@ -124,9 +126,20 @@ public class HomeFragment
     }
 
     @Override
+    public Context getFragmentContext() {
+        return getContext();
+    }
+
+    @Override public String[] getDailyVerseArray() {
+        return getResources().getStringArray(R.array.daily_verse_list);
+    }
+
+    @Override
     public void init() {
         Log.d(TAG, "init() called");
         mPresenter.init();
+        String display = mPresenter.getVerseContentForToday();
+        mDailyVerse.setText(display);
     }
 
     @Override
