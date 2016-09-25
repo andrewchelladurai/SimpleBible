@@ -59,6 +59,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:24.2.1'
     compile 'com.android.support:cardview-v7:24.2.1'
     compile 'com.google.firebase:firebase-core:9.4.0'
+    compile 'com.android.support:support-v13:24.2.1'
 }
 
 // includes Firebase Analytics by default help_outline
