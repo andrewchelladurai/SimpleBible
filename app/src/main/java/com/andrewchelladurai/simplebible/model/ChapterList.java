@@ -33,49 +33,50 @@ import java.util.Map;
 
 public class ChapterList {
 
-    public static final List<ChapterItem>        ITEMS    = new ArrayList<>();
-    public static final Map<String, ChapterItem> ITEM_MAP = new HashMap<>();
+    private static final List<ChapterItem>         ITEMS    = new ArrayList<>();
+    private static final Map<Integer, ChapterItem> ITEM_MAP = new HashMap<>();
 
-    private static final int COUNT = 25;
+    public static boolean populateListItems(int count, String prependText) {
+        ITEMS.clear();
+        ITEM_MAP.clear();
 
-    static {
-        // Add some sample items.
-        for (int i = 1; i <= COUNT; i++) {
-            addItem(createDummyItem(i));
+        for (int i = 1; i <= count; i++) {
+            ChapterItem item = new ChapterItem(i, prependText);
+            ITEMS.add(item);
+            ITEM_MAP.put(item.number, item);
         }
+        return true;
     }
 
-    private static void addItem(ChapterItem item) {
-        ITEMS.add(item);
-        ITEM_MAP.put(item.id, item);
+    public static ChapterItem getChapterItem(int chapterNumber) {
+        return (ITEM_MAP.containsKey(chapterNumber)) ? ITEM_MAP.get(chapterNumber) : null;
     }
 
-    private static ChapterItem createDummyItem(int position) {
-        return new ChapterItem(String.valueOf(position), makeDetails(position));
-    }
-
-    private static String makeDetails(int position) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Verses for Chapter : ").append(position);
-        for (int i = 0; i < position; i++) {
-            builder.append("\nThis is a verse.");
-        }
-        return builder.toString();
+    public static List<ChapterItem> getAllItems() {
+        return ITEMS;
     }
 
     public static class ChapterItem {
 
-        public final String id;
-        public final String details;
+        final int    number;
+        final String displayText;
 
-        public ChapterItem(String id, String details) {
-            this.id = id;
-            this.details = details;
+        ChapterItem(int id, String prependText) {
+            number = id;
+            displayText = prependText + " " + number;
         }
 
         @Override
         public String toString() {
-            return "Chapter " + id;
+            return getLabel();
+        }
+
+        public String getLabel() {
+            return displayText;
+        }
+
+        public int getChapterNumber() {
+            return number;
         }
     }
 }

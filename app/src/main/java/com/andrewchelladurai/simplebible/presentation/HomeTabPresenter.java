@@ -33,7 +33,6 @@ public class HomeTabPresenter {
             mFragment.handleEmptyBookNameValidationFailure();
             return Constants.FAILURE;
         }
-        Log.d(TAG, "validateBookInput() called with: bookInput = [" + bookInput + "]");
         int count = getChapterCountForBookName(bookInput);
         if (count < 1) {
             mFragment.handleIncorrectBookNameValidationFailure();

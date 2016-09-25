@@ -26,6 +26,8 @@
 
 package com.andrewchelladurai.simplebible.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.andrewchelladurai.simplebible.utilities.Constants;
@@ -100,7 +102,8 @@ public class BooksList {
         return (ITEM_MAP_BY_NAME.containsKey(bookName)) ? ITEM_MAP_BY_NAME.get(bookName) : null;
     }
 
-    public static class BookItem {
+    public static class BookItem
+            implements Parcelable {
 
         private final int    mBookNumber;
         private final int    mChapterCount;
@@ -108,9 +111,27 @@ public class BooksList {
 
         BookItem(int position, String name, int count) {
             mBookNumber = position;
-            mBookName = name;
             mChapterCount = count;
+            mBookName = name;
         }
+
+        protected BookItem(Parcel in) {
+            mBookNumber = in.readInt();
+            mChapterCount = in.readInt();
+            mBookName = in.readString();
+        }
+
+        public static final Creator<BookItem> CREATOR = new Creator<BookItem>() {
+            @Override
+            public BookItem createFromParcel(Parcel in) {
+                return new BookItem(in);
+            }
+
+            @Override
+            public BookItem[] newArray(int size) {
+                return new BookItem[size];
+            }
+        };
 
         public int getBookNumber() {
             return mBookNumber;
@@ -127,6 +148,16 @@ public class BooksList {
         @Override
         public String toString() {
             return mBookNumber + " : " + mBookName;
+        }
+
+        @Override public int describeContents() {
+            return 0;
+        }
+
+        @Override public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(mBookNumber);
+            dest.writeInt(mChapterCount);
+            dest.writeString(mBookName);
         }
     }
 }

@@ -102,16 +102,22 @@ public class HomeFragment
 
     public void inputValidated() {
 
+        // get parameters to pass on
         BooksList.BookItem item = mPresenter.getBookItemUsingName(getBookInput());
         int chapterNumber = Integer.parseInt(getChapterInput());
+        // load parameters on a bundle to pass on
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(ChapterFragment.ARG_BOOK_ITEM, item);
+        bundle.putInt(ChapterFragment.ARG_CHAPTER_NUMBER, chapterNumber);
 
+        // clear current input
         mBookInput.setText(null);
         mChapterInput.setText(null);
         showError("");
         focusBookInputField();
 
+        // start new activity using parameters
         Intent intent = new Intent(getContext(), ChapterActivity.class);
-        Bundle bundle = new Bundle();
         intent.putExtras(bundle);
         startActivity(intent);
     }

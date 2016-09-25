@@ -86,8 +86,15 @@ public class BooksFragment
 
     public void bookItemClicked(BooksList.BookItem item) {
         Log.d(TAG, "bookItemClicked() called for item [" + item.getBookName() + "]");
+        boolean returnValue = mPresenter.bookItemClicked(item, getString(R.string.chapter));
+        if (!returnValue) {
+            Log.d(TAG, "bookItemClicked: presenter could not load Chapter List");
+            return;
+        }
         Intent intent = new Intent(getContext(), ChapterListActivity.class);
         Bundle bundle = new Bundle();
+        bundle.putParcelable(ChapterFragment.ARG_BOOK_ITEM, item);
+        bundle.putInt(ChapterFragment.ARG_CHAPTER_NUMBER, 0);
         intent.putExtras(bundle);
         startActivity(intent);
     }

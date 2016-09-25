@@ -62,11 +62,15 @@ public class ChapterActivity
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
-            Bundle arguments = new Bundle();
-            arguments.putString(ChapterFragment.ARG_ITEM_ID,
-                                getIntent().getStringExtra(ChapterFragment.ARG_ITEM_ID));
+            Bundle argsToPassOn = new Bundle();
+            Bundle argsReceived = getIntent().getExtras();
+            argsToPassOn.putParcelable(ChapterFragment.ARG_BOOK_ITEM,
+                                       argsReceived.getParcelable(ChapterFragment.ARG_BOOK_ITEM));
+            argsToPassOn.putInt(ChapterFragment.ARG_CHAPTER_NUMBER,
+                                argsReceived.getInt(ChapterFragment.ARG_CHAPTER_NUMBER));
+
             ChapterFragment fragment = ChapterFragment.newInstance();
-            fragment.setArguments(arguments);
+            fragment.setArguments(argsToPassOn);
             getSupportFragmentManager().beginTransaction()
                                        .add(R.id.chapter_detail_container, fragment)
                                        .commit();

@@ -40,6 +40,7 @@ import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.adapter.VerseListAdapter;
 import com.andrewchelladurai.simplebible.interaction.BasicOperations;
+import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.model.ChapterList;
 import com.andrewchelladurai.simplebible.model.VerseList;
 import com.andrewchelladurai.simplebible.model.VerseList.VerseItem;
@@ -48,11 +49,14 @@ public class ChapterFragment
         extends Fragment
         implements BasicOperations {
 
-    //    public static final  String ARG_COLUMN_COUNT = "column-count";
-    public static final  String ARG_ITEM_ID = "item_id";
-    private static final String TAG         = "SB_ChapterFragment";
-    private ChapterList.ChapterItem mItem;
-    private int mColumnCount = 1;
+    private static final String TAG                = "SB_ChapterFragment";
+    public static final  String ARG_BOOK_ITEM      = "ARG_BOOK_ITEM";
+    public static final  String ARG_CHAPTER_NUMBER = "ARG_CHAPTER_NUMBER";
+
+    private ChapterList.ChapterItem mChapterItem;
+    private BooksList.BookItem      mBookItem;
+    private int     mColumnCount = 1;
+    private boolean isAllSet     = false;
 
     public ChapterFragment() {
     }
@@ -66,17 +70,16 @@ public class ChapterFragment
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
-            mItem = ChapterList.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
-
+    public void onCreate(Bundle savedState) {
+        super.onCreate(savedState);
+        init();
+        if (isAllSet) {
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout)
                     activity.findViewById(R.id.chapter_detail_toolbar_layout);
             if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.toString());
+                String title = mBookItem.getBookName() + " : " + mChapterItem.getLabel();
+                appBarLayout.setTitle(title);
             }
         }
     }
@@ -96,15 +99,33 @@ public class ChapterFragment
         return view;
     }
 
+    @Override public void init() {
+        // prepare to set all these values
+        isAllSet = false;
+        mBookItem = null;
+        mChapterItem = null;
+        mColumnCount = getResources().getInteger(R.integer.column_count_chapter_list);
+
+        Bundle args = getArguments();
+
+        if (args.containsKey(ARG_BOOK_ITEM)) { // Book Item was passed
+            mBookItem = args.getParcelable(ARG_BOOK_ITEM);
+            // required for display purposes
+            String prependText = getString(R.string.chapter);
+            // populate List based on Book Item
+            isAllSet = ChapterList.populateListItems(mBookItem.getChapterCount(), prependText);
+            // get Chapter Item
+            int chapterNumber = (isAllSet && args.containsKey(ARG_CHAPTER_NUMBER))
+                                ? args.getInt(ARG_CHAPTER_NUMBER) : 1;
+            mChapterItem = ChapterList.getChapterItem(chapterNumber);
+        }
+        isAllSet = (mChapterItem != null & mBookItem != null);
+    }
+
     public void verseClicked(VerseItem item) {
         Log.d(TAG, "verseClicked() called with: " + "item = [" + item + "]");
     }
 
-    @Override public void init() {
-        mColumnCount = getResources().getInteger(R.integer.column_count_chapter_list);
-    }
-
     @Override public void refresh() {
-
     }
 }

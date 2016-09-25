@@ -27,60 +27,73 @@
 package com.andrewchelladurai.simplebible;
 
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+import android.util.Log;
 
 import com.andrewchelladurai.simplebible.adapter.ChapterListAdapter;
+import com.andrewchelladurai.simplebible.interaction.BasicOperations;
+import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.model.ChapterList;
 
 public class ChapterListActivity
-        extends AppCompatActivity {
+        extends AppCompatActivity
+        implements BasicOperations {
 
+    private static final String TAG = "SB_ChapterListActivity";
     /**
      * Flag used to indicate if the Dual Pane mode needs to be shown. This is set looking at the
      * layout file loaded at runtime.
      */
-    private boolean showDualPane;
+    private boolean            showDualPane;
+    private int                mChapterNumber;
+    private BooksList.BookItem mBookItem;
+    private boolean            isAllSet;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle savedState) {
+        super.onCreate(savedState);
+        init();
         setContentView(R.layout.activity_chapter_list);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_chapter_list_toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(getTitle());
-
-        // Show the Up button in the action bar.
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
+        Log.d(TAG, "onCreate: isAllSet = " + isAllSet);
+        if (isAllSet) {
+            String bookName = mBookItem.getBookName();
+            int count = mBookItem.getChapterCount();
+            String appendText = getResources().getQuantityString(
+                    R.plurals.fragment_books_chapter_count_template, count, count);
+            toolbar.setTitle(bookName + " : " + appendText);
+            setTitle(bookName + " : " + appendText);
         }
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.chapter_list);
         assert recyclerView != null;
-        recyclerView.setAdapter(new ChapterListAdapter(this, ChapterList.ITEMS));
+        recyclerView.setAdapter(new ChapterListAdapter(this, ChapterList.getAllItems()));
 
         if (findViewById(R.id.chapter_detail_container) != null) {
             showDualPane = true;
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     public boolean showDualPanel() {
         return showDualPane;
+    }
+
+    @Override public void init() {
+        isAllSet = false;
+        Bundle bundle = getIntent().getExtras();
+        mBookItem = bundle.getParcelable(ChapterFragment.ARG_BOOK_ITEM);
+        mChapterNumber = bundle.getInt(ChapterFragment.ARG_CHAPTER_NUMBER);
+        isAllSet = (mBookItem != null);
+    }
+
+    @Override public void refresh() {
+    }
+
+    public BooksList.BookItem getBookItem() {
+        return mBookItem;
     }
 }

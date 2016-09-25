@@ -96,23 +96,24 @@ public class ChapterListAdapter
 
         public void updateItem(ChapterItem chapterItem) {
             mItem = chapterItem;
-            mContentView.setText(mItem.id);
+            mContentView.setText(mItem.getLabel());
             mView.setOnClickListener(this);
         }
 
         @Override public void onClick(View v) {
+            Bundle args = new Bundle();
+            args.putParcelable(ChapterFragment.ARG_BOOK_ITEM, mActivity.getBookItem());
+            args.putInt(ChapterFragment.ARG_CHAPTER_NUMBER, mItem.getChapterNumber());
             if (mActivity.showDualPanel()) {
-                Bundle arguments = new Bundle();
-                arguments.putString(ChapterFragment.ARG_ITEM_ID, mItem.id);
                 ChapterFragment fragment = ChapterFragment.newInstance();
-                fragment.setArguments(arguments);
+                fragment.setArguments(args);
                 mActivity.getSupportFragmentManager().beginTransaction()
                          .replace(R.id.chapter_detail_container, fragment)
                          .commit();
             } else {
                 Context context = v.getContext();
                 Intent intent = new Intent(context, ChapterActivity.class);
-                intent.putExtra(ChapterFragment.ARG_ITEM_ID, mItem.id);
+                intent.putExtras(args);
                 context.startActivity(intent);
             }
         }
