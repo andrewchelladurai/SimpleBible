@@ -73,9 +73,14 @@ public class ChapterListActivity
         if (findViewById(R.id.chapter_detail_container) != null) {
             showDualPane = true;
         }
-        if (listAdapter != null & mChapterNumber != 0) {
+
+        if (listAdapter != null & showDualPane & mChapterNumber == 0) {
+            mChapterNumber = 1;
+            chapterItemClicked(ChapterList.getChapterItem(mChapterNumber));
+        } else if (listAdapter != null & mChapterNumber != 0) {
             chapterItemClicked(ChapterList.getChapterItem(mChapterNumber));
         }
+
         if (isAllSet) {
             String bookName = mBookItem.getBookName();
             int count = mBookItem.getChapterCount();
