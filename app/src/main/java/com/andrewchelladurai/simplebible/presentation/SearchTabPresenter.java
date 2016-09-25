@@ -60,7 +60,7 @@ public class SearchTabPresenter {
 
     public String searchButtonClicked(String input) {
         Log.d(TAG, "searchButtonClicked() called");
-        String returnValue = Constants.SUCCESS_RETURN_VALUE;
+        String returnValue = Constants.SUCCESS;
 
         // check if the input is empty or null
         if (null == input || input.length() == 0) {

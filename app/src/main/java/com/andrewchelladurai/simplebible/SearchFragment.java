@@ -188,7 +188,7 @@ public class SearchFragment
     private void searchButtonClicked() {
         String inputString = getInputText();
         String message = mPresenter.searchButtonClicked(inputString);
-        if (message.equalsIgnoreCase(Constants.SUCCESS_RETURN_VALUE)) {
+        if (message.equalsIgnoreCase(Constants.SUCCESS)) {
             // mPresenter.getSearchResultsForText(getInputText());
         }
         showError(message);

@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.andrewchelladurai.simplebible.interaction.HomeTabOperations;
@@ -19,7 +18,7 @@ import com.andrewchelladurai.simplebible.utilities.Constants;
 
 public class HomeFragment
         extends Fragment
-        implements View.OnClickListener, HomeTabOperations, AdapterView.OnItemClickListener {
+        implements View.OnClickListener, HomeTabOperations, View.OnFocusChangeListener {
 
     private static final String TAG = "SB_HomeFragment";
     private AppCompatAutoCompleteTextView mBookInput;
@@ -37,8 +36,7 @@ public class HomeFragment
         return new HomeFragment();
     }
 
-    @Override
-    public void onCreate(Bundle bundle) {
+    @Override public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         mPresenter = new HomeTabPresenter(this);
         if (getArguments() != null) {
@@ -61,70 +59,58 @@ public class HomeFragment
         return view;
     }
 
-    @Override
-    public void onClick(View v) {
+    @Override public void init() {
+        Log.d(TAG, "init() called");
+        mPresenter.init();
+        ArrayAdapter<String> bookNamesAdapter = new ArrayAdapter<>(
+                getContext(), android.R.layout.simple_dropdown_item_1line,
+                mPresenter.getBookNamesList());
+        mBookInput.setAdapter(bookNamesAdapter);
+        mBookInput.setOnFocusChangeListener(this);
+        mChapterInput.setAdapter(null);
+        mChapterInput.setOnFocusChangeListener(this);
+
+        String display = mPresenter.getVerseContentForToday();
+        mDailyVerse.setText(display);
+    }
+
+    @Override public void onClick(View v) {
         if (v instanceof AppCompatButton & v.equals(mGotoButton)) {
-            // Check if Book Input is valid, return otherwise
-            String returnValue = mPresenter.validateBookInput(getBookInput());
-            if (!returnValue.equalsIgnoreCase(Constants.SUCCESS_RETURN_VALUE)) {
-                showError(returnValue);
-                focusBookInputField();
-                return;
+            showError("");
+            String returnValue = mPresenter.validateInput(getBookInput(), getChapterInput());
+            if (returnValue.equalsIgnoreCase(Constants.SUCCESS)) {
+                inputValidated();
             }
-            // Check if Chapter Input is valid, return otherwise
-            returnValue = mPresenter.validateChapterInput(getChapterInput());
-            if (!returnValue.equalsIgnoreCase(Constants.SUCCESS_RETURN_VALUE)) {
-                showError(returnValue);
-                focusChapterInputField();
-                return;
-            }
-            inputValidated();
         } else {
             Log.d(TAG, "onClick: " + getString(R.string.how_am_i_here));
         }
     }
 
-    @Override
     public String getBookInput() {
         return mBookInput.getText().toString();
     }
 
-    @Override
     public String getChapterInput() {
         return mChapterInput.getText().toString();
     }
 
-    @Override
     public void showError(String message) {
         mMessageLabel.setText(message);
     }
 
-    @Override
     public void inputValidated() {
         mBookInput.setText(null);
         mChapterInput.setText(null);
-        mMessageLabel.setText(null);
-        mBookInput.requestFocus();
+        showError("");
+        focusBookInputField();
     }
 
-    @Override
     public void focusBookInputField() {
         mBookInput.requestFocus();
     }
 
-    @Override
     public void focusChapterInputField() {
         mChapterInput.requestFocus();
-    }
-
-    @Override
-    public String getBookInputEmptyErrorMessage() {
-        return getString(R.string.fragment_home_err_msg_empty_book);
-    }
-
-    @Override
-    public String getChapterInputEmptyErrorMessage() {
-        return getString(R.string.fragment_home_err_msg_empty_chapter);
     }
 
     @Override
@@ -136,26 +122,41 @@ public class HomeFragment
         return getResources().getStringArray(R.array.daily_verse_list);
     }
 
-    @Override
-    public void init() {
-        Log.d(TAG, "init() called");
-        mPresenter.init();
-        ArrayAdapter<String> bookNamesAdapter = new ArrayAdapter<>(
-                getContext(), android.R.layout.simple_dropdown_item_1line,
-                mPresenter.getBookNamesList());
-        mBookInput.setAdapter(bookNamesAdapter);
-        mBookInput.setOnItemClickListener(this);
-
-        String display = mPresenter.getVerseContentForToday();
-        mDailyVerse.setText(display);
+    @Override public void updateChapterAdapter(ArrayAdapter<String> adapter) {
+        mChapterInput.setAdapter(adapter);
+        showError("");
     }
 
-    @Override
-    public void refresh() {
+    @Override public void handleEmptyChapterNumberValidationFailure() {
+        showError(getString(R.string.fragment_home_err_msg_empty_chapter));
+        focusChapterInputField();
+    }
+
+    @Override public void handleIncorrectChapterNumberValidationFailure() {
+        showError(getString(R.string.fragment_home_err_msg_invalid_chapter_number));
+        focusChapterInputField();
+    }
+
+    @Override public void handleEmptyBookNameValidationFailure() {
+        showError(getString(R.string.fragment_home_err_msg_empty_book));
+        focusBookInputField();
+    }
+
+    @Override public void handleIncorrectBookNameValidationFailure() {
+        updateChapterAdapter(null);
+        focusBookInputField();
+        showError(getString(R.string.fragment_home_err_msg_invalid_book));
+    }
+
+    @Override public void refresh() {
         Log.d(TAG, "refresh() called");
     }
 
-    @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.d(TAG, "onItemClick: Book Selected " + parent.getItemAtPosition(position).toString());
+    @Override public void onFocusChange(View v, boolean hasFocus) {
+        if (v.equals(mChapterInput) & hasFocus) {
+            mPresenter.validateBookInput(getBookInput());
+        } else if (mBookInput.hasFocus()) {
+            // FIXME: 25/9/16 code if needed
+        }
     }
 }

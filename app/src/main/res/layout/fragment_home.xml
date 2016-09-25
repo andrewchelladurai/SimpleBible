@@ -40,7 +40,9 @@
                     android:id="@+id/fragment_home_input_book_name"
                     style="@style/StyleForTextInput"
                     android:completionThreshold="1"
-                    android:hint="@string/fragment_home_hint_book" />
+                    android:hint="@string/fragment_home_hint_book"
+                    android:inputType="text"
+                    android:selectAllOnFocus="true" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -52,7 +54,9 @@
                     android:id="@+id/fragment_home_input_chapter_number"
                     style="@style/StyleForTextInput"
                     android:completionThreshold="1"
-                    android:hint="@string/fragment_home_hint_chapter" />
+                    android:hint="@string/fragment_home_hint_chapter"
+                    android:inputType="numberSigned"
+                    android:selectAllOnFocus="true" />
             </android.support.design.widget.TextInputLayout>
         </android.support.v7.widget.LinearLayoutCompat>
 

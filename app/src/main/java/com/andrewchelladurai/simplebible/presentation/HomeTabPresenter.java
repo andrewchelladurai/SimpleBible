@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible.presentation;
 
 import android.util.Log;
+import android.widget.ArrayAdapter;
 
 import com.andrewchelladurai.simplebible.interaction.HomeTabOperations;
 import com.andrewchelladurai.simplebible.model.BooksList;
@@ -26,20 +27,43 @@ public class HomeTabPresenter {
         Log.d(TAG, "init() called");
     }
 
-    public String validateBookInput(String input) {
-        String returnValue = Constants.SUCCESS_RETURN_VALUE;
-        if (null == input || input.isEmpty()) {
-            returnValue = mFragment.getBookInputEmptyErrorMessage();
+    public String validateBookInput(String bookInput) {
+        if (null == bookInput || bookInput.isEmpty()) {
+            Log.d(TAG, "validateBookInput() : null == bookInput || bookInput.isEmpty()");
+            mFragment.handleEmptyBookNameValidationFailure();
+            return Constants.FAILURE;
         }
-        return returnValue;
+        Log.d(TAG, "validateBookInput() called with: bookInput = [" + bookInput + "]");
+        int count = getChapterCountForBookName(bookInput);
+        if (count < 1) {
+            mFragment.handleIncorrectBookNameValidationFailure();
+            return Constants.FAILURE;
+        }
+        String[] list = new String[count];
+        for (int i = 0; i < count; i++) {
+            list[i] = (i + 1) + "";
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                mFragment.getFragmentContext(), android.R.layout.simple_dropdown_item_1line, list);
+        mFragment.updateChapterAdapter(adapter);
+
+        return Constants.SUCCESS;
     }
 
-    public String validateChapterInput(String input) {
-        String returnValue = Constants.SUCCESS_RETURN_VALUE;
-        if (null == input || input.isEmpty()) {
-            returnValue = mFragment.getChapterInputEmptyErrorMessage();
+    public String validateChapterInput(String bookInput, String chapterInput) {
+        if (null == chapterInput || chapterInput.isEmpty()) {
+            mFragment.handleEmptyChapterNumberValidationFailure();
+            return Constants.FAILURE;
         }
-        return returnValue;
+
+        int count = getChapterCountForBookName(bookInput);
+        int chapter = Integer.parseInt(chapterInput);
+        if (chapter < 1 || chapter > count) {
+            mFragment.handleIncorrectChapterNumberValidationFailure();
+            return Constants.FAILURE;
+        }
+
+        return Constants.SUCCESS;
     }
 
     public String getVerseContentForToday() {
@@ -113,7 +137,20 @@ public class HomeTabPresenter {
         for (int i = 0; i < count; i++) {
             list[i] = items.get(i).getBookName();
         }
-        Log.d(TAG, "getBookNamesList: returning " + list.length + " records");
         return list;
+    }
+
+    private int getChapterCountForBookName(String bookName) {
+        BooksList.BookItem bookItem = BooksList.getBookItem(bookName);
+        return (bookItem == null) ? 0 : bookItem.getChapterCount();
+    }
+
+    public String validateInput(String bookInput, String chapterInput) {
+        String returnValue = validateBookInput(bookInput);
+        if (returnValue.equalsIgnoreCase(Constants.SUCCESS)) {
+            return validateChapterInput(bookInput, chapterInput);
+        } else {
+            return Constants.FAILURE;
+        }
     }
 }

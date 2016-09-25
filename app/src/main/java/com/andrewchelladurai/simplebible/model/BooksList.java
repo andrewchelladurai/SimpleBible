@@ -39,12 +39,14 @@ public class BooksList {
 
     private static final String TAG = "SB_BooksList";
 
-    private static final List<BookItem>        ITEMS    = new ArrayList<>();
-    private static final Map<String, BookItem> ITEM_MAP = new HashMap<>();
+    private static final List<BookItem>        ITEMS              = new ArrayList<>();
+    private static final Map<String, BookItem> ITEM_MAP_BY_NUMBER = new HashMap<>();
+    private static final Map<String, BookItem> ITEM_MAP_BY_NAME   = new HashMap<>();
 
     public static boolean clearList() {
         ITEMS.clear();
-        ITEM_MAP.clear();
+        ITEM_MAP_BY_NUMBER.clear();
+        ITEM_MAP_BY_NAME.clear();
         return true;
     }
 
@@ -78,7 +80,8 @@ public class BooksList {
 
             item = new BookItem(bookNumber, bookName, chapterCount);
             ITEMS.add(item);
-            ITEM_MAP.put(String.valueOf(item.mBookNumber), item);
+            ITEM_MAP_BY_NUMBER.put(String.valueOf(item.mBookNumber), item);
+            ITEM_MAP_BY_NAME.put(String.valueOf(item.mBookName), item);
         }
         Log.d(TAG, "populateBooksList returned: " + bookNumber + " Books populated");
         return true;
@@ -93,13 +96,17 @@ public class BooksList {
         return ITEMS;
     }
 
+    public static BookItem getBookItem(String bookName) {
+        return (ITEM_MAP_BY_NAME.containsKey(bookName)) ? ITEM_MAP_BY_NAME.get(bookName) : null;
+    }
+
     public static class BookItem {
 
         private final int    mBookNumber;
         private final int    mChapterCount;
         private final String mBookName;
 
-        public BookItem(int position, String name, int count) {
+        BookItem(int position, String name, int count) {
             mBookNumber = position;
             mBookName = name;
             mChapterCount = count;

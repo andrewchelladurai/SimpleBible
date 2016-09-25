@@ -40,6 +40,8 @@
 
     <string name="fragment_home_err_msg_empty_chapter">No Chapter Entered</string>
     <string name="fragment_home_err_msg_empty_book">No Book Name Entered</string>
+    <string name="fragment_home_err_msg_invalid_book">Invalid Book Name</string>
+    <string name="fragment_home_err_msg_invalid_chapter_number">Invalid Chapter Number</string>
     <string name="fragment_home_hint_book">Enter Book Name</string>
     <string name="fragment_home_hint_chapter">Enter Chapter Number</string>
     <string name="fragment_home_button_label_goto">Load Location</string>

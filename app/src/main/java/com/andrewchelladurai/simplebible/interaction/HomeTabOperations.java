@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible.interaction;
 
 import android.content.Context;
+import android.widget.ArrayAdapter;
 
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 07-Sep-2016 @ 1:41 AM
@@ -8,23 +9,17 @@ import android.content.Context;
 public interface HomeTabOperations
         extends BasicOperations {
 
-    String getBookInput();
+    void handleEmptyBookNameValidationFailure();
 
-    String getChapterInput();
-
-    void showError(String message);
-
-    void inputValidated();
-
-    void focusBookInputField();
-
-    void focusChapterInputField();
-
-    String getBookInputEmptyErrorMessage();
-
-    String getChapterInputEmptyErrorMessage();
+    void handleIncorrectBookNameValidationFailure();
 
     Context getFragmentContext();
 
+    void updateChapterAdapter(ArrayAdapter<String> adapter);
+
     String[] getDailyVerseArray();
+
+    void handleEmptyChapterNumberValidationFailure();
+
+    void handleIncorrectChapterNumberValidationFailure();
 }
