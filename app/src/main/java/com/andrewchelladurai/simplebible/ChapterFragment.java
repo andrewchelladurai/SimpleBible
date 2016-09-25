@@ -27,11 +27,9 @@
 package com.andrewchelladurai.simplebible;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -55,7 +53,6 @@ public class ChapterFragment
 
     private ChapterList.ChapterItem mChapterItem;
     private BooksList.BookItem      mBookItem;
-    private int     mColumnCount = 1;
     private boolean isAllSet     = false;
 
     public ChapterFragment() {
@@ -90,10 +87,7 @@ public class ChapterFragment
         View view = inflater.inflate(R.layout.fragment_chapter, container, false);
 
         // Set the adapter
-        Context context = view.getContext();
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_verse_list);
-        Log.d(TAG, "onCreateView: mColumnCount = " + mColumnCount);
-        recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         recyclerView.setAdapter(new VerseListAdapter(VerseList.getItems(), this));
 
         return view;
@@ -104,7 +98,6 @@ public class ChapterFragment
         isAllSet = false;
         mBookItem = null;
         mChapterItem = null;
-        mColumnCount = getResources().getInteger(R.integer.column_count_chapter_list);
 
         Bundle args = getArguments();
 

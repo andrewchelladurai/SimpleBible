@@ -70,9 +70,9 @@ public class ChapterListActivity
         }
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.chapter_list);
-        assert recyclerView != null;
-        recyclerView.setAdapter(new ChapterListAdapter(this, ChapterList.getAllItems()));
-
+        if (recyclerView != null) {
+            recyclerView.setAdapter(new ChapterListAdapter(this, ChapterList.getAllItems()));
+        }
         if (findViewById(R.id.chapter_detail_container) != null) {
             showDualPane = true;
         }
