@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.andrewchelladurai.simplebible.interaction.HomeTabOperations;
+import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.presentation.HomeTabPresenter;
 import com.andrewchelladurai.simplebible.utilities.Constants;
 
@@ -99,10 +101,19 @@ public class HomeFragment
     }
 
     public void inputValidated() {
+
+        BooksList.BookItem item = mPresenter.getBookItemUsingName(getBookInput());
+        int chapterNumber = Integer.parseInt(getChapterInput());
+
         mBookInput.setText(null);
         mChapterInput.setText(null);
         showError("");
         focusBookInputField();
+
+        Intent intent = new Intent(getContext(), ChapterActivity.class);
+        Bundle bundle = new Bundle();
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     public void focusBookInputField() {

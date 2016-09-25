@@ -141,7 +141,7 @@ public class HomeTabPresenter {
     }
 
     private int getChapterCountForBookName(String bookName) {
-        BooksList.BookItem bookItem = BooksList.getBookItem(bookName);
+        BooksList.BookItem bookItem = getBookItemUsingName(bookName);
         return (bookItem == null) ? 0 : bookItem.getChapterCount();
     }
 
@@ -152,5 +152,9 @@ public class HomeTabPresenter {
         } else {
             return Constants.FAILURE;
         }
+    }
+
+    public BooksList.BookItem getBookItemUsingName(String bookName) {
+        return BooksList.getBookItem(bookName);
     }
 }
