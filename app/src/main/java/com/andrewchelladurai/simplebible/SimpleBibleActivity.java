@@ -82,5 +82,14 @@ public class SimpleBibleActivity
     public String getTabTitle(int position) {
         return mPagerAdapter.getPageTitle(position).toString();
     }
+    /**
+     * This will return the resource array books_n_chapter_count_array The format of the items must
+     * be like this : Book_Name:Chapter_Count Example Genesis:50
+     *
+     * @return String array
+     */
+    @Override public String[] getBookNameChapterCountArray() {
+        return getResources().getStringArray(R.array.books_n_chapter_count_array);
+    }
 
 }

@@ -3,10 +3,12 @@ package com.andrewchelladurai.simplebible.presentation;
 import android.util.Log;
 
 import com.andrewchelladurai.simplebible.interaction.HomeTabOperations;
+import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.utilities.Constants;
 import com.andrewchelladurai.simplebible.utilities.DBUtility;
 
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 07-Sep-2016 @ 1:40 AM
@@ -97,5 +99,21 @@ public class HomeTabPresenter {
         // FIXME: 25/9/16 beautify verse display
 
         return verseText;
+    }
+
+    public String[] getBookNamesList() {
+        List<BooksList.BookItem> items = BooksList.getListItems();
+        int count = items.size();
+        if (count == 0) {
+            Log.d(TAG, "getBookNamesList: got Zero results, returning null");
+            return null;
+        }
+        Log.d(TAG, "getBookNamesList: got " + count + " results");
+        String list[] = new String[count];
+        for (int i = 0; i < count; i++) {
+            list[i] = items.get(i).getBookName();
+        }
+        Log.d(TAG, "getBookNamesList: returning " + list.length + " records");
+        return list;
     }
 }

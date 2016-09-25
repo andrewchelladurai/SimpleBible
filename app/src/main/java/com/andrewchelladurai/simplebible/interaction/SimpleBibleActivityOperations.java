@@ -11,4 +11,6 @@ public interface SimpleBibleActivityOperations
     Context getThisApplicationContext();
 
     String getTabTitle(int position);
+
+    String[] getBookNameChapterCountArray();
 }

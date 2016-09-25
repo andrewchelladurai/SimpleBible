@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityOperations;
+import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.utilities.DBUtility;
 
 import java.io.IOException;
@@ -31,6 +32,14 @@ public class SimpleBibleActivityPresenter {
      */
     public void init() {
         Log.d(TAG, "init: called");
+        String array[] = mInterface.getBookNameChapterCountArray();
+        boolean populated = BooksList.populateBooksList(array);
+        if (populated) {
+            Log.d(TAG, "init: book list populated");
+        } else {
+            Log.d(TAG, "init: book list NOT populated");
+        }
+
         if (dbUtility == null) {
             Context context = mInterface.getThisApplicationContext();
             if (context == null) {

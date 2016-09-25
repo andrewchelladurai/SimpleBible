@@ -39,6 +39,7 @@
                 <android.support.v7.widget.AppCompatAutoCompleteTextView
                     android:id="@+id/fragment_home_input_book_name"
                     style="@style/StyleForTextInput"
+                    android:completionThreshold="1"
                     android:hint="@string/fragment_home_hint_book" />
             </android.support.design.widget.TextInputLayout>
 
@@ -50,6 +51,7 @@
                 <android.support.v7.widget.AppCompatAutoCompleteTextView
                     android:id="@+id/fragment_home_input_chapter_number"
                     style="@style/StyleForTextInput"
+                    android:completionThreshold="1"
                     android:hint="@string/fragment_home_hint_chapter" />
             </android.support.design.widget.TextInputLayout>
         </android.support.v7.widget.LinearLayoutCompat>

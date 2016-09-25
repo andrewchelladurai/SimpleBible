@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 import com.andrewchelladurai.simplebible.interaction.HomeTabOperations;
 import com.andrewchelladurai.simplebible.presentation.HomeTabPresenter;
@@ -17,7 +19,7 @@ import com.andrewchelladurai.simplebible.utilities.Constants;
 
 public class HomeFragment
         extends Fragment
-        implements View.OnClickListener, HomeTabOperations {
+        implements View.OnClickListener, HomeTabOperations, AdapterView.OnItemClickListener {
 
     private static final String TAG = "SB_HomeFragment";
     private AppCompatAutoCompleteTextView mBookInput;
@@ -138,6 +140,12 @@ public class HomeFragment
     public void init() {
         Log.d(TAG, "init() called");
         mPresenter.init();
+        ArrayAdapter<String> bookNamesAdapter = new ArrayAdapter<>(
+                getContext(), android.R.layout.simple_dropdown_item_1line,
+                mPresenter.getBookNamesList());
+        mBookInput.setAdapter(bookNamesAdapter);
+        mBookInput.setOnItemClickListener(this);
+
         String display = mPresenter.getVerseContentForToday();
         mDailyVerse.setText(display);
     }
@@ -145,5 +153,9 @@ public class HomeFragment
     @Override
     public void refresh() {
         Log.d(TAG, "refresh() called");
+    }
+
+    @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.d(TAG, "onItemClick: Book Selected " + parent.getItemAtPosition(position).toString());
     }
 }

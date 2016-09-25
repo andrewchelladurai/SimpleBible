@@ -43,9 +43,8 @@ public class BooksFragment
     public void init() {
         Log.d(TAG, "init() called");
         mPresenter = new BooksTabPresenter(this);
-        boolean value = mPresenter.init();
+        mPresenter.init();
         mColumnCount = getResources().getInteger(R.integer.column_count_books_list);
-        Log.d(TAG, "init: " + value);
     }
 
     @Override
@@ -108,18 +107,4 @@ public class BooksFragment
                 R.plurals.fragment_books_chapter_count_template, count, count);
     }
 
-    /**
-     * This will return the resource array books_n_chapter_count_array The format of the items must
-     * be like this : Book_Name:Chapter_Count Example Genesis:50
-     *
-     * @return String array
-     */
-    @Override
-    public String[] getBookNameChapterCountArray() {
-        String array[] = getResources().getStringArray(R.array.books_n_chapter_count_array);
-        if (array.length > 0) {
-            return array;
-        }
-        return new String[0];
-    }
 }

@@ -8,8 +8,6 @@ import com.andrewchelladurai.simplebible.model.BooksList;
 public interface BooksTabOperations
         extends BasicOperations {
 
-    String[] getBookNameChapterCountArray();
-
     void bookItemClicked(BooksList.BookItem mItem);
 
     String getBookNameTemplateString();
