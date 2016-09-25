@@ -37,6 +37,7 @@ import com.andrewchelladurai.simplebible.utilities.Constants.SimpleBibleTable;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 23-Sep-2016 @ 1:00 AM
@@ -198,5 +199,39 @@ public class DBUtility
             Log.d(TAG, "getVerseForReference: did not moveToFirst, returning null");
             return null;
         }
+    }
+
+    public ArrayList<String> getAllVerseForChapter(int bookNumber, int chapterNumber) {
+        Log.d(TAG, "getAllVerseForChapter() called with: bookNumber = [" + bookNumber
+                   + "], chapterNumber = [" + chapterNumber + "]");
+
+        String table = SimpleBibleTable.NAME;
+        String[] columns = {SimpleBibleTable.COLUMN_VERSE_TEXT};
+        String where = SimpleBibleTable.COLUMN_BOOK_NUMBER + " = ? AND " +
+                       SimpleBibleTable.COLUMN_CHAPTER_NUMBER + " = ? ";
+        String[] selectionArgs = {bookNumber + "", chapterNumber + ""};
+        String orderBy = SimpleBibleTable.COLUMN_VERSE_NUMBER + " ASC";
+
+        SQLiteDatabase database = getReadableDatabase();
+        database.beginTransaction();
+        Cursor cursor = database.query(
+                true, table, columns, where, selectionArgs, null, null, orderBy, null);
+        database.setTransactionSuccessful();
+        database.endTransaction();
+
+        if (cursor == null || cursor.getCount() < 1) {
+            Log.d(TAG, "getAllVerseForChapter: cursor is null or no results found");
+            return null;
+        }
+
+        int verseTextIdx = cursor.getColumnIndex(SimpleBibleTable.COLUMN_VERSE_TEXT);
+        ArrayList<String> versesList = new ArrayList<>(0);
+
+        while (cursor.moveToNext()) {
+            versesList.add(cursor.getString(verseTextIdx));
+        }
+        Log.d(TAG, "getAllVerseForChapter() returned: " + versesList.size() + " records");
+        cursor.close();
+        return versesList;
     }
 }

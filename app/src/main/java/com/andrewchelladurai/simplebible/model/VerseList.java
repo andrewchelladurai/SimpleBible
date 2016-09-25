@@ -26,6 +26,8 @@
 
 package com.andrewchelladurai.simplebible.model;
 
+import com.andrewchelladurai.simplebible.utilities.Constants;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,39 +35,57 @@ import java.util.Map;
 
 public class VerseList {
 
-    static final List<VerseItem>        ITEMS    = new ArrayList<>();
-    static final Map<String, VerseItem> ITEM_MAP = new HashMap<>();
-
-    private static final int COUNT = 25;
+    private static final List<VerseItem>        ITEMS    = new ArrayList<>();
+    private static final Map<String, VerseItem> ITEM_MAP = new HashMap<>();
 
     public static List<VerseItem> getItems() {
         if (ITEMS.isEmpty() || ITEMS.size() == 0) {
-            populateList();
+            return null;
         }
         return ITEMS;
     }
 
-    private static void populateList() {
-        for (int i = 1; i <= COUNT; i++) {
-            VerseItem item = new VerseItem(String.valueOf(i), "Item " + i);
+    public static boolean populateList(int bookNumber, int chapterNumber,
+                                       ArrayList<String> versesList) {
+        ITEMS.clear();
+        ITEM_MAP.clear();
+        VerseItem item;
+        for (int verseNumber = 1; verseNumber <= versesList.size(); verseNumber++) {
+            item = new VerseItem(
+                    bookNumber, chapterNumber, verseNumber, versesList.get((verseNumber - 1)));
             ITEMS.add(item);
-            ITEM_MAP.put(item.content, item);
+            ITEM_MAP.put(item.getReference(), item);
         }
+        return true;
     }
 
     public static class VerseItem {
 
-        public final String content;
-        public final String details;
+        private       int    mBookNumber;
+        private final int    mChapterNumber;
+        private final int    mVerseNumber;
+        private final String mVerseText;
 
-        public VerseItem(String content, String details) {
-            this.content = content;
-            this.details = details;
+        VerseItem(int bookNumber, int chapterNumber, int verseNumber, String verseText) {
+            mBookNumber = bookNumber;
+            mChapterNumber = chapterNumber;
+            mVerseNumber = verseNumber;
+            mVerseText = verseText;
+        }
+
+        String getReference() {
+            return mBookNumber + Constants.DELIMITER_IN_REFERENCE +
+                   mChapterNumber + Constants.DELIMITER_IN_REFERENCE +
+                   mVerseNumber + Constants.DELIMITER_IN_REFERENCE;
         }
 
         @Override
         public String toString() {
-            return content;
+            return getReference() + " - " + getVerseText();
+        }
+
+        public String getVerseText() {
+            return mVerseText;
         }
     }
 }

@@ -37,15 +37,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.adapter.VerseListAdapter;
-import com.andrewchelladurai.simplebible.interaction.BasicOperations;
+import com.andrewchelladurai.simplebible.interaction.ChapterFragmentOperations;
 import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.model.ChapterList;
-import com.andrewchelladurai.simplebible.model.VerseList;
 import com.andrewchelladurai.simplebible.model.VerseList.VerseItem;
+import com.andrewchelladurai.simplebible.presentation.ChapterFragmentPresenter;
+
+import java.util.List;
 
 public class ChapterFragment
         extends Fragment
-        implements BasicOperations {
+        implements ChapterFragmentOperations {
 
     private static final String TAG                = "SB_ChapterFragment";
     public static final  String ARG_BOOK_ITEM      = "ARG_BOOK_ITEM";
@@ -54,6 +56,8 @@ public class ChapterFragment
     private ChapterList.ChapterItem mChapterItem;
     private BooksList.BookItem      mBookItem;
     private boolean isAllSet = false;
+    private VerseListAdapter         mListAdapter;
+    private ChapterFragmentPresenter mPresenter;
 
     public ChapterFragment() {
     }
@@ -89,7 +93,7 @@ public class ChapterFragment
 
         // Set the adapter
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_verse_list);
-        recyclerView.setAdapter(new VerseListAdapter(VerseList.getItems(), this));
+        recyclerView.setAdapter(mListAdapter);
 
         return view;
     }
@@ -99,6 +103,7 @@ public class ChapterFragment
         isAllSet = false;
         mBookItem = null;
         mChapterItem = null;
+        mPresenter = new ChapterFragmentPresenter(this);
 
         Bundle args = getArguments();
 
@@ -113,7 +118,12 @@ public class ChapterFragment
                                 ? args.getInt(ARG_CHAPTER_NUMBER) : 1;
             mChapterItem = ChapterList.getChapterItem(chapterNumber);
         }
-        isAllSet = (mChapterItem != null & mBookItem != null);
+        List<VerseItem> list = mPresenter.getAllVersesForChapter(mBookItem, mChapterItem);
+        if (list != null) {
+            mListAdapter = new VerseListAdapter(list, this);
+        }
+
+        isAllSet = (mChapterItem != null & mBookItem != null & list != null);
     }
 
     public void verseClicked(VerseItem item) {

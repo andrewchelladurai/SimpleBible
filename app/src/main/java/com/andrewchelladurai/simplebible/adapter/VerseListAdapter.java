@@ -58,6 +58,8 @@ public class VerseListAdapter
 
     @Override
     public void onBindViewHolder(final VerseViewHolder holder, int position) {
+        holder.updateItem(mValues.get(position));
+/*
         holder.mItem = mValues.get(position);
         holder.mContentView.setText(mValues.get(position).content);
 
@@ -69,6 +71,7 @@ public class VerseListAdapter
                 }
             }
         });
+*/
     }
 
     @Override
@@ -76,14 +79,15 @@ public class VerseListAdapter
         return mValues.size();
     }
 
-    public class VerseViewHolder
-            extends RecyclerView.ViewHolder {
+    class VerseViewHolder
+            extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
 
-        public final View      mView;
-        public final TextView  mContentView;
-        public       VerseItem mItem;
+        final View     mView;
+        final TextView mContentView;
+        VerseItem mItem;
 
-        public VerseViewHolder(View view) {
+        VerseViewHolder(View view) {
             super(view);
             mView = view;
             mContentView = (TextView) view.findViewById(R.id.verse_entry_content);
@@ -92,6 +96,16 @@ public class VerseListAdapter
         @Override
         public String toString() {
             return super.toString() + " '" + mContentView.getText() + "'";
+        }
+
+        void updateItem(VerseItem verseItem) {
+            mItem = verseItem;
+            mContentView.setText(mItem.getVerseText());
+            mView.setOnClickListener(this);
+        }
+
+        @Override public void onClick(View v) {
+            mListener.verseClicked(mItem);
         }
     }
 }
