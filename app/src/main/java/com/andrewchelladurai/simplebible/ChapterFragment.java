@@ -53,7 +53,7 @@ public class ChapterFragment
 
     private ChapterList.ChapterItem mChapterItem;
     private BooksList.BookItem      mBookItem;
-    private boolean isAllSet     = false;
+    private boolean isAllSet = false;
 
     public ChapterFragment() {
     }
@@ -74,10 +74,11 @@ public class ChapterFragment
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout)
                     activity.findViewById(R.id.chapter_detail_toolbar_layout);
+            String title = mBookItem.getBookName() + " : " + mChapterItem.getLabel();
             if (appBarLayout != null) {
-                String title = mBookItem.getBookName() + " : " + mChapterItem.getLabel();
                 appBarLayout.setTitle(title);
             }
+            getActivity().setTitle(title);
         }
     }
 
