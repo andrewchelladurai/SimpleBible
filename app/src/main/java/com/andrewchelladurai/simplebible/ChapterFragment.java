@@ -30,6 +30,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -131,5 +132,9 @@ public class ChapterFragment
     }
 
     @Override public void refresh() {
+    }
+
+    @Override public int getReferenceHighlightColor() {
+        return ContextCompat.getColor(getContext(), R.color.reference_highlight_color);
     }
 }

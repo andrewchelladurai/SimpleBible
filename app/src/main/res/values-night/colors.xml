@@ -8,7 +8,7 @@
     <color name="cardBackground">#404040</color>
     <color name="windowBackground">#303030</color>
     <color name="textColor">#E0E0E0</color>
-    <color name="verse_reference_color">@color/accent</color>
+    <color name="reference_highlight_color">@color/accent</color>
     <color name="splash_title_page">#bfd988</color>
     <color name="splash_thank_you_page">#D88B2B</color>
     <color name="splash_bookmark_page">#AC3931</color>

@@ -26,9 +26,16 @@
 
 package com.andrewchelladurai.simplebible.interaction;
 
+import com.andrewchelladurai.simplebible.model.VerseList;
+
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 26-Sep-2016 @ 1:14 AM
  */
 public interface ChapterFragmentOperations
         extends BasicOperations {
+
+    int getReferenceHighlightColor();
+
+    void verseClicked(VerseList.VerseItem item);
 }
+

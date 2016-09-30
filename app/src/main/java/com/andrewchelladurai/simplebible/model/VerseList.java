@@ -74,9 +74,9 @@ public class VerseList {
         }
 
         String getReference() {
-            return mBookNumber + Constants.DELIMITER_IN_REFERENCE +
-                   mChapterNumber + Constants.DELIMITER_IN_REFERENCE +
-                   mVerseNumber + Constants.DELIMITER_IN_REFERENCE;
+            return getBookNumber() + Constants.DELIMITER_IN_REFERENCE +
+                   getChapterNumber() + Constants.DELIMITER_IN_REFERENCE +
+                   getVerseNumber() + Constants.DELIMITER_IN_REFERENCE;
         }
 
         @Override
@@ -86,6 +86,18 @@ public class VerseList {
 
         public String getVerseText() {
             return mVerseText;
+        }
+
+        public int getBookNumber() {
+            return mBookNumber;
+        }
+
+        public int getChapterNumber() {
+            return mChapterNumber;
+        }
+
+        public int getVerseNumber() {
+            return mVerseNumber;
         }
     }
 }

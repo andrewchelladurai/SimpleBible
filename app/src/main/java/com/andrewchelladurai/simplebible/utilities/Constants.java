@@ -16,7 +16,7 @@ public abstract class Constants {
     public static final String BUNDLE_ARG_BOOKMARK_ITEM = "BOOKMARK_ITEM";
     public static final String DEFAULT_REFERENCE        = "43:3:16"; // John 3:16
     static final        String DATABASE_NAME            = "Bible.db";
-    static final        int    DATABASE_VERSION         = 20160922; // 20160922
+    static final        int    DATABASE_VERSION         = 20160921; // 20160922
 
     private Constants() {
     }

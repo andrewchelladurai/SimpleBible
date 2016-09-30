@@ -46,42 +46,48 @@ public class SimpleBibleActivityPresenter {
                 Log.d(TAG, "init: context is null");
                 return;
             }
-            InputStreamReader mainSteps = null;
-            InputStreamReader upgradeSteps = null;
-            InputStreamReader downgradeSteps = null;
-            boolean allSet = true;
-            Log.d(TAG, "init: Context != null, Preparing to obtain Script Files");
-            try {
-                mainSteps = new InputStreamReader(
-                        context.getAssets().open("mainSteps.sql"));
-            } catch (IOException ioe) {
-                allSet = false;
-                Log.wtf(TAG, "init: Error preparing for DB setup : mainSteps.sql ", ioe);
-                ioe.printStackTrace();
-            }
-            try {
-                upgradeSteps = new InputStreamReader(
-                        context.getAssets().open("upgradeSteps.sql"));
-            } catch (IOException ioe) {
-                allSet = false;
-                Log.wtf(TAG, "init: Error preparing for DB setup : upgradeSteps.sql ", ioe);
-                ioe.printStackTrace();
-            }
-            try {
-                downgradeSteps = new InputStreamReader(
-                        context.getAssets().open("downgradeSteps.sql"));
-            } catch (IOException ioe) {
-                allSet = false;
-                Log.wtf(TAG, "init: Error preparing for DB setup : downgradeSteps.sql ", ioe);
-                ioe.printStackTrace();
-            }
-            if (allSet) {
-                Log.d(TAG, "init: allSet, proceeding now");
-                dbUtility = DBUtility.getInstance(
-                        context, mainSteps, upgradeSteps, downgradeSteps);
-            }
+            dbUtility = DBUtility.getInstance(mInterface);
         } else {
             Log.d(TAG, "init() dbUtility != null");
         }
+    }
+
+    public InputStreamReader getMainScript() {
+        Log.d(TAG, "getMainScript() called");
+        InputStreamReader reader = null;
+        try {
+            Context context = mInterface.getThisApplicationContext();
+            reader = new InputStreamReader(context.getAssets().open("mainSteps.sql"));
+        } catch (IOException ioe) {
+            Log.wtf(TAG, "init: Error preparing for DB setup : mainSteps.sql ", ioe);
+            ioe.printStackTrace();
+        }
+        return reader;
+    }
+
+    public InputStreamReader getUpgradeScript() {
+        Log.d(TAG, "getUpgradeScript() called");
+        InputStreamReader reader = null;
+        try {
+            Context context = mInterface.getThisApplicationContext();
+            reader = new InputStreamReader(context.getAssets().open("upgradeSteps.sql"));
+        } catch (IOException ioe) {
+            Log.wtf(TAG, "init: Error preparing for DB setup : upgradeSteps.sql ", ioe);
+            ioe.printStackTrace();
+        }
+        return reader;
+    }
+
+    public InputStreamReader getDowngradeScript() {
+        Log.d(TAG, "getDowngradeScript() called");
+        InputStreamReader reader = null;
+        try {
+            Context context = mInterface.getThisApplicationContext();
+            reader = new InputStreamReader(context.getAssets().open("downgradeSteps.sql"));
+        } catch (IOException ioe) {
+            Log.wtf(TAG, "init: Error preparing for DB setup : downgradeSteps.sql ", ioe);
+            ioe.printStackTrace();
+        }
+        return reader;
     }
 }

@@ -32,6 +32,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityOperations;
+import com.andrewchelladurai.simplebible.presentation.SimpleBibleActivityPresenter;
 import com.andrewchelladurai.simplebible.utilities.Constants.SimpleBibleTable;
 
 import java.io.BufferedReader;
@@ -45,25 +47,19 @@ import java.util.ArrayList;
 public class DBUtility
         extends SQLiteOpenHelper {
 
-    private static final String            TAG              = "SB_DBUtility";
-    private static       DBUtility         thisInstance     = null;
-    private static       InputStreamReader mBaseScript      = null;
-    private static       InputStreamReader mUpgradeScript   = null;
-    private static       InputStreamReader mDowngradeScript = null;
+    private static final String    TAG          = "SB_DBUtility";
+    private static       DBUtility thisInstance = null;
+    private static SimpleBibleActivityOperations mActivityOperations;
+    private boolean mVersionChanged = false;
 
     private DBUtility(Context context) {
         super(context, Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION);
     }
 
-    public static DBUtility getInstance(Context context,
-                                        InputStreamReader mainDbStream,
-                                        InputStreamReader upgradeStream,
-                                        InputStreamReader downgradeStream) {
+    public static DBUtility getInstance(SimpleBibleActivityOperations activityOperations) {
+        DBUtility.mActivityOperations = activityOperations;
         if (thisInstance == null) {
-            thisInstance = new DBUtility(context);
-            DBUtility.mBaseScript = mainDbStream;
-            DBUtility.mUpgradeScript = upgradeStream;
-            DBUtility.mDowngradeScript = downgradeStream;
+            thisInstance = new DBUtility(activityOperations.getThisApplicationContext());
             Log.d(TAG, "getInstance: Initialized Static Instance");
         }
         return thisInstance;
@@ -71,8 +67,7 @@ public class DBUtility
 
     public static DBUtility getInstance()
     throws NullPointerException {
-        if (thisInstance == null
-            | mBaseScript == null | mUpgradeScript == null | mDowngradeScript == null) {
+        if (thisInstance == null) {
             throw new NullPointerException("Static Instance is not yet initialized");
         } else {
             return thisInstance;
@@ -81,17 +76,15 @@ public class DBUtility
 
     @Override public void onCreate(SQLiteDatabase db) {
         Log.d(TAG, "onCreate() called");
-        if (null != mBaseScript) {
-            Log.d(TAG, "onCreate: null != mBaseScript");
-            boolean successful = executeScriptFile(mBaseScript, db);
-            if (successful) {
-                Log.d(TAG, "onCreate: DB Created");
-            } else {
-                Log.d(TAG, "onCreate: DB NOT Created");
-            }
-        } else {
-            Log.d(TAG, "onCreate: dbExists = true");
+        SimpleBibleActivityPresenter presenter = mActivityOperations.getPresenter();
+
+        InputStreamReader mBaseScript = presenter.getMainScript();
+        if (mBaseScript != null) {
+            boolean result = executeScriptFile(mBaseScript, db);
+            String msg = (result) ? "DB Setup Successfully" : "DB Setup Unsuccessful";
+            Log.d(TAG, "onCreate: " + msg);
         }
+// CREATE TABLE BOOK_MARKS ( "REFERENCE" TEXT PRIMARY KEY, "NOTE" TEXT );
     }
 
     private boolean executeScriptFile(InputStreamReader stream, SQLiteDatabase db) {
@@ -126,17 +119,20 @@ public class DBUtility
             }
         }
         Log.d(TAG, "executeScriptFile() returned "
-                   + "isCreated = [" + isCreated + "] & isClosed = [" + isClosed + "]");
+                   + "created = [" + isCreated + "] & closed = [" + isClosed + "]");
         return (isCreated & isClosed);
     }
 
     @Override public void onDowngrade(SQLiteDatabase db, int oldV, int newV) {
         Log.d(TAG, "onDowngrade() called with oldV = [" + oldV + "], newV = [" + newV + "]");
-        boolean downgradeSuccessful;
+        SimpleBibleActivityPresenter presenter = mActivityOperations.getPresenter();
+        InputStreamReader mDowngradeScript = presenter.getDowngradeScript();
+
+        mVersionChanged = false;
         if (null != mDowngradeScript) {
-            downgradeSuccessful = executeScriptFile(mDowngradeScript, db);
-            Log.d(TAG, "onDowngrade: successful = " + downgradeSuccessful);
-            if (downgradeSuccessful) {
+            mVersionChanged = executeScriptFile(mDowngradeScript, db);
+            Log.d(TAG, "onDowngrade: successful = " + mVersionChanged);
+            if (mVersionChanged) {
                 onCreate(db);
             }
         }
@@ -144,11 +140,13 @@ public class DBUtility
 
     @Override public void onUpgrade(SQLiteDatabase db, int oldV, int newV) {
         Log.d(TAG, "onUpgrade() called with: oldV = [" + oldV + "], newV = [" + newV + "]");
-        boolean upgradeSuccessful;
+        SimpleBibleActivityPresenter presenter = mActivityOperations.getPresenter();
+        InputStreamReader mUpgradeScript = presenter.getUpgradeScript();
+
         if (null != mUpgradeScript) {
-            upgradeSuccessful = executeScriptFile(mUpgradeScript, db);
-            Log.d(TAG, "onUpgrade: successful = " + upgradeSuccessful);
-            if (upgradeSuccessful) {
+            mVersionChanged = executeScriptFile(mUpgradeScript, db);
+            Log.d(TAG, "onUpgrade: successful = " + mVersionChanged);
+            if (mVersionChanged) {
                 onCreate(db);
             }
         }

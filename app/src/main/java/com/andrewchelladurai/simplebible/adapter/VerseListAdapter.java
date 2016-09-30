@@ -27,13 +27,17 @@
 package com.andrewchelladurai.simplebible.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.TextAppearanceSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.andrewchelladurai.simplebible.ChapterFragment;
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.interaction.ChapterFragmentOperations;
 import com.andrewchelladurai.simplebible.model.VerseList.VerseItem;
 
 import java.util.List;
@@ -41,10 +45,10 @@ import java.util.List;
 public class VerseListAdapter
         extends RecyclerView.Adapter<VerseListAdapter.VerseViewHolder> {
 
-    private final List<VerseItem> mValues;
-    private final ChapterFragment mListener;
+    private final List<VerseItem>           mValues;
+    private final ChapterFragmentOperations mListener;
 
-    public VerseListAdapter(List<VerseItem> items, ChapterFragment listener) {
+    public VerseListAdapter(List<VerseItem> items, ChapterFragmentOperations listener) {
         mValues = items;
         mListener = listener;
     }
@@ -81,7 +85,7 @@ public class VerseListAdapter
 
     class VerseViewHolder
             extends RecyclerView.ViewHolder
-            implements View.OnClickListener {
+            implements View.OnLongClickListener {
 
         final View     mView;
         final TextView mContentView;
@@ -100,12 +104,29 @@ public class VerseListAdapter
 
         void updateItem(VerseItem verseItem) {
             mItem = verseItem;
-            mContentView.setText(mItem.getVerseText());
-            mView.setOnClickListener(this);
+
+            String verseNumber = String.valueOf(mItem.getVerseNumber());
+            int spanEnd = verseNumber.length();
+            String verseText = mItem.getVerseText();
+
+            SpannableString formattedText = new SpannableString(verseNumber + " " + verseText);
+
+            formattedText.setSpan(
+                    new ForegroundColorSpan(mListener.getReferenceHighlightColor()),
+                    0, spanEnd+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            formattedText.setSpan(
+                    new TextAppearanceSpan(mContentView.getContext(),
+                                           android.R.style.TextAppearance_DeviceDefault_Large),
+                    0, spanEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            mContentView.setText(formattedText);
+            mView.setOnLongClickListener(this);
         }
 
-        @Override public void onClick(View v) {
+        @Override public boolean onLongClick(View v) {
             mListener.verseClicked(mItem);
+            return true;
         }
     }
 }
