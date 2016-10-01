@@ -63,19 +63,6 @@ public class VerseListAdapter
     @Override
     public void onBindViewHolder(final VerseViewHolder holder, int position) {
         holder.updateItem(mValues.get(position));
-/*
-        holder.mItem = mValues.get(position);
-        holder.mContentView.setText(mValues.get(position).content);
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    mListener.verseClicked(holder.mItem);
-                }
-            }
-        });
-*/
     }
 
     @Override
