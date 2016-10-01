@@ -27,9 +27,17 @@
 package com.andrewchelladurai.simplebible.utilities;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+
+import static com.google.android.gms.internal.zzs.TAG;
 
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 25-Sep-2016 @ 1:32 PM
@@ -41,12 +49,43 @@ public class Utilities {
 
     /**
      * Hides the keyboard from the given context and view
+     *
      * @param context Context from which to hide the keyboard
-     * @param view View that currently has keyboard focus
+     * @param view    View that currently has keyboard focus
      */
     public static void hideKeyboard(@NonNull Context context, @NonNull View view) {
         InputMethodManager im =
                 (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         im.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public static SpannableString getHighlightedText(@NonNull String highlightText,
+                                                     @NonNull String completeText,
+                                                     int highlightColor) {
+        if (completeText.isEmpty()) {
+            Log.d(TAG, "getHighlightedText: completeText isEmpty, returning null");
+            return null;
+        }
+
+        SpannableString formattedText = new SpannableString(completeText);
+        if (highlightText.isEmpty()) {
+            Log.d(TAG, "getHighlightedText: highlightText isEmpty, returning default");
+            return formattedText;
+        }
+
+        if (!completeText.contains(highlightText)) {
+            Log.d(TAG, "getHighlightedText: highlightText is not present, returning default");
+            return formattedText;
+        }
+
+        int start = completeText.indexOf(highlightText);
+        int end = highlightText.length();
+
+        formattedText.setSpan(new ForegroundColorSpan(highlightColor),
+                              start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        formattedText.setSpan(new StyleSpan(Typeface.BOLD),
+                              start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        return formattedText;
     }
 }

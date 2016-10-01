@@ -28,9 +28,6 @@ package com.andrewchelladurai.simplebible.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.TextAppearanceSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +36,7 @@ import android.widget.TextView;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.interaction.ChapterFragmentOperations;
 import com.andrewchelladurai.simplebible.model.VerseList.VerseItem;
+import com.andrewchelladurai.simplebible.utilities.Utilities;
 
 import java.util.List;
 
@@ -47,10 +45,12 @@ public class VerseListAdapter
 
     private final List<VerseItem>           mValues;
     private final ChapterFragmentOperations mListener;
+    private final int                       mReferenceHighlightColor;
 
     public VerseListAdapter(List<VerseItem> items, ChapterFragmentOperations listener) {
         mValues = items;
         mListener = listener;
+        mReferenceHighlightColor = mListener.getReferenceHighlightColor();
     }
 
     @Override
@@ -105,20 +105,11 @@ public class VerseListAdapter
         void updateItem(VerseItem verseItem) {
             mItem = verseItem;
 
-            String verseNumber = String.valueOf(mItem.getVerseNumber());
-            int spanEnd = verseNumber.length();
-            String verseText = mItem.getVerseText();
+            String verseNumber = String.valueOf(mItem.getVerseNumber()) + " ";
+            String verse = verseNumber + mItem.getVerseText();
 
-            SpannableString formattedText = new SpannableString(verseNumber + " " + verseText);
-
-            formattedText.setSpan(
-                    new ForegroundColorSpan(mListener.getReferenceHighlightColor()),
-                    0, spanEnd+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-            formattedText.setSpan(
-                    new TextAppearanceSpan(mContentView.getContext(),
-                                           android.R.style.TextAppearance_DeviceDefault_Large),
-                    0, spanEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            SpannableString formattedText = Utilities.getHighlightedText(
+                    verseNumber, verse, mReferenceHighlightColor);
 
             mContentView.setText(formattedText);
             mView.setOnLongClickListener(this);
