@@ -44,7 +44,6 @@ import java.util.ArrayList;
 public class SearchTabPresenter {
 
     private static final String TAG = "SB_SF_Presenter";
-//    private ArrayList<SearchResultItem> mSelectedItems;
     private SearchTabOperations         mInterface;
 
     public SearchTabPresenter(SearchTabOperations fragmentInterface) {
@@ -53,14 +52,6 @@ public class SearchTabPresenter {
 
     public void init() {
         Log.d(TAG, "init() called:");
-/*
-        if (null == mSelectedItems || mSelectedItems.isEmpty()) {
-            mSelectedItems = new ArrayList<>(0);
-            Log.d(TAG, "init: SelectedItems created");
-        } else {
-            Log.d(TAG, "init: " + mSelectedItems.size() + " SelectedItems exist");
-        }
-*/
     }
 
     public String searchButtonClicked(@NonNull String input) {
@@ -93,28 +84,6 @@ public class SearchTabPresenter {
         mInterface.resetFields();
         mInterface.showSearchButton();
     }
-
-/*
-    public String searchResultLongClicked(SearchResultItem item) {
-        Log.d(TAG, "searchResultClicked() called with: " + "item = [" + item + "]");
-        if (null == item) {
-            return Constants.ERROR;
-        }
-        if (mSelectedItems.contains(item)) {
-            mSelectedItems.remove(item);
-            Log.d(TAG, "chapterVerseLongClicked: Item removed");
-            return Constants.REMOVED;
-        } else {
-            mSelectedItems.add(item);
-            Log.d(TAG, "chapterVerseLongClicked: Item Added");
-            return Constants.ADDED;
-        }
-    }
-
-    public boolean isItemSelected(SearchResultItem item) {
-        return null != item && mSelectedItems.contains(item);
-    }
-*/
 
     public void getSearchResultsForText(String input) {
         Log.d(TAG, "getSearchResultsForText() called with: input = [" + input + "]");
