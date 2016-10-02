@@ -49,8 +49,8 @@ public class DBUtility
 
     private static final String    TAG             = "SB_DBUtility";
     private static       DBUtility thisInstance    = null;
-    private              boolean   mVersionChanged = false;
     private static SimpleBibleActivityOperations mActivityOperations;
+    private              boolean   mVersionChanged = false;
 
     private DBUtility(Context context) {
         super(context, Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION);

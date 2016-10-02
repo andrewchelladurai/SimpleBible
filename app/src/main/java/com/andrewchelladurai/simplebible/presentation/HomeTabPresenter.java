@@ -73,7 +73,7 @@ public class HomeTabPresenter {
         int dayOfTheYear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
         Log.d(TAG, "getVerseContentForToday: dayOfTheYear = " + dayOfTheYear);
         String[] array = mFragment.getDailyVerseArray();
-        String reference = null;
+        String reference;
         if (array == null) {
             reference = defaultReference;
         } else {

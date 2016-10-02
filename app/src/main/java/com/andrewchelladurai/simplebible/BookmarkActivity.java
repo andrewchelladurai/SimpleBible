@@ -117,9 +117,9 @@ public class BookmarkActivity
                     mNote.setFocusable(true);
                 }
             } else if (button.equals(mButtonDelete)) {
-                boolean status = mPresenter.buttonDeleteClicked();
+                mPresenter.buttonDeleteClicked();
             } else if (button.equals(mButtonShare)) {
-                boolean status = mPresenter.buttonShareClicked();
+                mPresenter.buttonShareClicked();
             } else {
                 Log.d(TAG, "onClick: " + getString(R.string.how_am_i_here));
             }

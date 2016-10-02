@@ -50,10 +50,9 @@ public class ChapterFragment
         extends Fragment
         implements ChapterFragmentOperations {
 
-    private static final String TAG                = "SB_ChapterFragment";
     public static final  String ARG_BOOK_ITEM      = "ARG_BOOK_ITEM";
     public static final  String ARG_CHAPTER_NUMBER = "ARG_CHAPTER_NUMBER";
-
+    private static final String TAG                = "SB_ChapterFragment";
     private ChapterList.ChapterItem mChapterItem;
     private BooksList.BookItem      mBookItem;
     private boolean isAllSet = false;

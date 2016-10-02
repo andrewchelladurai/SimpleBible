@@ -45,11 +45,10 @@ public class BooksList {
     private static final Map<String, BookItem> ITEM_MAP_BY_NUMBER = new HashMap<>();
     private static final Map<String, BookItem> ITEM_MAP_BY_NAME   = new HashMap<>();
 
-    public static boolean clearList() {
+    public static void clearList() {
         ITEMS.clear();
         ITEM_MAP_BY_NUMBER.clear();
         ITEM_MAP_BY_NAME.clear();
-        return true;
     }
 
     public static int getListCount() {
@@ -105,6 +104,17 @@ public class BooksList {
     public static class BookItem
             implements Parcelable {
 
+        public static final Creator<BookItem> CREATOR = new Creator<BookItem>() {
+            @Override
+            public BookItem createFromParcel(Parcel in) {
+                return new BookItem(in);
+            }
+
+            @Override
+            public BookItem[] newArray(int size) {
+                return new BookItem[size];
+            }
+        };
         private final int    mBookNumber;
         private final int    mChapterCount;
         private final String mBookName;
@@ -120,18 +130,6 @@ public class BooksList {
             mChapterCount = in.readInt();
             mBookName = in.readString();
         }
-
-        public static final Creator<BookItem> CREATOR = new Creator<BookItem>() {
-            @Override
-            public BookItem createFromParcel(Parcel in) {
-                return new BookItem(in);
-            }
-
-            @Override
-            public BookItem[] newArray(int size) {
-                return new BookItem[size];
-            }
-        };
 
         public int getBookNumber() {
             return mBookNumber;

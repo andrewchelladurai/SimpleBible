@@ -26,6 +26,8 @@
 
 package com.andrewchelladurai.simplebible.model;
 
+import android.util.Log;
+
 import com.andrewchelladurai.simplebible.utilities.Constants;
 
 import java.util.ArrayList;
@@ -35,6 +37,7 @@ import java.util.Map;
 
 public class VerseList {
 
+    private static final String                 TAG      = "SB_VerseList";
     private static final List<VerseItem>        ITEMS    = new ArrayList<>();
     private static final Map<String, VerseItem> ITEM_MAP = new HashMap<>();
 
@@ -47,24 +50,31 @@ public class VerseList {
 
     public static boolean populateList(int bookNumber, int chapterNumber,
                                        ArrayList<String> versesList) {
-        ITEMS.clear();
-        ITEM_MAP.clear();
-        VerseItem item;
-        for (int verseNumber = 1; verseNumber <= versesList.size(); verseNumber++) {
-            item = new VerseItem(
-                    bookNumber, chapterNumber, verseNumber, versesList.get((verseNumber - 1)));
-            ITEMS.add(item);
-            ITEM_MAP.put(item.getReference(), item);
+        boolean returnValue;
+        try {
+            ITEMS.clear();
+            ITEM_MAP.clear();
+            VerseItem item;
+            for (int verseNumber = 1; verseNumber <= versesList.size(); verseNumber++) {
+                item = new VerseItem(
+                        bookNumber, chapterNumber, verseNumber, versesList.get((verseNumber - 1)));
+                ITEMS.add(item);
+                ITEM_MAP.put(item.getReference(), item);
+            }
+            returnValue = true;
+        } catch (Exception ex) {
+            returnValue = false;
+            Log.d(TAG, "populateList: " + ex.getLocalizedMessage());
         }
-        return true;
+        return returnValue;
     }
 
     public static class VerseItem {
 
-        private       int    mBookNumber;
         private final int    mChapterNumber;
         private final int    mVerseNumber;
         private final String mVerseText;
+        private       int    mBookNumber;
 
         VerseItem(int bookNumber, int chapterNumber, int verseNumber, String verseText) {
             mBookNumber = bookNumber;
