@@ -22,4 +22,8 @@ public interface HomeTabOperations
     void handleEmptyChapterNumberValidationFailure();
 
     void handleIncorrectChapterNumberValidationFailure();
+
+    String getDailyVerseTemplate();
+
+    int getHighlightColor();
 }

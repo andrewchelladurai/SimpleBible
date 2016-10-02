@@ -101,6 +101,11 @@ public class BooksList {
         return (ITEM_MAP_BY_NAME.containsKey(bookName)) ? ITEM_MAP_BY_NAME.get(bookName) : null;
     }
 
+    public static BookItem getBookItem(int bookNumber) {
+        String key = String.valueOf(bookNumber);
+        return (ITEM_MAP_BY_NUMBER.containsKey(key)) ? ITEM_MAP_BY_NUMBER.get(key) : null;
+    }
+
     public static class BookItem
             implements Parcelable {
 

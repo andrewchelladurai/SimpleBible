@@ -5,6 +5,7 @@ import android.widget.ArrayAdapter;
 
 import com.andrewchelladurai.simplebible.interaction.HomeTabOperations;
 import com.andrewchelladurai.simplebible.model.BooksList;
+import com.andrewchelladurai.simplebible.model.BooksList.BookItem;
 import com.andrewchelladurai.simplebible.model.ChapterList;
 import com.andrewchelladurai.simplebible.utilities.Constants;
 import com.andrewchelladurai.simplebible.utilities.DBUtility;
@@ -119,14 +120,16 @@ public class HomeTabPresenter {
             return verseText;
         }
 
-        // beautify verse Text
-        // FIXME: 25/9/16 beautify verse display
+        // Beautify the Verse
+        BookItem bookItem = BooksList.getBookItem(bookNumber);
+        String bookName = (null == bookItem) ? "" : bookItem.getBookName();
+        String formattedText = mFragment.getDailyVerseTemplate();
 
-        return verseText;
+        return String.format(formattedText, verseText, bookName, chapterNumber, verseNumber);
     }
 
     public String[] getBookNamesList() {
-        List<BooksList.BookItem> items = BooksList.getListItems();
+        List<BookItem> items = BooksList.getListItems();
         int count = items.size();
         if (count == 0) {
             Log.d(TAG, "getBookNamesList: got Zero results, returning null");
@@ -141,7 +144,7 @@ public class HomeTabPresenter {
     }
 
     private int getChapterCountForBookName(String bookName) {
-        BooksList.BookItem bookItem = getBookItemUsingName(bookName);
+        BookItem bookItem = getBookItemUsingName(bookName);
         return (bookItem == null) ? 0 : bookItem.getChapterCount();
     }
 
@@ -154,11 +157,11 @@ public class HomeTabPresenter {
         }
     }
 
-    public BooksList.BookItem getBookItemUsingName(String bookName) {
+    public BookItem getBookItemUsingName(String bookName) {
         return BooksList.getBookItem(bookName);
     }
 
-    public boolean loadChapterList(BooksList.BookItem item, String prependText) {
+    public boolean loadChapterList(BookItem item, String prependText) {
         return ChapterList.populateListItems(item.getChapterCount(), prependText);
     }
 }

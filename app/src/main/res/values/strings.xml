@@ -46,6 +46,7 @@
     <string name="fragment_home_hint_chapter">Enter Chapter Number</string>
     <string name="fragment_home_button_label_goto">Load Location</string>
     <string name="fragment_home_daily_verse_stub">For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life. - John 3:16 : New International Version</string>
+    <string name="fragment_home_daily_verse_template">%1$s\n\n%2$s - Chapter %3$d Verse %4$d\nNew International Version</string>
 
     <string name="fragment_books_book_name_template">%1$s</string>
     <plurals name="fragment_books_chapter_count_template">

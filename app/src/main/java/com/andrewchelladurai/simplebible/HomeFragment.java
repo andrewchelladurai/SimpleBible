@@ -72,8 +72,7 @@ public class HomeFragment
         mChapterInput.setAdapter(null);
         mChapterInput.setOnFocusChangeListener(this);
 
-        String display = mPresenter.getVerseContentForToday();
-        mDailyVerse.setText(display);
+        mDailyVerse.setText(mPresenter.getVerseContentForToday());
     }
 
     @Override public void onClick(View v) {
@@ -157,6 +156,14 @@ public class HomeFragment
     @Override public void handleIncorrectChapterNumberValidationFailure() {
         showError(getString(R.string.fragment_home_err_msg_invalid_chapter_number));
         focusChapterInputField();
+    }
+
+    @Override public String getDailyVerseTemplate() {
+        return getString(R.string.fragment_home_daily_verse_template);
+    }
+
+    @Override public int getHighlightColor() {
+        return R.color.reference_highlight_color;
     }
 
     @Override public void handleEmptyBookNameValidationFailure() {
