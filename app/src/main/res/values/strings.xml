@@ -53,6 +53,10 @@
         <item quantity="one">%1$d Chapter</item>
         <item quantity="other">%1$d Chapters</item>
     </plurals>
+    <plurals name="fragment_search_result_count_template">
+        <item quantity="zero">No Result Found</item>
+        <item quantity="other">%1$d Results Found</item>
+    </plurals>
 
     <string name="fragment_search_hint">Enter text to search</string>
     <string name="fragment_search_button_default">Search</string>

@@ -176,6 +176,18 @@ public class SearchFragment
         showError("");
     }
 
+    @Override public String getResultsCountString(int count) {
+        Log.d(TAG, "getResultsCountString() called with: count = [" + count + "]");
+        String string = getResources().getQuantityString(
+                R.plurals.fragment_search_result_count_template, count, count);
+        Log.d(TAG, "getResultsCountString() returned: " + string);
+        return string;
+    }
+
+    @Override public void showMessage(String message) {
+        showError(message);
+    }
+
     public void onClick(View view) {
         if (view.equals(mSearchButton)) {
             searchButtonClicked();
@@ -190,11 +202,13 @@ public class SearchFragment
 
     private void searchButtonClicked() {
         String inputString = getInputText();
-        String message = mPresenter.searchButtonClicked(inputString);
-        if (message.equalsIgnoreCase(Constants.SUCCESS)) {
-            // mPresenter.getSearchResultsForText(getInputText());
+        String returnValue = mPresenter.searchButtonClicked(inputString);
+
+        if (returnValue.equalsIgnoreCase(Constants.SUCCESS)) {
+            mPresenter.getSearchResultsForText(inputString);
+        } else {
+            showError(returnValue);
         }
-        showError(message);
     }
 
     private void showError(String message) {

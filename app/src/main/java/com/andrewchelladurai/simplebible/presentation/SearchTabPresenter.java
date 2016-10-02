@@ -26,11 +26,14 @@
 
 package com.andrewchelladurai.simplebible.presentation;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.andrewchelladurai.simplebible.interaction.SearchTabOperations;
 import com.andrewchelladurai.simplebible.model.SearchResultList.SearchResultItem;
 import com.andrewchelladurai.simplebible.utilities.Constants;
+import com.andrewchelladurai.simplebible.utilities.DBUtility;
+import com.andrewchelladurai.simplebible.utilities.DBUtilityOperations;
 
 import java.util.ArrayList;
 
@@ -58,12 +61,12 @@ public class SearchTabPresenter {
         }
     }
 
-    public String searchButtonClicked(String input) {
+    public String searchButtonClicked(@NonNull String input) {
         Log.d(TAG, "searchButtonClicked() called");
         String returnValue = Constants.SUCCESS;
 
         // check if the input is empty or null
-        if (null == input || input.length() == 0) {
+        if (input.isEmpty()) {
             returnValue = mInterface.getEmptyInputErrorMessage();
             return returnValue;
         }
@@ -77,7 +80,6 @@ public class SearchTabPresenter {
             returnValue = mInterface.getInputMaxLengthErrorMessage();
             return returnValue;
         }
-        mInterface.showResetButton();
         return returnValue;
     }
 
@@ -109,5 +111,19 @@ public class SearchTabPresenter {
 
     public boolean isItemSelected(SearchResultItem item) {
         return null != item && mSelectedItems.contains(item);
+    }
+
+    public void getSearchResultsForText(String input) {
+        Log.d(TAG, "getSearchResultsForText() called with: input = [" + input + "]");
+        DBUtilityOperations dbUtility = DBUtility.getInstance();
+        ArrayList<String[]> versesList = dbUtility.searchForInput(input);
+
+        if (versesList == null || versesList.size() < 1) {
+            mInterface.showMessage(mInterface.getResultsCountString(0));
+            return;
+        }
+
+        mInterface.showMessage(mInterface.getResultsCountString(versesList.size()));
+        mInterface.showResetButton();
     }
 }

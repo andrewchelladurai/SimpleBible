@@ -6,6 +6,7 @@ import android.util.Log;
 import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityOperations;
 import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.utilities.DBUtility;
+import com.andrewchelladurai.simplebible.utilities.DBUtilityOperations;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,7 +18,7 @@ public class SimpleBibleActivityPresenter {
 
     private static final String TAG = "SB_SBA_Presenter";
     private SimpleBibleActivityOperations mInterface;
-    private DBUtility                     dbUtility;
+    private DBUtilityOperations           dbUtility;
 
     /**
      * This must be called in the onCreate of the Activity and also before any of the views is
@@ -43,12 +44,13 @@ public class SimpleBibleActivityPresenter {
         if (dbUtility == null) {
             Context context = mInterface.getThisApplicationContext();
             if (context == null) {
-                Log.d(TAG, "init: context is null");
+                String message = "mInterface.getThisApplicationContext() returned NULL";
+                Log.wtf(TAG, "init: ", new NullPointerException(message));
                 return;
             }
             dbUtility = DBUtility.getInstance(mInterface);
         } else {
-            Log.d(TAG, "init() dbUtility != null");
+            Log.d(TAG, "init: dbUtility is already initialized, since it is != null");
         }
     }
 

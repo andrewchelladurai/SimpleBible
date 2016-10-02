@@ -30,6 +30,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityOperations;
@@ -45,18 +46,20 @@ import java.util.ArrayList;
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 23-Sep-2016 @ 1:00 AM
  */
 public class DBUtility
-        extends SQLiteOpenHelper {
+        extends SQLiteOpenHelper
+        implements DBUtilityOperations {
 
-    private static final String    TAG             = "SB_DBUtility";
-    private static       DBUtility thisInstance    = null;
+    private static final String    TAG          = "SB_DBUtility";
+    private static       DBUtility thisInstance = null;
     private static SimpleBibleActivityOperations mActivityOperations;
-    private              boolean   mVersionChanged = false;
+    private boolean mVersionChanged = false;
 
     private DBUtility(Context context) {
         super(context, Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION);
     }
 
-    public static DBUtility getInstance(SimpleBibleActivityOperations activityOperations) {
+    public static DBUtilityOperations getInstance(
+            SimpleBibleActivityOperations activityOperations) {
         DBUtility.mActivityOperations = activityOperations;
         if (thisInstance == null) {
             thisInstance = new DBUtility(activityOperations.getThisApplicationContext());
@@ -65,7 +68,7 @@ public class DBUtility
         return thisInstance;
     }
 
-    public static DBUtility getInstance()
+    public static DBUtilityOperations getInstance()
     throws NullPointerException {
         if (thisInstance == null) {
             throw new NullPointerException("Static Instance is not yet initialized");
@@ -231,5 +234,57 @@ public class DBUtility
         Log.d(TAG, "getAllVerseForChapter() returned: " + versesList.size() + " records");
         cursor.close();
         return versesList;
+    }
+
+    @Override public ArrayList<String[]> searchForInput(@NonNull String input) {
+        Log.d(TAG, "searchForInput() called with: input = [" + input + "]");
+        if (input.isEmpty()) {
+            Log.d(TAG, "searchForInput: passed input isEmpty, returning null");
+            return null;
+        }
+
+        String table = SimpleBibleTable.NAME;
+        String[] columns = {SimpleBibleTable.COLUMN_BOOK_NUMBER,
+                            SimpleBibleTable.COLUMN_CHAPTER_NUMBER,
+                            SimpleBibleTable.COLUMN_VERSE_NUMBER,
+                            SimpleBibleTable.COLUMN_VERSE_TEXT};
+        String where = "lower(" + SimpleBibleTable.COLUMN_VERSE_TEXT + ") like ?";
+        String[] whereArgs = {"%" + input.toLowerCase() + "%"};
+
+        /*String queryString = SQLiteQueryBuilder
+                .buildQueryString(true, table, columns, where, null, null, null, null);
+        Log.d(TAG, "searchForInput: queryString = " + queryString);*/
+
+        SQLiteDatabase database = getReadableDatabase();
+        Cursor cursor = database.query(true, table, columns, where, whereArgs,
+                                       null, null, null, null);
+        if (cursor == null) {
+            Log.d(TAG, "searchForInput: got a Null cursor, returning null");
+            return null;
+        }
+
+        ArrayList<String[]> list = new ArrayList<>(0);
+        if (cursor.getCount() < 1) {
+            Log.d(TAG, "searchForInput: No results found, returning empty list");
+            return list;
+        }
+        Log.d(TAG, "searchForInput: Cursor has " + cursor.getCount() + " rows");
+        String reference, verseText;
+
+        int bookNumberIdx = cursor.getColumnIndex(SimpleBibleTable.COLUMN_BOOK_NUMBER);
+        int chapterNumberIdx = cursor.getColumnIndex(SimpleBibleTable.COLUMN_CHAPTER_NUMBER);
+        int verseNumberIdx = cursor.getColumnIndex(SimpleBibleTable.COLUMN_VERSE_NUMBER);
+        int verseTextIdx = cursor.getColumnIndex(SimpleBibleTable.COLUMN_VERSE_TEXT);
+
+        while (cursor.moveToNext()) {
+            reference = Utilities.prepareReferenceString(cursor.getInt(bookNumberIdx),
+                                                         cursor.getInt(chapterNumberIdx),
+                                                         cursor.getInt(verseNumberIdx));
+            verseText = cursor.getString(verseTextIdx);
+            list.add(new String[]{reference, verseText});
+        }
+        cursor.close();
+        Log.d(TAG, "searchForInput() returned: " + list.size() + " results");
+        return list;
     }
 }

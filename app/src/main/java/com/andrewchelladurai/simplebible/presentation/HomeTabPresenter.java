@@ -9,6 +9,7 @@ import com.andrewchelladurai.simplebible.model.BooksList.BookItem;
 import com.andrewchelladurai.simplebible.model.ChapterList;
 import com.andrewchelladurai.simplebible.utilities.Constants;
 import com.andrewchelladurai.simplebible.utilities.DBUtility;
+import com.andrewchelladurai.simplebible.utilities.DBUtilityOperations;
 
 import java.util.Calendar;
 import java.util.List;
@@ -112,7 +113,7 @@ public class HomeTabPresenter {
         }
 
         // now get the verseText for the reference
-        DBUtility dbUtility = DBUtility.getInstance();
+        DBUtilityOperations dbUtility = DBUtility.getInstance();
         String verseText = dbUtility.getVerseForReference(bookNumber, chapterNumber, verseNumber);
 
         if (verseText == null) {

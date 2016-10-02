@@ -33,6 +33,7 @@ import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.model.ChapterList;
 import com.andrewchelladurai.simplebible.model.VerseList;
 import com.andrewchelladurai.simplebible.utilities.DBUtility;
+import com.andrewchelladurai.simplebible.utilities.DBUtilityOperations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +63,7 @@ public class ChapterFragmentPresenter {
             return null;
         }
 
-        DBUtility dbUtility = DBUtility.getInstance();
+        DBUtilityOperations dbUtility = DBUtility.getInstance();
         ArrayList<String> verses = dbUtility.getAllVerseForChapter(bookNumber, chapterNumber);
         if (verses.size() < 1) {
             Log.d(TAG, "getAllVersesForChapter: returning null coz No verses found in DB");

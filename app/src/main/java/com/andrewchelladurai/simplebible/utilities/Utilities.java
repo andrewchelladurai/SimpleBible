@@ -88,4 +88,11 @@ public class Utilities {
 
         return formattedText;
     }
+
+    public static String prepareReferenceString(int bookNumber, int chapterNumber,
+                                                int verseNumber) {
+        return String.valueOf(bookNumber) + Constants.DELIMITER_IN_REFERENCE +
+               String.valueOf(chapterNumber) + Constants.DELIMITER_IN_REFERENCE +
+               String.valueOf(verseNumber);
+    }
 }

@@ -58,4 +58,8 @@ public interface SearchTabOperations
     boolean isItemSelected(SearchResultList.SearchResultItem item);
 
     void resetFields();
+
+    String getResultsCountString(int count);
+
+    void showMessage(String message);
 }
