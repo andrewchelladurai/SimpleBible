@@ -30,6 +30,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.andrewchelladurai.simplebible.interaction.SearchTabOperations;
+import com.andrewchelladurai.simplebible.model.SearchResultList;
 import com.andrewchelladurai.simplebible.model.SearchResultList.SearchResultItem;
 import com.andrewchelladurai.simplebible.utilities.Constants;
 import com.andrewchelladurai.simplebible.utilities.DBUtility;
@@ -89,7 +90,8 @@ public class SearchTabPresenter {
         mInterface.showSearchButton();
     }
 
-    private String addOrRemoveSelectedItem(SearchResultItem item) {
+    public String searchResultLongClicked(SearchResultItem item) {
+        Log.d(TAG, "searchResultClicked() called with: " + "item = [" + item + "]");
         if (null == item) {
             return Constants.ERROR;
         }
@@ -102,11 +104,6 @@ public class SearchTabPresenter {
             Log.d(TAG, "searchResultLongClicked: Item Added");
             return Constants.ADDED;
         }
-    }
-
-    public String searchResultLongClicked(SearchResultItem item) {
-        Log.d(TAG, "searchResultClicked() called with: " + "item = [" + item + "]");
-        return addOrRemoveSelectedItem(item);
     }
 
     public boolean isItemSelected(SearchResultItem item) {
@@ -123,7 +120,11 @@ public class SearchTabPresenter {
             return;
         }
 
-        mInterface.showMessage(mInterface.getResultsCountString(versesList.size()));
+        boolean successful = SearchResultList.populateList(versesList);
+        if (successful) {
+            mInterface.showMessage(mInterface.getResultsCountString(versesList.size()));
+            mInterface.refresh();
+        }
         mInterface.showResetButton();
     }
 }

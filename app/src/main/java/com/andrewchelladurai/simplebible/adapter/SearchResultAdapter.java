@@ -28,20 +28,25 @@ package com.andrewchelladurai.simplebible.adapter;
 
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.interaction.SearchTabOperations;
+import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.model.SearchResultList.SearchResultItem;
 import com.andrewchelladurai.simplebible.utilities.Constants;
+import com.andrewchelladurai.simplebible.utilities.Utilities;
 
 import java.util.List;
 
 public class SearchResultAdapter
         extends RecyclerView.Adapter<SearchResultAdapter.SearchResultViewHolder> {
 
+    private static final String TAG = "SB_SearchResultAdapter";
     private final List<SearchResultItem> mValues;
     private final SearchTabOperations    mListener;
 
@@ -88,7 +93,7 @@ public class SearchResultAdapter
 
         public void updateContent(SearchResultItem item) {
             mItem = item;
-            mContent.setText(mItem.mContent);
+            mContent.setText(getFormattedText(mItem));
             mView.setOnLongClickListener(this);
 
             // check if this item is selected (may happen before a config change)
@@ -116,8 +121,27 @@ public class SearchResultAdapter
                 updateItemColor(true);
             } else if (returnValue.equalsIgnoreCase(Constants.REMOVED)) {
                 updateItemColor(false);
+            } else if (returnValue.equalsIgnoreCase(Constants.ERROR)) {
+                Log.d(TAG, "onLongClick: returnValue = " + Constants.ERROR);
             }
             return true;
+        }
+    }
+
+    private SpannableString getFormattedText(SearchResultItem item) {
+        BooksList.BookItem bookItem = BooksList.getBookItem(item.getBookNumber());
+        if (bookItem != null) {
+            String reference = String.format(mListener.getSearchResultReferenceTemplate(),
+                                             bookItem.getBookName(),
+                                             item.getChapterNumber(),
+                                             item.getVerseNumber()) + " ";
+            String text = reference + item.getVerseText();
+            int highlightColor = mListener.getReferenceHighlightColor();
+
+            return Utilities.getHighlightedText(reference, text, highlightColor);
+        } else {
+            Log.d(TAG, "getFormattedText: returning null");
+            return null;
         }
     }
 }

@@ -61,6 +61,7 @@
     <string name="fragment_search_hint">Enter text to search</string>
     <string name="fragment_search_button_default">Search</string>
     <string name="fragment_search_button_reset">Reset</string>
+    <string name="fragment_search_reference_template">%1$s (%2$d:%3$d)</string>
     <string name="fragment_search_err_msg_empty">Text to search cannot be empty</string>
     <string name="fragment_search_err_msg_length_min">Search Text must more than 3 chars</string>
     <string name="fragment_search_err_msg_length_max">Search Text must be lower than 50 chars</string>

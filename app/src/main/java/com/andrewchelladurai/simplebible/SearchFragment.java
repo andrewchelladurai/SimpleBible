@@ -188,6 +188,14 @@ public class SearchFragment
         showError(message);
     }
 
+    @Override public String getSearchResultReferenceTemplate() {
+        return getString(R.string.fragment_search_reference_template);
+    }
+
+    @Override public int getReferenceHighlightColor() {
+        return ContextCompat.getColor(getContext(), R.color.reference_highlight_color);
+    }
+
     public void onClick(View view) {
         if (view.equals(mSearchButton)) {
             searchButtonClicked();

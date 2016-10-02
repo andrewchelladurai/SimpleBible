@@ -26,24 +26,42 @@
 
 package com.andrewchelladurai.simplebible.model;
 
+import android.util.Log;
+
+import com.andrewchelladurai.simplebible.utilities.Utilities;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.google.android.gms.internal.zzs.TAG;
 
 public class SearchResultList {
 
     private static final List<SearchResultItem>        ITEMS    = new ArrayList<>();
     private static final Map<String, SearchResultItem> ITEM_MAP = new HashMap<>();
 
-    private static final int COUNT = 25;
-
-    static {
-        for (int i = 1; i <= COUNT; i++) {
-            SearchResultItem item = new SearchResultItem(String.valueOf(i), "Item " + i);
-            ITEMS.add(item);
-            ITEM_MAP.put(item.mReference, item);
+    public static boolean populateList(ArrayList<String[]> list) {
+        boolean returnValue;
+        try {
+            ITEM_MAP.clear();
+            ITEMS.clear();
+            int count = list.size();
+            SearchResultItem item;
+            String[] parts;
+            for (int i = 0; i < count; i++) {
+                parts = list.get(i);
+                item = new SearchResultItem(parts[0], parts[1]);
+                ITEMS.add(item);
+                ITEM_MAP.put(item.getReference(), item);
+            }
+            returnValue = true;
+        } catch (Exception ex) {
+            returnValue = false;
+            Log.d(TAG, "populateList: " + ex.getLocalizedMessage());
         }
+        return returnValue;
     }
 
     public static List<SearchResultItem> getItems() {
@@ -52,17 +70,45 @@ public class SearchResultList {
 
     public static class SearchResultItem {
 
-        public final String mReference;
-        public final String mContent;
+        private int    mBookNumber    = 0;
+        private int    mChapterNumber = 0;
+        private int    mVerseNumber   = 0;
+        private String mVerseText     = "";
 
-        public SearchResultItem(String reference, String content) {
-            mReference = reference;
-            mContent = content;
+        private SearchResultItem(String reference, String content) {
+            String parts[] = Utilities.getReferenceParts(reference);
+            if (parts != null) {
+                mBookNumber = Integer.parseInt(parts[0]);
+                mChapterNumber = Integer.parseInt(parts[1]);
+                mVerseNumber = Integer.parseInt(parts[2]);
+                mVerseText = content;
+            }
         }
 
         @Override
         public String toString() {
-            return mContent;
+            return getReference() + " - " + getVerseText();
+        }
+
+        public String getReference() {
+            return Utilities.prepareReferenceString(getBookNumber(), getChapterNumber(),
+                                                    getVerseNumber());
+        }
+
+        public String getVerseText() {
+            return mVerseText;
+        }
+
+        public int getBookNumber() {
+            return mBookNumber;
+        }
+
+        public int getChapterNumber() {
+            return mChapterNumber;
+        }
+
+        public int getVerseNumber() {
+            return mVerseNumber;
         }
     }
 }

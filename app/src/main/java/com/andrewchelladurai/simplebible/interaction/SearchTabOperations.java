@@ -62,4 +62,8 @@ public interface SearchTabOperations
     String getResultsCountString(int count);
 
     void showMessage(String message);
+
+    String getSearchResultReferenceTemplate();
+
+    int getReferenceHighlightColor();
 }

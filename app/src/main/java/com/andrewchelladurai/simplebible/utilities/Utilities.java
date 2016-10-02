@@ -95,4 +95,21 @@ public class Utilities {
                String.valueOf(chapterNumber) + Constants.DELIMITER_IN_REFERENCE +
                String.valueOf(verseNumber);
     }
+
+    public static String[] getReferenceParts(@NonNull String reference) {
+        if (reference.isEmpty()) {
+            Log.d(TAG, "getReferenceParts: " + reference + " isEmpty");
+            return null;
+        }
+        if (!reference.contains(Constants.DELIMITER_IN_REFERENCE)) {
+            Log.d(TAG, "getReferenceParts: " + reference + " does not contain DELIMITER");
+            return null;
+        }
+        String parts[] = reference.split(Constants.DELIMITER_IN_REFERENCE);
+        if (parts.length != 3) {
+            Log.d(TAG, "getReferenceParts: " + reference + " does not have 3 parts");
+            return null;
+        }
+        return parts;
+    }
 }
