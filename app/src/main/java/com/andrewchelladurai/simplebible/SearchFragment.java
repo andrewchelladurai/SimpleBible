@@ -152,7 +152,6 @@ public class SearchFragment
 
     @Override
     public String searchResultLongClicked(SearchResultItem item) {
-        Log.d(TAG, "searchResultLongClicked() called");
         return mPresenter.searchResultLongClicked(item);
     }
 

@@ -32,6 +32,7 @@ import com.andrewchelladurai.simplebible.interaction.ChapterFragmentOperations;
 import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.model.ChapterList;
 import com.andrewchelladurai.simplebible.model.VerseList;
+import com.andrewchelladurai.simplebible.model.VerseList.VerseItem;
 import com.andrewchelladurai.simplebible.utilities.DBUtility;
 import com.andrewchelladurai.simplebible.utilities.DBUtilityOperations;
 
@@ -50,8 +51,12 @@ public class ChapterFragmentPresenter {
         mOperations = operations;
     }
 
-    public List<VerseList.VerseItem> getAllVersesForChapter(BooksList.BookItem bookItem,
-                                                            ChapterList.ChapterItem chapterItem) {
+    public void init() {
+        Log.d(TAG, "init() called");
+    }
+
+    public List<VerseItem> getAllVersesForChapter(BooksList.BookItem bookItem,
+                                                  ChapterList.ChapterItem chapterItem) {
         int bookNumber = bookItem.getBookNumber();
         int chapterNumber = chapterItem.getChapterNumber();
         Log.d(TAG, "getAllVersesForChapter() called with: bookNumber = ["

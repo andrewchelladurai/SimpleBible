@@ -100,11 +100,11 @@ public class SearchTabPresenter {
         }
         if (mSelectedItems.contains(item)) {
             mSelectedItems.remove(item);
-            Log.d(TAG, "searchResultLongClicked: Item removed");
+            Log.d(TAG, "chapterVerseLongClicked: Item removed");
             return Constants.REMOVED;
         } else {
             mSelectedItems.add(item);
-            Log.d(TAG, "searchResultLongClicked: Item Added");
+            Log.d(TAG, "chapterVerseLongClicked: Item Added");
             return Constants.ADDED;
         }
     }

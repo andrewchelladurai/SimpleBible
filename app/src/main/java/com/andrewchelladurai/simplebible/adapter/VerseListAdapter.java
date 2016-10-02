@@ -35,6 +35,7 @@ import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.interaction.ChapterFragmentOperations;
+import com.andrewchelladurai.simplebible.model.VerseList;
 import com.andrewchelladurai.simplebible.model.VerseList.VerseItem;
 import com.andrewchelladurai.simplebible.utilities.Utilities;
 
@@ -74,6 +75,7 @@ public class VerseListAdapter
             extends RecyclerView.ViewHolder
             implements View.OnLongClickListener {
 
+        private static final String TAG = "SB_VerseViewHolder";
         final View     mView;
         final TextView mContentView;
         VerseItem mItem;
@@ -100,10 +102,28 @@ public class VerseListAdapter
 
             mContentView.setText(formattedText);
             mView.setOnLongClickListener(this);
+
+            // check if this item is selected (may happen before a config change)
+            // if yes then update its color
+            updateItemColor(VerseList.isSelected(mItem));
         }
 
-        @Override public boolean onLongClick(View v) {
-            mListener.verseClicked(mItem);
+        private void updateItemColor(boolean selected) {
+            int textColor, backgroundColor;
+            if (selected) {
+                backgroundColor = mListener.getLongClickBackgroundColor();
+                textColor = mListener.getLongClickTextColor();
+            } else {
+                backgroundColor = mListener.getDefaultBackgroundColor();
+                textColor = mListener.getDefaultTextColor();
+            }
+            mContentView.setBackgroundColor(backgroundColor);
+            mContentView.setTextColor(textColor);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            updateItemColor(VerseList.updateSelectedItems(mItem));
             return true;
         }
     }

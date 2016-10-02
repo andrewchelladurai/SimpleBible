@@ -72,7 +72,7 @@ public class SearchResultAdapter
         return mValues.size();
     }
 
-    public class SearchResultViewHolder
+    class SearchResultViewHolder
             extends RecyclerView.ViewHolder
             implements View.OnLongClickListener {
 
@@ -80,7 +80,7 @@ public class SearchResultAdapter
         private final AppCompatTextView mContent;
         private       SearchResultItem  mItem;
 
-        public SearchResultViewHolder(View view) {
+        SearchResultViewHolder(View view) {
             super(view);
             mView = view;
             mContent = (AppCompatTextView) view.findViewById(R.id.searchresult_content);
@@ -91,7 +91,7 @@ public class SearchResultAdapter
             return super.toString() + " '" + mContent.getText() + "'";
         }
 
-        public void updateContent(SearchResultItem item) {
+        void updateContent(SearchResultItem item) {
             mItem = item;
             mContent.setText(getFormattedText(mItem));
             mView.setOnLongClickListener(this);

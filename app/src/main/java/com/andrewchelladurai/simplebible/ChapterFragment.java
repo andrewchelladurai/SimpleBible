@@ -32,7 +32,6 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +40,7 @@ import com.andrewchelladurai.simplebible.adapter.VerseListAdapter;
 import com.andrewchelladurai.simplebible.interaction.ChapterFragmentOperations;
 import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.model.ChapterList;
+import com.andrewchelladurai.simplebible.model.ChapterList.ChapterItem;
 import com.andrewchelladurai.simplebible.model.VerseList.VerseItem;
 import com.andrewchelladurai.simplebible.presentation.ChapterFragmentPresenter;
 
@@ -50,14 +50,14 @@ public class ChapterFragment
         extends Fragment
         implements ChapterFragmentOperations {
 
-    public static final  String ARG_BOOK_ITEM      = "ARG_BOOK_ITEM";
-    public static final  String ARG_CHAPTER_NUMBER = "ARG_CHAPTER_NUMBER";
-    private static final String TAG                = "SB_ChapterFragment";
-    private ChapterList.ChapterItem mChapterItem;
-    private BooksList.BookItem      mBookItem;
-    private boolean isAllSet = false;
-    private VerseListAdapter         mListAdapter;
-    private ChapterFragmentPresenter mPresenter;
+    public static final  String  ARG_BOOK_ITEM      = "ARG_BOOK_ITEM";
+    public static final  String  ARG_CHAPTER_NUMBER = "ARG_CHAPTER_NUMBER";
+    private static final String  TAG                = "SB_ChapterFragment";
+    private              boolean isAllSet           = false;
+    private        ChapterItem              mChapterItem;
+    private        BooksList.BookItem       mBookItem;
+    private        VerseListAdapter         mListAdapter;
+    private static ChapterFragmentPresenter mPresenter;
 
     public ChapterFragment() {
     }
@@ -103,7 +103,10 @@ public class ChapterFragment
         isAllSet = false;
         mBookItem = null;
         mChapterItem = null;
-        mPresenter = new ChapterFragmentPresenter(this);
+        if (null == mPresenter) {
+            mPresenter = new ChapterFragmentPresenter(this);
+        }
+        mPresenter.init();
 
         Bundle args = getArguments();
 
@@ -126,14 +129,26 @@ public class ChapterFragment
         isAllSet = (mChapterItem != null & mBookItem != null & list != null);
     }
 
-    public void verseClicked(VerseItem item) {
-        Log.d(TAG, "verseClicked() called with: " + "item = [" + item + "]");
-    }
-
     @Override public void refresh() {
     }
 
     @Override public int getReferenceHighlightColor() {
         return ContextCompat.getColor(getContext(), R.color.reference_highlight_color);
+    }
+
+    @Override public int getDefaultBackgroundColor() {
+        return ContextCompat.getColor(getContext(), R.color.cardBackground);
+    }
+
+    @Override public int getLongClickBackgroundColor() {
+        return ContextCompat.getColor(getContext(), R.color.long_press_background);
+    }
+
+    @Override public int getLongClickTextColor() {
+        return ContextCompat.getColor(getContext(), R.color.long_press_text_color);
+    }
+
+    @Override public int getDefaultTextColor() {
+        return ContextCompat.getColor(getContext(), R.color.textColor);
     }
 }

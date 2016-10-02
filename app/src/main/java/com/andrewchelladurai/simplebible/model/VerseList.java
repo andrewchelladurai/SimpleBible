@@ -37,9 +37,12 @@ import java.util.Map;
 
 public class VerseList {
 
-    private static final String                 TAG      = "SB_VerseList";
-    private static final List<VerseItem>        ITEMS    = new ArrayList<>();
-    private static final Map<String, VerseItem> ITEM_MAP = new HashMap<>();
+    private static final String                 TAG            = "SB_VerseList";
+    private static final List<VerseItem>        ITEMS          = new ArrayList<>();
+    private static final Map<String, VerseItem> ITEM_MAP       = new HashMap<>();
+    private static final Map<String, VerseItem> SELECTED_ITEMS = new HashMap<>();
+    private static       int                    mBookNumber    = 0;
+    private static       int                    mChapterNumber = 0;
 
     public static List<VerseItem> getItems() {
         if (ITEMS.isEmpty() || ITEMS.size() == 0) {
@@ -50,10 +53,22 @@ public class VerseList {
 
     public static boolean populateList(int bookNumber, int chapterNumber,
                                        ArrayList<String> versesList) {
+        Log.d(TAG, "populateList() called with: bookNumber = [" + bookNumber + "],"
+                   + " chapterNumber = [" + chapterNumber + "],"
+                   + " versesList of size = [" + versesList.size() + "]");
+
+        if (VerseList.mBookNumber == bookNumber && VerseList.mChapterNumber == chapterNumber) {
+            Log.d(TAG, "populateList: list already populated");
+            return true;
+        }
+
+        VerseList.mBookNumber = bookNumber;
+        VerseList.mChapterNumber = chapterNumber;
         boolean returnValue;
         try {
             ITEMS.clear();
             ITEM_MAP.clear();
+            SELECTED_ITEMS.clear();
             VerseItem item;
             for (int verseNumber = 1; verseNumber <= versesList.size(); verseNumber++) {
                 item = new VerseItem(
@@ -67,6 +82,23 @@ public class VerseList {
             Log.d(TAG, "populateList: " + ex.getLocalizedMessage());
         }
         return returnValue;
+    }
+
+    public static boolean updateSelectedItems(VerseItem item) {
+        String reference = item.getReference();
+        if (SELECTED_ITEMS.containsKey(reference)) {
+            SELECTED_ITEMS.remove(reference);
+            Log.d(TAG, "updateSelectedItems: removed " + item.getReference());
+        } else {
+            Log.d(TAG, "updateSelectedItems: added " + item.getReference());
+            SELECTED_ITEMS.put(reference, item);
+        }
+        Log.d(TAG, "updateSelectedItems() returned: " + SELECTED_ITEMS.containsKey(reference));
+        return isSelected(item);
+    }
+
+    public static boolean isSelected(VerseItem item) {
+        return SELECTED_ITEMS.containsKey(item.getReference());
     }
 
     public static class VerseItem {
