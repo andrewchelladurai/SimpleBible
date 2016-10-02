@@ -66,4 +66,6 @@ public interface SearchTabOperations
     String getSearchResultReferenceTemplate();
 
     int getReferenceHighlightColor();
+
+    void refreshList();
 }

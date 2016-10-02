@@ -68,6 +68,11 @@ public class SearchResultList {
         return ITEMS;
     }
 
+    public static void clearList() {
+        ITEM_MAP.clear();
+        ITEMS.clear();
+    }
+
     public static class SearchResultItem {
 
         private int    mBookNumber    = 0;

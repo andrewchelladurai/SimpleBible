@@ -65,6 +65,8 @@ public class SearchTabPresenter {
     public String searchButtonClicked(@NonNull String input) {
         Log.d(TAG, "searchButtonClicked() called");
         String returnValue = Constants.SUCCESS;
+        SearchResultList.clearList();
+        mInterface.refreshList();
 
         // check if the input is empty or null
         if (input.isEmpty()) {
@@ -86,6 +88,7 @@ public class SearchTabPresenter {
 
     public void resetButtonClicked() {
         Log.d(TAG, "resetButtonClicked() called");
+        SearchResultList.clearList();
         mInterface.resetFields();
         mInterface.showSearchButton();
     }
@@ -123,8 +126,10 @@ public class SearchTabPresenter {
         boolean successful = SearchResultList.populateList(versesList);
         if (successful) {
             mInterface.showMessage(mInterface.getResultsCountString(versesList.size()));
-            mInterface.refresh();
+            mInterface.refreshList();
+            mInterface.showResetButton();
+        } else {
+            mInterface.resetFields();
         }
-        mInterface.showResetButton();
     }
 }

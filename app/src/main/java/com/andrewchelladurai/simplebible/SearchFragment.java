@@ -34,6 +34,8 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,15 +50,16 @@ import com.andrewchelladurai.simplebible.utilities.Constants;
 
 public class SearchFragment
         extends Fragment
-        implements SearchTabOperations, View.OnClickListener {
+        implements SearchTabOperations, View.OnClickListener, TextWatcher {
 
     private static final String TAG = "SB_SearchFragment";
     private static SearchTabPresenter mPresenter;
     private int mColumnCount = 1;
-    private TextInputEditText mInput;
-    private AppCompatTextView mLabel;
-    private AppCompatButton   mSearchButton;
-    private AppCompatButton   mResetButton;
+    private TextInputEditText   mInput;
+    private AppCompatTextView   mLabel;
+    private AppCompatButton     mSearchButton;
+    private AppCompatButton     mResetButton;
+    private SearchResultAdapter mListAdapter;
 
     public SearchFragment() {
     }
@@ -85,6 +88,7 @@ public class SearchFragment
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         mInput = (TextInputEditText) view.findViewById(R.id.fragment_search_input);
+        mInput.addTextChangedListener(this);
         mLabel = (AppCompatTextView) view.findViewById(R.id.fragment_search_label);
 
         mSearchButton = (AppCompatButton) view.findViewById(R.id.fragment_search_button);
@@ -95,7 +99,8 @@ public class SearchFragment
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_search_list);
         recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), mColumnCount));
-        recyclerView.setAdapter(new SearchResultAdapter(SearchResultList.getItems(), this));
+        mListAdapter = new SearchResultAdapter(SearchResultList.getItems(), this);
+        recyclerView.setAdapter(mListAdapter);
 
         return view;
     }
@@ -140,9 +145,9 @@ public class SearchFragment
 
     @Override
     public void refresh() {
-        mInput.setText(null);
-        mLabel.setText(null);
-        showSearchButton();
+        resetFields();
+        refreshList();
+        focusInputField();
     }
 
     @Override
@@ -173,7 +178,10 @@ public class SearchFragment
 
     @Override public void resetFields() {
         mInput.setText("");
+        showSearchButton();
+        refreshList();
         showError("");
+        focusInputField();
     }
 
     @Override public String getResultsCountString(int count) {
@@ -196,6 +204,10 @@ public class SearchFragment
         return ContextCompat.getColor(getContext(), R.color.reference_highlight_color);
     }
 
+    @Override public void refreshList() {
+        mListAdapter.notifyDataSetChanged();
+    }
+
     public void onClick(View view) {
         if (view.equals(mSearchButton)) {
             searchButtonClicked();
@@ -216,6 +228,7 @@ public class SearchFragment
             mPresenter.getSearchResultsForText(inputString);
         } else {
             showError(returnValue);
+            focusInputField();
         }
     }
 
@@ -225,5 +238,18 @@ public class SearchFragment
 
     private String getInputText() {
         return mInput.getText().toString();
+    }
+
+    @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    }
+
+    @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+    }
+
+    @Override public void afterTextChanged(Editable s) {
+        if (!getInputText().isEmpty()) {
+            showSearchButton();
+        }
+        showMessage("");
     }
 }
