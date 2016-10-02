@@ -62,6 +62,11 @@
     <string name="fragment_search_button_default">Search</string>
     <string name="fragment_search_button_reset">Reset</string>
     <string name="fragment_search_reference_template">%1$s (%2$d:%3$d)</string>
+    <string name="fragment_search_label_help"><![CDATA[
+    <br/><br/>Enter any text to search for it <u>as long as</u>
+    <br/><br/>The text is <b>AT LEAST</b> 3 characters long
+    <br/>The text is <b>NOT MORE THAN</b> 50 characters long
+    <br/><br/>You can <b>long press on a Search Result</b><br/>to see <u>Actions</u> you can do it.]]></string>
     <string name="fragment_search_err_msg_empty">Text to search cannot be empty</string>
     <string name="fragment_search_err_msg_length_min">Search Text must more than 3 chars</string>
     <string name="fragment_search_err_msg_length_max">Search Text must be lower than 50 chars</string>

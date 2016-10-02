@@ -35,6 +35,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -59,6 +60,8 @@ public class SearchFragment
     private AppCompatButton     mSearchButton;
     private AppCompatButton     mResetButton;
     private SearchResultAdapter mListAdapter;
+    private RecyclerView mRecyclerView;
+    private AppCompatTextView mHelpLabel;
 
     public SearchFragment() {
     }
@@ -96,10 +99,13 @@ public class SearchFragment
         mResetButton = (AppCompatButton) view.findViewById(R.id.fragment_search_button_reset);
         mResetButton.setOnClickListener(this);
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_search_list);
-        recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), mColumnCount));
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_search_list);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), mColumnCount));
         mListAdapter = new SearchResultAdapter(SearchResultList.getItems(), this);
-        recyclerView.setAdapter(mListAdapter);
+        mRecyclerView.setAdapter(mListAdapter);
+
+        mHelpLabel = (AppCompatTextView) view.findViewById(R.id.fragment_search_label_help);
+        mHelpLabel.setText(Html.fromHtml(getString(R.string.fragment_search_label_help)));
 
         return view;
     }
@@ -195,6 +201,13 @@ public class SearchFragment
 
     @Override public void refreshList() {
         mListAdapter.notifyDataSetChanged();
+        if (mListAdapter.getItemCount() == 0) {
+            mRecyclerView.setVisibility(View.GONE);
+            mHelpLabel.setVisibility(View.VISIBLE);
+        } else {
+            mRecyclerView.setVisibility(View.VISIBLE);
+            mHelpLabel.setVisibility(View.GONE);
+        }
     }
 
     public void onClick(View view) {

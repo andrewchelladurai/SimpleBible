@@ -69,13 +69,25 @@
             android:visibility="gone" />
     </LinearLayout>
 
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/fragment_search_label_help"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textColor"
+        android:gravity="center"
+        android:layout_below="@id/fragment_search_input_container"
+        android:padding="@dimen/text_margin"
+        android:layout_marginTop="@dimen/screen_padding"
+        android:text="@string/fragment_search_label_help" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_search_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_below="@id/fragment_search_input_container"
+        android:layout_below="@id/fragment_search_label_help"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/screen_padding"
+        android:visibility="gone"
         tools:listitem="@layout/content_search_result_entry" />
 </RelativeLayout>
