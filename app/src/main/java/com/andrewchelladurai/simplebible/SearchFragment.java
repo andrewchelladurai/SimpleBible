@@ -44,7 +44,6 @@ import android.view.ViewGroup;
 import com.andrewchelladurai.simplebible.adapter.SearchResultAdapter;
 import com.andrewchelladurai.simplebible.interaction.SearchTabOperations;
 import com.andrewchelladurai.simplebible.model.SearchResultList;
-import com.andrewchelladurai.simplebible.model.SearchResultList.SearchResultItem;
 import com.andrewchelladurai.simplebible.presentation.SearchTabPresenter;
 import com.andrewchelladurai.simplebible.utilities.Constants;
 
@@ -150,11 +149,6 @@ public class SearchFragment
         focusInputField();
     }
 
-    @Override
-    public String searchResultLongClicked(SearchResultItem item) {
-        return mPresenter.searchResultLongClicked(item);
-    }
-
     @Override public int getDefaultBackgroundColor() {
         return ContextCompat.getColor(getContext(), R.color.cardBackground);
     }
@@ -169,10 +163,6 @@ public class SearchFragment
 
     @Override public int getDefaultTextColor() {
         return ContextCompat.getColor(getContext(), R.color.textColor);
-    }
-
-    @Override public boolean isItemSelected(SearchResultItem item) {
-        return mPresenter.isItemSelected(item);
     }
 
     @Override public void resetFields() {

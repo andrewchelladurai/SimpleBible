@@ -26,6 +26,7 @@
 
 package com.andrewchelladurai.simplebible.model;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.andrewchelladurai.simplebible.utilities.Utilities;
@@ -39,14 +40,25 @@ import static com.google.android.gms.internal.zzs.TAG;
 
 public class SearchResultList {
 
-    private static final List<SearchResultItem>        ITEMS    = new ArrayList<>();
-    private static final Map<String, SearchResultItem> ITEM_MAP = new HashMap<>();
+    private static final List<SearchResultItem>        ITEMS          = new ArrayList<>();
+    private static final Map<String, SearchResultItem> ITEM_MAP       = new HashMap<>();
+    private static final Map<String, SearchResultItem> SELECTED_ITEMS = new HashMap<>();
+    private static final StringBuilder                 mInput         = new StringBuilder();
 
-    public static boolean populateList(ArrayList<String[]> list) {
+    public static boolean populateList(String input, ArrayList<String[]> list) {
+        if (mInput.toString().equalsIgnoreCase(input)) {
+            Log.d(TAG, "populateList: Already populated list using results for " + input);
+            return true;
+        } else {
+            mInput.delete(0, mInput.length());
+            mInput.append(input);
+            Log.d(TAG, "populateList: populated list with results for " + input);
+        }
         boolean returnValue;
         try {
             ITEM_MAP.clear();
             ITEMS.clear();
+            SELECTED_ITEMS.clear();
             int count = list.size();
             SearchResultItem item;
             String[] parts;
@@ -71,6 +83,20 @@ public class SearchResultList {
     public static void clearList() {
         ITEM_MAP.clear();
         ITEMS.clear();
+    }
+
+    public static boolean isItemSelected(@NonNull SearchResultItem item) {
+        return SELECTED_ITEMS.containsKey(item.getReference());
+    }
+
+    public static boolean updateSelectedItems(@NonNull SearchResultItem item) {
+        String reference = item.getReference();
+        if (SELECTED_ITEMS.containsKey(reference)) {
+            SELECTED_ITEMS.remove(reference);
+        } else {
+            SELECTED_ITEMS.put(reference, item);
+        }
+        return isItemSelected(item);
     }
 
     public static class SearchResultItem {

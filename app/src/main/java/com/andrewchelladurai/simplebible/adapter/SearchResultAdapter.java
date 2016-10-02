@@ -37,8 +37,8 @@ import android.view.ViewGroup;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.interaction.SearchTabOperations;
 import com.andrewchelladurai.simplebible.model.BooksList;
+import com.andrewchelladurai.simplebible.model.SearchResultList;
 import com.andrewchelladurai.simplebible.model.SearchResultList.SearchResultItem;
-import com.andrewchelladurai.simplebible.utilities.Constants;
 import com.andrewchelladurai.simplebible.utilities.Utilities;
 
 import java.util.List;
@@ -98,7 +98,7 @@ public class SearchResultAdapter
 
             // check if this item is selected (may happen before a config change)
             // if yes then update its color
-            updateItemColor(mListener.isItemSelected(mItem));
+            updateItemColor(SearchResultList.isItemSelected(mItem));
         }
 
         private void updateItemColor(boolean selected) {
@@ -116,14 +116,7 @@ public class SearchResultAdapter
 
         @Override
         public boolean onLongClick(View v) {
-            String returnValue = mListener.searchResultLongClicked(mItem);
-            if (returnValue.equalsIgnoreCase(Constants.ADDED)) {
-                updateItemColor(true);
-            } else if (returnValue.equalsIgnoreCase(Constants.REMOVED)) {
-                updateItemColor(false);
-            } else if (returnValue.equalsIgnoreCase(Constants.ERROR)) {
-                Log.d(TAG, "onLongClick: returnValue = " + Constants.ERROR);
-            }
+            updateItemColor(SearchResultList.updateSelectedItems(mItem));
             return true;
         }
     }

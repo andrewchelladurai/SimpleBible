@@ -26,8 +26,6 @@
 
 package com.andrewchelladurai.simplebible.interaction;
 
-import com.andrewchelladurai.simplebible.model.SearchResultList;
-
 /**
  * Created by andrew on 10/9/16. Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
  * on 10-Sep-2016 @ 10:43 PM
@@ -45,8 +43,6 @@ public interface SearchTabOperations
 
     String getInputMaxLengthErrorMessage();
 
-    String searchResultLongClicked(SearchResultList.SearchResultItem item);
-
     int getDefaultBackgroundColor();
 
     int getLongClickBackgroundColor();
@@ -54,8 +50,6 @@ public interface SearchTabOperations
     int getLongClickTextColor();
 
     int getDefaultTextColor();
-
-    boolean isItemSelected(SearchResultList.SearchResultItem item);
 
     void resetFields();
 
