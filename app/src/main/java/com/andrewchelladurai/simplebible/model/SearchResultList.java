@@ -83,6 +83,8 @@ public class SearchResultList {
     public static void clearList() {
         ITEM_MAP.clear();
         ITEMS.clear();
+        SELECTED_ITEMS.clear();
+        mInput.delete(0, mInput.length());
     }
 
     public static boolean isItemSelected(@NonNull SearchResultItem item) {
