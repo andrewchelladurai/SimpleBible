@@ -51,7 +51,6 @@ public class SearchFragment
         implements SearchTabOperations, View.OnClickListener {
 
     private static final String TAG = "SB_SearchFragment";
-    //    private static final String ARG_COLUMN_COUNT = "ARG_COLUMN_COUNT";
     private static SearchTabPresenter mPresenter;
     private int mColumnCount = 1;
     private TextInputEditText mInput;
@@ -172,12 +171,16 @@ public class SearchFragment
         return mPresenter.isItemSelected(item);
     }
 
+    @Override public void resetFields() {
+        mInput.setText("");
+        showError("");
+    }
+
     public void onClick(View view) {
         if (view.equals(mSearchButton)) {
             searchButtonClicked();
         } else if (view.equals(mResetButton)) {
             mPresenter.resetButtonClicked();
-            focusInputField();
         }
     }
 

@@ -83,6 +83,7 @@ public class SearchTabPresenter {
 
     public void resetButtonClicked() {
         Log.d(TAG, "resetButtonClicked() called");
+        mInterface.resetFields();
         mInterface.showSearchButton();
     }
 

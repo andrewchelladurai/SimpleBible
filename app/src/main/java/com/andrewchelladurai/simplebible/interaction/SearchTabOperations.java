@@ -56,4 +56,6 @@ public interface SearchTabOperations
     int getDefaultTextColor();
 
     boolean isItemSelected(SearchResultList.SearchResultItem item);
+
+    void resetFields();
 }
