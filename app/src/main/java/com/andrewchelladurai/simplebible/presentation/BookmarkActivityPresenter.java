@@ -28,7 +28,7 @@ package com.andrewchelladurai.simplebible.presentation;
 
 import android.util.Log;
 
-import com.andrewchelladurai.simplebible.interaction.BookmarkActivityInterface;
+import com.andrewchelladurai.simplebible.interaction.BookmarkActivityOperations;
 
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 17-Sep-2016 @ 12:48 AM
@@ -36,10 +36,10 @@ import com.andrewchelladurai.simplebible.interaction.BookmarkActivityInterface;
 public class BookmarkActivityPresenter {
 
     private static final String TAG = "SB_BA_Presenter";
-    private BookmarkActivityInterface mInterface;
+    private BookmarkActivityOperations mOperations;
 
-    public BookmarkActivityPresenter(BookmarkActivityInterface aInterface) {
-        mInterface = aInterface;
+    public BookmarkActivityPresenter(BookmarkActivityOperations operations) {
+        mOperations = operations;
         Log.d(TAG, "BookmarkActivityPresenter: init done");
     }
 

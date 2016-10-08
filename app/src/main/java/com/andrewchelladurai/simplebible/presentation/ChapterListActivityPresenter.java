@@ -33,9 +33,9 @@ import com.andrewchelladurai.simplebible.interaction.ChapterListActivityOperatio
  */
 public class ChapterListActivityPresenter {
 
-    private ChapterListActivityOperations mActivityOperations;
+    private ChapterListActivityOperations mOperations;
 
-    public ChapterListActivityPresenter(ChapterListActivityOperations activityOperations) {
-        mActivityOperations = activityOperations;
+    public ChapterListActivityPresenter(ChapterListActivityOperations operations) {
+        mOperations = operations;
     }
 }

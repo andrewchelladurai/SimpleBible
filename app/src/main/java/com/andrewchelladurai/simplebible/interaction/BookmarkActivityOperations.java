@@ -29,6 +29,6 @@ package com.andrewchelladurai.simplebible.interaction;
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 17-Sep-2016 @ 12:49 AM
  */
-public interface BookmarkActivityInterface
+public interface BookmarkActivityOperations
         extends BasicOperations {
 }

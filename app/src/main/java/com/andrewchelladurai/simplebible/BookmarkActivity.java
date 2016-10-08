@@ -37,14 +37,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
-import com.andrewchelladurai.simplebible.interaction.BookmarkActivityInterface;
+import com.andrewchelladurai.simplebible.interaction.BookmarkActivityOperations;
 import com.andrewchelladurai.simplebible.presentation.BookmarkActivityPresenter;
 
 import java.util.ArrayList;
 
 public class BookmarkActivity
         extends AppCompatActivity
-        implements BookmarkActivityInterface, View.OnClickListener {
+        implements BookmarkActivityOperations, View.OnClickListener {
 
     // FIXME: 9/17/16 Rotating the Screen shows all button again.
 

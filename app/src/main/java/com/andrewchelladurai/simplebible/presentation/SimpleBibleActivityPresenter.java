@@ -17,7 +17,7 @@ import java.io.InputStreamReader;
 public class SimpleBibleActivityPresenter {
 
     private static final String TAG = "SB_SBA_Presenter";
-    private SimpleBibleActivityOperations mInterface;
+    private SimpleBibleActivityOperations mOperations;
     private DBUtilityOperations           dbUtility;
 
     /**
@@ -25,7 +25,7 @@ public class SimpleBibleActivityPresenter {
      * created. Reason being, this constructor will init the DB connection etc...
      */
     public SimpleBibleActivityPresenter(SimpleBibleActivityOperations aInterface) {
-        mInterface = aInterface;
+        mOperations = aInterface;
     }
 
     /**
@@ -33,7 +33,7 @@ public class SimpleBibleActivityPresenter {
      */
     public void init() {
         Log.d(TAG, "init: called");
-        String array[] = mInterface.getBookNameChapterCountArray();
+        String array[] = mOperations.getBookNameChapterCountArray();
         boolean populated = BooksList.populateBooksList(array);
         if (populated) {
             Log.d(TAG, "init: book list populated");
@@ -42,13 +42,13 @@ public class SimpleBibleActivityPresenter {
         }
 
         if (dbUtility == null) {
-            Context context = mInterface.getThisApplicationContext();
+            Context context = mOperations.getThisApplicationContext();
             if (context == null) {
-                String message = "mInterface.getThisApplicationContext() returned NULL";
+                String message = "mOperations.getThisApplicationContext() returned NULL";
                 Log.wtf(TAG, "init: ", new NullPointerException(message));
                 return;
             }
-            dbUtility = DBUtility.getInstance(mInterface);
+            dbUtility = DBUtility.getInstance(mOperations);
         } else {
             Log.d(TAG, "init: dbUtility is already initialized, since it is != null");
         }
@@ -58,7 +58,7 @@ public class SimpleBibleActivityPresenter {
         Log.d(TAG, "getMainScript() called");
         InputStreamReader reader = null;
         try {
-            Context context = mInterface.getThisApplicationContext();
+            Context context = mOperations.getThisApplicationContext();
             reader = new InputStreamReader(context.getAssets().open("mainSteps.sql"));
         } catch (IOException ioe) {
             Log.wtf(TAG, "init: Error preparing for DB setup : mainSteps.sql ", ioe);
@@ -71,7 +71,7 @@ public class SimpleBibleActivityPresenter {
         Log.d(TAG, "getUpgradeScript() called");
         InputStreamReader reader = null;
         try {
-            Context context = mInterface.getThisApplicationContext();
+            Context context = mOperations.getThisApplicationContext();
             reader = new InputStreamReader(context.getAssets().open("upgradeSteps.sql"));
         } catch (IOException ioe) {
             Log.wtf(TAG, "init: Error preparing for DB setup : upgradeSteps.sql ", ioe);
@@ -84,7 +84,7 @@ public class SimpleBibleActivityPresenter {
         Log.d(TAG, "getDowngradeScript() called");
         InputStreamReader reader = null;
         try {
-            Context context = mInterface.getThisApplicationContext();
+            Context context = mOperations.getThisApplicationContext();
             reader = new InputStreamReader(context.getAssets().open("downgradeSteps.sql"));
         } catch (IOException ioe) {
             Log.wtf(TAG, "init: Error preparing for DB setup : downgradeSteps.sql ", ioe);

@@ -20,10 +20,10 @@ import java.util.List;
 public class HomeTabPresenter {
 
     private static final String TAG = "SB_HF_Presenter";
-    private HomeTabOperations mFragment;
+    private HomeTabOperations mOperations;
 
-    public HomeTabPresenter(HomeTabOperations fragment) {
-        mFragment = fragment;
+    public HomeTabPresenter(HomeTabOperations operations) {
+        mOperations = operations;
     }
 
     public void init() {
@@ -33,12 +33,12 @@ public class HomeTabPresenter {
     public String validateBookInput(String bookInput) {
         if (null == bookInput || bookInput.isEmpty()) {
             Log.d(TAG, "validateBookInput() : null == bookInput || bookInput.isEmpty()");
-            mFragment.handleEmptyBookNameValidationFailure();
+            mOperations.handleEmptyBookNameValidationFailure();
             return Constants.FAILURE;
         }
         int count = getChapterCountForBookName(bookInput);
         if (count < 1) {
-            mFragment.handleIncorrectBookNameValidationFailure();
+            mOperations.handleIncorrectBookNameValidationFailure();
             return Constants.FAILURE;
         }
         String[] list = new String[count];
@@ -46,22 +46,23 @@ public class HomeTabPresenter {
             list[i] = (i + 1) + "";
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                mFragment.getFragmentContext(), android.R.layout.simple_dropdown_item_1line, list);
-        mFragment.updateChapterAdapter(adapter);
+                mOperations.getFragmentContext(), android.R.layout.simple_dropdown_item_1line,
+                list);
+        mOperations.updateChapterAdapter(adapter);
 
         return Constants.SUCCESS;
     }
 
     public String validateChapterInput(String bookInput, String chapterInput) {
         if (null == chapterInput || chapterInput.isEmpty()) {
-            mFragment.handleEmptyChapterNumberValidationFailure();
+            mOperations.handleEmptyChapterNumberValidationFailure();
             return Constants.FAILURE;
         }
 
         int count = getChapterCountForBookName(bookInput);
         int chapter = Integer.parseInt(chapterInput);
         if (chapter < 1 || chapter > count) {
-            mFragment.handleIncorrectChapterNumberValidationFailure();
+            mOperations.handleIncorrectChapterNumberValidationFailure();
             return Constants.FAILURE;
         }
 
@@ -74,7 +75,7 @@ public class HomeTabPresenter {
         // get verse reference to use for today
         int dayOfTheYear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
         Log.d(TAG, "getVerseContentForToday: dayOfTheYear = " + dayOfTheYear);
-        String[] array = mFragment.getDailyVerseArray();
+        String[] array = mOperations.getDailyVerseArray();
         String reference;
         if (array == null) {
             reference = defaultReference;
@@ -124,7 +125,7 @@ public class HomeTabPresenter {
         // Beautify the Verse
         BookItem bookItem = BooksList.getBookItem(bookNumber);
         String bookName = (null == bookItem) ? "" : bookItem.getBookName();
-        String formattedText = mFragment.getDailyVerseTemplate();
+        String formattedText = mOperations.getDailyVerseTemplate();
 
         return String.format(formattedText, verseText, bookName, chapterNumber, verseNumber);
     }

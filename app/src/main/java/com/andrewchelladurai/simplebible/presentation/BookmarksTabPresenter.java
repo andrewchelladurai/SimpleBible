@@ -38,12 +38,12 @@ import com.andrewchelladurai.simplebible.utilities.Constants;
 public class BookmarksTabPresenter {
 
     private static final String TAG = "SB_BM_Presenter";
-    private static BookmarksTabOperations mFragment;
+    private static BookmarksTabOperations mOperations;
 
-    public BookmarksTabPresenter(BookmarksTabOperations fragment) {mFragment = fragment;}
+    public BookmarksTabPresenter(BookmarksTabOperations operations) {mOperations = operations;}
 
     public static void refreshList() {
-        mFragment.refresh();
+        mOperations.refresh();
     }
 
     /**

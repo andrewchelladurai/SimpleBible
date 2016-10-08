@@ -44,10 +44,10 @@ import java.util.ArrayList;
 public class SearchTabPresenter {
 
     private static final String TAG = "SB_SF_Presenter";
-    private SearchTabOperations         mInterface;
+    private SearchTabOperations mOperations;
 
     public SearchTabPresenter(SearchTabOperations fragmentInterface) {
-        mInterface = fragmentInterface;
+        mOperations = fragmentInterface;
     }
 
     public void init() {
@@ -58,21 +58,21 @@ public class SearchTabPresenter {
         Log.d(TAG, "searchButtonClicked() called");
         String returnValue = Constants.SUCCESS;
         SearchResultList.clearList();
-        mInterface.refreshList();
+        mOperations.refreshList();
 
         // check if the input is empty or null
         if (input.isEmpty()) {
-            returnValue = mInterface.getEmptyInputErrorMessage();
+            returnValue = mOperations.getEmptyInputErrorMessage();
             return returnValue;
         }
         // if input is only 2 chars, return
         if (input.length() < 3) {
-            returnValue = mInterface.getInputMinLengthErrorMessage();
+            returnValue = mOperations.getInputMinLengthErrorMessage();
             return returnValue;
         }
         // if input is more than 50 chars, return
         if (input.length() > 50) {
-            returnValue = mInterface.getInputMaxLengthErrorMessage();
+            returnValue = mOperations.getInputMaxLengthErrorMessage();
             return returnValue;
         }
         return returnValue;
@@ -81,8 +81,8 @@ public class SearchTabPresenter {
     public void resetButtonClicked() {
         Log.d(TAG, "resetButtonClicked() called");
         SearchResultList.clearList();
-        mInterface.resetFields();
-        mInterface.showSearchButton();
+        mOperations.resetFields();
+        mOperations.showSearchButton();
     }
 
     public void getSearchResultsForText(String input) {
@@ -91,17 +91,17 @@ public class SearchTabPresenter {
         ArrayList<String[]> versesList = dbUtility.searchForInput(input);
 
         if (versesList == null || versesList.size() < 1) {
-            mInterface.showMessage(mInterface.getResultsCountString(0));
+            mOperations.showMessage(mOperations.getResultsCountString(0));
             return;
         }
 
         boolean successful = SearchResultList.populateList(input, versesList);
         if (successful) {
-            mInterface.showMessage(mInterface.getResultsCountString(versesList.size()));
-            mInterface.refreshList();
-            mInterface.showResetButton();
+            mOperations.showMessage(mOperations.getResultsCountString(versesList.size()));
+            mOperations.refreshList();
+            mOperations.showResetButton();
         } else {
-            mInterface.resetFields();
+            mOperations.resetFields();
         }
     }
 }
