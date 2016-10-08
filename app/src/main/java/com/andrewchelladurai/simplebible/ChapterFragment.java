@@ -29,6 +29,7 @@ package com.andrewchelladurai.simplebible;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutCompat;
@@ -46,6 +47,7 @@ import com.andrewchelladurai.simplebible.model.ChapterList.ChapterItem;
 import com.andrewchelladurai.simplebible.model.VerseList;
 import com.andrewchelladurai.simplebible.model.VerseList.VerseItem;
 import com.andrewchelladurai.simplebible.presentation.ChapterFragmentPresenter;
+import com.andrewchelladurai.simplebible.utilities.Utilities;
 
 import java.util.List;
 
@@ -53,7 +55,7 @@ import static com.andrewchelladurai.simplebible.R.id.chapter_detail_verse_action
 
 public class ChapterFragment
         extends Fragment
-        implements ChapterFragmentOperations {
+        implements ChapterFragmentOperations, View.OnClickListener {
 
     public static final  String  ARG_BOOK_ITEM      = "ARG_BOOK_ITEM";
     public static final  String  ARG_CHAPTER_NUMBER = "ARG_CHAPTER_NUMBER";
@@ -64,6 +66,8 @@ public class ChapterFragment
     private        VerseListAdapter         mListAdapter;
     private        LinearLayoutCompat       mActions;
     private static ChapterFragmentPresenter mPresenter;
+    private        FloatingActionButton     mBookmarkButton;
+    private        FloatingActionButton     mShareButton;
 
     public ChapterFragment() {
     }
@@ -96,6 +100,13 @@ public class ChapterFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chapter, container, false);
+
+        mBookmarkButton = (FloatingActionButton) getActivity().findViewById(
+                R.id.chapter_detail_verse_action_bookmark);
+        mBookmarkButton.setOnClickListener(this);
+        mShareButton = (FloatingActionButton) getActivity().findViewById(
+                R.id.chapter_detail_verse_action_share);
+        mShareButton.setOnClickListener(this);
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_verse_list);
         recyclerView.setAdapter(mListAdapter);
@@ -173,5 +184,21 @@ public class ChapterFragment
             mActions.setVisibility(View.VISIBLE);
         }
 
+    }
+
+    @Override public String getShareTemplate() {
+        return getString(R.string.share_verse_template);
+    }
+
+    @Override public void shareSelectedVerses(String stringToShare) {
+        startActivity(Utilities.shareVerse(stringToShare));
+    }
+
+    @Override public void onClick(View v) {
+        if (v.equals(mBookmarkButton)) {
+            mPresenter.bookmarkButtonClicked();
+        } else if (v.equals(mShareButton)) {
+            mPresenter.shareButtonClicked();
+        }
     }
 }

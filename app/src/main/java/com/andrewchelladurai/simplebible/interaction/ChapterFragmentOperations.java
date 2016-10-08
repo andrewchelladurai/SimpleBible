@@ -43,5 +43,9 @@ public interface ChapterFragmentOperations
     int getDefaultTextColor();
 
     void toggleActionBar(boolean show);
+
+    String getShareTemplate();
+
+    void shareSelectedVerses(String stringToShare);
 }
 

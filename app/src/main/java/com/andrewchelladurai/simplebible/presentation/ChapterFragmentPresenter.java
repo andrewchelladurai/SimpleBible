@@ -29,14 +29,15 @@ package com.andrewchelladurai.simplebible.presentation;
 import android.util.Log;
 
 import com.andrewchelladurai.simplebible.interaction.ChapterFragmentOperations;
+import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
 import com.andrewchelladurai.simplebible.model.BooksList.BookItem;
 import com.andrewchelladurai.simplebible.model.ChapterList.ChapterItem;
 import com.andrewchelladurai.simplebible.model.VerseList;
 import com.andrewchelladurai.simplebible.model.VerseList.VerseItem;
 import com.andrewchelladurai.simplebible.utilities.DBUtility;
-import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -75,5 +76,35 @@ public class ChapterFragmentPresenter {
 
         boolean returnValue = VerseList.populateList(bookNumber, chapterNumber, verses);
         return (returnValue) ? VerseList.getItems() : null;
+    }
+
+    public void bookmarkButtonClicked() {
+        Log.d(TAG, "bookmarkButtonClicked() called");
+    }
+
+    public void shareButtonClicked() {
+        Log.d(TAG, "shareButtonClicked() called");
+        Collection<VerseItem> items = VerseList.getSelectedItems();
+
+        String shareTextTemplate = mOperations.getShareTemplate();
+        String bookName;
+        int chapterNumber, verseNumber;
+        String verseText;
+        StringBuilder shareText = new StringBuilder();
+        StringBuilder temp = new StringBuilder();
+
+        for (VerseItem item : items) {
+            temp.delete(0, temp.length());
+            bookName = item.getBookName();
+            chapterNumber = item.getChapterNumber();
+            verseNumber = item.getVerseNumber();
+            verseText = item.getVerseText();
+            temp.append(String.format(
+                    shareTextTemplate, verseText, bookName, chapterNumber, verseNumber))
+                .append("\n");
+            shareText.append(temp);
+        }
+
+        mOperations.shareSelectedVerses(shareText.toString());
     }
 }

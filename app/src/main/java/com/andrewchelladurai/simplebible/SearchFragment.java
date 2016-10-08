@@ -228,7 +228,7 @@ public class SearchFragment
     }
 
     @Override public String getShareTemplate() {
-        return getString(R.string.fragment_search_share_template);
+        return getString(R.string.share_verse_template);
     }
 
     @Override public void shareSelectedVerses(String stringToShare) {
