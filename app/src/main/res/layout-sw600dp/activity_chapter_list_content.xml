@@ -8,11 +8,7 @@
     android:showDividers="middle"
     tools:context="com.andrewchelladurai.simplebible.ChapterListActivity">
 
-    <!--
-    This layout is a two-pane layout for the Chapters
-    master/detail flow.
-
-    -->
+    <!-- This layout is a two-pane layout for the Chapters master/detail flow. -->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/chapter_list"
