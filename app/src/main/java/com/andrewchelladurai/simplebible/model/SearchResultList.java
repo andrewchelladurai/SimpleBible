@@ -32,6 +32,7 @@ import android.util.Log;
 import com.andrewchelladurai.simplebible.utilities.Utilities;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -105,6 +106,10 @@ public class SearchResultList {
         return SELECTED_ITEMS.isEmpty();
     }
 
+    public static Collection<SearchResultItem> getSelectedItems() {
+        return SELECTED_ITEMS.values();
+    }
+
     public static class SearchResultItem {
 
         private int    mBookNumber    = 0;
@@ -146,6 +151,11 @@ public class SearchResultList {
 
         public int getVerseNumber() {
             return mVerseNumber;
+        }
+
+        public String getBookName() {
+            BooksList.BookItem bookItem = BooksList.getBookItem(getBookNumber());
+            return (null == bookItem) ? "" : bookItem.getBookName();
         }
     }
 }

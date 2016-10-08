@@ -47,6 +47,7 @@ import com.andrewchelladurai.simplebible.interaction.SearchTabOperations;
 import com.andrewchelladurai.simplebible.model.SearchResultList;
 import com.andrewchelladurai.simplebible.presentation.SearchTabPresenter;
 import com.andrewchelladurai.simplebible.utilities.Constants;
+import com.andrewchelladurai.simplebible.utilities.Utilities;
 
 public class SearchFragment
         extends Fragment
@@ -224,6 +225,14 @@ public class SearchFragment
         int viewMode = (isSelectedItemsEmpty) ? View.GONE : View.VISIBLE;
         mBookmarkButton.setVisibility(viewMode);
         mShareButton.setVisibility(viewMode);
+    }
+
+    @Override public String getShareTemplate() {
+        return getString(R.string.fragment_search_share_template);
+    }
+
+    @Override public void shareSelectedVerses(String stringToShare) {
+        startActivity(Utilities.shareVerse(stringToShare));
     }
 
     public void onClick(View view) {

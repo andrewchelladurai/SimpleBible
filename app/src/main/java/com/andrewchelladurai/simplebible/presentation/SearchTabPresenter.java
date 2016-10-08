@@ -32,10 +32,12 @@ import android.util.Log;
 import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
 import com.andrewchelladurai.simplebible.interaction.SearchTabOperations;
 import com.andrewchelladurai.simplebible.model.SearchResultList;
+import com.andrewchelladurai.simplebible.model.SearchResultList.SearchResultItem;
 import com.andrewchelladurai.simplebible.utilities.Constants;
 import com.andrewchelladurai.simplebible.utilities.DBUtility;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by andrew on 10/9/16. Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
@@ -111,5 +113,25 @@ public class SearchTabPresenter {
 
     public void shareButtonClicked() {
         Log.d(TAG, "shareButtonClicked() called");
+        Collection<SearchResultItem> items = SearchResultList.getSelectedItems();
+        String shareTextTemplate = mOperations.getShareTemplate();
+        String bookName;
+        int chapterNumber, verseNumber;
+        String verseText;
+        StringBuilder shareText = new StringBuilder();
+        StringBuilder temp = new StringBuilder();
+        for (SearchResultItem item : items) {
+            temp.delete(0, temp.length());
+            bookName = item.getBookName();
+            chapterNumber = item.getChapterNumber();
+            verseNumber = item.getVerseNumber();
+            verseText = item.getVerseText();
+            temp.append(String.format(
+                    shareTextTemplate, verseText, bookName, chapterNumber, verseNumber))
+                .append("\n");
+            shareText.append(temp);
+        }
+
+        mOperations.shareSelectedVerses(shareText.toString());
     }
 }

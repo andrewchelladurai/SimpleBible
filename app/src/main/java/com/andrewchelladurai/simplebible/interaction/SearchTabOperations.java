@@ -64,4 +64,8 @@ public interface SearchTabOperations
     void refreshList();
 
     void toggleActionButtons(boolean isSelectedItemsEmpty);
+
+    String getShareTemplate();
+
+    void shareSelectedVerses(String stringToShare);
 }

@@ -27,6 +27,7 @@
 package com.andrewchelladurai.simplebible.utilities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.text.SpannableString;
@@ -111,5 +112,14 @@ public class Utilities {
             return null;
         }
         return parts;
+    }
+
+    public static Intent shareVerse(String stringToShare) {
+        Log.d(TAG, "shareVerse() called with [" + stringToShare.length() + "] chars");
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, stringToShare);
+        sendIntent.setType("text/plain");
+        return sendIntent;
     }
 }

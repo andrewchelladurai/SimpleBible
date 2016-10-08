@@ -51,6 +51,7 @@
     <string name="fragment_search_err_msg_empty">Text to search cannot be empty</string>
     <string name="fragment_search_err_msg_length_min">Search Text must more than 3 chars</string>
     <string name="fragment_search_err_msg_length_max">Search Text must be lower than 50 chars</string>
+    <string name="fragment_search_share_template">%1$s (%2$s - %3$d:%4$d)</string>
 
     <string name="fragment_bookmark_button_label_delete">Delete</string>
     <string name="fragment_bookmark_button_label_share">Share</string>
