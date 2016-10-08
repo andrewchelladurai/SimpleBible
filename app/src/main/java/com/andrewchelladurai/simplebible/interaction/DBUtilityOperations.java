@@ -24,7 +24,7 @@
  *
  */
 
-package com.andrewchelladurai.simplebible.utilities;
+package com.andrewchelladurai.simplebible.interaction;
 
 import java.util.ArrayList;
 

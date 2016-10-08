@@ -33,8 +33,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
 import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityOperations;
-import com.andrewchelladurai.simplebible.presentation.SimpleBibleActivityPresenter;
 import com.andrewchelladurai.simplebible.utilities.Constants.SimpleBibleTable;
 
 import java.io.BufferedReader;
@@ -51,7 +51,7 @@ public class DBUtility
 
     private static final String    TAG          = "SB_DBUtility";
     private static       DBUtility thisInstance = null;
-    private static SimpleBibleActivityOperations mActivityOperations;
+    private static SimpleBibleActivityOperations mOperations;
     private boolean mVersionChanged = false;
 
     private DBUtility(Context context) {
@@ -59,10 +59,10 @@ public class DBUtility
     }
 
     public static DBUtilityOperations getInstance(
-            SimpleBibleActivityOperations activityOperations) {
-        DBUtility.mActivityOperations = activityOperations;
+            SimpleBibleActivityOperations operations) {
+        DBUtility.mOperations = operations;
         if (thisInstance == null) {
-            thisInstance = new DBUtility(activityOperations.getThisApplicationContext());
+            thisInstance = new DBUtility(operations.getThisApplicationContext());
             Log.d(TAG, "getInstance: Initialized Static Instance");
         }
         return thisInstance;
@@ -79,15 +79,41 @@ public class DBUtility
 
     @Override public void onCreate(SQLiteDatabase db) {
         Log.d(TAG, "onCreate() called");
-        SimpleBibleActivityPresenter presenter = mActivityOperations.getPresenter();
 
-        InputStreamReader mBaseScript = presenter.getMainScript();
+        InputStreamReader mBaseScript = mOperations.getMainScript();
         if (mBaseScript != null) {
             boolean result = executeScriptFile(mBaseScript, db);
             String msg = (result) ? "DB Setup Successfully" : "DB Setup Unsuccessful";
             Log.d(TAG, "onCreate: " + msg);
         }
 // CREATE TABLE BOOK_MARKS ( "REFERENCE" TEXT PRIMARY KEY, "NOTE" TEXT );
+    }
+
+    @Override public void onDowngrade(SQLiteDatabase db, int oldV, int newV) {
+        Log.d(TAG, "onDowngrade() called with oldV = [" + oldV + "], newV = [" + newV + "]");
+        InputStreamReader mDowngradeScript = mOperations.getDowngradeScript();
+
+        mVersionChanged = false;
+        if (null != mDowngradeScript) {
+            mVersionChanged = executeScriptFile(mDowngradeScript, db);
+            Log.d(TAG, "onDowngrade: successful = " + mVersionChanged);
+            if (mVersionChanged) {
+                onCreate(db);
+            }
+        }
+    }
+
+    @Override public void onUpgrade(SQLiteDatabase db, int oldV, int newV) {
+        Log.d(TAG, "onUpgrade() called with: oldV = [" + oldV + "], newV = [" + newV + "]");
+        InputStreamReader mUpgradeScript = mOperations.getUpgradeScript();
+
+        if (null != mUpgradeScript) {
+            mVersionChanged = executeScriptFile(mUpgradeScript, db);
+            Log.d(TAG, "onUpgrade: successful = " + mVersionChanged);
+            if (mVersionChanged) {
+                onCreate(db);
+            }
+        }
     }
 
     private boolean executeScriptFile(InputStreamReader stream, SQLiteDatabase db) {
@@ -124,35 +150,6 @@ public class DBUtility
         Log.d(TAG, "executeScriptFile() returned "
                    + "created = [" + isCreated + "] & closed = [" + isClosed + "]");
         return (isCreated & isClosed);
-    }
-
-    @Override public void onDowngrade(SQLiteDatabase db, int oldV, int newV) {
-        Log.d(TAG, "onDowngrade() called with oldV = [" + oldV + "], newV = [" + newV + "]");
-        SimpleBibleActivityPresenter presenter = mActivityOperations.getPresenter();
-        InputStreamReader mDowngradeScript = presenter.getDowngradeScript();
-
-        mVersionChanged = false;
-        if (null != mDowngradeScript) {
-            mVersionChanged = executeScriptFile(mDowngradeScript, db);
-            Log.d(TAG, "onDowngrade: successful = " + mVersionChanged);
-            if (mVersionChanged) {
-                onCreate(db);
-            }
-        }
-    }
-
-    @Override public void onUpgrade(SQLiteDatabase db, int oldV, int newV) {
-        Log.d(TAG, "onUpgrade() called with: oldV = [" + oldV + "], newV = [" + newV + "]");
-        SimpleBibleActivityPresenter presenter = mActivityOperations.getPresenter();
-        InputStreamReader mUpgradeScript = presenter.getUpgradeScript();
-
-        if (null != mUpgradeScript) {
-            mVersionChanged = executeScriptFile(mUpgradeScript, db);
-            Log.d(TAG, "onUpgrade: successful = " + mVersionChanged);
-            if (mVersionChanged) {
-                onCreate(db);
-            }
-        }
     }
 
     public String getVerseForReference(int bookNumber, int chapterNumber, int verseNumber) {

@@ -6,7 +6,7 @@ import android.util.Log;
 import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityOperations;
 import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.utilities.DBUtility;
-import com.andrewchelladurai.simplebible.utilities.DBUtilityOperations;
+import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

@@ -34,7 +34,7 @@ import com.andrewchelladurai.simplebible.model.ChapterList.ChapterItem;
 import com.andrewchelladurai.simplebible.model.VerseList;
 import com.andrewchelladurai.simplebible.model.VerseList.VerseItem;
 import com.andrewchelladurai.simplebible.utilities.DBUtility;
-import com.andrewchelladurai.simplebible.utilities.DBUtilityOperations;
+import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
 
 import java.util.ArrayList;
 import java.util.List;

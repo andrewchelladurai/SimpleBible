@@ -9,7 +9,7 @@ import com.andrewchelladurai.simplebible.model.BooksList.BookItem;
 import com.andrewchelladurai.simplebible.model.ChapterList;
 import com.andrewchelladurai.simplebible.utilities.Constants;
 import com.andrewchelladurai.simplebible.utilities.DBUtility;
-import com.andrewchelladurai.simplebible.utilities.DBUtilityOperations;
+import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
 
 import java.util.Calendar;
 import java.util.List;

@@ -15,6 +15,8 @@ import com.andrewchelladurai.simplebible.adapter.TabsAdapter;
 import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityOperations;
 import com.andrewchelladurai.simplebible.presentation.SimpleBibleActivityPresenter;
 
+import java.io.InputStreamReader;
+
 public class SimpleBibleActivity
         extends AppCompatActivity
         implements SimpleBibleActivityOperations {
@@ -98,6 +100,18 @@ public class SimpleBibleActivity
             mPresenter = new SimpleBibleActivityPresenter(this);
         }
         return mPresenter;
+    }
+
+    @Override public InputStreamReader getMainScript() {
+        return mPresenter.getMainScript();
+    }
+
+    @Override public InputStreamReader getDowngradeScript() {
+        return mPresenter.getDowngradeScript();
+    }
+
+    @Override public InputStreamReader getUpgradeScript() {
+        return mPresenter.getUpgradeScript();
     }
 
 }

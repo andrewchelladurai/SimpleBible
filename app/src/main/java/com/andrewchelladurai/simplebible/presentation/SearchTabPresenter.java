@@ -33,7 +33,7 @@ import com.andrewchelladurai.simplebible.interaction.SearchTabOperations;
 import com.andrewchelladurai.simplebible.model.SearchResultList;
 import com.andrewchelladurai.simplebible.utilities.Constants;
 import com.andrewchelladurai.simplebible.utilities.DBUtility;
-import com.andrewchelladurai.simplebible.utilities.DBUtilityOperations;
+import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
 
 import java.util.ArrayList;
 
