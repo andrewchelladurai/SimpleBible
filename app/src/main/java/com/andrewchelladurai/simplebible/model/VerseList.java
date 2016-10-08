@@ -101,6 +101,10 @@ public class VerseList {
         return SELECTED_ITEMS.containsKey(item.getReference());
     }
 
+    public static boolean isSelectedItemsEmpty() {
+        return SELECTED_ITEMS.isEmpty();
+    }
+
     public static class VerseItem {
 
         private final int    mChapterNumber;

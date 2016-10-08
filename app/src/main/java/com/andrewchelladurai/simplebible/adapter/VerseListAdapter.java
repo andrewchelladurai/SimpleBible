@@ -124,6 +124,7 @@ public class VerseListAdapter
         @Override
         public boolean onLongClick(View v) {
             updateItemColor(VerseList.updateSelectedItems(mItem));
+            mListener.toggleActionBar(VerseList.isSelectedItemsEmpty());
             return true;
         }
     }

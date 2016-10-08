@@ -31,7 +31,9 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,10 +43,13 @@ import com.andrewchelladurai.simplebible.interaction.ChapterFragmentOperations;
 import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.model.ChapterList;
 import com.andrewchelladurai.simplebible.model.ChapterList.ChapterItem;
+import com.andrewchelladurai.simplebible.model.VerseList;
 import com.andrewchelladurai.simplebible.model.VerseList.VerseItem;
 import com.andrewchelladurai.simplebible.presentation.ChapterFragmentPresenter;
 
 import java.util.List;
+
+import static com.andrewchelladurai.simplebible.R.id.chapter_detail_verse_actions_bar;
 
 public class ChapterFragment
         extends Fragment
@@ -57,6 +62,7 @@ public class ChapterFragment
     private        ChapterItem              mChapterItem;
     private        BooksList.BookItem       mBookItem;
     private        VerseListAdapter         mListAdapter;
+    private        LinearLayoutCompat       mActions;
     private static ChapterFragmentPresenter mPresenter;
 
     public ChapterFragment() {
@@ -91,10 +97,9 @@ public class ChapterFragment
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chapter, container, false);
 
-        // Set the adapter
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_verse_list);
         recyclerView.setAdapter(mListAdapter);
-
+        refresh();
         return view;
     }
 
@@ -130,6 +135,7 @@ public class ChapterFragment
     }
 
     @Override public void refresh() {
+        toggleActionBar(VerseList.isSelectedItemsEmpty());
     }
 
     @Override public int getReferenceHighlightColor() {
@@ -150,5 +156,22 @@ public class ChapterFragment
 
     @Override public int getDefaultTextColor() {
         return ContextCompat.getColor(getContext(), R.color.textColor);
+    }
+
+    @Override public void toggleActionBar(boolean isSelectedItemsEmpty) {
+        if (mActions == null) {
+            mActions = (LinearLayoutCompat)
+                    getActivity().findViewById(chapter_detail_verse_actions_bar);
+        }
+        if (mActions == null) {
+            Log.w(TAG, "toggleActionBar: component chapter_detail_verse_actions_bar not found");
+            return;
+        }
+        if (isSelectedItemsEmpty) {
+            mActions.setVisibility(View.GONE);
+        } else {
+            mActions.setVisibility(View.VISIBLE);
+        }
+
     }
 }

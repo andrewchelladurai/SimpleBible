@@ -1,6 +1,6 @@
 /*
  *
- * This file 'ChapterFragmentOperations.java' is part of SimpleBible :
+ * This file 'ChapterActivityOperations.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.
  *
@@ -27,21 +27,9 @@
 package com.andrewchelladurai.simplebible.interaction;
 
 /**
- * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 26-Sep-2016 @ 1:14 AM
+ * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 08-Oct-2016 @ 1:07 PM
  */
-public interface ChapterFragmentOperations
+public interface ChapterActivityOperations
         extends BasicOperations {
 
-    int getReferenceHighlightColor();
-
-    int getLongClickBackgroundColor();
-
-    int getLongClickTextColor();
-
-    int getDefaultBackgroundColor();
-
-    int getDefaultTextColor();
-
-    void toggleActionBar(boolean show);
 }
-

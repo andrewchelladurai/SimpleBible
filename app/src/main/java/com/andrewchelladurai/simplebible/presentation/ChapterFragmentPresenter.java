@@ -29,8 +29,8 @@ package com.andrewchelladurai.simplebible.presentation;
 import android.util.Log;
 
 import com.andrewchelladurai.simplebible.interaction.ChapterFragmentOperations;
-import com.andrewchelladurai.simplebible.model.BooksList;
-import com.andrewchelladurai.simplebible.model.ChapterList;
+import com.andrewchelladurai.simplebible.model.BooksList.BookItem;
+import com.andrewchelladurai.simplebible.model.ChapterList.ChapterItem;
 import com.andrewchelladurai.simplebible.model.VerseList;
 import com.andrewchelladurai.simplebible.model.VerseList.VerseItem;
 import com.andrewchelladurai.simplebible.utilities.DBUtility;
@@ -55,8 +55,7 @@ public class ChapterFragmentPresenter {
         Log.d(TAG, "init() called");
     }
 
-    public List<VerseItem> getAllVersesForChapter(BooksList.BookItem bookItem,
-                                                  ChapterList.ChapterItem chapterItem) {
+    public List<VerseItem> getAllVersesForChapter(BookItem bookItem, ChapterItem chapterItem) {
         int bookNumber = bookItem.getBookNumber();
         int chapterNumber = chapterItem.getChapterNumber();
         Log.d(TAG, "getAllVersesForChapter() called with: bookNumber = ["

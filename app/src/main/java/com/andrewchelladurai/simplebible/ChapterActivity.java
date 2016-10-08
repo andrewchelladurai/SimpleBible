@@ -30,13 +30,17 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.andrewchelladurai.simplebible.interaction.ChapterActivityOperations;
 import com.andrewchelladurai.simplebible.model.BooksList;
+import com.andrewchelladurai.simplebible.presentation.ChapterActivityPresenter;
 
 public class ChapterActivity
-        extends AppCompatActivity {
+        extends AppCompatActivity
+        implements ChapterActivityOperations {
 
-    private int                mChapterNumber;
-    private BooksList.BookItem mBookItem;
+    private int                      mChapterNumber;
+    private BooksList.BookItem       mBookItem;
+    private ChapterActivityPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -44,6 +48,8 @@ public class ChapterActivity
         setContentView(R.layout.activity_chapter_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.chapter_detail_toolbar);
         setSupportActionBar(toolbar);
+
+        init();
 
         // savedState is non-null when there is fragment state
         // saved from previous configurations of this activity
@@ -80,4 +86,13 @@ public class ChapterActivity
         }
     }
 
+    @Override public void init() {
+        if (mPresenter == null) {
+            mPresenter = new ChapterActivityPresenter(this);
+        }
+    }
+
+    @Override public void refresh() {
+
+    }
 }
