@@ -180,6 +180,7 @@ public class SearchFragment
     }
 
     @Override public void resetFields() {
+        toggleActionButtons(SearchResultList.isSelectedItemsEmpty());
         mInput.setText("");
         showSearchButton();
         refreshList();
@@ -208,6 +209,7 @@ public class SearchFragment
     }
 
     @Override public void refreshList() {
+        toggleActionButtons(SearchResultList.isSelectedItemsEmpty());
         mListAdapter.notifyDataSetChanged();
         if (mListAdapter.getItemCount() == 0) {
             mRecyclerView.setVisibility(View.GONE);
