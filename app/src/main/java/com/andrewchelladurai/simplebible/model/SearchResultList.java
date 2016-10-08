@@ -101,6 +101,10 @@ public class SearchResultList {
         return isItemSelected(item);
     }
 
+    public static boolean isSelectedItemsEmpty() {
+        return SELECTED_ITEMS.isEmpty();
+    }
+
     public static class SearchResultItem {
 
         private int    mBookNumber    = 0;

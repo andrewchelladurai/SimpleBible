@@ -60,8 +60,10 @@ public class SearchFragment
     private AppCompatButton     mSearchButton;
     private AppCompatButton     mResetButton;
     private SearchResultAdapter mListAdapter;
-    private RecyclerView mRecyclerView;
-    private AppCompatTextView mHelpLabel;
+    private RecyclerView        mRecyclerView;
+    private AppCompatTextView   mHelpLabel;
+    private AppCompatButton     mBookmarkButton;
+    private AppCompatButton     mShareButton;
 
     public SearchFragment() {
     }
@@ -93,11 +95,17 @@ public class SearchFragment
         mInput.addTextChangedListener(this);
         mLabel = (AppCompatTextView) view.findViewById(R.id.fragment_search_label);
 
-        mSearchButton = (AppCompatButton) view.findViewById(R.id.fragment_search_button);
+        mSearchButton = (AppCompatButton) view.findViewById(R.id.fragment_search_button_search);
         mSearchButton.setOnClickListener(this);
 
         mResetButton = (AppCompatButton) view.findViewById(R.id.fragment_search_button_reset);
         mResetButton.setOnClickListener(this);
+
+        mBookmarkButton = (AppCompatButton) view.findViewById(R.id.fragment_search_button_bookmark);
+        mBookmarkButton.setOnClickListener(this);
+
+        mShareButton = (AppCompatButton) view.findViewById(R.id.fragment_search_button_share);
+        mShareButton.setOnClickListener(this);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_search_list);
         mRecyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), mColumnCount));
@@ -210,11 +218,23 @@ public class SearchFragment
         }
     }
 
+    @Override public void toggleActionButtons(boolean isSelectedItemsEmpty) {
+        int viewMode = (isSelectedItemsEmpty) ? View.GONE : View.VISIBLE;
+        mBookmarkButton.setVisibility(viewMode);
+        mShareButton.setVisibility(viewMode);
+    }
+
     public void onClick(View view) {
         if (view.equals(mSearchButton)) {
             searchButtonClicked();
         } else if (view.equals(mResetButton)) {
             mPresenter.resetButtonClicked();
+        } else if (view.equals(mBookmarkButton)) {
+            mPresenter.bookmarkButtonClicked();
+        } else if (view.equals(mShareButton)) {
+            mPresenter.shareButtonClicked();
+        } else {
+            Log.d(TAG, "onClick: " + getString(R.string.how_am_i_here));
         }
     }
 

@@ -29,11 +29,11 @@ package com.andrewchelladurai.simplebible.presentation;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
 import com.andrewchelladurai.simplebible.interaction.SearchTabOperations;
 import com.andrewchelladurai.simplebible.model.SearchResultList;
 import com.andrewchelladurai.simplebible.utilities.Constants;
 import com.andrewchelladurai.simplebible.utilities.DBUtility;
-import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
 
 import java.util.ArrayList;
 
@@ -103,5 +103,13 @@ public class SearchTabPresenter {
         } else {
             mOperations.resetFields();
         }
+    }
+
+    public void bookmarkButtonClicked() {
+        Log.d(TAG, "bookmarkButtonClicked() called");
+    }
+
+    public void shareButtonClicked() {
+        Log.d(TAG, "shareButtonClicked() called");
     }
 }

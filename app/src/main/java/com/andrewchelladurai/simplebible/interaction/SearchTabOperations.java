@@ -62,4 +62,6 @@ public interface SearchTabOperations
     int getReferenceHighlightColor();
 
     void refreshList();
+
+    void toggleActionButtons(boolean isSelectedItemsEmpty);
 }

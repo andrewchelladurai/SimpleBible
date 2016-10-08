@@ -117,6 +117,7 @@ public class SearchResultAdapter
         @Override
         public boolean onLongClick(View v) {
             updateItemColor(SearchResultList.updateSelectedItems(mItem));
+            mListener.toggleActionButtons(SearchResultList.isSelectedItemsEmpty());
             return true;
         }
     }

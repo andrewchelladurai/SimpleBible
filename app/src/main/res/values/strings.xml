@@ -40,6 +40,8 @@
     <string name="fragment_search_hint">Enter text to search</string>
     <string name="fragment_search_button_default">Search</string>
     <string name="fragment_search_button_reset">Reset</string>
+    <string name="fragment_search_button_bookmark">Bookmark</string>
+    <string name="fragment_search_button_share">Share</string>
     <string name="fragment_search_reference_template">%1$s (%2$d:%3$d)</string>
     <string name="fragment_search_label_help"><![CDATA[
     <br/><br/>Enter any text to search for it <u>as long as</u>
