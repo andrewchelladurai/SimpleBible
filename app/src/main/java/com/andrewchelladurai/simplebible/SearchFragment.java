@@ -89,7 +89,6 @@ public class SearchFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        init();
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         mInput = (TextInputEditText) view.findViewById(R.id.fragment_search_input);
@@ -110,12 +109,14 @@ public class SearchFragment
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_search_list);
         mRecyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), mColumnCount));
-        mListAdapter = new SearchResultAdapter(SearchResultList.getItems(), this);
-        mRecyclerView.setAdapter(mListAdapter);
 
         mHelpLabel = (AppCompatTextView) view.findViewById(R.id.fragment_search_label_help);
         mHelpLabel.setText(Html.fromHtml(getString(R.string.fragment_search_label_help)));
 
+        init();
+        mRecyclerView.setAdapter(mListAdapter);
+
+        refreshList();
         return view;
     }
 
@@ -151,9 +152,12 @@ public class SearchFragment
         Log.d(TAG, "init() called:");
         if (null == mPresenter) {
             mPresenter = new SearchTabPresenter(this);
+            mPresenter.init();
+            mColumnCount = getResources().getInteger(R.integer.column_count_search_result_list);
         }
-        mPresenter.init();
-        mColumnCount = getResources().getInteger(R.integer.column_count_search_result_list);
+        if (null == mListAdapter) {
+            mListAdapter = new SearchResultAdapter(SearchResultList.getItems(), this);
+        }
         Log.d(TAG, "init() returned:");
     }
 
@@ -190,11 +194,8 @@ public class SearchFragment
     }
 
     @Override public String getResultsCountString(int count) {
-        Log.d(TAG, "getResultsCountString() called with: count = [" + count + "]");
-        String string = getResources().getQuantityString(
+        return getResources().getQuantityString(
                 R.plurals.fragment_search_result_count_template, count, count);
-        Log.d(TAG, "getResultsCountString() returned: " + string);
-        return string;
     }
 
     @Override public void showMessage(String message) {
@@ -213,9 +214,11 @@ public class SearchFragment
         toggleActionButtons(SearchResultList.isSelectedItemsEmpty());
         mListAdapter.notifyDataSetChanged();
         if (mListAdapter.getItemCount() == 0) {
+            showSearchButton();
             mRecyclerView.setVisibility(View.GONE);
             mHelpLabel.setVisibility(View.VISIBLE);
         } else {
+            showResetButton();
             mRecyclerView.setVisibility(View.VISIBLE);
             mHelpLabel.setVisibility(View.GONE);
         }
