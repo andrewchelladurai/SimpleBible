@@ -57,17 +57,17 @@ public class ChapterFragment
         extends Fragment
         implements ChapterFragmentOperations, View.OnClickListener {
 
-    public static final  String  ARG_BOOK_ITEM      = "ARG_BOOK_ITEM";
-    public static final  String  ARG_CHAPTER_NUMBER = "ARG_CHAPTER_NUMBER";
-    private static final String  TAG                = "SB_ChapterFragment";
-    private              boolean isAllSet           = false;
-    private        ChapterItem              mChapterItem;
-    private        BooksList.BookItem       mBookItem;
-    private        VerseListAdapter         mListAdapter;
-    private        LinearLayoutCompat       mActions;
+    public static final  String ARG_BOOK_ITEM      = "ARG_BOOK_ITEM";
+    public static final  String ARG_CHAPTER_NUMBER = "ARG_CHAPTER_NUMBER";
+    private static final String TAG                = "SB_ChapterFragment";
     private static ChapterFragmentPresenter mPresenter;
-    private        FloatingActionButton     mBookmarkButton;
-    private        FloatingActionButton     mShareButton;
+    private boolean isAllSet = false;
+    private ChapterItem          mChapterItem;
+    private BooksList.BookItem   mBookItem;
+    private VerseListAdapter     mListAdapter;
+    private LinearLayoutCompat   mActions;
+    private FloatingActionButton mBookmarkButton;
+    private FloatingActionButton mShareButton;
 
     public ChapterFragment() {
     }
@@ -83,7 +83,6 @@ public class ChapterFragment
     @Override
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
-        init();
         if (isAllSet) {
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout)
@@ -108,8 +107,11 @@ public class ChapterFragment
                 R.id.chapter_detail_verse_action_share);
         mShareButton.setOnClickListener(this);
 
+        init();
+
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_verse_list);
         recyclerView.setAdapter(mListAdapter);
+
         refresh();
         return view;
     }
@@ -121,8 +123,8 @@ public class ChapterFragment
         mChapterItem = null;
         if (null == mPresenter) {
             mPresenter = new ChapterFragmentPresenter(this);
+            mPresenter.init();
         }
-        mPresenter.init();
 
         Bundle args = getArguments();
 
