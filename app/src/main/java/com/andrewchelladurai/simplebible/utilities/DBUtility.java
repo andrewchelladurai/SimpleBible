@@ -341,7 +341,8 @@ public class DBUtility
             Log.d(TAG, "getNoteForReference: cursor is null, returning empty string");
             return "";
         }
-        note = cursor.getString(0);
+        cursor.moveToFirst();
+        note = cursor.getString(cursor.getColumnIndex(BookmarksTable.COLUMN_NOTE));
         cursor.close();
         Log.d(TAG, "getNoteForReference() returned: " + note);
         return note;

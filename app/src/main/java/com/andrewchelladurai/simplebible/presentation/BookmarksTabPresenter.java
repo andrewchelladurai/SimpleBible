@@ -26,11 +26,13 @@
 
 package com.andrewchelladurai.simplebible.presentation;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.andrewchelladurai.simplebible.interaction.BookmarksTabOperations;
-import com.andrewchelladurai.simplebible.model.BookmarkList;
-import com.andrewchelladurai.simplebible.utilities.Constants;
+import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
+import com.andrewchelladurai.simplebible.model.BookmarkList.BookmarkItem;
+import com.andrewchelladurai.simplebible.utilities.DBUtility;
 
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 15-Sep-2016 @ 4:47 PM
@@ -46,25 +48,18 @@ public class BookmarksTabPresenter {
         mOperations.refresh();
     }
 
-    /**
-     * Will check if the clicked bookmark is already present in the database.
-     *
-     * @param item the item to check
-     * @return Constants.Error | PRESENT_IN_DATABASE | ABSENT_IN_DATABASE
-     */
-    public String isBookmarkAlreadyPresentInDatabase(BookmarkList.BookmarkItem item) {
-        if (null == item) {
-            return Constants.ERROR;
-        }
-        return Constants.PRESENT_IN_DATABASE;
+    public boolean bookmarkClicked(@NonNull String references) {
+        Log.d(TAG, "bookmarkClicked() called with: references = [" + references + "]");
+        DBUtilityOperations dbu = DBUtility.getInstance();
+        return dbu.doesBookmarkReferenceExist(references);
     }
 
-    public boolean deleteButtonClicked(BookmarkList.BookmarkItem item) {
+    public boolean deleteButtonClicked(BookmarkItem item) {
         Log.d(TAG, "deleteButtonClicked() called with: " + "item = [" + item + "]");
         return true;
     }
 
-    public void shareButtonClicked(BookmarkList.BookmarkItem item) {
+    public void shareButtonClicked(BookmarkItem item) {
         Log.d(TAG, "shareButtonClicked() called with: " + "item = [" + item + "]");
     }
 }

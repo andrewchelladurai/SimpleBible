@@ -31,13 +31,11 @@ public class BookmarkList {
 
         DBUtilityOperations dbu = DBUtility.getInstance();
         ArrayList<String[]> items = dbu.getAllBookmarks();
+        String[] itemParts;
+        BookmarkItem item;
         for (int i = 0; i < items.size(); i++) {
-            String[] itemParts = items.get(i);
-            Log.d(TAG, "refreshList: " + itemParts[0] + " : " + itemParts[1]);
-        }
-
-        for (int i = 1; i <= 17; i++) {
-            BookmarkItem item = new BookmarkItem(String.valueOf(i), "Item " + i);
+            itemParts = items.get(i);
+            item = new BookmarkItem(itemParts[0], itemParts[1]);
             ITEMS.add(item);
             ITEM_MAP.put(item.getReferences(), item);
         }

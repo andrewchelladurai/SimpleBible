@@ -11,7 +11,6 @@ public abstract class Constants {
     public static final String DELIMITER_BETWEEN_REFERENCE = "~";
     public static final String REMOVED                     = "REMOVED";
     public static final String ADDED                       = "ADDED";
-    public static final String ERROR                       = "ERROR";
     public static final String PRESENT_IN_DATABASE         = "PRESENT_IN_DATABASE";
     public static final String ABSENT_IN_DATABASE          = "ABSENT_IN_DATABASE";
     public static final String BUNDLE_ARG_BOOKMARK_ITEM    = "BOOKMARK_ITEM";

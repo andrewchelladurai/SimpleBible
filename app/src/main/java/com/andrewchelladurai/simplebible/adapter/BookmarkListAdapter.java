@@ -42,16 +42,16 @@ public class BookmarkListAdapter
         return mValues.size();
     }
 
-    public class BookmarkViewHolder
+    class BookmarkViewHolder
             extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
-        public final View              mView;
-        public final AppCompatTextView mReference;
-        public final AppCompatTextView mNote;
-        public       BookmarkItem      mItem;
+        BookmarkItem mItem;
+        final View              mView;
+        final AppCompatTextView mReference;
+        final AppCompatTextView mNote;
 
-        public BookmarkViewHolder(View view) {
+        BookmarkViewHolder(View view) {
             super(view);
             mView = view;
             mReference = (AppCompatTextView) view.findViewById(R.id.bookmark_item_reference);
@@ -68,9 +68,10 @@ public class BookmarkListAdapter
             return super.toString() + " '" + mReference.getText() + "'";
         }
 
-        public void updateView(BookmarkItem bookmarkItem) {
+        void updateView(BookmarkItem bookmarkItem) {
             mItem = bookmarkItem;
-            mReference.setText(mItem.getNote());
+            mReference.setText(mItem.getReferences());
+            mNote.setText(mItem.getNote());
 
             mView.setOnClickListener(this);
         }
