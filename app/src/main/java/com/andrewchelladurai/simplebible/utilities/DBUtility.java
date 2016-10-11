@@ -326,4 +326,23 @@ public class DBUtility
         Log.d(TAG, "doesBookmarkReferenceExist: cursor has " + count + " rows");
         return (count > 0);
     }
+
+    @Override public String getNoteForReference(@NonNull String reference) {
+        String note;
+        SQLiteDatabase database = getReadableDatabase();
+        String table = BookmarksTable.NAME;
+        String[] columns = {BookmarksTable.COLUMN_NOTE};
+        String where = BookmarksTable.COLUMN_REFERENCE + " = ? ";
+        String[] args = {reference};
+        Cursor cursor = database.query(true, table, columns, where, args,
+                                       null, null, null, null);
+        if (null == cursor) {
+            Log.d(TAG, "getNoteForReference: cursor is null, returning empty string");
+            return "";
+        }
+        note = cursor.getString(0);
+        cursor.close();
+        Log.d(TAG, "getNoteForReference() returned: " + note);
+        return note;
+    }
 }

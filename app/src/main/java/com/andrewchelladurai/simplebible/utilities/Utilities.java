@@ -38,6 +38,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.model.SearchResultList.SearchResultItem;
 import com.andrewchelladurai.simplebible.model.VerseList.VerseItem;
 
@@ -154,5 +155,22 @@ public class Utilities {
         }
         reference.deleteCharAt(reference.lastIndexOf(delimiter));
         return reference.toString();
+    }
+
+    public static String getFormattedReferenceText(int bookNumber, int chapterNumber,
+                                                   int verseNumber, String template) {
+        String text;
+        if (bookNumber == 0 || chapterNumber == 0 || verseNumber == 0) {
+            Log.d(TAG, "getFormattedReferenceText: "
+                       + "one of the reference parts is 0, returning empty string");
+            return "";
+        }
+        BooksList.BookItem bookItem = BooksList.getBookItem(bookNumber);
+        if (bookItem == null) {
+            Log.d(TAG, "getFormattedReferenceText: returned BookItem is null");
+            return "";
+        }
+        text = String.format(template, bookItem.getBookName(), chapterNumber, verseNumber);
+        return text;
     }
 }

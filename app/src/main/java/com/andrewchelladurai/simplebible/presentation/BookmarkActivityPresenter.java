@@ -26,9 +26,12 @@
 
 package com.andrewchelladurai.simplebible.presentation;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.andrewchelladurai.simplebible.interaction.BookmarkActivityOperations;
+import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
+import com.andrewchelladurai.simplebible.utilities.DBUtility;
 
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 17-Sep-2016 @ 12:48 AM
@@ -62,5 +65,11 @@ public class BookmarkActivityPresenter {
     public boolean buttonSaveClicked() {
         Log.d(TAG, "buttonSaveClicked() called");
         return true;
+    }
+
+    public String getNote(@NonNull String reference) {
+        Log.d(TAG, "getNote() called with: reference = [" + reference + "]");
+        DBUtilityOperations dbu = DBUtility.getInstance();
+        return dbu.getNoteForReference(reference);
     }
 }

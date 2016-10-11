@@ -34,7 +34,7 @@
             style="@style/StyleForTextSubHeader"
             android:layout_marginBottom="@dimen/text_margin"
             android:gravity="center"
-            android:text="@string/application_name" />
+            android:text="@string/bookmark_activity_label_verses" />
 
         <android.support.v7.widget.ListViewCompat
             android:id="@+id/activity_bookmark_list"
@@ -63,7 +63,7 @@
                 android:id="@+id/activity_bookmark_label_note"
                 style="@style/StyleForTextSubHeader"
                 android:gravity="center"
-                android:text="@string/application_name" />
+                android:text="@string/bookmark_activity_label_note" />
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/activity_bookmark_note"
@@ -71,9 +71,9 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="top"
+                android:hint="@string/bookmark_activity_hint_note"
                 android:minLines="3"
-                android:padding="@dimen/text_margin"
-                android:text="@string/application_name" />
+                android:padding="@dimen/text_margin" />
 
             <android.support.v7.widget.ButtonBarLayout
                 android:layout_width="match_parent"

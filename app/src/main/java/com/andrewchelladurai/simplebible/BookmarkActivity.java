@@ -38,7 +38,11 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 
 import com.andrewchelladurai.simplebible.interaction.BookmarkActivityOperations;
+import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
 import com.andrewchelladurai.simplebible.presentation.BookmarkActivityPresenter;
+import com.andrewchelladurai.simplebible.utilities.Constants;
+import com.andrewchelladurai.simplebible.utilities.DBUtility;
+import com.andrewchelladurai.simplebible.utilities.Utilities;
 
 import java.util.ArrayList;
 
@@ -47,11 +51,11 @@ public class BookmarkActivity
         implements BookmarkActivityOperations, View.OnClickListener {
 
     private static final String TAG = "SB_BActivity";
+    private BookmarkActivityPresenter mPresenter;
     private AppCompatTextView         mLabelReference;
     private AppCompatTextView         mLabelNote;
     private ListViewCompat            mList;
     private AppCompatEditText         mNote;
-    private BookmarkActivityPresenter mPresenter;
     private AppCompatButton           mButtonSave;
     private AppCompatButton           mButtonEdit;
     private AppCompatButton           mButtonDelete;
@@ -63,6 +67,9 @@ public class BookmarkActivity
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         init();
+        if (mReference.isEmpty()) {
+            mReference = Constants.DEFAULT_REFERENCE;
+        }
 
         setContentView(R.layout.activity_bookmark);
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_bookmark_toolbar);
@@ -72,19 +79,16 @@ public class BookmarkActivity
         // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Placeholder for entries
-        ArrayList<String> items = new ArrayList<>(7);
-        for (int i = 1; i <= 10; i++) {
-            items.add("Entry " + i);
-        }
-
         mLabelReference = (AppCompatTextView) findViewById(R.id.activity_bookmark_label_reference);
 
         mList = (ListViewCompat) findViewById(R.id.activity_bookmark_list);
         mList.setAdapter(new ArrayAdapter<>(getApplicationContext(),
                                             R.layout.content_activity_bookmark_reference_entry,
-                                            items));
+                                            prepareVersesList()));
         mLabelNote = (AppCompatTextView) findViewById(R.id.activity_bookmark_label_note);
         mNote = (AppCompatEditText) findViewById(R.id.activity_bookmark_note);
+
+        mNote.setText(getNote());
 
         mButtonSave = (AppCompatButton) findViewById(R.id.activity_bookmark_button_save);
         mButtonSave.setOnClickListener(this);
@@ -94,6 +98,39 @@ public class BookmarkActivity
         mButtonDelete.setOnClickListener(this);
         mButtonShare = (AppCompatButton) findViewById(R.id.activity_bookmark_button_share);
         mButtonShare.setOnClickListener(this);
+    }
+
+    private String getNote() {
+        if (mMode.equalsIgnoreCase(CREATE)) {
+            return "";
+        }
+        return mPresenter.getNote(mReference);
+    }
+
+    private ArrayList<String> prepareVersesList() {
+        String references[] = mReference.split(Constants.DELIMITER_BETWEEN_REFERENCE);
+        String parts[];
+        int bookNumber, chapterNumber, verseNumber;
+        String verseRefText, verseText;
+        String template = getString(R.string.fragment_search_reference_template);
+        ArrayList<String> list = new ArrayList<>();
+        DBUtilityOperations dbu = DBUtility.getInstance();
+
+        for (int i = 0; i < references.length; i++) {
+            parts = Utilities.getReferenceParts(references[i]);
+            if (null == parts) {
+                continue;
+            }
+            bookNumber = Integer.parseInt(parts[0]);
+            chapterNumber = Integer.parseInt(parts[1]);
+            verseNumber = Integer.parseInt(parts[2]);
+
+            verseRefText = Utilities.getFormattedReferenceText(
+                    bookNumber, chapterNumber, verseNumber, template);
+            verseText = dbu.getVerseForReference(bookNumber, chapterNumber, verseNumber);
+            list.add(verseRefText + " " + verseText);
+        }
+        return list;
     }
 
     @Override public void onClick(View v) {
@@ -131,8 +168,8 @@ public class BookmarkActivity
         if (null == mPresenter) {
             mPresenter = new BookmarkActivityPresenter(this);
             Bundle arguments = getIntent().getExtras();
-            mReference = arguments.getString(ARG_REFERENCE, null);
-            mMode = arguments.getString(ARG_MODE, null);
+            mReference = arguments.getString(ARG_REFERENCE, "");
+            mMode = arguments.getString(ARG_MODE, "");
             Log.d(TAG, "init: variables initialized");
         }
         Log.d(TAG, "onCreate() mReference = [" + mReference + "]");

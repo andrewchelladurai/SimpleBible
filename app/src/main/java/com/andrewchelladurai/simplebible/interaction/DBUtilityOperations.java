@@ -40,4 +40,6 @@ public interface DBUtilityOperations {
     ArrayList<String[]> searchForInput(String input);
 
     boolean doesBookmarkReferenceExist(String reference);
+
+    String getNoteForReference(String reference);
 }
