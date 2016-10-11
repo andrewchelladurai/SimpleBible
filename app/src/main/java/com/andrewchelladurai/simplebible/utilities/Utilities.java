@@ -38,7 +38,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.andrewchelladurai.simplebible.model.VerseList;
+import com.andrewchelladurai.simplebible.model.SearchResultList.SearchResultItem;
+import com.andrewchelladurai.simplebible.model.VerseList.VerseItem;
 
 import java.util.Collection;
 
@@ -127,11 +128,25 @@ public class Utilities {
         return sendIntent;
     }
 
-    public static String prepareBookmarkReference(
-            @NonNull Collection<VerseList.VerseItem> verseItems) {
+    public static String prepareBookmarkReferenceFromVerseList(
+            @NonNull Collection<VerseItem> items) {
         StringBuilder reference = new StringBuilder();
         String delimiter = Constants.DELIMITER_BETWEEN_REFERENCE;
-        for (VerseList.VerseItem item : verseItems) {
+        for (VerseItem item : items) {
+            reference.append(prepareReferenceString(item.getBookNumber(),
+                                                    item.getChapterNumber(),
+                                                    item.getVerseNumber()))
+                     .append(delimiter);
+        }
+        reference.deleteCharAt(reference.lastIndexOf(delimiter));
+        return reference.toString();
+    }
+
+    public static String prepareBookmarkReferenceFromSearchResults(
+            Collection<SearchResultItem> items) {
+        StringBuilder reference = new StringBuilder();
+        String delimiter = Constants.DELIMITER_BETWEEN_REFERENCE;
+        for (SearchResultItem item : items) {
             reference.append(prepareReferenceString(item.getBookNumber(),
                                                     item.getChapterNumber(),
                                                     item.getVerseNumber()))

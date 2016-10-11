@@ -26,6 +26,7 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
@@ -43,11 +44,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.adapter.SearchResultAdapter;
+import com.andrewchelladurai.simplebible.interaction.BookmarkActivityOperations;
 import com.andrewchelladurai.simplebible.interaction.SearchTabOperations;
 import com.andrewchelladurai.simplebible.model.SearchResultList;
 import com.andrewchelladurai.simplebible.presentation.SearchTabPresenter;
 import com.andrewchelladurai.simplebible.utilities.Constants;
 import com.andrewchelladurai.simplebible.utilities.Utilities;
+
+import java.util.Collection;
 
 public class SearchFragment
         extends Fragment
@@ -244,12 +248,44 @@ public class SearchFragment
         } else if (view.equals(mResetButton)) {
             mPresenter.resetButtonClicked();
         } else if (view.equals(mBookmarkButton)) {
-            mPresenter.bookmarkButtonClicked();
+            bookmarkButtonClicked();
         } else if (view.equals(mShareButton)) {
             mPresenter.shareButtonClicked();
         } else {
             Log.d(TAG, "onClick: " + getString(R.string.how_am_i_here));
         }
+    }
+
+    private void bookmarkButtonClicked() {
+        Collection<SearchResultList.SearchResultItem> items = SearchResultList.getSelectedItems();
+        if (items.isEmpty()) {
+            Log.d(TAG, "bookmarkButtonClicked: No Selected Entries :\n"
+                       + getString(R.string.how_am_i_here));
+            return;
+        }
+        String reference = Utilities.prepareBookmarkReferenceFromSearchResults(items);
+        if (reference.isEmpty()) {
+            Log.d(TAG, "bookmarkButtonClicked: reference is empty");
+            return;
+        }
+        String returnValue = mPresenter.bookmarkButtonClicked(reference);
+        Bundle args = new Bundle();
+        args.putString(BookmarkActivityOperations.ARG_REFERENCE, reference);
+        switch (returnValue) {
+            case BookmarkActivityOperations.UPDATE:
+                args.putString(BookmarkActivityOperations.ARG_MODE,
+                               BookmarkActivityOperations.UPDATE);
+                break;
+            case BookmarkActivityOperations.CREATE:
+            default:
+                args.putString(BookmarkActivityOperations.ARG_MODE,
+                               BookmarkActivityOperations.CREATE);
+                Log.w(TAG, "bookmarkButtonClicked: " + getString(R.string.how_am_i_here));
+                Log.d(TAG, "bookmarkButtonClicked: setting ARG_MODE = CREATE");
+        }
+        Intent intent = new Intent(getContext(), BookmarkActivity.class);
+        intent.putExtras(args);
+        startActivity(intent);
     }
 
     private void focusInputField() {

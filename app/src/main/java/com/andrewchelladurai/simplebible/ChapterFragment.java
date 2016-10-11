@@ -214,7 +214,7 @@ public class ChapterFragment
                        + getString(R.string.how_am_i_here));
             return;
         }
-        String reference = Utilities.prepareBookmarkReference(items);
+        String reference = Utilities.prepareBookmarkReferenceFromVerseList(items);
         if (reference.isEmpty()) {
             Log.d(TAG, "bookmarkButtonClicked: reference is empty");
             return;
