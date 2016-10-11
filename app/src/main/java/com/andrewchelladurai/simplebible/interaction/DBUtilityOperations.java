@@ -44,4 +44,6 @@ public interface DBUtilityOperations {
     String getNoteForReference(String reference);
 
     boolean createNewBookmark(String references, String note);
+
+    ArrayList<String[]> getAllBookmarks();
 }

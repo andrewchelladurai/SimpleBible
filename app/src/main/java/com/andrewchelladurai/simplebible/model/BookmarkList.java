@@ -2,6 +2,9 @@ package com.andrewchelladurai.simplebible.model;
 
 import android.util.Log;
 
+import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
+import com.andrewchelladurai.simplebible.utilities.DBUtility;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,10 +24,18 @@ public class BookmarkList {
         return ITEMS;
     }
 
-    private static void refreshList() {
+    public static void refreshList() {
         Log.d(TAG, "refreshList() called");
         ITEMS.clear();
         ITEM_MAP.clear();
+
+        DBUtilityOperations dbu = DBUtility.getInstance();
+        ArrayList<String[]> items = dbu.getAllBookmarks();
+        for (int i = 0; i < items.size(); i++) {
+            String[] itemParts = items.get(i);
+            Log.d(TAG, "refreshList: " + itemParts[0] + " : " + itemParts[1]);
+        }
+
         for (int i = 1; i <= 17; i++) {
             BookmarkItem item = new BookmarkItem(String.valueOf(i), "Item " + i);
             ITEMS.add(item);

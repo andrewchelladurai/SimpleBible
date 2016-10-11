@@ -360,4 +360,30 @@ public class DBUtility
         database.endTransaction();
         return (rowNumber != -1);
     }
+
+    @Override public ArrayList<String[]> getAllBookmarks() {
+        Log.d(TAG, "getAllBookmarks() called");
+
+        SQLiteDatabase database = getReadableDatabase();
+        String table = BookmarksTable.NAME;
+        String[] columns = {BookmarksTable.COLUMN_REFERENCE, BookmarksTable.COLUMN_NOTE};
+        String where = BookmarksTable.COLUMN_REFERENCE + " is not null and " +
+                       BookmarksTable.COLUMN_REFERENCE + " like ? ";
+        String[] condition = {"%" + Constants.DELIMITER_IN_REFERENCE + "%"};
+        Cursor cursor = database.query(true, table, columns, where, condition,
+                                       null, null, null, null);
+        if (cursor == null) {
+            Log.d(TAG, "getAllBookmarks: cursor = null, returning empty list");
+            return new ArrayList<>();
+        }
+        int referenceIdx = cursor.getColumnIndex(BookmarksTable.COLUMN_REFERENCE);
+        int noteIdx = cursor.getColumnIndex(BookmarksTable.COLUMN_NOTE);
+        ArrayList<String[]> items = new ArrayList<>(cursor.getCount());
+        while (cursor.moveToNext()) {
+            items.add(new String[]{cursor.getString(referenceIdx), cursor.getString(noteIdx)});
+        }
+        cursor.close();
+        Log.d(TAG, "getAllBookmarks() returned: " + items.size() + " records");
+        return items;
+    }
 }
