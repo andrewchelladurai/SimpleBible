@@ -38,4 +38,6 @@ public interface DBUtilityOperations {
     ArrayList<String> getAllVerseForChapter(int bookNumber, int chapterNumber);
 
     ArrayList<String[]> searchForInput(String input);
+
+    boolean doesBookmarkReferenceExist(String reference);
 }

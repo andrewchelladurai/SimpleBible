@@ -29,12 +29,14 @@ package com.andrewchelladurai.simplebible.utilities;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
 import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityOperations;
+import com.andrewchelladurai.simplebible.utilities.Constants.BookmarksTable;
 import com.andrewchelladurai.simplebible.utilities.Constants.SimpleBibleTable;
 
 import java.io.BufferedReader;
@@ -125,7 +127,15 @@ public class DBUtility
             String line;
             while ((line = reader.readLine()) != null) {
                 if (!line.isEmpty()) {
-                    db.execSQL(line);
+                    try {
+                        db.execSQL(line);
+                    } catch (SQLiteException sqle) {
+                        if (line.contains("BOOK_MARKS")) {
+                            Log.w(TAG, "executeScriptFile: SQLEx : " + sqle.getLocalizedMessage());
+                        } else {
+                            Log.wtf(TAG, "executeScriptFile: ", sqle);
+                        }
+                    }
                 }
             }
             isCreated = true;
@@ -283,5 +293,37 @@ public class DBUtility
         cursor.close();
         Log.d(TAG, "searchForInput() returned: " + list.size() + " results");
         return list;
+    }
+
+    @Override public boolean doesBookmarkReferenceExist(@NonNull String reference) {
+        Log.d(TAG, "doesBookmarkReferenceExist() called with: reference = [" + reference + "]");
+        if (reference.isEmpty()) {
+            Log.d(TAG, "doesBookmarkReferenceExist: empty reference passed");
+            return false;
+        }
+
+        SQLiteDatabase database = getReadableDatabase();
+        String[] columns = {BookmarksTable.COLUMN_REFERENCE};
+        String table = BookmarksTable.NAME;
+        String where = BookmarksTable.COLUMN_REFERENCE + " = ? ";
+//        String[] arguments = {"'" + reference + "'"};
+        String[] arguments = {reference};
+
+/*
+        String query = SQLiteQueryBuilder.buildQueryString(
+                true, table, columns, where, null, null, null, null);
+        Log.d(TAG, "doesBookmarkReferenceExist: query = " + query);
+*/
+        Cursor cursor =
+                database.query(true, table, columns, where, arguments, null, null, null, null);
+        if (cursor == null) {
+            Log.d(TAG, "doesBookmarkReferenceExist: cursor = null");
+            return false;
+        }
+
+        int count = cursor.getCount();
+        cursor.close();
+        Log.d(TAG, "doesBookmarkReferenceExist: cursor has " + count + " rows");
+        return (count > 0);
     }
 }
