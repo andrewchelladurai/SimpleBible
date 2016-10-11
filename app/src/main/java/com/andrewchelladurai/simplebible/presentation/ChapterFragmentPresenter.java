@@ -86,7 +86,7 @@ public class ChapterFragmentPresenter {
 
         boolean referenceExists = dbu.doesBookmarkReferenceExist(reference);
         if (referenceExists) {
-            return BookmarkActivityOperations.UPDATE;
+            return BookmarkActivityOperations.VIEW;
         } else {
             return BookmarkActivityOperations.CREATE;
         }

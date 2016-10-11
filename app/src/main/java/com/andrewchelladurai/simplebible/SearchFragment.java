@@ -272,9 +272,9 @@ public class SearchFragment
         Bundle args = new Bundle();
         args.putString(BookmarkActivityOperations.ARG_REFERENCE, reference);
         switch (returnValue) {
-            case BookmarkActivityOperations.UPDATE:
+            case BookmarkActivityOperations.VIEW:
                 args.putString(BookmarkActivityOperations.ARG_MODE,
-                               BookmarkActivityOperations.UPDATE);
+                               BookmarkActivityOperations.VIEW);
                 break;
             case BookmarkActivityOperations.CREATE:
             default:

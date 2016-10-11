@@ -32,7 +32,7 @@ package com.andrewchelladurai.simplebible.interaction;
 public interface BookmarkActivityOperations
         extends BasicOperations {
 
-    String UPDATE        = "UPDATE";
+    String VIEW          = "VIEW";
     String CREATE        = "CREATE";
     String ARG_REFERENCE = "ARG_REFERENCE";
     String ARG_MODE      = "ARG_MODE";

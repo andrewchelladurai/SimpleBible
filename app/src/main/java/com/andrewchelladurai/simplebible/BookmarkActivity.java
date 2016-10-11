@@ -98,6 +98,24 @@ public class BookmarkActivity
         mButtonDelete.setOnClickListener(this);
         mButtonShare = (AppCompatButton) findViewById(R.id.activity_bookmark_button_share);
         mButtonShare.setOnClickListener(this);
+
+        showCorrectMode();
+    }
+
+    private void showCorrectMode() {
+        if (mMode.equals(CREATE)) {
+            mButtonSave.setVisibility(View.VISIBLE);
+            mButtonEdit.setVisibility(View.GONE);
+            mButtonDelete.setVisibility(View.GONE);
+            mButtonShare.setVisibility(View.GONE);
+            mNote.setFocusable(true);
+        } else if (mMode.equals(VIEW)) {
+            mButtonSave.setVisibility(View.GONE);
+            mButtonEdit.setVisibility(View.VISIBLE);
+            mButtonDelete.setVisibility(View.VISIBLE);
+            mButtonShare.setVisibility(View.VISIBLE);
+            mNote.setFocusable(false);
+        }
     }
 
     private String getNote() {
