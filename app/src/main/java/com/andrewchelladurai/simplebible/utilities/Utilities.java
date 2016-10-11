@@ -38,6 +38,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.andrewchelladurai.simplebible.model.VerseList;
+
+import java.util.Collection;
+
 import static com.google.android.gms.internal.zzs.TAG;
 
 /**
@@ -121,5 +125,19 @@ public class Utilities {
         sendIntent.putExtra(Intent.EXTRA_TEXT, stringToShare);
         sendIntent.setType("text/plain");
         return sendIntent;
+    }
+
+    public static String prepareBookmarkReference(
+            @NonNull Collection<VerseList.VerseItem> verseItems) {
+        StringBuilder reference = new StringBuilder();
+        String delimiter = Constants.DELIMITER_BETWEEN_REFERENCE;
+        for (VerseList.VerseItem item : verseItems) {
+            reference.append(prepareReferenceString(item.getBookNumber(),
+                                                    item.getChapterNumber(),
+                                                    item.getVerseNumber()))
+                     .append(delimiter);
+        }
+        reference.deleteCharAt(reference.lastIndexOf(delimiter));
+        return reference.toString();
     }
 }

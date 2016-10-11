@@ -28,6 +28,7 @@ package com.andrewchelladurai.simplebible.presentation;
 
 import android.util.Log;
 
+import com.andrewchelladurai.simplebible.interaction.BookmarkActivityOperations;
 import com.andrewchelladurai.simplebible.interaction.ChapterFragmentOperations;
 import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
 import com.andrewchelladurai.simplebible.model.BooksList.BookItem;
@@ -78,8 +79,17 @@ public class ChapterFragmentPresenter {
         return (returnValue) ? VerseList.getItems() : null;
     }
 
-    public void bookmarkButtonClicked() {
-        Log.d(TAG, "bookmarkButtonClicked() called");
+    public String bookmarkButtonClicked(String reference) {
+        Log.d(TAG, "bookmarkButtonClicked() called with: reference = [" + reference + "]");
+
+        DBUtilityOperations dbu = DBUtility.getInstance();
+
+        boolean referenceExists = dbu.doesBookmarkReferenceExist(reference);
+        if (referenceExists) {
+            return BookmarkActivityOperations.UPDATE;
+        } else {
+            return BookmarkActivityOperations.CREATE;
+        }
     }
 
     public void shareButtonClicked() {

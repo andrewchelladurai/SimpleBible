@@ -46,8 +46,6 @@ public class BookmarkActivity
         extends AppCompatActivity
         implements BookmarkActivityOperations, View.OnClickListener {
 
-    // FIXME: 9/17/16 Rotating the Screen shows all button again.
-
     private static final String TAG = "SB_BActivity";
     private AppCompatTextView         mLabelReference;
     private AppCompatTextView         mLabelNote;
@@ -58,11 +56,14 @@ public class BookmarkActivity
     private AppCompatButton           mButtonEdit;
     private AppCompatButton           mButtonDelete;
     private AppCompatButton           mButtonShare;
+    private String                    mMode;
+    private String                    mReference;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle savedState) {
+        super.onCreate(savedState);
         init();
+
         setContentView(R.layout.activity_bookmark);
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_bookmark_toolbar);
         setSupportActionBar(toolbar);
@@ -72,7 +73,7 @@ public class BookmarkActivity
 
         // Placeholder for entries
         ArrayList<String> items = new ArrayList<>(7);
-        for (int i = 1; i <= 1; i++) {
+        for (int i = 1; i <= 10; i++) {
             items.add("Entry " + i);
         }
 
@@ -129,7 +130,13 @@ public class BookmarkActivity
     @Override public void init() {
         if (null == mPresenter) {
             mPresenter = new BookmarkActivityPresenter(this);
+            Bundle arguments = getIntent().getExtras();
+            mReference = arguments.getString(ARG_REFERENCE, null);
+            mMode = arguments.getString(ARG_MODE, null);
+            Log.d(TAG, "init: variables initialized");
         }
+        Log.d(TAG, "onCreate() mReference = [" + mReference + "]");
+        Log.d(TAG, "onCreate() mMode = [" + mMode + "]");
     }
 
     @Override public void refresh() {

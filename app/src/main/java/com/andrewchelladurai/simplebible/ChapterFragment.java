@@ -27,6 +27,7 @@
 package com.andrewchelladurai.simplebible;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -40,6 +41,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.adapter.VerseListAdapter;
+import com.andrewchelladurai.simplebible.interaction.BookmarkActivityOperations;
 import com.andrewchelladurai.simplebible.interaction.ChapterFragmentOperations;
 import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.model.ChapterList;
@@ -49,6 +51,7 @@ import com.andrewchelladurai.simplebible.model.VerseList.VerseItem;
 import com.andrewchelladurai.simplebible.presentation.ChapterFragmentPresenter;
 import com.andrewchelladurai.simplebible.utilities.Utilities;
 
+import java.util.Collection;
 import java.util.List;
 
 import static com.andrewchelladurai.simplebible.R.id.chapter_detail_verse_actions_bar;
@@ -198,9 +201,41 @@ public class ChapterFragment
 
     @Override public void onClick(View v) {
         if (v.equals(mBookmarkButton)) {
-            mPresenter.bookmarkButtonClicked();
+            bookmarkButtonClicked();
         } else if (v.equals(mShareButton)) {
             mPresenter.shareButtonClicked();
         }
+    }
+
+    private void bookmarkButtonClicked() {
+        Collection<VerseItem> items = VerseList.getSelectedItems();
+        if (items.isEmpty()) {
+            Log.d(TAG, "bookmarkButtonClicked: No Selected Entries :\n"
+                       + getString(R.string.how_am_i_here));
+            return;
+        }
+        String reference = Utilities.prepareBookmarkReference(items);
+        if (reference.isEmpty()) {
+            Log.d(TAG, "bookmarkButtonClicked: reference is empty");
+            return;
+        }
+        String returnValue = mPresenter.bookmarkButtonClicked(reference);
+        Bundle args = new Bundle();
+        args.putString(BookmarkActivityOperations.ARG_REFERENCE, reference);
+        switch (returnValue) {
+            case BookmarkActivityOperations.UPDATE:
+                args.putString(BookmarkActivityOperations.ARG_MODE,
+                               BookmarkActivityOperations.UPDATE);
+                break;
+            case BookmarkActivityOperations.CREATE:
+            default:
+                args.putString(BookmarkActivityOperations.ARG_MODE,
+                               BookmarkActivityOperations.CREATE);
+                Log.w(TAG, "bookmarkButtonClicked: " + getString(R.string.how_am_i_here));
+                Log.d(TAG, "bookmarkButtonClicked: setting ARG_MODE = CREATE");
+        }
+        Intent intent = new Intent(getContext(), BookmarkActivity.class);
+        intent.putExtras(args);
+        startActivity(intent);
     }
 }
