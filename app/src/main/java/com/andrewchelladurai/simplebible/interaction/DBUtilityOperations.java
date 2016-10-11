@@ -42,4 +42,6 @@ public interface DBUtilityOperations {
     boolean doesBookmarkReferenceExist(String reference);
 
     String getNoteForReference(String reference);
+
+    boolean createNewBookmark(String references, String note);
 }

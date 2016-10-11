@@ -64,11 +64,17 @@ public class BookmarkActivityPresenter {
 
     public boolean buttonSaveClicked() {
         Log.d(TAG, "buttonSaveClicked() called");
-        return true;
+        String references = mOperations.getPassedReference();
+        String note = mOperations.getInputNote();
+        Log.d(TAG, "buttonSaveClicked: reference [" + references + "] ,"
+                   + "note Length [" + note.length() + "]");
+
+        DBUtilityOperations dbu = DBUtility.getInstance();
+        return dbu.createNewBookmark(references,note);
     }
 
-    public String getNote(@NonNull String reference) {
-        Log.d(TAG, "getNote() called with: reference = [" + reference + "]");
+    public String getSavedNote(@NonNull String reference) {
+        Log.d(TAG, "getSavedNote() called with: reference = [" + reference + "]");
         DBUtilityOperations dbu = DBUtility.getInstance();
         return dbu.getNoteForReference(reference);
     }

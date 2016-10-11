@@ -36,6 +36,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.andrewchelladurai.simplebible.interaction.BookmarkActivityOperations;
 import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
@@ -88,7 +89,7 @@ public class BookmarkActivity
         mLabelNote = (AppCompatTextView) findViewById(R.id.activity_bookmark_label_note);
         mNote = (AppCompatEditText) findViewById(R.id.activity_bookmark_note);
 
-        mNote.setText(getNote());
+        mNote.setText(getSavedNote());
 
         mButtonSave = (AppCompatButton) findViewById(R.id.activity_bookmark_button_save);
         mButtonSave.setOnClickListener(this);
@@ -118,11 +119,11 @@ public class BookmarkActivity
         }
     }
 
-    private String getNote() {
+    private String getSavedNote() {
         if (mMode.equalsIgnoreCase(CREATE)) {
             return "";
         }
-        return mPresenter.getNote(mReference);
+        return mPresenter.getSavedNote(mReference);
     }
 
     private ArrayList<String> prepareVersesList() {
@@ -156,13 +157,18 @@ public class BookmarkActivity
             AppCompatButton button = (AppCompatButton) v;
             if (button.equals(mButtonSave)) {
                 boolean status = mPresenter.buttonSaveClicked();
+                String message;
                 if (status) {
                     mButtonSave.setVisibility(View.GONE);
                     mButtonEdit.setVisibility(View.VISIBLE);
                     mButtonDelete.setVisibility(View.VISIBLE);
                     mButtonShare.setVisibility(View.VISIBLE);
                     mNote.setFocusable(false);
+                    message = "Bookmark Created";
+                } else {
+                    message = "Bookmark NOT Created";
                 }
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
             } else if (button.equals(mButtonEdit)) {
                 boolean status = mPresenter.buttonEditClicked();
                 if (status) {
@@ -196,5 +202,13 @@ public class BookmarkActivity
 
     @Override public void refresh() {
         Log.d(TAG, "refresh() called");
+    }
+
+    @Override public String getPassedReference() {
+        return mReference;
+    }
+
+    @Override public String getInputNote() {
+        return mNote.getText().toString().trim();
     }
 }

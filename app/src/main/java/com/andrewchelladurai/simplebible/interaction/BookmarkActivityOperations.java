@@ -36,4 +36,8 @@ public interface BookmarkActivityOperations
     String CREATE        = "CREATE";
     String ARG_REFERENCE = "ARG_REFERENCE";
     String ARG_MODE      = "ARG_MODE";
+
+    String getPassedReference();
+
+    String getInputNote();
 }

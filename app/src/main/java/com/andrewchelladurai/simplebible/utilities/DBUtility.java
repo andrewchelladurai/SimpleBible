@@ -26,6 +26,7 @@
 
 package com.andrewchelladurai.simplebible.utilities;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -344,5 +345,19 @@ public class DBUtility
         cursor.close();
         Log.d(TAG, "getNoteForReference() returned: " + note);
         return note;
+    }
+
+    @Override public boolean createNewBookmark(@NonNull String references, @NonNull String note) {
+        Log.d(TAG, "createNewBookmark(): references = [" + references + "], note = [" + note + "]");
+        SQLiteDatabase database = getWritableDatabase();
+        database.beginTransaction();
+        String table = BookmarksTable.NAME;
+        ContentValues values = new ContentValues(1);
+        values.put(BookmarksTable.COLUMN_REFERENCE, references);
+        values.put(BookmarksTable.COLUMN_NOTE, note);
+        long rowNumber = database.insert(table, "", values);
+        database.setTransactionSuccessful();
+        database.endTransaction();
+        return (rowNumber != -1);
     }
 }
