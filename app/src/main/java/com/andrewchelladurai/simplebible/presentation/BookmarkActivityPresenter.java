@@ -106,7 +106,11 @@ public class BookmarkActivityPresenter {
                    + "note Length [" + note.length() + "]");
 
         DBUtilityOperations dbu = DBUtility.getInstance();
-        return dbu.createNewBookmark(references, note);
+        if (dbu.doesBookmarkReferenceExist(references)){
+            return dbu.updateExistingBookmark(references,note);
+        }else{
+            return dbu.createNewBookmark(references, note);
+        }
     }
 
     public String getSavedNote(@NonNull String reference) {

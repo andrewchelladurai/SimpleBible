@@ -399,4 +399,22 @@ public class DBUtility
 
         return (rowsAffected > 0);
     }
+
+    @Override public boolean updateExistingBookmark(String references, String note) {
+        SQLiteDatabase database = getWritableDatabase();
+        database.beginTransaction();
+
+        String table = BookmarksTable.NAME;
+        ContentValues values = new ContentValues(1);
+        values.put(BookmarksTable.COLUMN_REFERENCE, references);
+        values.put(BookmarksTable.COLUMN_NOTE, note);
+        String where = BookmarksTable.COLUMN_REFERENCE + "= ? ";
+        String[] args = {references};
+
+        long rowNumber = database.update(table, values, where, args);
+
+        database.setTransactionSuccessful();
+        database.endTransaction();
+        return (rowNumber > 0);
+    }
 }

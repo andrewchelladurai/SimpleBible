@@ -39,13 +39,15 @@ public interface DBUtilityOperations {
 
     ArrayList<String[]> searchForInput(String input);
 
-    boolean doesBookmarkReferenceExist(String reference);
+    ArrayList<String[]> getAllBookmarks();
 
     String getNoteForReference(String reference);
 
+    boolean doesBookmarkReferenceExist(String reference);
+
     boolean createNewBookmark(String references, String note);
 
-    ArrayList<String[]> getAllBookmarks();
-
     boolean deleteBookMarkEntry(String references);
+
+    boolean updateExistingBookmark(String references, String note);
 }
