@@ -54,9 +54,15 @@ public class BookmarksTabPresenter {
         return dbu.doesBookmarkReferenceExist(references);
     }
 
-    public boolean deleteButtonClicked(BookmarkItem item) {
+    public boolean deleteButtonClicked(@NonNull BookmarkItem item) {
         Log.d(TAG, "deleteButtonClicked() called with: " + "item = [" + item + "]");
-        return true;
+        DBUtilityOperations dbu = DBUtility.getInstance();
+        String references = item.getReferences();
+        if (references == null || references.isEmpty()) {
+            Log.e(TAG, "deleteButtonClicked: BookmarkItem has empty reference.");
+            return false;
+        }
+        return dbu.deleteBookMarkEntry(references);
     }
 
     public void shareButtonClicked(BookmarkItem item) {

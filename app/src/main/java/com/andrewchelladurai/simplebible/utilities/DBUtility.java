@@ -387,4 +387,16 @@ public class DBUtility
         Log.d(TAG, "getAllBookmarks() returned: " + items.size() + " records");
         return items;
     }
+
+    @Override public boolean deleteBookMarkEntry(@NonNull final String references) {
+        Log.d(TAG, "deleteBookMarkEntry() called with: references = [" + references + "]");
+
+        SQLiteDatabase database = getWritableDatabase();
+        String table = BookmarksTable.NAME;
+        String where = BookmarksTable.COLUMN_REFERENCE + " = ? ";
+        String[] args = {references};
+        int rowsAffected = database.delete(table, where, args);
+
+        return (rowsAffected > 0);
+    }
 }

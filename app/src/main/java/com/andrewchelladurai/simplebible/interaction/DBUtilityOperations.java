@@ -46,4 +46,6 @@ public interface DBUtilityOperations {
     boolean createNewBookmark(String references, String note);
 
     ArrayList<String[]> getAllBookmarks();
+
+    boolean deleteBookMarkEntry(String references);
 }

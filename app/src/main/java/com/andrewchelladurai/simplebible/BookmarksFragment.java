@@ -101,11 +101,9 @@ public class BookmarksFragment
     }
 
     @Override
-    public void deleteButtonClicked(BookmarkItem item) {
-        Log.d(TAG, "deleteButtonClicked() called with: " + "item = [" + item + "]");
+    public void deleteButtonClicked(@NonNull BookmarkItem item) {
         boolean status = mPresenter.deleteButtonClicked(item);
         if (status) {
-//            BookmarksTabPresenter.refreshList();
             refresh();
         }
     }
