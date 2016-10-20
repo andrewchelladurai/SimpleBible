@@ -61,11 +61,7 @@
         <item quantity="one">%1$s (%2$s : %3$s) %4$s</item>
         <item quantity="other">%1$s (%2$s : %3$s) and %4$s more Verses are Bookmarked in this entry</item>
     </plurals>
-    <string name="fragment_bookmark_template_single_reference">%1$s (%2$s : %3$s) %4$s</string>
     <string name="fragment_bookmark_empty_note">No Notes saved for this reference.</string>
-
-    <string name="fragment_verse_button_label_share">Share</string>
-    <string name="fragment_verse_button_label_save">Save</string>
 
     <string name="activity_bookmark_title">Bookmark Entry</string>
     <string name="activity_bookmark_button_label_save">Save</string>
@@ -74,7 +70,6 @@
     <string name="activity_bookmark_button_label_share">Share</string>
     <string name="fragment_home_goto_label_text">Go To a specific location</string>
 
-    <string name="bookmark_activity_err_msg_empty_reference_passed">Empty Bookmark Reference Passed</string>
     <string name="bookmark_activity_hint_note">Type a note to save against the above verses.</string>
     <string name="bookmark_activity_label_note">Enter note to save below</string>
     <string name="bookmark_activity_label_verses">Verses to Bookmark are below</string>

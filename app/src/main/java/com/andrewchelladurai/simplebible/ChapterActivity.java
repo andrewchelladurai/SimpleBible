@@ -31,15 +31,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.andrewchelladurai.simplebible.interaction.ChapterActivityOperations;
-import com.andrewchelladurai.simplebible.model.BooksList;
+import com.andrewchelladurai.simplebible.model.BooksList.BookItem;
 import com.andrewchelladurai.simplebible.presentation.ChapterActivityPresenter;
 
 public class ChapterActivity
         extends AppCompatActivity
         implements ChapterActivityOperations {
 
-    private int                      mChapterNumber;
-    private BooksList.BookItem       mBookItem;
+    //    private int                      mChapterNumber;
+//    private BooksList.BookItem       mBookItem;
     private ChapterActivityPresenter mPresenter;
 
     @Override
@@ -64,11 +64,11 @@ public class ChapterActivity
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle argsReceived = getIntent().getExtras();
-            mBookItem = argsReceived.getParcelable(ChapterFragment.ARG_BOOK_ITEM);
-            mChapterNumber = argsReceived.getInt(ChapterFragment.ARG_CHAPTER_NUMBER);
+            BookItem mBookItem = argsReceived.getParcelable(ChapterFragment.ARG_BOOK_ITEM);
+            int mChapterNumber = argsReceived.getInt(ChapterFragment.ARG_CHAPTER_NUMBER);
 
-            String bookName = mBookItem.getBookName();
-            int count = mBookItem.getChapterCount();
+            String bookName = (mBookItem == null) ? "Genesis" : mBookItem.getBookName();
+            int count = (mBookItem == null) ? 1 : mBookItem.getChapterCount();
             String appendText = getResources().getQuantityString(
                     R.plurals.fragment_books_chapter_count_template, count, count);
             toolbar.setTitle(bookName + " : " + appendText);

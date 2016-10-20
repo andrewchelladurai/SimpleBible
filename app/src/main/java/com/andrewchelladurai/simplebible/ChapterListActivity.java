@@ -91,7 +91,7 @@ public class ChapterListActivity
         }
     }
 
-    public boolean showDualPanel() {
+    private boolean showDualPanel() {
         return showDualPane;
     }
 
@@ -107,7 +107,7 @@ public class ChapterListActivity
     @Override public void refresh() {
     }
 
-    public BooksList.BookItem getBookItem() {
+    private BooksList.BookItem getBookItem() {
         return mBookItem;
     }
 

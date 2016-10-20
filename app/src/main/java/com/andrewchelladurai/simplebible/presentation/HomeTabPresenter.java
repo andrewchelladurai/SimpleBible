@@ -53,7 +53,7 @@ public class HomeTabPresenter {
         return Constants.SUCCESS;
     }
 
-    public String validateChapterInput(String bookInput, String chapterInput) {
+    private String validateChapterInput(String bookInput, String chapterInput) {
         if (null == chapterInput || chapterInput.isEmpty()) {
             mOperations.handleEmptyChapterNumberValidationFailure();
             return Constants.FAILURE;

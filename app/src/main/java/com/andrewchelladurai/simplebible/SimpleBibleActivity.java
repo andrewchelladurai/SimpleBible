@@ -24,7 +24,7 @@ public class SimpleBibleActivity
     private static final String TAG = "SB_SBActivity";
     private SimpleBibleActivityPresenter mPresenter;
     private PagerAdapter                 mPagerAdapter;
-    private ViewPager                    mViewPager;
+//    private ViewPager                    mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class SimpleBibleActivity
         mPagerAdapter = new TabsAdapter(this, getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.activity_simple_bible_container);
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.activity_simple_bible_container);
         mViewPager.setAdapter(mPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.activity_simple_bible_tabs);

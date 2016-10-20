@@ -51,7 +51,7 @@ public class BooksList {
         ITEM_MAP_BY_NAME.clear();
     }
 
-    public static int getListCount() {
+    private static int getListCount() {
         return ITEMS.size();
     }
 
@@ -130,7 +130,7 @@ public class BooksList {
             mBookName = name;
         }
 
-        protected BookItem(Parcel in) {
+        BookItem(Parcel in) {
             mBookNumber = in.readInt();
             mChapterCount = in.readInt();
             mBookName = in.readString();

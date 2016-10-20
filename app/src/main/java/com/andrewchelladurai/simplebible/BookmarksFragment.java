@@ -130,9 +130,8 @@ public class BookmarksFragment
         return getString(stringReference);
     }
 
-    @Override public String getBookmarkReferenceText(int referencesCount) {
-        String text = getResources().getQuantityString(
-                R.plurals.fragment_bookmark_template_reference, referencesCount);
-        return text;
+    @Override public String getBookmarkReferenceText(int count) {
+        return getResources().getQuantityString(
+                R.plurals.fragment_bookmark_template_reference, count);
     }
 }

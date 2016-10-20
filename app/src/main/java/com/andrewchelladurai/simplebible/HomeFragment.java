@@ -87,19 +87,19 @@ public class HomeFragment
         }
     }
 
-    public String getBookInput() {
+    private String getBookInput() {
         return mBookInput.getText().toString();
     }
 
-    public String getChapterInput() {
+    private String getChapterInput() {
         return mChapterInput.getText().toString();
     }
 
-    public void showError(String message) {
+    private void showError(String message) {
         mMessageLabel.setText(message);
     }
 
-    public void inputValidated() {
+    private void inputValidated() {
 
         // get parameters to pass on
         BooksList.BookItem item = mPresenter.getBookItemUsingName(getBookInput());
@@ -126,11 +126,11 @@ public class HomeFragment
         startActivity(intent);
     }
 
-    public void focusBookInputField() {
+    private void focusBookInputField() {
         mBookInput.requestFocus();
     }
 
-    public void focusChapterInputField() {
+    private void focusChapterInputField() {
         mChapterInput.requestFocus();
     }
 

@@ -75,7 +75,6 @@ public class VerseListAdapter
             extends RecyclerView.ViewHolder
             implements View.OnLongClickListener {
 
-        private static final String TAG = "SB_VerseViewHolder";
         final View     mView;
         final TextView mContentView;
         VerseItem mItem;

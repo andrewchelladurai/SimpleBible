@@ -98,8 +98,6 @@ public class BookmarkListAdapter
                                                               Integer.parseInt(chapterNumber),
                                                               Integer.parseInt(verseNumber));
             String referenceText = "";
-            Log.d(TAG, "updateView: template = " + template + " count = "
-                       + count);
             if (count == 1) {
                 referenceText = String.format(template,
                                               bookName, chapterNumber, verseNumber, verseText);

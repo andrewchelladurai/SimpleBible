@@ -9,11 +9,11 @@ public abstract class Constants {
     public static final String FAILURE                     = "FAILURE";
     public static final String DELIMITER_IN_REFERENCE      = ":";
     public static final String DELIMITER_BETWEEN_REFERENCE = "~";
-    public static final String REMOVED                     = "REMOVED";
-    public static final String ADDED                       = "ADDED";
-    public static final String PRESENT_IN_DATABASE         = "PRESENT_IN_DATABASE";
-    public static final String ABSENT_IN_DATABASE          = "ABSENT_IN_DATABASE";
-    public static final String BUNDLE_ARG_BOOKMARK_ITEM    = "BOOKMARK_ITEM";
+//    public static final String REMOVED                     = "REMOVED";
+//    public static final String ADDED                       = "ADDED";
+//    public static final String PRESENT_IN_DATABASE         = "PRESENT_IN_DATABASE";
+//    public static final String ABSENT_IN_DATABASE          = "ABSENT_IN_DATABASE";
+//    public static final String BUNDLE_ARG_BOOKMARK_ITEM    = "BOOKMARK_ITEM";
     public static final String DEFAULT_REFERENCE           = "43:3:16"; // John 3:16
     static final        String DATABASE_NAME               = "Bible.db";
     static final        int    DATABASE_VERSION            = 20160921; // 20160922
@@ -23,7 +23,7 @@ public abstract class Constants {
 
     static abstract class SimpleBibleTable {
 
-        public static final String COLUMN_VERSION        = "VERSION";
+//        public static final String COLUMN_VERSION        = "VERSION";
         static final        String NAME                  = "BIBLE_VERSES";
         static final        String COLUMN_VERSE_NUMBER   = "VERSE_NUMBER";
         static final        String COLUMN_CHAPTER_NUMBER = "CHAPTER_NUMBER";
