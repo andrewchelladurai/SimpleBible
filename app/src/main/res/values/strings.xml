@@ -56,6 +56,13 @@
 
     <string name="fragment_bookmark_button_label_delete">Delete</string>
     <string name="fragment_bookmark_button_label_share">Share</string>
+    <plurals name="fragment_bookmark_template_reference">
+        <item quantity="zero">%1$s</item>
+        <item quantity="one">%1$s (%2$s : %3$s) %4$s</item>
+        <item quantity="other">%1$s (%2$s : %3$s) and %4$s more Verses are Bookmarked in this entry</item>
+    </plurals>
+    <string name="fragment_bookmark_template_single_reference">%1$s (%2$s : %3$s) %4$s</string>
+    <string name="fragment_bookmark_empty_note">No Notes saved for this reference.</string>
 
     <string name="fragment_verse_button_label_share">Share</string>
     <string name="fragment_verse_button_label_save">Save</string>

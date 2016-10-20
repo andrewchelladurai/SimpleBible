@@ -144,7 +144,7 @@ public class Utilities {
     }
 
     public static String prepareBookmarkReferenceFromSearchResults(
-            Collection<SearchResultItem> items) {
+            @NonNull Collection<SearchResultItem> items) {
         StringBuilder reference = new StringBuilder();
         String delimiter = Constants.DELIMITER_BETWEEN_REFERENCE;
         for (SearchResultItem item : items) {

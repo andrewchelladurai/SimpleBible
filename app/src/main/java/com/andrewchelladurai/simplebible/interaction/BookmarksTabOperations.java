@@ -43,4 +43,8 @@ public interface BookmarksTabOperations
     String getDeleteButtonLabel();
 
     String getShareButtonLabel();
+
+    String getResourceString(int stringReference);
+
+    String getBookmarkReferenceText(int referencesCount);
 }

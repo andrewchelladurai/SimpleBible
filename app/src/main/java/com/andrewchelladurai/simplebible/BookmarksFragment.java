@@ -125,4 +125,14 @@ public class BookmarksFragment
     public String getShareButtonLabel() {
         return getString(R.string.fragment_bookmark_button_label_share);
     }
+
+    @Override public String getResourceString(int stringReference) {
+        return getString(stringReference);
+    }
+
+    @Override public String getBookmarkReferenceText(int referencesCount) {
+        String text = getResources().getQuantityString(
+                R.plurals.fragment_bookmark_template_reference, referencesCount);
+        return text;
+    }
 }
