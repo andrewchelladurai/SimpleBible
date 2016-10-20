@@ -31,6 +31,8 @@ import android.util.Log;
 
 import com.andrewchelladurai.simplebible.interaction.BookmarkActivityOperations;
 import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
+import com.andrewchelladurai.simplebible.model.BookmarkList;
+import com.andrewchelladurai.simplebible.model.BookmarkList.BookmarkItem;
 import com.andrewchelladurai.simplebible.utilities.DBUtility;
 
 /**
@@ -51,10 +53,25 @@ public class BookmarkActivityPresenter {
         return true;
     }
 
-    public boolean buttonDeleteClicked() {
-        Log.d(TAG, "buttonDeleteClicked() called");
-        BookmarksTabPresenter.refreshList();
-        return true;
+    public boolean buttonDeleteClicked(@NonNull String reference) {
+        Log.d(TAG, "buttonDeleteClicked() called with: reference = [" + reference + "]");
+        BookmarkItem item = BookmarkList.getItem(reference);
+        if (item == null) {
+            Log.e(TAG, "buttonDeleteClicked: No Bookmark Item exist for passed reference");
+            return false;
+        }
+
+        DBUtilityOperations dbu = DBUtility.getInstance();
+        String references = item.getReferences();
+        if (references == null || references.isEmpty()) {
+            Log.e(TAG, "buttonDeleteClicked: BookmarkItem has empty reference.");
+            return false;
+        }
+        boolean isDeleted = dbu.deleteBookMarkEntry(references);
+        if (isDeleted) {
+            BookmarksTabPresenter.refreshList();
+        }
+        return isDeleted;
     }
 
     public boolean buttonEditClicked() {
@@ -70,7 +87,7 @@ public class BookmarkActivityPresenter {
                    + "note Length [" + note.length() + "]");
 
         DBUtilityOperations dbu = DBUtility.getInstance();
-        return dbu.createNewBookmark(references,note);
+        return dbu.createNewBookmark(references, note);
     }
 
     public String getSavedNote(@NonNull String reference) {

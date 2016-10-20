@@ -41,6 +41,10 @@ public class BookmarkList {
         }
     }
 
+    public static BookmarkItem getItem(String reference) {
+        return ITEM_MAP.containsKey(reference) ? ITEM_MAP.get(reference) : null;
+    }
+
     public static class BookmarkItem {
 
         private final String mReferences;

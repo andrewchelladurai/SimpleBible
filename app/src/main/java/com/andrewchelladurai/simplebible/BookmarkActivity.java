@@ -156,36 +156,52 @@ public class BookmarkActivity
         if (v instanceof AppCompatButton) {
             AppCompatButton button = (AppCompatButton) v;
             if (button.equals(mButtonSave)) {
-                boolean status = mPresenter.buttonSaveClicked();
-                String message;
-                if (status) {
-                    mButtonSave.setVisibility(View.GONE);
-                    mButtonEdit.setVisibility(View.VISIBLE);
-                    mButtonDelete.setVisibility(View.VISIBLE);
-                    mButtonShare.setVisibility(View.VISIBLE);
-                    mNote.setFocusable(false);
-                    message = "Bookmark Created";
-                } else {
-                    message = "Bookmark NOT Created";
-                }
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                buttonSaveClicked();
             } else if (button.equals(mButtonEdit)) {
-                boolean status = mPresenter.buttonEditClicked();
-                if (status) {
-                    mButtonSave.setVisibility(View.VISIBLE);
-                    mButtonEdit.setVisibility(View.GONE);
-                    mButtonDelete.setVisibility(View.GONE);
-                    mButtonShare.setVisibility(View.GONE);
-                    mNote.setFocusable(true);
-                }
+                buttonEditClicked();
             } else if (button.equals(mButtonDelete)) {
-                mPresenter.buttonDeleteClicked();
+                buttonDeleteClicked();
             } else if (button.equals(mButtonShare)) {
                 mPresenter.buttonShareClicked();
             } else {
                 Log.d(TAG, "onClick: " + getString(R.string.how_am_i_here));
             }
         }
+    }
+
+    private void buttonDeleteClicked() {
+        boolean isDeleted = mPresenter.buttonDeleteClicked(mReference);
+        if (isDeleted) {
+            Toast.makeText(this, getString(R.string.deleted), Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+
+    private void buttonEditClicked() {
+        boolean status = mPresenter.buttonEditClicked();
+        if (status) {
+            mButtonSave.setVisibility(View.VISIBLE);
+            mButtonEdit.setVisibility(View.GONE);
+            mButtonDelete.setVisibility(View.GONE);
+            mButtonShare.setVisibility(View.GONE);
+            mNote.setFocusable(true);
+        }
+    }
+
+    private void buttonSaveClicked() {
+        boolean status = mPresenter.buttonSaveClicked();
+        String message;
+        if (status) {
+            mButtonSave.setVisibility(View.GONE);
+            mButtonEdit.setVisibility(View.VISIBLE);
+            mButtonDelete.setVisibility(View.VISIBLE);
+            mButtonShare.setVisibility(View.VISIBLE);
+            mNote.setFocusable(false);
+            message = "Bookmark Created";
+        } else {
+            message = "Bookmark NOT Created";
+        }
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override public void init() {
