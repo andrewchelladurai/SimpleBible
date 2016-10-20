@@ -87,14 +87,12 @@ public class ChapterFragment
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         if (isAllSet) {
-            Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout)
-                    activity.findViewById(R.id.chapter_detail_toolbar_layout);
-            String title = mBookItem.getBookName() + " : " + mChapterItem.getLabel();
+                    getActivity().findViewById(R.id.chapter_detail_toolbar_layout);
             if (appBarLayout != null) {
+                String title = mBookItem.getBookName() + " : " + mChapterItem.getLabel();
                 appBarLayout.setTitle(title);
             }
-            getActivity().setTitle(title);
         }
     }
 
@@ -103,14 +101,20 @@ public class ChapterFragment
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chapter, container, false);
 
-        mBookmarkButton = (FloatingActionButton) getActivity().findViewById(
+        Activity activity = getActivity();
+        mBookmarkButton = (FloatingActionButton) activity.findViewById(
                 R.id.chapter_detail_verse_action_bookmark);
         mBookmarkButton.setOnClickListener(this);
-        mShareButton = (FloatingActionButton) getActivity().findViewById(
+        mShareButton = (FloatingActionButton) activity.findViewById(
                 R.id.chapter_detail_verse_action_share);
         mShareButton.setOnClickListener(this);
 
         init();
+
+        if (isAllSet) {
+            String title = mBookItem.getBookName() + " : " + mChapterItem.getLabel();
+            activity.setTitle(title);
+        }
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_verse_list);
         recyclerView.setAdapter(mListAdapter);
