@@ -75,5 +75,7 @@
     <string name="bookmark_activity_label_note">Enter note to save below</string>
     <string name="bookmark_activity_label_verses">Verses to Bookmark are below</string>
     <string name="deleted">Deleted</string>
+    <string name="created">Created</string>
+    <string name="failed">Failed</string>
 
 </resources>

@@ -103,13 +103,13 @@ public class BookmarkActivity
             mButtonEdit.setVisibility(View.GONE);
             mButtonDelete.setVisibility(View.GONE);
             mButtonShare.setVisibility(View.GONE);
-            mNote.setFocusable(true);
+            mNote.setEnabled(true);
         } else if (mMode.equals(VIEW)) {
             mButtonSave.setVisibility(View.GONE);
             mButtonEdit.setVisibility(View.VISIBLE);
             mButtonDelete.setVisibility(View.VISIBLE);
             mButtonShare.setVisibility(View.VISIBLE);
-            mNote.setFocusable(false);
+            mNote.setEnabled(false);
         }
     }
 
@@ -181,27 +181,18 @@ public class BookmarkActivity
 
     private void buttonEditClicked() {
         boolean status = mPresenter.buttonEditClicked();
-        if (status) {
-            mButtonSave.setVisibility(View.VISIBLE);
-            mButtonEdit.setVisibility(View.GONE);
-            mButtonDelete.setVisibility(View.GONE);
-            mButtonShare.setVisibility(View.GONE);
-            mNote.setFocusable(true);
-        }
+        mMode = CREATE;
+        showCorrectMode();
     }
 
     private void buttonSaveClicked() {
-        boolean status = mPresenter.buttonSaveClicked();
         String message;
-        if (status) {
-            mButtonSave.setVisibility(View.GONE);
-            mButtonEdit.setVisibility(View.VISIBLE);
-            mButtonDelete.setVisibility(View.VISIBLE);
-            mButtonShare.setVisibility(View.VISIBLE);
-            mNote.setFocusable(false);
-            message = "Bookmark Created";
+        if (mPresenter.buttonSaveClicked()) {
+            mMode = VIEW;
+            showCorrectMode();
+            message = getString(R.string.created);
         } else {
-            message = "Bookmark NOT Created";
+            message = getString(R.string.failed);
         }
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
@@ -214,8 +205,7 @@ public class BookmarkActivity
             mMode = arguments.getString(ARG_MODE, "");
             Log.d(TAG, "init: variables initialized");
         }
-        Log.d(TAG, "onCreate() mReference = [" + mReference + "]");
-        Log.d(TAG, "onCreate() mMode = [" + mMode + "]");
+        Log.d(TAG, "onCreate() mReference = [" + mReference + "], mMode = [" + mMode + "]");
     }
 
     @Override public void refresh() {
