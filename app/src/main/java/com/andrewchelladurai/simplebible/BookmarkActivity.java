@@ -31,7 +31,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -54,9 +53,6 @@ public class BookmarkActivity
 
     private static final String TAG = "SB_BActivity";
     private BookmarkActivityPresenter mPresenter;
-    private AppCompatTextView         mLabelReference;
-    private AppCompatTextView         mLabelNote;
-    private ListViewCompat            mList;
     private AppCompatEditText         mNote;
     private AppCompatButton           mButtonSave;
     private AppCompatButton           mButtonEdit;
@@ -81,13 +77,10 @@ public class BookmarkActivity
         // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Placeholder for entries
-        mLabelReference = (AppCompatTextView) findViewById(R.id.activity_bookmark_label_reference);
-
-        mList = (ListViewCompat) findViewById(R.id.activity_bookmark_list);
+        ListViewCompat mList = (ListViewCompat) findViewById(R.id.activity_bookmark_list);
         mList.setAdapter(new ArrayAdapter<>(getApplicationContext(),
                                             R.layout.content_activity_bookmark_reference_entry,
                                             prepareVersesList()));
-        mLabelNote = (AppCompatTextView) findViewById(R.id.activity_bookmark_label_note);
         mNote = (AppCompatEditText) findViewById(R.id.activity_bookmark_note);
 
         mNote.setText(getSavedNote());
