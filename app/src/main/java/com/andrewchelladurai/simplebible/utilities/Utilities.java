@@ -38,6 +38,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
 import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.model.SearchResultList.SearchResultItem;
 import com.andrewchelladurai.simplebible.model.VerseList.VerseItem;
@@ -172,5 +173,39 @@ public class Utilities {
         }
         text = String.format(template, bookItem.getBookName(), chapterNumber, verseNumber);
         return text;
+    }
+
+    public static String getShareableTextForReferences(String references, String template) {
+        Log.d(TAG, "getShareableTextForReferences() called with references = [" + references + "]");
+        String bookName, verseText;
+        int bookNumber, chapterNumber, verseNumber;
+        StringBuilder shareText = new StringBuilder();
+        BooksList.BookItem bookItem;
+        DBUtilityOperations dbu = DBUtility.getInstance();
+
+        String eachReference[] = references.split(Constants.DELIMITER_BETWEEN_REFERENCE);
+        String parts[];
+        for (int i = 0; i < eachReference.length; i++) {
+            parts = Utilities.getReferenceParts(eachReference[i]);
+            if (parts == null) {
+                Log.e(TAG, "getShareableTextForReferences: skipping an invalid reference");
+                continue;
+            }
+            bookNumber = Integer.parseInt(parts[0]);
+            chapterNumber = Integer.parseInt(parts[1]);
+            verseNumber = Integer.parseInt(parts[2]);
+            bookItem = BooksList.getBookItem(bookNumber);
+            if (bookItem == null) {
+                Log.e(TAG,
+                      "getShareableTextForReferences: Skipping invalid bookNumber : " + bookNumber);
+                continue;
+            }
+            bookName = bookItem.getBookName();
+            verseText = dbu.getVerseForReference(bookNumber, chapterNumber, verseNumber);
+            shareText.append(String.format(template, verseText, bookName, chapterNumber,
+                                           verseNumber))
+                     .append("\n");
+        }
+        return shareText.toString();
     }
 }

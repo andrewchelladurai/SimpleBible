@@ -9,6 +9,7 @@
     <string name="title_chapter_detail">Chapter Detail</string>
     <string name="chapter">Chapter</string>
     <string name="share_verse_template">%1$s (%2$s - %3$d:%4$d)</string>
+    <string name="share_bookmark_template">%1$s\nNote : %2$s</string>
 
     <string name="menu_action_settings">Settings</string>
     <string name="menu_action_share">Share</string>

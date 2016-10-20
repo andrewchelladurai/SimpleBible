@@ -47,4 +47,10 @@ public interface BookmarksTabOperations
     String getResourceString(int stringReference);
 
     String getBookmarkReferenceText(int referencesCount);
+
+    String getVerseTemplate();
+
+    void shareSelectedVerses(String shareText);
+
+    String getShareBookmarkTemplate();
 }

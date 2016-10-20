@@ -46,7 +46,7 @@ public class BookmarkList {
         private final String mReferences;
         private final String mNote;
 
-        public BookmarkItem(String references, String note) {
+        BookmarkItem(String references, String note) {
             mReferences = references;
             mNote = note;
         }

@@ -18,6 +18,7 @@ import com.andrewchelladurai.simplebible.interaction.BookmarksTabOperations;
 import com.andrewchelladurai.simplebible.model.BookmarkList;
 import com.andrewchelladurai.simplebible.model.BookmarkList.BookmarkItem;
 import com.andrewchelladurai.simplebible.presentation.BookmarksTabPresenter;
+import com.andrewchelladurai.simplebible.utilities.Utilities;
 
 public class BookmarksFragment
         extends Fragment
@@ -107,8 +108,7 @@ public class BookmarksFragment
 
     @Override
     public void deleteButtonClicked(@NonNull BookmarkItem item) {
-        boolean status = mPresenter.deleteButtonClicked(item);
-        if (status) {
+        if (mPresenter.deleteButtonClicked(item)) {
             refresh();
         }
     }
@@ -135,5 +135,18 @@ public class BookmarksFragment
     @Override public String getBookmarkReferenceText(int count) {
         return getResources().getQuantityString(
                 R.plurals.fragment_bookmark_template_reference, count);
+    }
+
+    @Override public String getVerseTemplate() {
+        return getString(R.string.share_verse_template);
+    }
+
+    @Override public void shareSelectedVerses(String shareText) {
+        Intent intent = Utilities.shareVerse(shareText);
+        startActivity(intent);
+    }
+
+    @Override public String getShareBookmarkTemplate() {
+        return getString(R.string.share_bookmark_template);
     }
 }

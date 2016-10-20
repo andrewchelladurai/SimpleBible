@@ -33,6 +33,7 @@ import com.andrewchelladurai.simplebible.interaction.BookmarksTabOperations;
 import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
 import com.andrewchelladurai.simplebible.model.BookmarkList.BookmarkItem;
 import com.andrewchelladurai.simplebible.utilities.DBUtility;
+import com.andrewchelladurai.simplebible.utilities.Utilities;
 
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 15-Sep-2016 @ 4:47 PM
@@ -44,7 +45,7 @@ public class BookmarksTabPresenter {
 
     public BookmarksTabPresenter(BookmarksTabOperations operations) {mOperations = operations;}
 
-    public static void refreshList() {
+    static void refreshList() {
         mOperations.refresh();
     }
 
@@ -65,7 +66,23 @@ public class BookmarksTabPresenter {
         return dbu.deleteBookMarkEntry(references);
     }
 
-    public void shareButtonClicked(BookmarkItem item) {
+    public void shareButtonClicked(@NonNull BookmarkItem item) {
         Log.d(TAG, "shareButtonClicked() called with: " + "item = [" + item + "]");
+        String references = item.getReferences();
+        if (references == null || references.isEmpty()) {
+            Log.e(TAG, "shareButtonClicked: BookmarkItem has Zero References");
+            return;
+        }
+
+        String verseTemplate = mOperations.getVerseTemplate();
+        String verseText = Utilities.getShareableTextForReferences(references, verseTemplate);
+
+        String note = item.getNote();
+        note = (note.isEmpty()) ? "Empty" : note;
+
+        String shareBookmarkTemplate = mOperations.getShareBookmarkTemplate();
+        String shareText = String.format(shareBookmarkTemplate, verseText, note);
+
+        mOperations.shareSelectedVerses(shareText);
     }
 }
