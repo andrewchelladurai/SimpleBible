@@ -34,6 +34,7 @@ import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
 import com.andrewchelladurai.simplebible.model.BookmarkList;
 import com.andrewchelladurai.simplebible.model.BookmarkList.BookmarkItem;
 import com.andrewchelladurai.simplebible.utilities.DBUtility;
+import com.andrewchelladurai.simplebible.utilities.Utilities;
 
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 17-Sep-2016 @ 12:48 AM
@@ -48,9 +49,27 @@ public class BookmarkActivityPresenter {
         Log.d(TAG, "BookmarkActivityPresenter: init done");
     }
 
-    public boolean buttonShareClicked() {
-        Log.d(TAG, "buttonShareClicked() called");
-        return true;
+    public String buttonShareClicked(@NonNull final String references) {
+        Log.d(TAG, "buttonShareClicked() called with: references = [" + references + "]");
+        if (references.isEmpty()) {
+            Log.e(TAG, "shareButtonClicked: Passed References is Empty");
+            return null;
+        }
+
+        BookmarkItem item = BookmarkList.getItem(references);
+        if (item == null) {
+            Log.e(TAG, "buttonShareClicked: No Bookmark for passed reference exist");
+            return null;
+        }
+
+        String verseTemplate = mOperations.getVerseTemplate();
+        String verseText = Utilities.getShareableTextForReferences(references, verseTemplate);
+
+        String note = item.getNote();
+        note = (note.isEmpty()) ? "Empty" : note;
+
+        String shareBookmarkTemplate = mOperations.getShareBookmarkTemplate();
+        return String.format(shareBookmarkTemplate, verseText, note);
     }
 
     public boolean buttonDeleteClicked(@NonNull String reference) {

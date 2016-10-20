@@ -40,4 +40,8 @@ public interface BookmarkActivityOperations
     String getPassedReference();
 
     String getInputNote();
+
+    String getVerseTemplate();
+
+    String getShareBookmarkTemplate();
 }

@@ -26,6 +26,7 @@
 
 package com.andrewchelladurai.simplebible;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
@@ -162,10 +163,18 @@ public class BookmarkActivity
             } else if (button.equals(mButtonDelete)) {
                 buttonDeleteClicked();
             } else if (button.equals(mButtonShare)) {
-                mPresenter.buttonShareClicked();
+                buttonShareClicked();
             } else {
                 Log.d(TAG, "onClick: " + getString(R.string.how_am_i_here));
             }
+        }
+    }
+
+    private void buttonShareClicked() {
+        String shareText = mPresenter.buttonShareClicked(mReference);
+        if (shareText != null) {
+            Intent intent = Utilities.shareVerse(shareText);
+            startActivity(intent);
         }
     }
 
@@ -226,5 +235,13 @@ public class BookmarkActivity
 
     @Override public String getInputNote() {
         return mNote.getText().toString().trim();
+    }
+
+    @Override public String getVerseTemplate() {
+        return getString(R.string.share_verse_template);
+    }
+
+    @Override public String getShareBookmarkTemplate() {
+        return getString(R.string.share_bookmark_template);
     }
 }
