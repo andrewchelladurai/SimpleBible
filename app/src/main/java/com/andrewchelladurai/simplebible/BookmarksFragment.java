@@ -93,7 +93,7 @@ public class BookmarksFragment
     @Override
     public void bookmarkClicked(@NonNull BookmarkItem item) {
         Log.d(TAG, "bookmarkClicked() called");
-        boolean bookmarkExists = mPresenter.bookmarkClicked(item.getReferences());
+        boolean bookmarkExists = mPresenter.doesBookmarkReferenceExist(item.getReferences());
 
         Bundle args = new Bundle();
         args.putString(BookmarkActivityOperations.ARG_REFERENCE, item.getReferences());

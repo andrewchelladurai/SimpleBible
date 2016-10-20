@@ -49,8 +49,8 @@ public class BookmarksTabPresenter {
         mOperations.refresh();
     }
 
-    public boolean bookmarkClicked(@NonNull String references) {
-        Log.d(TAG, "bookmarkClicked() called with: references = [" + references + "]");
+    public boolean doesBookmarkReferenceExist(@NonNull String references) {
+        Log.d(TAG, "doesBookmarkReferenceExist() called with: references = [" + references + "]");
         DBUtilityOperations dbu = DBUtility.getInstance();
         return dbu.doesBookmarkReferenceExist(references);
     }
