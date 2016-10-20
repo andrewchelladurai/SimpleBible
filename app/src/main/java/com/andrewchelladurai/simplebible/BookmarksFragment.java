@@ -67,6 +67,11 @@ public class BookmarksFragment
         return view;
     }
 
+    @Override public void onResume() {
+        super.onResume();
+        refresh();
+    }
+
     @Override
     public void init() {
         if (mPresenter == null) {
@@ -79,9 +84,9 @@ public class BookmarksFragment
     public void refresh() {
         Log.d(TAG, "refresh() called");
         BookmarkList.refreshList();
-        mListAdapter.notifyDataSetChanged();
-//        mList.invalidate();
-        mList.requestLayout();
+        if (mListAdapter != null) {
+            mListAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -109,8 +114,7 @@ public class BookmarksFragment
     }
 
     @Override
-    public void shareButtonClicked(BookmarkItem item) {
-        Log.d(TAG, "shareButtonClicked() called with: " + "item = [" + item + "]");
+    public void shareButtonClicked(@NonNull BookmarkItem item) {
         mPresenter.shareButtonClicked(item);
     }
 
