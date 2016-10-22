@@ -21,6 +21,17 @@ public class SimpleBibleActivity
         extends AppCompatActivity
         implements SimpleBibleActivityOperations {
 
+    // TODO: 22/10/16 Settings Screen
+    // TODO: 22/10/16 Create horizontal layouts
+    // TODO: 22/10/16 Button disappears on Home Screen in Landscape
+    // TODO: 22/10/16 Make verse style follow settings
+    // TODO: 22/10/16 Make a notification service
+    // TODO: 22/10/16 export saved bookmarks
+    // TODO: 22/10/16 Select All option, if possible
+    // TODO: 22/10/16 remove selective references form existing bookmarks
+    // TODO: 22/10/16 long press on daily verse to share or bookmark
+    // TODO: 22/10/16 swipe gesture
+
     private static final String TAG = "SB_SBActivity";
     private SimpleBibleActivityPresenter mPresenter;
     private PagerAdapter                 mPagerAdapter;
