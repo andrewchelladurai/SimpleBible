@@ -54,10 +54,10 @@ import com.andrewchelladurai.simplebible.utilities.Utilities;
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 23-Oct-2016 @ 9:42 PM
  */
 
-public class ActivitySettings
+public class SettingsActivity
         extends PreferenceActivity {
 
-    private static final String TAG = "SB_ActivitySettings";
+    private static final String TAG = "SB_SettingsActivity";
     private AppCompatDelegate mDelegate;
 
     @Override
@@ -66,7 +66,7 @@ public class ActivitySettings
         getDelegate().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
         getFragmentManager().beginTransaction().replace(
-                android.R.id.content, new ActivitySettings.AboutPreferenceFragment()).commit();
+                android.R.id.content, new SettingsActivity.AboutPreferenceFragment()).commit();
     }
 
     private AppCompatDelegate getDelegate() {
@@ -198,7 +198,7 @@ public class ActivitySettings
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
             WebView webView = new WebView(getActivity());
-            webView.loadUrl("file:///android_asset/about_me.html");
+            webView.loadUrl("file:///android_asset/about.html");
 
             builder.setView(webView);
             builder.setNegativeButton(null, null);

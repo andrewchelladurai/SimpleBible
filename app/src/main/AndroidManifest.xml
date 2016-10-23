@@ -51,7 +51,7 @@
                 android:value="com.andrewchelladurai.simplebible.ChapterListActivity" />
         </activity>
         <activity
-            android:name = ".ActivitySettings"
+            android:name = ".SettingsActivity"
             android:label = "@string/title_activity_settings"
             android:parentActivityName = ".SimpleBibleActivity">
             <meta-data
