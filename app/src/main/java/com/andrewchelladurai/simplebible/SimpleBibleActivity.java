@@ -32,7 +32,6 @@ public class SimpleBibleActivity
     // TODO: 22/10/16 long press on daily verse to share or bookmark
     // TODO: 22/10/16 swipe gesture
     // TODO: 22/10/16 adjust layout of bookmark activity when keyboard is shown
-    // TODO: 23/10/16 show a info text when no bookmarks is created
 
     private static final String TAG = "SB_SBActivity";
     private SimpleBibleActivityPresenter mPresenter;

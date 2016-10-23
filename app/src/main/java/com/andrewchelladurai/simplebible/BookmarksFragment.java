@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +32,7 @@ public class BookmarksFragment
     private BookmarksTabPresenter mPresenter;
     private BookmarkListAdapter   mListAdapter;
     private RecyclerView          mList;
+    private AppCompatTextView     mInfo;
 
     public BookmarksFragment() {
     }
@@ -56,14 +59,15 @@ public class BookmarksFragment
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bookmark, container, false);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            mList = (RecyclerView) view;
-            mList.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            mListAdapter = new BookmarkListAdapter(BookmarkList.getItems(), this);
-            mList.setAdapter(mListAdapter);
-        }
+        Context context = view.getContext();
+        mList = (RecyclerView) view.findViewById(R.id.fragment_bookmark_list);
+        mList.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+        mListAdapter = new BookmarkListAdapter(BookmarkList.getItems(), this);
+        mList.setAdapter(mListAdapter);
+
+        mInfo = (AppCompatTextView) view.findViewById(R.id.fragment_bookmark_label_help);
+        mInfo.setText(Html.fromHtml(getString(R.string.fragment_bookmark_label_help)));
+
         init();
         return view;
     }
@@ -79,6 +83,7 @@ public class BookmarksFragment
             mPresenter = new BookmarksTabPresenter(this);
         }
         mColumnCount = getResources().getInteger(R.integer.column_count_bookmarks_list);
+        refresh();
     }
 
     @Override
@@ -87,6 +92,13 @@ public class BookmarksFragment
         BookmarkList.refreshList();
         if (mListAdapter != null) {
             mListAdapter.notifyDataSetChanged();
+            if (mListAdapter.getItemCount() == 0) {
+                mList.setVisibility(View.GONE);
+                mInfo.setVisibility(View.VISIBLE);
+            } else {
+                mList.setVisibility(View.VISIBLE);
+                mInfo.setVisibility(View.GONE);
+            }
         }
     }
 

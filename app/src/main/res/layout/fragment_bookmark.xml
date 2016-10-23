@@ -1,7 +1,25 @@
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_bookmark_list"
     android:name="com.andrewchelladurai.simplebible.BookmarksFragment"
     style="@style/StyleForMainScreens"
-    tools:context="com.andrewchelladurai.simplebible.BookmarksFragment"
-    tools:listitem="@layout/content_bookmark_entry" />
+    tools:context="com.andrewchelladurai.simplebible.BookmarksFragment">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/fragment_bookmark_label_help"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:padding="@dimen/text_margin"
+        android:text="@string/fragment_bookmark_label_help"
+        android:textColor="@color/textColor" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fragment_bookmark_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/fragment_bookmark_label_help"
+        tools:listitem="@layout/content_bookmark_entry" />
+
+</RelativeLayout>

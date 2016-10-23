@@ -63,6 +63,14 @@
         <item quantity="other">%1$s (%2$s : %3$s) and %4$s more Verses are Bookmarked in this entry</item>
     </plurals>
     <string name="fragment_bookmark_empty_note">No Notes saved for this reference.</string>
+    <string name="fragment_bookmark_label_help"><![CDATA[
+    <br/><br/><b>You have No Saved Bookmarks</b>,
+    <br/>to create a new one you need to
+    <br/><br/><b>Long Press</b> on any Search Result or Verse in a Chapter.
+    <br/>Then Choose the Bookmark option.
+    <br/><br/>You can also
+    <br/><b>Tap</b> any of the Entries showed here
+    <br/><u>to modify, delete or share</u> it.]]></string>
 
     <string name="activity_bookmark_title">Bookmark Entry</string>
     <string name="activity_bookmark_button_label_save">Save</string>
