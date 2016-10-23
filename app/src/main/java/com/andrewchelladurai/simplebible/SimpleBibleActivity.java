@@ -2,11 +2,14 @@ package com.andrewchelladurai.simplebible;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -15,6 +18,7 @@ import android.view.MenuItem;
 import com.andrewchelladurai.simplebible.adapter.TabsAdapter;
 import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityOperations;
 import com.andrewchelladurai.simplebible.presentation.SimpleBibleActivityPresenter;
+import com.andrewchelladurai.simplebible.utilities.Utilities;
 
 import java.io.InputStreamReader;
 
@@ -41,6 +45,21 @@ public class SimpleBibleActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Start Preference work
+        PreferenceManager.setDefaultValues(this, R.xml.preferences_list, false);
+        Utilities.setInstance(this);
+        if (Utilities.isDarkModeEnabled()) {
+            Log.d(TAG, "onCreate: Show Dark Mode");
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            Log.d(TAG, "onCreate: Show Light Mode");
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+        // End Preference work
+
+//        welcomeScreen = new WelcomeScreenHelper(this, SplashActivity.class);
+//        welcomeScreen.show(savedInstanceState);
+
         super.onCreate(savedInstanceState);
         init();
         setContentView(R.layout.activity_simple_bible);
@@ -126,6 +145,14 @@ public class SimpleBibleActivity
 
     @Override public InputStreamReader getUpgradeScript() {
         return mPresenter.getUpgradeScript();
+    }
+
+    @Override public SharedPreferences getDefaultPreferences() {
+        return PreferenceManager.getDefaultSharedPreferences(this);
+    }
+
+    @Override public String getResourceString(int stringId) {
+        return getString(stringId);
     }
 
 }

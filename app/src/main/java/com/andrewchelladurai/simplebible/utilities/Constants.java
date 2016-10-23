@@ -18,6 +18,14 @@ public abstract class Constants {
     static final        String DATABASE_NAME               = "Bible.db";
     static final        int    DATABASE_VERSION            = 20160921; // 20160922
 
+    static final int VERSE_SIZE_SMALL = -1;
+    static final int VERSE_SIZE_MEDIUM = 0;
+    static final int VERSE_SIZE_BIG = 1;
+    static final int VERSE_SIZE_LARGE = 2;
+    static final int VERSE_STYLE_NORMAL = 0;
+    static final int VERSE_STYLE_OLD_ENGLISH = 1;
+    static final int VERSE_STYLE_TYPEWRITER = 2;
+
     private Constants() {
     }
 

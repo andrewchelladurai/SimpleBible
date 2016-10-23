@@ -29,29 +29,44 @@ package com.andrewchelladurai.simplebible.utilities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
+import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import android.text.style.TypefaceSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
+import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityOperations;
 import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.model.SearchResultList.SearchResultItem;
 import com.andrewchelladurai.simplebible.model.VerseList.VerseItem;
 
 import java.util.Collection;
 
+import static com.andrewchelladurai.simplebible.utilities.Constants.VERSE_SIZE_BIG;
+import static com.andrewchelladurai.simplebible.utilities.Constants.VERSE_SIZE_LARGE;
+import static com.andrewchelladurai.simplebible.utilities.Constants.VERSE_SIZE_MEDIUM;
+import static com.andrewchelladurai.simplebible.utilities.Constants.VERSE_SIZE_SMALL;
+import static com.andrewchelladurai.simplebible.utilities.Constants.VERSE_STYLE_NORMAL;
+import static com.andrewchelladurai.simplebible.utilities.Constants.VERSE_STYLE_OLD_ENGLISH;
+import static com.andrewchelladurai.simplebible.utilities.Constants.VERSE_STYLE_TYPEWRITER;
 import static com.google.android.gms.internal.zzs.TAG;
 
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 25-Sep-2016 @ 1:32 PM
  */
 public class Utilities {
+
+    private static SimpleBibleActivityOperations mOperations;
 
     private Utilities() {
     }
@@ -219,5 +234,104 @@ public class Utilities {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         Log.d(TAG, "restarting Application");
         baseContext.startActivity(intent);
+    }
+
+    private static void setPreferredVerseSizeToText(SpannableString text, int start, int end) {
+        float size;
+        switch (Utilities.getPreferredVerseSize()) {
+            case VERSE_SIZE_SMALL:
+                size = 0.8f;
+                break;
+            case VERSE_SIZE_MEDIUM:
+                size = 1.0f;
+                break;
+            case VERSE_SIZE_BIG:
+                size = 1.2f;
+                break;
+            case VERSE_SIZE_LARGE:
+                size = 1.4f;
+                break;
+            default: // set to medium
+                size = 1.0f;
+        }
+        text.setSpan(new RelativeSizeSpan(size), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    }
+
+    private static void setPreferredVerseStyleToText(SpannableString text, int start, int end) {
+        String typeface;
+        switch (getPreferredVerseStyle()) {
+            case VERSE_STYLE_NORMAL:
+                typeface = "sans-serif";
+                break;
+            case VERSE_STYLE_OLD_ENGLISH:
+                typeface = "serif";
+                break;
+            case VERSE_STYLE_TYPEWRITER:
+                typeface = "monospace";
+                break;
+            default:
+                typeface = Typeface.DEFAULT.toString();
+        }
+        text.setSpan(new TypefaceSpan(typeface), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    }
+
+    /**
+     * Checks for the preferred size to use for Verses.
+     *
+     * @return one of the VERSE_SIZE_(SMALL|MEDIUM|BIG|LARGE) values.
+     */
+    private static int getPreferredVerseSize() {
+        String value = getPreferences().getString(getString(R.string.pref_key_text_size),
+                                                  getString(R.string.pref_key_text_size_default));
+        int size;
+        if (value.equalsIgnoreCase(getString(R.string.pref_key_text_size_small))) {
+            size = VERSE_SIZE_SMALL;
+        } else if (value.equalsIgnoreCase(getString(R.string.pref_key_text_size_medium))) {
+            size = VERSE_SIZE_MEDIUM;
+        } else if (value.equalsIgnoreCase(getString(R.string.pref_key_text_size_big))) {
+            size = VERSE_SIZE_BIG;
+        } else if (value.equalsIgnoreCase(getString(R.string.pref_key_text_size_large))) {
+            size = VERSE_SIZE_LARGE;
+        } else {
+            size = VERSE_SIZE_MEDIUM;
+        }
+        return size;
+    }
+
+    /**
+     * Checks for the preferred style to use for Verses.
+     *
+     * @return one of the VERSE_STYLE_(NORMAL|OLD_ENGLISH|TYPEWRITER) values.
+     */
+    private static int getPreferredVerseStyle() {
+        String value = getPreferences().getString(getString(R.string.pref_key_text_style),
+                                                  getString(R.string.pref_key_text_style_default));
+        int style;
+        if (value.equalsIgnoreCase(getString(R.string.pref_key_text_style_normal))) {
+            style = VERSE_STYLE_NORMAL;
+        } else if (value.equalsIgnoreCase(getString(R.string.pref_key_text_style_old_english))) {
+            style = VERSE_STYLE_OLD_ENGLISH;
+        } else if (value.equalsIgnoreCase(getString(R.string.pref_key_text_style_typewriter))) {
+            style = VERSE_STYLE_TYPEWRITER;
+        } else {
+            style = VERSE_STYLE_NORMAL;
+        }
+        return style;
+    }
+
+    private static String getString(int stringId) {
+        return mOperations.getResourceString(stringId);
+    }
+
+    public static boolean isDarkModeEnabled() {
+        return getPreferences().getBoolean(getString(R.string.pref_key_theme_dark), false);
+    }
+
+    private static SharedPreferences getPreferences() {
+        return mOperations.getDefaultPreferences();
+    }
+
+    public static void setInstance(SimpleBibleActivityOperations operations) {
+        mOperations = operations;
     }
 }

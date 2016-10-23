@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible.interaction;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.andrewchelladurai.simplebible.presentation.SimpleBibleActivityPresenter;
 
@@ -25,4 +26,8 @@ public interface SimpleBibleActivityOperations
     InputStreamReader getDowngradeScript();
 
     InputStreamReader getUpgradeScript();
+
+    SharedPreferences getDefaultPreferences();
+
+    String getResourceString(int stringId);
 }
