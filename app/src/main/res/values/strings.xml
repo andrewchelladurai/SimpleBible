@@ -71,9 +71,8 @@
     <string name="activity_bookmark_button_label_share">Share</string>
     <string name="fragment_home_goto_label_text">Go To a specific location</string>
 
-    <string name="bookmark_activity_hint_note">Type a note to save against the above verses.</string>
-    <string name="bookmark_activity_label_note">Enter note to save below</string>
-    <string name="bookmark_activity_label_verses">Verses to Bookmark are below</string>
+    <string name="bookmark_activity_hint_note">Type a Note to save here.</string>
+    <string name="bookmark_activity_label_verses">List of Verses</string>
     <string name="deleted">Deleted</string>
     <string name="created">Created</string>
     <string name="failed">Failed</string>
