@@ -85,4 +85,80 @@
     <string name="created">Created</string>
     <string name="failed">Failed</string>
 
+    <string name="text_disabled">Disabled</string>
+
+    <!-- Strings related to Settings Start Here -->
+
+    <!--Keys and strings related to Theme begin here-->
+    <string name="pref_cat_theme_title">Theme &amp; Appearance</string>
+    <string name="pref_key_theme_dark">pref_key_theme_dark</string>
+    <string name="pref_key_theme_title">Use DARK Theme</string>
+    <!--Keys and strings related to Theme end here-->
+
+    <!--Keys and strings related to Verse style begin here-->
+    <string name="pref_key_text_style">pref_key_text_style</string>
+    <string name="pref_key_text_style_title">Style to use for verses</string>
+    <string name="pref_key_text_style_normal">Normal</string>
+    <string name="pref_key_text_style_old_english">Old English</string>
+    <string name="pref_key_text_style_typewriter">Typewriter</string>
+    <string name="pref_key_text_style_default">@string/pref_key_text_style_normal</string>
+
+    <string-array name="pref_key_text_style_options">
+        <item>@string/pref_key_text_style_normal</item>
+        <item>@string/pref_key_text_style_old_english</item>
+        <item>@string/pref_key_text_style_typewriter</item>
+    </string-array>
+    <!--Keys and strings related to Verse style end here-->
+
+    <!--Keys and strings related to Verse Size begin here-->
+    <string name="pref_key_text_size">pref_key_text_size</string>
+    <string name="pref_key_text_size_title">Size of text in verses</string>
+    <string name="pref_key_text_size_small">Small</string>
+    <string name="pref_key_text_size_medium">Medium</string>
+    <string name="pref_key_text_size_big">Big</string>
+    <string name="pref_key_text_size_large">Large</string>
+    <string name="pref_key_text_size_default">@string/pref_key_text_size_medium</string>
+
+    <string-array name="pref_key_text_size_options">
+        <item>@string/pref_key_text_size_small</item>
+        <item>@string/pref_key_text_size_medium</item>
+        <item>@string/pref_key_text_size_big</item>
+        <item>@string/pref_key_text_size_large</item>
+    </string-array>
+    <!--Keys and strings related to Verse Size end here-->
+
+    <!--Keys and strings related to Reminder start here-->
+    <string name="pref_cat_reminder_title">Reminder</string>
+    <string name="pref_key_reminder">pref_key_reminder</string>
+    <string name="pref_key_reminder_title">Reminder : Coming Soon</string>
+    <string name="pref_key_reminder_tone_title">Tone to use</string>
+    <string name="pref_key_reminder_tone">pref_key_reminder_tone</string>
+    <string name="pref_key_reminder_vibrate_title">Vibrate</string>
+    <string name="pref_key_reminder_vibrate">pref_key_reminder_vibrate</string>
+    <!--Keys and strings related to Reminder end here-->
+
+    <!--Keys and strings related to About Category start here-->
+    <string name="pref_cat_about_title">About</string>
+
+    <string name="pref_key_changelog">pref_key_changelog</string>
+    <string name="pref_key_changelog_summary">Current Version : 2016-AUG-27</string>
+    <string name="pref_header_change_log">Changelog</string>
+
+    <string name="pref_key_rate">pref_key_rate_app</string>
+    <string name="pref_key_rate_title">Rate this Application</string>
+    <string name="pref_key_rate_summary">On Google Play</string>
+
+    <string name="pref_key_feedback">pref_key_feedback</string>
+    <string name="pref_key_feedback_title">Provide Feedback</string>
+    <string name="pref_key_feedback_summary">By Email to Developer</string>
+    <string name="feedback_email_subject">Feedback : Simple Bible Android Application</string>
+
+    <string name="pref_key_more_apps">pref_key_more_apps</string>
+    <string name="pref_key_more_apps_title">More Apps by Developer</string>
+    <string name="pref_key_more_apps_summary">More Apps by Developer</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!--Keys and strings related to About Category end here-->
+
+    <!-- Strings related to Settings End Here -->
 </resources>

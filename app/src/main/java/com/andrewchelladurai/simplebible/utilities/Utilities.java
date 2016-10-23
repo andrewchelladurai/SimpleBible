@@ -26,6 +26,7 @@
 
 package com.andrewchelladurai.simplebible.utilities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -207,5 +208,16 @@ public class Utilities {
                      .append("\n");
         }
         return shareText.toString();
+    }
+
+    public static void restartApplication(Activity activity) {
+        Log.d(TAG, "restartApplication() called");
+        Context baseContext = activity.getBaseContext();
+        Intent intent = baseContext.getPackageManager()
+                                   .getLaunchIntentForPackage(baseContext.getPackageName());
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        Log.d(TAG, "restarting Application");
+        baseContext.startActivity(intent);
     }
 }

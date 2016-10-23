@@ -50,6 +50,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.andrewchelladurai.simplebible.ChapterListActivity" />
         </activity>
+        <activity
+            android:name = ".ActivitySettings"
+            android:label = "@string/title_activity_settings"
+            android:parentActivityName = ".SimpleBibleActivity">
+            <meta-data
+                android:name = "android.support.PARENT_ACTIVITY"
+                android:value = "com.andrewchelladurai.simplebible.SimpleBibleActivity" />
+        </activity>
     </application>
 
 </manifest>
