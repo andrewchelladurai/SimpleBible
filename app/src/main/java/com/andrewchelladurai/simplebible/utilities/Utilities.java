@@ -52,20 +52,12 @@ import com.andrewchelladurai.simplebible.model.VerseList.VerseItem;
 
 import java.util.Collection;
 
-import static com.andrewchelladurai.simplebible.utilities.Constants.VERSE_SIZE_BIG;
-import static com.andrewchelladurai.simplebible.utilities.Constants.VERSE_SIZE_LARGE;
-import static com.andrewchelladurai.simplebible.utilities.Constants.VERSE_SIZE_MEDIUM;
-import static com.andrewchelladurai.simplebible.utilities.Constants.VERSE_SIZE_SMALL;
-import static com.andrewchelladurai.simplebible.utilities.Constants.VERSE_STYLE_NORMAL;
-import static com.andrewchelladurai.simplebible.utilities.Constants.VERSE_STYLE_OLD_ENGLISH;
-import static com.andrewchelladurai.simplebible.utilities.Constants.VERSE_STYLE_TYPEWRITER;
-import static com.google.android.gms.internal.zzs.TAG;
-
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 25-Sep-2016 @ 1:32 PM
  */
 public class Utilities {
 
+    private static final String TAG = "SB_Utilities";
     private static SimpleBibleActivityOperations mOperations;
 
     private Utilities() {
@@ -109,6 +101,13 @@ public class Utilities {
                               start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         formattedText.setSpan(new StyleSpan(Typeface.BOLD),
                               start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        formattedText.setSpan(new RelativeSizeSpan(
+                Utilities.getPreferredTextSize()), 0, completeText.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        formattedText.setSpan(new TypefaceSpan(
+                Utilities.getPreferredVerseStyle()), 0, completeText.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         return formattedText;
     }
@@ -236,64 +235,25 @@ public class Utilities {
         baseContext.startActivity(intent);
     }
 
-    private static void setPreferredVerseSizeToText(SpannableString text, int start, int end) {
-        float size;
-        switch (Utilities.getPreferredVerseSize()) {
-            case VERSE_SIZE_SMALL:
-                size = 0.8f;
-                break;
-            case VERSE_SIZE_MEDIUM:
-                size = 1.0f;
-                break;
-            case VERSE_SIZE_BIG:
-                size = 1.2f;
-                break;
-            case VERSE_SIZE_LARGE:
-                size = 1.4f;
-                break;
-            default: // set to medium
-                size = 1.0f;
-        }
-        text.setSpan(new RelativeSizeSpan(size), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-    }
-
-    private static void setPreferredVerseStyleToText(SpannableString text, int start, int end) {
-        String typeface;
-        switch (getPreferredVerseStyle()) {
-            case VERSE_STYLE_NORMAL:
-                typeface = "sans-serif";
-                break;
-            case VERSE_STYLE_OLD_ENGLISH:
-                typeface = "serif";
-                break;
-            case VERSE_STYLE_TYPEWRITER:
-                typeface = "monospace";
-                break;
-            default:
-                typeface = Typeface.DEFAULT.toString();
-        }
-        text.setSpan(new TypefaceSpan(typeface), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-    }
-
     /**
      * Checks for the preferred size to use for Verses.
      *
      * @return one of the VERSE_SIZE_(SMALL|MEDIUM|BIG|LARGE) values.
      */
-    private static int getPreferredVerseSize() {
+    public static float getPreferredTextSize() {
         String value = getPreferences().getString(getString(R.string.pref_key_text_size),
                                                   getString(R.string.pref_key_text_size_default));
-        int size;
+        float size;
         if (value.equalsIgnoreCase(getString(R.string.pref_key_text_size_small))) {
-            size = VERSE_SIZE_SMALL;
+            size = Constants.VERSE_SIZE_SMALL;
         } else if (value.equalsIgnoreCase(getString(R.string.pref_key_text_size_medium))) {
-            size = VERSE_SIZE_MEDIUM;
+            size = Constants.VERSE_SIZE_MEDIUM;
         } else if (value.equalsIgnoreCase(getString(R.string.pref_key_text_size_big))) {
-            size = VERSE_SIZE_BIG;
+            size = Constants.VERSE_SIZE_BIG;
         } else if (value.equalsIgnoreCase(getString(R.string.pref_key_text_size_large))) {
-            size = VERSE_SIZE_LARGE;
+            size = Constants.VERSE_SIZE_LARGE;
         } else {
-            size = VERSE_SIZE_MEDIUM;
+            size = Constants.VERSE_SIZE_MEDIUM;
         }
         return size;
     }
@@ -303,18 +263,18 @@ public class Utilities {
      *
      * @return one of the VERSE_STYLE_(NORMAL|OLD_ENGLISH|TYPEWRITER) values.
      */
-    private static int getPreferredVerseStyle() {
+    private static String getPreferredVerseStyle() {
         String value = getPreferences().getString(getString(R.string.pref_key_text_style),
                                                   getString(R.string.pref_key_text_style_default));
-        int style;
+        String style;
         if (value.equalsIgnoreCase(getString(R.string.pref_key_text_style_normal))) {
-            style = VERSE_STYLE_NORMAL;
+            style = Constants.VERSE_STYLE_NORMAL;
         } else if (value.equalsIgnoreCase(getString(R.string.pref_key_text_style_old_english))) {
-            style = VERSE_STYLE_OLD_ENGLISH;
+            style = Constants.VERSE_STYLE_OLD_ENGLISH;
         } else if (value.equalsIgnoreCase(getString(R.string.pref_key_text_style_typewriter))) {
-            style = VERSE_STYLE_TYPEWRITER;
+            style = Constants.VERSE_STYLE_TYPEWRITER;
         } else {
-            style = VERSE_STYLE_NORMAL;
+            style = Constants.VERSE_STYLE_NORMAL;
         }
         return style;
     }
