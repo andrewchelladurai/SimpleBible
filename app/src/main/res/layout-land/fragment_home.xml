@@ -8,7 +8,6 @@
         android:id="@+id/fragment_home_goto_label"
         style="@style/StyleForTextSubHeader"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:gravity="center"
         android:paddingBottom="@dimen/text_margin"
         android:paddingTop="@dimen/text_margin"
@@ -18,8 +17,7 @@
         android:id="@+id/fragment_home_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_home_goto_label"
-        android:orientation="horizontal">
+        android:layout_below="@id/fragment_home_goto_label">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="0dp"
@@ -48,31 +46,31 @@
                 android:inputType="numberSigned"
                 android:selectAllOnFocus="true" />
         </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/fragment_home_button_goto"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/fragment_home_button_label_goto" />
+
     </android.support.v7.widget.LinearLayoutCompat>
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/fragment_home_message_label"
         android:layout_width="match_parent"
+        android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_below="@id/fragment_home_input_layout"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
         android:paddingBottom="@dimen/screen_padding" />
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/fragment_home_button_goto"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_home_message_label"
-        android:layout_centerHorizontal="true"
-        android:text="@string/fragment_home_button_label_goto" />
 
     <ScrollView
         android:id="@+id/fragment_home_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/fragment_home_button_goto"
+        android:layout_below="@id/fragment_home_message_label"
         android:layout_marginBottom="@dimen/screen_padding"
         android:layout_marginTop="@dimen/screen_padding"
         android:scrollbars="vertical">
@@ -85,5 +83,4 @@
             android:gravity="center"
             android:text="@string/fragment_home_daily_verse_stub" />
     </ScrollView>
-
 </RelativeLayout>
