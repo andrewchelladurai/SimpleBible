@@ -32,7 +32,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
-import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
@@ -75,39 +74,43 @@ public class Utilities {
         im.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    public static SpannableString getHighlightedText(@NonNull String highlightText,
-                                                     @NonNull String completeText,
-                                                     int highlightColor) {
+    public static SpannableString getStyledText(@NonNull String highlightText,
+                                                @NonNull String completeText,
+                                                int highlightColor) {
         if (completeText.isEmpty()) {
-            Log.d(TAG, "getHighlightedText: completeText isEmpty, returning null");
+            Log.d(TAG, "getStyledText: completeText isEmpty, returning null");
             return null;
         }
 
         SpannableString formattedText = new SpannableString(completeText);
         if (highlightText.isEmpty()) {
-            Log.d(TAG, "getHighlightedText: highlightText isEmpty, returning default");
+            Log.d(TAG, "getStyledText: highlightText isEmpty, returning default");
             return formattedText;
         }
 
         if (!completeText.contains(highlightText)) {
-            Log.d(TAG, "getHighlightedText: highlightText is not present, returning default");
+            Log.d(TAG, "getStyledText: highlightText is not present, returning default");
             return formattedText;
         }
 
-        int start = completeText.indexOf(highlightText);
-        int end = highlightText.length();
+        final int flag = Spanned.SPAN_EXCLUSIVE_EXCLUSIVE;
 
-        formattedText.setSpan(new ForegroundColorSpan(highlightColor),
-                              start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        formattedText.setSpan(new StyleSpan(Typeface.BOLD),
-                              start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        try {
+            // highlight specified text
+            int start = completeText.indexOf(highlightText);
+            int end = highlightText.length();
 
-        formattedText.setSpan(new RelativeSizeSpan(
-                Utilities.getPreferredTextSize()), 0, completeText.length(),
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        formattedText.setSpan(new TypefaceSpan(
-                Utilities.getPreferredVerseStyle()), 0, completeText.length(),
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            formattedText.setSpan(new ForegroundColorSpan(highlightColor), start, end, flag);
+            formattedText.setSpan(new StyleSpan(Typeface.BOLD), start, end, flag);
+
+            // style complete text
+            start = 0;
+            end = completeText.length();
+            formattedText.setSpan(new RelativeSizeSpan(getPreferredTextSize()), start, end, flag);
+            formattedText.setSpan(new TypefaceSpan(getPreferredVerseStyle()), start, end, flag);
+        } catch (Exception e) {
+            Log.e(TAG, "getStyledText: " + e.getLocalizedMessage());
+        }
 
         return formattedText;
     }

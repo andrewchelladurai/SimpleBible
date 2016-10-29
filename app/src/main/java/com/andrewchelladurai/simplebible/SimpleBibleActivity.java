@@ -29,7 +29,6 @@ public class SimpleBibleActivity
     // TODO: 22/10/16 Settings Screen
     // TODO: 22/10/16 Create horizontal layouts
     // TODO: 22/10/16 Button disappears on Home Screen in Landscape
-    // TODO: 22/10/16 Make verse style follow settings
     // TODO: 22/10/16 Make a notification service
     // TODO: 22/10/16 export saved bookmarks
     // TODO: 22/10/16 Select All option, if possible

@@ -132,7 +132,7 @@ public class SearchResultAdapter
             String text = reference + item.getVerseText();
             int highlightColor = mListener.getReferenceHighlightColor();
 
-            return Utilities.getHighlightedText(reference, text, highlightColor);
+            return Utilities.getStyledText(reference, text, highlightColor);
         } else {
             Log.d(TAG, "getFormattedText: returning null");
             return null;

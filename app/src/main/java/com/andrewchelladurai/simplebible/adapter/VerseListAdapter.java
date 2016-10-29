@@ -96,7 +96,7 @@ public class VerseListAdapter
             String verseNumber = String.valueOf(mItem.getVerseNumber()) + " ";
             String verse = verseNumber + mItem.getVerseText();
 
-            SpannableString formattedText = Utilities.getHighlightedText(
+            SpannableString formattedText = Utilities.getStyledText(
                     verseNumber, verse, mReferenceHighlightColor);
 
             mContentView.setText(formattedText);
