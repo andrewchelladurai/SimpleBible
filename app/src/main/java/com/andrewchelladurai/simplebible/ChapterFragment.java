@@ -30,10 +30,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -50,6 +48,8 @@ import com.andrewchelladurai.simplebible.model.VerseList;
 import com.andrewchelladurai.simplebible.model.VerseList.VerseItem;
 import com.andrewchelladurai.simplebible.presentation.ChapterFragmentPresenter;
 import com.andrewchelladurai.simplebible.utilities.Utilities;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 import java.util.Collection;
 import java.util.List;
@@ -68,9 +68,8 @@ public class ChapterFragment
     private ChapterItem          mChapterItem;
     private BooksList.BookItem   mBookItem;
     private VerseListAdapter     mListAdapter;
-    private LinearLayoutCompat   mActions;
-    private FloatingActionButton mBookmarkButton;
-    private FloatingActionButton mShareButton;
+    private FloatingActionMenu   mActions;
+    private FloatingActionButton fabShare, fabBookmark, fabReset;
 
     public ChapterFragment() {
     }
@@ -102,12 +101,29 @@ public class ChapterFragment
         View view = inflater.inflate(R.layout.fragment_chapter, container, false);
 
         Activity activity = getActivity();
-        mBookmarkButton = (FloatingActionButton) activity.findViewById(
+/*
+        mBookmarkButton = (AppCompatImageButton) activity.findViewById(
                 R.id.chapter_detail_verse_action_bookmark);
         mBookmarkButton.setOnClickListener(this);
-        mShareButton = (FloatingActionButton) activity.findViewById(
+        mShareButton = (AppCompatImageButton) activity.findViewById(
                 R.id.chapter_detail_verse_action_share);
         mShareButton.setOnClickListener(this);
+*/
+
+        mActions = (FloatingActionMenu)
+                activity.findViewById(chapter_detail_verse_actions_bar);
+        fabShare = (FloatingActionButton) activity
+                .findViewById(R.id.chapter_detail_verse_action_share);
+        fabShare.setOnClickListener(this);
+
+        fabBookmark = (FloatingActionButton) activity
+                .findViewById(R.id.chapter_detail_verse_action_bookmark);
+        fabBookmark.setOnClickListener(this);
+
+        fabReset = (FloatingActionButton) activity
+                .findViewById(R.id.chapter_detail_verse_action_reset);
+        fabReset.setOnClickListener(this);
+
 
         init();
 
@@ -180,7 +196,7 @@ public class ChapterFragment
 
     @Override public void toggleActionBar(boolean isSelectedItemsEmpty) {
         if (mActions == null) {
-            mActions = (LinearLayoutCompat)
+            mActions = (FloatingActionMenu)
                     getActivity().findViewById(chapter_detail_verse_actions_bar);
         }
         if (mActions == null) {
@@ -192,7 +208,6 @@ public class ChapterFragment
         } else {
             mActions.setVisibility(View.VISIBLE);
         }
-
     }
 
     @Override public String getShareTemplate() {
@@ -204,9 +219,11 @@ public class ChapterFragment
     }
 
     @Override public void onClick(View v) {
-        if (v.equals(mBookmarkButton)) {
+        if (v.equals(fabBookmark)) {
             bookmarkButtonClicked();
-        } else if (v.equals(mShareButton)) {
+        } else if (v.equals(fabShare)) {
+            mPresenter.shareButtonClicked();
+        } else if (v.equals(fabShare)) {
             mPresenter.shareButtonClicked();
         }
     }
