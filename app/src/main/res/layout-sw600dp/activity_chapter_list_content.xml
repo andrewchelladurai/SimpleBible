@@ -29,6 +29,7 @@
         android:layout_toEndOf="@id/chapter_list"
         android:layout_toRightOf="@id/chapter_list" />
 
+
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/chapter_detail_verse_actions_bar"
         android:layout_width="wrap_content"
@@ -36,14 +37,15 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/text_margin"
+        android:layout_marginEnd="@dimen/text_margin"
+        android:layout_marginRight="@dimen/text_margin"
         android:visibility="gone"
         fab:menu_buttonSpacing="0dp"
         fab:menu_colorNormal="@color/primary"
         fab:menu_colorPressed="@color/primary_darker"
         fab:menu_colorRipple="@color/primary_darker"
-        fab:menu_fab_label="Actions"
-        fab:menu_fab_size="normal"
-        fab:menu_icon="@drawable/ic_bookmark_24dp"
+        fab:menu_icon="@drawable/ic_touch_24dp"
         fab:menu_showShadow="true">
 
         <com.github.clans.fab.FloatingActionButton
@@ -66,39 +68,8 @@
             android:id="@+id/chapter_detail_verse_action_reset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_bookmark_24dp"
+            android:src="@drawable/ic_reset_24dp"
             fab:fab_label="@string/menu_action_reset"
             fab:fab_size="mini" />
     </com.github.clans.fab.FloatingActionMenu>
-
-
-    <!--    <android.support.v7.widget.LinearLayoutCompat
-            android:id="@+id/chapter_detail_verse_actions_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="@dimen/text_margin"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <android.support.v7.widget.AppCompatImageButton
-                android:id="@+id/chapter_detail_verse_action_share"
-                style="@style/StyleForButtons"
-                android:minHeight="25dp"
-                android:minWidth="25dp"
-                android:padding="15dp"
-                android:src="@drawable/ic_share_24dp" />
-
-            <android.support.v7.widget.AppCompatImageButton
-                android:id="@+id/chapter_detail_verse_action_bookmark"
-                style="@style/StyleForButtons"
-                android:minHeight="25dp"
-                android:minWidth="25dp"
-                android:padding="15dp"
-                android:src="@drawable/ic_bookmark_24dp" />
-
-        </android.support.v7.widget.LinearLayoutCompat>-->
-
 </RelativeLayout>

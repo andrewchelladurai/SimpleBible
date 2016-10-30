@@ -101,14 +101,6 @@ public class ChapterFragment
         View view = inflater.inflate(R.layout.fragment_chapter, container, false);
 
         Activity activity = getActivity();
-/*
-        mBookmarkButton = (AppCompatImageButton) activity.findViewById(
-                R.id.chapter_detail_verse_action_bookmark);
-        mBookmarkButton.setOnClickListener(this);
-        mShareButton = (AppCompatImageButton) activity.findViewById(
-                R.id.chapter_detail_verse_action_share);
-        mShareButton.setOnClickListener(this);
-*/
 
         mActions = (FloatingActionMenu)
                 activity.findViewById(chapter_detail_verse_actions_bar);

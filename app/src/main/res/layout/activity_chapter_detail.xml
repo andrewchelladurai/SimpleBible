@@ -45,16 +45,17 @@
         android:id="@+id/chapter_detail_verse_actions_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/text_margin"
+        android:layout_marginEnd="@dimen/text_margin"
+        android:layout_marginRight="@dimen/text_margin"
+        android:visibility="gone"
         app:layout_anchor="@+id/chapter_detail_container"
         app:layout_anchorGravity="bottom|end"
         fab:menu_buttonSpacing="0dp"
         fab:menu_colorNormal="@color/primary"
         fab:menu_colorPressed="@color/primary_darker"
         fab:menu_colorRipple="@color/primary_darker"
-        fab:menu_fab_label="Actions"
-        android:visibility="gone"
-        fab:menu_fab_size="normal"
-        fab:menu_icon="@drawable/ic_bookmark_24dp"
+        fab:menu_icon="@drawable/ic_touch_24dp"
         fab:menu_showShadow="true">
 
         <com.github.clans.fab.FloatingActionButton
@@ -77,7 +78,7 @@
             android:id="@+id/chapter_detail_verse_action_reset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_bookmark_24dp"
+            android:src="@drawable/ic_reset_24dp"
             fab:fab_label="@string/menu_action_reset"
             fab:fab_size="mini" />
     </com.github.clans.fab.FloatingActionMenu>
