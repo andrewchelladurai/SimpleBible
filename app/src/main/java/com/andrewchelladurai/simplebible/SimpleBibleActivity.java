@@ -33,7 +33,7 @@ public class SimpleBibleActivity
     // TODO: 22/10/16 remove selective references form existing bookmarks
     // TODO: 22/10/16 long press on daily verse to share or bookmark
     // TODO: 22/10/16 swipe gesture
-    // TODO: 22/10/16 adjust layout of bookmark activity when keyboard is shown
+    // TODO: 31/10/16 Implement Reset FAB Action in Chapter View
 
     private static final String TAG = "SB_SBActivity";
     private SimpleBibleActivityPresenter mPresenter;

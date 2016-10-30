@@ -27,7 +27,7 @@
             android:label="@string/activity_bookmark_title"
             android:parentActivityName=".SimpleBibleActivity"
             android:theme="@style/SBTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize">
+            android:windowSoftInputMode="stateHidden|adjustPan">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.andrewchelladurai.simplebible.SimpleBibleActivity" />
