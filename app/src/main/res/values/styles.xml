@@ -5,7 +5,9 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="StyleForActionButtons" parent="StyleForButtons">
+    <style name="StyleForActionButtons" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:minHeight">48dp</item>
         <item name="android:minWidth">48dp</item>
     </style>
