@@ -26,7 +26,7 @@
 
 package com.andrewchelladurai.simplebible.interaction;
 
-import com.andrewchelladurai.simplebible.model.BookmarkList;
+import com.andrewchelladurai.simplebible.model.BookmarkList.BookmarkItem;
 
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com on 15-Sep-2016 @ 4:48 PM
@@ -34,11 +34,11 @@ import com.andrewchelladurai.simplebible.model.BookmarkList;
 public interface BookmarksTabOperations
         extends BasicOperations {
 
-    void bookmarkClicked(BookmarkList.BookmarkItem item);
+    void bookmarkClicked(BookmarkItem item);
 
-    void deleteButtonClicked(BookmarkList.BookmarkItem item);
+    void deleteButtonClicked(BookmarkItem item);
 
-    void shareButtonClicked(BookmarkList.BookmarkItem item);
+    void shareButtonClicked(BookmarkItem item);
 
     String getDeleteButtonLabel();
 
@@ -53,4 +53,8 @@ public interface BookmarksTabOperations
     void shareSelectedVerses(String shareText);
 
     String getShareBookmarkTemplate();
+
+    String getEditButtonLabel();
+
+    void editButtonClicked(BookmarkItem mItem);
 }

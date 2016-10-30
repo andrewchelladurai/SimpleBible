@@ -65,6 +65,8 @@ public class BookmarkListAdapter
             AppCompatButton button =
                     (AppCompatButton) view.findViewById(R.id.bookmark_item_button_delete);
             button.setOnClickListener(this);
+            button = (AppCompatButton) view.findViewById(R.id.bookmark_item_button_edit);
+            button.setOnClickListener(this);
             button = (AppCompatButton) view.findViewById(R.id.bookmark_item_button_share);
             button.setOnClickListener(this);
         }
@@ -128,7 +130,9 @@ public class BookmarkListAdapter
                 String label = ((AppCompatButton) view).getText().toString();
                 if (label.equalsIgnoreCase(mListener.getDeleteButtonLabel())) {
                     mListener.deleteButtonClicked(mItem);
-                } else if (label.equalsIgnoreCase(mListener.getShareButtonLabel())) {
+                } else if (label.equalsIgnoreCase(mListener.getEditButtonLabel())) {
+                    mListener.editButtonClicked(mItem);
+                }else if (label.equalsIgnoreCase(mListener.getShareButtonLabel())) {
                     mListener.shareButtonClicked(mItem);
                 }
             } else {

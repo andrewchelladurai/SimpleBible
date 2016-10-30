@@ -98,7 +98,7 @@ public class BookmarkActivity
     }
 
     private void showCorrectMode() {
-        if (mMode.equals(CREATE)) {
+        if (mMode.equals(CREATE) || mMode.equals(EDIT)) {
             mButtonSave.setVisibility(View.VISIBLE);
             mButtonEdit.setVisibility(View.GONE);
             mButtonDelete.setVisibility(View.GONE);

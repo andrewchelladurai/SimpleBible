@@ -25,6 +25,12 @@
             android:layout_below="@id/bookmark_item_note">
 
             <android.support.v7.widget.AppCompatButton
+                android:id="@+id/bookmark_item_button_edit"
+                style="@style/StyleForActionButtons"
+                android:layout_weight="1"
+                android:text="@string/fragment_bookmark_button_label_edit" />
+
+            <android.support.v7.widget.AppCompatButton
                 android:id="@+id/bookmark_item_button_delete"
                 style="@style/StyleForActionButtons"
                 android:layout_weight="1"

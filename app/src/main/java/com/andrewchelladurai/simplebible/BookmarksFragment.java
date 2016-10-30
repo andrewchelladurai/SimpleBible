@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.andrewchelladurai.simplebible.adapter.BookmarkListAdapter;
 import com.andrewchelladurai.simplebible.interaction.BookmarkActivityOperations;
@@ -140,6 +141,10 @@ public class BookmarksFragment
         return getString(R.string.fragment_bookmark_button_label_share);
     }
 
+    @Override public String getEditButtonLabel() {
+        return getString(R.string.fragment_bookmark_button_label_edit);
+    }
+
     @Override public String getResourceString(int stringReference) {
         return getString(stringReference);
     }
@@ -160,5 +165,24 @@ public class BookmarksFragment
 
     @Override public String getShareBookmarkTemplate() {
         return getString(R.string.share_bookmark_template);
+    }
+
+    @Override public void editButtonClicked(BookmarkItem item) {
+        Log.d(TAG, "editButtonClicked() called with: item = [" + item + "]");
+        boolean bookmarkExists = mPresenter.doesBookmarkReferenceExist(item.getReferences());
+        if (!bookmarkExists) {
+            Toast.makeText(getContext(), "Bookmark Entry Does not Exist", Toast.LENGTH_SHORT)
+                 .show();
+            return;
+        }
+
+        Bundle args = new Bundle();
+        args.putString(BookmarkActivityOperations.ARG_REFERENCE, item.getReferences());
+        String mode = BookmarkActivityOperations.EDIT;
+        args.putString(BookmarkActivityOperations.ARG_MODE, mode);
+
+        Intent intent = new Intent(getContext(), BookmarkActivity.class);
+        intent.putExtras(args);
+        startActivity(intent);
     }
 }

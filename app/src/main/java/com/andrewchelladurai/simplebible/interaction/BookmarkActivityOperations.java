@@ -34,6 +34,7 @@ public interface BookmarkActivityOperations
 
     String VIEW          = "VIEW";
     String CREATE        = "CREATE";
+    String EDIT          = "EDIT";
     String ARG_REFERENCE = "ARG_REFERENCE";
     String ARG_MODE      = "ARG_MODE";
 
