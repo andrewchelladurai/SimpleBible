@@ -163,6 +163,7 @@ public class ChapterFragment
     }
 
     @Override public void refresh() {
+        mListAdapter.notifyDataSetChanged();
         toggleActionBar(VerseList.isSelectedItemsEmpty());
     }
 
@@ -215,8 +216,11 @@ public class ChapterFragment
             bookmarkButtonClicked();
         } else if (v.equals(fabShare)) {
             mPresenter.shareButtonClicked();
-        } else if (v.equals(fabShare)) {
-            mPresenter.shareButtonClicked();
+        } else if (v.equals(fabReset)) {
+            boolean cleared = mPresenter.resetButtonClicked();
+            if (cleared) {
+                refresh();
+            }
         }
     }
 

@@ -117,4 +117,12 @@ public class ChapterFragmentPresenter {
 
         mOperations.shareSelectedVerses(shareText.toString());
     }
+
+    public boolean resetButtonClicked() {
+        Collection<VerseItem> selectedItems = VerseList.getSelectedItems();
+        if (selectedItems.size()>0){
+            return VerseList.clearSelectedItems();
+        }
+        return false;
+    }
 }

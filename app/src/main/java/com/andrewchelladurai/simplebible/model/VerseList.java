@@ -110,6 +110,11 @@ public class VerseList {
         return SELECTED_ITEMS.values();
     }
 
+    public static boolean clearSelectedItems() {
+        SELECTED_ITEMS.clear();
+        return (SELECTED_ITEMS.size() == 0);
+    }
+
     public static class VerseItem {
 
         private final int    mChapterNumber;
