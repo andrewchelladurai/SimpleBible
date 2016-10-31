@@ -33,7 +33,6 @@ public class SimpleBibleActivity
     // TODO: 22/10/16 Make a notification service
     // TODO: 22/10/16 Select All option, if possible
     // TODO: 22/10/16 remove selective references form existing bookmarks
-    // TODO: 22/10/16 long press on daily verse to share or bookmark
     // TODO: 22/10/16 swipe gesture
     // TODO: 31/10/16 Fine Tune Bookmark Export
 

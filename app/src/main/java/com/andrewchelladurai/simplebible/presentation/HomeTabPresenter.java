@@ -1,15 +1,20 @@
 package com.andrewchelladurai.simplebible.presentation;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
+import com.andrewchelladurai.simplebible.BookmarkActivity;
+import com.andrewchelladurai.simplebible.interaction.BookmarkActivityOperations;
+import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
 import com.andrewchelladurai.simplebible.interaction.HomeTabOperations;
 import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.model.BooksList.BookItem;
 import com.andrewchelladurai.simplebible.model.ChapterList;
 import com.andrewchelladurai.simplebible.utilities.Constants;
 import com.andrewchelladurai.simplebible.utilities.DBUtility;
-import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
+import com.andrewchelladurai.simplebible.utilities.Utilities;
 
 import java.util.Calendar;
 import java.util.List;
@@ -69,12 +74,12 @@ public class HomeTabPresenter {
         return Constants.SUCCESS;
     }
 
-    public String getVerseContentForToday() {
+    private String[] getVerseReferenceForToday() {
+        Log.d(TAG, "getVerseReferenceForToday() called");
         final String defaultReference = Constants.DEFAULT_REFERENCE;
-        Log.d(TAG, "getVerseContentForToday() called");
         // get verse reference to use for today
         int dayOfTheYear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
-        Log.d(TAG, "getVerseContentForToday: dayOfTheYear = " + dayOfTheYear);
+        Log.d(TAG, "getVerseReferenceForToday: dayOfTheYear = " + dayOfTheYear);
         String[] array = mOperations.getDailyVerseArray();
         String reference;
         if (array == null) {
@@ -82,22 +87,28 @@ public class HomeTabPresenter {
         } else {
             reference = (dayOfTheYear > array.length) ? defaultReference : array[dayOfTheYear];
         }
-        Log.d(TAG, "getVerseContentForToday: reference = " + reference);
+        Log.d(TAG, "getVerseReferenceForToday: reference = " + reference);
 
         // check if the reference is correct
         if (!reference.contains(Constants.DELIMITER_IN_REFERENCE)) {
             // reference does not have delimiter
             reference = defaultReference;
-            Log.d(TAG, "getVerseContentForToday: reference does not have delimiter, using default");
+            Log.d(TAG,
+                  "getVerseReferenceForToday: reference does not have delimiter, using default");
         }
         array = reference.split(Constants.DELIMITER_IN_REFERENCE);
         if (array.length != 3) {
             // there are not 3 parts to the reference
             reference = defaultReference;
             array = reference.split(Constants.DELIMITER_IN_REFERENCE);
-            Log.d(TAG, "getVerseContentForToday: reference does not have 3 parts, using default");
+            Log.d(TAG, "getVerseReferenceForToday: reference does not have 3 parts, using default");
         }
+        return array;
+    }
 
+    public String getVerseContentForToday() {
+        Log.d(TAG, "getVerseContentForToday() called");
+        String array[] = getVerseReferenceForToday();
         int bookNumber, chapterNumber, verseNumber;
         try {
             bookNumber = Integer.parseInt(array[0]);
@@ -105,8 +116,8 @@ public class HomeTabPresenter {
             verseNumber = Integer.parseInt(array[2]);
         } catch (NumberFormatException npe) {
             // the reference could not be parsed correctly
-            reference = Constants.DEFAULT_REFERENCE;
-            array = reference.split(Constants.DELIMITER_IN_REFERENCE);
+            String defaultReference = Constants.DEFAULT_REFERENCE;
+            array = defaultReference.split(Constants.DELIMITER_IN_REFERENCE);
             bookNumber = Integer.parseInt(array[0]);
             chapterNumber = Integer.parseInt(array[1]);
             verseNumber = Integer.parseInt(array[2]);
@@ -118,7 +129,7 @@ public class HomeTabPresenter {
         String verseText = dbUtility.getVerseForReference(bookNumber, chapterNumber, verseNumber);
 
         if (verseText == null) {
-            verseText = "No verse found for reference : " + reference;
+            verseText = "No verse found for reference";
             return verseText;
         }
 
@@ -165,5 +176,50 @@ public class HomeTabPresenter {
 
     public boolean loadChapterList(BookItem item, String prependText) {
         return ChapterList.populateListItems(item.getChapterCount(), prependText);
+    }
+
+    public String getTextToShareDailyVerse() {
+        Log.d(TAG, "getTextToShareDailyVerse() called");
+        String text = getVerseContentForToday();
+        if (text != null && !text.isEmpty()) {
+            return text.substring(0, text.lastIndexOf("\n"));
+        }
+        return null;
+    }
+
+    public Intent bookmarkVerseForToday() {
+        Log.d(TAG, "bookmarkVerseForToday() called");
+        String[] array = getVerseReferenceForToday();
+        String reference = Utilities.prepareReferenceString(
+                Integer.parseInt(array[0]),
+                Integer.parseInt(array[1]),
+                Integer.parseInt(array[2]));
+        if (reference.isEmpty()) {
+            Log.d(TAG, "bookmarkVerseForToday: reference is empty");
+            return null;
+        }
+
+        DBUtilityOperations dbu = DBUtility.getInstance();
+
+        boolean referenceExists = dbu.doesBookmarkReferenceExist(reference);
+        String bmMode = (referenceExists) ? BookmarkActivityOperations.VIEW
+                                          : BookmarkActivityOperations.CREATE;
+
+        Bundle args = new Bundle();
+        args.putString(BookmarkActivityOperations.ARG_REFERENCE, reference);
+        switch (bmMode) {
+            case BookmarkActivityOperations.VIEW:
+                args.putString(BookmarkActivityOperations.ARG_MODE,
+                               BookmarkActivityOperations.VIEW);
+                break;
+            case BookmarkActivityOperations.CREATE:
+            default:
+                args.putString(BookmarkActivityOperations.ARG_MODE,
+                               BookmarkActivityOperations.CREATE);
+                Log.d(TAG, "bookmarkVerseForToday: setting ARG_MODE = CREATE");
+        }
+        Intent intent = new Intent(mOperations.getFragmentContext(), BookmarkActivity.class);
+        intent.putExtras(args);
+        return intent;
     }
 }

@@ -1,9 +1,11 @@
 package com.andrewchelladurai.simplebible;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
@@ -17,10 +19,12 @@ import com.andrewchelladurai.simplebible.interaction.HomeTabOperations;
 import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.presentation.HomeTabPresenter;
 import com.andrewchelladurai.simplebible.utilities.Constants;
+import com.andrewchelladurai.simplebible.utilities.Utilities;
 
 public class HomeFragment
         extends Fragment
-        implements View.OnClickListener, HomeTabOperations, View.OnFocusChangeListener {
+        implements View.OnClickListener, HomeTabOperations, View.OnFocusChangeListener,
+                   View.OnLongClickListener, DialogInterface.OnClickListener {
 
     private static final String TAG = "SB_HomeFragment";
     private AppCompatAutoCompleteTextView mBookInput;
@@ -50,6 +54,7 @@ public class HomeFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         mDailyVerse = (AppCompatTextView) view.findViewById(R.id.fragment_home_daily_verse);
+        mDailyVerse.setOnLongClickListener(this);
         mBookInput = (AppCompatAutoCompleteTextView)
                 view.findViewById(R.id.fragment_home_input_book_name);
         mChapterInput = (AppCompatAutoCompleteTextView)
@@ -186,6 +191,44 @@ public class HomeFragment
             mPresenter.validateBookInput(getBookInput());
         } else if (mBookInput.hasFocus()) {
             // FIXME: 25/9/16 code if needed
+        }
+    }
+
+    @Override public boolean onLongClick(View view) {
+        if (!view.equals(mDailyVerse)) {
+            return false;
+        }
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+        dialog.setMessage("What would you wish to do with Today's Verse?");
+        dialog.setCancelable(true);
+        dialog.setPositiveButton("Share", this);
+        dialog.setNegativeButton("Bookmark", this);
+        dialog.setNeutralButton("Cancel", this);
+        dialog.show();
+        return true;
+    }
+
+    @Override public void onClick(DialogInterface dialogInterface, int i) {
+        Intent intent = null;
+        switch (i) {
+            case AlertDialog.BUTTON_POSITIVE: // Share
+                String stringToShare = mPresenter.getTextToShareDailyVerse();
+                if (stringToShare != null && !stringToShare.isEmpty()) {
+                    intent = Utilities.shareVerse(stringToShare);
+                }
+                break;
+            case AlertDialog.BUTTON_NEGATIVE: // Bookmark
+                intent = mPresenter.bookmarkVerseForToday();
+                break;
+            case AlertDialog.BUTTON_NEUTRAL: // Cancel
+                intent = null;
+                break;
+            default: // ???
+                Log.e(TAG, "onClick: " + getString(R.string.how_am_i_here));
+                return;
+        }
+        if (intent != null) {
+            startActivity(intent);
         }
     }
 }
