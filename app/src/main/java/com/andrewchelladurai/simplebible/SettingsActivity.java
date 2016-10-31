@@ -183,6 +183,10 @@ public class SettingsActivity
                     } else if (preference instanceof RingtonePreference) {
                         value = ((RingtonePreference) preference).getShowSilent()
                                 ? "Enabled" : "Silent";
+                    } else if (pref_key.equalsIgnoreCase(
+                            getString(R.string.pref_key_export_bookmarks))) {
+                        value = "";
+                        preference.setOnPreferenceClickListener(mListener);
                     } else {
                         value = "";
                     }
@@ -191,6 +195,10 @@ public class SettingsActivity
                     preference.setOnPreferenceClickListener(mListener);
                 }
             }
+        }
+
+        private void exportBookmarks() {
+            Log.e(TAG, "exportBookmarks() called : Unsupported Operation");
         }
 
         private void showChangeLogDialog() {
@@ -241,6 +249,8 @@ public class SettingsActivity
                 Log.d(TAG, "onPreferenceClick() called key = [" + key + "]");
                 if (key.equalsIgnoreCase(getString(R.string.pref_key_changelog))) {
                     showChangeLogDialog();
+                } else if (key.equalsIgnoreCase(getString(R.string.pref_key_export_bookmarks))) {
+                    exportBookmarks();
                 }
                 return true;
             }
