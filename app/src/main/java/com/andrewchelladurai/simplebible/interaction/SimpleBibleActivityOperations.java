@@ -32,7 +32,7 @@ public interface SimpleBibleActivityOperations
 
     String getResourceString(int stringId);
 
-    boolean exportBookmarks();
+    String exportBookmarks();
 
     File getBookmarkFileLocation();
 }

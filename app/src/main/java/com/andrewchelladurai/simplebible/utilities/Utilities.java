@@ -298,7 +298,7 @@ public class Utilities {
         mOperations = operations;
     }
 
-    public static boolean exportBookmarks() {
+    public static String exportBookmarks() {
         return mOperations.exportBookmarks();
     }
 }

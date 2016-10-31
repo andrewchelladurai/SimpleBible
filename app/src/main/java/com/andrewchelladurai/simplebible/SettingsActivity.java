@@ -47,8 +47,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.Toast;
 
+import com.andrewchelladurai.simplebible.utilities.Constants;
 import com.andrewchelladurai.simplebible.utilities.Utilities;
 
 /**
@@ -186,7 +186,7 @@ public class SettingsActivity
                                 ? "Enabled" : "Silent";
                     } else if (pref_key.equalsIgnoreCase(
                             getString(R.string.pref_key_export_bookmarks))) {
-                        value = "";
+                        value = getString(R.string.pref_key_export_bookmarks_summary);
                         preference.setOnPreferenceClickListener(mListener);
                     } else {
                         value = "";
@@ -199,9 +199,15 @@ public class SettingsActivity
         }
 
         private void exportBookmarks() {
-            boolean created = Utilities.exportBookmarks();
-            String message = (created) ? "Exported" : "Failed";
-            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            String returnMessage = Utilities.exportBookmarks();
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            if (returnMessage != null && returnMessage.contains(Constants.DELIMITER_IN_REFERENCE)) {
+                String message[] = returnMessage.split(Constants.DELIMITER_IN_REFERENCE);
+                builder.setMessage(message[0] + " : Exporting Bookmarks\n\n" + message[1]);
+            } else {
+                builder.setMessage("You will now have to grant permission manually");
+            }
+            builder.show();
         }
 
         private void showChangeLogDialog() {

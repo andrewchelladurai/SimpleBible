@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -31,13 +30,12 @@ public class SimpleBibleActivity
         extends AppCompatActivity
         implements SimpleBibleActivityOperations {
 
-    // TODO: 22/10/16 Settings Screen
     // TODO: 22/10/16 Make a notification service
-    // TODO: 22/10/16 export saved bookmarks
     // TODO: 22/10/16 Select All option, if possible
     // TODO: 22/10/16 remove selective references form existing bookmarks
     // TODO: 22/10/16 long press on daily verse to share or bookmark
     // TODO: 22/10/16 swipe gesture
+    // TODO: 31/10/16 Fine Tune Bookmark Export
 
     private static final String TAG = "SB_SBActivity";
     private SimpleBibleActivityPresenter mPresenter;
@@ -156,18 +154,14 @@ public class SimpleBibleActivity
         return getString(stringId);
     }
 
-    @Override public boolean exportBookmarks() {
+    @Override public String exportBookmarks() {
         return mPresenter.exportBookmarks();
     }
 
     @Override public File getBookmarkFileLocation() {
-        /* Request user permissions in runtime */
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            ActivityCompat.requestPermissions(
-                    this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                       Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
-        }
-        /* Request user permissions in runtime */
+        Log.d(TAG, "getBookmarkFileLocation() called");
+        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        ActivityCompat.requestPermissions(this, permissions, 0);
 
         String dir = getResourceString(R.string.application_name)
                              .replaceAll(" ", "_") + File.separator;
@@ -186,4 +180,29 @@ public class SimpleBibleActivity
         Log.d(TAG, "getBookmarkFileLocation: External Storage Unavailable, returning null");
         return null;
     }
+
+/*
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.d(TAG, "onRequestPermissionsResult() called with: requestCode = [" + requestCode
+                   + "], permissions = [" + Arrays.toString(permissions) + "], grantResults = ["
+                   + Arrays.toString(grantResults) + "]");
+        String message;
+        switch (requestCode) {
+            case 0: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    message = "Thank You!!\nPlease Press the Entry again to Export.";
+                } else {
+                    message = "You will have to manually Allow the Permission\n"
+                              + "to enable this Function";
+                }
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+*/
 }

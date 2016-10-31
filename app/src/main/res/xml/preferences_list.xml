@@ -47,11 +47,12 @@
             android:title="@string/pref_key_reminder_vibrate_title" />
     </PreferenceCategory>
 
-    <Preference
-        android:key="@string/pref_key_export_bookmarks"
-        android:summary="@string/pref_key_export_bookmarks_summary"
-        android:title="@string/pref_header_export_bookmarks">
-    </Preference>
+    <PreferenceCategory android:title="@string/pref_cat_export_title">
+        <Preference
+            android:key="@string/pref_key_export_bookmarks"
+            android:summary="@string/pref_key_export_bookmarks_summary"
+            android:title="@string/pref_header_export_bookmarks"/>
+    </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_cat_about_title">
         <Preference
             android:key="@string/pref_key_changelog"

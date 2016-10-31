@@ -7,6 +7,7 @@ import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
 import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityOperations;
 import com.andrewchelladurai.simplebible.model.BooksList;
+import com.andrewchelladurai.simplebible.utilities.Constants;
 import com.andrewchelladurai.simplebible.utilities.DBUtility;
 import com.andrewchelladurai.simplebible.utilities.Utilities;
 
@@ -99,14 +100,14 @@ public class SimpleBibleActivityPresenter {
         return reader;
     }
 
-    public boolean exportBookmarks() {
+    public String exportBookmarks() {
         Log.d(TAG, "exportBookmarks() called");
 
         DBUtilityOperations dbu = DBUtility.getInstance();
         ArrayList<String[]> items = dbu.getAllBookmarks();
         if (items.isEmpty()) {
-            Log.d(TAG, "exportBookmarks: Empty Bookmarks List");
-            return false;
+            return Constants.FAILURE + Constants.DELIMITER_IN_REFERENCE +
+                   "No Bookmarks Exist";
         }
         String[] itemParts;
         String line, verseText, verseTemplate =
@@ -115,8 +116,7 @@ public class SimpleBibleActivityPresenter {
                 mOperations.getResourceString(R.string.share_bookmark_template);
 
         Calendar calendar = Calendar.getInstance();
-        String fileName = mOperations.getResourceString(R.string.application_name) + " "
-                          + "Bookmarks Export "
+        String fileName = "Bookmarks Export "
                           + calendar.get(Calendar.DAY_OF_MONTH) + "-"
                           + calendar.get(Calendar.MONTH) + "-"
                           + calendar.get(Calendar.YEAR) + " "
@@ -128,24 +128,23 @@ public class SimpleBibleActivityPresenter {
         File location = mOperations.getBookmarkFileLocation();
         if (null == location) {
             Log.e(TAG, "exportBookmarks: returned location was null");
-            return false;
+            return Constants.FAILURE + Constants.DELIMITER_IN_REFERENCE +
+                   "File Location could not be created";
         }
         Log.d(TAG, "exportBookmarks: File : " + location.getPath());
 
         File file = new File(location, fileName);
         boolean created;
-//        Log.d(TAG, "exportBookmarks: Directory Created : " + created);
         try {
             created = file.createNewFile();
-            Log.d(TAG, "exportBookmarks: File creation result : " + created);
             if (!created) {
                 Log.e(TAG, "exportBookmarks: " + fileName + " could not be created");
-                return false;
+                return Constants.FAILURE + Constants.DELIMITER_IN_REFERENCE +
+                       "Bookmark File Could not be created";
             }
         } catch (IOException ex) {
             Log.e(TAG, "exportBookmarks: File Not Created", ex);
-            ex.printStackTrace();
-            return false;
+            return null;
         }
 
         Log.d(TAG, "exportBookmarks: " + file.getPath() + " created");
@@ -164,10 +163,12 @@ public class SimpleBibleActivityPresenter {
             }
             fos.close();
             Log.d(TAG, "exportBookmarks: Bookmarks File Populated : " + location.getPath());
-            return true;
+            return Constants.SUCCESS + Constants.DELIMITER_IN_REFERENCE +
+                   "Bookmarks File " + file.getName() + " created";
         } catch (IOException ex) {
             Log.e(TAG, "exportBookmarks: Error creating Bookmarks File", ex);
-            return false;
+            return Constants.FAILURE + Constants.DELIMITER_IN_REFERENCE +
+                   "Exception - Error creating Bookmarks File";
         }
     }
 }

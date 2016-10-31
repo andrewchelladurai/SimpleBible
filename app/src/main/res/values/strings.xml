@@ -142,8 +142,9 @@
     <!--Keys and strings related to Reminder end here-->
 
     <!--Keys and strings related to Bookmarks Export start here-->
+    <string name="pref_cat_export_title">Tools and Functions</string>
     <string name="pref_key_export_bookmarks">pref_key_export_bookmarks</string>
-    <string name="pref_key_export_bookmarks_summary">Creates a list in a File for Easy Sharing</string>
+    <string name="pref_key_export_bookmarks_summary">Creates a File for Easy Sharing</string>
     <string name="pref_header_export_bookmarks">Export Bookmarks &amp; Notes</string>
     <!--Keys and strings related to Bookmarks Export end here-->
 
