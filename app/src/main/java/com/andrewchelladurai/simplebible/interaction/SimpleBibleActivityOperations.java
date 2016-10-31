@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.andrewchelladurai.simplebible.presentation.SimpleBibleActivityPresenter;
 
+import java.io.File;
 import java.io.InputStreamReader;
 
 /**
@@ -30,4 +31,8 @@ public interface SimpleBibleActivityOperations
     SharedPreferences getDefaultPreferences();
 
     String getResourceString(int stringId);
+
+    boolean exportBookmarks();
+
+    File getBookmarkFileLocation();
 }

@@ -1,11 +1,15 @@
 package com.andrewchelladurai.simplebible;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
+import android.support.v13.app.ActivityCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +24,7 @@ import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityOperatio
 import com.andrewchelladurai.simplebible.presentation.SimpleBibleActivityPresenter;
 import com.andrewchelladurai.simplebible.utilities.Utilities;
 
+import java.io.File;
 import java.io.InputStreamReader;
 
 public class SimpleBibleActivity
@@ -28,7 +33,7 @@ public class SimpleBibleActivity
 
     // TODO: 22/10/16 Settings Screen
     // TODO: 22/10/16 Make a notification service
-        // TODO: 22/10/16 export saved bookmarks
+    // TODO: 22/10/16 export saved bookmarks
     // TODO: 22/10/16 Select All option, if possible
     // TODO: 22/10/16 remove selective references form existing bookmarks
     // TODO: 22/10/16 long press on daily verse to share or bookmark
@@ -151,4 +156,34 @@ public class SimpleBibleActivity
         return getString(stringId);
     }
 
+    @Override public boolean exportBookmarks() {
+        return mPresenter.exportBookmarks();
+    }
+
+    @Override public File getBookmarkFileLocation() {
+        /* Request user permissions in runtime */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            ActivityCompat.requestPermissions(
+                    this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                       Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
+        }
+        /* Request user permissions in runtime */
+
+        String dir = getResourceString(R.string.application_name)
+                             .replaceAll(" ", "_") + File.separator;
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+            File file = new File(Environment.getExternalStorageDirectory(), dir);
+            if (file.exists()) {
+                return file;
+            }
+            if (file.mkdirs()) {
+                return file;
+            } else {
+                Log.d(TAG, "getBookmarkFileLocation: " + file.getPath() + " Could not be created");
+                return null;
+            }
+        }
+        Log.d(TAG, "getBookmarkFileLocation: External Storage Unavailable, returning null");
+        return null;
+    }
 }

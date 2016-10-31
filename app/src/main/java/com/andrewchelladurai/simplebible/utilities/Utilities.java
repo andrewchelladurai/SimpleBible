@@ -297,4 +297,8 @@ public class Utilities {
     public static void setInstance(SimpleBibleActivityOperations operations) {
         mOperations = operations;
     }
+
+    public static boolean exportBookmarks() {
+        return mOperations.exportBookmarks();
+    }
 }

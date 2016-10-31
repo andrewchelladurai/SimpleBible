@@ -47,6 +47,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import com.andrewchelladurai.simplebible.utilities.Utilities;
 
@@ -198,7 +199,9 @@ public class SettingsActivity
         }
 
         private void exportBookmarks() {
-            Log.e(TAG, "exportBookmarks() called : Unsupported Operation");
+            boolean created = Utilities.exportBookmarks();
+            String message = (created) ? "Exported" : "Failed";
+            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
         }
 
         private void showChangeLogDialog() {
