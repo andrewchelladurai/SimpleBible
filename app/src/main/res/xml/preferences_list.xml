@@ -50,7 +50,7 @@
         <Preference
             android:key="@string/pref_key_export_bookmarks"
             android:summary="@string/pref_key_export_bookmarks_summary"
-            android:title="@string/pref_header_export_bookmarks"/>
+            android:title="@string/pref_header_export_bookmarks" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_cat_about_title">
         <Preference
@@ -76,11 +76,9 @@
             <intent
                 android:action="android.intent.action.VIEW"
                 android:data="@string/mail_to_email">
-                <!--
-                                <extra
-                                    android:name = "android.intent.extra.SUBJECT"
-                                    android:value = "@string/feedback_email_subject" />
-                -->
+                <extra
+                    android:name="android.intent.extra.SUBJECT"
+                    android:value="@string/feedback_email_subject" />
             </intent>
         </Preference>
         <Preference
