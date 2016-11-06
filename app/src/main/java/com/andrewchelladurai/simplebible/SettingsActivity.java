@@ -163,14 +163,15 @@ public class SettingsActivity
     public static class AboutPreferenceFragment
             extends PreferenceFragment {
 
-        private final PreferenceListener mListener = new PreferenceListener();
+        private static final String             TAG       = "SB_AboutPreference";
+        private final        PreferenceListener mListener = new PreferenceListener();
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences_list);
 
-            String keyList[] = getResources().getStringArray(R.array.pref_key_list);
+            final String keyList[] = getResources().getStringArray(R.array.pref_key_list);
             Preference preference;
             String value;
             for (String pref_key : keyList) {
@@ -179,15 +180,14 @@ public class SettingsActivity
                     if (preference instanceof ListPreference) {
                         value = ((ListPreference) preference).getValue();
                     } else if (preference instanceof SwitchPreference) {
-                        value = ((SwitchPreference) preference).isChecked()
-                                ? "Disabled" : "Enabled";
+                        boolean isChecked = ((SwitchPreference) preference).isChecked();
+                        value = getSummaryForSwitchPreference(isChecked, pref_key);
                     } else if (preference instanceof RingtonePreference) {
                         value = ((RingtonePreference) preference).getShowSilent()
                                 ? "Enabled" : "Silent";
                     } else if (pref_key.equalsIgnoreCase(
                             getString(R.string.pref_key_export_bookmarks))) {
                         value = getString(R.string.pref_key_export_bookmarks_summary);
-                        preference.setOnPreferenceClickListener(mListener);
                     } else {
                         value = "";
                     }
@@ -196,6 +196,31 @@ public class SettingsActivity
                     preference.setOnPreferenceClickListener(mListener);
                 }
             }
+        }
+
+        private String getSummaryForSwitchPreference(
+                boolean isChecked, @NonNull final String pref_key) {
+            Log.d(TAG, "getSummaryForSwitchPreference() called [" + pref_key + "] = " + isChecked);
+            String value;
+            switch (pref_key) {
+                case "pref_key_theme_dark":
+                    value = isChecked ? getString(R.string.pref_key_theme_dark_summary_enabled)
+                                      : getString(R.string.pref_key_theme_dark_summary_disabled);
+                    break;
+                case "pref_key_reminder":
+                    value = isChecked ? getString(R.string.pref_key_reminder_summary_enabled)
+                                      : getString(R.string.pref_key_reminder_summary_disabled);
+                    break;
+                case "pref_key_reminder_vibrate":
+                    value = isChecked
+                            ? getString(R.string.pref_key_reminder_vibrate_summary_enabled)
+                            : getString(R.string.pref_key_reminder_vibrate_summary_disabled);
+                    break;
+                default:
+                    value = isChecked ? "Disabled" : "Enabled";
+            }
+            Log.d(TAG, "getSummaryForSwitchPreference() returned: " + value);
+            return value;
         }
 
         private void exportBookmarks() {
@@ -227,22 +252,23 @@ public class SettingsActivity
                 implements Preference.OnPreferenceChangeListener,
                            Preference.OnPreferenceClickListener {
 
-            @Override public boolean onPreferenceChange(Preference pPreference, Object pObject) {
-                Log.d(TAG, "onPreferenceChange: " + pPreference.getKey());
+            @Override public boolean onPreferenceChange(Preference preference, Object obj) {
+                final String pPreferenceKey = preference.getKey();
+                Log.d(TAG, "onPreferenceChange: " + pPreferenceKey);
                 String value;
-                if (pPreference instanceof ListPreference) {
-                    value = pObject.toString();
-                } else if (pPreference instanceof SwitchPreference) {
-                    value = ((SwitchPreference) pPreference).isChecked()
-                            ? "Disabled" : "Enabled";
-                } else if (pPreference instanceof RingtonePreference) {
-                    value = ((RingtonePreference) pPreference).getShowSilent()
-                            ? "Enabled" : "Silent";
+                if (preference instanceof ListPreference) {
+                    value = obj.toString();
+                } else if (preference instanceof SwitchPreference) {
+                    final boolean isChecked = ((SwitchPreference) preference).isChecked();
+                    value = getSummaryForSwitchPreference(isChecked, pPreferenceKey);
+                } else if (preference instanceof RingtonePreference) {
+                    value = ((RingtonePreference) preference).getShowSilent()
+                            ? "Silent" : "Ring Audibly";
                 } else {
-                    value = pObject.toString();
+                    value = obj.toString();
                 }
-                pPreference.setSummary(value);
-                if (pPreference.getKey().equalsIgnoreCase(
+                preference.setSummary(value);
+                if (pPreferenceKey.equalsIgnoreCase(
                         getString(R.string.pref_key_theme_dark))) {
                     Utilities.restartApplication(getActivity());
                 }

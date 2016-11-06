@@ -28,7 +28,6 @@
     <PreferenceCategory android:title="@string/pref_cat_reminder_title">
         <SwitchPreference
             android:defaultValue="false"
-            android:enabled="false"
             android:key="@string/pref_key_reminder"
             android:summary="@string/text_disabled"
             android:title="@string/pref_key_reminder_title" />

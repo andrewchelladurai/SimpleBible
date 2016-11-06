@@ -97,6 +97,8 @@
     <string name="pref_cat_theme_title">Theme &amp; Appearance</string>
     <string name="pref_key_theme_dark">pref_key_theme_dark</string>
     <string name="pref_key_theme_title">Use DARK Theme</string>
+    <string name="pref_key_theme_dark_summary_enabled">Dark is cool</string>
+    <string name="pref_key_theme_dark_summary_disabled">Bright is right</string>
     <!--Keys and strings related to Theme end here-->
 
     <!--Keys and strings related to Verse style begin here-->
@@ -134,11 +136,16 @@
     <!--Keys and strings related to Reminder start here-->
     <string name="pref_cat_reminder_title">Reminder</string>
     <string name="pref_key_reminder">pref_key_reminder</string>
-    <string name="pref_key_reminder_title">Reminder : Coming Soon</string>
+    <string name="pref_key_reminder_title">Daily Notification Reminder</string>
+    <string name="pref_key_reminder_summary_enabled">Is Set To :</string>
+    <string name="pref_key_reminder_summary_disabled">Is NOT Set</string>
+
     <string name="pref_key_reminder_tone_title">Tone to use</string>
     <string name="pref_key_reminder_tone">pref_key_reminder_tone</string>
-    <string name="pref_key_reminder_vibrate_title">Vibrate</string>
     <string name="pref_key_reminder_vibrate">pref_key_reminder_vibrate</string>
+    <string name="pref_key_reminder_vibrate_title">Vibrate</string>
+    <string name="pref_key_reminder_vibrate_summary_enabled">No Sound</string>
+    <string name="pref_key_reminder_vibrate_summary_disabled">Will be Audible</string>
     <!--Keys and strings related to Reminder end here-->
 
     <!--Keys and strings related to Bookmarks Export start here-->
