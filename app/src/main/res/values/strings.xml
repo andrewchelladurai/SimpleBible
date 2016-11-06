@@ -136,8 +136,10 @@
     <!--Keys and strings related to Reminder start here-->
     <string name="pref_cat_reminder_title">Reminder</string>
     <string name="pref_key_reminder">pref_key_reminder</string>
+    <string name="pref_key_reminder_minute">pref_key_reminder_minute</string>
+    <string name="pref_key_reminder_hour">pref_key_reminder_hour</string>
     <string name="pref_key_reminder_title">Daily Notification Reminder</string>
-    <string name="pref_key_reminder_summary_enabled">Is Set To :</string>
+    <string name="pref_key_reminder_summary_enabled">Is Set To : %1$d : %2$d</string>
     <string name="pref_key_reminder_summary_disabled">Is NOT Set</string>
 
     <string name="pref_key_reminder_tone_title">Tone to use</string>
@@ -176,7 +178,6 @@
     <string name="pref_key_more_apps_summary">More Apps by Developer</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_export_notes">Export Notes</string>
-
     <!--Keys and strings related to About Category end here-->
 
     <!-- Strings related to Settings End Here -->

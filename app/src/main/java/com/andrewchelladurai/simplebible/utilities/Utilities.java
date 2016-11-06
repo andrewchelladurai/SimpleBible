@@ -49,6 +49,7 @@ import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.model.SearchResultList.SearchResultItem;
 import com.andrewchelladurai.simplebible.model.VerseList.VerseItem;
 
+import java.util.Calendar;
 import java.util.Collection;
 
 /**
@@ -300,5 +301,25 @@ public class Utilities {
 
     public static String exportBookmarks() {
         return mOperations.exportBookmarks();
+    }
+
+    public static int getReminderHour() {
+        Calendar calendar = Calendar.getInstance();
+        return getPreferences().getInt(
+                getString(R.string.pref_key_reminder_hour), calendar.get(Calendar.HOUR_OF_DAY));
+    }
+
+    public static int getReminderMinute() {
+        Calendar calendar = Calendar.getInstance();
+        return getPreferences().getInt(
+                getString(R.string.pref_key_reminder_minute), calendar.get(Calendar.HOUR_OF_DAY));
+    }
+
+    public static void setReminderTime(final int hour, final int minute) {
+        SharedPreferences.Editor editor = getPreferences().edit();
+        editor.putInt(getString(R.string.pref_key_reminder_hour), hour);
+        editor.putInt(getString(R.string.pref_key_reminder_minute), minute);
+        editor.apply();
+        editor.commit();
     }
 }

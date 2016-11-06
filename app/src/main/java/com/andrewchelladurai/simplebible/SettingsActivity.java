@@ -208,7 +208,9 @@ public class SettingsActivity
                     preference.setSummaryOff(R.string.pref_key_theme_dark_summary_disabled);
                     break;
                 case "pref_key_reminder":
-                    preference.setSummaryOn(R.string.pref_key_reminder_summary_enabled);
+                    preference.setSummaryOn(String.format(
+                            getString(R.string.pref_key_reminder_summary_enabled),
+                            Utilities.getReminderHour(), Utilities.getReminderMinute()));
                     preference.setSummaryOff(R.string.pref_key_reminder_summary_disabled);
                     break;
                 case "pref_key_reminder_vibrate":
@@ -240,10 +242,10 @@ public class SettingsActivity
             WebView webView = new WebView(getActivity());
             webView.loadUrl("file:///android_asset/about.html");
 
-            builder.setView(webView);
-            builder.setNegativeButton(null, null);
-            builder.setPositiveButton(null, null);
-            builder.show();
+            builder.setView(webView)
+                   .setNegativeButton(null, null)
+                   .setPositiveButton(null, null)
+                   .show();
         }
 
         private class PreferenceListener
@@ -293,7 +295,9 @@ public class SettingsActivity
         private void updateReminderPreferences(SwitchPreference preference) {
             Log.d(TAG, "updateReminderPreferences() called");
             if (preference.isChecked()) {
-                preference.setSummaryOn(R.string.pref_key_reminder_vibrate_summary_enabled);
+                TimePickerFragment dialog = new TimePickerFragment();
+                dialog.setPreference(preference);
+                dialog.show(getFragmentManager(), "TimePickerFragment");
             }
         }
     }
