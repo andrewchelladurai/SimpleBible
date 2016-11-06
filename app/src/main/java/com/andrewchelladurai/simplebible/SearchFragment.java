@@ -198,6 +198,9 @@ public class SearchFragment
     }
 
     @Override public String getResultsCountString(int count) {
+        if (!isAdded()) {
+            return String.valueOf(count);
+        }
         return getResources().getQuantityString(
                 R.plurals.fragment_search_result_count_template, count, count);
     }

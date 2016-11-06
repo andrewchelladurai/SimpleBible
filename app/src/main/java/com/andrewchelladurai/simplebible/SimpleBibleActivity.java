@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
-import android.support.v13.app.ActivityCompat;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -39,7 +39,6 @@ public class SimpleBibleActivity
     private static final String TAG = "SB_SBActivity";
     private SimpleBibleActivityPresenter mPresenter;
     private PagerAdapter                 mPagerAdapter;
-//    private ViewPager                    mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,29 +178,4 @@ public class SimpleBibleActivity
         Log.d(TAG, "getBookmarkFileLocation: External Storage Unavailable, returning null");
         return null;
     }
-
-/*
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
-                                           @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        Log.d(TAG, "onRequestPermissionsResult() called with: requestCode = [" + requestCode
-                   + "], permissions = [" + Arrays.toString(permissions) + "], grantResults = ["
-                   + Arrays.toString(grantResults) + "]");
-        String message;
-        switch (requestCode) {
-            case 0: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    message = "Thank You!!\nPlease Press the Entry again to Export.";
-                } else {
-                    message = "You will have to manually Allow the Permission\n"
-                              + "to enable this Function";
-                }
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-*/
 }
