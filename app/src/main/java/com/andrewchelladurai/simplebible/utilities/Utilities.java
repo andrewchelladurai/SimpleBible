@@ -27,6 +27,8 @@
 package com.andrewchelladurai.simplebible.utilities;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -43,6 +45,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.adapter.NotificationDisplayer;
 import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
 import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityOperations;
 import com.andrewchelladurai.simplebible.model.BooksList;
@@ -283,7 +286,7 @@ public class Utilities {
         return style;
     }
 
-    private static String getString(int stringId) {
+    public static String getString(int stringId) {
         return mOperations.getResourceString(stringId);
     }
 
@@ -321,5 +324,95 @@ public class Utilities {
         editor.putInt(getString(R.string.pref_key_reminder_minute), minute);
         editor.apply();
         editor.commit();
+    }
+
+    public static Context getApplicationContext() {
+        return mOperations.getThisApplicationContext();
+    }
+
+    public static void enableAndUpdateReminder(boolean enable) {
+        Log.d(TAG, "enableAndUpdateReminder() called");
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, getReminderHour());
+        calendar.set(Calendar.MINUTE, getReminderMinute());
+        calendar.set(Calendar.SECOND, 0);
+
+        final Context context = mOperations.getThisApplicationContext();
+        Intent intent = new Intent(context, NotificationDisplayer.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                        AlarmManager.INTERVAL_DAY, pendingIntent);
+        Log.d(TAG, "enableAndUpdateReminder() returned");
+    }
+
+    public static String getVerseContentForToday(@NonNull String[] reference,
+                                                 @NonNull String template) {
+        int bookNumber, chapterNumber, verseNumber;
+        try {
+            bookNumber = Integer.parseInt(reference[0]);
+            chapterNumber = Integer.parseInt(reference[1]);
+            verseNumber = Integer.parseInt(reference[2]);
+        } catch (NumberFormatException npe) {
+            // the reference could not be parsed correctly
+            final String defaultReference = Constants.DEFAULT_REFERENCE;
+            reference = defaultReference.split(Constants.DELIMITER_IN_REFERENCE);
+            bookNumber = Integer.parseInt(reference[0]);
+            chapterNumber = Integer.parseInt(reference[1]);
+            verseNumber = Integer.parseInt(reference[2]);
+            Log.d(TAG, "getVerseContentForToday: NPE when converting reference, using default");
+        }
+
+        // now get the verseText for the reference
+        DBUtilityOperations dbUtility = DBUtility.getInstance();
+        String verseText = dbUtility.getVerseForReference(bookNumber, chapterNumber, verseNumber);
+
+        if (verseText == null) {
+            verseText = "No verse found for reference";
+            return verseText;
+        }
+
+        // Beautify the Verse
+        BooksList.BookItem bookItem = BooksList.getBookItem(bookNumber);
+        String bookName = (null == bookItem) ? "" : bookItem.getBookName();
+
+        return String.format(template, verseText, bookName, chapterNumber, verseNumber);
+    }
+
+    public static String[] getVerseReferenceForToday(/*String[] verseArray*/) {
+        Log.d(TAG, "getVerseReferenceForToday() called");
+        final String defaultReference = Constants.DEFAULT_REFERENCE;
+        // get verse reference to use for today
+        int dayOfTheYear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+        Log.d(TAG, "getVerseReferenceForToday: dayOfTheYear = " + dayOfTheYear);
+        String reference;
+        String[] verseArray = getApplicationContext()
+                .getResources().getStringArray(R.array.daily_verse_list);
+
+        reference = (dayOfTheYear > verseArray.length) ? defaultReference
+                                                       : verseArray[dayOfTheYear];
+
+        if (reference == null || reference.isEmpty()) {
+            reference = defaultReference;
+        }
+        Log.d(TAG, "getVerseReferenceForToday: reference = " + reference);
+
+        // check if the reference is correct
+        if (!reference.contains(Constants.DELIMITER_IN_REFERENCE)) {
+            // reference does not have delimiter
+            reference = defaultReference;
+            Log.d(TAG,
+                  "getVerseReferenceForToday: reference does not have delimiter, using default");
+        }
+        verseArray = reference.split(Constants.DELIMITER_IN_REFERENCE);
+        if (verseArray.length != 3) {
+            // there are not 3 parts to the reference
+            reference = defaultReference;
+            verseArray = reference.split(Constants.DELIMITER_IN_REFERENCE);
+            Log.d(TAG, "getVerseReferenceForToday: reference does not have 3 parts, using default");
+        }
+        return verseArray;
     }
 }

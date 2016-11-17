@@ -32,7 +32,6 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.preference.SwitchPreference;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.widget.TimePicker;
 
 import com.andrewchelladurai.simplebible.utilities.Utilities;
@@ -45,7 +44,6 @@ public class TimePickerFragment
         extends DialogFragment
         implements TimePickerDialog.OnTimeSetListener {
 
-    private static final String TAG = "SB_TimePickerFragment";
     private SwitchPreference mPreference;
 
     @Override
@@ -61,8 +59,7 @@ public class TimePickerFragment
         mPreference.setSummaryOn(String.format(
                 getString(R.string.pref_key_reminder_summary_enabled),
                 Utilities.getReminderHour(), Utilities.getReminderMinute()));
-        Log.d(TAG, "onTimeSet() called with: hour = [" + hour
-                   + "], minute = [" + minute + "]");
+        Utilities.enableAndUpdateReminder(true);
     }
 
     public void setPreference(SwitchPreference preference) {

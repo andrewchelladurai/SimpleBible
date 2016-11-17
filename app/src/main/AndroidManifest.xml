@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.andrewchelladurai.simplebible">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -12,6 +14,9 @@
         android:label="@string/application_name"
         android:supportsRtl="true"
         android:theme="@style/SBTheme">
+
+        <receiver android:name="com.andrewchelladurai.simplebible.adapter.NotificationDisplayer" />
+
         <activity
             android:name=".SimpleBibleActivity"
             android:configChanges="keyboard|orientation"

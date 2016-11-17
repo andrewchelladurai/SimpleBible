@@ -16,7 +16,6 @@ import com.andrewchelladurai.simplebible.utilities.Constants;
 import com.andrewchelladurai.simplebible.utilities.DBUtility;
 import com.andrewchelladurai.simplebible.utilities.Utilities;
 
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -75,70 +74,13 @@ public class HomeTabPresenter {
     }
 
     private String[] getVerseReferenceForToday() {
-        Log.d(TAG, "getVerseReferenceForToday() called");
-        final String defaultReference = Constants.DEFAULT_REFERENCE;
-        // get verse reference to use for today
-        int dayOfTheYear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
-        Log.d(TAG, "getVerseReferenceForToday: dayOfTheYear = " + dayOfTheYear);
-        String[] array = mOperations.getDailyVerseArray();
-        String reference;
-        if (array == null) {
-            reference = defaultReference;
-        } else {
-            reference = (dayOfTheYear > array.length) ? defaultReference : array[dayOfTheYear];
-        }
-        Log.d(TAG, "getVerseReferenceForToday: reference = " + reference);
-
-        // check if the reference is correct
-        if (!reference.contains(Constants.DELIMITER_IN_REFERENCE)) {
-            // reference does not have delimiter
-            reference = defaultReference;
-            Log.d(TAG,
-                  "getVerseReferenceForToday: reference does not have delimiter, using default");
-        }
-        array = reference.split(Constants.DELIMITER_IN_REFERENCE);
-        if (array.length != 3) {
-            // there are not 3 parts to the reference
-            reference = defaultReference;
-            array = reference.split(Constants.DELIMITER_IN_REFERENCE);
-            Log.d(TAG, "getVerseReferenceForToday: reference does not have 3 parts, using default");
-        }
-        return array;
+        return Utilities.getVerseReferenceForToday();
     }
 
     public String getVerseContentForToday() {
         Log.d(TAG, "getVerseContentForToday() called");
-        String array[] = getVerseReferenceForToday();
-        int bookNumber, chapterNumber, verseNumber;
-        try {
-            bookNumber = Integer.parseInt(array[0]);
-            chapterNumber = Integer.parseInt(array[1]);
-            verseNumber = Integer.parseInt(array[2]);
-        } catch (NumberFormatException npe) {
-            // the reference could not be parsed correctly
-            String defaultReference = Constants.DEFAULT_REFERENCE;
-            array = defaultReference.split(Constants.DELIMITER_IN_REFERENCE);
-            bookNumber = Integer.parseInt(array[0]);
-            chapterNumber = Integer.parseInt(array[1]);
-            verseNumber = Integer.parseInt(array[2]);
-            Log.d(TAG, "getVerseContentForToday: NPE when converting reference, using default");
-        }
-
-        // now get the verseText for the reference
-        DBUtilityOperations dbUtility = DBUtility.getInstance();
-        String verseText = dbUtility.getVerseForReference(bookNumber, chapterNumber, verseNumber);
-
-        if (verseText == null) {
-            verseText = "No verse found for reference";
-            return verseText;
-        }
-
-        // Beautify the Verse
-        BookItem bookItem = BooksList.getBookItem(bookNumber);
-        String bookName = (null == bookItem) ? "" : bookItem.getBookName();
-        String formattedText = mOperations.getDailyVerseTemplate();
-
-        return String.format(formattedText, verseText, bookName, chapterNumber, verseNumber);
+        return Utilities.getVerseContentForToday(getVerseReferenceForToday(),
+                                                 mOperations.getDailyVerseTemplate());
     }
 
     public String[] getBookNamesList() {
