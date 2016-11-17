@@ -45,7 +45,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.adapter.NotificationDisplayer;
 import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
 import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityOperations;
 import com.andrewchelladurai.simplebible.model.BooksList;

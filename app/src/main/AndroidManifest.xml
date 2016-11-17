@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/SBTheme">
 
-        <receiver android:name="com.andrewchelladurai.simplebible.adapter.NotificationDisplayer" />
+        <receiver android:name="com.andrewchelladurai.simplebible.utilities.NotificationDisplayer" />
 
         <activity
             android:name=".SimpleBibleActivity"

@@ -1,6 +1,6 @@
 /*
  *
- * This file 'AlarmReceiver.java' is part of SimpleBible :
+ * This file 'NotificationDisplayer.java' is part of SimpleBible :
  *
  * Copyright (c) 2016.
  *
@@ -24,7 +24,7 @@
  *
  */
 
-package com.andrewchelladurai.simplebible.adapter;
+package com.andrewchelladurai.simplebible.utilities;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
