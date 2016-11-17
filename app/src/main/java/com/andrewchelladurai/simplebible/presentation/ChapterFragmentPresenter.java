@@ -47,7 +47,7 @@ import java.util.List;
 public class ChapterFragmentPresenter {
 
     private static final String TAG = "SB_CF_Presenter";
-    private ChapterFragmentOperations mOperations;
+    private final ChapterFragmentOperations mOperations;
 
     public ChapterFragmentPresenter(ChapterFragmentOperations operations) {
         mOperations = operations;
@@ -120,9 +120,6 @@ public class ChapterFragmentPresenter {
 
     public boolean resetButtonClicked() {
         Collection<VerseItem> selectedItems = VerseList.getSelectedItems();
-        if (selectedItems.size()>0){
-            return VerseList.clearSelectedItems();
-        }
-        return false;
+        return (selectedItems.size() > 0) && VerseList.clearSelectedItems();
     }
 }

@@ -218,8 +218,8 @@ public class SettingsActivity
                     preference.setSummaryOff(R.string.pref_key_reminder_vibrate_summary_disabled);
                     break;
                 default:
-                    preference.setSummaryOn("Enabled");
-                    preference.setSummaryOff("Disabled");
+                    preference.setSummaryOn(R.string.enabled);
+                    preference.setSummaryOff(R.string.disabled);
             }
         }
 
@@ -228,7 +228,9 @@ public class SettingsActivity
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             if (returnMessage != null && returnMessage.contains(Constants.DELIMITER_IN_REFERENCE)) {
                 String message[] = returnMessage.split(Constants.DELIMITER_IN_REFERENCE);
-                builder.setMessage(message[0] + " : Exporting Bookmarks\n\n" + message[1]);
+                builder.setTitle(String.format(
+                        getString(R.string.dialog_title_bookmarks_export), message[0]));
+                builder.setMessage(message[1]);
             } else {
                 builder.setMessage("You will now have to grant permission manually");
             }
@@ -246,6 +248,15 @@ public class SettingsActivity
                    .setNegativeButton(null, null)
                    .setPositiveButton(null, null)
                    .show();
+        }
+
+        private void updateReminderPreferences(SwitchPreference preference) {
+            Log.d(TAG, "updateReminderPreferences() called");
+            if (preference.isChecked()) {
+                TimePickerFragment dialog = new TimePickerFragment();
+                dialog.setPreference(preference);
+                dialog.show(getFragmentManager(), "TimePickerFragment");
+            }
         }
 
         private class PreferenceListener
@@ -289,15 +300,6 @@ public class SettingsActivity
                     updateReminderPreferences((SwitchPreference) pPreference);
                 }
                 return true;
-            }
-        }
-
-        private void updateReminderPreferences(SwitchPreference preference) {
-            Log.d(TAG, "updateReminderPreferences() called");
-            if (preference.isChecked()) {
-                TimePickerFragment dialog = new TimePickerFragment();
-                dialog.setPreference(preference);
-                dialog.show(getFragmentManager(), "TimePickerFragment");
             }
         }
     }

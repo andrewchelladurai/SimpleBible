@@ -25,7 +25,7 @@ import java.util.List;
 public class HomeTabPresenter {
 
     private static final String TAG = "SB_HF_Presenter";
-    private HomeTabOperations mOperations;
+    private final HomeTabOperations mOperations;
 
     public HomeTabPresenter(HomeTabOperations operations) {
         mOperations = operations;

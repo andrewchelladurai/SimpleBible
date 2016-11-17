@@ -29,6 +29,7 @@ package com.andrewchelladurai.simplebible.presentation;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.interaction.BookmarkActivityOperations;
 import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
 import com.andrewchelladurai.simplebible.model.BookmarkList;
@@ -42,7 +43,7 @@ import com.andrewchelladurai.simplebible.utilities.Utilities;
 public class BookmarkActivityPresenter {
 
     private static final String TAG = "SB_BA_Presenter";
-    private BookmarkActivityOperations mOperations;
+    private final BookmarkActivityOperations mOperations;
 
     public BookmarkActivityPresenter(BookmarkActivityOperations operations) {
         mOperations = operations;
@@ -66,7 +67,7 @@ public class BookmarkActivityPresenter {
         String verseText = Utilities.getShareableTextForReferences(references, verseTemplate);
 
         String note = item.getNote();
-        note = (note.isEmpty()) ? "Empty" : note;
+        note = (note.isEmpty()) ? mOperations.getResourceString(R.string.empty) : note;
 
         String shareBookmarkTemplate = mOperations.getShareBookmarkTemplate();
         return String.format(shareBookmarkTemplate, verseText, note);
@@ -106,9 +107,9 @@ public class BookmarkActivityPresenter {
                    + "note Length [" + note.length() + "]");
 
         DBUtilityOperations dbu = DBUtility.getInstance();
-        if (dbu.doesBookmarkReferenceExist(references)){
-            return dbu.updateExistingBookmark(references,note);
-        }else{
+        if (dbu.doesBookmarkReferenceExist(references)) {
+            return dbu.updateExistingBookmark(references, note);
+        } else {
             return dbu.createNewBookmark(references, note);
         }
     }

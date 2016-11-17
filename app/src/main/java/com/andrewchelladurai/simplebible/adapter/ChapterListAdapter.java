@@ -45,7 +45,7 @@ public class ChapterListAdapter
         extends RecyclerView.Adapter<ChapterListAdapter.ChapterItemViewHolder> {
 
     private final List<ChapterItem>             mValues;
-    private       ChapterListActivityOperations mOperations;
+    private final ChapterListActivityOperations mOperations;
 
     public ChapterListAdapter(ChapterListActivityOperations operations, List<ChapterItem> items) {
         mOperations = operations;

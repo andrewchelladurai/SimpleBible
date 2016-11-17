@@ -24,8 +24,8 @@ import java.util.Calendar;
 public class SimpleBibleActivityPresenter {
 
     private static final String TAG = "SB_SBA_Presenter";
-    private SimpleBibleActivityOperations mOperations;
-    private DBUtilityOperations           dbUtility;
+    private final SimpleBibleActivityOperations mOperations;
+    private       DBUtilityOperations           dbUtility;
 
     /**
      * This must be called in the onCreate of the Activity and also before any of the views is
@@ -107,7 +107,7 @@ public class SimpleBibleActivityPresenter {
         ArrayList<String[]> items = dbu.getAllBookmarks();
         if (items.isEmpty()) {
             return Constants.FAILURE + Constants.DELIMITER_IN_REFERENCE +
-                   "No Bookmarks Exist";
+                   mOperations.getResourceString(R.string.err_msg_no_bookmarks_exist);
         }
         String[] itemParts;
         String line, verseText, verseTemplate =
@@ -116,20 +116,21 @@ public class SimpleBibleActivityPresenter {
                 mOperations.getResourceString(R.string.share_bookmark_template);
 
         Calendar calendar = Calendar.getInstance();
-        String fileName = "Bookmarks Export "
-                          + calendar.get(Calendar.DAY_OF_MONTH) + "-"
-                          + calendar.get(Calendar.MONTH) + "-"
-                          + calendar.get(Calendar.YEAR) + " "
-                          + calendar.get(Calendar.HOUR) + "-"
-                          + calendar.get(Calendar.MINUTE) + "-"
-                          + calendar.get(Calendar.SECOND) + ".TXT";
-        fileName = fileName.replaceAll(" ", "_");
+        String fileName = String.format
+                (mOperations.getResourceString(R.string.bookmarks_export_fileName),
+                 calendar.get(Calendar.DAY_OF_MONTH),
+                 calendar.get(Calendar.MONTH),
+                 calendar.get(Calendar.YEAR),
+                 calendar.get(Calendar.HOUR),
+                 calendar.get(Calendar.MINUTE),
+                 calendar.get(Calendar.SECOND));
+        Log.d(TAG, "exportBookmarks: fileName = " + fileName);
 
         File location = mOperations.getBookmarkFileLocation();
         if (null == location) {
             Log.e(TAG, "exportBookmarks: returned location was null");
             return Constants.FAILURE + Constants.DELIMITER_IN_REFERENCE +
-                   "File Location could not be created";
+                   mOperations.getResourceString(R.string.err_msg_bookmark_location_not_created);
         }
         Log.d(TAG, "exportBookmarks: File : " + location.getPath());
 
@@ -140,7 +141,7 @@ public class SimpleBibleActivityPresenter {
             if (!created) {
                 Log.e(TAG, "exportBookmarks: " + fileName + " could not be created");
                 return Constants.FAILURE + Constants.DELIMITER_IN_REFERENCE +
-                       "Bookmark File Could not be created";
+                       mOperations.getResourceString(R.string.err_msg_bookmark_file_not_created);
             }
         } catch (IOException ex) {
             Log.e(TAG, "exportBookmarks: File Not Created", ex);
@@ -155,7 +156,7 @@ public class SimpleBibleActivityPresenter {
                 itemParts = items.get(i);
                 verseText = Utilities.getShareableTextForReferences(itemParts[0], verseTemplate);
                 String note = itemParts[1];
-                note = (note.isEmpty()) ? "Empty" : note;
+                note = (note.isEmpty()) ? mOperations.getResourceString(R.string.empty) : note;
                 line = String.format(shareBookmarkTemplate, verseText, note);
                 fos.write(line.getBytes());
                 line = "\n##################\n";
@@ -163,8 +164,9 @@ public class SimpleBibleActivityPresenter {
             }
             fos.close();
             Log.d(TAG, "exportBookmarks: Bookmarks File Populated : " + location.getPath());
-            return Constants.SUCCESS + Constants.DELIMITER_IN_REFERENCE +
-                   "Bookmarks File " + file.getName() + " created";
+            String msg = String.format(mOperations.getResourceString(
+                    R.string.msg_bookmark_file_created), file.getName());
+            return Constants.SUCCESS + Constants.DELIMITER_IN_REFERENCE + msg;
         } catch (IOException ex) {
             Log.e(TAG, "exportBookmarks: Error creating Bookmarks File", ex);
             return Constants.FAILURE + Constants.DELIMITER_IN_REFERENCE +

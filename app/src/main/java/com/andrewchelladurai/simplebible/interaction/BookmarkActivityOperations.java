@@ -45,4 +45,6 @@ public interface BookmarkActivityOperations
     String getVerseTemplate();
 
     String getShareBookmarkTemplate();
+
+    String getResourceString(int stringId);
 }

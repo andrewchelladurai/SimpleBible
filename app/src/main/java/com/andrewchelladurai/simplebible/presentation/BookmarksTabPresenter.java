@@ -29,6 +29,7 @@ package com.andrewchelladurai.simplebible.presentation;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.interaction.BookmarksTabOperations;
 import com.andrewchelladurai.simplebible.interaction.DBUtilityOperations;
 import com.andrewchelladurai.simplebible.model.BookmarkList.BookmarkItem;
@@ -78,7 +79,7 @@ public class BookmarksTabPresenter {
         String verseText = Utilities.getShareableTextForReferences(references, verseTemplate);
 
         String note = item.getNote();
-        note = (note.isEmpty()) ? "Empty" : note;
+        note = (note.isEmpty()) ? mOperations.getResourceString(R.string.empty) : note;
 
         String shareBookmarkTemplate = mOperations.getShareBookmarkTemplate();
         String shareText = String.format(shareBookmarkTemplate, verseText, note);

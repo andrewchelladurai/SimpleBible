@@ -18,9 +18,9 @@ import com.andrewchelladurai.simplebible.SimpleBibleActivity;
 public class TabsAdapter
         extends FragmentPagerAdapter {
 
-    private static final String TAG       = "SB_PagerAdapter";
-    private              String mTitles[] = null;
-    private SimpleBibleActivity mActivity;
+    private static final String TAG = "SB_PagerAdapter";
+    private final SimpleBibleActivity mActivity;
+    private String mTitles[] = null;
 
     /**
      * Initializes the super class and also the titles to be used in the Tabs. A string-array

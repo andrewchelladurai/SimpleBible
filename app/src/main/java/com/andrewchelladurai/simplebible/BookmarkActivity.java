@@ -227,4 +227,8 @@ public class BookmarkActivity
     @Override public String getShareBookmarkTemplate() {
         return getString(R.string.share_bookmark_template);
     }
+
+    @Override public String getResourceString(int stringId) {
+        return getString(stringId);
+    }
 }

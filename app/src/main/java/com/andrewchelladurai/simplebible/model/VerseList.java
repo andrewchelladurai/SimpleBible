@@ -119,8 +119,8 @@ public class VerseList {
 
         private final int    mChapterNumber;
         private final int    mVerseNumber;
+        private final int    mBookNumber;
         private final String mVerseText;
-        private       int    mBookNumber;
 
         VerseItem(int bookNumber, int chapterNumber, int verseNumber, String verseText) {
             mBookNumber = bookNumber;

@@ -12,7 +12,7 @@ import com.andrewchelladurai.simplebible.model.ChapterList;
 public class BooksTabPresenter {
 
     private static final String TAG = "SB_BLF_Presenter";
-    private BooksTabOperations mOperations;
+    private final BooksTabOperations mOperations;
 
     public BooksTabPresenter(BooksTabOperations operations) {
         mOperations = operations;

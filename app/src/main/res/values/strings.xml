@@ -138,8 +138,8 @@
     <string name="pref_key_reminder">pref_key_reminder</string>
     <string name="pref_key_reminder_minute">pref_key_reminder_minute</string>
     <string name="pref_key_reminder_hour">pref_key_reminder_hour</string>
-    <string name="pref_key_reminder_title">Daily Notification Reminder</string>
-    <string name="pref_key_reminder_summary_enabled">Is Set To : %1$d : %2$d</string>
+    <string name="pref_key_reminder_title">Daily Reminder</string>
+    <string name="pref_key_reminder_summary_enabled">at %1$d:%2$d Hrs.</string>
     <string name="pref_key_reminder_summary_disabled">Is NOT Set</string>
 
     <string name="pref_key_reminder_tone_title">Tone to use</string>
@@ -181,4 +181,15 @@
     <!--Keys and strings related to About Category end here-->
 
     <!-- Strings related to Settings End Here -->
+
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
+    <string name="err_msg_no_bookmarks_exist">No Bookmarks Exist</string>
+    <string name="err_msg_bookmark_location_not_created">File Location could not be created</string>
+    <string name="err_msg_bookmark_file_not_created">Bookmark File Could not be created</string>
+    <!--DD-MM-YY_HH-MM-SS format is used in the file name below-->
+    <string name="bookmarks_export_fileName">"SB_BM_Export_%1$s-%2$s-%3$s_%4$s-%5$s-%6$s.TXT</string>
+    <string name="msg_bookmark_file_created">"%1$s created"</string>
+    <string name="empty">Empty</string>
+    <string name="dialog_title_bookmarks_export">Exporting : %1$s</string>
 </resources>

@@ -72,6 +72,23 @@ public class SearchResultAdapter
         return mValues.size();
     }
 
+    private SpannableString getFormattedText(SearchResultItem item) {
+        BooksList.BookItem bookItem = BooksList.getBookItem(item.getBookNumber());
+        if (bookItem != null) {
+            String reference = String.format(mListener.getSearchResultReferenceTemplate(),
+                                             bookItem.getBookName(),
+                                             item.getChapterNumber(),
+                                             item.getVerseNumber()) + " ";
+            String text = reference + item.getVerseText();
+            int highlightColor = mListener.getReferenceHighlightColor();
+
+            return Utilities.getStyledText(reference, text, highlightColor);
+        } else {
+            Log.d(TAG, "getFormattedText: returning null");
+            return null;
+        }
+    }
+
     class SearchResultViewHolder
             extends RecyclerView.ViewHolder
             implements View.OnLongClickListener {
@@ -119,23 +136,6 @@ public class SearchResultAdapter
             updateItemColor(SearchResultList.updateSelectedItems(mItem));
             mListener.toggleActionButtons(SearchResultList.isSelectedItemsEmpty());
             return true;
-        }
-    }
-
-    private SpannableString getFormattedText(SearchResultItem item) {
-        BooksList.BookItem bookItem = BooksList.getBookItem(item.getBookNumber());
-        if (bookItem != null) {
-            String reference = String.format(mListener.getSearchResultReferenceTemplate(),
-                                             bookItem.getBookName(),
-                                             item.getChapterNumber(),
-                                             item.getVerseNumber()) + " ";
-            String text = reference + item.getVerseText();
-            int highlightColor = mListener.getReferenceHighlightColor();
-
-            return Utilities.getStyledText(reference, text, highlightColor);
-        } else {
-            Log.d(TAG, "getFormattedText: returning null");
-            return null;
         }
     }
 }

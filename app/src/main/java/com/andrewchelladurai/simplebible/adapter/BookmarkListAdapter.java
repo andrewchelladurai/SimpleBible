@@ -52,10 +52,10 @@ public class BookmarkListAdapter
             implements View.OnClickListener {
 
         private static final String TAG = "SB_BookmarkViewHolder";
-        BookmarkItem mItem;
         final View              mView;
         final AppCompatTextView mReference;
         final AppCompatTextView mNote;
+        BookmarkItem mItem;
 
         BookmarkViewHolder(View view) {
             super(view);
@@ -132,7 +132,7 @@ public class BookmarkListAdapter
                     mListener.deleteButtonClicked(mItem);
                 } else if (label.equalsIgnoreCase(mListener.getEditButtonLabel())) {
                     mListener.editButtonClicked(mItem);
-                }else if (label.equalsIgnoreCase(mListener.getShareButtonLabel())) {
+                } else if (label.equalsIgnoreCase(mListener.getShareButtonLabel())) {
                     mListener.shareButtonClicked(mItem);
                 }
             } else {

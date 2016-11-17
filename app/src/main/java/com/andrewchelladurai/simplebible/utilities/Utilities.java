@@ -244,7 +244,7 @@ public class Utilities {
      *
      * @return one of the VERSE_SIZE_(SMALL|MEDIUM|BIG|LARGE) values.
      */
-    public static float getPreferredTextSize() {
+    private static float getPreferredTextSize() {
         String value = getPreferences().getString(getString(R.string.pref_key_text_size),
                                                   getString(R.string.pref_key_text_size_default));
         float size;

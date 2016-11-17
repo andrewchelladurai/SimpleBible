@@ -47,7 +47,7 @@ import java.util.Collection;
 public class SearchTabPresenter {
 
     private static final String TAG = "SB_SF_Presenter";
-    private SearchTabOperations mOperations;
+    private final SearchTabOperations mOperations;
 
     public SearchTabPresenter(SearchTabOperations fragmentInterface) {
         mOperations = fragmentInterface;
