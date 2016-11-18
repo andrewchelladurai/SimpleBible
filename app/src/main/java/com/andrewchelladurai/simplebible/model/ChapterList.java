@@ -53,7 +53,7 @@ public class ChapterList {
             returnValue = true;
         } catch (Exception ex) {
             returnValue = false;
-            Log.d(TAG, "populateListItems: " + ex.getLocalizedMessage());
+            Log.e(TAG, "populateListItems: ", ex);
         }
         return returnValue;
     }

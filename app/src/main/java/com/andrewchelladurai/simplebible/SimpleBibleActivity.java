@@ -71,13 +71,10 @@ public class SimpleBibleActivity
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.activity_simple_bible_tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
-        Log.d(TAG, "onCreate() returned");
     }
 
     @Override
     public void init() {
-        Log.d(TAG, "init() called");
         // init the presenter so it can start the necessary DB and Alarm services.
         mPresenter = new SimpleBibleActivityPresenter(this);
         mPresenter.init();
@@ -171,11 +168,12 @@ public class SimpleBibleActivity
             if (file.mkdirs()) {
                 return file;
             } else {
-                Log.d(TAG, "getBookmarkFileLocation: " + file.getPath() + " Could not be created");
+                Log.e(TAG, "getBookmarkFileLocation: " + file.getPath()
+                           + " Could not be created. Returning null");
                 return null;
             }
         }
-        Log.d(TAG, "getBookmarkFileLocation: External Storage Unavailable, returning null");
+        Log.e(TAG, "getBookmarkFileLocation: External Storage Unavailable, returning null");
         return null;
     }
 }

@@ -3,6 +3,7 @@ package com.andrewchelladurai.simplebible;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,7 +42,6 @@ public class BooksFragment
 
     @Override
     public void init() {
-        Log.d(TAG, "init() called");
         mPresenter = new BooksTabPresenter(this);
         mPresenter.init();
         mColumnCount = getResources().getInteger(R.integer.column_count_books_list);
@@ -84,11 +84,11 @@ public class BooksFragment
         return view;
     }
 
-    public void bookItemClicked(BooksList.BookItem item) {
+    public void bookItemClicked(@NonNull BooksList.BookItem item) {
         Log.d(TAG, "bookItemClicked() called for item [" + item.getBookName() + "]");
         boolean returnValue = mPresenter.bookItemClicked(item, getString(R.string.chapter));
         if (!returnValue) {
-            Log.d(TAG, "bookItemClicked: presenter could not load Chapter List");
+            Log.e(TAG, "bookItemClicked: returning - could not load Chapter List");
             return;
         }
         Intent intent = new Intent(getContext(), ChapterListActivity.class);

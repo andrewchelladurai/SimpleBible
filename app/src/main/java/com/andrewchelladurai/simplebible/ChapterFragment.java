@@ -193,7 +193,7 @@ public class ChapterFragment
                     getActivity().findViewById(chapter_detail_verse_actions_bar);
         }
         if (mActions == null) {
-            Log.w(TAG, "toggleActionBar: component chapter_detail_verse_actions_bar not found");
+            Log.e(TAG, "toggleActionBar: component chapter_detail_verse_actions_bar not found");
             return;
         }
         if (isSelectedItemsEmpty) {
@@ -227,13 +227,13 @@ public class ChapterFragment
     private void bookmarkButtonClicked() {
         Collection<VerseItem> items = VerseList.getSelectedItems();
         if (items.isEmpty()) {
-            Log.d(TAG, "bookmarkButtonClicked: No Selected Entries :\n"
+            Log.e(TAG, "bookmarkButtonClicked: returning - No Selected Entries :\n"
                        + getString(R.string.how_am_i_here));
             return;
         }
         String reference = Utilities.prepareBookmarkReferenceFromVerseList(items);
         if (reference.isEmpty()) {
-            Log.d(TAG, "bookmarkButtonClicked: reference is empty");
+            Log.e(TAG, "bookmarkButtonClicked: returning - reference is empty");
             return;
         }
         String returnValue = mPresenter.bookmarkButtonClicked(reference);
@@ -249,7 +249,7 @@ public class ChapterFragment
                 args.putString(BookmarkActivityOperations.ARG_MODE,
                                BookmarkActivityOperations.CREATE);
                 Log.w(TAG, "bookmarkButtonClicked: " + getString(R.string.how_am_i_here));
-                Log.d(TAG, "bookmarkButtonClicked: setting ARG_MODE = CREATE");
+                Log.w(TAG, "bookmarkButtonClicked: setting ARG_MODE = CREATE");
         }
         Intent intent = new Intent(getContext(), BookmarkActivity.class);
         intent.putExtras(args);

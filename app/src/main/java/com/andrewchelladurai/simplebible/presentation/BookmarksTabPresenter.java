@@ -51,13 +51,11 @@ public class BookmarksTabPresenter {
     }
 
     public boolean doesBookmarkReferenceExist(@NonNull String references) {
-        Log.d(TAG, "doesBookmarkReferenceExist() called with: references = [" + references + "]");
         DBUtilityOperations dbu = DBUtility.getInstance();
         return dbu.doesBookmarkReferenceExist(references);
     }
 
     public boolean deleteButtonClicked(@NonNull BookmarkItem item) {
-        Log.d(TAG, "deleteButtonClicked() called with: " + "item = [" + item + "]");
         DBUtilityOperations dbu = DBUtility.getInstance();
         String references = item.getReferences();
         if (references == null || references.isEmpty()) {
@@ -75,14 +73,14 @@ public class BookmarksTabPresenter {
             return;
         }
 
-        String verseTemplate = mOperations.getVerseTemplate();
-        String verseText = Utilities.getShareableTextForReferences(references, verseTemplate);
+        String template = mOperations.getVerseTemplate();
+        String verseText = Utilities.getShareableTextForReferences(references, template);
 
         String note = item.getNote();
         note = (note.isEmpty()) ? mOperations.getResourceString(R.string.empty) : note;
 
-        String shareBookmarkTemplate = mOperations.getShareBookmarkTemplate();
-        String shareText = String.format(shareBookmarkTemplate, verseText, note);
+        template = mOperations.getShareBookmarkTemplate();
+        String shareText = String.format(template, verseText, note);
 
         mOperations.shareSelectedVerses(shareText);
     }

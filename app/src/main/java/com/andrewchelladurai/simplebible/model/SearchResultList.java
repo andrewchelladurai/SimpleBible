@@ -48,12 +48,12 @@ public class SearchResultList {
 
     public static boolean populateList(String input, ArrayList<String[]> list) {
         if (mInput.toString().equalsIgnoreCase(input)) {
-            Log.d(TAG, "populateList: Already populated list using results for " + input);
+            Log.d(TAG, "populateList: Already populated using " + input);
             return true;
         } else {
             mInput.delete(0, mInput.length());
             mInput.append(input);
-            Log.d(TAG, "populateList: populated list with results for " + input);
+            Log.d(TAG, "populateList: done for " + input);
         }
         boolean returnValue;
         try {
@@ -72,7 +72,7 @@ public class SearchResultList {
             returnValue = true;
         } catch (Exception ex) {
             returnValue = false;
-            Log.d(TAG, "populateList: " + ex.getLocalizedMessage());
+            Log.e(TAG, "populateList: ", ex);
         }
         return returnValue;
     }

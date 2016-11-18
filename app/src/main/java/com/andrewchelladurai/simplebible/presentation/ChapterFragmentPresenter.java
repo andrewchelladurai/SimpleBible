@@ -64,7 +64,7 @@ public class ChapterFragmentPresenter {
                    + bookNumber + "], chapterNumber = [" + chapterNumber + "]");
 
         if (bookNumber < 1 | chapterNumber < 1) {
-            Log.d(TAG,
+            Log.e(TAG,
                   "getAllVersesForChapter() returning null coz : bookNumber OR chapterNumber < 1");
             return null;
         }
@@ -72,7 +72,8 @@ public class ChapterFragmentPresenter {
         DBUtilityOperations dbUtility = DBUtility.getInstance();
         ArrayList<String> verses = dbUtility.getAllVerseForChapter(bookNumber, chapterNumber);
         if (verses.size() < 1) {
-            Log.d(TAG, "getAllVersesForChapter: returning null coz No verses found in DB");
+            Log.e(TAG, "getAllVersesForChapter: returning null coz No verses found in DB");
+            return null;
         }
 
         boolean returnValue = VerseList.populateList(bookNumber, chapterNumber, verses);
@@ -119,6 +120,7 @@ public class ChapterFragmentPresenter {
     }
 
     public boolean resetButtonClicked() {
+        Log.d(TAG, "resetButtonClicked() called");
         Collection<VerseItem> selectedItems = VerseList.getSelectedItems();
         return (selectedItems.size() > 0) && VerseList.clearSelectedItems();
     }

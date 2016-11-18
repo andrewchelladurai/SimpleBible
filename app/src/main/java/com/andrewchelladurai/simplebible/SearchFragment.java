@@ -153,7 +153,6 @@ public class SearchFragment
 
     @Override
     public void init() {
-        Log.d(TAG, "init() called:");
         if (null == mPresenter) {
             mPresenter = new SearchTabPresenter(this);
             mPresenter.init();
@@ -162,7 +161,6 @@ public class SearchFragment
         if (null == mListAdapter) {
             mListAdapter = new SearchResultAdapter(SearchResultList.getItems(), this);
         }
-        Log.d(TAG, "init() returned:");
     }
 
     @Override
@@ -255,20 +253,20 @@ public class SearchFragment
         } else if (view.equals(mShareButton)) {
             mPresenter.shareButtonClicked();
         } else {
-            Log.d(TAG, "onClick: " + getString(R.string.how_am_i_here));
+            Log.e(TAG, "onClick: " + getString(R.string.how_am_i_here));
         }
     }
 
     private void bookmarkButtonClicked() {
         Collection<SearchResultList.SearchResultItem> items = SearchResultList.getSelectedItems();
         if (items.isEmpty()) {
-            Log.d(TAG, "bookmarkButtonClicked: No Selected Entries :\n"
+            Log.e(TAG, "bookmarkButtonClicked: returning - No Selected Entries :\n"
                        + getString(R.string.how_am_i_here));
             return;
         }
         String reference = Utilities.prepareBookmarkReferenceFromSearchResults(items);
         if (reference.isEmpty()) {
-            Log.d(TAG, "bookmarkButtonClicked: reference is empty");
+            Log.e(TAG, "bookmarkButtonClicked: returning - reference is empty");
             return;
         }
         String returnValue = mPresenter.bookmarkButtonClicked(reference);
@@ -284,7 +282,7 @@ public class SearchFragment
                 args.putString(BookmarkActivityOperations.ARG_MODE,
                                BookmarkActivityOperations.CREATE);
                 Log.w(TAG, "bookmarkButtonClicked: " + getString(R.string.how_am_i_here));
-                Log.d(TAG, "bookmarkButtonClicked: setting ARG_MODE = CREATE");
+                Log.w(TAG, "bookmarkButtonClicked: setting ARG_MODE = CREATE");
         }
         Intent intent = new Intent(getContext(), BookmarkActivity.class);
         intent.putExtras(args);

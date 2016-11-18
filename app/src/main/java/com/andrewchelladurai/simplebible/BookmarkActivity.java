@@ -158,7 +158,7 @@ public class BookmarkActivity
             } else if (button.equals(mButtonShare)) {
                 buttonShareClicked();
             } else {
-                Log.d(TAG, "onClick: " + getString(R.string.how_am_i_here));
+                Log.e(TAG, "onClick: " + getString(R.string.how_am_i_here));
             }
         }
     }

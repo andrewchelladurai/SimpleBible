@@ -81,18 +81,18 @@ public class Utilities {
                                                 @NonNull String completeText,
                                                 int highlightColor) {
         if (completeText.isEmpty()) {
-            Log.d(TAG, "getStyledText: completeText isEmpty, returning null");
+            Log.e(TAG, "getStyledText: completeText isEmpty, returning null");
             return null;
         }
 
         SpannableString formattedText = new SpannableString(completeText);
         if (highlightText.isEmpty()) {
-            Log.d(TAG, "getStyledText: highlightText isEmpty, returning default");
+            Log.e(TAG, "getStyledText: highlightText isEmpty, returning default");
             return formattedText;
         }
 
         if (!completeText.contains(highlightText)) {
-            Log.d(TAG, "getStyledText: highlightText is not present, returning default");
+            Log.e(TAG, "getStyledText: highlightText is not present, returning default");
             return formattedText;
         }
 
@@ -112,7 +112,8 @@ public class Utilities {
             formattedText.setSpan(new RelativeSizeSpan(getPreferredTextSize()), start, end, flag);
             formattedText.setSpan(new TypefaceSpan(getPreferredVerseStyle()), start, end, flag);
         } catch (Exception e) {
-            Log.e(TAG, "getStyledText: " + e.getLocalizedMessage());
+            Log.e(TAG, "getStyledText: returning default " + e.getLocalizedMessage());
+            return formattedText;
         }
 
         return formattedText;
@@ -127,22 +128,22 @@ public class Utilities {
 
     public static String[] getReferenceParts(@NonNull String reference) {
         if (reference.isEmpty()) {
-            Log.d(TAG, "getReferenceParts: " + reference + " isEmpty");
+            Log.e(TAG, "getReferenceParts: returning null - " + reference + " isEmpty");
             return null;
         }
         if (!reference.contains(Constants.DELIMITER_IN_REFERENCE)) {
-            Log.d(TAG, "getReferenceParts: " + reference + " does not contain DELIMITER");
+            Log.e(TAG, "getReferenceParts: returning null - no DELIMITER found in reference");
             return null;
         }
         String parts[] = reference.split(Constants.DELIMITER_IN_REFERENCE);
         if (parts.length != 3) {
-            Log.d(TAG, "getReferenceParts: " + reference + " does not have 3 parts");
+            Log.e(TAG, "getReferenceParts: returning null - reference does not have 3 parts");
             return null;
         }
         return parts;
     }
 
-    public static Intent shareVerse(String stringToShare) {
+    public static Intent shareVerse(@NonNull String stringToShare) {
         Log.d(TAG, "shareVerse() called with [" + stringToShare.length() + "] chars");
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
@@ -183,20 +184,21 @@ public class Utilities {
                                                    int verseNumber, String template) {
         String text;
         if (bookNumber == 0 || chapterNumber == 0 || verseNumber == 0) {
-            Log.d(TAG, "getFormattedReferenceText: "
+            Log.e(TAG, "getFormattedReferenceText: "
                        + "one of the reference parts is 0, returning empty string");
             return "";
         }
         BooksList.BookItem bookItem = BooksList.getBookItem(bookNumber);
         if (bookItem == null) {
-            Log.d(TAG, "getFormattedReferenceText: returned BookItem is null");
+            Log.e(TAG, "getFormattedReferenceText: returning empty string - got a null BookItem");
             return "";
         }
         text = String.format(template, bookItem.getBookName(), chapterNumber, verseNumber);
         return text;
     }
 
-    public static String getShareableTextForReferences(String references, String template) {
+    public static String getShareableTextForReferences(@NonNull String references,
+                                                       @NonNull String template) {
         Log.d(TAG, "getShareableTextForReferences() called with references = [" + references + "]");
         String bookName, verseText;
         int bookNumber, chapterNumber, verseNumber;
@@ -217,8 +219,8 @@ public class Utilities {
             verseNumber = Integer.parseInt(parts[2]);
             bookItem = BooksList.getBookItem(bookNumber);
             if (bookItem == null) {
-                Log.e(TAG,
-                      "getShareableTextForReferences: Skipping invalid bookNumber : " + bookNumber);
+                Log.e(TAG, "getShareableTextForReferences: Skipping invalid bookNumber : "
+                           + bookNumber);
                 continue;
             }
             bookName = bookItem.getBookName();
@@ -230,7 +232,7 @@ public class Utilities {
         return shareText.toString();
     }
 
-    public static void restartApplication(Activity activity) {
+    public static void restartApplication(@NonNull Activity activity) {
         Log.d(TAG, "restartApplication() called");
         Context baseContext = activity.getBaseContext();
         Intent intent = baseContext.getPackageManager()
@@ -349,6 +351,7 @@ public class Utilities {
 
     public static String getVerseContentForToday(@NonNull String[] reference,
                                                  @NonNull String template) {
+        Log.d(TAG, "getVerseContentForToday() called");
         int bookNumber, chapterNumber, verseNumber;
         try {
             bookNumber = Integer.parseInt(reference[0]);
@@ -361,7 +364,8 @@ public class Utilities {
             bookNumber = Integer.parseInt(reference[0]);
             chapterNumber = Integer.parseInt(reference[1]);
             verseNumber = Integer.parseInt(reference[2]);
-            Log.d(TAG, "getVerseContentForToday: NPE when converting reference, using default");
+            Log.e(TAG, "getVerseContentForToday: NPE when converting reference, using default",
+                  npe);
         }
 
         // now get the verseText for the reference
@@ -370,6 +374,7 @@ public class Utilities {
 
         if (verseText == null) {
             verseText = "No verse found for reference";
+            Log.e(TAG, "getVerseContentForToday: retuning - No verse found for reference");
             return verseText;
         }
 
@@ -380,8 +385,9 @@ public class Utilities {
         return String.format(template, verseText, bookName, chapterNumber, verseNumber);
     }
 
-    public static String[] getVerseReferenceForToday(/*String[] verseArray*/) {
+    public static String[] getVerseReferenceForToday() {
         Log.d(TAG, "getVerseReferenceForToday() called");
+
         final String defaultReference = Constants.DEFAULT_REFERENCE;
         // get verse reference to use for today
         int dayOfTheYear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
@@ -394,6 +400,7 @@ public class Utilities {
                                                        : verseArray[dayOfTheYear];
 
         if (reference == null || reference.isEmpty()) {
+            Log.e(TAG, "getVerseReferenceForToday: Empty reference, using default");
             reference = defaultReference;
         }
         Log.d(TAG, "getVerseReferenceForToday: reference = " + reference);
@@ -402,15 +409,16 @@ public class Utilities {
         if (!reference.contains(Constants.DELIMITER_IN_REFERENCE)) {
             // reference does not have delimiter
             reference = defaultReference;
-            Log.d(TAG,
-                  "getVerseReferenceForToday: reference does not have delimiter, using default");
+            Log.e(TAG,
+                   "getVerseReferenceForToday: reference does not have delimiter, using default");
         }
         verseArray = reference.split(Constants.DELIMITER_IN_REFERENCE);
         if (verseArray.length != 3) {
             // there are not 3 parts to the reference
             reference = defaultReference;
             verseArray = reference.split(Constants.DELIMITER_IN_REFERENCE);
-            Log.d(TAG, "getVerseReferenceForToday: reference does not have 3 parts, using default");
+            Log.d(TAG,
+                   "getVerseReferenceForToday: reference does not have 3 parts, using default");
         }
         return verseArray;
     }

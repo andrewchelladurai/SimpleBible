@@ -84,7 +84,7 @@ public class SearchResultAdapter
 
             return Utilities.getStyledText(reference, text, highlightColor);
         } else {
-            Log.d(TAG, "getFormattedText: returning null");
+            Log.d(TAG, "getFormattedText() returned: null for " + item.getReference());
             return null;
         }
     }

@@ -2,6 +2,7 @@ package com.andrewchelladurai.simplebible.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
@@ -34,9 +35,9 @@ public class HomeTabPresenter {
         Log.d(TAG, "init() called");
     }
 
-    public String validateBookInput(String bookInput) {
-        if (null == bookInput || bookInput.isEmpty()) {
-            Log.d(TAG, "validateBookInput() : null == bookInput || bookInput.isEmpty()");
+    public String validateBookInput(@NonNull String bookInput) {
+        if (bookInput.isEmpty()) {
+            Log.e(TAG, "validateBookInput() : returning FAILURE : bookInput.isEmpty()");
             mOperations.handleEmptyBookNameValidationFailure();
             return Constants.FAILURE;
         }
@@ -57,9 +58,11 @@ public class HomeTabPresenter {
         return Constants.SUCCESS;
     }
 
-    private String validateChapterInput(String bookInput, String chapterInput) {
-        if (null == chapterInput || chapterInput.isEmpty()) {
+    private String validateChapterInput(@NonNull String bookInput,
+                                        @NonNull String chapterInput) {
+        if (chapterInput.isEmpty()) {
             mOperations.handleEmptyChapterNumberValidationFailure();
+            Log.e(TAG, "validateChapterInput: returning null - chapterInput.isEmpty()");
             return Constants.FAILURE;
         }
 
@@ -67,6 +70,7 @@ public class HomeTabPresenter {
         int chapter = Integer.parseInt(chapterInput);
         if (chapter < 1 || chapter > count) {
             mOperations.handleIncorrectChapterNumberValidationFailure();
+            Log.e(TAG, "validateChapterInput: returning null - chapter number is incorrect");
             return Constants.FAILURE;
         }
 
@@ -84,10 +88,11 @@ public class HomeTabPresenter {
     }
 
     public String[] getBookNamesList() {
+        Log.d(TAG, "getBookNamesList() called");
         List<BookItem> items = BooksList.getListItems();
         int count = items.size();
         if (count == 0) {
-            Log.d(TAG, "getBookNamesList: got Zero results, returning null");
+            Log.e(TAG, "getBookNamesList: got Zero results, returning null");
             return null;
         }
         Log.d(TAG, "getBookNamesList: got " + count + " results");
@@ -98,12 +103,12 @@ public class HomeTabPresenter {
         return list;
     }
 
-    private int getChapterCountForBookName(String bookName) {
+    private int getChapterCountForBookName(@NonNull String bookName) {
         BookItem bookItem = getBookItemUsingName(bookName);
         return (bookItem == null) ? 0 : bookItem.getChapterCount();
     }
 
-    public String validateInput(String bookInput, String chapterInput) {
+    public String validateInput(@NonNull String bookInput, @NonNull String chapterInput) {
         String returnValue = validateBookInput(bookInput);
         if (returnValue.equalsIgnoreCase(Constants.SUCCESS)) {
             return validateChapterInput(bookInput, chapterInput);
@@ -112,11 +117,11 @@ public class HomeTabPresenter {
         }
     }
 
-    public BookItem getBookItemUsingName(String bookName) {
+    public BookItem getBookItemUsingName(@NonNull String bookName) {
         return BooksList.getBookItem(bookName);
     }
 
-    public boolean loadChapterList(BookItem item, String prependText) {
+    public boolean loadChapterList(@NonNull BookItem item, @NonNull String prependText) {
         return ChapterList.populateListItems(item.getChapterCount(), prependText);
     }
 
@@ -137,7 +142,7 @@ public class HomeTabPresenter {
                 Integer.parseInt(array[1]),
                 Integer.parseInt(array[2]));
         if (reference.isEmpty()) {
-            Log.d(TAG, "bookmarkVerseForToday: reference is empty");
+            Log.e(TAG, "bookmarkVerseForToday: returning null - reference is empty");
             return null;
         }
 
@@ -158,7 +163,7 @@ public class HomeTabPresenter {
             default:
                 args.putString(BookmarkActivityOperations.ARG_MODE,
                                BookmarkActivityOperations.CREATE);
-                Log.d(TAG, "bookmarkVerseForToday: setting ARG_MODE = CREATE");
+                Log.w(TAG, "bookmarkVerseForToday: setting ARG_MODE = CREATE");
         }
         Intent intent = new Intent(mOperations.getFragmentContext(), BookmarkActivity.class);
         intent.putExtras(args);

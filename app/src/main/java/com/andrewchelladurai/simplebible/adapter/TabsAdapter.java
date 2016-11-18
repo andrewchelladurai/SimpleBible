@@ -35,7 +35,7 @@ public class TabsAdapter
         mTitles = mActivity.getResources().getStringArray(R.array.main_activity_tab_titles);
         if (mTitles.length == 0) {
             mTitles = new String[]{mActivity.getString(R.string.application_name)};
-            Log.d(TAG, "string-array \"main_activity_tab_titles\" not found");
+            Log.e(TAG, "string-array \"main_activity_tab_titles\" not found");
         }
         Log.d(TAG, "Tab Titles populated with " + mTitles.length + " entries <= " +
                    "This should ideally print only once during init.");

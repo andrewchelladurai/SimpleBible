@@ -53,13 +53,13 @@ public class BookmarkActivityPresenter {
     public String buttonShareClicked(@NonNull final String references) {
         Log.d(TAG, "buttonShareClicked() called with: references = [" + references + "]");
         if (references.isEmpty()) {
-            Log.e(TAG, "shareButtonClicked: Passed References is Empty");
+            Log.e(TAG, "shareButtonClicked: returning null - References is Empty");
             return null;
         }
 
         BookmarkItem item = BookmarkList.getItem(references);
         if (item == null) {
-            Log.e(TAG, "buttonShareClicked: No Bookmark for passed reference exist");
+            Log.e(TAG, "buttonShareClicked: returning null - No Bookmark exist for references");
             return null;
         }
 
@@ -77,14 +77,14 @@ public class BookmarkActivityPresenter {
         Log.d(TAG, "buttonDeleteClicked() called with: reference = [" + reference + "]");
         BookmarkItem item = BookmarkList.getItem(reference);
         if (item == null) {
-            Log.e(TAG, "buttonDeleteClicked: No Bookmark Item exist for passed reference");
+            Log.e(TAG, "buttonDeleteClicked: returning - No Bookmark Item exist for reference");
             return false;
         }
 
         DBUtilityOperations dbu = DBUtility.getInstance();
         String references = item.getReferences();
         if (references == null || references.isEmpty()) {
-            Log.e(TAG, "buttonDeleteClicked: BookmarkItem has empty reference.");
+            Log.e(TAG, "buttonDeleteClicked: returning - BookmarkItem has empty reference.");
             return false;
         }
         boolean isDeleted = dbu.deleteBookMarkEntry(references);

@@ -288,7 +288,7 @@ public class SettingsActivity
             @Override public boolean onPreferenceClick(Preference pPreference) {
                 String key = pPreference.getKey();
                 if (key == null) {
-                    Log.d(TAG, "onPreferenceClick() returning : key = null");
+                    Log.d(TAG, "onPreferenceClick() : returning - key = null");
                     return false;
                 }
                 Log.d(TAG, "onPreferenceClick() called key = [" + key + "]");

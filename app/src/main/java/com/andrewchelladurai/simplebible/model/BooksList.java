@@ -28,6 +28,7 @@ package com.andrewchelladurai.simplebible.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.andrewchelladurai.simplebible.utilities.Constants;
@@ -55,14 +56,14 @@ public class BooksList {
         return ITEMS.size();
     }
 
-    public static boolean populateBooksList(String[] array) {
+    public static boolean populateBooksList(@NonNull String[] array) {
         Log.d(TAG, "populateBooksList called");
         if (getListCount() == 66) {
-            Log.d(TAG, "populateBooksList: returning : ITEMS.size() == 66");
+            Log.d(TAG, "populateBooksList: returning : List Size is already 66");
             return false;
         }
-        if (null == array || array.length == 0 || array.length > 66) {
-            Log.d(TAG, "populateBooksList: returning : null == array || array.length == 0");
+        if (array.length == 0 || array.length > 66) {
+            Log.d(TAG, "populateBooksList: returning : passed array DOES NOT HAVE 66 items");
             return false;
         }
         BookItem item;
@@ -71,7 +72,7 @@ public class BooksList {
         for (int i = 0; i < array.length; i++) {
             parts = array[i].split(Constants.DELIMITER_IN_REFERENCE);
             if (parts.length != 2) {
-                Log.d(TAG, "populateBooksList: skipping entry " + array[i]);
+                Log.d(TAG, "populateBooksList: skipping incorrect format entry " + array[i]);
                 continue;
             }
 
@@ -90,9 +91,8 @@ public class BooksList {
 
     public static List<BookItem> getListItems() {
         if (ITEMS.size() != 66) {
-            Log.e(TAG, "getListItems: ITEMS.size() != 66");
             Exception exception = new Exception("ITEMS.size() != 66");
-            Log.wtf(TAG, "getListItems: ", exception);
+            Log.e(TAG, "getListItems: ITEMS.size() != 66", exception);
         }
         return ITEMS;
     }

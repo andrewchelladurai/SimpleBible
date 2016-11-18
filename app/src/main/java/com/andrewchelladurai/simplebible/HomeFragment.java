@@ -88,7 +88,7 @@ public class HomeFragment
                 inputValidated();
             }
         } else {
-            Log.d(TAG, "onClick: " + getString(R.string.how_am_i_here));
+            Log.e(TAG, "onClick: " + getString(R.string.how_am_i_here));
         }
     }
 
@@ -111,7 +111,7 @@ public class HomeFragment
         int chapterNumber = Integer.parseInt(getChapterInput());
         boolean returnValue = mPresenter.loadChapterList(item, getString(R.string.chapter));
         if (!returnValue) {
-            Log.d(TAG, "inputValidated: presenter could not load Chapter List");
+            Log.e(TAG, "inputValidated: returning - presenter could not load Chapter List");
             return;
         }
         // load parameters on a bundle to pass on

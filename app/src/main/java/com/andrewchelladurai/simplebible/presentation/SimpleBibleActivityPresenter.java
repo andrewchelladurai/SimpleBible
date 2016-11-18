@@ -45,7 +45,7 @@ public class SimpleBibleActivityPresenter {
         if (populated) {
             Log.d(TAG, "init: book list populated");
         } else {
-            Log.d(TAG, "init: book list NOT populated");
+            Log.e(TAG, "init: book list NOT populated");
         }
 
         if (dbUtility == null) {
@@ -57,7 +57,7 @@ public class SimpleBibleActivityPresenter {
             }
             dbUtility = DBUtility.getInstance(mOperations);
         } else {
-            Log.d(TAG, "init: dbUtility is already initialized, since it is != null");
+            Log.w(TAG, "init: dbUtility is already initialized, since it is != null");
         }
     }
 
@@ -68,8 +68,7 @@ public class SimpleBibleActivityPresenter {
             Context context = mOperations.getThisApplicationContext();
             reader = new InputStreamReader(context.getAssets().open("mainSteps.sql"));
         } catch (IOException ioe) {
-            Log.wtf(TAG, "init: Error preparing for DB setup : mainSteps.sql ", ioe);
-            ioe.printStackTrace();
+            Log.e(TAG, "init: Error preparing for DB setup : mainSteps.sql ", ioe);
         }
         return reader;
     }
@@ -81,8 +80,7 @@ public class SimpleBibleActivityPresenter {
             Context context = mOperations.getThisApplicationContext();
             reader = new InputStreamReader(context.getAssets().open("upgradeSteps.sql"));
         } catch (IOException ioe) {
-            Log.wtf(TAG, "init: Error preparing for DB setup : upgradeSteps.sql ", ioe);
-            ioe.printStackTrace();
+            Log.e(TAG, "init: Error preparing for DB setup : upgradeSteps.sql ", ioe);
         }
         return reader;
     }
@@ -94,8 +92,7 @@ public class SimpleBibleActivityPresenter {
             Context context = mOperations.getThisApplicationContext();
             reader = new InputStreamReader(context.getAssets().open("downgradeSteps.sql"));
         } catch (IOException ioe) {
-            Log.wtf(TAG, "init: Error preparing for DB setup : downgradeSteps.sql ", ioe);
-            ioe.printStackTrace();
+            Log.e(TAG, "init: Error preparing for DB setup : downgradeSteps.sql ", ioe);
         }
         return reader;
     }

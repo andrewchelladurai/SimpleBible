@@ -54,12 +54,12 @@ public class VerseList {
 
     public static boolean populateList(int bookNumber, int chapterNumber,
                                        ArrayList<String> versesList) {
-        Log.d(TAG, "populateList() called with: bookNumber = [" + bookNumber + "],"
-                   + " chapterNumber = [" + chapterNumber + "],"
-                   + " versesList of size = [" + versesList.size() + "]");
+        Log.d(TAG, "populateList() called with: book = [" + bookNumber + "],"
+                   + " chapter = [" + chapterNumber + "],"
+                   + " list of size = [" + versesList.size() + "]");
 
         if (VerseList.mBookNumber == bookNumber && VerseList.mChapterNumber == chapterNumber) {
-            Log.d(TAG, "populateList: list already populated");
+            Log.w(TAG, "populateList: returning - list already populated for passed arguments");
             return true;
         }
 
@@ -80,7 +80,7 @@ public class VerseList {
             returnValue = true;
         } catch (Exception ex) {
             returnValue = false;
-            Log.d(TAG, "populateList: " + ex.getLocalizedMessage());
+            Log.e(TAG, "populateList: returning false " + ex.getLocalizedMessage());
         }
         return returnValue;
     }
@@ -89,9 +89,9 @@ public class VerseList {
         String reference = item.getReference();
         if (SELECTED_ITEMS.containsKey(reference)) {
             SELECTED_ITEMS.remove(reference);
-            Log.d(TAG, "updateSelectedItems: removed " + item.getReference());
+            Log.i(TAG, "updateSelectedItems: removed " + item.getReference());
         } else {
-            Log.d(TAG, "updateSelectedItems: added " + item.getReference());
+            Log.i(TAG, "updateSelectedItems: added " + item.getReference());
             SELECTED_ITEMS.put(reference, item);
         }
         Log.d(TAG, "updateSelectedItems() returned: " + SELECTED_ITEMS.containsKey(reference));

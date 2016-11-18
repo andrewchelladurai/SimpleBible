@@ -63,7 +63,9 @@ public class DBUtility
 
     public static DBUtilityOperations getInstance(
             SimpleBibleActivityOperations operations) {
+
         DBUtility.mOperations = operations;
+
         if (thisInstance == null) {
             thisInstance = new DBUtility(operations.getThisApplicationContext());
             Log.d(TAG, "getInstance: Initialized Static Instance");
@@ -88,8 +90,7 @@ public class DBUtility
             boolean result = executeScriptFile(mBaseScript, db);
             String msg = (result) ? "DB Setup Successfully" : "DB Setup Unsuccessful";
             Log.d(TAG, "onCreate: " + msg);
-        }
-// CREATE TABLE BOOK_MARKS ( "REFERENCE" TEXT PRIMARY KEY, "NOTE" TEXT );
+        } // CREATE TABLE BOOK_MARKS ( "REFERENCE" TEXT PRIMARY KEY, "NOTE" TEXT );
     }
 
     @Override public void onDowngrade(SQLiteDatabase db, int oldV, int newV) {
@@ -119,7 +120,8 @@ public class DBUtility
         }
     }
 
-    private boolean executeScriptFile(InputStreamReader stream, SQLiteDatabase db) {
+    private boolean executeScriptFile(@NonNull InputStreamReader stream,
+                                      @NonNull SQLiteDatabase db) {
         Log.d(TAG, "executeScriptFile() called");
         BufferedReader reader = null;
         boolean isCreated = true, isClosed = true;
@@ -348,8 +350,10 @@ public class DBUtility
         return note;
     }
 
-    @Override public boolean createNewBookmark(@NonNull String references, @NonNull String note) {
-        Log.d(TAG, "createNewBookmark(): references = [" + references + "], note = [" + note + "]");
+    @Override public boolean createNewBookmark(@NonNull String references,
+                                               @NonNull String note) {
+        Log.d(TAG,
+              "createNewBookmark(): references = [" + references + "], note = [" + note + "]");
         SQLiteDatabase database = getWritableDatabase();
         database.beginTransaction();
         String table = BookmarksTable.NAME;
@@ -390,17 +394,20 @@ public class DBUtility
 
     @Override public boolean deleteBookMarkEntry(@NonNull final String references) {
         Log.d(TAG, "deleteBookMarkEntry() called with: references = [" + references + "]");
-
         SQLiteDatabase database = getWritableDatabase();
         String table = BookmarksTable.NAME;
         String where = BookmarksTable.COLUMN_REFERENCE + " = ? ";
         String[] args = {references};
         int rowsAffected = database.delete(table, where, args);
 
+        Log.d(TAG, "deleteBookMarkEntry() returned: " + (rowsAffected > 0));
         return (rowsAffected > 0);
     }
 
-    @Override public boolean updateExistingBookmark(String references, String note) {
+    @Override public boolean updateExistingBookmark(@NonNull String references,
+                                                    @NonNull String note) {
+        Log.d(TAG, "updateExistingBookmark() called with:"
+                   + " references = [" + references + "], note = [" + note + "]");
         SQLiteDatabase database = getWritableDatabase();
         database.beginTransaction();
 
@@ -415,6 +422,7 @@ public class DBUtility
 
         database.setTransactionSuccessful();
         database.endTransaction();
+        Log.d(TAG, "updateExistingBookmark() returned: " + (rowNumber > 0));
         return (rowNumber > 0);
     }
 }
