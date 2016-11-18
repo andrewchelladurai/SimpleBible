@@ -42,6 +42,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 
 import com.andrewchelladurai.simplebible.adapter.SearchResultAdapter;
 import com.andrewchelladurai.simplebible.interaction.BookmarkActivityOperations;
@@ -66,6 +67,7 @@ public class SearchFragment
     private AppCompatButton     mResetButton;
     private SearchResultAdapter mListAdapter;
     private RecyclerView        mRecyclerView;
+    private ScrollView          mHelpLabelContainer;
     private AppCompatTextView   mHelpLabel;
     private AppCompatButton     mBookmarkButton;
     private AppCompatButton     mShareButton;
@@ -114,6 +116,8 @@ public class SearchFragment
         mRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_search_list);
         mRecyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), mColumnCount));
 
+        mHelpLabelContainer =
+                (ScrollView) view.findViewById(R.id.fragment_search_label_help_container);
         mHelpLabel = (AppCompatTextView) view.findViewById(R.id.fragment_search_label_help);
         mHelpLabel.setText(Html.fromHtml(getString(R.string.fragment_search_label_help)));
 
@@ -221,11 +225,11 @@ public class SearchFragment
         if (mListAdapter.getItemCount() == 0) {
             showSearchButton();
             mRecyclerView.setVisibility(View.GONE);
-            mHelpLabel.setVisibility(View.VISIBLE);
+            mHelpLabelContainer.setVisibility(View.VISIBLE);
         } else {
             showResetButton();
             mRecyclerView.setVisibility(View.VISIBLE);
-            mHelpLabel.setVisibility(View.GONE);
+            mHelpLabelContainer.setVisibility(View.GONE);
         }
     }
 

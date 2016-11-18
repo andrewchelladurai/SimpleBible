@@ -58,22 +58,28 @@
             android:visibility="gone" />
     </android.support.v7.widget.LinearLayoutCompat>
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/fragment_search_label_help"
+    <ScrollView
+        android:id="@+id/fragment_search_label_help_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/fragment_search_button_container"
         android:layout_marginTop="@dimen/screen_padding"
-        android:gravity="center"
-        android:padding="@dimen/text_margin"
-        android:text="@string/fragment_search_label_help"
-        android:textColor="@color/textColor" />
+        android:padding="@dimen/text_margin">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/fragment_search_label_help"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_search_label_help"
+            android:textColor="@color/textColor" />
+    </ScrollView>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_search_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/fragment_search_label_help"
+        android:layout_below="@id/fragment_search_label_help_container"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/screen_padding"
         android:visibility="gone"
