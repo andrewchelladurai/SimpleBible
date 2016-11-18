@@ -65,6 +65,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.andrewchelladurai.simplebible.SimpleBibleActivity" />
         </activity>
+        <activity android:name=".SplashActivity"
+            android:theme="@style/WelcomeScreenTheme"/>
     </application>
 
 </manifest>

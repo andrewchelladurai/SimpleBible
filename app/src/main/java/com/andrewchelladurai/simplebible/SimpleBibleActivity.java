@@ -22,6 +22,7 @@ import com.andrewchelladurai.simplebible.adapter.TabsAdapter;
 import com.andrewchelladurai.simplebible.interaction.SimpleBibleActivityOperations;
 import com.andrewchelladurai.simplebible.presentation.SimpleBibleActivityPresenter;
 import com.andrewchelladurai.simplebible.utilities.Utilities;
+import com.stephentuso.welcome.WelcomeScreenHelper;
 
 import java.io.File;
 import java.io.InputStreamReader;
@@ -54,9 +55,10 @@ public class SimpleBibleActivity
         }
         // End Preference work
 
-//        welcomeScreen = new WelcomeScreenHelper(this, SplashActivity.class);
-//        welcomeScreen.show(savedInstanceState);
+        WelcomeScreenHelper welcomeScreen = new WelcomeScreenHelper(this, SplashActivity.class);
+        welcomeScreen.show(savedInstanceState);
 
+        // Start loading application
         super.onCreate(savedInstanceState);
         init();
         setContentView(R.layout.activity_simple_bible);
