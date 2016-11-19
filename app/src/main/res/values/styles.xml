@@ -60,10 +60,6 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="SBTheme.AlertDialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
-        <item name="colorAccent">@color/accent</item>
-    </style>
-
     <style name="SBTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="SBTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

@@ -68,7 +68,7 @@ public class SearchFragment
     private SearchResultAdapter mListAdapter;
     private RecyclerView        mRecyclerView;
     private ScrollView          mHelpLabelContainer;
-    private AppCompatTextView   mHelpLabel;
+//    private AppCompatTextView   mHelpLabel;
     private AppCompatButton     mBookmarkButton;
     private AppCompatButton     mShareButton;
 
@@ -118,7 +118,8 @@ public class SearchFragment
 
         mHelpLabelContainer =
                 (ScrollView) view.findViewById(R.id.fragment_search_label_help_container);
-        mHelpLabel = (AppCompatTextView) view.findViewById(R.id.fragment_search_label_help);
+        AppCompatTextView mHelpLabel =
+                (AppCompatTextView) view.findViewById(R.id.fragment_search_label_help);
         mHelpLabel.setText(Html.fromHtml(getString(R.string.fragment_search_label_help)));
 
         init();

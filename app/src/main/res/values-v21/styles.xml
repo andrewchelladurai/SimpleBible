@@ -1,9 +1,4 @@
 <resources>
-
-    <style name="SBTheme.AlertDialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
-        <item name="android:colorAccent">@color/accent</item>
-    </style>
-
     <style name="SBTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

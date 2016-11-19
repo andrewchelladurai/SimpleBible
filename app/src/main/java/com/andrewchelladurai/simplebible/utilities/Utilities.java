@@ -287,7 +287,7 @@ public class Utilities {
         return style;
     }
 
-    public static String getString(int stringId) {
+    private static String getString(int stringId) {
         return mOperations.getResourceString(stringId);
     }
 
@@ -327,7 +327,7 @@ public class Utilities {
         editor.commit();
     }
 
-    public static Context getApplicationContext() {
+    private static Context getApplicationContext() {
         return mOperations.getThisApplicationContext();
     }
 
