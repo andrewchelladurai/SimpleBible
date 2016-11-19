@@ -101,11 +101,11 @@ public class BookmarkListAdapter
                                                               Integer.parseInt(verseNumber));
             String referenceText = "";
             if (count == 1) {
-                referenceText = String.format(template,
-                                              bookName, chapterNumber, verseNumber, verseText);
+                referenceText = String.format(
+                        template, bookName, chapterNumber, verseNumber, verseText);
             } else if (count > 1) {
-                referenceText = String.format(template,
-                                              bookName, chapterNumber, verseNumber, count + "");
+                referenceText = String.format(
+                        template, bookName, chapterNumber, verseNumber, (count - 1) + "");
             } else {
                 Log.wtf(TAG, "updateView: " + mListener.getResourceString(R.string.how_am_i_here));
             }
