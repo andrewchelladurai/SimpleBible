@@ -25,28 +25,12 @@
             android:title="@string/pref_key_text_size_title" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/pref_cat_reminder_title">
+    <PreferenceCategory android:title="@string/pref_cat_export_title">
         <SwitchPreference
             android:defaultValue="false"
             android:key="@string/pref_key_reminder"
             android:summary="@string/text_disabled"
             android:title="@string/pref_key_reminder_title" />
-        <RingtonePreference
-            android:defaultValue="content://settings/system/notification_sound"
-            android:dependency="@string/pref_key_reminder"
-            android:key="@string/pref_key_reminder_tone"
-            android:ringtoneType="notification"
-            android:summary="@string/text_disabled"
-            android:title="@string/pref_key_reminder_tone_title" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:dependency="@string/pref_key_reminder"
-            android:key="@string/pref_key_reminder_vibrate"
-            android:summary="@string/text_disabled"
-            android:title="@string/pref_key_reminder_vibrate_title" />
-    </PreferenceCategory>
-
-    <PreferenceCategory android:title="@string/pref_cat_export_title">
         <Preference
             android:key="@string/pref_key_export_bookmarks"
             android:summary="@string/pref_key_export_bookmarks_summary"

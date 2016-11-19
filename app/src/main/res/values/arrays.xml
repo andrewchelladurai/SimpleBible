@@ -557,13 +557,8 @@
         <item>@string/pref_key_text_style</item>
         <item>@string/pref_key_text_size</item>
         <item>@string/pref_key_reminder</item>
-        <item>@string/pref_key_reminder_tone</item>
-        <item>@string/pref_key_reminder_vibrate</item>
         <item>@string/pref_key_changelog</item>
         <item>@string/pref_key_export_bookmarks</item>
-        <!--<item>@string/pref_key_rate</item>
-        <item>@string/pref_key_feedback</item>
-        <item>@string/pref_key_more_apps</item>-->
     </string-array>
 
 

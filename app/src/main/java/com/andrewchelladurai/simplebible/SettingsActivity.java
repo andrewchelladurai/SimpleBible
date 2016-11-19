@@ -186,6 +186,9 @@ public class SettingsActivity
                     } else if (pref_key.equalsIgnoreCase(
                             getString(R.string.pref_key_export_bookmarks))) {
                         value = getString(R.string.pref_key_export_bookmarks_summary);
+                    } else if (pref_key.equalsIgnoreCase(
+                            getString(R.string.pref_key_changelog))) {
+                        value = getString(R.string.pref_key_changelog_summary);
                     } else {
                         value = "";
                     }
@@ -212,10 +215,6 @@ public class SettingsActivity
                             getString(R.string.pref_key_reminder_summary_enabled),
                             Utilities.getReminderHour(), Utilities.getReminderMinute()));
                     preference.setSummaryOff(R.string.pref_key_reminder_summary_disabled);
-                    break;
-                case "pref_key_reminder_vibrate":
-                    preference.setSummaryOn(R.string.pref_key_reminder_vibrate_summary_enabled);
-                    preference.setSummaryOff(R.string.pref_key_reminder_vibrate_summary_disabled);
                     break;
                 default:
                     preference.setSummaryOn(R.string.enabled);
