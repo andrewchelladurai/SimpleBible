@@ -44,9 +44,8 @@ public class SplashActivity
                 .titlePage(R.drawable.splash_app_logo,
                            getString(R.string.application_name),
                            R.color.splash_title_page)
-                .basicPage(R.drawable.splash_bookmark,
-                           "Bookmarks + Notes",
-                           "You can now Export them so easy sharing",
+                .titlePage(R.drawable.splash_bookmark,
+                           "Create & Export\nBookmarks + Notes",
                            R.color.splash_bookmark_page)
                 .titlePage(R.drawable.splash_thank_you,
                            "For using this application.",
