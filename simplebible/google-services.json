@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "578769966921",
+    "firebase_url": "https://simplebible-64c19.firebaseio.com",
+    "project_id": "simplebible-64c19",
+    "storage_bucket": "simplebible-64c19.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:578769966921:android:7bb81e09b0005a38",
+        "android_client_info": {
+          "package_name": "com.andrewchelladurai.simplebible"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "578769966921-qq7aljsqhtn5mmc9d8cce7sdrj0vqp5a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhljUqMhOwu5r1d10pImha61x2T5KCYSc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
