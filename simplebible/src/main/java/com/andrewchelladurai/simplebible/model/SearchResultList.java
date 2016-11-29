@@ -42,7 +42,7 @@ import static com.google.android.gms.internal.zzs.TAG;
 public class SearchResultList {
 
     private static final List<SearchResultItem>        ITEMS          = new ArrayList<>();
-    private static final Map<String, SearchResultItem> ITEM_MAP       = new HashMap<>();
+//    private static final Map<String, SearchResultItem> ITEM_MAP       = new HashMap<>();
     private static final Map<String, SearchResultItem> SELECTED_ITEMS = new HashMap<>();
     private static final StringBuilder                 mInput         = new StringBuilder();
 
@@ -57,7 +57,7 @@ public class SearchResultList {
         }
         boolean returnValue;
         try {
-            ITEM_MAP.clear();
+//            ITEM_MAP.clear();
             ITEMS.clear();
             SELECTED_ITEMS.clear();
             int count = list.size();
@@ -67,7 +67,7 @@ public class SearchResultList {
                 parts = list.get(i);
                 item = new SearchResultItem(parts[0], parts[1]);
                 ITEMS.add(item);
-                ITEM_MAP.put(item.getReference(), item);
+//                ITEM_MAP.put(item.getReference(), item);
             }
             returnValue = true;
         } catch (Exception ex) {
@@ -82,7 +82,7 @@ public class SearchResultList {
     }
 
     public static void clearList() {
-        ITEM_MAP.clear();
+//        ITEM_MAP.clear();
         ITEMS.clear();
         SELECTED_ITEMS.clear();
         mInput.delete(0, mInput.length());

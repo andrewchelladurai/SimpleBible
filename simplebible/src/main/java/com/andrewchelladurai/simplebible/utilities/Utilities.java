@@ -331,7 +331,7 @@ public class Utilities {
         return mOperations.getThisApplicationContext();
     }
 
-    public static void enableAndUpdateReminder(boolean enable) {
+    public static void enableAndUpdateReminder() {
         Log.d(TAG, "enableAndUpdateReminder() called");
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, getReminderHour());

@@ -107,11 +107,6 @@ public class SimpleBibleActivity
         return getApplicationContext();
     }
 
-    @Override
-    public String getTabTitle(int position) {
-        return mPagerAdapter.getPageTitle(position).toString();
-    }
-
     /**
      * This will return the resource array books_n_chapter_count_array The format of the items must
      * be like this : Book_Name:Chapter_Count Example Genesis:50
@@ -120,13 +115,6 @@ public class SimpleBibleActivity
      */
     @Override public String[] getBookNameChapterCountArray() {
         return getResources().getStringArray(R.array.books_n_chapter_count_array);
-    }
-
-    @Override public SimpleBibleActivityPresenter getPresenter() {
-        if (mPresenter == null) {
-            mPresenter = new SimpleBibleActivityPresenter(this);
-        }
-        return mPresenter;
     }
 
     @Override public InputStreamReader getMainScript() {

@@ -132,11 +132,11 @@ public class DBUtility
                 if (!line.isEmpty()) {
                     try {
                         db.execSQL(line);
-                    } catch (SQLiteException sqle) {
+                    } catch (SQLiteException sqlEx) {
                         if (line.contains("BOOK_MARKS")) {
-                            Log.w(TAG, "executeScriptFile: SQLEx : " + sqle.getLocalizedMessage());
+                            Log.w(TAG, "executeScriptFile: SQLEx : " + sqlEx.getLocalizedMessage());
                         } else {
-                            Log.wtf(TAG, "executeScriptFile: ", sqle);
+                            Log.wtf(TAG, "executeScriptFile: ", sqlEx);
                         }
                     }
                 }

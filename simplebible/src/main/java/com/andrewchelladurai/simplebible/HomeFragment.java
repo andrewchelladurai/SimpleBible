@@ -144,10 +144,6 @@ public class HomeFragment
         return getContext();
     }
 
-    @Override public String[] getDailyVerseArray() {
-        return getResources().getStringArray(R.array.daily_verse_list);
-    }
-
     @Override public void updateChapterAdapter(ArrayAdapter<String> adapter) {
         mChapterInput.setAdapter(adapter);
         showError("");
@@ -165,10 +161,6 @@ public class HomeFragment
 
     @Override public String getDailyVerseTemplate() {
         return getString(R.string.fragment_home_daily_verse_template);
-    }
-
-    @Override public int getHighlightColor() {
-        return R.color.reference_highlight_color;
     }
 
     @Override public void handleEmptyBookNameValidationFailure() {

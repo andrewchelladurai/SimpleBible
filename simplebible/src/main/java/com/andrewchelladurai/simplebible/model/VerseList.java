@@ -40,7 +40,7 @@ public class VerseList {
 
     private static final String                 TAG            = "SB_VerseList";
     private static final List<VerseItem>        ITEMS          = new ArrayList<>();
-    private static final Map<String, VerseItem> ITEM_MAP       = new HashMap<>();
+//    private static final Map<String, VerseItem> ITEM_MAP       = new HashMap<>();
     private static final Map<String, VerseItem> SELECTED_ITEMS = new HashMap<>();
     private static       int                    mBookNumber    = 0;
     private static       int                    mChapterNumber = 0;
@@ -68,14 +68,14 @@ public class VerseList {
         boolean returnValue;
         try {
             ITEMS.clear();
-            ITEM_MAP.clear();
+//            ITEM_MAP.clear();
             SELECTED_ITEMS.clear();
             VerseItem item;
             for (int verseNumber = 1; verseNumber <= versesList.size(); verseNumber++) {
                 item = new VerseItem(
                         bookNumber, chapterNumber, verseNumber, versesList.get((verseNumber - 1)));
                 ITEMS.add(item);
-                ITEM_MAP.put(item.getReference(), item);
+//                ITEM_MAP.put(item.getReference(), item);
             }
             returnValue = true;
         } catch (Exception ex) {

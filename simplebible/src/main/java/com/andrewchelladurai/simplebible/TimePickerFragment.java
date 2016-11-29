@@ -59,7 +59,7 @@ public class TimePickerFragment
         mPreference.setSummaryOn(String.format(
                 getString(R.string.pref_key_reminder_summary_enabled),
                 Utilities.getReminderHour(), Utilities.getReminderMinute()));
-        Utilities.enableAndUpdateReminder(true);
+        Utilities.enableAndUpdateReminder();
     }
 
     public void setPreference(SwitchPreference preference) {

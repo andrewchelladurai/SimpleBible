@@ -17,13 +17,10 @@ public interface HomeTabOperations
 
     void updateChapterAdapter(ArrayAdapter<String> adapter);
 
-    String[] getDailyVerseArray();
-
     void handleEmptyChapterNumberValidationFailure();
 
     void handleIncorrectChapterNumberValidationFailure();
 
     String getDailyVerseTemplate();
 
-    int getHighlightColor();
 }

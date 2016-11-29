@@ -3,8 +3,6 @@ package com.andrewchelladurai.simplebible.interaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.andrewchelladurai.simplebible.presentation.SimpleBibleActivityPresenter;
-
 import java.io.File;
 import java.io.InputStreamReader;
 
@@ -16,11 +14,7 @@ public interface SimpleBibleActivityOperations
 
     Context getThisApplicationContext();
 
-    String getTabTitle(int position);
-
     String[] getBookNameChapterCountArray();
-
-    SimpleBibleActivityPresenter getPresenter();
 
     InputStreamReader getMainScript();
 

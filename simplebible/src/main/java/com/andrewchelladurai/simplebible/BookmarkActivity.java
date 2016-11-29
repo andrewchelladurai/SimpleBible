@@ -180,7 +180,8 @@ public class BookmarkActivity
     }
 
     private void buttonEditClicked() {
-        boolean status = mPresenter.buttonEditClicked();
+        /*boolean status = */
+        mPresenter.buttonEditClicked();
         mMode = CREATE;
         showCorrectMode();
     }
