@@ -120,8 +120,8 @@ public class DBUtility
         }
     }
 
-    private boolean executeScriptFile(@NonNull InputStreamReader stream,
-                                      @NonNull SQLiteDatabase db) {
+    private synchronized boolean executeScriptFile(@NonNull InputStreamReader stream,
+                                                   @NonNull SQLiteDatabase db) {
         Log.d(TAG, "executeScriptFile() called");
         BufferedReader reader = null;
         boolean isCreated = true, isClosed = true;
