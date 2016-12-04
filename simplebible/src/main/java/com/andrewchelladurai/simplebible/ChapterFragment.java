@@ -104,6 +104,7 @@ public class ChapterFragment
 
         mActions = (FloatingActionMenu)
                 activity.findViewById(chapter_detail_verse_actions_bar);
+//        mActions.setClosedOnTouchOutside(true);
         fabShare = (FloatingActionButton) activity
                 .findViewById(R.id.chapter_detail_verse_action_share);
         fabShare.setOnClickListener(this);
@@ -197,7 +198,9 @@ public class ChapterFragment
             return;
         }
         if (isSelectedItemsEmpty) {
-            mActions.setVisibility(View.GONE);
+            mActions.hideMenu(true);
+            mActions.close(true);
+            //mActions.setVisibility(View.GONE);
         } else {
             mActions.setVisibility(View.VISIBLE);
         }
