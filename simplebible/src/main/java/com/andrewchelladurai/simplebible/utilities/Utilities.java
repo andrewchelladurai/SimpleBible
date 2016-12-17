@@ -51,6 +51,7 @@ import com.andrewchelladurai.simplebible.model.BooksList;
 import com.andrewchelladurai.simplebible.model.SearchResultList.SearchResultItem;
 import com.andrewchelladurai.simplebible.model.VerseList.VerseItem;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 
@@ -353,13 +354,13 @@ public class Utilities {
                                                  @NonNull String template) {
         Log.d(TAG, "getVerseContentForToday() called");
         int bookNumber, chapterNumber, verseNumber;
+        final String defaultReference = Constants.DEFAULT_REFERENCE;
         try {
             bookNumber = Integer.parseInt(reference[0]);
             chapterNumber = Integer.parseInt(reference[1]);
             verseNumber = Integer.parseInt(reference[2]);
         } catch (NumberFormatException npe) {
             // the reference could not be parsed correctly
-            final String defaultReference = Constants.DEFAULT_REFERENCE;
             reference = defaultReference.split(Constants.DELIMITER_IN_REFERENCE);
             bookNumber = Integer.parseInt(reference[0]);
             chapterNumber = Integer.parseInt(reference[1]);
@@ -372,10 +373,11 @@ public class Utilities {
         DBUtilityOperations dbUtility = DBUtility.getInstance();
         String verseText = dbUtility.getVerseForReference(bookNumber, chapterNumber, verseNumber);
 
-        if (verseText == null) {
-            verseText = "No verse found for reference";
-            Log.e(TAG, "getVerseContentForToday: retuning - No verse found for reference");
-            return verseText;
+        if (verseText == null || verseText.isEmpty()) {
+            Log.e(TAG, "getVerseContentForToday: No verse found for reference " + Arrays
+                    .toString(reference) + "\nUsing Default Reference");
+            reference = defaultReference.split(Constants.DELIMITER_IN_REFERENCE);
+            return getVerseContentForToday(reference, template);
         }
 
         // Beautify the Verse
@@ -410,7 +412,7 @@ public class Utilities {
             // reference does not have delimiter
             reference = defaultReference;
             Log.e(TAG,
-                   "getVerseReferenceForToday: reference does not have delimiter, using default");
+                  "getVerseReferenceForToday: reference does not have delimiter, using default");
         }
         verseArray = reference.split(Constants.DELIMITER_IN_REFERENCE);
         if (verseArray.length != 3) {
@@ -418,7 +420,7 @@ public class Utilities {
             reference = defaultReference;
             verseArray = reference.split(Constants.DELIMITER_IN_REFERENCE);
             Log.d(TAG,
-                   "getVerseReferenceForToday: reference does not have 3 parts, using default");
+                  "getVerseReferenceForToday: reference does not have 3 parts, using default");
         }
         return verseArray;
     }
