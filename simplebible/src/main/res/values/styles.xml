@@ -9,20 +9,28 @@
         <item name="android:windowEnterTransition">@android:transition/slide_top</item>
         <item name="android:windowExitTransition">@android:transition/explode</item>
 
-        <item name="buttonStyle">@style/Widget.AppCompat.Button.Colored</item>
-        <item name="android:navigationBarColor">?attr/colorAccent</item>
-        <item name="android:statusBarColor">?attr/colorAccent</item>
-        <item name="android:windowBackground">@color/launcher_background</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
     <style name="SbTheme.Splash">
-        <item name="android:windowBackground">@drawable/splash_simple_bible</item>
+        <item name="android:windowBackground">@drawable/act_simple_bible_background</item>
+
+        <item name="colorAccent">@color/launcher_foreground</item>
+        <item name="colorPrimary">@color/launcher_background</item>
     </style>
 
-    <style name="SbTheme.AppBarOverlay"
-        parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="SbTheme.AppBar"
+        parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
 
-    <style name="SbTheme.PopupOverlay"
-        parent="ThemeOverlay.AppCompat.Light" />
+    <style name="SbTheme.Toolbar"
+        parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">?colorAccent</item>
+    </style>
 
 </resources>
