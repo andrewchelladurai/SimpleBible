@@ -17,7 +17,7 @@ public class Book {
 
     @ColumnInfo(name = "DESC")
     @NonNull
-    private String description = "";
+    private String description;
 
     @ColumnInfo(name = "BOOKNUMBER")
     @IntRange(from = 1, to = 66)
@@ -26,7 +26,7 @@ public class Book {
 
     @ColumnInfo(name = "BOOKNAME")
     @NonNull
-    private String name = "";
+    private String name;
 
     @ColumnInfo(name = "CHAPTERCOUNT")
     @IntRange(from = 1)
@@ -36,21 +36,25 @@ public class Book {
     @IntRange(from = 1)
     private int verses;
 
+    public Book(@NonNull final String desc,
+                @IntRange(from = 1, to = 66) final int number,
+                @NonNull final String name,
+                @IntRange(from = 1) final int chapters,
+                @IntRange(from = 1) final int verses) {
+        this.description = desc;
+        this.number = number;
+        this.name = name;
+        this.chapters = chapters;
+        this.verses = verses;
+    }
+
     @NonNull
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(@NonNull String description) {
-        this.description = description;
-    }
-
     public int getNumber() {
         return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
     }
 
     @NonNull
@@ -58,23 +62,12 @@ public class Book {
         return name;
     }
 
-    public void setName(@NonNull String name) {
-        this.name = name;
-    }
-
     public int getChapters() {
         return chapters;
-    }
-
-    public void setChapters(int chapters) {
-        this.chapters = chapters;
     }
 
     public int getVerses() {
         return verses;
     }
 
-    public void setVerses(int verses) {
-        this.verses = verses;
-    }
 }

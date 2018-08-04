@@ -17,7 +17,7 @@ public class Verse {
 
     @NonNull
     @ColumnInfo(name = "TRANSLATION")
-    private String translation = "";
+    private String translation;
 
     @ColumnInfo(name = "BOOKNUMBER")
     @IntRange(from = 1, to = 66)
@@ -33,39 +33,35 @@ public class Verse {
 
     @NonNull
     @ColumnInfo(name = "VERSETEXT")
-    private String text = "";
+    private String text;
+
+    public Verse(@NonNull final String translation,
+                 @IntRange(from = 1, to = 66) final int book,
+                 @IntRange(from = 1) final int chapter,
+                 @IntRange(from = 1) final int verse,
+                 @NonNull final String text) {
+        this.translation = translation;
+        this.book = book;
+        this.chapter = chapter;
+        this.verse = verse;
+        this.text = text;
+    }
 
     @NonNull
     public String getTranslation() {
         return translation;
     }
 
-    public void setTranslation(@NonNull String translation) {
-        this.translation = translation;
-    }
-
     public int getBook() {
         return book;
-    }
-
-    public void setBook(int book) {
-        this.book = book;
     }
 
     public int getChapter() {
         return chapter;
     }
 
-    public void setChapter(int chapter) {
-        this.chapter = chapter;
-    }
-
     public int getVerse() {
         return verse;
-    }
-
-    public void setVerse(int verse) {
-        this.verse = verse;
     }
 
     @NonNull
@@ -73,7 +69,4 @@ public class Verse {
         return text;
     }
 
-    public void setText(@NonNull String text) {
-        this.text = text;
-    }
 }
