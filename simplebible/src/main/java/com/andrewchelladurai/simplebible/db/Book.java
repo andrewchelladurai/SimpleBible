@@ -36,12 +36,12 @@ public class Book {
     @IntRange(from = 1)
     private int verses;
 
-    public Book(@NonNull final String desc,
+    public Book(@NonNull final String description,
                 @IntRange(from = 1, to = 66) final int number,
                 @NonNull final String name,
                 @IntRange(from = 1) final int chapters,
                 @IntRange(from = 1) final int verses) {
-        this.description = desc;
+        this.description = description;
         this.number = number;
         this.name = name;
         this.chapters = chapters;
