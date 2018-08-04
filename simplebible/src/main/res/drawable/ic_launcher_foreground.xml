@@ -2,13 +2,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
-    android:viewportHeight="114.1649"
-    android:viewportWidth="114.1649">
+    android:viewportHeight="142"
+    android:viewportWidth="142">
     <group
-        android:translateX="27.082453"
-        android:translateY="27.082453">
+        android:translateX="42"
+        android:translateY="42">
         <path
             android:fillColor="@color/launcher_foreground"
             android:pathData="M36.5,13l0,-13l-13,0l0,13l-15,0l0,13l15,0l0,34l13,0l0,-34l15,0l0,-13z" />
     </group>
-</vector><!--#B9121B-->
+</vector>

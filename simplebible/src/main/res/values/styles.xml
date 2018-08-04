@@ -1,0 +1,28 @@
+<resources>
+
+    <style name="SbTheme"
+        parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowEnterTransition">@android:transition/slide_top</item>
+        <item name="android:windowExitTransition">@android:transition/explode</item>
+
+        <item name="buttonStyle">@style/Widget.AppCompat.Button.Colored</item>
+        <item name="android:navigationBarColor">?attr/colorAccent</item>
+        <item name="android:statusBarColor">?attr/colorAccent</item>
+        <item name="android:windowBackground">@color/launcher_background</item>
+    </style>
+
+    <style name="SbTheme.Splash">
+        <item name="android:windowBackground">@drawable/splash_simple_bible</item>
+    </style>
+
+    <style name="SbTheme.AppBarOverlay"
+        parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="SbTheme.PopupOverlay"
+        parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>
