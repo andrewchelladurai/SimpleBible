@@ -26,4 +26,6 @@ public interface BookDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void createNewBook(@SuppressWarnings("NullableProblems") @NonNull Book book);
 
+    @Query("delete from BOOKSTATS")
+    void deleteAllRecords();
 }

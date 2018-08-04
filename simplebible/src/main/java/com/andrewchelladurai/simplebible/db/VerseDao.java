@@ -21,4 +21,6 @@ public interface VerseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void createNewVerse(@SuppressWarnings("NullableProblems") @NonNull Verse verse);
 
+    @Query("delete from BIBLEVERSES")
+    void deleteAllRecords();
 }
