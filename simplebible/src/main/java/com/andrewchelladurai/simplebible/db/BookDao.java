@@ -24,6 +24,6 @@ public interface BookDao {
     List<Book> getAllBooks();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    boolean createNewBook(@NonNull Book book);
+    void createNewBook(@SuppressWarnings("NullableProblems") @NonNull Book book);
 
 }

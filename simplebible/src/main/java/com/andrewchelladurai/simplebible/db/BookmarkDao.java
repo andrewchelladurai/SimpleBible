@@ -24,6 +24,6 @@ public interface BookmarkDao {
     List<Bookmark> getAllBookmarks();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    boolean createNewBookmark(@NonNull Bookmark bookmark);
+    void createNewBookmark(@SuppressWarnings("NullableProblems") @NonNull Bookmark bookmark);
 
 }

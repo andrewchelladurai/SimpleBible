@@ -19,6 +19,6 @@ public interface VerseDao {
     int getTotalRecordCount();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    boolean createNewVerse(@NonNull Verse verse);
+    void createNewVerse(@SuppressWarnings("NullableProblems") @NonNull Verse verse);
 
 }
