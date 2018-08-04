@@ -18,7 +18,7 @@ import java.util.List;
 public interface BookDao {
 
     @Query("select distinct count(BOOKNUMBER) from BOOKSTATS")
-    int getTotalRecordCount();
+    int getRecordCount();
 
     @Query("select * from BOOKSTATS order by BOOKNUMBER")
     List<Book> getAllBooks();

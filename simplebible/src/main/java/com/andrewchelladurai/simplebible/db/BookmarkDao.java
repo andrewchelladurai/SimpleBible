@@ -18,7 +18,7 @@ import java.util.List;
 public interface BookmarkDao {
 
     @Query("select distinct count(REFERENCE) from BOOKMARKS")
-    int getTotalRecordCount();
+    int getRecordCount();
 
     @Query("select * from BOOKMARKS order by REFERENCE")
     List<Bookmark> getAllBookmarks();

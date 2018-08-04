@@ -16,7 +16,7 @@ import android.support.annotation.NonNull;
 public interface VerseDao {
 
     @Query("select distinct count(BOOKNUMBER||CHAPTERNUMBER||VERSENUMBER) from BIBLEVERSES")
-    int getTotalRecordCount();
+    int getRecordCount();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void createNewVerse(@SuppressWarnings("NullableProblems") @NonNull Verse verse);
