@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
  * Email : TheUnknownAndrew[at]GMail[dot]com
  * on : 04-Aug-2018 @ 8:17 PM.
  */
+
 @Entity(tableName = "BIBLEVERSES",
         primaryKeys = {"BOOKNUMBER", "CHAPTERNUMBER", "VERSENUMBER"})
 public class Verse {

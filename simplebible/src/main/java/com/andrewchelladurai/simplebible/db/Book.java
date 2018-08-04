@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
  * Email : TheUnknownAndrew[at]GMail[dot]com
  * on : 04-Aug-2018 @ 8:39 PM.
  */
+
 @Entity(tableName = "BOOKSTATS")
 public class Book {
 
