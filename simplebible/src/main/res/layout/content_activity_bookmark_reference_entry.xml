@@ -1,4 +1,0 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/content_activity_bookmark_entry"
-    style="@style/StyleForTextSubHeader"
-    android:padding="@dimen/text_margin" />

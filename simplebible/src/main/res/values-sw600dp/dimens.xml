@@ -1,6 +1,0 @@
-<resources>
-    <dimen name="activity_horizontal_margin">64dp</dimen>
-
-    <integer name="column_count_books_list">3</integer>
-    <integer name="column_count_chapter_list">1</integer>
-</resources>

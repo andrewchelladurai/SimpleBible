@@ -1,71 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.andrewchelladurai.simplebible">
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->
-    <!--<uses-permission android:name="com.android.alarm.permission.SET_ALARM" />-->
 
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
-        android:icon="@mipmap/launcher_icon"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/application_name"
-        android:supportsRtl="true"
-        android:theme="@style/SBTheme">
-
-        <receiver android:name="com.andrewchelladurai.simplebible.utilities.NotificationDisplayer" />
-
-        <activity
-            android:name=".SimpleBibleActivity"
-            android:configChanges="keyboard|orientation"
-            android:label="@string/title_activity_simple_bible"
-            android:theme="@style/SBTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".BookmarkActivity"
-            android:configChanges="keyboard|orientation"
-            android:label="@string/activity_bookmark_title"
-            android:parentActivityName=".SimpleBibleActivity"
-            android:theme="@style/SBTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustPan">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.andrewchelladurai.simplebible.SimpleBibleActivity" />
-        </activity>
-        <activity
-            android:name=".ChapterListActivity"
-            android:label="@string/title_chapter_list"
-            android:parentActivityName=".SimpleBibleActivity"
-            android:theme="@style/SBTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.andrewchelladurai.simplebible.SimpleBibleActivity" />
-        </activity>
-        <activity
-            android:name=".ChapterActivity"
-            android:label="@string/title_chapter_detail"
-            android:parentActivityName=".ChapterListActivity"
-            android:theme="@style/SBTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.andrewchelladurai.simplebible.ChapterListActivity" />
-        </activity>
-        <activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:parentActivityName=".SimpleBibleActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.andrewchelladurai.simplebible.SimpleBibleActivity" />
-        </activity>
-        <activity android:name=".SplashActivity"
-            android:theme="@style/WelcomeScreenTheme"/>
-    </application>
+        android:roundIcon="@mipmap/ic_launcher_round"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning" />
 
 </manifest>
