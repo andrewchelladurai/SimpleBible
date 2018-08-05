@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
-            android:name=".ui.SimpleBibleActivity"
+            android:name=".ui.loader.LoaderActivity"
             android:label="@string/application_name"
             android:theme="@style/SbTheme.Splash">
             <intent-filter>
