@@ -9,6 +9,10 @@
         <item name="android:windowEnterTransition">@android:transition/slide_top</item>
         <item name="android:windowExitTransition">@android:transition/explode</item>
 
+        <!-- this is for v23+
+        <item name="android:windowLightStatusBar">true</item>
+        -->
+
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
