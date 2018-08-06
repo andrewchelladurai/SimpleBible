@@ -1,5 +1,7 @@
 package com.andrewchelladurai.simplebible.ui.loader;
 
+import android.support.v4.app.LoaderManager;
+
 import com.andrewchelladurai.simplebible.common.BaseScreenOps;
 
 /**
@@ -8,6 +10,11 @@ import com.andrewchelladurai.simplebible.common.BaseScreenOps;
  * on : 05-Aug-2018 @ 8:38 PM.
  */
 interface LoaderActivityOps
-    extends BaseScreenOps {
+    extends BaseScreenOps, LoaderManager.LoaderCallbacks<Boolean> {
 
+    void showLoadingScreen();
+
+    void showMainScreen();
+
+    void showFailedScreen();
 }

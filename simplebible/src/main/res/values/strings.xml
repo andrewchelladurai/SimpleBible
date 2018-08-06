@@ -10,5 +10,6 @@
     <string name="act_load_verse_err"><![CDATA[We are persecuted, but God does not leave us. We are hurt sometimes, but we are not destroyed.<br/><br/>2 Corinthians 4:9]]></string>
     <string name="act_load_msg">Creating Database</string>
     <string name="act_load_msg_err">Error Creating Database</string>
+    <string name="act_load_msg_success">Successfully loaded database</string>
 
 </resources>
