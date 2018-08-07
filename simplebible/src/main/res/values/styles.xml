@@ -19,12 +19,13 @@
 
     <!-- The Splash theme. Shown briefly when launching the application-->
     <style name="SbTheme.LoaderSplash">
-        <item name="android:windowBackground">@drawable/act_loader_splash</item>
+        <item name="android:windowBackground">@drawable/act_scr_bground_splash</item>
         <item name="colorPrimaryDark">@color/launcher_background</item>
     </style>
 
-    <style name="SbTheme.Splash">
-        <item name="android:windowBackground">@drawable/act_simple_bible_background</item>
+    <!--Theme used in the DB loader screen-->
+    <style name="SbTheme.Loader">
+        <item name="android:windowBackground">@drawable/act_scr_bground_loader</item>
 
         <item name="colorAccent">@color/launcher_foreground</item>
         <item name="colorPrimary">@color/launcher_background</item>
