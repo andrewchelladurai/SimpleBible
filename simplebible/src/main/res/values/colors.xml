@@ -2,4 +2,5 @@
 <resources>
     <color name="launcher_background">#B9121B</color>
     <color name="launcher_foreground">#F6E497</color>
+    <color name="default_text_color">@android:color/black</color>
 </resources>
