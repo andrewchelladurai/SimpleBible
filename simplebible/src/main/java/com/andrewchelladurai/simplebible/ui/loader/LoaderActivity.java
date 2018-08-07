@@ -26,6 +26,7 @@ public class LoaderActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.SbTheme_Splash);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_simplebible);
         if (presenter == null) {

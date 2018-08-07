@@ -17,6 +17,12 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+    <!-- The Splash theme. Shown briefly when launching the application-->
+    <style name="SbTheme.LoaderSplash">
+        <item name="android:windowBackground">@drawable/act_loader_splash</item>
+        <item name="colorPrimaryDark">@color/launcher_background</item>
+    </style>
+
     <style name="SbTheme.Splash">
         <item name="android:windowBackground">@drawable/act_simple_bible_background</item>
 

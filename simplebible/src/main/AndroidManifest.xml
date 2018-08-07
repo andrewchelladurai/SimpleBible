@@ -14,7 +14,7 @@
         <activity
             android:name=".ui.loader.LoaderActivity"
             android:label="@string/application_name"
-            android:theme="@style/SbTheme.Splash">
+            android:theme="@style/SbTheme.LoaderSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
