@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible.ui.loader;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.ui.main.MainActivity;
 
 public class LoaderActivity
     extends AppCompatActivity
@@ -77,6 +79,7 @@ public class LoaderActivity
         findViewById(R.id.act_load_progress).setVisibility(View.INVISIBLE);
         tvVerse = findViewById(R.id.act_load_tv_message);
         tvVerse.setText(R.string.act_load_msg_success);
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     @NonNull
