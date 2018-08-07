@@ -28,7 +28,7 @@ public class LoaderActivity
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.SbTheme_Loader);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_simplebible);
+        setContentView(R.layout.act_loader);
         if (presenter == null) {
             presenter = LoaderActivityPresenter.getInstance();
         }
