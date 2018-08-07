@@ -1,10 +1,12 @@
-package com.andrewchelladurai.simplebible.db;
+package com.andrewchelladurai.simplebible.data.dao;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.support.annotation.NonNull;
+
+import com.andrewchelladurai.simplebible.data.entities.Bookmark;
 
 import java.util.List;
 

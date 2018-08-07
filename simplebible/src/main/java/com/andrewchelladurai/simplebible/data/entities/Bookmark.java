@@ -1,4 +1,4 @@
-package com.andrewchelladurai.simplebible.db;
+package com.andrewchelladurai.simplebible.data.entities;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;

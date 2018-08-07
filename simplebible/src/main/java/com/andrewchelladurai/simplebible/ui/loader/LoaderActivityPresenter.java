@@ -6,11 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
 
-import com.andrewchelladurai.simplebible.db.Book;
-import com.andrewchelladurai.simplebible.db.BookDao;
-import com.andrewchelladurai.simplebible.db.SbDatabase;
-import com.andrewchelladurai.simplebible.db.Verse;
-import com.andrewchelladurai.simplebible.db.VerseDao;
+import com.andrewchelladurai.simplebible.data.SbDatabase;
+import com.andrewchelladurai.simplebible.data.dao.BookDao;
+import com.andrewchelladurai.simplebible.data.dao.VerseDao;
+import com.andrewchelladurai.simplebible.data.entities.Book;
+import com.andrewchelladurai.simplebible.data.entities.Verse;
 
 import java.io.BufferedReader;
 import java.io.IOException;
