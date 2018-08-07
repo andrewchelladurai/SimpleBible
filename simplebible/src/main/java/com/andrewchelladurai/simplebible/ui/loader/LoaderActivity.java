@@ -70,6 +70,7 @@ public class LoaderActivity
     @Override
     public void showMainScreen() {
         Log.e(TAG, "showMainScreen() called");
+/*
         TextView tvVerse = findViewById(R.id.act_load_tv_verse);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             tvVerse.setText(Html.fromHtml(getString(R.string.default_verse_with_reference),
@@ -80,7 +81,9 @@ public class LoaderActivity
         findViewById(R.id.act_load_progress).setVisibility(View.INVISIBLE);
         tvVerse = findViewById(R.id.act_load_tv_message);
         tvVerse.setText(R.string.act_load_msg_success);
+*/
         startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     @NonNull
