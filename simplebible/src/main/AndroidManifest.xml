@@ -25,9 +25,6 @@
             android:label="@string/application_name"
             android:parentActivityName=".ui.loader.LoaderActivity"
             android:theme="@style/SbTheme.Main">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.andrewchelladurai.simplebible.ui.loader.LoaderActivity" />
         </activity>
     </application>
 
