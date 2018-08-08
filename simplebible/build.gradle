@@ -28,20 +28,14 @@ android {
 }
 
 dependencies {
-    def lifecycle_version = "1.1.1"
-    def room_version = "1.1.1"
+//    implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    api 'com.android.support:design:28.0.0-beta01'
+    implementation 'com.google.android.material:material:1.0.0-rc01'
+    implementation 'com.android.support.constraint:constraint-layout:2.0.0-alpha1'
 
-    // Room components
-    implementation "android.arch.persistence.room:runtime:$room_version"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    annotationProcessor "android.arch.persistence.room:compiler:$room_version"
-    androidTestImplementation "android.arch.persistence.room:testing:$room_version"
+    implementation "androidx.room:room-runtime:2.0.0-rc01"
+    annotationProcessor "androidx.room:room-compiler:2.0.0-rc01"
 
-    // Lifecycle components
-    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
-    annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
-
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0-rc01"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.0.0-rc01"
 }
