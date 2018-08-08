@@ -3,7 +3,6 @@ package com.andrewchelladurai.simplebible.ui.loader;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
 
 import com.andrewchelladurai.simplebible.data.SbDatabase;
@@ -15,6 +14,8 @@ import com.andrewchelladurai.simplebible.data.entities.Verse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import androidx.loader.content.AsyncTaskLoader;
 
 import static com.andrewchelladurai.simplebible.common.Utilities.EXPECTED_BOOK_COUNT;
 import static com.andrewchelladurai.simplebible.common.Utilities.EXPECTED_VERSE_COUNT;

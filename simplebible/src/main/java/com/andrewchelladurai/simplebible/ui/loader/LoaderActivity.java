@@ -5,10 +5,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.Loader;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +12,9 @@ import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.ui.main.MainActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.Loader;
 
 public class LoaderActivity
     extends AppCompatActivity
@@ -33,7 +32,8 @@ public class LoaderActivity
             presenter = LoaderActivityPresenter.getInstance();
         }
         showLoadingScreen();
-        getSupportLoaderManager().initLoader(16, null, this).forceLoad();
+        getSupportLoaderManager().initLoader(16, null,
+                                             new DbAsyncLoaderCallback()).forceLoad();
     }
 
     @NonNull
@@ -86,23 +86,27 @@ public class LoaderActivity
         finish();
     }
 
-    @NonNull
-    @Override
-    public AsyncTaskLoader<Boolean> onCreateLoader(final int i, @Nullable final Bundle bundle) {
-        return new LoaderActivityPresenter.DbAsyncLoader(getSystemContext());
-    }
+    private class DbAsyncLoaderCallback
+        implements androidx.loader.app.LoaderManager.LoaderCallbacks<Boolean> {
 
-    @Override
-    public void onLoadFinished(@NonNull final Loader<Boolean> loader,
-                               final Boolean successfullyLoaded) {
-        if (successfullyLoaded) {
-            showMainScreen();
-        } else {
-            showFailedScreen();
+        @Override
+        public Loader<Boolean> onCreateLoader(final int id, final Bundle args) {
+            return new LoaderActivityPresenter.DbAsyncLoader(getSystemContext());
         }
-    }
 
-    @Override
-    public void onLoaderReset(@NonNull final Loader<Boolean> loader) {
+        @Override
+        public void onLoadFinished(final androidx.loader.content.Loader<Boolean> loader,
+                                   final Boolean successfullyLoaded) {
+            if (successfullyLoaded) {
+                showMainScreen();
+            } else {
+                showFailedScreen();
+            }
+        }
+
+        @Override
+        public void onLoaderReset(final androidx.loader.content.Loader<Boolean> loader) {
+
+        }
     }
 }
