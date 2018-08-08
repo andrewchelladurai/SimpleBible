@@ -7,8 +7,9 @@
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/application_name"
-        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-    </application>
+        android:roundIcon="@mipmap/ic_launcher_round"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning" />
 
 </manifest>
