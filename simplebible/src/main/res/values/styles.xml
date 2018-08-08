@@ -9,5 +9,21 @@
         <item name="colorAccent">@color/primary_red</item>
         <item name="android:navigationBarColor">@color/primary_green</item>
         <item name="android:windowBackground">@color/background_light</item>
+        <item name="android:textColor">@android:color/black</item>
     </style>
+
+    <style name="SbTheme.Splash.Temp">
+        <item name="android:windowBackground">@drawable/activity_splash_background</item>
+        <item name="colorPrimaryDark">?colorAccent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="SbTheme.Splash">
+        <item name="android:windowBackground">@drawable/activity_splash_progress_background</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="colorAccent">?android:textColor</item>
+    </style>
+
 </resources>

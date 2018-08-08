@@ -11,6 +11,7 @@ public class SplashActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.SbTheme_Splash);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
     }
