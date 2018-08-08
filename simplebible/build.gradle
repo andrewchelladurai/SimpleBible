@@ -9,6 +9,7 @@ android {
         targetSdkVersion 28
         versionName '2018.01.16'
         versionCode 20180116
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -25,17 +26,17 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
+    dexOptions {
+        incremental true
+    }
 }
 
 dependencies {
+//    exclude group: "com.android.support"
 //    implementation fileTree(include: ['*.jar'], dir: 'libs')
-
     implementation 'com.google.android.material:material:1.0.0-rc01'
-    implementation 'com.android.support.constraint:constraint-layout:2.0.0-alpha1'
-
-    implementation "androidx.room:room-runtime:2.0.0-rc01"
+    implementation 'androidx.room:room-runtime:2.0.0-rc01'
     annotationProcessor "androidx.room:room-compiler:2.0.0-rc01"
-
-    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0-rc01"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0-rc01'
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.0.0-rc01"
 }

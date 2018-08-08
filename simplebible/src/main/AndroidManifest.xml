@@ -7,25 +7,8 @@
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
-        android:icon="@mipmap/ic_launcher"
         android:label="@string/application_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity
-            android:name=".ui.loader.LoaderActivity"
-            android:label="@string/application_name"
-            android:theme="@style/SbTheme.LoaderSplash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.main.MainActivity"
-            android:label="@string/application_name"
-            android:parentActivityName=".ui.loader.LoaderActivity"
-            android:theme="@style/SbTheme.Main">
-        </activity>
     </application>
 
 </manifest>
