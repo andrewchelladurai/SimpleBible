@@ -6,10 +6,10 @@
     <string name="default_verse_text">For God so loved the world, that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life.</string>
     <string name="default_verse_with_reference"><![CDATA[For God so loved the world, that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life.<br/><br/>Gospel of John<br/>Chapter 3 : Verse 16]]></string>
 
-    <string name="act_load_verse"><![CDATA[Wait for the Lord;<br/>be strong<br/>and take heart<br/>and wait for the Lord.<br/><br/>Book of Psalms<br/>Chapter 27, Verse 14]]></string>
-    <string name="act_load_verse_err"><![CDATA[We are persecuted, but God does not leave us. We are hurt sometimes, but we are not destroyed.<br/><br/>2 Corinthians 4:9]]></string>
-    <string name="act_load_msg">Creating Database</string>
-    <string name="act_load_msg_err">Error Creating Database</string>
-    <string name="act_load_msg_success">Successfully loaded database</string>
+    <string name="tv_verse_act_splash"><![CDATA[Wait for the Lord;<br/>be strong<br/>and take heart<br/>and wait for the Lord.<br/><br/>Book of Psalms<br/>Chapter 27, Verse 14]]></string>
+    <string name="tv_verse_act_splash_err"><![CDATA[We are persecuted, but God does not leave us. We are hurt sometimes, but we are not destroyed.<br/><br/>2 Corinthians 4:9]]></string>
+    <string name="tv_msg_act_splash">Creating Database</string>
+    <string name="tv_msg_act_splash_err">Error Creating Database</string>
+    <string name="tv_msg_act_splash_success">Successfully loaded database</string>
 
 </resources>
