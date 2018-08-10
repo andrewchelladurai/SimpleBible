@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.SplashActivity">
+    tools:context=".ui.SplashScreen">
 
     <android.support.constraint.Guideline
         android:id="@+id/gh10_act_splash"
@@ -33,6 +33,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/tv_verse_act_splash"
+        android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/gh60_act_splash"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
