@@ -30,11 +30,6 @@ public abstract class SbDatabase
 
     private static final String     TAG                  = "SbDatabase";
     private static final String     DATABASE_NAME        = "SimpleBible.db";
-    private static final String     FILE_VERSE_DETAILS   = "mainStepsVerses.csv";
-    private static final String     FILE_BOOK_DETAILS    = "mainStepsBooks.csv";
-    private static final String     SPLIT_REGEX          = "~";
-    private static final int        EXPECTED_BOOK_COUNT  = 66;
-    private static final int        EXPECTED_VERSE_COUNT = 31098;
     private static       SbDatabase thisInstance         = null;
 
     public static SbDatabase getInstance(@NonNull final Context context) {
