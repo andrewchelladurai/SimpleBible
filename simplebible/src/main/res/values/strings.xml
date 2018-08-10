@@ -11,5 +11,7 @@
     <string name="tv_msg_act_splash">Creating Database</string>
     <string name="tv_msg_act_splash_err">Error Creating Database</string>
     <string name="tv_msg_act_splash_success">Successfully loaded database</string>
+    <string name="title_activity_main_screen">Simple Bible</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

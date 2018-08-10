@@ -1,0 +1,31 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout="@layout/fragment_main_screen">
+
+    <fragment
+        android:id="@+id/act_main_fragment"
+        android:name="com.andrewchelladurai.simplebible.ui.MainScreenFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/act_main_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:backgroundTint="?colorPrimary"
+        app:fabAlignmentMode="end"
+        app:title="@string/application_name" />
+    <!--app:navigationIcon="@drawable/ic_baseline_menu"-->
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/act_main_appbar_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@id/act_main_appbar" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

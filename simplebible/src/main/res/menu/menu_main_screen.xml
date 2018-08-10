@@ -1,0 +1,10 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.andrewchelladurai.simplebible.ui.MainScreen">
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_settings" />
+</menu>

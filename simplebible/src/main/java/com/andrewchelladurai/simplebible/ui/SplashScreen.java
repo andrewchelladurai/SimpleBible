@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
@@ -96,9 +97,13 @@ public class SplashScreen
 
     @Override
     public void onLoadFinished(final Loader<Boolean> loader, final Boolean data) {
+        mProgressBar.setVisibility(View.INVISIBLE);
         if (data) {
-            mProgressBar.setVisibility(View.INVISIBLE);
             mMessage.setText(R.string.tv_msg_act_splash_success);
+            finish();
+            startActivity(new Intent(this, MainScreen.class));
+        } else {
+            mMessage.setText(R.string.tv_msg_act_splash_err);
         }
     }
 
