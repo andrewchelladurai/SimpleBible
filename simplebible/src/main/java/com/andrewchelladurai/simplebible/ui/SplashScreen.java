@@ -61,7 +61,7 @@ public class SplashScreen
 
     @Override
     public void updateProgress(final Integer value) {
-        mMessage.setText(String.valueOf(value) + " Completed");
+        mMessage.setText(String.valueOf(value));
     }
 
     @Override
