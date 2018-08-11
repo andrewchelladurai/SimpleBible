@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible.ui;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ public class MainScreen
     BottomAppBar         mAppbar;
     FrameLayout          mFragmentHolder;
     FloatingActionButton mFab;
+    static HomeFragment mHomeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,15 @@ public class MainScreen
             }
         });
         mFragmentHolder = findViewById(R.id.act_main_fragment_holder);
+
+        if (mHomeFragment == null) {
+            mHomeFragment = new HomeFragment();
+        }
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.act_main_fragment_holder, mHomeFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     private void handleBottomFabClick() {
