@@ -2,16 +2,20 @@ package com.andrewchelladurai.simplebible.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.andrewchelladurai.simplebible.R;
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.widget.Toolbar;
 
 public class MainScreen
     extends Activity {
 
+    private static final String TAG = "MainScreen";
     BottomAppBar mAppbar;
 
     @Override
@@ -27,9 +31,21 @@ public class MainScreen
                 return handleMenuItemClick(item);
             }
         });
+        FloatingActionButton mFab = findViewById(R.id.act_main_appbar_fab);
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                handleBottomFabClick();
+            }
+        });
+    }
+
+    private void handleBottomFabClick() {
+        Log.d(TAG, "handleBottomFabClick: ");
     }
 
     private boolean handleMenuItemClick(final MenuItem item) {
+        Log.d(TAG, "handleMenuItemClick: " + item.getTitle());
         return true;
     }
 

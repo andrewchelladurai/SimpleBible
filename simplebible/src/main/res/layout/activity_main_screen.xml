@@ -14,18 +14,20 @@
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/act_main_appbar"
+        style="@style/Widget.MaterialComponents.BottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:backgroundTint="?colorPrimary"
         app:fabAlignmentMode="end"
-        app:title="@string/application_name" />
-    <!--app:navigationIcon="@drawable/ic_baseline_menu"-->
+        app:menu="@menu/menu_main_screen" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/act_main_appbar_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_menu"
+        android:tint="@color/ic_color_fab_main_appbar"
         app:layout_anchor="@id/act_main_appbar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

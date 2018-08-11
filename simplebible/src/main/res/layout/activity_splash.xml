@@ -31,8 +31,8 @@
     <TextView
         android:id="@+id/tv_verse_act_splash"
         android:layout_width="0dp"
-        android:gravity="center"
         android:layout_height="0dp"
+        android:gravity="center"
         android:text="@string/tv_verse_act_splash"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/gh60_act_splash"

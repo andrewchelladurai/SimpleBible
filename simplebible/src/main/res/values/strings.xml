@@ -13,5 +13,9 @@
     <string name="tv_msg_act_splash_success">Successfully loaded database</string>
     <string name="title_activity_main_screen">Simple Bible</string>
     <string name="action_settings">Settings</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_bookmarks">Bookmarks</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_home">Books</string>
 
 </resources>

@@ -4,4 +4,6 @@
     <color name="primary_red">#e64c66</color>
     <color name="background_dark">#2D3E50</color>
     <color name="background_light">#fafafa</color>
+    <color name="ic_color_fab_main_appbar">@android:color/white</color>
+    <color name="ic_color_main_appbar">@color/ic_color_fab_main_appbar</color>
 </resources>
