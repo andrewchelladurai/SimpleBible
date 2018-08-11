@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.andrewchelladurai.simplebible.R;
 import com.google.android.material.bottomappbar.BottomAppBar;
@@ -16,7 +17,9 @@ public class MainScreen
     extends Activity {
 
     private static final String TAG = "MainScreen";
-    BottomAppBar mAppbar;
+    BottomAppBar         mAppbar;
+    FrameLayout          mFragmentHolder;
+    FloatingActionButton mFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +34,14 @@ public class MainScreen
                 return handleMenuItemClick(item);
             }
         });
-        FloatingActionButton mFab = findViewById(R.id.act_main_appbar_fab);
+        mFab = findViewById(R.id.act_main_appbar_fab);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
                 handleBottomFabClick();
             }
         });
+        mFragmentHolder = findViewById(R.id.act_main_fragment_holder);
     }
 
     private void handleBottomFabClick() {
