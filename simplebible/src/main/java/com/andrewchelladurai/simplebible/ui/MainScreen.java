@@ -46,7 +46,7 @@ public class MainScreen
         mFragmentHolder = findViewById(R.id.act_main_fragment_holder);
 
         if (mHomeFragment == null) {
-            mHomeFragment = BookFragment.newInstance(2);
+            mHomeFragment = BookFragment.newInstance();
         }
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

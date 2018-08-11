@@ -6,27 +6,27 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.ui.dummy.DummyContent;
+import com.andrewchelladurai.simplebible.data.BookRepository;
+import com.andrewchelladurai.simplebible.data.entities.Book;
+import com.andrewchelladurai.simplebible.ui.ops.AdapterOps;
+import com.andrewchelladurai.simplebible.ui.ops.BookFragmentOps;
+import com.andrewchelladurai.simplebible.ui.ops.ViewHolderOps;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class BookRecyclerViewAdapter
-    extends RecyclerView.Adapter<BookRecyclerViewAdapter.ViewHolder> {
+    extends RecyclerView.Adapter<BookRecyclerViewAdapter.ViewHolder>
+    implements AdapterOps {
 
-    private final List<DummyContent.DummyItem> mValues;
-    private final BookFragment                 mListener;
+    private final List<Book>      mValues;
+    private final BookFragmentOps mOps;
 
-    BookRecyclerViewAdapter(List<DummyContent.DummyItem> items,
-                            BookFragment listener) {
-        mValues = items;
-        mListener = listener;
+    BookRecyclerViewAdapter(@NonNull BookFragmentOps ops) {
+        mValues = BookRepository.getInstance().getList();
+        mOps = ops;
     }
 
     @Override
@@ -38,20 +38,7 @@ public class BookRecyclerViewAdapter
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
-            }
-        });
+        holder.updateView(mValues.get(position));
     }
 
     @Override
@@ -59,24 +46,39 @@ public class BookRecyclerViewAdapter
         return mValues.size();
     }
 
+    @Override
+    public void updateList() {
+        mValues.clear();
+        mValues.addAll(BookRepository.getInstance().getList());
+    }
+
     public class ViewHolder
-        extends RecyclerView.ViewHolder {
+        extends RecyclerView.ViewHolder
+        implements ViewHolderOps {
 
-        public final View                   mView;
-        public final TextView               mIdView;
-        public final TextView               mContentView;
-        public       DummyContent.DummyItem mItem;
+        final   View     mView;
+        final   TextView mtvBookName;
+        final   TextView mtvBookDetails;
+        private Book     mBook;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mView.setOnClickListener(this);
+            mtvBookName = view.findViewById(R.id.item_book_name);
+            mtvBookDetails = view.findViewById(R.id.item_book_details);
         }
 
         @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+        public void onClick(final View view) {
+            mOps.onListFragmentInteraction(mBook);
+        }
+
+        @Override
+        public void updateView(final Object item) {
+            mBook = (Book) item;
+            mtvBookName.setText(mBook.getName());
+            mtvBookDetails.setText(String.valueOf(mBook.getChapters()));
         }
     }
 }

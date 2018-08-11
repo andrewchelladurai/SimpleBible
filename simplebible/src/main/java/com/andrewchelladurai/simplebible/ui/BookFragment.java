@@ -7,20 +7,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.ui.dummy.DummyContent;
+import com.andrewchelladurai.simplebible.data.entities.Book;
+import com.andrewchelladurai.simplebible.ui.ops.BookFragmentOps;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class BookFragment
-    extends Fragment {
+    extends Fragment
+    implements BookFragmentOps {
 
     private static final String TAG = "BookFragment";
+    private static BookRecyclerViewAdapter mAdapter;
 
     private BookFragment() {
     }
 
-    public static BookFragment newInstance(int columnCount) {
+    public static BookFragment newInstance() {
         BookFragment fragment = new BookFragment();
         Bundle args = new Bundle();
 //        args.putInt(ARG_COLUMN_COUNT, columnCount);
@@ -44,15 +47,18 @@ public class BookFragment
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_book, container, false);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            RecyclerView recyclerView = (RecyclerView) view;
-            recyclerView.setAdapter(new BookRecyclerViewAdapter(DummyContent.ITEMS, this));
+        if (mAdapter == null) {
+            mAdapter = new BookRecyclerViewAdapter(this);
+            mAdapter.updateList();
         }
+
+        RecyclerView recyclerView = view.findViewById(R.id.fragment_book_list);
+        recyclerView.setAdapter(mAdapter);
+
         return view;
     }
 
-    public void onListFragmentInteraction(final DummyContent.DummyItem item) {
-        Log.d(TAG, "onListFragmentInteraction() called with: item = [" + item + "]");
+    public void onListFragmentInteraction(final Book book) {
+        Log.d(TAG, "onListFragmentInteraction called [" + book + "]");
     }
 }
