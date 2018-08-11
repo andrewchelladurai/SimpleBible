@@ -1,5 +1,6 @@
 package com.andrewchelladurai.simplebible.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entities.Book;
+import com.andrewchelladurai.simplebible.presenter.BooksScreenPresenter;
 import com.andrewchelladurai.simplebible.ui.ops.BookFragmentOps;
 
 import androidx.fragment.app.Fragment;
@@ -18,7 +20,8 @@ public class BookFragment
     implements BookFragmentOps {
 
     private static final String TAG = "BookFragment";
-    private static BookRecyclerViewAdapter mAdapter;
+    private static BookRecyclerViewAdapter sAdapter;
+    private static BooksScreenPresenter    sPresenter;
 
     private BookFragment() {
     }
@@ -47,18 +50,34 @@ public class BookFragment
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_book, container, false);
 
-        if (mAdapter == null) {
-            mAdapter = new BookRecyclerViewAdapter(this);
-            mAdapter.updateList();
+        if (sPresenter == null) {
+            sPresenter = new BooksScreenPresenter(this);
+        }
+
+        if (sAdapter == null) {
+            boolean repositoryIsNotValidated = !sPresenter.validateBookRepository(
+                getString(R.string.first_book), getString(R.string.last_book));
+            if (repositoryIsNotValidated) {
+                sPresenter.populateBookRepository();
+            }
+
+            sAdapter = new BookRecyclerViewAdapter(this);
+            sAdapter.updateList(sPresenter.getBooksList());
         }
 
         RecyclerView recyclerView = view.findViewById(R.id.fragment_book_list);
-        recyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(sAdapter);
+        sAdapter.notifyDataSetChanged();
 
         return view;
     }
 
     public void onListFragmentInteraction(final Book book) {
         Log.d(TAG, "onListFragmentInteraction called [" + book + "]");
+    }
+
+    @Override
+    public Context getSystemContext() {
+        return getContext();
     }
 }

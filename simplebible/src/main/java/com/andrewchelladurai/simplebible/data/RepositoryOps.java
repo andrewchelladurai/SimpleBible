@@ -15,11 +15,11 @@ interface RepositoryOps {
     /**
      * Populates the repository using the given source
      *
-     * @param source can be a cursor or List<@{@link com.andrewchelladurai.simplebible.data.entities.Book}>
+     * @param list can be a cursor or List<@{@link com.andrewchelladurai.simplebible.data.entities.Book}>
      *
      * @return true if successfully loaded
      */
-    boolean populate(@NonNull Object source);
+    boolean populate(@NonNull List<?> list);
 
     /**
      * Clears the repository
@@ -66,4 +66,13 @@ interface RepositoryOps {
      * @return list of records
      */
     List<?> getList();
+
+    /**
+     * Validate the repository against passed params
+     *
+     * @param objects keys or values to validate the repository
+     *
+     * @return true if validated
+     */
+    boolean validate(Object... objects);
 }

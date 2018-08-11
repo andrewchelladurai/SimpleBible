@@ -1,6 +1,10 @@
 package com.andrewchelladurai.simplebible.ui.ops;
 
+import android.content.Context;
+
 import com.andrewchelladurai.simplebible.data.entities.Book;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by : Andrew Chelladurai
@@ -10,4 +14,7 @@ import com.andrewchelladurai.simplebible.data.entities.Book;
 public interface BookFragmentOps {
 
     void onListFragmentInteraction(Book book);
+
+    @NonNull
+    Context getSystemContext();
 }

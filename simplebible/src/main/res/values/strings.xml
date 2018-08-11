@@ -17,5 +17,7 @@
     <string name="menu_bookmarks">Bookmarks</string>
     <string name="menu_search">Search</string>
     <string name="menu_home">Books</string>
+    <string name="first_book">Genesis</string>
+    <string name="last_book">Revelation</string>
 
 </resources>

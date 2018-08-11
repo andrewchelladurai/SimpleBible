@@ -1,5 +1,9 @@
 package com.andrewchelladurai.simplebible.ui.ops;
 
+import java.util.List;
+
+import androidx.annotation.NonNull;
+
 /**
  * Created by : Andrew Chelladurai
  * Email : TheUnknownAndrew[at]GMail[dot]com
@@ -7,6 +11,6 @@ package com.andrewchelladurai.simplebible.ui.ops;
  */
 public interface AdapterOps {
 
-    public void updateList();
+    void updateList(@NonNull final List<?> list);
 
 }
