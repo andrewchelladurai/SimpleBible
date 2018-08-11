@@ -4,18 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:layout="@layout/fragment_main_screen">
+    tools:layout="@layout/fragment_home">
 
     <FrameLayout
         android:id="@+id/act_main_fragment_holder"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <fragment
-            android:id="@+id/act_main_fragment"
-            android:name="com.andrewchelladurai.simplebible.ui.MainScreenFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <!--
+            We are replacing fragments on this layout container programmatically
+            This is being left behind as a placeholder, just in case
+                <fragment
+                    android:id="@+id/act_main_fragment"
+                    android:name="com.andrewchelladurai.simplebible.ui.HomeFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+        -->
     </FrameLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
