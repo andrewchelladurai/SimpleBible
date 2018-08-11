@@ -6,11 +6,17 @@
     android:layout_height="match_parent"
     tools:layout="@layout/fragment_main_screen">
 
-    <fragment
-        android:id="@+id/act_main_fragment"
-        android:name="com.andrewchelladurai.simplebible.ui.MainScreenFragment"
+    <FrameLayout
+        android:id="@+id/act_main_fragment_holder"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <fragment
+            android:id="@+id/act_main_fragment"
+            android:name="com.andrewchelladurai.simplebible.ui.MainScreenFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/act_main_appbar"
@@ -26,7 +32,7 @@
         android:id="@+id/act_main_appbar_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_menu"
+        android:src="@drawable/ic_goto"
         android:tint="@color/ic_color_fab_main_appbar"
         app:layout_anchor="@id/act_main_appbar" />
 
