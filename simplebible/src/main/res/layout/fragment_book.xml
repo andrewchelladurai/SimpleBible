@@ -9,6 +9,7 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    app:layoutManager="LinearLayoutManager"
+    app:layoutManager="GridLayoutManager"
+    app:spanCount="@integer/fragment_books_list"
     tools:context=".ui.BookFragment"
     tools:listitem="@layout/item_book" />

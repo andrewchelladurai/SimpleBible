@@ -20,11 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 public class BookRecyclerViewAdapter
     extends RecyclerView.Adapter<BookRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyContent.DummyItem>                   mValues;
-    private final BookFragment.OnListFragmentInteractionListener mListener;
+    private final List<DummyContent.DummyItem> mValues;
+    private final BookFragment                 mListener;
 
-    public BookRecyclerViewAdapter(List<DummyContent.DummyItem> items,
-                                   BookFragment.OnListFragmentInteractionListener listener) {
+    BookRecyclerViewAdapter(List<DummyContent.DummyItem> items,
+                            BookFragment listener) {
         mValues = items;
         mListener = listener;
     }

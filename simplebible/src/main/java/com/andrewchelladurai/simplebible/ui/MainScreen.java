@@ -1,7 +1,5 @@
 package com.andrewchelladurai.simplebible.ui;
 
-import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -12,16 +10,18 @@ import com.andrewchelladurai.simplebible.R;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentTransaction;
 
 public class MainScreen
-    extends Activity {
+    extends AppCompatActivity {
 
     private static final String TAG = "MainScreen";
     BottomAppBar         mAppbar;
     FrameLayout          mFragmentHolder;
     FloatingActionButton mFab;
-    static HomeFragment mHomeFragment;
+    static BookFragment mHomeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +46,10 @@ public class MainScreen
         mFragmentHolder = findViewById(R.id.act_main_fragment_holder);
 
         if (mHomeFragment == null) {
-            mHomeFragment = new HomeFragment();
+            mHomeFragment = BookFragment.newInstance(2);
         }
 
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.act_main_fragment_holder, mHomeFragment);
         transaction.addToBackStack(null);
         transaction.commit();
