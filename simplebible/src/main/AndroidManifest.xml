@@ -23,7 +23,7 @@
         </activity>
         <activity
             android:name=".ui.MainScreen"
-            android:label="@string/title_activity_main_screen"></activity>
+            android:label="@string/application_name" />
     </application>
 
 </manifest>

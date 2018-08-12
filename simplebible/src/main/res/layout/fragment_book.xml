@@ -10,13 +10,21 @@
     android:layout_marginRight="@dimen/gap_big"
     tools:context=".ui.BookFragment">
 
+    <android.support.constraint.Guideline
+        android:id="@+id/fragment_book_gv50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6" />
+
     <TextView
         android:id="@+id/fragment_book_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/gap_normal"
         android:gravity="center"
         android:text="@string/application_name"
+        android:paddingBottom="@dimen/gap_normal"
+        android:paddingTop="@dimen/gap_normal"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,15 +32,61 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0" />
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/fragment_book_container_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/fragment_book_name_hint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/fragment_book_gv50"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_book_title"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/fragment_book_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/gap_normal" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/fragment_book_container_chapter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/fragment_book_chapter_hint"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_book_container_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/fragment_book_gv50"
+        app:layout_constraintTop_toTopOf="@+id/fragment_book_container_name">
+
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/fragment_book_chapter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/fragment_book_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_book_button_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_book_container_name"
+        app:layout_constraintVertical_bias="0" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_book_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_margin="@dimen/gap_normal"
         app:layoutManager="GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_book_title"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_book_button"
         app:spanCount="@integer/fragment_books_list"
         tools:listitem="@layout/item_book" />
 </android.support.constraint.ConstraintLayout>
