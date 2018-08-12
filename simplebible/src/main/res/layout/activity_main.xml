@@ -77,43 +77,35 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/act_fab_books"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/SbTheme.FAB"
             android:layout_margin="@dimen/gap_normal"
             android:layout_weight="1"
             android:contentDescription="@string/menu_home"
-            android:src="@drawable/ic_baseline_menu"
-            android:tint="?colorPrimary" />
+            android:src="@drawable/ic_baseline_menu" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/act_fab_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/SbTheme.FAB"
             android:layout_margin="@dimen/gap_normal"
             android:layout_weight="1"
             android:contentDescription="@string/menu_search"
-            android:src="@drawable/ic_search"
-            android:tint="?colorPrimary" />
+            android:src="@drawable/ic_search" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/act_fab_bookmarks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/SbTheme.FAB"
             android:layout_margin="@dimen/gap_normal"
             android:layout_weight="1"
             android:contentDescription="@string/menu_bookmarks"
-            android:src="@drawable/ic_bookmark"
-            android:tint="?colorPrimary" />
+            android:src="@drawable/ic_bookmark" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/act_fab_settings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/SbTheme.FAB"
             android:layout_margin="@dimen/gap_normal"
             android:layout_weight="1"
             android:contentDescription="@string/menu_settings"
-            android:src="@drawable/ic_settings"
-            android:tint="?colorPrimary" />
+            android:src="@drawable/ic_settings" />
     </com.google.android.material.circularreveal.CircularRevealLinearLayout>
 
 </android.support.constraint.ConstraintLayout>
