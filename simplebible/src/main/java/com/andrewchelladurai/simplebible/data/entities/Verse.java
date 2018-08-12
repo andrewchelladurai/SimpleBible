@@ -1,5 +1,7 @@
 package com.andrewchelladurai.simplebible.data.entities;
 
+import com.andrewchelladurai.simplebible.util.Utilities;
+
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -35,6 +37,8 @@ public class Verse {
     @ColumnInfo(name = "VERSETEXT")
     private final String text;
 
+    private boolean selected = false;
+
     public Verse(@NonNull final String translation,
                  @IntRange(from = 1, to = 66) final int book,
                  @IntRange(from = 1) final int chapter,
@@ -45,6 +49,7 @@ public class Verse {
         this.chapter = chapter;
         this.verse = verse;
         this.text = text;
+        this.selected = false;
     }
 
     @NonNull
@@ -67,6 +72,18 @@ public class Verse {
     @NonNull
     public String getText() {
         return text;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(final boolean selected) {
+        this.selected = selected;
+    }
+
+    public String getReference() {
+        return Utilities.getInstance().createReference(book, chapter, verse);
     }
 
 }
