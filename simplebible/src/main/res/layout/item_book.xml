@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/gap_normal"
     android:layout_marginEnd="@dimen/gap_normal"
     android:layout_marginStart="@dimen/gap_normal"
-    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/item_book_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        style="@style/SbTheme.Header"
+        tools:text="@string/default_verse_text" />
 
     <TextView
         android:id="@+id/item_book_details"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        style="@style/SbTheme.SubHeader"
+        tools:text="@string/default_verse_with_reference" />
 </LinearLayout>

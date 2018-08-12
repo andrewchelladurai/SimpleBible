@@ -57,4 +57,21 @@
         <item name="android:selectAllOnFocus">true</item>
     </style>
 
+    <style name="SbTheme.Header"
+        parent="TextAppearance.MaterialComponents.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="android:textColor">?colorPrimaryDark</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/merriweather_bold</item>
+    </style>
+
+    <style name="SbTheme.SubHeader"
+        parent="TextAppearance.MaterialComponents.Chip">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:fontFamily">@font/inconsolata</item>
+    </style>
+
 </resources>
