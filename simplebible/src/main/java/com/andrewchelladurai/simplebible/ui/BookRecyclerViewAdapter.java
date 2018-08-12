@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entities.Book;
 import com.andrewchelladurai.simplebible.ui.ops.AdapterOps;
-import com.andrewchelladurai.simplebible.ui.ops.BookFragmentOps;
+import com.andrewchelladurai.simplebible.ui.ops.BooksScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.ViewHolderOps;
 
 import java.util.ArrayList;
@@ -24,9 +24,9 @@ public class BookRecyclerViewAdapter
 
     private static final String     TAG   = "BookRecyclerViewAdapter";
     private final        List<Book> mList = new ArrayList<>();
-    private final BookFragmentOps mOps;
+    private final BooksScreenOps mOps;
 
-    BookRecyclerViewAdapter(@NonNull BookFragmentOps ops) {
+    BookRecyclerViewAdapter(@NonNull BooksScreenOps ops) {
         mOps = ops;
     }
 

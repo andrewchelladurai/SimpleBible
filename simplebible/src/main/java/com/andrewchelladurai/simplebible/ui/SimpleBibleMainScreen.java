@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
@@ -148,6 +149,6 @@ public class SimpleBibleMainScreen
     }
 
     private void handleFabClickBooks() {
-        Log.d(TAG, "handleFabClickBooks() called");
+        startActivity(new Intent(this, BooksScreen.class));
     }
 }

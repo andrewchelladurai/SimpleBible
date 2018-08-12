@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
  * Email : TheUnknownAndrew[at]GMail[dot]com
  * on : 11-Aug-2018 @ 7:16 PM.
  */
-public interface BookFragmentOps {
+public interface BooksScreenOps {
 
     void onListFragmentInteraction(Book book);
 

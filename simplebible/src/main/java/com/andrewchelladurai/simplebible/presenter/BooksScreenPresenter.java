@@ -1,6 +1,6 @@
 package com.andrewchelladurai.simplebible.presenter;
 
-import com.andrewchelladurai.simplebible.ui.ops.BookFragmentOps;
+import com.andrewchelladurai.simplebible.ui.ops.BooksScreenOps;
 
 /**
  * Created by : Andrew Chelladurai
@@ -10,9 +10,9 @@ import com.andrewchelladurai.simplebible.ui.ops.BookFragmentOps;
 public class BooksScreenPresenter {
 
     private static final String TAG = "BooksScreenPresenter";
-    private final BookFragmentOps mOps;
+    private final BooksScreenOps mOps;
 
-    public BooksScreenPresenter(final BookFragmentOps ops) {
+    public BooksScreenPresenter(final BooksScreenOps ops) {
         mOps = ops;
     }
 }

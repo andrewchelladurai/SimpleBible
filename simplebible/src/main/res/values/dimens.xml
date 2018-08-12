@@ -4,7 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <integer name="DB_LOADER">16</integer>
-    <integer name="fragment_books_list">2</integer>
+    <integer name="act_books_list">2</integer>
     <dimen name="gap_big">16dp</dimen>
     <dimen name="gap_normal">8dp</dimen>
 </resources>
