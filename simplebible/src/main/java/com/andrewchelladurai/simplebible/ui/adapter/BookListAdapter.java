@@ -61,16 +61,16 @@ public class BookListAdapter
         implements ViewHolderOps {
 
         final   View     mView;
-        final   TextView mtvBookName;
-        final   TextView mtvBookDetails;
+        final   TextView mHeader;
+        final   TextView mDetails;
         private Book     mBook;
 
         ViewHolder(View view) {
             super(view);
             mView = view;
             mView.setOnClickListener(this);
-            mtvBookName = view.findViewById(R.id.item_book_name);
-            mtvBookDetails = view.findViewById(R.id.item_book_details);
+            mHeader = view.findViewById(R.id.item_book_name);
+            mDetails = view.findViewById(R.id.item_book_details);
         }
 
         @Override
@@ -81,8 +81,8 @@ public class BookListAdapter
         @Override
         public void updateView(final Object item) {
             mBook = (Book) item;
-            mtvBookName.setText(mOps.getFormattedBookListHeader(mBook));
-            mtvBookDetails.setText(mOps.getFormattedBookListDetails(mBook));
+            mHeader.setText(mOps.getFormattedBookListHeader(mBook));
+            mDetails.setText(mOps.getFormattedBookListDetails(mBook));
         }
     }
 }
