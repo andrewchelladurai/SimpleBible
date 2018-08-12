@@ -10,72 +10,54 @@
     android:layout_marginRight="@dimen/gap_big"
     tools:context=".ui.BooksScreen">
 
-    <android.support.constraint.Guideline
-        android:id="@+id/act_books_gv50"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.6" />
-
-    <TextView
-        android:id="@+id/act_books_title"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/act_books_container_input"
+        android:layout_marginTop="@dimen/gap_big"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/application_name"
-        android:paddingBottom="@dimen/gap_normal"
-        android:paddingTop="@dimen/gap_normal"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/act_books_container_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/act_books_name_hint"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/act_books_gv50"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/act_books_title"
         app:layout_constraintVertical_bias="0.0">
 
-        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-            android:id="@+id/act_books_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/act_books_container_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/act_books_name_hint">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/act_books_container_chapter"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/act_books_chapter_hint"
-        app:layout_constraintBottom_toBottomOf="@id/act_books_container_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/act_books_gv50"
-        app:layout_constraintTop_toTopOf="@+id/act_books_container_name">
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/act_books_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-            android:id="@+id/act_books_chapter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/act_books_container_chapter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/act_books_chapter_hint">
+
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/act_books_chapter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/act_books_button"
-        style="@style/Widget.MaterialComponents.Button.Icon"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        app:icon="@drawable/ic_goto"
+        android:layout_height="wrap_content"
         android:text="@string/act_books_button_label"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/act_books_container_name"
+        app:layout_constraintTop_toBottomOf="@+id/act_books_container_input"
         app:layout_constraintVertical_bias="0" />
 
     <androidx.recyclerview.widget.RecyclerView
