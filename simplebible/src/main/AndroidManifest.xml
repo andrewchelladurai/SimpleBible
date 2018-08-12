@@ -26,6 +26,10 @@
             android:theme="@style/SbTheme.Green"
             android:name=".ui.BooksScreen"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
