@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
@@ -102,12 +103,10 @@ public class BooksScreen
         Log.d(TAG, "showChapterActivity: book = [" + book + "], chapter = [" + chapter + "]");
         resetChapterField();
         resetBookField();
-/*
-        Intent intent = new Intent(this, ActivityChapter.class);
-        intent.putExtra(ActivityChapter.BOOK_NUMBER, book);
-        intent.putExtra(ActivityChapter.CHAPTER_NUMBER, chapter);
+        Intent intent = new Intent(this, ChapterScreen.class);
+        intent.putExtra(ChapterScreen.BOOK_NUMBER, book);
+        intent.putExtra(ChapterScreen.CHAPTER_NUMBER, chapter);
         startActivity(intent);
-*/
     }
 
     private void resetBookField() {
