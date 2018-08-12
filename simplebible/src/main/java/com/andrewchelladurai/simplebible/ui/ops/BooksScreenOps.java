@@ -1,6 +1,8 @@
 package com.andrewchelladurai.simplebible.ui.ops;
 
 import android.content.Context;
+import android.text.TextWatcher;
+import android.view.View;
 
 import com.andrewchelladurai.simplebible.data.entities.Book;
 
@@ -15,7 +17,7 @@ import androidx.lifecycle.Observer;
  * on : 11-Aug-2018 @ 7:16 PM.
  */
 public interface BooksScreenOps
-    extends Observer<List<Book>> {
+    extends Observer<List<Book>>, View.OnClickListener, View.OnFocusChangeListener, TextWatcher {
 
     void onListFragmentInteraction(Book book);
 

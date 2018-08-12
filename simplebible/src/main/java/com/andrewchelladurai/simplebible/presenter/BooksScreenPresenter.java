@@ -6,6 +6,9 @@ import com.andrewchelladurai.simplebible.ui.ops.BooksScreenOps;
 
 import java.util.ArrayList;
 
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+
 /**
  * Created by : Andrew Chelladurai
  * Email : TheUnknownAndrew[at]GMail[dot]com
@@ -22,5 +25,14 @@ public class BooksScreenPresenter {
 
     public ArrayList<Book> getBooksList() {
         return BookRepository.getInstance().getList();
+    }
+
+    public Book getBookUsingName(@NonNull final String bookName) {
+        return BookRepository.getInstance().getRecordUsingValue(bookName);
+    }
+
+    public boolean validateChapterForBook(@IntRange(from = 1) final int chapter,
+                                          @NonNull final Book book) {
+        return (chapter >= 1 && chapter <= book.getChapters());
     }
 }

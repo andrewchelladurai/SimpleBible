@@ -8,6 +8,7 @@ import com.andrewchelladurai.simplebible.data.entities.Book;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -56,12 +57,24 @@ public class BookRepository
     }
 
     @Override
-    public Object getRecordUsingKey(final Object key) {
+    public Object getRecordUsingKey(@NonNull final Object key) {
+        int number = (int) key;
+        for (final Book book : mBookList) {
+            if (book.getNumber() == number) {
+                return book;
+            }
+        }
         return null;
     }
 
     @Override
-    public Object getRecordUsingValue(final Object value) {
+    public Book getRecordUsingValue(@NonNull final Object value) {
+        String bookName = (String) value;
+        for (final Book book : mBookList) {
+            if (book.getName().equalsIgnoreCase(bookName)) {
+                return book;
+            }
+        }
         return null;
     }
 

@@ -36,7 +36,8 @@
                 android:inputType="textAutoCorrect|textAutoComplete"
                 android:lines="1"
                 android:maxLines="1"
-                android:minLines="1" />
+                android:minLines="1"
+                android:selectAllOnFocus="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -54,7 +55,8 @@
                 android:inputType="number"
                 android:lines="1"
                 android:maxLines="1"
-                android:minLines="1" />
+                android:minLines="1"
+                android:selectAllOnFocus="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
