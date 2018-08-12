@@ -16,11 +16,11 @@ import com.andrewchelladurai.simplebible.ui.ops.SplashScreenOps;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.content.Loader;
 
-public class SplashScreen
+public class SimpleBibleMainScreen
     extends AppCompatActivity
     implements SplashScreenOps {
 
-    private static final String                TAG        = "SplashScreen";
+    private static final String                TAG        = "SimpleBibleMainScreen";
     private static       SplashScreenPresenter mPresenter = null;
 
     private TextView    mVerse;
@@ -31,11 +31,11 @@ public class SplashScreen
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.SbTheme_Splash);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+        setContentView(R.layout.activity_main);
 
-        mVerse = findViewById(R.id.act_splash_verse);
-        mMessage = findViewById(R.id.act_splash_msg);
-        mProgressBar = findViewById(R.id.act_splash_pbar);
+        mVerse = findViewById(R.id.act_main_verse);
+        mMessage = findViewById(R.id.act_main_msg);
+        mProgressBar = findViewById(R.id.act_main_pbar);
 
         if (mPresenter == null) {
             mPresenter = new SplashScreenPresenter(this);
@@ -73,9 +73,9 @@ public class SplashScreen
     public void showLoadingScreen() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             mVerse.setText(Html.fromHtml(
-                getString(R.string.tv_verse_act_splash), Html.FROM_HTML_MODE_LEGACY));
+                getString(R.string.act_main_splash_verse), Html.FROM_HTML_MODE_LEGACY));
         } else {
-            mVerse.setText(Html.fromHtml(getString(R.string.tv_verse_act_splash)));
+            mVerse.setText(Html.fromHtml(getString(R.string.act_main_splash_verse)));
         }
     }
 
@@ -88,9 +88,9 @@ public class SplashScreen
     public void showLoadingFailureScreen() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             mVerse.setText(Html.fromHtml(
-                getString(R.string.tv_verse_act_splash_err), Html.FROM_HTML_MODE_LEGACY));
+                getString(R.string.act_main_splash_verse_err), Html.FROM_HTML_MODE_LEGACY));
         } else {
-            mVerse.setText(Html.fromHtml(getString(R.string.tv_verse_act_splash_err)));
+            mVerse.setText(Html.fromHtml(getString(R.string.act_main_splash_verse_err)));
         }
     }
 
@@ -104,9 +104,9 @@ public class SplashScreen
         mProgressBar.setVisibility(View.INVISIBLE);
         if (data) {
             mMessage.setVisibility(View.INVISIBLE);
-            findViewById(R.id.act_splash_container_fabs).setVisibility(View.VISIBLE);
+            findViewById(R.id.act_main_container_fabs).setVisibility(View.VISIBLE);
         } else {
-            mMessage.setText(R.string.tv_msg_act_splash_err);
+            mMessage.setText(R.string.act_main_splash_msg_success);
         }
     }
 

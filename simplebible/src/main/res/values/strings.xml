@@ -14,11 +14,11 @@
     <string name="menu_search">Search</string>
     <string name="menu_home">Books</string>
 
-    <string name="tv_verse_act_splash"><![CDATA[<h1>SIMPLE BIBLE</h1><br/>Wait for the Lord;<br/>be strong<br/>and take heart<br/>and wait for the Lord.<br/><br/>Book of Psalms<br/>Chapter 27, Verse 14]]></string>
-    <string name="tv_verse_act_splash_err"><![CDATA[<h1>SIMPLE BIBLE</h1><br/>We are persecuted, but God does not leave us. We are hurt sometimes, but we are not destroyed.<br/><br/>2 Corinthians 4:9]]></string>
-    <string name="tv_msg_act_splash">Creating Database</string>
-    <string name="tv_msg_act_splash_err">Error Creating Database</string>
-    <string name="tv_msg_act_splash_success">Successfully loaded database</string>
+    <string name="act_main_splash_verse"><![CDATA[<h1>SIMPLE BIBLE</h1><br/>Wait for the Lord;<br/>be strong<br/>and take heart<br/>and wait for the Lord.<br/><br/>Book of Psalms<br/>Chapter 27, Verse 14]]></string>
+    <string name="act_main_splash_verse_err"><![CDATA[<h1>SIMPLE BIBLE</h1><br/>We are persecuted, but God does not leave us. We are hurt sometimes, but we are not destroyed.<br/><br/>2 Corinthians 4:9]]></string>
+    <string name="act_main_splash_msg">Creating Database</string>
+    <string name="act_main_splash_msg_err">Error Creating Database</string>
+    <string name="act_main_splash_msg_success">Successfully loaded database</string>
 
     <string name="fragment_book_name_hint">Enter Book Name</string>
     <string name="fragment_book_chapter_hint">Select Chapter</string>
