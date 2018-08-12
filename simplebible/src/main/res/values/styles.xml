@@ -3,12 +3,15 @@
 
     <style name="SbTheme"
         parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/primary_green</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+
         <item name="android:colorBackground">@color/background_light</item>
-        <item name="colorPrimaryDark">@color/primary_green</item>
-        <item name="colorAccent">@color/primary_red</item>
-        <item name="android:navigationBarColor">@color/primary_green</item>
         <item name="android:windowBackground">@color/background_light</item>
+
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:textColor">@android:color/black</item>
     </style>
 
@@ -23,7 +26,8 @@
         <item name="android:windowBackground">@drawable/activity_splash_progress_background</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="colorAccent">?android:textColor</item>
+        <item name="colorPrimary">@color/primary_light</item>
+        <item name="colorAccent">@color/primary_dark</item>
     </style>
 
 </resources>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary_green">#1bbc9b</color>
-    <color name="primary_red">#e64c66</color>
-    <color name="background_dark">#2D3E50</color>
+    <color name="accent">@android:color/black</color>
+    <color name="primary_dark">#67222D</color>
+    <color name="primary">#e64c66</color>
+    <color name="primary_light">#EA94A2</color>
     <color name="background_light">#fafafa</color>
     <color name="ic_color_fab_main_appbar">@android:color/white</color>
     <color name="ic_color_main_appbar">@color/ic_color_fab_main_appbar</color>
