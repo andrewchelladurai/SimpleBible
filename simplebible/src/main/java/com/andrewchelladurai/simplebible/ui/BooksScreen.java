@@ -26,6 +26,7 @@ public class BooksScreen
     private static BookListAdapter      sAdapter;
     private static BooksScreenPresenter sPresenter;
     private static BookRepository       mRepository;
+    private        String               mNameTemplate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,8 @@ public class BooksScreen
         if (mRepository == null) {
             mRepository = ViewModelProviders.of(this).get(BookRepository.class);
         }
+
+        mNameTemplate = getString(R.string.item_book_name_template);
 
         RecyclerView recyclerView = findViewById(R.id.act_books_list);
         recyclerView.setAdapter(sAdapter);
@@ -64,4 +67,17 @@ public class BooksScreen
     public Context getSystemContext() {
         return getApplicationContext();
     }
+
+    @Override
+    public String getFormattedBookListHeader(final Book book) {
+        return String.format(mNameTemplate, book.getName());
+    }
+
+    @Override
+    public String getFormattedBookListDetails(final Book book) {
+        final int chapters = book.getChapters();
+        return getResources().getQuantityString(
+            R.plurals.item_book_details_template, chapters, chapters);
+    }
+
 }

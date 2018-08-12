@@ -81,8 +81,8 @@ public class BookListAdapter
         @Override
         public void updateView(final Object item) {
             mBook = (Book) item;
-            mtvBookName.setText(mBook.getName());
-            mtvBookDetails.setText(String.valueOf(mBook.getChapters()));
+            mtvBookName.setText(mOps.getFormattedBookListHeader(mBook));
+            mtvBookDetails.setText(mOps.getFormattedBookListDetails(mBook));
         }
     }
 }

@@ -17,4 +17,10 @@ public interface BooksScreenOps {
 
     @NonNull
     Context getSystemContext();
+
+    @NonNull
+    String getFormattedBookListHeader(@NonNull Book book);
+
+    @NonNull
+    String getFormattedBookListDetails(@NonNull Book book);
 }
