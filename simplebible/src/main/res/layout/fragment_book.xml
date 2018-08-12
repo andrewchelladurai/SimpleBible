@@ -46,8 +46,7 @@
         <androidx.appcompat.widget.AppCompatAutoCompleteTextView
             android:id="@+id/fragment_book_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/gap_normal" />
+            android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -68,8 +67,10 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/fragment_book_button"
-        android:layout_width="0dp"
+        style="@style/Widget.MaterialComponents.Button.Icon"
         android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        app:icon="@drawable/ic_goto"
         android:text="@string/fragment_book_button_label"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

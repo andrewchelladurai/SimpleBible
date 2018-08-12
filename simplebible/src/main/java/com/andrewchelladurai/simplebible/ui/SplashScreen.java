@@ -1,7 +1,6 @@
 package com.andrewchelladurai.simplebible.ui;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
@@ -34,13 +33,18 @@ public class SplashScreen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        mVerse = findViewById(R.id.tv_verse_act_splash);
-        mMessage = findViewById(R.id.tv_msg_act_splash);
-        mProgressBar = findViewById(R.id.pb_act_splash);
+        mVerse = findViewById(R.id.act_splash_verse);
+        mMessage = findViewById(R.id.act_splash_msg);
+        mProgressBar = findViewById(R.id.act_splash_pbar);
 
         if (mPresenter == null) {
             mPresenter = new SplashScreenPresenter(this);
         }
+
+        findViewById(R.id.act_fab_books).setOnClickListener(this);
+        findViewById(R.id.act_fab_search).setOnClickListener(this);
+        findViewById(R.id.act_fab_bookmarks).setOnClickListener(this);
+        findViewById(R.id.act_fab_settings).setOnClickListener(this);
 
         showLoadingScreen();
     }
@@ -99,9 +103,8 @@ public class SplashScreen
     public void onLoadFinished(final Loader<Boolean> loader, final Boolean data) {
         mProgressBar.setVisibility(View.INVISIBLE);
         if (data) {
-            mMessage.setText(R.string.tv_msg_act_splash_success);
-            finish();
-            startActivity(new Intent(this, MainScreen.class));
+            mMessage.setVisibility(View.INVISIBLE);
+            findViewById(R.id.act_splash_container_fabs).setVisibility(View.VISIBLE);
         } else {
             mMessage.setText(R.string.tv_msg_act_splash_err);
         }
@@ -110,5 +113,41 @@ public class SplashScreen
     @Override
     public void onLoaderReset(final Loader<Boolean> loader) {
         Log.e(TAG, "onLoaderReset:");
+    }
+
+    @Override
+    public void onClick(final View view) {
+        switch (view.getId()) {
+            case R.id.act_fab_books:
+                handleFabClickBooks();
+                break;
+            case R.id.act_fab_search:
+                handleFabClickSearch();
+                break;
+            case R.id.act_fab_bookmarks:
+                handleFabClickBookmarks();
+                break;
+            case R.id.act_fab_settings:
+                handleFabClickSettings();
+                break;
+            default:
+                Log.d(TAG, "onClick: unhandled click event from view");
+        }
+    }
+
+    private void handleFabClickSettings() {
+        Log.d(TAG, "handleFabClickSettings() called");
+    }
+
+    private void handleFabClickBookmarks() {
+        Log.d(TAG, "handleFabClickBookmarks() called");
+    }
+
+    private void handleFabClickSearch() {
+        Log.d(TAG, "handleFabClickSearch() called");
+    }
+
+    private void handleFabClickBooks() {
+        Log.d(TAG, "handleFabClickBooks() called");
     }
 }
