@@ -15,7 +15,6 @@ import com.andrewchelladurai.simplebible.presenter.BooksScreenPresenter;
 import com.andrewchelladurai.simplebible.ui.adapter.BookListAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BooksScreenOps;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -174,25 +173,25 @@ public class BooksScreen
     }
 
     private void updateUi(@NonNull final List<Book> books) {
-        // populate cache in repository
-        mRepository.populate(books);
+        // validate is repository already contains cached data
+        boolean isCached = sPresenter.validateRepository(getString(R.string.first_book),
+                                                         getString(R.string.last_book));
+        if (!isCached) {
+            // populate cache in repository
+            mRepository.populate(books);
 
-        // get cached list from repository
-        final ArrayList<Book> list = sPresenter.getBooksList();
+            // get cached list from repository
+            // update list in adapter for recycler view
+            sAdapter.updateList(sPresenter.getBooksList());
+        }
 
-        // update list in adapter for recycler view
-        sAdapter.updateList(list);
         sAdapter.notifyDataSetChanged();
 
         // extract book names from cached list for lookup in
         // auto-complete text field
-        final ArrayList<String> names = new ArrayList<>();
-        for (final Book book : list) {
-            names.add(book.getName());
-        }
         mBookField.setAdapter(new ArrayAdapter<>(this,
                                                  android.R.layout.simple_list_item_1,
-                                                 names));
+                                                 sPresenter.getAllBookNames()));
     }
 
     @Override
@@ -210,7 +209,7 @@ public class BooksScreen
     public void onFocusChange(final View v, final boolean hasFocus) {
         switch (v.getId()) {
             case R.id.act_books_name:
-                Log.d(TAG, "onFocusChange: [act_sb_main_book], hasFocus=[" + hasFocus + "]");
+                Log.d(TAG, "onFocusChange: book_field hasFocus [" + hasFocus + "]");
                 break;
             case R.id.act_books_chapter:
                 if (hasFocus) { /* chapter input field gained focus*/
