@@ -82,7 +82,7 @@
             android:layout_margin="@dimen/gap_normal"
             android:layout_weight="1"
             android:contentDescription="@string/menu_home"
-            android:src="@drawable/ic_baseline_menu" />
+            android:src="@drawable/ic_list" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/act_fab_search"
