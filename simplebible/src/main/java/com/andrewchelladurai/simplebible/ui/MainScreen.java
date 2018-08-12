@@ -21,7 +21,8 @@ public class MainScreen
     BottomAppBar         mAppbar;
     FrameLayout          mFragmentHolder;
     FloatingActionButton mFab;
-    static BookFragment mHomeFragment;
+    static String       sCurrentFragment = "";
+    static BookFragment sBookFragment    = BookFragment.newInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class MainScreen
                 return handleMenuItemClick(item);
             }
         });
+
         mFab = findViewById(R.id.act_main_appbar_fab);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,14 +45,19 @@ public class MainScreen
                 handleBottomFabClick();
             }
         });
-        mFragmentHolder = findViewById(R.id.act_main_fragment_holder);
 
-        if (mHomeFragment == null) {
-            mHomeFragment = BookFragment.newInstance();
-        }
+        mFragmentHolder = findViewById(R.id.act_main_container_fragment);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.act_main_fragment_holder, mHomeFragment);
+        if (savedInstanceState == null) {
+            transaction.replace(R.id.act_main_container_fragment, sBookFragment);
+            sCurrentFragment = sBookFragment.getClass().getName();
+        } else {
+            if (sCurrentFragment.equalsIgnoreCase(sBookFragment.getClass().getName())) {
+                transaction.replace(R.id.act_main_container_fragment, sBookFragment);
+                sCurrentFragment = sBookFragment.getClass().getName();
+            }
+        }
         transaction.addToBackStack(null);
         transaction.commit();
     }

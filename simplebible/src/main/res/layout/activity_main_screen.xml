@@ -1,15 +1,14 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:layout="@layout/fragment_home">
+    android:layout_height="match_parent">
 
     <FrameLayout
-        android:id="@+id/act_main_fragment_holder"
+        android:id="@+id/act_main_container_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <!--
             We are replacing fragments on this layout container programmatically
             This is being left behind as a placeholder, just in case
@@ -29,6 +28,8 @@
         android:layout_gravity="bottom"
         app:backgroundTint="?colorPrimary"
         app:fabAlignmentMode="end"
+        app:hideOnScroll="true"
+        app:layout_anchorGravity="bottom"
         app:menu="@menu/menu_main_screen" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -38,5 +39,4 @@
         android:src="@drawable/ic_goto"
         android:tint="@color/ic_color_fab_main_appbar"
         app:layout_anchor="@id/act_main_appbar" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

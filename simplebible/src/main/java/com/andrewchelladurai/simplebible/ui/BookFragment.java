@@ -8,11 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.BookRepository;
 import com.andrewchelladurai.simplebible.data.entities.Book;
 import com.andrewchelladurai.simplebible.presenter.BooksScreenPresenter;
 import com.andrewchelladurai.simplebible.ui.ops.BookFragmentOps;
 
+import java.util.List;
+
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class BookFragment
@@ -22,8 +27,9 @@ public class BookFragment
     private static final String TAG = "BookFragment";
     private static BookRecyclerViewAdapter sAdapter;
     private static BooksScreenPresenter    sPresenter;
+    private static BookRepository          mRepository;
 
-    private BookFragment() {
+    public BookFragment() {
     }
 
     public static BookFragment newInstance() {
@@ -55,19 +61,23 @@ public class BookFragment
         }
 
         if (sAdapter == null) {
-            boolean repositoryIsNotValidated = !sPresenter.validateBookRepository(
-                getString(R.string.first_book), getString(R.string.last_book));
-            if (repositoryIsNotValidated) {
-                sPresenter.populateBookRepository();
-            }
-
             sAdapter = new BookRecyclerViewAdapter(this);
-            sAdapter.updateList(sPresenter.getBooksList());
+        }
+
+        if (mRepository == null) {
+            mRepository = ViewModelProviders.of(this).get(BookRepository.class);
         }
 
         RecyclerView recyclerView = view.findViewById(R.id.fragment_book_list);
         recyclerView.setAdapter(sAdapter);
-        sAdapter.notifyDataSetChanged();
+
+        mRepository.getList().observe(this, new Observer<List<Book>>() {
+            @Override
+            public void onChanged(final List<Book> books) {
+                sAdapter.updateList(books);
+                sAdapter.notifyDataSetChanged();
+            }
+        });
 
         return view;
     }

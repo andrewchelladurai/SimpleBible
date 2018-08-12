@@ -5,6 +5,7 @@ import com.andrewchelladurai.simplebible.data.entities.Book;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -23,7 +24,7 @@ public interface BookDao {
     int getRecordCount();
 
     @Query("select * from BOOKSTATS order by BOOKNUMBER")
-    List<Book> getAllBooks();
+    LiveData<List<Book>> getAllBooks();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void createNewBook(@SuppressWarnings("NullableProblems") @NonNull Book book);

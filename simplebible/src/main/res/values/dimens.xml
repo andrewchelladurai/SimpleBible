@@ -2,6 +2,6 @@
 <resources>
     <integer name="DB_LOADER">16</integer>
     <integer name="fragment_books_list">2</integer>
-    <dimen name="text_margin">16dp</dimen>
     <dimen name="gap_big">16dp</dimen>
+    <dimen name="gap_normal">8dp</dimen>
 </resources>
