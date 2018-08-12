@@ -34,6 +34,7 @@ public class BookRepository
 
     @Override
     public boolean populate(final List<?> list) {
+        clear();
         for (final Object object : list) {
             mBookList.add((Book) object);
         }
@@ -89,6 +90,16 @@ public class BookRepository
 
     @Override
     public boolean validate(final Object... objects) {
-        return false;
+        if (isEmpty() || size() != 66) {
+            Log.d(TAG, "validate: repository cache empty or does not have 66 records");
+            return false;
+        }
+        if (!mBookList.get(0).getName().equalsIgnoreCase((String) objects[0])
+            || !mBookList.get(size() - 1).getName().equalsIgnoreCase((String) objects[1])) {
+            Log.d(TAG, "validate: repository cache's first and last book is invalid");
+            return false;
+        }
+        Log.d(TAG, "validate: repository has cached data");
+        return true;
     }
 }
