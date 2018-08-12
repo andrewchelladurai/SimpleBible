@@ -49,11 +49,15 @@ public class BookListAdapter
 
     @Override
     public void updateList(final List<?> list) {
-        mList.clear();
-        for (Object book : list) {
-            mList.add((Book) book);
+        if (mList.isEmpty() || mList.size() != 66) {
+            mList.clear();
+            for (Object book : list) {
+                mList.add((Book) book);
+            }
+            Log.d(TAG, "updateList: [" + mList.size() + "] records updated");
+        } else {
+            Log.d(TAG, "updateList: list is already updated");
         }
-        Log.d(TAG, "updateList: updated [" + mList.size() + "] records");
     }
 
     public class ViewHolder
