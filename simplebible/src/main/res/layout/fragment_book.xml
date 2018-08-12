@@ -10,6 +10,20 @@
     android:layout_marginRight="@dimen/gap_big"
     tools:context=".ui.BookFragment">
 
+    <TextView
+        android:id="@+id/fragment_book_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/gap_normal"
+        android:gravity="center"
+        android:text="@string/application_name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_book_list"
         android:layout_width="0dp"
@@ -18,7 +32,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_book_title"
         app:spanCount="@integer/fragment_books_list"
         tools:listitem="@layout/item_book" />
 </android.support.constraint.ConstraintLayout>
