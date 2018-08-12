@@ -3,6 +3,7 @@ package com.andrewchelladurai.simplebible.ui;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.BookRepository;
@@ -11,10 +12,11 @@ import com.andrewchelladurai.simplebible.presenter.BooksScreenPresenter;
 import com.andrewchelladurai.simplebible.ui.adapter.BookListAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BooksScreenOps;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,10 +25,12 @@ public class BooksScreen
     implements BooksScreenOps {
 
     private static final String TAG = "BooksScreen";
-    private static BookListAdapter      sAdapter;
-    private static BooksScreenPresenter sPresenter;
-    private static BookRepository       mRepository;
-    private        String               mNameTemplate;
+    private static BookListAdapter               sAdapter;
+    private static BooksScreenPresenter          sPresenter;
+    private static BookRepository                mRepository;
+    private        String                        mNameTemplate;
+    private        AppCompatAutoCompleteTextView mChapterField;
+    private        AppCompatAutoCompleteTextView mBookField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +54,10 @@ public class BooksScreen
         RecyclerView recyclerView = findViewById(R.id.act_books_list);
         recyclerView.setAdapter(sAdapter);
 
-        mRepository.getList().observe(this, new Observer<List<Book>>() {
-            @Override
-            public void onChanged(final List<Book> books) {
-                sAdapter.updateList(books);
-                sAdapter.notifyDataSetChanged();
-            }
-        });
+        mBookField = findViewById(R.id.act_books_name);
+        mChapterField = findViewById(R.id.act_books_chapter);
+
+        mRepository.getLiveData().observe(this, this);
     }
 
     public void onListFragmentInteraction(final Book book) {
@@ -80,4 +81,26 @@ public class BooksScreen
             R.plurals.item_book_details_template, chapters, chapters);
     }
 
+    @Override
+    public void onChanged(final List<Book> books) {
+        // populate cache in repository
+        mRepository.populate(books);
+
+        // get cached list from repository
+        final ArrayList<Book> list = sPresenter.getBooksList();
+
+        // update list in adapter for recycler view
+        sAdapter.updateList(list);
+        sAdapter.notifyDataSetChanged();
+
+        // extract book names from cached list for lookup in
+        // auto-complete text field
+        final ArrayList<String> names = new ArrayList<>();
+        for (final Book book : list) {
+            names.add(book.getName());
+        }
+        mBookField.setAdapter(new ArrayAdapter<>(this,
+                                                 android.R.layout.simple_list_item_1,
+                                                 names));
+    }
 }

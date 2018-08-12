@@ -1,6 +1,10 @@
 package com.andrewchelladurai.simplebible.presenter;
 
+import com.andrewchelladurai.simplebible.data.BookRepository;
+import com.andrewchelladurai.simplebible.data.entities.Book;
 import com.andrewchelladurai.simplebible.ui.ops.BooksScreenOps;
+
+import java.util.ArrayList;
 
 /**
  * Created by : Andrew Chelladurai
@@ -14,5 +18,9 @@ public class BooksScreenPresenter {
 
     public BooksScreenPresenter(final BooksScreenOps ops) {
         mOps = ops;
+    }
+
+    public ArrayList<Book> getBooksList() {
+        return BookRepository.getInstance().getList();
     }
 }

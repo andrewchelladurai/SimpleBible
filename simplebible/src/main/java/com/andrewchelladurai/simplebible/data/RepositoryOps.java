@@ -4,6 +4,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
 
 /**
  * Created by : Andrew Chelladurai
@@ -66,6 +67,8 @@ interface RepositoryOps {
      * @return list of records
      */
     List<?> getList();
+
+    LiveData<?> getLiveData();
 
     /**
      * Validate the repository against passed params
