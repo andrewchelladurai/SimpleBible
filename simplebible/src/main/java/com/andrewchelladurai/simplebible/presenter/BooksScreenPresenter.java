@@ -43,4 +43,14 @@ public class BooksScreenPresenter {
                                       @NonNull final String lastBook) {
         return BookRepository.getInstance().validate(firstBook, lastBook);
     }
+
+    @NonNull
+    public ArrayList<String> getAllBookNames() {
+        final ArrayList<Book> list = BookRepository.getInstance().getList();
+        final ArrayList<String> names = new ArrayList<>();
+        for (final Book book : list) {
+            names.add(book.getName());
+        }
+        return names;
+    }
 }
