@@ -12,9 +12,9 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/act_books_container_input"
-        android:layout_marginTop="@dimen/gap_big"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/gap_big"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,12 @@
             <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/act_books_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:completionThreshold="1"
+                android:inputType="textAutoCorrect|textAutoComplete"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -44,7 +49,12 @@
             <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/act_books_chapter"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:completionThreshold="1"
+                android:inputType="number"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
