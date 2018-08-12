@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity
+            android:theme="@style/SbTheme.Green"
             android:name=".ui.BooksScreen"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
     </application>

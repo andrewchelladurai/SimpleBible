@@ -8,7 +8,7 @@
         android:translateX="41.146244"
         android:translateY="41.146244">
         <path
-            android:fillColor="@android:color/white"
+            android:fillColor="@color/ic_default"
             android:pathData="M36.5,13l0,-13l-13,0l0,13l-15,0l0,13l15,0l0,34l13,0l0,-34l15,0l0,-13z" />
     </group>
 </vector>
