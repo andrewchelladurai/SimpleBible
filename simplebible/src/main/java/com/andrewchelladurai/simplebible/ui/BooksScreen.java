@@ -8,6 +8,7 @@ import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.BookRepository;
 import com.andrewchelladurai.simplebible.data.entities.Book;
 import com.andrewchelladurai.simplebible.presenter.BooksScreenPresenter;
+import com.andrewchelladurai.simplebible.ui.adapter.BookListAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BooksScreenOps;
 
 import java.util.List;
@@ -22,9 +23,9 @@ public class BooksScreen
     implements BooksScreenOps {
 
     private static final String TAG = "BooksScreen";
-    private static BookRecyclerViewAdapter sAdapter;
-    private static BooksScreenPresenter    sPresenter;
-    private static BookRepository          mRepository;
+    private static BookListAdapter      sAdapter;
+    private static BooksScreenPresenter sPresenter;
+    private static BookRepository       mRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class BooksScreen
         }
 
         if (sAdapter == null) {
-            sAdapter = new BookRecyclerViewAdapter(this);
+            sAdapter = new BookListAdapter(this);
         }
 
         if (mRepository == null) {

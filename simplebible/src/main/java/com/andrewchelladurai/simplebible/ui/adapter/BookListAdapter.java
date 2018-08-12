@@ -1,4 +1,4 @@
-package com.andrewchelladurai.simplebible.ui;
+package com.andrewchelladurai.simplebible.ui.adapter;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,15 +18,15 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class BookRecyclerViewAdapter
-    extends RecyclerView.Adapter<BookRecyclerViewAdapter.ViewHolder>
+public class BookListAdapter
+    extends RecyclerView.Adapter<BookListAdapter.ViewHolder>
     implements AdapterOps {
 
-    private static final String     TAG   = "BookRecyclerViewAdapter";
+    private static final String     TAG   = "BookListAdapter";
     private final        List<Book> mList = new ArrayList<>();
     private final BooksScreenOps mOps;
 
-    BookRecyclerViewAdapter(@NonNull BooksScreenOps ops) {
+    public BookListAdapter(@NonNull BooksScreenOps ops) {
         mOps = ops;
     }
 
