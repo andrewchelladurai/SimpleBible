@@ -10,6 +10,6 @@ import android.view.View;
 public interface ViewHolderOps
     extends View.OnClickListener {
 
-    public void updateView(Object item);
+    void updateView(Object item);
 
 }
