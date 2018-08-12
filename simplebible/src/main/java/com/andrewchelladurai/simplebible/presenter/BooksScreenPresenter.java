@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Created by : Andrew Chelladurai
@@ -23,10 +24,12 @@ public class BooksScreenPresenter {
         mOps = ops;
     }
 
+    @NonNull
     public ArrayList<Book> getBooksList() {
         return BookRepository.getInstance().getList();
     }
 
+    @Nullable
     public Book getBookUsingName(@NonNull final String bookName) {
         return BookRepository.getInstance().getRecordUsingValue(bookName);
     }
@@ -34,5 +37,10 @@ public class BooksScreenPresenter {
     public boolean validateChapterForBook(@IntRange(from = 1) final int chapter,
                                           @NonNull final Book book) {
         return (chapter >= 1 && chapter <= book.getChapters());
+    }
+
+    public boolean validateRepository(@NonNull final String firstBook,
+                                      @NonNull final String lastBook) {
+        return BookRepository.getInstance().validate(firstBook, lastBook);
     }
 }
