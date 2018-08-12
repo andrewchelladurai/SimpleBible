@@ -33,6 +33,7 @@
     <TextView
         android:id="@+id/act_main_verse"
         android:layout_width="0dp"
+        style="@style/SbTheme.Header"
         android:layout_height="0dp"
         android:gravity="center"
         android:text="@string/act_main_splash_verse"
