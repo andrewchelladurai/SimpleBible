@@ -50,18 +50,14 @@
                 tools:ignore="LabelFor" />
         </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/act_books_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/act_books_button_label" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/act_books_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/act_books_button_label"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/act_books_container_input"
-        app:layout_constraintVertical_bias="0" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/act_books_list"
@@ -72,7 +68,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/act_books_button"
+        app:layout_constraintTop_toBottomOf="@+id/act_books_container_input"
         app:spanCount="@integer/act_books_list"
         tools:listitem="@layout/item_book" />
 </android.support.constraint.ConstraintLayout>
