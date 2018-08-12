@@ -107,7 +107,7 @@ public class SimpleBibleMainScreen
             mMessage.setVisibility(View.INVISIBLE);
             findViewById(R.id.act_main_container_fabs).setVisibility(View.VISIBLE);
         } else {
-            mMessage.setText(R.string.act_main_splash_msg_success);
+            mMessage.setText(R.string.act_main_splash_msg_err);
         }
     }
 
