@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.BookRepository;
@@ -19,7 +20,6 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,12 +28,12 @@ public class BooksScreen
     implements BooksScreenOps {
 
     private static final String TAG = "BooksScreen";
-    private static BookListAdapter               sAdapter;
-    private static BooksScreenPresenter          sPresenter;
-    private static BookRepository                mRepository;
-    private        String                        mNameTemplate;
-    private        AppCompatAutoCompleteTextView mChapterField;
-    private        AppCompatAutoCompleteTextView mBookField;
+    private static BookListAdapter      sAdapter;
+    private static BooksScreenPresenter sPresenter;
+    private static BookRepository       mRepository;
+    private        String               mNameTemplate;
+    private        AutoCompleteTextView mChapterField;
+    private        AutoCompleteTextView mBookField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

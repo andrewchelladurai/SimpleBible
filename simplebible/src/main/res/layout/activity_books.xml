@@ -10,11 +10,12 @@
     android:layout_marginRight="@dimen/gap_big"
     tools:context=".ui.BooksScreen">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <LinearLayout
         android:id="@+id/act_books_container_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/gap_big"
+        android:baselineAligned="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,16 +29,11 @@
             android:layout_weight="1"
             android:hint="@string/act_books_name_hint">
 
-            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            <AutoCompleteTextView
                 android:id="@+id/act_books_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:completionThreshold="1"
+                style="@style/SbTheme.AutoCompleteTextView"
                 android:inputType="textAutoCorrect|textAutoComplete"
-                android:lines="1"
-                android:maxLines="1"
-                android:minLines="1"
-                android:selectAllOnFocus="true" />
+                tools:ignore="LabelFor" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -47,19 +43,14 @@
             android:layout_weight="1"
             android:hint="@string/act_books_chapter_hint">
 
-            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            <AutoCompleteTextView
                 android:id="@+id/act_books_chapter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:completionThreshold="1"
+                style="@style/SbTheme.AutoCompleteTextView"
                 android:inputType="number"
-                android:lines="1"
-                android:maxLines="1"
-                android:minLines="1"
-                android:selectAllOnFocus="true" />
+                tools:ignore="LabelFor" />
         </com.google.android.material.textfield.TextInputLayout>
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/act_books_button"
