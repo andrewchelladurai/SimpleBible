@@ -17,23 +17,23 @@ public class Verse {
 
     @NonNull
     @ColumnInfo(name = "TRANSLATION")
-    private String translation;
+    private final String translation;
 
     @ColumnInfo(name = "BOOKNUMBER")
     @IntRange(from = 1, to = 66)
-    private int book;
+    private final int book;
 
     @ColumnInfo(name = "CHAPTERNUMBER")
     @IntRange(from = 1)
-    private int chapter;
+    private final int chapter;
 
     @ColumnInfo(name = "VERSENUMBER")
     @IntRange(from = 1)
-    private int verse;
+    private final int verse;
 
     @NonNull
     @ColumnInfo(name = "VERSETEXT")
-    private String text;
+    private final String text;
 
     public Verse(@NonNull final String translation,
                  @IntRange(from = 1, to = 66) final int book,

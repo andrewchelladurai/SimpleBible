@@ -17,24 +17,24 @@ public class Book {
 
     @ColumnInfo(name = "DESC")
     @NonNull
-    private String description;
+    private final String description;
 
     @ColumnInfo(name = "BOOKNUMBER")
     @IntRange(from = 1, to = 66)
     @PrimaryKey
-    private int number;
+    private final int number;
 
     @ColumnInfo(name = "BOOKNAME")
     @NonNull
-    private String name;
+    private final String name;
 
     @ColumnInfo(name = "CHAPTERCOUNT")
     @IntRange(from = 1)
-    private int chapters;
+    private final int chapters;
 
     @ColumnInfo(name = "VERSECOUNT")
     @IntRange(from = 1)
-    private int verses;
+    private final int verses;
 
     public Book(@NonNull final String description,
                 @IntRange(from = 1, to = 66) final int number,
