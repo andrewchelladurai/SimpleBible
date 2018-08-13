@@ -88,14 +88,14 @@ public class ChapterScreen
     private void showChapter(final int bookNumber, final int chapterNumber) {
         Log.d(TAG, "showChapter: bookNumber = [" + bookNumber + "], chapterNumber = ["
                    + chapterNumber + "]");
-        if (verseRepository.validate(bookNumber, chapterNumber)) {
+        if (sPresenter.isChapterCached(bookNumber, chapterNumber)) {
             Log.d(TAG, "showChapter: already cached");
             return;
         }
 
         ARGS.putInt(BOOK_NUMBER, bookNumber);
         ARGS.putInt(CHAPTER_NUMBER, chapterNumber);
-        verseRepository.setUpNewChapter(bookNumber, chapterNumber);
+        sPresenter.updateRepositoryValues(bookNumber, chapterNumber);
 
         verseRepository.getLiveData()
                        .observe(this,
@@ -114,7 +114,7 @@ public class ChapterScreen
             return;
         }
 
-        if (verseRepository.populate(verses)) {
+        if (sPresenter.updateRepositoryCache(verses)) {
             updateTitle();
             sAdapter.updateList(verses);
             sAdapter.notifyDataSetChanged();
@@ -359,6 +359,7 @@ public class ChapterScreen
 
     @Override
     public void handleInteractionClickVerseItem(final Verse verse) {
+        Log.d(TAG, "handleInteractionClickVerseItem() called with: verse = [" + verse + "]");
         verse.setSelected(!verse.isSelected());
     }
 

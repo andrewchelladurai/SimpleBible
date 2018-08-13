@@ -106,6 +106,7 @@ public class VerseListAdapter
         @Override
         public void onClick(final View view) {
             mOps.handleInteractionClickVerseItem(mVerse);
+            view.setSelected(mVerse.isSelected());
         }
     }
 }
