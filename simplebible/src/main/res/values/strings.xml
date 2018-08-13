@@ -28,6 +28,13 @@
     <string name="act_books_chapter_hint">Select Chapter</string>
     <string name="act_books_button_label">Navigate</string>
     <string name="item_book_name_template">%s</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="share">Share</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="clear">Clear</string>
+    <string name="settings">Settings</string>
+    <string name="menu">menu</string>
     <plurals name="item_book_details_template">
         <item quantity="one">%d Chapter</item>
         <item quantity="other">%d Chapters</item>

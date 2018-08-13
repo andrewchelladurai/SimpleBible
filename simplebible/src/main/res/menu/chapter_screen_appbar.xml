@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/act_chapter_appbar_menu_list"
+        android:icon="@drawable/ic_list"
+        android:title="@string/menu"
+        app:iconTint="?colorAccent"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction,AppCompatResource" />
+    <item
+        android:id="@+id/act_chapter_appbar_menu_prev"
+        android:icon="@drawable/ic_previous"
+        android:title="@string/previous"
+        app:iconTint="?colorAccent"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction,AppCompatResource" />
+    <item
+        android:id="@+id/act_chapter_appbar_menu_next"
+        android:icon="@drawable/ic_next"
+        android:title="@string/next"
+        app:iconTint="?colorAccent"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction,AppCompatResource" />
+    <item
+        android:id="@+id/act_chapter_appbar_menu_bookmark"
+        android:icon="@drawable/ic_bookmark"
+        android:title="@string/bookmark"
+        app:iconTint="?colorAccent"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction,AppCompatResource" />
+    <item
+        android:id="@+id/act_chapter_appbar_menu_clear"
+        android:icon="@drawable/ic_clear"
+        android:title="@string/clear"
+        app:iconTint="?colorAccent"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction,AppCompatResource" />
+    <item
+        android:id="@+id/act_chapter_appbar_menu_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/settings"
+        app:iconTint="?colorAccent"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction,AppCompatResource" />
+</menu>
