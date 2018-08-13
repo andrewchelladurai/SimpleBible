@@ -86,4 +86,8 @@ public class Verse {
         return Utilities.getInstance().createReference(book, chapter, verse);
     }
 
+    @Override
+    public String toString() {
+        return getReference();
+    }
 }
