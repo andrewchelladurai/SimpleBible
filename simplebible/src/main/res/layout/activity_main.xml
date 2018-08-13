@@ -32,8 +32,8 @@
 
     <TextView
         android:id="@+id/act_main_verse"
-        android:layout_width="0dp"
         style="@style/SbTheme.Header"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
         android:text="@string/act_main_splash_verse"
@@ -81,7 +81,7 @@
             style="@style/SbTheme.FAB"
             android:layout_margin="@dimen/gap_normal"
             android:layout_weight="1"
-            android:contentDescription="@string/menu_home"
+            android:contentDescription="@string/books"
             android:src="@drawable/ic_list" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -89,7 +89,7 @@
             style="@style/SbTheme.FAB"
             android:layout_margin="@dimen/gap_normal"
             android:layout_weight="1"
-            android:contentDescription="@string/menu_search"
+            android:contentDescription="@string/search"
             android:src="@drawable/ic_search" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -97,7 +97,7 @@
             style="@style/SbTheme.FAB"
             android:layout_margin="@dimen/gap_normal"
             android:layout_weight="1"
-            android:contentDescription="@string/menu_bookmarks"
+            android:contentDescription="@string/bookmarks"
             android:src="@drawable/ic_bookmark" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -105,7 +105,7 @@
             style="@style/SbTheme.FAB"
             android:layout_margin="@dimen/gap_normal"
             android:layout_weight="1"
-            android:contentDescription="@string/menu_settings"
+            android:contentDescription="@string/settings"
             android:src="@drawable/ic_settings" />
     </LinearLayout>
 

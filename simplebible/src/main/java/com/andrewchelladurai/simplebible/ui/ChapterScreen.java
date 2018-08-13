@@ -13,12 +13,11 @@ import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;
 import com.google.android.material.bottomappbar.BottomAppBar;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ChapterScreen
     extends AppCompatActivity
-    implements ChapterScreenOps, Toolbar.OnMenuItemClickListener, View.OnClickListener {
+    implements ChapterScreenOps {
 
     public static final  String BOOK_NUMBER    = "BOOK_NUMBER";
     public static final  String CHAPTER_NUMBER = "CHAPTER_NUMBER";
@@ -49,27 +48,74 @@ public class ChapterScreen
     }
 
     @Override
-    public void handleInteractionClickVerseItem(final Verse verse) {
-        Log.d(TAG, "handleInteractionClickVerseItem: called with verse = [" + verse + "]");
-    }
-
-    @Override
     public boolean onMenuItemClick(final MenuItem item) {
-        return false;
+        switch (item.getItemId()) {
+            case R.id.act_chapter_appbar_menu_list:
+                actionListClicked();
+                break;
+            case R.id.act_chapter_appbar_menu_prev:
+                actionPrevClicked();
+                break;
+            case R.id.act_chapter_appbar_menu_next:
+                actionNextClicked();
+                break;
+            case R.id.act_chapter_appbar_menu_bookmark:
+                actionBookmarkClicked();
+                break;
+            case R.id.act_chapter_appbar_menu_clear:
+                actionClearClicked();
+                break;
+            case R.id.act_chapter_appbar_menu_settings:
+                actionSettingsClicked();
+                break;
+            default:
+                Log.e(TAG, "onClick: Unhandled click event" + getString(R.string.msg_unexpected));
+        }
+        return true;
     }
 
     @Override
     public void onClick(final View view) {
         switch (view.getId()) {
             case R.id.act_chapter_fab:
-                handleInteractionClickFab();
+                actionShareClicked();
                 break;
             default:
                 Log.e(TAG, "onClick: Unhandled click event" + getString(R.string.msg_unexpected));
         }
     }
 
-    private void handleInteractionClickFab() {
-        Log.d(TAG, "handleInteractionClickFab: called");
+    private void actionSettingsClicked() {
+        Log.d(TAG, "actionSettingsClicked:");
     }
+
+    private void actionClearClicked() {
+        Log.d(TAG, "actionClearClicked:");
+    }
+
+    private void actionBookmarkClicked() {
+        Log.d(TAG, "actionBookmarkClicked:");
+    }
+
+    private void actionNextClicked() {
+        Log.d(TAG, "actionNextClicked:");
+    }
+
+    private void actionPrevClicked() {
+        Log.d(TAG, "actionPrevClicked:");
+    }
+
+    private void actionListClicked() {
+        Log.d(TAG, "actionListClicked:");
+    }
+
+    private void actionShareClicked() {
+        Log.d(TAG, "actionShareClicked:");
+    }
+
+    @Override
+    public void handleInteractionClickVerseItem(final Verse verse) {
+        Log.d(TAG, "handleInteractionClickVerseItem: [" + verse + "]");
+    }
+
 }

@@ -10,10 +10,15 @@
     <string name="first_book">Genesis</string>
     <string name="last_book">Revelation</string>
 
-    <string name="menu_settings">Settings</string>
-    <string name="menu_bookmarks">Bookmarks</string>
-    <string name="menu_search">Search</string>
-    <string name="menu_home">Books</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="share">Share</string>
+    <string name="bookmarks">Bookmark</string>
+    <string name="clear">Clear</string>
+    <string name="settings">Settings</string>
+    <string name="menu">menu</string>
+    <string name="books">Books</string>
+    <string name="search">Search</string>
 
     <string name="act_main_splash_verse"><![CDATA[<h1>Simple Bible</h1><br/>Wait for the Lord;<br/>be strong<br/>and take heart<br/>and wait for the Lord.<br/><br/>Book of Psalms<br/>Chapter 27, Verse 14]]></string>
     <string name="act_main_splash_verse_err"><![CDATA[<h1>Simple Bible</h1><br/>We are persecuted, but God does not leave us. We are hurt sometimes, but we are not destroyed.<br/><br/>2 Corinthians 4:9]]></string>
@@ -28,13 +33,7 @@
     <string name="act_books_chapter_hint">Select Chapter</string>
     <string name="act_books_button_label">Navigate</string>
     <string name="item_book_name_template">%s</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-    <string name="share">Share</string>
-    <string name="bookmark">Bookmark</string>
-    <string name="clear">Clear</string>
-    <string name="settings">Settings</string>
-    <string name="menu">menu</string>
+
     <plurals name="item_book_details_template">
         <item quantity="one">%d Chapter</item>
         <item quantity="other">%d Chapters</item>
