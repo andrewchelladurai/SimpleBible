@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entities.Book;
-import com.andrewchelladurai.simplebible.ui.ops.AdapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.BooksScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.ViewHolderOps;
 
@@ -48,16 +47,17 @@ public class BookListAdapter
     }
 
     @Override
-    public void updateList(final List<?> list) {
-        if (mList.isEmpty() || mList.size() != 66) {
-            mList.clear();
-            for (Object book : list) {
-                mList.add((Book) book);
-            }
-            Log.d(TAG, "updateList: [" + mList.size() + "] records updated");
-        } else {
-            Log.d(TAG, "updateList: list is already updated");
+    public void updateList(@NonNull final List<?> list, @NonNull final Object... objects) {
+        if (!mList.isEmpty() && mList.size() == 66) {
+            Log.d(TAG, "updateList: already cached");
+            return;
         }
+
+        mList.clear();
+        for (Object book : list) {
+            mList.add((Book) book);
+        }
+        Log.d(TAG, "[" + mList.size() + "] verses updated in adapter cache");
     }
 
     public class ViewHolder

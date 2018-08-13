@@ -181,7 +181,7 @@ public class BooksScreen
 
             // get cached list from repository
             // update list in adapter for recycler view
-            sAdapter.updateList(sPresenter.getBooksList());
+            sAdapter.updateList(sPresenter.getBooksList(), 66);
         }
 
         sAdapter.notifyDataSetChanged();

@@ -110,7 +110,7 @@ public class ChapterScreen
 
         if (sPresenter.updateRepositoryCache(verses)) {
             updateTitle();
-            sAdapter.updateList(verses);
+            sAdapter.updateList(verses, getBookToShow(), getChapterToShow());
             sAdapter.notifyDataSetChanged();
         } else {
             Log.e(TAG, "updateScreen: error updating UI");

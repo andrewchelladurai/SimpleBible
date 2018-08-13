@@ -8,21 +8,23 @@ import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
-import com.andrewchelladurai.simplebible.ui.ops.AdapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.ViewHolderOps;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class VerseListAdapter
     extends RecyclerView.Adapter<VerseListAdapter.ViewHolder>
     implements AdapterOps {
 
-    private static final String      TAG   = "VerseListAdapter";
-    private final        List<Verse> mList = new ArrayList<>();
+    private static final String TAG = "VerseListAdapter";
+    private static int mBook;
+    private static int mChapter;
+    private final List<Verse> mList = new ArrayList<>();
     private final ChapterScreenOps mOps;
     private final String           verseContentTemplate;
 
@@ -49,12 +51,27 @@ public class VerseListAdapter
     }
 
     @Override
-    public void updateList(final List<?> list) {
+    public void updateList(@NonNull final List<?> list,
+                           @NonNull final Object... objects) {
+
+        int book = (int) objects[0];
+        int chapter = (int) objects[1];
+
+        if (book == mBook
+            && chapter == mChapter
+            && mList.size() == list.size()) {
+            Log.d(TAG, "already cached");
+            return;
+        }
+
+        mBook = book;
+        mChapter = chapter;
+
         mList.clear();
         for (final Object object : list) {
             mList.add((Verse) object);
         }
-        Log.d(TAG, "updateList: updated [" + getItemCount() + "] records");
+        Log.d(TAG, "updated [" + getItemCount() + "] records");
     }
 
     public boolean isAnyVerseSelected() {
