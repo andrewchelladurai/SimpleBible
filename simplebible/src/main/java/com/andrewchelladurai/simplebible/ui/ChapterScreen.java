@@ -353,7 +353,6 @@ public class ChapterScreen
 
     @Override
     public void handleInteractionClickVerseItem(final Verse verse) {
-        Log.d(TAG, "handleInteractionClickVerseItem() called with: verse = [" + verse + "]");
         verse.setSelected(!verse.isSelected());
     }
 
