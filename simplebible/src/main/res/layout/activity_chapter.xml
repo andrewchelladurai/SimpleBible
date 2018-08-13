@@ -6,13 +6,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/act_chapter_list"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="LinearLayoutManager"
-        app:spanCount="@integer/act_chapter_list"
-        tools:listitem="@layout/item_verse" />
+        android:orientation="vertical">
+        <!--android:layout_marginBottom="?actionBarSize"-->
+
+        <TextView
+            android:id="@+id/act_chapter_titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/gap_normal"
+            android:text="@string/act_ch_title"
+            android:textAlignment="center" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/act_chapter_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/gap_normal"
+            android:layout_weight="1"
+            app:layoutManager="LinearLayoutManager"
+            app:spanCount="@integer/act_chapter_list"
+            tools:listitem="@layout/item_verse" />
+    </LinearLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/act_chapter_appbar"
@@ -20,7 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:backgroundTint="?colorPrimary"
-        app:fabAlignmentMode="end" />
+        app:fabAlignmentMode="end"
+        app:hideOnScroll="true" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/act_chapter_fab"
