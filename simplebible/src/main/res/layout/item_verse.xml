@@ -8,6 +8,7 @@
     android:background="@drawable/item_verse_background"
     android:paddingBottom="@dimen/gap_small"
     android:paddingEnd="@dimen/gap_normal"
+    android:textColor="@color/item_verse_text_color"
     android:paddingStart="@dimen/gap_normal"
     android:paddingTop="@dimen/gap_small"
-    tools:text="@string/default_verse_with_reference" />
+    tools:text="@string/default_verse_text" />
