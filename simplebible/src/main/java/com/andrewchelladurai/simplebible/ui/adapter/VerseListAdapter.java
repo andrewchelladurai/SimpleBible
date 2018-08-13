@@ -24,9 +24,11 @@ public class VerseListAdapter
     private static final String      TAG   = "VerseListAdapter";
     private final        List<Verse> mList = new ArrayList<>();
     private final ChapterScreenOps mOps;
+    private final String           verseContentTemplate;
 
     public VerseListAdapter(ChapterScreenOps ops) {
         mOps = ops;
+        verseContentTemplate = mOps.getVerseTemplateString();
     }
 
     @Override
@@ -55,6 +57,24 @@ public class VerseListAdapter
         Log.d(TAG, "updateList: updated [" + getItemCount() + "] records");
     }
 
+    public boolean isAnyVerseSelected() {
+        for (Verse verse : mList) {
+            if (verse.isSelected()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean discardSelectedVerses() {
+        for (Verse verse : mList) {
+            if (verse.isSelected()) {
+                verse.setSelected(false);
+            }
+        }
+        return isAnyVerseSelected();
+    }
+
     class ViewHolder
         extends RecyclerView.ViewHolder
         implements ViewHolderOps {
@@ -77,7 +97,9 @@ public class VerseListAdapter
         @Override
         public void updateView(final Object item) {
             mVerse = (Verse) item;
-            mTextView.setText(mVerse.toString());
+            mTextView.setText(
+                String.format(verseContentTemplate, mVerse.getVerse(), mVerse.getText()));
+            mView.setSelected(mVerse.isSelected());
             mView.setOnClickListener(this);
         }
 

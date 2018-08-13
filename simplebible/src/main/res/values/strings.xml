@@ -39,4 +39,16 @@
         <item quantity="other">%d Chapters</item>
     </plurals>
 
+    <string name="act_ch_title">%s : Chapter %d</string>
+    <string name="act_ch_err_first_chapter">At First Chapter</string>
+    <string name="act_ch_err_last_chapter">At Last Chapter</string>
+    <string name="act_ch_err_empty_selection_list">No Verses Selected</string>
+    <string name="act_ch_err_invalid_bookmark_reference">Invalid bookmark reference created</string>
+    <string name="act_ch_msg_discarded_selected_verses">All selected verses discarded</string>
+    <string name="act_ch_template_share">%1$s\n%2$s\n— The World English Bible British Edition</string>
+
+    <string name="content_item_verse_text_template">%d : %s</string>
+    <string name="content_bookmark_item_reference_template">%s %d:%d - %s</string>
+    <string name="content_bookmark_item_err_invalid_reference">Invalid Reference</string>
+
 </resources>
