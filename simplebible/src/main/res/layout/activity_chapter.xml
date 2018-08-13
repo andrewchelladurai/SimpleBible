@@ -7,4 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".ui.ChapterScreen">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/act_chapter_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="LinearLayoutManager"
+        app:spanCount="@integer/act_chapter_list"
+        tools:listitem="@layout/item_verse" />
+
 </android.support.constraint.ConstraintLayout>
