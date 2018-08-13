@@ -44,9 +44,8 @@ public class VerseRepository
             sVersesMap.put(verse.getReference(), verse);
         }
 
-        Log.d(TAG, "populateCache: cache now has [" + getCacheSize()
-                   + "] records for [book]:[chapter] = [" + currentBook + "]["
-                   + currentChapter + "]");
+        Log.d(TAG, "cached [" + getCacheSize() + "] records for [book="
+                   + currentBook + "][chapter=" + currentChapter + "]");
         return true;
     }
 
@@ -94,7 +93,7 @@ public class VerseRepository
         }
         sLiveData = SbDatabase.getInstance(getApplication()).getVerseDao()
                               .getChapter(currentBook, currentChapter);
-        Log.d(TAG, "queryDatabase: populated new chapter");
+        Log.d(TAG, "queried for new chapter");
         return sLiveData;
     }
 
@@ -104,7 +103,7 @@ public class VerseRepository
         final int chapter = (int) objects[1];
 
         if (isCacheValid(book, chapter)) {
-            Log.d(TAG, "queryDatabase: returned cached data");
+            Log.d(TAG, "returning cached live data");
             return sLiveData;
         }
 
@@ -117,22 +116,20 @@ public class VerseRepository
     @Override
     public boolean isCacheValid(final Object... objects) {
         if (isCacheEmpty()) {
-            Log.d(TAG, "isCacheValid: not cached - isCacheEmpty");
+            Log.d(TAG, "cache is empty");
             return false;
         }
 
         final int book = (int) objects[0];
         final int chapter = (int) objects[0];
 
-        //noinspection RedundantIfStatement
-        if (book != currentBook || chapter != currentChapter) {
+        if (book == currentBook && chapter == currentChapter) {
             Log.d(TAG,
-                  "isCacheValid: not cached - book != currentBook | chapter != currentChapter");
-            return false;
+                  "already cached [book=" + book + ":" + currentBook
+                  + "][chapter=" + chapter + ":" + currentChapter + "]");
+            return true;
         }
-        Log.d(TAG,
-              "isCacheValid: already cached data [book=" + currentBook
-              + "][chapter=" + currentChapter + "]");
-        return true;
+        Log.d(TAG, "not cached - book != currentBook || chapter != currentChapter");
+        return false;
     }
 }
