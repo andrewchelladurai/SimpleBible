@@ -85,19 +85,13 @@ public class ChapterScreen
         outState.putInt(CHAPTER_NUMBER, ARGS.getInt(CHAPTER_NUMBER));
     }
 
-    private void showChapter(final int bookNumber, final int chapterNumber) {
-        Log.d(TAG, "showChapter: bookNumber = [" + bookNumber + "], chapterNumber = ["
-                   + chapterNumber + "]");
-        if (sPresenter.isChapterCached(bookNumber, chapterNumber)) {
-            Log.d(TAG, "showChapter: already cached");
-            return;
-        }
+    private void showChapter(final int book, final int chapter) {
+        Log.d(TAG, "showChapter: book = [" + book + "], chapter = [" + chapter + "]");
 
-        ARGS.putInt(BOOK_NUMBER, bookNumber);
-        ARGS.putInt(CHAPTER_NUMBER, chapterNumber);
-        sPresenter.updateRepositoryValues(bookNumber, chapterNumber);
+        ARGS.putInt(BOOK_NUMBER, book);
+        ARGS.putInt(CHAPTER_NUMBER, chapter);
 
-        verseRepository.getLiveData()
+        verseRepository.getLiveData(book, chapter)
                        .observe(this,
                                 new Observer<List<Verse>>() {
                                     @Override

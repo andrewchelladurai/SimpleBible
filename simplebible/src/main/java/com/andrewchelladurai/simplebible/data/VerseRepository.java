@@ -1,6 +1,5 @@
 package com.andrewchelladurai.simplebible.data;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
 import android.util.Log;
 
@@ -19,11 +18,10 @@ public class VerseRepository
     extends AndroidViewModel
     implements RepositoryOps {
 
-    private static final String                  TAG         = "VerseRepository";
-    private static       LiveData<List<Verse>>   sLiveData   = new MutableLiveData<>();
-    private static       ArrayList<Verse>        sVersesList = new ArrayList<>();
-    @SuppressLint("UseSparseArrays")
-    private static       HashMap<Integer, Verse> sVersesMap  = new HashMap<>();
+    private static final String                 TAG         = "VerseRepository";
+    private static final ArrayList<Verse>       sVersesList = new ArrayList<>();
+    private static final HashMap<String, Verse> sVersesMap  = new HashMap<>();
+    private static       LiveData<List<Verse>>  sLiveData   = new MutableLiveData<>();
     private static VerseRepository THIS_INSTANCE;
     private static int currentBook    = 0;
     private static int currentChapter = 0;
@@ -40,9 +38,11 @@ public class VerseRepository
     @Override
     public boolean populate(final List<?> list) {
         clear();
-
+        Verse verse;
         for (final Object object : list) {
+            verse = (Verse) object;
             sVersesList.add((Verse) object);
+            sVersesMap.put(verse.getReference(), verse);
         }
 
         Log.d(TAG, "populate: cache now has [" + size()
@@ -70,9 +70,9 @@ public class VerseRepository
 
     @Override
     public Object getRecordUsingKey(final Object key) {
-        final int number = (int) key;
-        if (sVersesMap.containsKey(number)) {
-            return sVersesMap.get(number);
+        final String reference = (String) key;
+        if (sVersesMap.containsKey(reference)) {
+            return sVersesMap.get(reference);
         }
         return null;
     }
@@ -95,13 +95,14 @@ public class VerseRepository
         }
         sLiveData = SbDatabase.getInstance(getApplication()).getVerseDao()
                               .getChapter(currentBook, currentChapter);
+        Log.d(TAG, "getLiveData: populated new chapter");
         return sLiveData;
     }
 
     @Override
     public boolean validate(final Object... objects) {
         if (isEmpty()) {
-            Log.d(TAG, "validate: isEmpty");
+            Log.d(TAG, "validate: not cached - isEmpty");
             return false;
         }
 
@@ -109,21 +110,26 @@ public class VerseRepository
         final int chapter = (int) objects[0];
 
         //noinspection RedundantIfStatement
-        if (book != currentBook | chapter != currentChapter) {
-            Log.d(TAG, "validate: book != currentBook | chapter != currentChapter ["
-                       + book + " != " + currentBook + " | " + chapter + " != " + currentChapter
-                       + "]");
+        if (book != currentBook || chapter != currentChapter) {
+            Log.d(TAG, "validate: not cached - book != currentBook | chapter != currentChapter");
             return false;
         }
+        Log.d(TAG,
+              "validate: already cached data [book=" + currentBook
+              + "][chapter=" + currentChapter + "]");
         return true;
     }
 
-    public void setUpNewChapter(@IntRange(from = 1, to = 66) int book,
-                                @IntRange(from = 1) int chapter) {
+    public LiveData<List<Verse>> getLiveData(@IntRange(from = 1, to = 66) int book,
+                                             @IntRange(from = 1) int chapter) {
+        if (validate(book, chapter)) {
+            Log.d(TAG, "getLiveData: returned cached data");
+            return sLiveData;
+        }
+
         currentBook = book;
         currentChapter = chapter;
-        Log.d(TAG,
-              "setUpNewChapter: book = [" + currentBook + "], chapter = [" + currentChapter + "]");
-    }
 
+        return getLiveData();
+    }
 }
