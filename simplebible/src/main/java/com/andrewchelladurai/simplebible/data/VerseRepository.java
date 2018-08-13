@@ -101,6 +101,7 @@ public class VerseRepository
     @Override
     public boolean validate(final Object... objects) {
         if (isEmpty()) {
+            Log.d(TAG, "validate: isEmpty");
             return false;
         }
 
@@ -109,6 +110,9 @@ public class VerseRepository
 
         //noinspection RedundantIfStatement
         if (book != currentBook | chapter != currentChapter) {
+            Log.d(TAG, "validate: book != currentBook | chapter != currentChapter ["
+                       + book + " != " + currentBook + " | " + chapter + " != " + currentChapter
+                       + "]");
             return false;
         }
         return true;
@@ -118,6 +122,8 @@ public class VerseRepository
                                 @IntRange(from = 1) int chapter) {
         currentBook = book;
         currentChapter = chapter;
+        Log.d(TAG,
+              "setUpNewChapter: book = [" + currentBook + "], chapter = [" + currentChapter + "]");
     }
 
 }

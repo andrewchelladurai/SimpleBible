@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.VerseRepository;
 import com.andrewchelladurai.simplebible.data.entities.Book;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
 import com.andrewchelladurai.simplebible.presenter.ChapterScreenPresenter;
@@ -23,17 +24,20 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ChapterScreen
     extends AppCompatActivity
     implements ChapterScreenOps {
 
-    public static final  String       BOOK_NUMBER    = "BOOK_NUMBER";
-    public static final  String       CHAPTER_NUMBER = "CHAPTER_NUMBER";
-    private static final String       TAG            = "ChapterScreen";
-    private static final Bundle       ARGS           = new Bundle();
-    private              RecyclerView listView       = null;
+    public static final  String BOOK_NUMBER    = "BOOK_NUMBER";
+    public static final  String CHAPTER_NUMBER = "CHAPTER_NUMBER";
+    private static final String TAG            = "ChapterScreen";
+    private static final Bundle ARGS           = new Bundle();
+    private static VerseRepository verseRepository;
+    private RecyclerView listView = null;
     private static ChapterScreenPresenter sPresenter;
     private static VerseListAdapter       sAdapter;
 
@@ -50,6 +54,11 @@ public class ChapterScreen
             ARGS.putInt(BOOK_NUMBER, getIntent().getIntExtra(BOOK_NUMBER, 0));
             ARGS.putInt(CHAPTER_NUMBER, getIntent().getIntExtra(CHAPTER_NUMBER, 0));
         }
+
+        if (verseRepository == null) {
+            verseRepository = ViewModelProviders.of(this).get(VerseRepository.class);
+        }
+
         if (sPresenter == null) {
             sPresenter = new ChapterScreenPresenter(this);
         }
@@ -65,6 +74,7 @@ public class ChapterScreen
 
         listView = findViewById(R.id.act_chapter_list);
         listView.setAdapter(sAdapter);
+
         showChapter(getBookToShow(), getChapterToShow());
     }
 
@@ -76,45 +86,41 @@ public class ChapterScreen
     }
 
     private void showChapter(final int bookNumber, final int chapterNumber) {
+        Log.d(TAG, "showChapter: bookNumber = [" + bookNumber + "], chapterNumber = ["
+                   + chapterNumber + "]");
+        if (verseRepository.validate(bookNumber, chapterNumber)) {
+            Log.d(TAG, "showChapter: already cached");
+            return;
+        }
+
         ARGS.putInt(BOOK_NUMBER, bookNumber);
         ARGS.putInt(CHAPTER_NUMBER, chapterNumber);
-/*
-        ChapterModelFactory factory = new ChapterModelFactory(
-            SbDatabase.getInstance(getSystemContext()));
-        ChapterModel chapterModel =
-            ViewModelProviders.of(this, factory).get(ChapterModel.class);
-        chapterModel.getChapterList(bookNumber, chapterNumber)
-                    .observe(this,
-                             new Observer<List<Verse>>() {
-                                 @Override
-                                 public void onChanged(
-                                     @Nullable final List<Verse> verses) {
-                                     updateScreen(verses);
-                                 }
-                             });
-*/
+        verseRepository.setUpNewChapter(bookNumber, chapterNumber);
+
+        verseRepository.getLiveData()
+                       .observe(this,
+                                new Observer<List<Verse>>() {
+                                    @Override
+                                    public void onChanged(@Nullable final List<Verse> verses) {
+                                        updateScreen(verses);
+                                    }
+                                });
         listView.scrollToPosition(0);
     }
 
     private void updateScreen(@Nullable final List<Verse> verses) {
-/*
         if (null == verses) {
             Log.e(TAG, "updateScreen: No verses returned");
             return;
         }
-        if (VerseList.getInstance().isAlreadyPopulated(getBookToShow(), getChapterToShow())) {
-            updateTitle();
-            Log.e(TAG, "updateScreen: VerseList is already populated with data");
-            return;
-        }
-        if (VerseList.getInstance().populateList(verses)) {
+
+        if (verseRepository.populate(verses)) {
             updateTitle();
             sAdapter.updateList(verses);
             sAdapter.notifyDataSetChanged();
         } else {
             Log.e(TAG, "updateScreen: error updating UI");
         }
-*/
     }
 
     private void updateTitle() {
