@@ -1,4 +1,4 @@
-package com.andrewchelladurai.simplebible.ui.ops;
+package com.andrewchelladurai.simplebible.ui.adapter;
 
 import java.util.List;
 
@@ -11,6 +11,6 @@ import androidx.annotation.NonNull;
  */
 public interface AdapterOps {
 
-    void updateList(@NonNull final List<?> list);
+    void updateList(@NonNull final List<?> list, @NonNull Object... objects);
 
 }
