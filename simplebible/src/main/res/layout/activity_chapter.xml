@@ -13,9 +13,8 @@
         <!--android:layout_marginBottom="?actionBarSize"-->
 
         <TextView
+            style="@style/SbTheme.Header"
             android:id="@+id/act_chapter_titlebar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_margin="@dimen/gap_normal"
             android:text="@string/act_ch_title"
             android:textAlignment="center" />
