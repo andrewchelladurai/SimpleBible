@@ -22,6 +22,6 @@ public class ChapterScreenPresenter {
     }
 
     public boolean updateRepositoryCache(@NonNull final List<Verse> verses) {
-        return VerseRepository.getInstance().populate(verses);
+        return VerseRepository.getInstance().populateCache(verses);
     }
 }

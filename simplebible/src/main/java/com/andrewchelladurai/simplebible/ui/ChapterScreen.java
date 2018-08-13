@@ -36,10 +36,10 @@ public class ChapterScreen
     public static final  String CHAPTER_NUMBER = "CHAPTER_NUMBER";
     private static final String TAG            = "ChapterScreen";
     private static final Bundle ARGS           = new Bundle();
-    private static VerseRepository verseRepository;
-    private RecyclerView listView = null;
+    private static VerseRepository        sRepository;
     private static ChapterScreenPresenter sPresenter;
     private static VerseListAdapter       sAdapter;
+    private RecyclerView listView = null;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -55,8 +55,8 @@ public class ChapterScreen
             ARGS.putInt(CHAPTER_NUMBER, getIntent().getIntExtra(CHAPTER_NUMBER, 0));
         }
 
-        if (verseRepository == null) {
-            verseRepository = ViewModelProviders.of(this).get(VerseRepository.class);
+        if (sRepository == null) {
+            sRepository = ViewModelProviders.of(this).get(VerseRepository.class);
         }
 
         if (sPresenter == null) {
@@ -91,8 +91,8 @@ public class ChapterScreen
         ARGS.putInt(BOOK_NUMBER, book);
         ARGS.putInt(CHAPTER_NUMBER, chapter);
 
-        verseRepository.getLiveData(book, chapter)
-                       .observe(this,
+        sRepository.queryDatabase(book, chapter)
+                   .observe(this,
                                 new Observer<List<Verse>>() {
                                     @Override
                                     public void onChanged(@Nullable final List<Verse> verses) {
@@ -253,7 +253,7 @@ public class ChapterScreen
             return;
         }
 
-        final ArrayList<Verse> list = VerseList.getInstance().getList();
+        final ArrayList<Verse> list = VerseList.getInstance().getCachedList();
         final ArrayList<Verse> selectedList = new ArrayList<>();
         for (Verse verse : list) {
             if (verse.isSelected()) {
@@ -262,7 +262,7 @@ public class ChapterScreen
         }
         final String bookmarkReference = Utilities.getInstance().createBookmarkReference(
             selectedList);
-        if (!bookmarkReference.isEmpty()) {
+        if (!bookmarkReference.isCacheEmpty()) {
 */
 /*
             Bundle bundle = new Bundle();
@@ -329,7 +329,7 @@ public class ChapterScreen
             return;
         }
         final StringBuilder verses = new StringBuilder();
-        final ArrayList<Verse> list = VerseList.getInstance().getList();
+        final ArrayList<Verse> list = VerseList.getInstance().getCachedList();
         for (Verse verse : list) {
             if (verse.isSelected()) {
                 verses.append(String.format(getString(R.string.content_item_verse_text_template),

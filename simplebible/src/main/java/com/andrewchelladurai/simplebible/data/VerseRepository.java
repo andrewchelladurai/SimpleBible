@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import androidx.annotation.IntRange;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -36,8 +35,8 @@ public class VerseRepository
     }
 
     @Override
-    public boolean populate(final List<?> list) {
-        clear();
+    public boolean populateCache(final List<?> list) {
+        clearCache();
         Verse verse;
         for (final Object object : list) {
             verse = (Verse) object;
@@ -45,31 +44,31 @@ public class VerseRepository
             sVersesMap.put(verse.getReference(), verse);
         }
 
-        Log.d(TAG, "populate: cache now has [" + size()
+        Log.d(TAG, "populateCache: cache now has [" + getCacheSize()
                    + "] records for [book]:[chapter] = [" + currentBook + "]["
                    + currentChapter + "]");
         return true;
     }
 
     @Override
-    public void clear() {
+    public void clearCache() {
         sVersesList.clear();
         sVersesMap.clear();
         //  currentBook = currentChapter = 0;
     }
 
     @Override
-    public boolean isEmpty() {
+    public boolean isCacheEmpty() {
         return sVersesList.isEmpty() & sVersesMap.isEmpty();
     }
 
     @Override
-    public int size() {
+    public int getCacheSize() {
         return (sVersesMap.size() == sVersesList.size()) ? sVersesList.size() : -1;
     }
 
     @Override
-    public Object getRecordUsingKey(final Object key) {
+    public Object getCachedRecordUsingKey(final Object key) {
         final String reference = (String) key;
         if (sVersesMap.containsKey(reference)) {
             return sVersesMap.get(reference);
@@ -78,31 +77,47 @@ public class VerseRepository
     }
 
     @Override
-    public Object getRecordUsingValue(final Object value) {
+    public Object getCachedRecordUsingValue(final Object value) {
         final String msg = "Do not look for verse using value";
         throw new UnsupportedOperationException(msg);
     }
 
     @Override
-    public List<Verse> getList() {
+    public List<Verse> getCachedList() {
         return sVersesList;
     }
 
     @Override
-    public LiveData<List<Verse>> getLiveData() {
+    public LiveData<List<Verse>> queryDatabase() {
         if (currentBook == 0 || currentChapter == 0) {
             throw new UnsupportedOperationException("currentBook || currentChapter = 0");
         }
         sLiveData = SbDatabase.getInstance(getApplication()).getVerseDao()
                               .getChapter(currentBook, currentChapter);
-        Log.d(TAG, "getLiveData: populated new chapter");
+        Log.d(TAG, "queryDatabase: populated new chapter");
         return sLiveData;
     }
 
     @Override
-    public boolean validate(final Object... objects) {
-        if (isEmpty()) {
-            Log.d(TAG, "validate: not cached - isEmpty");
+    public LiveData<List<Verse>> queryDatabase(final Object... objects) {
+        final int book = (int) objects[0];
+        final int chapter = (int) objects[1];
+
+        if (isCacheValid(book, chapter)) {
+            Log.d(TAG, "queryDatabase: returned cached data");
+            return sLiveData;
+        }
+
+        currentBook = book;
+        currentChapter = chapter;
+
+        return queryDatabase();
+    }
+
+    @Override
+    public boolean isCacheValid(final Object... objects) {
+        if (isCacheEmpty()) {
+            Log.d(TAG, "isCacheValid: not cached - isCacheEmpty");
             return false;
         }
 
@@ -111,25 +126,13 @@ public class VerseRepository
 
         //noinspection RedundantIfStatement
         if (book != currentBook || chapter != currentChapter) {
-            Log.d(TAG, "validate: not cached - book != currentBook | chapter != currentChapter");
+            Log.d(TAG,
+                  "isCacheValid: not cached - book != currentBook | chapter != currentChapter");
             return false;
         }
         Log.d(TAG,
-              "validate: already cached data [book=" + currentBook
+              "isCacheValid: already cached data [book=" + currentBook
               + "][chapter=" + currentChapter + "]");
         return true;
-    }
-
-    public LiveData<List<Verse>> getLiveData(@IntRange(from = 1, to = 66) int book,
-                                             @IntRange(from = 1) int chapter) {
-        if (validate(book, chapter)) {
-            Log.d(TAG, "getLiveData: returned cached data");
-            return sLiveData;
-        }
-
-        currentBook = book;
-        currentChapter = chapter;
-
-        return getLiveData();
     }
 }

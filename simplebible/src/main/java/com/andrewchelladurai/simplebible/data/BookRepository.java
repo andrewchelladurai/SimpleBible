@@ -11,20 +11,19 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 public class BookRepository
     extends AndroidViewModel
     implements RepositoryOps {
 
-    private static final String               TAG       = "BookRepository";
-    private static       LiveData<List<Book>> sLiveData = new MutableLiveData<>();
-    private static       ArrayList<Book>      mBookList = new ArrayList<>();
-    private static BookRepository THIS_INSTANCE;
+    private static final String          TAG       = "BookRepository";
+    private static final ArrayList<Book> mBookList = new ArrayList<>();
+
+    private static LiveData<List<Book>> sLiveData     = null;
+    private static BookRepository       THIS_INSTANCE = null;
 
     public BookRepository(final Application application) {
         super(application);
-        sLiveData = SbDatabase.getInstance(application).getBookDao().getAllBooks();
         THIS_INSTANCE = this;
     }
 
@@ -33,73 +32,84 @@ public class BookRepository
     }
 
     @Override
-    public boolean populate(final List<?> list) {
-        clear();
+    public boolean populateCache(final List<?> list) {
+        clearCache();
         for (final Object object : list) {
             mBookList.add((Book) object);
         }
-        Log.d(TAG, "populate: populated [" + size() + "] books");
+        Log.d(TAG, "populated [" + getCacheSize() + "] books in cache");
         return true;
     }
 
     @Override
-    public void clear() {
+    public void clearCache() {
         mBookList.clear();
     }
 
     @Override
-    public boolean isEmpty() {
+    public boolean isCacheEmpty() {
         return mBookList.isEmpty();
     }
 
     @Override
-    public int size() {
+    public int getCacheSize() {
         return mBookList.size();
     }
 
     @Override
-    public Object getRecordUsingKey(@NonNull final Object key) {
+    public Object getCachedRecordUsingKey(@NonNull final Object key) {
         int number = (int) key;
         for (final Book book : mBookList) {
             if (book.getNumber() == number) {
                 return book;
             }
         }
+        Log.e(TAG, " no book found with key [" + number + "]");
         return null;
     }
 
     @Override
-    public Book getRecordUsingValue(@NonNull final Object value) {
+    public Book getCachedRecordUsingValue(@NonNull final Object value) {
         String bookName = (String) value;
         for (final Book book : mBookList) {
             if (book.getName().equalsIgnoreCase(bookName)) {
                 return book;
             }
         }
+        Log.e(TAG, " no book found with name [" + bookName + "]");
         return null;
     }
 
     @Override
-    public ArrayList<Book> getList() {
+    public ArrayList<Book> getCachedList() {
         return mBookList;
     }
 
-    public LiveData<List<Book>> getLiveData() {
+    public LiveData<List<Book>> queryDatabase() {
+        if (sLiveData == null) {
+            sLiveData = SbDatabase.getInstance(getApplication())
+                                  .getBookDao().getAllBooks();
+        }
         return sLiveData;
     }
 
     @Override
-    public boolean validate(final Object... objects) {
-        if (isEmpty() || size() != 66) {
-            Log.d(TAG, "validate: repository cache empty or does not have 66 records");
+    public LiveData<?> queryDatabase(final Object... objects) {
+        throw new UnsupportedOperationException("This method must not be used");
+    }
+
+    @Override
+    public boolean isCacheValid(final Object... objects) {
+        if (isCacheEmpty() || getCacheSize() != 66) {
+            Log.d(TAG, "cache is empty or does not have 66 records");
             return false;
         }
         if (!mBookList.get(0).getName().equalsIgnoreCase((String) objects[0])
-            || !mBookList.get(size() - 1).getName().equalsIgnoreCase((String) objects[1])) {
-            Log.d(TAG, "validate: repository cache's first and last book is invalid");
+            || !mBookList.get(getCacheSize() - 1).getName().equalsIgnoreCase((String) objects[1])) {
+            Log.d(TAG, "cache's first and last book is invalid");
             return false;
         }
-        Log.d(TAG, "validate: repository has cached data");
+        Log.d(TAG, "valid cached data");
         return true;
     }
 }

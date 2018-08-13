@@ -64,7 +64,7 @@ public class BooksScreen
         mChapterField = findViewById(R.id.act_books_chapter);
         mChapterField.setOnFocusChangeListener(this);
 
-        mRepository.getLiveData().observe(this, this);
+        mRepository.queryDatabase().observe(this, this);
 
         findViewById(R.id.act_books_button).setOnClickListener(this);
     }
@@ -172,12 +172,12 @@ public class BooksScreen
     }
 
     private void updateUi(@NonNull final List<Book> books) {
-        // validate is repository already contains cached data
+        // isCacheValid is repository already contains cached data
         boolean isCached = sPresenter.validateRepository(getString(R.string.first_book),
                                                          getString(R.string.last_book));
         if (!isCached) {
-            // populate cache in repository
-            mRepository.populate(books);
+            // populateCache cache in repository
+            mRepository.populateCache(books);
 
             // get cached list from repository
             // update list in adapter for recycler view

@@ -124,7 +124,7 @@ public class Utilities {
             Log.e(TAG, "isValidChapterNumber: invalid bookNumber[" + bookNumber + "]");
             return false;
         }
-        final Book book = (Book) BookRepository.getInstance().getRecordUsingKey(bookNumber);
+        final Book book = (Book) BookRepository.getInstance().getCachedRecordUsingKey(bookNumber);
         if (book == null) {
             Log.e(TAG, "isValidChapterNumber: ideally, this should not print");
             Log.e(TAG, "isValidChapterNumber: invalid bookNumber[" + bookNumber + "]");
@@ -156,7 +156,7 @@ public class Utilities {
     }
 
     public Book getBookUsingNumber(@NonNull final Integer bookNumber) {
-        return (Book) BookRepository.getInstance().getRecordUsingKey(bookNumber);
+        return (Book) BookRepository.getInstance().getCachedRecordUsingKey(bookNumber);
     }
 
     @NonNull
