@@ -255,44 +255,32 @@ public class ChapterScreen
 
     private void actionBookmarkClicked() {
         Log.d(TAG, "actionBookmarkClicked:");
-/*
-        final boolean anyVerseSelected = sAdapter.isAnyVerseSelected();
-        if (!anyVerseSelected) {
+
+        if (!sAdapter.isAnyVerseSelected()) {
             showErrorEmptySelectedList();
             return;
         }
 
-        final ArrayList<Verse> list = VerseList.getInstance().getCachedList();
-        final ArrayList<Verse> selectedList = new ArrayList<>();
-        for (Verse verse : list) {
-            if (verse.isSelected()) {
-                selectedList.add(verse);
-            }
-        }
-        final String bookmarkReference = Utilities.getInstance().createBookmarkReference(
-            selectedList);
-        if (!bookmarkReference.isCacheEmpty()) {
-*/
-/*
-            Bundle bundle = new Bundle();
-            bundle.putString(ActivityBookmark.REFERENCES, bookmarkReference);
-            final Intent intent = new Intent(this, ActivityBookmark.class);
-            intent.putExtras(bundle);
+        final String references = sPresenter.getSelectedVerseReferences();
 
-            if (sAdapter.isAnyVerseSelected()) {
-                sAdapter.discardSelectedVerses();
-                sAdapter.notifyDataSetChanged();
-            }
-
-            startActivity(intent);
-*//*
-
-        } else {
-            Log.e(TAG,
-                  "handleInteractionClickFabBookmark: invalid bookmarkReference created from getAllRecords of selected verses");
+        if (references == null || references.isEmpty()) {
+            Log.e(TAG, "got Empty or Invalid bookmarkReference");
             showErrorInvalidBookmarkReference();
+            return;
         }
+
+/*
+        Bundle bundle = new Bundle();
+        bundle.putString(BookmarkScreen.REFERENCES, references);
+        final Intent intent = new Intent(this, BookmarkScreen.class);
+        intent.putExtras(bundle);
 */
+
+        sAdapter.discardSelectedVerses();
+        sAdapter.notifyDataSetChanged();
+
+//        startActivity(intent);
+
     }
 
     private void actionNextClicked() {

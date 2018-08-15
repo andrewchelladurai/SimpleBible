@@ -3,10 +3,13 @@ package com.andrewchelladurai.simplebible.presenter;
 import com.andrewchelladurai.simplebible.data.VerseRepository;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
 import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;
+import com.andrewchelladurai.simplebible.util.Utilities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Created by : Andrew Chelladurai
@@ -36,5 +39,18 @@ public class ChapterScreenPresenter {
             }
         }
         return verses.toString();
+    }
+
+    @Nullable
+    public String getSelectedVerseReferences() {
+        final List<Verse> list = VerseRepository.getInstance().getCachedList();
+        final ArrayList<Verse> selectedList = new ArrayList<>();
+        for (Verse verse : list) {
+            if (verse.isSelected()) {
+                selectedList.add(verse);
+            }
+        }
+
+        return Utilities.getInstance().createBookmarkReference(selectedList);
     }
 }

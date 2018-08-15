@@ -159,11 +159,11 @@ public class Utilities {
         return (Book) BookRepository.getInstance().getCachedRecordUsingKey(bookNumber);
     }
 
-    @NonNull
+    @Nullable
     public String createBookmarkReference(@NonNull final ArrayList<Verse> list) {
         if (list.isEmpty()) {
             Log.e(TAG, "createBookmarkReference: Empty list passed");
-            return "";
+            return null;
         }
         final StringBuilder value = new StringBuilder();
         for (Verse verse : list) {
