@@ -30,7 +30,7 @@ public interface BookmarkDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void createNewBookmark(@SuppressWarnings("NullableProblems") @NonNull Bookmark bookmark);
 
-    @Query("select * from BOOKMARKS where REFERENCE=:reference")
+    @Query("select * from BOOKMARKS where REFERENCE=:references")
     LiveData<List<Bookmark>> getBookmarkUsingReference(@NonNull String references);
 
     @Delete
