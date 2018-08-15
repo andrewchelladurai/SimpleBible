@@ -10,16 +10,6 @@
     <string name="first_book">Genesis</string>
     <string name="last_book">Revelation</string>
 
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-    <string name="share">Share</string>
-    <string name="bookmarks">Bookmark</string>
-    <string name="clear">Clear</string>
-    <string name="settings">Settings</string>
-    <string name="menu">menu</string>
-    <string name="books">Books</string>
-    <string name="search">Search</string>
-
     <string name="act_main_splash_verse"><![CDATA[<h1>Simple Bible</h1><br/>Wait for the Lord;<br/>be strong<br/>and take heart<br/>and wait for the Lord.<br/><br/>Book of Psalms<br/>Chapter 27, Verse 14]]></string>
     <string name="act_main_splash_verse_err"><![CDATA[<h1>Simple Bible</h1><br/>We are persecuted, but God does not leave us. We are hurt sometimes, but we are not destroyed.<br/><br/>2 Corinthians 4:9]]></string>
     <string name="act_main_splash_msg">Creating Database</string>
@@ -28,6 +18,10 @@
     <string name="act_main_chapter_err_invalid">Incorrect Chapter Number</string>
     <string name="act_main_book_err_invalid">Incorrect / Empty Book Name</string>
     <string name="act_main_chapter_hint_with_chapter">up-to %d</string>
+    <string name="act_main_fab_books_desc">Books</string>
+    <string name="act_main_fab_search_desc">Search</string>
+    <string name="act_main_fab_bookmarks_desc">Bookmarks</string>
+    <string name="act_main_fab_settings_desc">Settings</string>
 
     <string name="act_books_name_hint">Enter Book Name</string>
     <string name="act_books_chapter_hint">Select Chapter</string>
@@ -39,13 +33,19 @@
         <item quantity="other">%d Chapters</item>
     </plurals>
 
-    <string name="act_ch_title">%s : Chapter %d</string>
-    <string name="act_ch_err_first_chapter">At First Chapter</string>
-    <string name="act_ch_err_last_chapter">At Last Chapter</string>
-    <string name="act_ch_err_empty_selection_list">No Verses Selected</string>
-    <string name="act_ch_err_invalid_bookmark_reference">Invalid bookmark reference created</string>
-    <string name="act_ch_msg_discarded_selected_verses">All selected verses discarded</string>
-    <string name="act_ch_template_share">%1$s\n%2$s\n— The World English Bible British Edition</string>
+    <string name="act_chap_title">%s : Chapter %d</string>
+    <string name="act_chap_err_first_chapter">At First Chapter</string>
+    <string name="act_chap_err_last_chapter">At Last Chapter</string>
+    <string name="act_chap_err_empty_selection_list">No Verses Selected</string>
+    <string name="act_chap_err_invalid_bookmark_reference">Invalid bookmark reference created</string>
+    <string name="act_chap_msg_discarded_selected_verses">All selected verses discarded</string>
+    <string name="act_chap_template_share">%1$s\n%2$s\n— The World English Bible British Edition</string>
+    <string name="act_chap_menu_next">Next</string>
+    <string name="act_chap_menu_prev">Previous</string>
+    <string name="act_chap_menu_share">Share</string>
+    <string name="act_chap_menu_bookmark">Bookmark</string>
+    <string name="act_chap_menu_clear">Clear</string>
+    <string name="act_chap_menu_settings">Settings</string>
 
     <string name="content_item_verse_text_template">%d : %s</string>
     <string name="content_bookmark_item_reference_template">%s %d:%d - %s</string>
