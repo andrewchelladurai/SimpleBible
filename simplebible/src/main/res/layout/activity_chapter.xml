@@ -43,11 +43,8 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/act_chap_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:src="@drawable/ic_grid"
-        android:tint="?colorPrimary"
-        app:backgroundTint="?colorAccent"
+        style="@style/SbTheme.FAB"
         app:layout_anchor="@id/act_chap_appbar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
