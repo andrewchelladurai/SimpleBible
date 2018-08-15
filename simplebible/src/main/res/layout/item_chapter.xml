@@ -7,6 +7,5 @@
     style="@style/SbTheme.Header"
     android:padding="@dimen/gap_normal"
     android:textAlignment="center"
-    android:textColor="@color/black"
     tools:text="119" />
 
