@@ -5,7 +5,9 @@ import com.andrewchelladurai.simplebible.data.entities.Bookmark;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -28,4 +30,9 @@ public interface BookmarkDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void createNewBookmark(@SuppressWarnings("NullableProblems") @NonNull Bookmark bookmark);
 
+    @Query("select * from BOOKMARKS where REFERENCE=:reference")
+    LiveData<List<Bookmark>> getBookmarkUsingReference(@NonNull String references);
+
+    @Delete
+    void deleteBookmark(@NonNull Bookmark bookmark);
 }
