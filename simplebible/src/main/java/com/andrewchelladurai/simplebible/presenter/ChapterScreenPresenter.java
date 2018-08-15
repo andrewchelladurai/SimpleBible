@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible.presenter;
 
 import com.andrewchelladurai.simplebible.data.VerseRepository;
+import com.andrewchelladurai.simplebible.data.entities.Book;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
 import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;
 import com.andrewchelladurai.simplebible.util.Utilities;
@@ -52,5 +53,10 @@ public class ChapterScreenPresenter {
         }
 
         return Utilities.getInstance().createBookmarkReference(selectedList);
+    }
+
+    @Nullable
+    public Book getBook(final int bookNumber) {
+        return Utilities.getInstance().getBookUsingNumber(bookNumber);
     }
 }

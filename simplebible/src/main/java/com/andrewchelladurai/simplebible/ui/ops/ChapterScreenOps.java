@@ -33,4 +33,6 @@ public interface ChapterScreenOps
 
     @IntRange(from = 1)
     int getChapterToShow();
+
+    void handleInteractionClickChapter(int chapterNumber);
 }

@@ -43,6 +43,7 @@ public class ChapterScreen
     private RecyclerView mRecyclerView = null;
     private BottomAppBar         mBottomAppBar;
     private FloatingActionButton mFab;
+    private ChapterListDialog    chapterListDialog;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -156,13 +157,11 @@ public class ChapterScreen
         return (ARGS.containsKey(CHAPTER_NUMBER) ? ARGS.getInt(CHAPTER_NUMBER) : 0);
     }
 
-    public void handleInteractionClickChapter(@NonNull final Integer chapterNumber) {
-/*
+    public void handleInteractionClickChapter(@NonNull final int chapterNumber) {
         if (chapterListDialog != null) {
             chapterListDialog.dismiss();
             chapterListDialog = null;
         }
-*/
         showChapter(getBookToShow(), chapterNumber);
     }
 
@@ -179,10 +178,6 @@ public class ChapterScreen
     public void showErrorEmptySelectedList() {
         Snackbar.make(findViewById(R.id.act_chap_list), R.string.act_chap_err_empty_selection_list,
                       Snackbar.LENGTH_SHORT).show();
-    }
-
-    public void handleInteractionClickSettings() {
-        throw new UnsupportedOperationException(getString(R.string.msg_unexpected));
     }
 
     private void showMessageDiscardSelectedVerses() {
@@ -306,15 +301,14 @@ public class ChapterScreen
 
     private void actionListClicked() {
         Log.d(TAG, "actionListClicked:");
-        final Book book = Utilities.getInstance().getBookUsingNumber(getBookToShow());
+        final Book book = sPresenter.getBook(getBookToShow());
         if (book == null) {
             Log.e(TAG, "handleInteractionClickList: invalid book returned");
             return;
         }
-/*
+
         chapterListDialog = ChapterListDialog.newInstance(this, book.getChapters());
         chapterListDialog.show(getSupportFragmentManager(), "ChapterListDialog");
-*/
     }
 
     private void actionShareClicked() {
