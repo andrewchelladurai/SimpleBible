@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.recyclerview.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chapter_dialog_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?colorPrimary"
-    android:orientation="vertical"
-    tools:context=".ui.ChapterListDialog">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chapter_dialog_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:padding="@dimen/gap_normal"
-        app:layoutManager="GridLayoutManager"
-        app:spanCount="@integer/chapter_dialog_list"
-        tools:listitem="@layout/item_chapter" />
-</LinearLayout>
+    android:clipToPadding="false"
+    android:padding="@dimen/gap_normal"
+    app:layoutManager="GridLayoutManager"
+    app:spanCount="@integer/chapter_dialog_list"
+    tools:context=".ui.ChapterListDialog"
+    tools:listitem="@layout/item_chapter" />
