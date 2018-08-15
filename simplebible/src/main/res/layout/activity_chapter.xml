@@ -14,14 +14,14 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/act_chapter_titlebar"
+            android:id="@+id/act_chap_titlebar"
             style="@style/SbTheme.Header"
             android:layout_margin="@dimen/gap_normal"
-            android:text="@string/act_ch_title"
+            android:text="@string/act_chap_title"
             android:textAlignment="center" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/act_chapter_list"
+            android:id="@+id/act_chap_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="@dimen/gap_normal"
@@ -32,7 +32,7 @@
     </LinearLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/act_chapter_appbar"
+        android:id="@+id/act_chap_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -42,11 +42,11 @@
         app:fabCradleVerticalOffset="0dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/act_chapter_fab"
+        android:id="@+id/act_chap_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_grid"
         android:tint="?colorPrimary"
-        app:layout_anchor="@id/act_chapter_appbar" />
+        app:layout_anchor="@id/act_chap_appbar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
