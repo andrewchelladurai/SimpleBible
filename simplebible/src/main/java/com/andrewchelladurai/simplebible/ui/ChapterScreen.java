@@ -191,14 +191,14 @@ public class ChapterScreen
     @Override
     public boolean onMenuItemClick(final MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.act_chapter_appbar_menu_list:
-                actionListClicked();
-                break;
             case R.id.act_chapter_appbar_menu_prev:
                 actionPrevClicked();
                 break;
             case R.id.act_chapter_appbar_menu_next:
                 actionNextClicked();
+                break;
+            case R.id.act_chapter_appbar_menu_share:
+                actionShareClicked();
                 break;
             case R.id.act_chapter_appbar_menu_bookmark:
                 actionBookmarkClicked();
@@ -219,7 +219,7 @@ public class ChapterScreen
     public void onClick(final View view) {
         switch (view.getId()) {
             case R.id.act_chapter_fab:
-                actionShareClicked();
+                actionListClicked();
                 break;
             default:
                 Log.e(TAG, "onClick: Unhandled click event" + getString(R.string.msg_unexpected));
