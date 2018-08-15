@@ -9,8 +9,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="?actionBarSize"
         android:orientation="vertical">
-        <!--android:layout_marginBottom="?actionBarSize"-->
 
         <TextView
             android:id="@+id/act_chapter_titlebar"
@@ -35,10 +36,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:animateLayoutChanges="true"
         app:backgroundTint="?colorPrimary"
         app:fabAlignmentMode="end"
-        app:fabCradleVerticalOffset="0dp"
-        app:hideOnScroll="true" />
+        app:fabCradleVerticalOffset="0dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/act_chapter_fab"
