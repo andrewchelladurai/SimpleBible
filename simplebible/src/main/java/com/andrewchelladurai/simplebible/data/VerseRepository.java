@@ -3,12 +3,16 @@ package com.andrewchelladurai.simplebible.data;
 import android.app.Application;
 import android.util.Log;
 
+import com.andrewchelladurai.simplebible.data.dao.VerseDao;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
+import com.andrewchelladurai.simplebible.util.Utilities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -127,5 +131,33 @@ public class VerseRepository
         }
         Log.d(TAG, "invalid cache - book != currentBook || chapter != currentChapter");
         return false;
+    }
+
+    @Nullable
+    public ArrayList<Verse> queryDatabaseForVerses(@NonNull final String[] references) {
+        if (references.length < 1) {
+            Log.e(TAG, "queryDatabaseForVerses: empty reference list passed");
+            return null;
+        }
+
+        final ArrayList<Verse> verseList = new ArrayList<>();
+        final Utilities utilities = Utilities.getInstance();
+        final VerseDao verseDao = SbDatabase.getInstance(getApplication()).getVerseDao();
+        LiveData<Verse> verse;
+
+        for (final String reference : references) {
+            if (utilities.isValidReference(reference)) {
+                int[] parts = utilities.splitReference(reference);
+                verse = verseDao.getVerse(parts[0], parts[1], parts[2]);
+                if (verse == null) {
+                    Log.e(TAG, "queryDatabaseForVerses: verse for reference [" + reference
+                               + "] not found");
+                    continue;
+                }
+                verseList.add(verse.getValue());
+            }
+        }
+
+        return verseList;
     }
 }
