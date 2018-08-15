@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -16,6 +17,7 @@ import com.andrewchelladurai.simplebible.ui.adapter.VerseListAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;
 import com.andrewchelladurai.simplebible.util.Utilities;
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -24,7 +26,6 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -70,7 +71,9 @@ public class ChapterScreen
         BottomAppBar bar = findViewById(R.id.act_chapter_appbar);
         bar.setOnMenuItemClickListener(this);
         bar.replaceMenu(R.menu.chapter_screen_appbar);
-        findViewById(R.id.act_chapter_fab).setOnClickListener(this);
+
+        final FloatingActionButton fab = findViewById(R.id.act_chapter_fab);
+        fab.setOnClickListener(this);
 
         listView = findViewById(R.id.act_chapter_list);
         listView.setAdapter(sAdapter);
@@ -91,15 +94,12 @@ public class ChapterScreen
         ARGS.putInt(BOOK_NUMBER, book);
         ARGS.putInt(CHAPTER_NUMBER, chapter);
 
-        sRepository.queryDatabase(book, chapter)
-                   .observe(this,
-                                new Observer<List<Verse>>() {
-                                    @Override
-                                    public void onChanged(@Nullable final List<Verse> verses) {
-                                        updateScreen(verses);
-                                    }
-                                });
-        listView.scrollToPosition(0);
+        sRepository.queryDatabase(book, chapter).observe(this, this);
+    }
+
+    @Override
+    public void onChanged(final List<Verse> verses) {
+        updateScreen(verses);
     }
 
     private void updateScreen(@Nullable final List<Verse> verses) {
@@ -112,6 +112,7 @@ public class ChapterScreen
             updateTitle();
             sAdapter.updateList(verses, getBookToShow(), getChapterToShow());
             sAdapter.notifyDataSetChanged();
+            listView.scrollToPosition(0);
         } else {
             Log.e(TAG, "updateScreen: error updating UI");
         }
@@ -122,6 +123,11 @@ public class ChapterScreen
         final String bookName = Utilities.getInstance().getBookName(getBookToShow());
         TextView textView = findViewById(R.id.act_chapter_titlebar);
         textView.setText(String.format(title, bookName, getChapterToShow()));
+    }
+
+    private String getTitleDisplay() {
+        final TextView textView = findViewById(R.id.act_chapter_titlebar);
+        return textView.getText().toString();
     }
 
     @NonNull
@@ -321,34 +327,30 @@ public class ChapterScreen
     }
 
     private void actionShareClicked() {
-        Log.d(TAG, "actionShareClicked:");
-/*
         final boolean anyVerseSelected = sAdapter.isAnyVerseSelected();
         if (!anyVerseSelected) {
             showErrorEmptySelectedList();
             return;
         }
-        final StringBuilder verses = new StringBuilder();
-        final ArrayList<Verse> list = VerseList.getInstance().getCachedList();
-        for (Verse verse : list) {
-            if (verse.isSelected()) {
-                verses.append(String.format(getString(R.string.content_item_verse_text_template),
-                                            verse.getVerse(), verse.getText())).append("\n");
-            }
-        }
+
+        final String selectedVerses = sPresenter.getSelectedVersesTextToShare(
+            getString(R.string.content_item_verse_text_template));
+
+        final String textToShare = String.format(getString(R.string.act_ch_template_share),
+                                                 selectedVerses,
+                                                 getTitleDisplay());
+        Log.d(TAG, "actionShareClicked: [selectedVerses=" + selectedVerses.length()
+                   + " chars][textToShare=" + textToShare.length() + " chars]");
+
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, String
-            .format(getString(R.string.act_ch_template_share), verses, getTitle().toString()));
+        sendIntent.putExtra(Intent.EXTRA_TEXT, textToShare);
         sendIntent.setType("text/plain");
 
-        if (sAdapter.isAnyVerseSelected()) {
-            sAdapter.discardSelectedVerses();
-            sAdapter.notifyDataSetChanged();
-        }
+        sAdapter.discardSelectedVerses();
+        sAdapter.notifyDataSetChanged();
 
         startActivity(sendIntent);
-*/
     }
 
     @Override

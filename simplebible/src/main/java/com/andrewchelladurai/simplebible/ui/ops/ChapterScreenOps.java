@@ -5,9 +5,12 @@ import android.view.View;
 
 import com.andrewchelladurai.simplebible.data.entities.Verse;
 
+import java.util.List;
+
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
 
 /**
  * Created by : Andrew Chelladurai
@@ -15,7 +18,7 @@ import androidx.appcompat.widget.Toolbar;
  * on : 13-Aug-2018 @ 1:16 AM.
  */
 public interface ChapterScreenOps
-    extends Toolbar.OnMenuItemClickListener, View.OnClickListener {
+    extends Toolbar.OnMenuItemClickListener, View.OnClickListener, Observer<List<Verse>> {
 
     void handleInteractionClickVerseItem(@NonNull Verse verse);
 

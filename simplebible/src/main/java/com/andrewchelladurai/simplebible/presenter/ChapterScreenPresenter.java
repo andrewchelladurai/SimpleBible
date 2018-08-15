@@ -24,4 +24,17 @@ public class ChapterScreenPresenter {
     public boolean updateRepositoryCache(@NonNull final List<Verse> verses) {
         return VerseRepository.getInstance().populateCache(verses);
     }
+
+    public String getSelectedVersesTextToShare(@NonNull final String verseContentTemplate) {
+        final StringBuilder verses = new StringBuilder();
+        final List<Verse> list = VerseRepository.getInstance().getCachedList();
+
+        for (Verse verse : list) {
+            if (verse.isSelected()) {
+                verses.append(String.format(
+                    verseContentTemplate, verse.getVerse(), verse.getText())).append("\n");
+            }
+        }
+        return verses.toString();
+    }
 }
