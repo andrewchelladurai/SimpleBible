@@ -25,7 +25,7 @@ public interface BookmarkDao {
     int getRecordCount();
 
     @Query("select * from BOOKMARKS order by REFERENCE")
-    List<Bookmark> getAllBookmarks();
+    LiveData<List<Bookmark>> getAllBookmarks();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void createNewBookmark(@SuppressWarnings("NullableProblems") @NonNull Bookmark bookmark);
