@@ -22,8 +22,8 @@ import androidx.annotation.Nullable;
  */
 public class Utilities {
 
-    public static final  String    SEPARATOR_IN_REFERENCE      = ":";
-    public static final  String    SEPARATOR_BETWEEN_REFERENCE = "~";
+    private static final String    SEPARATOR_IN_REFERENCE      = ":";
+    private static final String    SEPARATOR_BETWEEN_REFERENCE = "~";
     private static final String    TAG                         = "Utilities";
     private static final Utilities thisInstance                = new Utilities();
 
@@ -64,30 +64,34 @@ public class Utilities {
             Log.e(TAG, "isValidReference: Empty reference passed");
             return false;
         }
+
         if (!reference.contains(SEPARATOR_IN_REFERENCE)) {
-            Log.e(TAG, "isValidReference: reference[" + reference + "] does not contain separator");
+            Log.e(TAG, "isValidReference: on-existent [" + SEPARATOR_IN_REFERENCE
+                       + "] in reference[" + reference + "]");
             return false;
         }
+
         final String[] parts = reference.split(SEPARATOR_IN_REFERENCE);
         if (parts.length != 3) {
-            Log.e(TAG, "isValidReference: reference[" + reference + "] does not contain 3 parts");
+            Log.e(TAG, "isValidReference: reference[" + reference + "] does not have 3 parts");
             return false;
         }
-        int value;/*noinspection ForLoopReplaceableByForEach*/
-        for (int i = 0; i < parts.length; i++) {
+
+        int value;
+        for (final String part : parts) {
             try {
-                value = Integer.parseInt(parts[i]);
+                value = Integer.parseInt(part);
                 if (value < 1) {
                     Log.e(TAG, "isValidReference: part of reference[" + reference
                                + "] is invalid : < 0");
                     return false;
                 }
             } catch (NumberFormatException e) {
-                Log.e(TAG, "isValidReference: parsing failed: part of reference[" + reference
-                           + "] is NAN");
+                Log.e(TAG, "isValidReference: part of reference[" + reference + "] is NAN");
                 return false;
             }
         }
+
         return true;
     }
 
@@ -172,5 +176,29 @@ public class Utilities {
         }
         value.deleteCharAt(value.lastIndexOf(SEPARATOR_BETWEEN_REFERENCE));
         return value.toString();
+    }
+
+    public boolean isValidBookmarkReference(@NonNull final String references) {
+        Log.d(TAG, "isValidBookmarkReference() called with [" + references + "]");
+        if (references.isEmpty()) {
+            Log.e(TAG, "isValidBookmarkReference: empty references");
+            return false;
+        }
+
+        if (!references.contains(SEPARATOR_IN_REFERENCE)) {
+            Log.e(TAG, "isValidBookmarkReference: non-existent [" + SEPARATOR_IN_REFERENCE + "]");
+            return false;
+        }
+
+        String[] verseReferences = references.split(SEPARATOR_BETWEEN_REFERENCE);
+        for (final String verseReference : verseReferences) {
+            if (!isValidReference(verseReference)) {
+                Log.e(TAG, "isValidBookmarkReference: one verse reference ["
+                           + verseReference + "] is invalid");
+                return false;
+            }
+        }
+
+        return true;
     }
 }
