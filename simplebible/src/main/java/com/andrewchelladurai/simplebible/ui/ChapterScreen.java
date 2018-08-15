@@ -269,17 +269,15 @@ public class ChapterScreen
             return;
         }
 
-/*
         Bundle bundle = new Bundle();
         bundle.putString(BookmarkScreen.REFERENCES, references);
         final Intent intent = new Intent(this, BookmarkScreen.class);
         intent.putExtras(bundle);
-*/
 
         sAdapter.discardSelectedVerses();
         sAdapter.notifyDataSetChanged();
 
-//        startActivity(intent);
+        startActivity(intent);
 
     }
 
