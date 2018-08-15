@@ -7,42 +7,42 @@
         android:id="@+id/act_chap_menu_settings"
         android:icon="@drawable/ic_settings"
         android:title="@string/act_chap_menu_settings"
-        app:iconTint="?colorAccent"
+        app:iconTint="?colorPrimary"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction,AppCompatResource" />
     <item
         android:id="@+id/act_chap_menu_prev"
         android:icon="@drawable/ic_previous"
         android:title="@string/act_chap_menu_prev"
-        app:iconTint="?colorAccent"
+        app:iconTint="?colorPrimary"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction,AppCompatResource" />
     <item
         android:id="@+id/act_chap_menu_next"
         android:icon="@drawable/ic_next"
         android:title="@string/act_chap_menu_next"
-        app:iconTint="?colorAccent"
+        app:iconTint="?colorPrimary"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction,AppCompatResource" />
     <item
         android:id="@+id/act_chap_menu_clear"
         android:icon="@drawable/ic_clear"
         android:title="@string/act_chap_menu_clear"
-        app:iconTint="?colorAccent"
+        app:iconTint="?colorPrimary"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction,AppCompatResource" />
     <item
         android:id="@+id/act_chap_menu_share"
         android:icon="@drawable/ic_share"
         android:title="@string/act_chap_menu_share"
-        app:iconTint="?colorAccent"
+        app:iconTint="?colorPrimary"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction,AppCompatResource" />
     <item
         android:id="@+id/act_chap_menu_bookmark"
         android:icon="@drawable/ic_bookmark"
         android:title="@string/act_chap_menu_bookmark"
-        app:iconTint="?colorAccent"
+        app:iconTint="?colorPrimary"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction,AppCompatResource" />
 </menu>

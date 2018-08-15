@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:animateLayoutChanges="true"
-        app:backgroundTint="?colorPrimary"
+        app:backgroundTint="?colorAccent"
         app:fabAlignmentMode="end"
         app:fabCradleVerticalOffset="0dp" />
 
@@ -47,6 +47,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_grid"
         android:tint="?colorPrimary"
+        app:backgroundTint="?colorAccent"
         app:layout_anchor="@id/act_chap_appbar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

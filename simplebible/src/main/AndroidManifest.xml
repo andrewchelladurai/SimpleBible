@@ -31,7 +31,7 @@
 
         <activity
             android:name=".ui.ChapterScreen"
-            android:theme="@style/SbTheme.Green" />
+            android:theme="@style/SbTheme.Blue" />
 
         <meta-data
             android:name="preloaded_fonts"

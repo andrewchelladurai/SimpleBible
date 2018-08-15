@@ -14,4 +14,10 @@
     <color name="green_background_light">#cdf8ef</color>
     <color name="green_background_dark">#041914</color>
 
+    <color name="blue">#4aaff8</color>
+    <color name="blueLight">#acdbfc</color>
+    <color name="blueLighter">#ddf0fe</color>
+    <color name="blueDark">#076bb3</color>
+    <color name="blueDarker">#021d30</color>
+
 </resources>

@@ -9,7 +9,7 @@
     android:background="?android:colorBackground"
     android:clipToPadding="false"
     android:padding="@dimen/gap_normal"
-    android:theme="@style/SbTheme.Green"
+    android:theme="@style/SbTheme.Blue"
     app:layoutManager="GridLayoutManager"
     app:spanCount="@integer/chapter_dialog_list"
     tools:context=".ui.ChapterListDialog"
