@@ -8,11 +8,11 @@
     <color name="background_light">#e6e6e6</color>
     <color name="background_dark">#1a1a1a</color>
 
-    <color name="green_primary">#1BBC9B</color>
-    <color name="green_primary_dark">#08362d</color>
-    <color name="green_primary_light">#83edd7</color>
-    <color name="green_background_light">#cdf8ef</color>
-    <color name="green_background_dark">#041914</color>
+    <color name="green">#1BBC9B</color>
+    <color name="greenLight">#83edd7</color>
+    <color name="greenLighter">#cdf8ef</color>
+    <color name="greenDark">#08362d</color>
+    <color name="greenDarker">#041914</color>
 
     <color name="blue">#4aaff8</color>
     <color name="blueLight">#acdbfc</color>

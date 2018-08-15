@@ -20,8 +20,8 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
 
-        <item name="colorPrimary">@color/green_primary_light</item>
-        <item name="colorPrimaryDark">@color/green_primary_dark</item>
+        <item name="colorPrimary">@color/greenLight</item>
+        <item name="colorPrimaryDark">@color/greenDark</item>
         <item name="colorAccent">?colorPrimaryDark</item>
     </style>
 
@@ -31,13 +31,13 @@
 
     <style name="SbTheme.Green"
         parent="SbTheme">
-        <item name="android:colorBackground">@color/green_background_light</item>
-        <item name="android:windowBackground">@color/green_background_light</item>
+        <item name="android:colorBackground">@color/greenLight</item>
+        <item name="android:windowBackground">@color/greenLighter</item>
         <!--<item name="android:navigationBarColor">@color/green_background_light</item>-->
         <!--<item name="android:statusBarColor">@color/green_background_light</item>-->
 
-        <item name="colorAccent">@color/green_primary_dark</item>
-        <item name="colorPrimary">@color/green_primary_light</item>
+        <item name="colorAccent">@color/greenDark</item>
+        <item name="colorPrimary">@color/greenLight</item>
     </style>
 
     <style name="SbTheme.Blue"
