@@ -43,7 +43,7 @@ public class ChapterScreen
     private RecyclerView mRecyclerView = null;
     private BottomAppBar         mBottomAppBar;
     private FloatingActionButton mFab;
-    private ChapterListDialog    chapterListDialog;
+    private ChapterListDialog    mChapterDialog;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -86,6 +86,10 @@ public class ChapterScreen
 
     @Override
     protected void onSaveInstanceState(final Bundle outState) {
+        if (mChapterDialog != null) {
+            mChapterDialog.dismiss();
+            mChapterDialog = null;
+        }
         super.onSaveInstanceState(outState);
         outState.putInt(BOOK_NUMBER, ARGS.getInt(BOOK_NUMBER));
         outState.putInt(CHAPTER_NUMBER, ARGS.getInt(CHAPTER_NUMBER));
@@ -157,10 +161,11 @@ public class ChapterScreen
         return (ARGS.containsKey(CHAPTER_NUMBER) ? ARGS.getInt(CHAPTER_NUMBER) : 0);
     }
 
-    public void handleInteractionClickChapter(@NonNull final int chapterNumber) {
-        if (chapterListDialog != null) {
-            chapterListDialog.dismiss();
-            chapterListDialog = null;
+    @Override
+    public void actionNewChapterSelected(@IntRange(from = 1, to = 66) final int chapterNumber) {
+        if (mChapterDialog != null) {
+            mChapterDialog.dismiss();
+            mChapterDialog = null;
         }
         showChapter(getBookToShow(), chapterNumber);
     }
@@ -300,6 +305,11 @@ public class ChapterScreen
     }
 
     private void actionListClicked() {
+        if (mChapterDialog != null) {
+            mChapterDialog.dismiss();
+            mChapterDialog = null;
+        }
+
         Log.d(TAG, "actionListClicked:");
         final Book book = sPresenter.getBook(getBookToShow());
         if (book == null) {
@@ -307,8 +317,8 @@ public class ChapterScreen
             return;
         }
 
-        chapterListDialog = ChapterListDialog.newInstance(this, book.getChapters());
-        chapterListDialog.show(getSupportFragmentManager(), "ChapterListDialog");
+        mChapterDialog = ChapterListDialog.newInstance(this, book.getChapters());
+        mChapterDialog.show(getSupportFragmentManager(), "ChapterListDialog");
     }
 
     private void actionShareClicked() {
