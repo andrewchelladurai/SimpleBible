@@ -4,44 +4,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <item
-        android:id="@+id/act_chapter_appbar_menu_settings"
+        android:id="@+id/act_chap_menu_settings"
         android:icon="@drawable/ic_settings"
-        android:title="@string/settings"
+        android:title="@string/act_chap_menu_settings"
         app:iconTint="?colorAccent"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction,AppCompatResource" />
     <item
-        android:id="@+id/act_chapter_appbar_menu_clear"
-        android:icon="@drawable/ic_clear"
-        android:title="@string/clear"
-        app:iconTint="?colorAccent"
-        app:showAsAction="always"
-        tools:ignore="AlwaysShowAction,AppCompatResource" />
-    <item
-        android:id="@+id/act_chapter_appbar_menu_prev"
+        android:id="@+id/act_chap_menu_prev"
         android:icon="@drawable/ic_previous"
-        android:title="@string/previous"
+        android:title="@string/act_chap_menu_prev"
         app:iconTint="?colorAccent"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction,AppCompatResource" />
     <item
-        android:id="@+id/act_chapter_appbar_menu_next"
+        android:id="@+id/act_chap_menu_next"
         android:icon="@drawable/ic_next"
-        android:title="@string/next"
+        android:title="@string/act_chap_menu_next"
         app:iconTint="?colorAccent"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction,AppCompatResource" />
     <item
-        android:id="@+id/act_chapter_appbar_menu_share"
+        android:id="@+id/act_chap_menu_clear"
+        android:icon="@drawable/ic_clear"
+        android:title="@string/act_chap_menu_clear"
+        android:visible="false"
+        app:iconTint="?colorAccent"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction,AppCompatResource" />
+    <item
+        android:id="@+id/act_chap_menu_share"
         android:icon="@drawable/ic_share"
-        android:title="@string/share"
+        android:title="@string/act_chap_menu_share"
+        android:visible="false"
         app:iconTint="?colorAccent"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction,AppCompatResource" />
     <item
-        android:id="@+id/act_chapter_appbar_menu_bookmark"
+        android:id="@+id/act_chap_menu_bookmark"
         android:icon="@drawable/ic_bookmark"
-        android:title="@string/bookmarks"
+        android:title="@string/act_chap_menu_bookmark"
+        android:visible="false"
         app:iconTint="?colorAccent"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction,AppCompatResource" />
