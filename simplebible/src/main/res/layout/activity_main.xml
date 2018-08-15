@@ -77,35 +77,35 @@
         app:layout_constraintTop_toBottomOf="@+id/act_main_gh80">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/act_fab_books"
+            android:id="@+id/act_main_fab_books"
             style="@style/SbTheme.FAB"
             android:layout_margin="@dimen/gap_normal"
             android:layout_weight="1"
-            android:contentDescription="@string/books"
+            android:contentDescription="@string/act_main_fab_books_desc"
             android:src="@drawable/ic_list" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/act_fab_search"
+            android:id="@+id/act_main_fab_search"
             style="@style/SbTheme.FAB"
             android:layout_margin="@dimen/gap_normal"
             android:layout_weight="1"
-            android:contentDescription="@string/search"
+            android:contentDescription="@string/act_main_fab_search_desc"
             android:src="@drawable/ic_search" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/act_fab_bookmarks"
+            android:id="@+id/act_main_fab_bookmarks"
             style="@style/SbTheme.FAB"
             android:layout_margin="@dimen/gap_normal"
             android:layout_weight="1"
-            android:contentDescription="@string/bookmarks"
+            android:contentDescription="@string/act_main_fab_bookmarks_desc"
             android:src="@drawable/ic_bookmark" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/act_fab_settings"
+            android:id="@+id/act_main_fab_settings"
             style="@style/SbTheme.FAB"
             android:layout_margin="@dimen/gap_normal"
             android:layout_weight="1"
-            android:contentDescription="@string/settings"
+            android:contentDescription="@string/act_main_fab_settings_desc"
             android:src="@drawable/ic_settings" />
     </LinearLayout>
 

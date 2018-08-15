@@ -42,10 +42,10 @@ public class SimpleBibleMainScreen
             mPresenter = new SplashScreenPresenter(this);
         }
 
-        findViewById(R.id.act_fab_books).setOnClickListener(this);
-        findViewById(R.id.act_fab_search).setOnClickListener(this);
-        findViewById(R.id.act_fab_bookmarks).setOnClickListener(this);
-        findViewById(R.id.act_fab_settings).setOnClickListener(this);
+        findViewById(R.id.act_main_fab_books).setOnClickListener(this);
+        findViewById(R.id.act_main_fab_search).setOnClickListener(this);
+        findViewById(R.id.act_main_fab_bookmarks).setOnClickListener(this);
+        findViewById(R.id.act_main_fab_settings).setOnClickListener(this);
 
         showLoadingScreen();
     }
@@ -119,16 +119,16 @@ public class SimpleBibleMainScreen
     @Override
     public void onClick(final View view) {
         switch (view.getId()) {
-            case R.id.act_fab_books:
+            case R.id.act_main_fab_books:
                 handleFabClickBooks();
                 break;
-            case R.id.act_fab_search:
+            case R.id.act_main_fab_search:
                 handleFabClickSearch();
                 break;
-            case R.id.act_fab_bookmarks:
+            case R.id.act_main_fab_bookmarks:
                 handleFabClickBookmarks();
                 break;
-            case R.id.act_fab_settings:
+            case R.id.act_main_fab_settings:
                 handleFabClickSettings();
                 break;
             default:
