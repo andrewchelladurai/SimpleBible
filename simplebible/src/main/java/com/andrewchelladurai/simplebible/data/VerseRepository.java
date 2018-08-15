@@ -93,22 +93,20 @@ public class VerseRepository
         }
         sLiveData = SbDatabase.getInstance(getApplication()).getVerseDao()
                               .getChapter(currentBook, currentChapter);
-        Log.d(TAG, "queried for new chapter");
+        Log.d(TAG, "queried for new chapter : [currentBook = " + currentBook
+                   + "][currentChapter = " + currentChapter + "]");
         return sLiveData;
     }
 
     @Override
     public LiveData<List<Verse>> queryDatabase(final Object... objects) {
-        final int book = (int) objects[0];
-        final int chapter = (int) objects[1];
-
-        if (isCacheValid(book, chapter)) {
+        if (isCacheValid(objects)) {
             Log.d(TAG, "returning cached live data");
             return sLiveData;
         }
 
-        currentBook = book;
-        currentChapter = chapter;
+        currentBook = (int) objects[0];
+        currentChapter = (int) objects[1];
 
         return queryDatabase();
     }
@@ -121,15 +119,13 @@ public class VerseRepository
         }
 
         final int book = (int) objects[0];
-        final int chapter = (int) objects[0];
+        final int chapter = (int) objects[1];
 
         if (book == currentBook && chapter == currentChapter) {
-            Log.d(TAG,
-                  "already cached [book=" + book + ":" + currentBook
-                  + "][chapter=" + chapter + ":" + currentChapter + "]");
+            Log.d(TAG, "already cached [book=" + book + "][chapter=" + chapter + "]");
             return true;
         }
-        Log.d(TAG, "not cached - book != currentBook || chapter != currentChapter");
+        Log.d(TAG, "invalid cache - book != currentBook || chapter != currentChapter");
         return false;
     }
 }
