@@ -40,7 +40,9 @@ public class ChapterScreen
     private static VerseRepository        sRepository;
     private static ChapterScreenPresenter sPresenter;
     private static VerseListAdapter       sAdapter;
-    private RecyclerView listView = null;
+    private RecyclerView mRecyclerView = null;
+    private BottomAppBar         mBottomAppBar;
+    private FloatingActionButton mFab;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -68,15 +70,15 @@ public class ChapterScreen
             sAdapter = new VerseListAdapter(this);
         }
 
-        BottomAppBar bar = findViewById(R.id.act_chapter_appbar);
-        bar.setOnMenuItemClickListener(this);
-        bar.replaceMenu(R.menu.chapter_screen_appbar);
+        mBottomAppBar = findViewById(R.id.act_chap_appbar);
+        mBottomAppBar.setOnMenuItemClickListener(this);
+        mBottomAppBar.replaceMenu(R.menu.chapter_screen_appbar);
 
-        final FloatingActionButton fab = findViewById(R.id.act_chapter_fab);
-        fab.setOnClickListener(this);
+        mFab = findViewById(R.id.act_chap_fab);
+        mFab.setOnClickListener(this);
 
-        listView = findViewById(R.id.act_chapter_list);
-        listView.setAdapter(sAdapter);
+        mRecyclerView = findViewById(R.id.act_chap_list);
+        mRecyclerView.setAdapter(sAdapter);
 
         showChapter(getBookToShow(), getChapterToShow());
     }
@@ -99,12 +101,12 @@ public class ChapterScreen
 
     @Override
     public void onChanged(final List<Verse> verses) {
-        updateScreen(verses);
+        updateVerseList(verses);
     }
 
-    private void updateScreen(@Nullable final List<Verse> verses) {
+    private void updateVerseList(@Nullable final List<Verse> verses) {
         if (null == verses) {
-            Log.e(TAG, "updateScreen: No verses returned");
+            Log.e(TAG, "updateVerseList: No verses returned");
             return;
         }
 
@@ -112,21 +114,21 @@ public class ChapterScreen
             updateTitle();
             sAdapter.updateList(verses, getBookToShow(), getChapterToShow());
             sAdapter.notifyDataSetChanged();
-            listView.scrollToPosition(0);
+            mRecyclerView.scrollToPosition(0);
         } else {
-            Log.e(TAG, "updateScreen: error updating UI");
+            Log.e(TAG, "updateVerseList: error updating UI");
         }
     }
 
     private void updateTitle() {
-        final String title = getString(R.string.act_ch_title);
+        final String title = getString(R.string.act_chap_title);
         final String bookName = Utilities.getInstance().getBookName(getBookToShow());
-        TextView textView = findViewById(R.id.act_chapter_titlebar);
+        TextView textView = findViewById(R.id.act_chap_titlebar);
         textView.setText(String.format(title, bookName, getChapterToShow()));
     }
 
     private String getTitleDisplay() {
-        final TextView textView = findViewById(R.id.act_chapter_titlebar);
+        final TextView textView = findViewById(R.id.act_chap_titlebar);
         return textView.getText().toString();
     }
 
@@ -165,17 +167,17 @@ public class ChapterScreen
     }
 
     public void showErrorFirstChapter() {
-        Snackbar.make(findViewById(R.id.act_chapter_list), R.string.act_ch_err_first_chapter,
+        Snackbar.make(findViewById(R.id.act_chap_list), R.string.act_chap_err_first_chapter,
                       Snackbar.LENGTH_SHORT).show();
     }
 
     public void showErrorLastChapter() {
-        Snackbar.make(findViewById(R.id.act_chapter_list), R.string.act_ch_err_last_chapter,
+        Snackbar.make(findViewById(R.id.act_chap_list), R.string.act_chap_err_last_chapter,
                       Snackbar.LENGTH_SHORT).show();
     }
 
     public void showErrorEmptySelectedList() {
-        Snackbar.make(findViewById(R.id.act_chapter_list), R.string.act_ch_err_empty_selection_list,
+        Snackbar.make(findViewById(R.id.act_chap_list), R.string.act_chap_err_empty_selection_list,
                       Snackbar.LENGTH_SHORT).show();
     }
 
@@ -184,35 +186,36 @@ public class ChapterScreen
     }
 
     private void showMessageDiscardSelectedVerses() {
-        Snackbar.make(findViewById(R.id.act_chapter_list),
-                      R.string.act_ch_msg_discarded_selected_verses,
+        Snackbar.make(findViewById(R.id.act_chap_list),
+                      R.string.act_chap_msg_discarded_selected_verses,
                       Snackbar.LENGTH_SHORT).show();
     }
 
     private void showErrorInvalidBookmarkReference() {
-        Snackbar.make(findViewById(R.id.act_chapter_list),
-                      R.string.act_ch_err_invalid_bookmark_reference, Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(findViewById(R.id.act_chap_list),
+                      R.string.act_chap_err_invalid_bookmark_reference, Snackbar.LENGTH_SHORT)
+                .show();
     }
 
     @Override
     public boolean onMenuItemClick(final MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.act_chapter_appbar_menu_prev:
+            case R.id.act_chap_menu_prev:
                 actionPrevClicked();
                 break;
-            case R.id.act_chapter_appbar_menu_next:
+            case R.id.act_chap_menu_next:
                 actionNextClicked();
                 break;
-            case R.id.act_chapter_appbar_menu_share:
+            case R.id.act_chap_menu_share:
                 actionShareClicked();
                 break;
-            case R.id.act_chapter_appbar_menu_bookmark:
+            case R.id.act_chap_menu_bookmark:
                 actionBookmarkClicked();
                 break;
-            case R.id.act_chapter_appbar_menu_clear:
+            case R.id.act_chap_menu_clear:
                 actionClearClicked();
                 break;
-            case R.id.act_chapter_appbar_menu_settings:
+            case R.id.act_chap_menu_settings:
                 actionSettingsClicked();
                 break;
             default:
@@ -224,7 +227,7 @@ public class ChapterScreen
     @Override
     public void onClick(final View view) {
         switch (view.getId()) {
-            case R.id.act_chapter_fab:
+            case R.id.act_chap_fab:
                 actionListClicked();
                 break;
             default:
@@ -336,7 +339,7 @@ public class ChapterScreen
         final String selectedVerses = sPresenter.getSelectedVersesTextToShare(
             getString(R.string.content_item_verse_text_template));
 
-        final String textToShare = String.format(getString(R.string.act_ch_template_share),
+        final String textToShare = String.format(getString(R.string.act_chap_template_share),
                                                  selectedVerses,
                                                  getTitleDisplay());
         Log.d(TAG, "actionShareClicked: [selectedVerses=" + selectedVerses.length()
