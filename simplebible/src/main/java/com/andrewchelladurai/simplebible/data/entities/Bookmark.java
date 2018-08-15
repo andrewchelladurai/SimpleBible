@@ -23,6 +23,11 @@ public class Bookmark {
     @ColumnInfo(name = "NOTE")
     private String note = "";
 
+    public Bookmark(final String reference, final String note) {
+        this.reference = reference;
+        this.note = note;
+    }
+
     @NonNull
     public String getReference() {
         return reference;
