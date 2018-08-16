@@ -4,16 +4,21 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
+import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entities.Book;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
 import com.andrewchelladurai.simplebible.data.repository.BookRepository;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 
 /**
  * Created by : Andrew Chelladurai
@@ -199,5 +204,22 @@ public class Utilities {
         }
 
         return true;
+    }
+
+    public Snackbar createSnackBar(@NonNull final View rootView,
+                                   @StringRes final int stringResource,
+                                   final int duration,
+                                   @ColorRes int textColor,
+                                   @ColorRes int backgroundColor) {
+        Snackbar snackbar = Snackbar.make(rootView, stringResource, duration);
+        snackbar.setActionTextColor(R.color.act_chap_snackbar_text);
+
+        View view = snackbar.getView();
+        view.setBackgroundColor(backgroundColor);
+
+        TextView textView = view.findViewById(com.google.android.material.R.id.snackbar_text);
+        textView.setTextColor(textColor);
+
+        return snackbar;
     }
 }
