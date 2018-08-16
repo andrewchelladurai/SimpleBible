@@ -5,6 +5,7 @@
     <integer name="act_books_list">2</integer>
     <integer name="act_chapter_list">1</integer>
     <integer name="chapter_dialog_list">5</integer>
+    <integer name="act_bmrk_list_column_count">1</integer>
 
     <dimen name="gap_big">16dp</dimen>
     <dimen name="gap_normal">8dp</dimen>

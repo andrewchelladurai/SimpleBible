@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.BookmarkScreen">
+
+    <TextView
+        android:id="@+id/act_bmrk_titlebar"
+        style="@style/SbTheme.Header"
+        android:layout_margin="@dimen/gap_normal"
+        android:text="@string/act_bmrk_titlebar"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/act_bmrk_gh50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/act_bmrk_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="@dimen/gap_big"
+        app:layoutManager="LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/act_bmrk_gh50"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/act_bmrk_titlebar"
+        app:spanCount="@integer/act_bmrk_list_column_count"
+        tools:context=".ui.bookmark.BookmarkItemFragment"
+        tools:listitem="@layout/item_verse" />
+
+    <LinearLayout
+        android:id="@+id/act_bmrk_container_actions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:background="?colorAccent"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <ImageButton
+            android:id="@+id/act_bmrk_but_save"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/act_bmrk_but_save"
+            app:srcCompat="@drawable/ic_save" />
+
+        <ImageButton
+            android:id="@+id/act_bmrk_but_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/act_bmrk_but_edit"
+            app:srcCompat="@drawable/ic_edit" />
+
+        <ImageButton
+            android:id="@+id/act_bmrk_but_delete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/act_bmrk_but_delete"
+            app:srcCompat="@drawable/ic_delete" />
+
+        <ImageButton
+            android:id="@+id/act_bmrk_but_share"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/act_bmrk_but_share"
+            app:srcCompat="@drawable/ic_share" />
+
+        <ImageButton
+            android:id="@+id/act_bmrk_but_reset"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/act_bmrk_but_reset"
+            app:srcCompat="@drawable/ic_clear" />
+
+        <ImageButton
+            android:id="@+id/act_bmrk_but_settings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/act_bmrk_but_settings"
+            app:srcCompat="@drawable/ic_settings" />
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/act_bmrk_container_note"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="@dimen/gap_big"
+        app:layout_constraintBottom_toTopOf="@id/act_bmrk_container_actions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/act_bmrk_gh50">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/act_bmrk_note"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:hint="@string/act_bmrk_note_hint"
+            android:inputType="text|textAutoCorrect|textAutoComplete|textMultiLine"
+            tools:text="@string/default_verse_with_reference" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+</android.support.constraint.ConstraintLayout>

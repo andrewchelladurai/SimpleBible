@@ -13,7 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/SbTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-
         <activity
             android:name=".ui.SimpleBibleMainScreen"
             android:theme="@style/SbTheme.Splash.Temp">
@@ -23,12 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.BooksScreen"
             android:theme="@style/SbTheme.Green"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
-
         <activity
             android:name=".ui.ChapterScreen"
             android:theme="@style/SbTheme.Blue" />
@@ -37,6 +34,9 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
+        <activity
+            android:name=".ui.BookmarkScreen"
+            android:theme="@style/SbTheme.Red" />
     </application>
 
 </manifest>

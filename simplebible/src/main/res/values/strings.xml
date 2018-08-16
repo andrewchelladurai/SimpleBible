@@ -51,4 +51,18 @@
     <string name="content_bookmark_item_reference_template">%s %d:%d - %s</string>
     <string name="content_bookmark_item_err_invalid_reference">Invalid Reference</string>
 
+    <string name="act_bmrk_titlebar">Bookmark</string>
+    <string name="act_bmrk_but_save">Save</string>
+    <string name="act_bmrk_but_edit">Edit</string>
+    <string name="act_bmrk_but_delete">Delete</string>
+    <string name="act_bmrk_but_share">Share</string>
+    <string name="act_bmrk_but_reset">Reset</string>
+    <string name="act_bmrk_but_settings">Settings</string>
+    <string name="act_bmrk_note_hint">Bookmark notes</string>
+    <string name="act_bmrk_template_share">Bookmark References:\n%s\nBookmark Note:\n%s\n</string>
+    <string name="act_bmrk_msg_saved">Bookmark created</string>
+    <string name="act_bmrk_err_save_failed">Could not create Bookmark</string>
+    <string name="act_bmrk_err_delete_failed">Could not delete Bookmark</string>
+    <string name="act_bmrk_msg_deleted">Bookmark deleted</string>
+
 </resources>

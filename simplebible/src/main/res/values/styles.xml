@@ -51,6 +51,17 @@
         <item name="colorPrimary">@color/blueLight</item>
     </style>
 
+    <style name="SbTheme.Red"
+        parent="SbTheme">
+        <item name="android:colorBackground">@color/redLighter</item>
+        <item name="android:windowBackground">@color/redLighter</item>
+        <item name="android:navigationBarColor">@color/redDarker</item>
+        <!--<item name="android:statusBarColor">@color/redDarker</item>-->
+
+        <item name="colorAccent">@color/redDarker</item>
+        <item name="colorPrimary">@color/red</item>
+    </style>
+
     <style name="SbTheme.FAB"
         parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="android:layout_width">wrap_content</item>
