@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
+import com.andrewchelladurai.simplebible.data.repository.BookmarkVerseRepository;
 import com.andrewchelladurai.simplebible.presenter.BookmarkScreenPresenter;
 import com.andrewchelladurai.simplebible.ui.adapter.BookmarkVerseAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkScreenOps;
@@ -17,13 +18,17 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class BookmarkScreen
     extends AppCompatActivity
-    implements BookmarkScreenOps, View.OnClickListener {
+    implements BookmarkScreenOps, Observer<List<Verse>> {
 
     private static final String TAG        = "BookmarkScreen";
     public static final  String REFERENCES = "REFERENCES";
@@ -54,7 +59,7 @@ public class BookmarkScreen
         FloatingActionButton mFab = findViewById(R.id.act_bmrk_fab);
         mFab.setOnClickListener(this);
 
-        Bundle extras = getIntent().getExtras();
+        final Bundle extras = getIntent().getExtras();
         if (extras == null || !extras.containsKey(REFERENCES)) {
             // FIXME: 16/8/18 show an error to contact dev
             // FIXME: 16/8/18 hopefully no one sees it
@@ -65,14 +70,12 @@ public class BookmarkScreen
         mReferences = extras.getString(REFERENCES);
 
         if (mReferences == null || mReferences.isEmpty()) {
-            Log.e(TAG, "onCreate: invalid bookmark reference");
             // FIXME: 16/8/18 show an error to contact dev
             // FIXME: 16/8/18 hopefully no one sees it
             throw new UnsupportedOperationException(
                 "onCreate: null or empty REFERENCES passed in intent bundle");
         }
 
-        Log.d(TAG, "onCreate: passed reference [" + mReferences + "]");
         if (!Utilities.getInstance().isValidBookmarkReference(mReferences)) {
             // FIXME: 16/8/18 show an error to contact dev
             // FIXME: 16/8/18 hopefully no one sees it
@@ -80,6 +83,37 @@ public class BookmarkScreen
                 "onCreate: invalid references[" + mReferences + "] passed");
         }
 
+        BookmarkVerseRepository mRepository =
+            ViewModelProviders.of(this).get(BookmarkVerseRepository.class);
+        mRepository.queryDatabase(mReferences).observe(this, this);
+    }
+
+    @Override
+    public void onChanged(final List<Verse> verses) {
+        updateScreen(verses);
+
+    }
+
+    private void updateScreen(final List<Verse> verses) {
+        if (verses == null || verses.isEmpty()) {
+            // FIXME: 16/8/18 show an error to user on screen that hopefully no one sees ever
+            throw new UnsupportedOperationException(
+                "updateScreen: empty list returned from live data");
+        }
+
+        if (!mPresenter.populateCache(verses, mReferences)) {
+            // FIXME: 16/8/18 show an error to user on screen that hopefully no one sees ever
+            throw new UnsupportedOperationException(
+                "updateScreen: could nto populate cache");
+        }
+
+        mAdapter.updateList(verses, mReferences);
+        showCorrectActions();
+    }
+
+    private void showCorrectActions() {
+        // FIXME: 16/8/18 show / hide actions on bottomBar
+        // FIXME: 16/8/18 update FAB to show correct action
     }
 
     @Override
