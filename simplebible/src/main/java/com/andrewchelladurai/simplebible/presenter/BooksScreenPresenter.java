@@ -1,10 +1,13 @@
 package com.andrewchelladurai.simplebible.presenter;
 
+import android.util.Log;
+
 import com.andrewchelladurai.simplebible.data.entities.Book;
 import com.andrewchelladurai.simplebible.data.repository.BookRepository;
 import com.andrewchelladurai.simplebible.ui.ops.BooksScreenOps;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
@@ -24,11 +27,6 @@ public class BooksScreenPresenter {
         mOps = ops;
     }
 
-    @NonNull
-    public ArrayList<Book> getBooksList() {
-        return BookRepository.getInstance().getCachedList();
-    }
-
     @Nullable
     public Book getBookUsingName(@NonNull final String bookName) {
         return BookRepository.getInstance().getCachedRecordUsingValue(bookName);
@@ -36,21 +34,42 @@ public class BooksScreenPresenter {
 
     public boolean validateChapterForBook(@IntRange(from = 1) final int chapter,
                                           @NonNull final Book book) {
-        return (chapter >= 1 && chapter <= book.getChapters());
+        return (chapter > 0 && chapter <= book.getChapters());
     }
 
-    public boolean validateRepository(@NonNull final String firstBook,
-                                      @NonNull final String lastBook) {
-        return BookRepository.getInstance().isCacheValid(firstBook, lastBook);
+    public boolean populateCache(@NonNull final List<Book> list,
+                                 @IntRange(from = 1, to = 66) final int count,
+                                 @NonNull final String firstBook,
+                                 @NonNull final String lastBook) {
+        if (list == null
+            || list.isEmpty()
+            || count < 0
+            || count > 66
+            || firstBook == null
+            || firstBook.isEmpty()
+            || lastBook == null
+            || lastBook.isEmpty()) {
+            Log.e(TAG, "populateCache: invalid params passed");
+            return false;
+        }
+
+        return BookRepository.getInstance().populateCache(list);
     }
 
     @NonNull
     public ArrayList<String> getAllBookNames() {
-        final ArrayList<Book> list = BookRepository.getInstance().getCachedList();
+        final List<Book> list = BookRepository.getInstance().getCachedList();
+
+        if (list == null || list.isEmpty()) {
+            Log.e(TAG, "getAllBookNames: empty list from repository");
+            return null;
+        }
+
         final ArrayList<String> names = new ArrayList<>();
         for (final Book book : list) {
             names.add(book.getName());
         }
+
         return names;
     }
 }
