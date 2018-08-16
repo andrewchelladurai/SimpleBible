@@ -1,8 +1,9 @@
-package com.andrewchelladurai.simplebible.data;
+package com.andrewchelladurai.simplebible.data.repository;
 
 import android.app.Application;
 import android.util.Log;
 
+import com.andrewchelladurai.simplebible.data.SbDatabase;
 import com.andrewchelladurai.simplebible.data.dao.VerseDao;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
 import com.andrewchelladurai.simplebible.util.Utilities;

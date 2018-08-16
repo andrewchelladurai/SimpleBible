@@ -11,9 +11,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.BookRepository;
-import com.andrewchelladurai.simplebible.data.BookmarkRepository;
-import com.andrewchelladurai.simplebible.data.VerseRepository;
+import com.andrewchelladurai.simplebible.data.repository.BookRepository;
+import com.andrewchelladurai.simplebible.data.repository.BookmarkRepository;
+import com.andrewchelladurai.simplebible.data.repository.VerseRepository;
 import com.andrewchelladurai.simplebible.presenter.SplashScreenPresenter;
 import com.andrewchelladurai.simplebible.ui.ops.SplashScreenOps;
 

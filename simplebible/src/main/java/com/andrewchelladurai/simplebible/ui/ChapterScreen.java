@@ -9,9 +9,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.VerseRepository;
 import com.andrewchelladurai.simplebible.data.entities.Book;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
+import com.andrewchelladurai.simplebible.data.repository.VerseRepository;
 import com.andrewchelladurai.simplebible.presenter.ChapterScreenPresenter;
 import com.andrewchelladurai.simplebible.ui.adapter.VerseListAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;

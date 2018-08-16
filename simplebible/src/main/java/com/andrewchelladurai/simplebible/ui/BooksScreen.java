@@ -10,8 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.BookRepository;
 import com.andrewchelladurai.simplebible.data.entities.Book;
+import com.andrewchelladurai.simplebible.data.repository.BookRepository;
 import com.andrewchelladurai.simplebible.presenter.BooksScreenPresenter;
 import com.andrewchelladurai.simplebible.ui.adapter.BookListAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BooksScreenOps;

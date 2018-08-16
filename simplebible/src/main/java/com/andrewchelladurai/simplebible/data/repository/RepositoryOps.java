@@ -1,4 +1,4 @@
-package com.andrewchelladurai.simplebible.data;
+package com.andrewchelladurai.simplebible.data.repository;
 
 import java.util.List;
 

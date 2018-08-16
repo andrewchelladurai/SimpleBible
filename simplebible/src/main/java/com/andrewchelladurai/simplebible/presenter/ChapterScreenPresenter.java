@@ -1,8 +1,8 @@
 package com.andrewchelladurai.simplebible.presenter;
 
-import com.andrewchelladurai.simplebible.data.VerseRepository;
 import com.andrewchelladurai.simplebible.data.entities.Book;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
+import com.andrewchelladurai.simplebible.data.repository.VerseRepository;
 import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;
 import com.andrewchelladurai.simplebible.util.Utilities;
 

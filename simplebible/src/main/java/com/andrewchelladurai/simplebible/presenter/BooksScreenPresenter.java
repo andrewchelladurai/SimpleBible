@@ -1,7 +1,7 @@
 package com.andrewchelladurai.simplebible.presenter;
 
-import com.andrewchelladurai.simplebible.data.BookRepository;
 import com.andrewchelladurai.simplebible.data.entities.Book;
+import com.andrewchelladurai.simplebible.data.repository.BookRepository;
 import com.andrewchelladurai.simplebible.ui.ops.BooksScreenOps;
 
 import java.util.ArrayList;
