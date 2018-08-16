@@ -11,11 +11,9 @@ import androidx.lifecycle.LiveData;
  * Email : TheUnknownAndrew[at]GMail[dot]com
  * on : 11-Aug-2018 @ 7:31 PM.
  */
-interface RepositoryOps {
+public interface RepositoryOps {
 
-    boolean populateCache(@NonNull List<?> list);
-
-    void clearCache();
+    boolean populateCache(@NonNull List<?> list, @NonNull Object... cacheParams);
 
     boolean isCacheEmpty();
 
@@ -31,10 +29,5 @@ interface RepositoryOps {
     List<?> getCachedList();
 
     @Nullable
-    LiveData<?> queryDatabase();
-
-    @Nullable
-    LiveData<?> queryDatabase(Object... objects);
-
-    boolean isCacheValid(Object... objects);
+    LiveData<?> queryDatabase(@NonNull Object... cacheParams);
 }
