@@ -27,10 +27,13 @@ interface RepositoryOps {
     @Nullable
     Object getCachedRecordUsingValue(@NonNull Object value);
 
+    @Nullable
     List<?> getCachedList();
 
+    @Nullable
     LiveData<?> queryDatabase();
 
+    @Nullable
     LiveData<?> queryDatabase(Object... objects);
 
     boolean isCacheValid(Object... objects);
