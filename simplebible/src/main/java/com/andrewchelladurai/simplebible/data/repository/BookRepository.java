@@ -14,12 +14,10 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 public class BookRepository
-    extends AndroidViewModel
-    implements RepositoryOps {
+    extends BaseRepository {
 
     private static final String TAG = "BookRepository";
 
@@ -28,7 +26,7 @@ public class BookRepository
     private final List<Book>         CACHE_LIST = new ArrayList<>();
     private LiveData<List<Book>> LIVE_DATA;
 
-    private static BookRepository THIS_INSTANCE = null;
+    private static RepositoryOps THIS_INSTANCE = null;
 
     public BookRepository(final Application application) {
         super(application);
@@ -36,7 +34,7 @@ public class BookRepository
         Log.d(TAG, "BookRepository: initialized");
     }
 
-    public static BookRepository getInstance() {
+    public static RepositoryOps getInstance() {
         if (THIS_INSTANCE == null) {
             throw new UnsupportedOperationException("Singleton Instance is not yet initiated");
         }
@@ -44,8 +42,12 @@ public class BookRepository
     }
 
     @Override
-    public boolean populateCache(final List<?> list) {
-        // FIXME: 16/8/18 pass cache checking parameters and skip is chache is valid
+    public boolean populateCache(final List<?> list, @NonNull Object... cacheParams) {
+        if (isCacheValid(cacheParams)) {
+            Log.d(TAG, "already cached same data");
+            return true;
+        }
+
         clearCache();
         Book book;
         for (final Object object : list) {
@@ -116,14 +118,8 @@ public class BookRepository
 
     @Override
     @Nullable
-    public LiveData<List<Book>> queryDatabase() {
-        throw new UnsupportedOperationException("do not use this");
-    }
-
-    @Override
-    @Nullable
-    public LiveData<List<Book>> queryDatabase(final Object... objects) {
-        if (isCacheValid(objects)) {
+    public LiveData<List<Book>> queryDatabase(@NonNull final Object... cacheParams) {
+        if (isCacheValid(cacheParams)) {
             Log.d(TAG, "returning cached data");
             return LIVE_DATA;
         }
@@ -133,10 +129,10 @@ public class BookRepository
     }
 
     @Override
-    public boolean isCacheValid(final Object... objects) {
-        final int bookLimit = (int) objects[0];
-        final String firstBook = (String) objects[1];
-        final String lastBook = (String) objects[2];
+    public boolean isCacheValid(@NonNull final Object... cacheParams) {
+        final int bookLimit = (int) cacheParams[0];
+        final String firstBook = (String) cacheParams[1];
+        final String lastBook = (String) cacheParams[2];
 
         if (bookLimit < 0 || firstBook.isEmpty() || lastBook.isEmpty()) {
             throw new UnsupportedOperationException("isCacheValid: invalid values passed");

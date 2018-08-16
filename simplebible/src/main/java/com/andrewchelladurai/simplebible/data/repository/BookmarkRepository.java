@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 /**
@@ -20,11 +20,10 @@ import androidx.lifecycle.LiveData;
  * on : 15-Aug-2018 @ 6:57 PM.
  */
 public class BookmarkRepository
-    extends AndroidViewModel
-    implements RepositoryOps {
+    extends BaseRepository {
 
     private static final String TAG = "BookmarkRepository";
-    private static BookmarkRepository THIS_INSTANCE;
+    private static RepositoryOps THIS_INSTANCE;
 
     private final List<Bookmark>            mCacheList = new ArrayList<>();
     private final HashMap<String, Bookmark> mCacheMap  = new HashMap<>();
@@ -37,7 +36,7 @@ public class BookmarkRepository
         Log.d(TAG, "BookmarkRepository: initialized");
     }
 
-    public static BookmarkRepository getInstance() {
+    public static RepositoryOps getInstance() {
         if (THIS_INSTANCE == null) {
             throw new UnsupportedOperationException("Singleton Instance is not yet initiated");
         }
@@ -45,8 +44,12 @@ public class BookmarkRepository
     }
 
     @Override
-    public boolean populateCache(final List<?> list) {
-        // FIXME: 16/8/18 must accept params and populate only when cache is invalid
+    public boolean populateCache(@NonNull final List<?> list, @NonNull Object... cacheParams) {
+        if (isCacheValid(cacheParams)) {
+            Log.d(TAG, "already cached same data");
+            return true;
+        }
+
         clearCache();
         Bookmark bookmark;
         for (final Object object : list) {
@@ -75,14 +78,14 @@ public class BookmarkRepository
     }
 
     @Override
-    public Bookmark getCachedRecordUsingKey(final Object key) {
+    public Bookmark getCachedRecordUsingKey(@NonNull final Object key) {
         final String bookmarkReference = (String) key;
         return mCacheMap.get(bookmarkReference);
     }
 
     @Override
     @Nullable
-    public Bookmark getCachedRecordUsingValue(final Object value) {
+    public Bookmark getCachedRecordUsingValue(@NonNull final Object value) {
         final String note = (String) value;
         for (final Bookmark bookmark : mCacheList) {
             if (bookmark.getNote().equalsIgnoreCase(note)) {
@@ -98,23 +101,20 @@ public class BookmarkRepository
     }
 
     @Override
-    public LiveData<List<Bookmark>> queryDatabase() {
-        throw new UnsupportedOperationException("do not use this");
-    }
-
-    @Override
-    public LiveData<List<Bookmark>> queryDatabase(final Object... objects) {
-        if (isCacheValid(objects)) {
+    public LiveData<List<Bookmark>> queryDatabase(@NonNull final Object... cacheParams) {
+        if (isCacheValid(cacheParams)) {
             Log.d(TAG, "returning cached live data");
             return mLiveData;
         }
 
-        mLiveData = SbDatabase.getInstance(getApplication()).getBookmarkDao().getAllBookmarks();
+        mLiveData = SbDatabase.getInstance(getApplication())
+                              .getBookmarkDao()
+                              .getAllBookmarks();
         return mLiveData;
     }
 
     @Override
-    public boolean isCacheValid(final Object... objects) {
+    public boolean isCacheValid(final Object... cacheParams) {
         return isCacheEmpty();
     }
 }

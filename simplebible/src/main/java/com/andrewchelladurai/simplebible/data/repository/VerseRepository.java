@@ -14,16 +14,14 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 public class VerseRepository
-    extends AndroidViewModel
-    implements RepositoryOps {
+    extends BaseRepository {
 
     private static final String TAG = "VerseRepository";
-    private static VerseRepository THIS_INSTANCE;
+    private static RepositoryOps THIS_INSTANCE;
     private static int sCachedBook    = 0;
     private static int sCachedChapter = 0;
 
@@ -37,7 +35,7 @@ public class VerseRepository
         Log.d(TAG, "VerseRepository: initialized");
     }
 
-    public static VerseRepository getInstance() {
+    public static RepositoryOps getInstance() {
         if (THIS_INSTANCE == null) {
             throw new UnsupportedOperationException("Singleton Instance is not yet initiated");
         }
@@ -45,9 +43,37 @@ public class VerseRepository
     }
 
     @Override
-    public boolean populateCache(final List<?> list) {
-        // FIXME: 16/8/18 this must accept params to check cache
-        // FIXME: 16/8/18 populate only if passed params invalidate cache
+    public void clearCache() {
+        mCacheList.clear();
+        mCacheMap.clear();
+    }
+
+    @Override
+    public boolean isCacheValid(@NonNull final Object... cacheParams) {
+        if (isCacheEmpty()) {
+            Log.d(TAG, "cache is empty");
+            return false;
+        }
+
+        final int book = (int) cacheParams[0];
+        final int chapter = (int) cacheParams[1];
+
+        if (book == sCachedBook && chapter == sCachedChapter) {
+            Log.d(TAG, "already cached [book=" + book + "][chapter=" + chapter + "]");
+            return true;
+        }
+        Log.d(TAG, "invalid cache - book != sCachedBook || chapter != sCachedChapter");
+        return false;
+    }
+
+    @Override
+    public boolean populateCache(@NonNull final List<?> list,
+                                 @NonNull final Object... cacheParams) {
+        if (isCacheValid(cacheParams)) {
+            Log.d(TAG, "already cached same data");
+            return true;
+        }
+
         clearCache();
         Verse verse;
         for (final Object object : list) {
@@ -62,13 +88,6 @@ public class VerseRepository
     }
 
     @Override
-    public void clearCache() {
-        mCacheList.clear();
-        mCacheMap.clear();
-        //  sCachedBook = sCachedChapter = 0;
-    }
-
-    @Override
     public boolean isCacheEmpty() {
         return mCacheList.isEmpty() & mCacheMap.isEmpty();
     }
@@ -79,7 +98,7 @@ public class VerseRepository
     }
 
     @Override
-    public Object getCachedRecordUsingKey(final Object key) {
+    public Object getCachedRecordUsingKey(@NonNull final Object key) {
         final String reference = (String) key;
         if (mCacheMap.containsKey(reference)) {
             return mCacheMap.get(reference);
@@ -88,9 +107,8 @@ public class VerseRepository
     }
 
     @Override
-    public Object getCachedRecordUsingValue(final Object value) {
-        final String msg = "Do not look for verse using value";
-        throw new UnsupportedOperationException(msg);
+    public Object getCachedRecordUsingValue(@NonNull final Object value) {
+        throw new UnsupportedOperationException("Do not look for verse using value");
     }
 
     @Override
@@ -99,19 +117,14 @@ public class VerseRepository
     }
 
     @Override
-    public LiveData<List<Verse>> queryDatabase() {
-        throw new UnsupportedOperationException("do not use this");
-    }
-
-    @Override
-    public LiveData<List<Verse>> queryDatabase(final Object... objects) {
-        if (isCacheValid(objects)) {
+    public LiveData<List<Verse>> queryDatabase(@NonNull final Object... cacheParams) {
+        if (isCacheValid(cacheParams)) {
             Log.d(TAG, "returning cached live data");
             return mLiveData;
         }
 
-        sCachedBook = (int) objects[0];
-        sCachedChapter = (int) objects[1];
+        sCachedBook = (int) cacheParams[0];
+        sCachedChapter = (int) cacheParams[1];
 
         if (sCachedBook == 0 || sCachedChapter == 0) {
             throw new UnsupportedOperationException("sCachedBook || sCachedChapter = 0");
@@ -123,24 +136,6 @@ public class VerseRepository
         Log.d(TAG, "queried [Book=" + sCachedBook + "][Chapter=" + sCachedChapter + "]");
 
         return mLiveData;
-    }
-
-    @Override
-    public boolean isCacheValid(final Object... objects) {
-        if (isCacheEmpty()) {
-            Log.d(TAG, "cache is empty");
-            return false;
-        }
-
-        final int book = (int) objects[0];
-        final int chapter = (int) objects[1];
-
-        if (book == sCachedBook && chapter == sCachedChapter) {
-            Log.d(TAG, "already cached [book=" + book + "][chapter=" + chapter + "]");
-            return true;
-        }
-        Log.d(TAG, "invalid cache - book != sCachedBook || chapter != sCachedChapter");
-        return false;
     }
 
     @Nullable
