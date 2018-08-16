@@ -55,18 +55,31 @@ public class BookmarkScreen
         mFab.setOnClickListener(this);
 
         Bundle extras = getIntent().getExtras();
-        if (extras != null && extras.containsKey(REFERENCES)) {
-            mReferences = extras.getString(REFERENCES);
-            if (mReferences != null && !mReferences.isEmpty()) {
-                Log.d(TAG, "onCreate: passed reference [" + mReferences + "]");
-                if (!Utilities.getInstance().isValidBookmarkReference(mReferences)) {
-                    Log.e(TAG, "onCreate: invalid bookmark reference");
-                    // FIXME: 16/8/18 show an error to contact dev
-                    // FIXME: 16/8/18 hopefully no one sees it
-                    finish();
-                }
-            }
+        if (extras == null || !extras.containsKey(REFERENCES)) {
+            // FIXME: 16/8/18 show an error to contact dev
+            // FIXME: 16/8/18 hopefully no one sees it
+            throw new UnsupportedOperationException(
+                "onCreate: no extras or REFERENCES value passed in intent bundle");
         }
+
+        mReferences = extras.getString(REFERENCES);
+
+        if (mReferences == null || mReferences.isEmpty()) {
+            Log.e(TAG, "onCreate: invalid bookmark reference");
+            // FIXME: 16/8/18 show an error to contact dev
+            // FIXME: 16/8/18 hopefully no one sees it
+            throw new UnsupportedOperationException(
+                "onCreate: null or empty REFERENCES passed in intent bundle");
+        }
+
+        Log.d(TAG, "onCreate: passed reference [" + mReferences + "]");
+        if (!Utilities.getInstance().isValidBookmarkReference(mReferences)) {
+            // FIXME: 16/8/18 show an error to contact dev
+            // FIXME: 16/8/18 hopefully no one sees it
+            throw new UnsupportedOperationException(
+                "onCreate: invalid references[" + mReferences + "] passed");
+        }
+
     }
 
     @Override
