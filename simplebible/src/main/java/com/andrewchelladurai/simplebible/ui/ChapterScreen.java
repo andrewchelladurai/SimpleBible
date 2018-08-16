@@ -173,29 +173,40 @@ public class ChapterScreen
     }
 
     public void showErrorFirstChapter() {
-        Snackbar.make(findViewById(R.id.act_chap_list), R.string.act_chap_err_first_chapter,
-                      Snackbar.LENGTH_SHORT).show();
+        Utilities.getInstance().createSnackBar(
+            findViewById(R.id.act_chap_list),
+            R.string.act_chap_err_first_chapter,
+            Snackbar.LENGTH_SHORT,
+            getResources().getColor(R.color.act_chap_snackbar_text),
+            getResources().getColor(R.color.act_chap_snackbar)).show();
     }
 
     public void showErrorLastChapter() {
         Snackbar.make(findViewById(R.id.act_chap_list), R.string.act_chap_err_last_chapter,
-                      Snackbar.LENGTH_SHORT).show();
+                      Snackbar.LENGTH_SHORT)
+                .setActionTextColor(R.color.act_chap_snackbar_text)
+                .show();
     }
 
     public void showErrorEmptySelectedList() {
         Snackbar.make(findViewById(R.id.act_chap_list), R.string.act_chap_err_empty_selection_list,
-                      Snackbar.LENGTH_SHORT).show();
+                      Snackbar.LENGTH_SHORT)
+                .setActionTextColor(R.color.act_chap_snackbar_text)
+                .show();
     }
 
     private void showMessageDiscardSelectedVerses() {
         Snackbar.make(findViewById(R.id.act_chap_list),
                       R.string.act_chap_msg_discarded_selected_verses,
-                      Snackbar.LENGTH_SHORT).show();
+                      Snackbar.LENGTH_SHORT)
+                .setActionTextColor(R.color.act_chap_snackbar_text)
+                .show();
     }
 
     private void showErrorInvalidBookmarkReference() {
         Snackbar.make(findViewById(R.id.act_chap_list),
                       R.string.act_chap_err_invalid_bookmark_reference, Snackbar.LENGTH_SHORT)
+                .setActionTextColor(R.color.act_chap_snackbar_text)
                 .show();
     }
 

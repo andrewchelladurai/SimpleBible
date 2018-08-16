@@ -26,4 +26,7 @@
     <color name="redDark">#800</color>
     <color name="redDarker">#400</color>
 
+    <color name="act_chap_snackbar">@color/blueDarker</color>
+    <color name="act_chap_snackbar_text">@color/blueLight</color>
+
 </resources>
