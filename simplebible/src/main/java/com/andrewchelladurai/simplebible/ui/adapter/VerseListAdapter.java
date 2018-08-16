@@ -62,7 +62,7 @@ public class VerseListAdapter
         if (book == CACHE_BOOK_NUMBER
             && chapter == CACHE_CHAPTER_NUMBER
             && getItemCount() == list.size()) {
-            Log.d(TAG, "already cached chapter's verses");
+            Log.d(TAG, "already cached [book=" + book + "][chapter=" + chapter + "]");
             return;
         }
 

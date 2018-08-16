@@ -109,9 +109,12 @@ public class ChapterScreen
             return;
         }
 
-        if (mPresenter.populateCache(verses)) {
+        final int book = getBookToShow();
+        final int chapter = getChapterToShow();
+
+        if (mPresenter.populateCache(verses, book, chapter)) {
             updateTitle();
-            mAdapter.updateList(verses, getBookToShow(), getChapterToShow());
+            mAdapter.updateList(verses, book, chapter);
             mAdapter.notifyDataSetChanged();
             mRecyclerView.scrollToPosition(0);
         } else {

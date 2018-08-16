@@ -9,6 +9,7 @@ import com.andrewchelladurai.simplebible.util.Utilities;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -25,8 +26,10 @@ public class ChapterScreenPresenter {
         mOps = ops;
     }
 
-    public boolean populateCache(@NonNull final List<Verse> verses) {
-        return VerseRepository.getInstance().populateCache(verses);
+    public boolean populateCache(@NonNull final List<Verse> verses,
+                                 @IntRange(from = 1, to = 66) final int book,
+                                 @IntRange(from = 1) final int chapter) {
+        return VerseRepository.getInstance().populateCache(verses, book, chapter);
     }
 
     public String getSelectedVersesTextToShare(@NonNull final String verseContentTemplate) {
