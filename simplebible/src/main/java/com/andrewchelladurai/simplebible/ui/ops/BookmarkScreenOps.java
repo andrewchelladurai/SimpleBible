@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible.ui.ops;
 
 import android.content.Context;
+import android.view.View;
 
 import com.andrewchelladurai.simplebible.data.entities.Verse;
 
@@ -13,7 +14,7 @@ import androidx.appcompat.widget.Toolbar;
  * on : 15-Aug-2018 @ 6:35 PM.
  */
 public interface BookmarkScreenOps
-    extends Toolbar.OnMenuItemClickListener {
+    extends Toolbar.OnMenuItemClickListener, View.OnClickListener {
 
     void handleInteractionClick(@NonNull Verse verse);
 
