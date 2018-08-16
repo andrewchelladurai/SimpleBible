@@ -30,4 +30,8 @@ public interface RepositoryOps {
 
     @Nullable
     LiveData<?> queryDatabase(@NonNull Object... cacheParams);
+
+    boolean createRecord(Object entityObject);
+
+    boolean deleteRecord(Object entityObject);
 }

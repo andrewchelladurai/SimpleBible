@@ -155,4 +155,16 @@ public class BookmarkVerseRepository
         Log.d(TAG, "retrieved verses for reference [" + references[0] + "]");
         return mLiveData;
     }
+
+    @Override
+    public boolean createRecord(final Object entityObject) {
+        SbDatabase.getInstance(getApplication()).getVerseDao()
+                  .createNewVerse((Verse) entityObject);
+        return true;
+    }
+
+    @Override
+    public boolean deleteRecord(final Object entityObject) {
+        throw new UnsupportedOperationException("should not be used");
+    }
 }

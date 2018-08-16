@@ -114,13 +114,21 @@ public class BookmarkRepository
     }
 
     @Override
-    public boolean isCacheValid(final Object... cacheParams) {
-        return isCacheEmpty();
+    public boolean createRecord(final Object entityObject) {
+        SbDatabase.getInstance(getApplication()).getBookmarkDao()
+                  .createNewBookmark((Bookmark) entityObject);
+        return true;
     }
 
-    public List<Bookmark> getBookmarkUsingReference(@NonNull final String references) {
-        return SbDatabase.getInstance(getApplication())
-                         .getBookmarkDao()
-                         .getBookmarkUsingReference(references).getValue();
+    @Override
+    public boolean deleteRecord(final Object entityObject) {
+        SbDatabase.getInstance(getApplication()).getBookmarkDao()
+                  .deleteBookmark((Bookmark) entityObject);
+        return true;
+    }
+
+    @Override
+    public boolean isCacheValid(final Object... cacheParams) {
+        return isCacheEmpty();
     }
 }

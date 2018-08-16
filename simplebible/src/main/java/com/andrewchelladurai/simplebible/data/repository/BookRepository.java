@@ -129,6 +129,18 @@ public class BookRepository
     }
 
     @Override
+    public boolean createRecord(final Object entityObject) {
+        SbDatabase.getInstance(getApplication()).getBookDao()
+                  .createNewBook((Book) entityObject);
+        return true;
+    }
+
+    @Override
+    public boolean deleteRecord(final Object entityObject) {
+        throw new UnsupportedOperationException("should not be used");
+    }
+
+    @Override
     public boolean isCacheValid(@NonNull final Object... cacheParams) {
         final int bookLimit = (int) cacheParams[0];
         final String firstBook = (String) cacheParams[1];
