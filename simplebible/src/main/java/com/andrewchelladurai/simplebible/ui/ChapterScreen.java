@@ -33,17 +33,17 @@ public class ChapterScreen
     extends AppCompatActivity
     implements ChapterScreenOps {
 
-    public static final  String BOOK_NUMBER    = "BOOK_NUMBER";
-    public static final  String CHAPTER_NUMBER = "CHAPTER_NUMBER";
     private static final String TAG            = "ChapterScreen";
     private static final Bundle ARGS           = new Bundle();
-    private static VerseRepository        sRepository;
-    private static ChapterScreenPresenter sPresenter;
-    private static VerseListAdapter       sAdapter;
-    private RecyclerView mRecyclerView = null;
-    private BottomAppBar         mBottomAppBar;
-    private FloatingActionButton mFab;
-    private ChapterListDialog    mChapterDialog;
+    public static final  String BOOK_NUMBER    = "BOOK_NUMBER";
+    public static final  String CHAPTER_NUMBER = "CHAPTER_NUMBER";
+    private ChapterScreenPresenter mPresenter;
+    private VerseListAdapter       mAdapter;
+    private VerseRepository        mRepository;
+    private RecyclerView           mRecyclerView;
+    private BottomAppBar           mBottomAppBar;
+    private FloatingActionButton   mFab;
+    private ChapterListDialog      mChapterDialog;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -59,17 +59,9 @@ public class ChapterScreen
             ARGS.putInt(CHAPTER_NUMBER, getIntent().getIntExtra(CHAPTER_NUMBER, 0));
         }
 
-        if (sRepository == null) {
-            sRepository = ViewModelProviders.of(this).get(VerseRepository.class);
-        }
-
-        if (sPresenter == null) {
-            sPresenter = new ChapterScreenPresenter(this);
-        }
-
-        if (sAdapter == null) {
-            sAdapter = new VerseListAdapter(this);
-        }
+        mRepository = ViewModelProviders.of(this).get(VerseRepository.class);
+        mPresenter = new ChapterScreenPresenter(this);
+        mAdapter = new VerseListAdapter(this);
 
         mBottomAppBar = findViewById(R.id.act_chap_appbar);
         mBottomAppBar.setOnMenuItemClickListener(this);
@@ -79,7 +71,7 @@ public class ChapterScreen
         mFab.setOnClickListener(this);
 
         mRecyclerView = findViewById(R.id.act_chap_list);
-        mRecyclerView.setAdapter(sAdapter);
+        mRecyclerView.setAdapter(mAdapter);
 
         showChapter(getBookToShow(), getChapterToShow());
     }
@@ -101,7 +93,7 @@ public class ChapterScreen
         ARGS.putInt(BOOK_NUMBER, book);
         ARGS.putInt(CHAPTER_NUMBER, chapter);
 
-        sRepository.queryDatabase(book, chapter).observe(this, this);
+        mRepository.queryDatabase(book, chapter).observe(this, this);
     }
 
     @Override
@@ -110,17 +102,21 @@ public class ChapterScreen
     }
 
     private void updateVerseList(@Nullable final List<Verse> verses) {
-        if (null == verses) {
+        if (null == verses || verses.isEmpty()) {
             Log.e(TAG, "updateVerseList: No verses returned");
+            // FIXME: 16/8/18 This should show an error on screen asking to inform dev
+            // FIXME: 16/8/18 hopefully it never shows to anyone
             return;
         }
 
-        if (sPresenter.updateRepositoryCache(verses)) {
+        if (mPresenter.populateCache(verses)) {
             updateTitle();
-            sAdapter.updateList(verses, getBookToShow(), getChapterToShow());
-            sAdapter.notifyDataSetChanged();
+            mAdapter.updateList(verses, getBookToShow(), getChapterToShow());
+            mAdapter.notifyDataSetChanged();
             mRecyclerView.scrollToPosition(0);
         } else {
+            // FIXME: 16/8/18 This should show an error on screen asking to inform dev
+            // FIXME: 16/8/18 hopefully it never shows to anyone
             Log.e(TAG, "updateVerseList: error updating UI");
         }
     }
@@ -240,28 +236,27 @@ public class ChapterScreen
     }
 
     private void actionClearClicked() {
-        Log.d(TAG, "actionClearClicked:");
-        boolean anyVerseSelected = sAdapter.isAnyVerseSelected();
+        boolean anyVerseSelected = mAdapter.isAnyVerseSelected();
+
         if (!anyVerseSelected) {
             showErrorEmptySelectedList();
             return;
         }
-        anyVerseSelected = sAdapter.discardSelectedVerses();
+
+        anyVerseSelected = mAdapter.discardSelectedVerses();
         if (!anyVerseSelected) {
             showMessageDiscardSelectedVerses();
-            sAdapter.notifyDataSetChanged();
+            mAdapter.notifyDataSetChanged();
         }
     }
 
     private void actionBookmarkClicked() {
-        Log.d(TAG, "actionBookmarkClicked:");
-
-        if (!sAdapter.isAnyVerseSelected()) {
+        if (!mAdapter.isAnyVerseSelected()) {
             showErrorEmptySelectedList();
             return;
         }
 
-        final String references = sPresenter.getSelectedVerseReferences();
+        final String references = mPresenter.getSelectedVerseReferences();
 
         if (references == null || references.isEmpty()) {
             Log.e(TAG, "got Empty or Invalid bookmarkReference");
@@ -274,15 +269,14 @@ public class ChapterScreen
         final Intent intent = new Intent(this, BookmarkScreen.class);
         intent.putExtras(bundle);
 
-        sAdapter.discardSelectedVerses();
-        sAdapter.notifyDataSetChanged();
+        mAdapter.discardSelectedVerses();
+        mAdapter.notifyDataSetChanged();
 
         startActivity(intent);
 
     }
 
     private void actionNextClicked() {
-        Log.d(TAG, "actionNextClicked:");
         int newChapter = getChapterToShow() + 1;
         Book book = Utilities.getInstance().getBookUsingNumber(getBookToShow());
         if (book != null && newChapter > book.getChapters()) {
@@ -293,7 +287,6 @@ public class ChapterScreen
     }
 
     private void actionPrevClicked() {
-        Log.d(TAG, "actionPrevClicked:");
         int newChapter = getChapterToShow() - 1;
         if (newChapter < 1) {
             showErrorFirstChapter();
@@ -308,8 +301,7 @@ public class ChapterScreen
             mChapterDialog = null;
         }
 
-        Log.d(TAG, "actionListClicked:");
-        final Book book = sPresenter.getBook(getBookToShow());
+        final Book book = mPresenter.getBook(getBookToShow());
         if (book == null) {
             Log.e(TAG, "handleInteractionClickList: invalid book returned");
             return;
@@ -320,28 +312,26 @@ public class ChapterScreen
     }
 
     private void actionShareClicked() {
-        final boolean anyVerseSelected = sAdapter.isAnyVerseSelected();
+        final boolean anyVerseSelected = mAdapter.isAnyVerseSelected();
         if (!anyVerseSelected) {
             showErrorEmptySelectedList();
             return;
         }
 
-        final String selectedVerses = sPresenter.getSelectedVersesTextToShare(
+        final String selectedVerses = mPresenter.getSelectedVersesTextToShare(
             getString(R.string.content_item_verse_text_template));
 
         final String textToShare = String.format(getString(R.string.act_chap_template_share),
                                                  selectedVerses,
                                                  getTitleDisplay());
-        Log.d(TAG, "actionShareClicked: [selectedVerses=" + selectedVerses.length()
-                   + " chars][textToShare=" + textToShare.length() + " chars]");
 
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, textToShare);
         sendIntent.setType("text/plain");
 
-        sAdapter.discardSelectedVerses();
-        sAdapter.notifyDataSetChanged();
+        mAdapter.discardSelectedVerses();
+        mAdapter.notifyDataSetChanged();
 
         startActivity(sendIntent);
     }

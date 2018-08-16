@@ -25,8 +25,8 @@ public class ChapterListAdapter
     extends RecyclerView.Adapter<ChapterListAdapter.ViewHolder>
     implements AdapterOps {
 
-    private static final String             TAG          = "ChapterListAdapter";
-    private static final ArrayList<Integer> CHAPTER_LIST = new ArrayList<>();
+    private static final String             TAG        = "ChapterListAdapter";
+    private static final ArrayList<Integer> CACHE_LIST = new ArrayList<>();
     private final ChapterScreenOps mOps;
 
     public ChapterListAdapter(@NonNull ChapterScreenOps ops) {
@@ -42,26 +42,27 @@ public class ChapterListAdapter
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        holder.updateView(CHAPTER_LIST.get(position));
+        holder.updateView(CACHE_LIST.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return CHAPTER_LIST.size();
+        return CACHE_LIST.size();
     }
 
     @Override
     public void updateList(final List<?> list, final Object... objects) {
         int newChapterCount = (int) objects[0];
-        if (CHAPTER_LIST.size() == newChapterCount) {
-            Log.d(TAG, "updateList: already contains [" + newChapterCount + "] records");
+        if (getItemCount() == newChapterCount) {
+            Log.d(TAG, "already cached [" + newChapterCount + "] chapters");
             return;
         }
-        CHAPTER_LIST.clear();
+
+        CACHE_LIST.clear();
         for (final Object object : list) {
-            CHAPTER_LIST.add((Integer) object);
+            CACHE_LIST.add((Integer) object);
         }
-        Log.d(TAG, "updateList: re-populated [" + getItemCount() + "] records");
+        Log.d(TAG, "updated cache with [" + getItemCount() + "] chapters");
     }
 
     class ViewHolder
@@ -72,7 +73,7 @@ public class ChapterListAdapter
         private final TextView chapterNumberField;
         private       int      chapterNumber;
 
-        ViewHolder(View view) {
+        private ViewHolder(View view) {
             super(view);
             rootView = view;
             chapterNumberField = rootView.findViewById(R.id.item_chapter_number);

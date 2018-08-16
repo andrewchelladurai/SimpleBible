@@ -21,10 +21,12 @@ public class VerseListAdapter
     extends RecyclerView.Adapter<VerseListAdapter.ViewHolder>
     implements AdapterOps {
 
-    private static final String TAG = "VerseListAdapter";
-    private static int mBook;
-    private static int mChapter;
-    private final List<Verse> mList = new ArrayList<>();
+    private static final String      TAG        = "VerseListAdapter";
+    private static final List<Verse> CACHE_LIST = new ArrayList<>();
+
+    private static int CACHE_BOOK_NUMBER;
+    private static int CACHE_CHAPTER_NUMBER;
+
     private final ChapterScreenOps mOps;
     private final String           verseContentTemplate;
 
@@ -42,12 +44,12 @@ public class VerseListAdapter
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.updateView(mList.get(position));
+        holder.updateView(CACHE_LIST.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return CACHE_LIST.size();
     }
 
     @Override
@@ -57,25 +59,25 @@ public class VerseListAdapter
         int book = (int) objects[0];
         int chapter = (int) objects[1];
 
-        if (book == mBook
-            && chapter == mChapter
-            && mList.size() == list.size()) {
-            Log.d(TAG, "already cached");
+        if (book == CACHE_BOOK_NUMBER
+            && chapter == CACHE_CHAPTER_NUMBER
+            && getItemCount() == list.size()) {
+            Log.d(TAG, "already cached chapter's verses");
             return;
         }
 
-        mBook = book;
-        mChapter = chapter;
+        CACHE_BOOK_NUMBER = book;
+        CACHE_CHAPTER_NUMBER = chapter;
 
-        mList.clear();
+        CACHE_LIST.clear();
         for (final Object object : list) {
-            mList.add((Verse) object);
+            CACHE_LIST.add((Verse) object);
         }
-        Log.d(TAG, "updated [" + getItemCount() + "] records");
+        Log.d(TAG, "updated cache with [" + getItemCount() + "] verses");
     }
 
     public boolean isAnyVerseSelected() {
-        for (Verse verse : mList) {
+        for (Verse verse : CACHE_LIST) {
             if (verse.isSelected()) {
                 return true;
             }
@@ -84,7 +86,7 @@ public class VerseListAdapter
     }
 
     public boolean discardSelectedVerses() {
-        for (Verse verse : mList) {
+        for (Verse verse : CACHE_LIST) {
             if (verse.isSelected()) {
                 verse.setSelected(false);
             }
@@ -100,7 +102,7 @@ public class VerseListAdapter
         private final TextView mTextView;
         private       Verse    mVerse;
 
-        ViewHolder(View view) {
+        private ViewHolder(View view) {
             super(view);
             mView = view;
             mTextView = view.findViewById(R.id.item_verse_text);
