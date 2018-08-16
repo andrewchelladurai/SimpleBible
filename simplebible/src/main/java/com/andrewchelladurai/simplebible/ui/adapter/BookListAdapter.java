@@ -22,7 +22,7 @@ public class BookListAdapter
     implements AdapterOps {
 
     private static final String     TAG   = "BookListAdapter";
-    private final        List<Book> mList = new ArrayList<>();
+    private static final List<Book> mList = new ArrayList<>();
     private final BooksScreenOps mOps;
 
     public BookListAdapter(@NonNull BooksScreenOps ops) {
@@ -56,7 +56,7 @@ public class BookListAdapter
         if (getItemCount() == count
             && mList.get(0).getName().equalsIgnoreCase(firstBook)
             && mList.get(getItemCount() - 1).getName().equalsIgnoreCase(lastBook)) {
-            Log.e(TAG, "updateList: already cached");
+            Log.d(TAG, "already cached");
             return;
         }
 
@@ -64,7 +64,7 @@ public class BookListAdapter
         for (Object book : list) {
             mList.add((Book) book);
         }
-        Log.d(TAG, "updated [" + getItemCount() + "] books");
+        Log.d(TAG, "updated cache with [" + getItemCount() + "] books");
     }
 
     class ViewHolder

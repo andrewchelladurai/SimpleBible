@@ -24,9 +24,9 @@ public class BookRepository
     private static final String TAG = "BookRepository";
 
     @SuppressLint("UseSparseArrays")
-    private static final Map<Integer, Book> CACHE_MAP  = new HashMap<>();
-    private static final List<Book>         CACHE_LIST = new ArrayList<>();
-    private static LiveData<List<Book>> LIVE_DATA;
+    private final Map<Integer, Book> CACHE_MAP  = new HashMap<>();
+    private final List<Book>         CACHE_LIST = new ArrayList<>();
+    private LiveData<List<Book>> LIVE_DATA;
 
     private static BookRepository THIS_INSTANCE = null;
 
@@ -45,6 +45,7 @@ public class BookRepository
 
     @Override
     public boolean populateCache(final List<?> list) {
+        // FIXME: 16/8/18 pass cache checking parameters and skip is chache is valid
         clearCache();
         Book book;
         for (final Object object : list) {
@@ -52,7 +53,7 @@ public class BookRepository
             CACHE_LIST.add(book);
             CACHE_MAP.put(book.getNumber(), book);
         }
-        Log.d(TAG, "populateCache: updated [" + getCacheSize() + "] books");
+        Log.d(TAG, "updated cache with [" + getCacheSize() + "] books");
         return !isCacheEmpty();
     }
 
@@ -123,7 +124,7 @@ public class BookRepository
     @Nullable
     public LiveData<List<Book>> queryDatabase(final Object... objects) {
         if (isCacheValid(objects)) {
-            Log.d(TAG, "queryDatabase: returning cached data");
+            Log.d(TAG, "returning cached data");
             return LIVE_DATA;
         }
 
@@ -142,7 +143,7 @@ public class BookRepository
         }
 
         if (isCacheEmpty()) {
-            Log.d(TAG, "isCacheValid: " + false);
+            Log.d(TAG, "isCacheValid: [" + false + "]");
             return false;
         }
 
@@ -155,8 +156,7 @@ public class BookRepository
                            && cachedFirstBook.equalsIgnoreCase(firstBook)
                            && cachedLastBook.equalsIgnoreCase(lastBook));
 
-        Log.d(TAG, "isCacheValid: " + isValid);
+        Log.d(TAG, "isCacheValid: [" + isValid + "]");
         return isValid;
     }
-
 }

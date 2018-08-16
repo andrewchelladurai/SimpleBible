@@ -28,29 +28,24 @@ public class BooksScreen
     implements BooksScreenOps {
 
     private static final String TAG = "BooksScreen";
-    private static BookListAdapter      sAdapter;
-    private static BooksScreenPresenter sPresenter;
-    private        String               mNameTemplate;
-    private        AutoCompleteTextView mChapterField;
-    private        AutoCompleteTextView mBookField;
+    private BookListAdapter      mAdapter;
+    private BooksScreenPresenter mPresenter;
+    private String               mNameTemplate;
+    private AutoCompleteTextView mChapterField;
+    private AutoCompleteTextView mBookField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_books);
 
-        if (sPresenter == null) {
-            sPresenter = new BooksScreenPresenter(this);
-        }
-
-        if (sAdapter == null) {
-            sAdapter = new BookListAdapter(this);
-        }
+        mPresenter = new BooksScreenPresenter(this);
+        mAdapter = new BookListAdapter(this);
 
         mNameTemplate = getString(R.string.item_book_name_template);
 
         RecyclerView recyclerView = findViewById(R.id.act_books_list);
-        recyclerView.setAdapter(sAdapter);
+        recyclerView.setAdapter(mAdapter);
 
         mBookField = findViewById(R.id.act_books_name);
         mBookField.setOnFocusChangeListener(this);
@@ -71,13 +66,13 @@ public class BooksScreen
     }
 
     private void handleButtonClickGoto() {
-        final Book book = sPresenter.getBookUsingName(getBookInput());
+        final Book book = mPresenter.getBookUsingName(getBookInput());
         if (book == null) {
             showErrorInvalidBookInput();
             return;
         }
         final int chapter = getChapterInput();
-        boolean valid = sPresenter.validateChapterForBook(chapter, book);
+        boolean valid = mPresenter.validateChapterForBook(chapter, book);
         if (valid) {
             showChapterActivity(book.getNumber(), chapter);
         } else {
@@ -101,7 +96,6 @@ public class BooksScreen
     }
 
     private void showChapterActivity(final int book, final int chapter) {
-        Log.d(TAG, "showChapterActivity: book = [" + book + "], chapter = [" + chapter + "]");
         resetChapterField();
         resetBookField();
         Intent intent = new Intent(this, ChapterScreen.class);
@@ -145,7 +139,7 @@ public class BooksScreen
         try {
             return Integer.parseInt(mChapterField.getText().toString().trim());
         } catch (NumberFormatException nfe) {
-            Log.e(TAG, "getChapterInput: invalid chapter, returning default 1");
+            Log.e(TAG, "invalid chapter, returning default 1");
             return 1;
         }
     }
@@ -184,12 +178,12 @@ public class BooksScreen
         final String firstBook = getString(R.string.first_book);
         final String lastBook = getString(R.string.last_book);
 
-        boolean success = sPresenter.populateCache(books, bookCount, firstBook, lastBook);
+        boolean success = mPresenter.populateCache(books, bookCount, firstBook, lastBook);
         if (success) {
-            sAdapter.updateList(books, bookCount, firstBook, lastBook);
-            sAdapter.notifyDataSetChanged();
+            mAdapter.updateList(books, bookCount, firstBook, lastBook);
+            mAdapter.notifyDataSetChanged();
             mBookField.setAdapter(new ArrayAdapter<>(
-                this, android.R.layout.simple_list_item_1, sPresenter.getAllBookNames()));
+                this, android.R.layout.simple_list_item_1, mPresenter.getAllBookNames()));
         }
     }
 
@@ -208,7 +202,7 @@ public class BooksScreen
     public void onFocusChange(final View v, final boolean hasFocus) {
         switch (v.getId()) {
             case R.id.act_books_name:
-                Log.d(TAG, "onFocusChange: book_field hasFocus [" + hasFocus + "]");
+                Log.d(TAG, "book_field hasFocus [" + hasFocus + "]");
                 break;
             case R.id.act_books_chapter:
                 if (hasFocus) { /* chapter input field gained focus*/
@@ -223,9 +217,8 @@ public class BooksScreen
     }
 
     private void handleChapterFieldGainFocus() {
-        Log.d(TAG, "handleChapterFieldGainFocus:");
         final String bookName = getBookInput();
-        final Book book = sPresenter.getBookUsingName(bookName);
+        final Book book = mPresenter.getBookUsingName(bookName);
         if (book != null) {
             resetChapterField();
             prepareChapterField(book.getChapters());
@@ -237,13 +230,11 @@ public class BooksScreen
     @Override
     public void beforeTextChanged(final CharSequence charSequence, final int i, final int i1,
                                   final int i2) {
-
     }
 
     @Override
     public void onTextChanged(final CharSequence charSequence, final int i, final int i1,
                               final int i2) {
-
     }
 
     @Override
