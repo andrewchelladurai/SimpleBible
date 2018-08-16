@@ -179,7 +179,6 @@ public class Utilities {
     }
 
     public boolean isValidBookmarkReference(@NonNull final String references) {
-        Log.d(TAG, "isValidBookmarkReference() called with [" + references + "]");
         if (references.isEmpty()) {
             Log.e(TAG, "isValidBookmarkReference: empty references");
             return false;
