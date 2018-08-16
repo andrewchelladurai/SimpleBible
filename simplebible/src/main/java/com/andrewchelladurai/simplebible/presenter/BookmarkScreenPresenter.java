@@ -1,6 +1,10 @@
 package com.andrewchelladurai.simplebible.presenter;
 
+import com.andrewchelladurai.simplebible.data.entities.Verse;
+import com.andrewchelladurai.simplebible.data.repository.BookmarkVerseRepository;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkScreenOps;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 
@@ -16,6 +20,10 @@ public class BookmarkScreenPresenter {
 
     public BookmarkScreenPresenter(@NonNull BookmarkScreenOps ops) {
         mOps = ops;
+    }
+
+    public boolean populateCache(final List<Verse> verses, final String references) {
+        return BookmarkVerseRepository.getInstance().populateCache(verses, references);
     }
 
 /*
