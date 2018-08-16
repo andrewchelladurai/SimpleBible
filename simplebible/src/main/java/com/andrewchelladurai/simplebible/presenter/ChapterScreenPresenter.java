@@ -31,9 +31,11 @@ public class ChapterScreenPresenter {
 
     public String getSelectedVersesTextToShare(@NonNull final String verseContentTemplate) {
         final StringBuilder verses = new StringBuilder();
-        final List<Verse> list = VerseRepository.getInstance().getCachedList();
+        final List<?> list = VerseRepository.getInstance().getCachedList();
+        Verse verse;
 
-        for (Verse verse : list) {
+        for (Object object : list) {
+            verse = (Verse) object;
             if (verse.isSelected()) {
                 verses.append(String.format(
                     verseContentTemplate, verse.getVerse(), verse.getText())).append("\n");
@@ -44,9 +46,12 @@ public class ChapterScreenPresenter {
 
     @Nullable
     public String getSelectedVerseReferences() {
-        final List<Verse> list = VerseRepository.getInstance().getCachedList();
+        final List<?> list = VerseRepository.getInstance().getCachedList();
         final ArrayList<Verse> selectedList = new ArrayList<>();
-        for (Verse verse : list) {
+        Verse verse;
+
+        for (Object object : list) {
+            verse = (Verse) object;
             if (verse.isSelected()) {
                 selectedList.add(verse);
             }

@@ -48,7 +48,6 @@ public class BookListAdapter
 
     @Override
     public void updateList(@NonNull final List<?> list, @NonNull final Object... objects) {
-
         final int count = (int) objects[0];
         final String firstBook = (String) objects[1];
         final String lastBook = (String) objects[2];

@@ -29,7 +29,7 @@ public class BooksScreenPresenter {
 
     @Nullable
     public Book getBookUsingName(@NonNull final String bookName) {
-        return BookRepository.getInstance().getCachedRecordUsingValue(bookName);
+        return (Book) BookRepository.getInstance().getCachedRecordUsingValue(bookName);
     }
 
     public boolean validateChapterForBook(@IntRange(from = 1) final int chapter,
@@ -53,12 +53,12 @@ public class BooksScreenPresenter {
             return false;
         }
 
-        return BookRepository.getInstance().populateCache(list);
+        return BookRepository.getInstance().populateCache(list, count, firstBook, lastBook);
     }
 
     @NonNull
     public ArrayList<String> getAllBookNames() {
-        final List<Book> list = BookRepository.getInstance().getCachedList();
+        final List<?> list = BookRepository.getInstance().getCachedList();
 
         if (list == null || list.isEmpty()) {
             Log.e(TAG, "getAllBookNames: empty list from repository");
@@ -66,8 +66,8 @@ public class BooksScreenPresenter {
         }
 
         final ArrayList<String> names = new ArrayList<>();
-        for (final Book book : list) {
-            names.add(book.getName());
+        for (final Object object : list) {
+            names.add(((Book) object).getName());
         }
 
         return names;
