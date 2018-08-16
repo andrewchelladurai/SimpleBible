@@ -38,11 +38,13 @@
         app:iconTint="?colorPrimary"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction,AppCompatResource" />
-    <item
-        android:id="@+id/act_bmrk_menu_clear"
-        android:icon="@drawable/ic_clear"
-        android:title="@string/act_bmrk_menu_clear"
-        app:iconTint="?colorPrimary"
-        app:showAsAction="always"
-        tools:ignore="AlwaysShowAction,AppCompatResource" />
+    <!--
+        <item
+            android:id="@+id/act_bmrk_menu_clear"
+            android:icon="@drawable/ic_clear"
+            android:title="@string/act_bmrk_menu_clear"
+            app:iconTint="?colorPrimary"
+            app:showAsAction="always"
+            tools:ignore="AlwaysShowAction,AppCompatResource" />
+    -->
 </menu>
