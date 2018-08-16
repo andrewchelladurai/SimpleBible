@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.entities.Bookmark;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
+import com.andrewchelladurai.simplebible.data.repository.BookmarkRepository;
 import com.andrewchelladurai.simplebible.data.repository.BookmarkVerseRepository;
 import com.andrewchelladurai.simplebible.presenter.BookmarkScreenPresenter;
 import com.andrewchelladurai.simplebible.ui.adapter.BookmarkVerseAdapter;
@@ -22,13 +25,15 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 public class BookmarkScreen
     extends AppCompatActivity
-    implements BookmarkScreenOps, Observer<List<Verse>> {
+    implements BookmarkScreenOps {
 
     private static final String TAG        = "BookmarkScreen";
     public static final  String REFERENCES = "REFERENCES";
@@ -38,6 +43,9 @@ public class BookmarkScreen
     private String                  mReferences;
     private RecyclerView            mRecyclerView;
     private TextInputEditText       mNoteField;
+    private TextView                mTitleBar;
+    private FloatingActionButton    mFab;
+    private int                     mFabAction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +54,8 @@ public class BookmarkScreen
 
         mAdapter = new BookmarkVerseAdapter(this);
         mPresenter = new BookmarkScreenPresenter(this);
+
+        mTitleBar = findViewById(R.id.act_bmrk_titlebar);
 
         mRecyclerView = findViewById(R.id.act_bmrk_list);
         mRecyclerView.setAdapter(mAdapter);
@@ -56,7 +66,7 @@ public class BookmarkScreen
         mBottomAppBar.replaceMenu(R.menu.bookmark_screen_appbar);
         mBottomAppBar.setOnMenuItemClickListener(this);
 
-        FloatingActionButton mFab = findViewById(R.id.act_bmrk_fab);
+        mFab = findViewById(R.id.act_bmrk_fab);
         mFab.setOnClickListener(this);
 
         final Bundle extras = getIntent().getExtras();
@@ -112,8 +122,28 @@ public class BookmarkScreen
     }
 
     private void showCorrectActions() {
-        // FIXME: 16/8/18 show / hide actions on bottomBar
-        // FIXME: 16/8/18 update FAB to show correct action
+        BookmarkRepository repository =
+            ViewModelProviders.of(this).get(BookmarkRepository.class);
+        List<Bookmark> bookmarkList = repository.getBookmarkUsingReference(mReferences);
+        if (bookmarkList == null || bookmarkList.isEmpty()) {
+            findViewById(R.id.act_bmrk_menu_save).setVisibility(GONE);
+            findViewById(R.id.act_bmrk_menu_edit).setVisibility(GONE);
+            findViewById(R.id.act_bmrk_menu_delete).setVisibility(GONE);
+            findViewById(R.id.act_bmrk_menu_share).setVisibility(VISIBLE);
+            findViewById(R.id.act_bmrk_menu_settings).setVisibility(VISIBLE);
+            mFabAction = R.id.act_bmrk_menu_save;
+            mFab.setImageResource(R.drawable.ic_save);
+            mTitleBar.setText(R.string.act_bmrk_titlebar_create);
+        } else {
+            findViewById(R.id.act_bmrk_menu_save).setVisibility(GONE);
+            findViewById(R.id.act_bmrk_menu_edit).setVisibility(GONE);
+            findViewById(R.id.act_bmrk_menu_delete).setVisibility(VISIBLE);
+            findViewById(R.id.act_bmrk_menu_share).setVisibility(VISIBLE);
+            findViewById(R.id.act_bmrk_menu_settings).setVisibility(VISIBLE);
+            mFabAction = R.id.act_bmrk_menu_edit;
+            mFab.setImageResource(R.drawable.ic_edit);
+            mTitleBar.setText(R.string.act_bmrk_titlebar_edit);
+        }
     }
 
     @Override
@@ -131,9 +161,6 @@ public class BookmarkScreen
             case R.id.act_bmrk_menu_share:
                 handleClickButShare();
                 return true;
-            case R.id.act_bmrk_menu_clear:
-                handleClickButReset();
-                return true;
             case R.id.act_bmrk_menu_settings:
                 handleClickButSettings();
                 return true;
@@ -147,7 +174,14 @@ public class BookmarkScreen
     public void onClick(final View view) {
         switch (view.getId()) {
             case R.id.act_bmrk_fab:
-                // handle whichever action is required
+                if (mFabAction == R.id.act_bmrk_menu_save) {
+                    handleClickButSave();
+                } else if (mFabAction == R.id.act_bmrk_menu_edit) {
+                    handleClickButEdit();
+                } else {
+                    Log.e(TAG, "onClick: unknown actions set to Fab"
+                               + getString(R.string.msg_unexpected));
+                }
                 break;
             default:
                 Log.e(TAG, "onClick: " + getString(R.string.msg_unexpected));
@@ -195,10 +229,6 @@ public class BookmarkScreen
     @NonNull
     public String getNote() {
         return mNoteField.getText().toString().trim();
-    }
-
-    @Override
-    public void handleClickButReset() {
     }
 
     @Override

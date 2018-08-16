@@ -5,8 +5,11 @@ import android.view.View;
 
 import com.andrewchelladurai.simplebible.data.entities.Verse;
 
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
 
 /**
  * Created by : Andrew Chelladurai
@@ -14,7 +17,7 @@ import androidx.appcompat.widget.Toolbar;
  * on : 15-Aug-2018 @ 6:35 PM.
  */
 public interface BookmarkScreenOps
-    extends Toolbar.OnMenuItemClickListener, View.OnClickListener {
+    extends Toolbar.OnMenuItemClickListener, View.OnClickListener, Observer<List<Verse>> {
 
     void handleInteractionClick(@NonNull Verse verse);
 
@@ -34,8 +37,6 @@ public interface BookmarkScreenOps
     void handleClickButDelete();
 
     void handleClickButShare();
-
-    void handleClickButReset();
 
     void handleClickButSettings();
 
