@@ -1,11 +1,11 @@
 package com.andrewchelladurai.simplebible.ui.ops;
 
 import android.content.Context;
-import android.view.View;
 
 import com.andrewchelladurai.simplebible.data.entities.Verse;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 
 /**
  * Created by : Andrew Chelladurai
@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
  * on : 15-Aug-2018 @ 6:35 PM.
  */
 public interface BookmarkScreenOps
-    extends View.OnClickListener {
+    extends Toolbar.OnMenuItemClickListener {
 
     void handleInteractionClick(@NonNull Verse verse);
 

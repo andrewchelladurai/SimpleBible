@@ -3,6 +3,7 @@ package com.andrewchelladurai.simplebible.ui;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.andrewchelladurai.simplebible.R;
@@ -11,6 +12,8 @@ import com.andrewchelladurai.simplebible.presenter.BookmarkScreenPresenter;
 import com.andrewchelladurai.simplebible.ui.adapter.BookmarkVerseAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkScreenOps;
 import com.andrewchelladurai.simplebible.util.Utilities;
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -20,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class BookmarkScreen
     extends AppCompatActivity
-    implements BookmarkScreenOps {
+    implements BookmarkScreenOps, View.OnClickListener {
 
     public static final  String REFERENCES = "REFERENCES";
     private static final String TAG        = "BookmarkScreen";
@@ -50,12 +53,12 @@ public class BookmarkScreen
 
         mNoteField = findViewById(R.id.act_bmrk_note);
 
-        findViewById(R.id.act_bmrk_but_save).setOnClickListener(this);
-        findViewById(R.id.act_bmrk_but_edit).setOnClickListener(this);
-        findViewById(R.id.act_bmrk_but_delete).setOnClickListener(this);
-        findViewById(R.id.act_bmrk_but_share).setOnClickListener(this);
-        findViewById(R.id.act_bmrk_but_reset).setOnClickListener(this);
-        findViewById(R.id.act_bmrk_but_settings).setOnClickListener(this);
+        BottomAppBar mBottomAppBar = findViewById(R.id.act_bmrk_appbar);
+        mBottomAppBar.replaceMenu(R.menu.bookmark_screen_appbar);
+        mBottomAppBar.setOnMenuItemClickListener(this);
+
+        FloatingActionButton mFab = findViewById(R.id.act_bmrk_fab);
+        mFab.setOnClickListener(this);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null && extras.containsKey(REFERENCES)) {
@@ -71,25 +74,37 @@ public class BookmarkScreen
     }
 
     @Override
+    public boolean onMenuItemClick(final MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.act_bmrk_menu_save:
+                handleClickButSave();
+                return true;
+            case R.id.act_bmrk_menu_edit:
+                handleClickButEdit();
+                return true;
+            case R.id.act_bmrk_menu_delete:
+                handleClickButDelete();
+                return true;
+            case R.id.act_bmrk_menu_share:
+                handleClickButShare();
+                return true;
+            case R.id.act_bmrk_menu_clear:
+                handleClickButReset();
+                return true;
+            case R.id.act_bmrk_menu_settings:
+                handleClickButSettings();
+                return true;
+            default:
+                Log.e(TAG, "onMenuItemClick: " + getString(R.string.msg_unexpected));
+        }
+        return false;
+    }
+
+    @Override
     public void onClick(final View view) {
         switch (view.getId()) {
-            case R.id.act_bmrk_but_save:
-                handleClickButSave();
-                break;
-            case R.id.act_bmrk_but_edit:
-                handleClickButEdit();
-                break;
-            case R.id.act_bmrk_but_delete:
-                handleClickButDelete();
-                break;
-            case R.id.act_bmrk_but_share:
-                handleClickButShare();
-                break;
-            case R.id.act_bmrk_but_reset:
-                handleClickButReset();
-                break;
-            case R.id.act_bmrk_but_settings:
-                handleClickButSettings();
+            case R.id.act_bmrk_fab:
+                // handle whichever action is required
                 break;
             default:
                 Log.e(TAG, "onClick: " + getString(R.string.msg_unexpected));
