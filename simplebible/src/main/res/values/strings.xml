@@ -51,7 +51,8 @@
     <string name="content_bookmark_item_reference_template">%s %d:%d - %s</string>
     <string name="content_bookmark_item_err_invalid_reference">Invalid Reference</string>
 
-    <string name="act_bmrk_titlebar">Bookmark</string>
+    <string name="act_bmrk_titlebar_create">Create Bookmark</string>
+    <string name="act_bmrk_titlebar_edit">Edit Bookmark</string>
     <string name="act_bmrk_note_hint">Bookmark notes</string>
     <string name="act_bmrk_template_share">Bookmark References:\n%s\nBookmark Note:\n%s\n</string>
     <string name="act_bmrk_msg_saved">Bookmark created</string>
