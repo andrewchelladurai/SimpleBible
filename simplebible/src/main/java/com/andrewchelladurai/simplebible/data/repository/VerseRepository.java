@@ -22,13 +22,14 @@ public class VerseRepository
     extends AndroidViewModel
     implements RepositoryOps {
 
-    private static final String                 TAG         = "VerseRepository";
-    private static final ArrayList<Verse>       sVersesList = new ArrayList<>();
-    private static final HashMap<String, Verse> sVersesMap  = new HashMap<>();
-    private static       LiveData<List<Verse>>  sLiveData   = new MutableLiveData<>();
+    private static final String TAG = "VerseRepository";
     private static VerseRepository THIS_INSTANCE;
-    private static int currentBook    = 0;
-    private static int currentChapter = 0;
+    private static int sCachedBook    = 0;
+    private static int sCachedChapter = 0;
+
+    private final ArrayList<Verse>       mCacheList = new ArrayList<>();
+    private final HashMap<String, Verse> mCacheMap  = new HashMap<>();
+    private       LiveData<List<Verse>>  mLiveData  = new MutableLiveData<>();
 
     public VerseRepository(final Application application) {
         super(application);
@@ -45,41 +46,43 @@ public class VerseRepository
 
     @Override
     public boolean populateCache(final List<?> list) {
+        // FIXME: 16/8/18 this must accept params to check cache
+        // FIXME: 16/8/18 populate only if passed params invalidate cache
         clearCache();
         Verse verse;
         for (final Object object : list) {
             verse = (Verse) object;
-            sVersesList.add((Verse) object);
-            sVersesMap.put(verse.getReference(), verse);
+            mCacheList.add((Verse) object);
+            mCacheMap.put(verse.getReference(), verse);
         }
 
         Log.d(TAG, "cached [" + getCacheSize() + "] records for [book="
-                   + currentBook + "][chapter=" + currentChapter + "]");
+                   + sCachedBook + "][chapter=" + sCachedChapter + "]");
         return true;
     }
 
     @Override
     public void clearCache() {
-        sVersesList.clear();
-        sVersesMap.clear();
-        //  currentBook = currentChapter = 0;
+        mCacheList.clear();
+        mCacheMap.clear();
+        //  sCachedBook = sCachedChapter = 0;
     }
 
     @Override
     public boolean isCacheEmpty() {
-        return sVersesList.isEmpty() & sVersesMap.isEmpty();
+        return mCacheList.isEmpty() & mCacheMap.isEmpty();
     }
 
     @Override
     public int getCacheSize() {
-        return (sVersesMap.size() == sVersesList.size()) ? sVersesList.size() : -1;
+        return (mCacheMap.size() == mCacheList.size()) ? mCacheList.size() : -1;
     }
 
     @Override
     public Object getCachedRecordUsingKey(final Object key) {
         final String reference = (String) key;
-        if (sVersesMap.containsKey(reference)) {
-            return sVersesMap.get(reference);
+        if (mCacheMap.containsKey(reference)) {
+            return mCacheMap.get(reference);
         }
         return null;
     }
@@ -92,32 +95,34 @@ public class VerseRepository
 
     @Override
     public List<Verse> getCachedList() {
-        return sVersesList;
+        return mCacheList;
     }
 
     @Override
     public LiveData<List<Verse>> queryDatabase() {
-        if (currentBook == 0 || currentChapter == 0) {
-            throw new UnsupportedOperationException("currentBook || currentChapter = 0");
-        }
-        sLiveData = SbDatabase.getInstance(getApplication()).getVerseDao()
-                              .getChapter(currentBook, currentChapter);
-        Log.d(TAG, "queried for new chapter : [currentBook = " + currentBook
-                   + "][currentChapter = " + currentChapter + "]");
-        return sLiveData;
+        throw new UnsupportedOperationException("do not use this");
     }
 
     @Override
     public LiveData<List<Verse>> queryDatabase(final Object... objects) {
         if (isCacheValid(objects)) {
             Log.d(TAG, "returning cached live data");
-            return sLiveData;
+            return mLiveData;
         }
 
-        currentBook = (int) objects[0];
-        currentChapter = (int) objects[1];
+        sCachedBook = (int) objects[0];
+        sCachedChapter = (int) objects[1];
 
-        return queryDatabase();
+        if (sCachedBook == 0 || sCachedChapter == 0) {
+            throw new UnsupportedOperationException("sCachedBook || sCachedChapter = 0");
+        }
+
+        mLiveData = SbDatabase.getInstance(getApplication()).getVerseDao()
+                              .getChapter(sCachedBook, sCachedChapter);
+
+        Log.d(TAG, "queried [Book=" + sCachedBook + "][Chapter=" + sCachedChapter + "]");
+
+        return mLiveData;
     }
 
     @Override
@@ -130,11 +135,11 @@ public class VerseRepository
         final int book = (int) objects[0];
         final int chapter = (int) objects[1];
 
-        if (book == currentBook && chapter == currentChapter) {
+        if (book == sCachedBook && chapter == sCachedChapter) {
             Log.d(TAG, "already cached [book=" + book + "][chapter=" + chapter + "]");
             return true;
         }
-        Log.d(TAG, "invalid cache - book != currentBook || chapter != currentChapter");
+        Log.d(TAG, "invalid cache - book != sCachedBook || chapter != sCachedChapter");
         return false;
     }
 
