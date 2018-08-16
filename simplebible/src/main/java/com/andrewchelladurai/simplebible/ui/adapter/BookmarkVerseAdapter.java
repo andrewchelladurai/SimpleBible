@@ -29,11 +29,10 @@ public class BookmarkVerseAdapter
 
     private static final String TAG = "BookmarkVerseAdapter";
 
-    private final ArrayList<Verse> mCacheList           = new ArrayList<>();
-    private final StringBuilder    mDisplayTextTemplate = new StringBuilder();
-    private final BookmarkScreenOps mOps;
-
-    private String mReferences;
+    private static final ArrayList<Verse> mCacheList = new ArrayList<>();
+    private final  BookmarkScreenOps mOps;
+    private static String            mReferences;
+    private final StringBuilder mDisplayTextTemplate = new StringBuilder();
 
     public BookmarkVerseAdapter(BookmarkScreenOps ops) {
         mOps = ops;
@@ -65,17 +64,23 @@ public class BookmarkVerseAdapter
     @Override
     public void updateList(final List<?> list, final Object... objects) {
         final String references = (String) objects[0];
-        if (references != null && references.equalsIgnoreCase(mReferences)) {
-            Log.e(TAG, "already cached");
+
+        if (references == null || references.isEmpty()) {
+            throw new UnsupportedOperationException(TAG + "updateList: invalid references passed");
+        }
+
+        if (references.equalsIgnoreCase(mReferences)) {
+            Log.d(TAG, "already cached");
             return;
         }
 
         mCacheList.clear();
-        mReferences = references;
 
         for (final Object object : list) {
             mCacheList.add((Verse) object);
         }
+
+        mReferences = references;
         Log.d(TAG, "updated cache with [" + getItemCount() + "] bookmarks");
     }
 
