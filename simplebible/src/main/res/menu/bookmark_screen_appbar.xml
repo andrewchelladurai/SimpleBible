@@ -12,21 +12,21 @@
         tools:ignore="AlwaysShowAction,AppCompatResource" />
     <item
         android:id="@+id/act_bmrk_menu_save"
-        android:icon="@drawable/ic_previous"
+        android:icon="@drawable/ic_save"
         android:title="@string/act_bmrk_menu_save"
         app:iconTint="?colorPrimary"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction,AppCompatResource" />
     <item
         android:id="@+id/act_bmrk_menu_edit"
-        android:icon="@drawable/ic_next"
+        android:icon="@drawable/ic_edit"
         android:title="@string/act_bmrk_menu_edit"
         app:iconTint="?colorPrimary"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction,AppCompatResource" />
     <item
         android:id="@+id/act_bmrk_menu_delete"
-        android:icon="@drawable/ic_clear"
+        android:icon="@drawable/ic_delete"
         android:title="@string/act_bmrk_menu_delete"
         app:iconTint="?colorPrimary"
         app:showAsAction="always"
@@ -40,7 +40,7 @@
         tools:ignore="AlwaysShowAction,AppCompatResource" />
     <item
         android:id="@+id/act_bmrk_menu_clear"
-        android:icon="@drawable/ic_bookmark"
+        android:icon="@drawable/ic_clear"
         android:title="@string/act_bmrk_menu_clear"
         app:iconTint="?colorPrimary"
         app:showAsAction="always"
