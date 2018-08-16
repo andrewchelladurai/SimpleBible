@@ -21,7 +21,7 @@ public interface SplashScreenOps
 
     void showLoadingScreen();
 
-    void showNextScreen();
+    void showLoadingSuccessScreen();
 
     void showLoadingFailureScreen();
 }

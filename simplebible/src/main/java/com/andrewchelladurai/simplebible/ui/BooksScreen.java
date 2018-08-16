@@ -28,6 +28,7 @@ public class BooksScreen
     implements BooksScreenOps {
 
     private static final String TAG = "BooksScreen";
+
     private BookListAdapter      mAdapter;
     private BooksScreenPresenter mPresenter;
     private String               mNameTemplate;
@@ -65,7 +66,7 @@ public class BooksScreen
                    .observe(this, this);
     }
 
-    private void handleButtonClickGoto() {
+    private void handleInteractionGoto() {
         final Book book = mPresenter.getBookUsingName(getBookInput());
         if (book == null) {
             showErrorInvalidBookInput();
@@ -191,7 +192,7 @@ public class BooksScreen
     public void onClick(final View view) {
         switch (view.getId()) {
             case R.id.act_books_button:
-                handleButtonClickGoto();
+                handleInteractionGoto();
                 break;
             default:
                 Log.e(TAG, "onClick: unexpected event caught");
@@ -206,7 +207,7 @@ public class BooksScreen
                 break;
             case R.id.act_books_chapter:
                 if (hasFocus) { /* chapter input field gained focus*/
-                    handleChapterFieldGainFocus();
+                    handleInteractionChapterFieldGainFocus();
                 } else { /* chapter input field is losing focus*/
                     resetChapterFieldHint();
                 }
@@ -216,7 +217,7 @@ public class BooksScreen
         }
     }
 
-    private void handleChapterFieldGainFocus() {
+    private void handleInteractionChapterFieldGainFocus() {
         final String bookName = getBookInput();
         final Book book = mPresenter.getBookUsingName(bookName);
         if (book != null) {

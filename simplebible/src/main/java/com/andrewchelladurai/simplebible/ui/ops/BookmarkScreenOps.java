@@ -30,15 +30,15 @@ public interface BookmarkScreenOps
     @NonNull
     String getNote();
 
-    void handleClickButSave();
+    void handleInteractionSave();
 
-    void handleClickButEdit();
+    void handleInteractionEdit();
 
-    void handleClickButDelete();
+    void handleInteractionDelete();
 
-    void handleClickButShare();
+    void handleInteractionShare();
 
-    void handleClickButSettings();
+    void handleInteractionSettings();
 
     void showMessageSaved();
 

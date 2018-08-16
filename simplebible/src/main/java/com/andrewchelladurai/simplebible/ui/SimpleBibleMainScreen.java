@@ -90,8 +90,9 @@ public class SimpleBibleMainScreen
     }
 
     @Override
-    public void showNextScreen() {
-        Log.d(TAG, "showNextScreen: ");
+    public void showLoadingSuccessScreen() {
+        mMessage.setVisibility(View.INVISIBLE);
+        findViewById(R.id.act_main_container_fabs).setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -113,9 +114,9 @@ public class SimpleBibleMainScreen
     public void onLoadFinished(final Loader<Boolean> loader, final Boolean data) {
         mProgressBar.setVisibility(View.INVISIBLE);
         if (data) {
-            mMessage.setVisibility(View.INVISIBLE);
-            findViewById(R.id.act_main_container_fabs).setVisibility(View.VISIBLE);
+            showLoadingSuccessScreen();
         } else {
+            showLoadingFailureScreen();
             mMessage.setText(R.string.act_main_splash_msg_err);
         }
     }
@@ -129,35 +130,35 @@ public class SimpleBibleMainScreen
     public void onClick(final View view) {
         switch (view.getId()) {
             case R.id.act_main_fab_books:
-                handleFabClickBooks();
+                handleInteractionBooks();
                 break;
             case R.id.act_main_fab_search:
-                handleFabClickSearch();
+                handleInteractionSearch();
                 break;
             case R.id.act_main_fab_bookmarks:
-                handleFabClickBookmarks();
+                handleInteractionBookmarks();
                 break;
             case R.id.act_main_fab_settings:
-                handleFabClickSettings();
+                handleInteractionSettings();
                 break;
             default:
                 Log.d(TAG, "onClick: unhandled click event from view");
         }
     }
 
-    private void handleFabClickSettings() {
-        Log.d(TAG, "handleFabClickSettings() called");
+    private void handleInteractionSettings() {
+        Log.d(TAG, "handleInteractionSettings() called");
     }
 
-    private void handleFabClickBookmarks() {
-        Log.d(TAG, "handleFabClickBookmarks() called");
+    private void handleInteractionBookmarks() {
+        Log.d(TAG, "handleInteractionBookmarks() called");
     }
 
-    private void handleFabClickSearch() {
-        Log.d(TAG, "handleFabClickSearch() called");
+    private void handleInteractionSearch() {
+        Log.d(TAG, "handleInteractionSearch() called");
     }
 
-    private void handleFabClickBooks() {
+    private void handleInteractionBooks() {
         startActivity(new Intent(this, BooksScreen.class));
     }
 }

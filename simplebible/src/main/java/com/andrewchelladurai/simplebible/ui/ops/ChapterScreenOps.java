@@ -20,7 +20,7 @@ import androidx.lifecycle.Observer;
 public interface ChapterScreenOps
     extends Toolbar.OnMenuItemClickListener, View.OnClickListener, Observer<List<Verse>> {
 
-    void handleInteractionClickVerseItem(@NonNull Verse verse);
+    void handleInteractionVerseClicked(@NonNull Verse verse);
 
     @NonNull
     String getVerseTemplateString();
@@ -29,10 +29,10 @@ public interface ChapterScreenOps
     Context getSystemContext();
 
     @IntRange(from = 1, to = 66)
-    int getBookToShow();
+    int getBook();
 
     @IntRange(from = 1)
-    int getChapterToShow();
+    int getChapter();
 
-    void actionNewChapterSelected(int chapterNumber);
+    void handleInteractionChapterClicked(@IntRange(from = 1) int chapterNumber);
 }

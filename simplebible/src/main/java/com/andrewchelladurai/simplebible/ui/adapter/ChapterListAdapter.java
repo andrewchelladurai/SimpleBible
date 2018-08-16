@@ -93,7 +93,7 @@ public class ChapterListAdapter
 
         @Override
         public void onClick(final View v) {
-            mOps.actionNewChapterSelected(chapterNumber);
+            mOps.handleInteractionChapterClicked(chapterNumber);
         }
     }
 }

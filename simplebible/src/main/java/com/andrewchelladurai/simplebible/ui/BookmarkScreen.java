@@ -152,19 +152,19 @@ public class BookmarkScreen
     public boolean onMenuItemClick(final MenuItem item) {
         switch (item.getItemId()) {
             case R.id.act_bmrk_menu_save:
-                handleClickButSave();
+                handleInteractionSave();
                 return true;
             case R.id.act_bmrk_menu_edit:
-                handleClickButEdit();
+                handleInteractionEdit();
                 return true;
             case R.id.act_bmrk_menu_delete:
-                handleClickButDelete();
+                handleInteractionDelete();
                 return true;
             case R.id.act_bmrk_menu_share:
-                handleClickButShare();
+                handleInteractionShare();
                 return true;
             case R.id.act_bmrk_menu_settings:
-                handleClickButSettings();
+                handleInteractionSettings();
                 return true;
             default:
                 Log.e(TAG, "onMenuItemClick: " + getString(R.string.msg_unexpected));
@@ -177,9 +177,9 @@ public class BookmarkScreen
         switch (view.getId()) {
             case R.id.act_bmrk_fab:
                 if (mFabAction == R.id.act_bmrk_menu_save) {
-                    handleClickButSave();
+                    handleInteractionSave();
                 } else if (mFabAction == R.id.act_bmrk_menu_edit) {
-                    handleClickButEdit();
+                    handleInteractionEdit();
                 } else {
                     Log.e(TAG, "onClick: unknown actions set to Fab"
                                + getString(R.string.msg_unexpected));
@@ -208,7 +208,7 @@ public class BookmarkScreen
     }
 
     @Override
-    public void handleClickButSave() {
+    public void handleInteractionSave() {
         if (mPresenter.createBookmark(getReferences(), getNote())) {
             showMessageSaved();
         } else {
@@ -217,12 +217,12 @@ public class BookmarkScreen
     }
 
     @Override
-    public void handleClickButEdit() {
+    public void handleInteractionEdit() {
         mNoteField.setEnabled(true);
     }
 
     @Override
-    public void handleClickButDelete() {
+    public void handleInteractionDelete() {
         if (mPresenter.deleteBookmark(getReferences(), getNote())) {
             showMessageDeleted();
         } else {
@@ -231,12 +231,12 @@ public class BookmarkScreen
     }
 
     @Override
-    public void handleClickButShare() {
+    public void handleInteractionShare() {
         String textToShare = mPresenter.formatBookmarkToShare(
             getNote(),
             getString(R.string.content_bookmark_item_reference_template),
             getString(R.string.act_bmrk_template_share));
-        Log.d(TAG, "handleClickButShare: " + textToShare);
+        Log.d(TAG, "handleInteractionShare: " + textToShare);
     }
 
     @Override
@@ -246,7 +246,7 @@ public class BookmarkScreen
     }
 
     @Override
-    public void handleClickButSettings() {
+    public void handleInteractionSettings() {
         throw new UnsupportedOperationException();
     }
 

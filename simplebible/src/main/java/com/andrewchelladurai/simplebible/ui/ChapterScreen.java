@@ -33,10 +33,12 @@ public class ChapterScreen
     extends AppCompatActivity
     implements ChapterScreenOps {
 
-    private static final String TAG            = "ChapterScreen";
-    private static final Bundle ARGS           = new Bundle();
-    public static final  String BOOK_NUMBER    = "BOOK_NUMBER";
-    public static final  String CHAPTER_NUMBER = "CHAPTER_NUMBER";
+    public static final String BOOK_NUMBER    = "BOOK_NUMBER";
+    public static final String CHAPTER_NUMBER = "CHAPTER_NUMBER";
+
+    private static final String TAG  = "ChapterScreen";
+    private static final Bundle ARGS = new Bundle();
+
     private ChapterScreenPresenter mPresenter;
     private VerseListAdapter       mAdapter;
     private VerseRepository        mRepository;
@@ -73,7 +75,7 @@ public class ChapterScreen
         mRecyclerView = findViewById(R.id.act_chap_list);
         mRecyclerView.setAdapter(mAdapter);
 
-        showChapter(getBookToShow(), getChapterToShow());
+        showChapter(getBook(), getChapter());
     }
 
     @Override
@@ -109,8 +111,8 @@ public class ChapterScreen
             return;
         }
 
-        final int book = getBookToShow();
-        final int chapter = getChapterToShow();
+        final int book = getBook();
+        final int chapter = getChapter();
 
         if (mPresenter.populateCache(verses, book, chapter)) {
             updateTitle();
@@ -126,9 +128,9 @@ public class ChapterScreen
 
     private void updateTitle() {
         final String title = getString(R.string.act_chap_title);
-        final String bookName = Utilities.getInstance().getBookName(getBookToShow());
+        final String bookName = Utilities.getInstance().getBookName(getBook());
         TextView textView = findViewById(R.id.act_chap_titlebar);
-        textView.setText(String.format(title, bookName, getChapterToShow()));
+        textView.setText(String.format(title, bookName, getChapter()));
     }
 
     private String getTitleDisplay() {
@@ -150,23 +152,24 @@ public class ChapterScreen
 
     @IntRange(from = 1, to = 66)
     @Override
-    public int getBookToShow() {
+    public int getBook() {
         return (ARGS.containsKey(BOOK_NUMBER) ? ARGS.getInt(BOOK_NUMBER) : 0);
     }
 
     @IntRange(from = 1)
     @Override
-    public int getChapterToShow() {
+    public int getChapter() {
         return (ARGS.containsKey(CHAPTER_NUMBER) ? ARGS.getInt(CHAPTER_NUMBER) : 0);
     }
 
     @Override
-    public void actionNewChapterSelected(@IntRange(from = 1, to = 66) final int chapterNumber) {
+    public void handleInteractionChapterClicked(
+        @IntRange(from = 1, to = 66) final int chapterNumber) {
         if (mChapterDialog != null) {
             mChapterDialog.dismiss();
             mChapterDialog = null;
         }
-        showChapter(getBookToShow(), chapterNumber);
+        showChapter(getBook(), chapterNumber);
     }
 
     public void showErrorFirstChapter() {
@@ -200,22 +203,22 @@ public class ChapterScreen
     public boolean onMenuItemClick(final MenuItem item) {
         switch (item.getItemId()) {
             case R.id.act_chap_menu_prev:
-                actionPrevClicked();
+                handleInteractionPrev();
                 break;
             case R.id.act_chap_menu_next:
-                actionNextClicked();
+                handleInteractionNext();
                 break;
             case R.id.act_chap_menu_share:
-                actionShareClicked();
+                handleInteractionShare();
                 break;
             case R.id.act_chap_menu_bookmark:
-                actionBookmarkClicked();
+                handleInteractionBookmark();
                 break;
             case R.id.act_chap_menu_clear:
-                actionClearClicked();
+                handleInteractionClear();
                 break;
             case R.id.act_chap_menu_settings:
-                actionSettingsClicked();
+                handleInteractionSettings();
                 break;
             default:
                 Log.e(TAG, "onClick: Unhandled click event" + getString(R.string.msg_unexpected));
@@ -227,18 +230,18 @@ public class ChapterScreen
     public void onClick(final View view) {
         switch (view.getId()) {
             case R.id.act_chap_fab:
-                actionListClicked();
+                handleInteractionList();
                 break;
             default:
                 Log.e(TAG, "onClick: Unhandled click event" + getString(R.string.msg_unexpected));
         }
     }
 
-    private void actionSettingsClicked() {
-        Log.d(TAG, "actionSettingsClicked:");
+    private void handleInteractionSettings() {
+        Log.d(TAG, "handleInteractionSettings:");
     }
 
-    private void actionClearClicked() {
+    private void handleInteractionClear() {
         boolean anyVerseSelected = mAdapter.isAnyVerseSelected();
 
         if (!anyVerseSelected) {
@@ -253,7 +256,7 @@ public class ChapterScreen
         }
     }
 
-    private void actionBookmarkClicked() {
+    private void handleInteractionBookmark() {
         if (!mAdapter.isAnyVerseSelected()) {
             showErrorEmptySelectedList();
             return;
@@ -279,32 +282,32 @@ public class ChapterScreen
 
     }
 
-    private void actionNextClicked() {
-        int newChapter = getChapterToShow() + 1;
-        Book book = Utilities.getInstance().getBookUsingNumber(getBookToShow());
+    private void handleInteractionNext() {
+        int newChapter = getChapter() + 1;
+        Book book = Utilities.getInstance().getBookUsingNumber(getBook());
         if (book != null && newChapter > book.getChapters()) {
             showErrorLastChapter();
             return;
         }
-        showChapter(getBookToShow(), newChapter);
+        showChapter(getBook(), newChapter);
     }
 
-    private void actionPrevClicked() {
-        int newChapter = getChapterToShow() - 1;
+    private void handleInteractionPrev() {
+        int newChapter = getChapter() - 1;
         if (newChapter < 1) {
             showErrorFirstChapter();
             return;
         }
-        showChapter(getBookToShow(), newChapter);
+        showChapter(getBook(), newChapter);
     }
 
-    private void actionListClicked() {
+    private void handleInteractionList() {
         if (mChapterDialog != null) {
             mChapterDialog.dismiss();
             mChapterDialog = null;
         }
 
-        final Book book = mPresenter.getBook(getBookToShow());
+        final Book book = mPresenter.getBook(getBook());
         if (book == null) {
             Log.e(TAG, "handleInteractionClickList: invalid book returned");
             return;
@@ -314,7 +317,7 @@ public class ChapterScreen
         mChapterDialog.show(getSupportFragmentManager(), "ChapterListDialog");
     }
 
-    private void actionShareClicked() {
+    private void handleInteractionShare() {
         final boolean anyVerseSelected = mAdapter.isAnyVerseSelected();
         if (!anyVerseSelected) {
             showErrorEmptySelectedList();
@@ -340,7 +343,7 @@ public class ChapterScreen
     }
 
     @Override
-    public void handleInteractionClickVerseItem(final Verse verse) {
+    public void handleInteractionVerseClicked(final Verse verse) {
         verse.setSelected(!verse.isSelected());
     }
 
