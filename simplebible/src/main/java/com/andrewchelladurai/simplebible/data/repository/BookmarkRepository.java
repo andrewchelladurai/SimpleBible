@@ -117,4 +117,10 @@ public class BookmarkRepository
     public boolean isCacheValid(final Object... cacheParams) {
         return isCacheEmpty();
     }
+
+    public List<Bookmark> getBookmarkUsingReference(@NonNull final String references) {
+        return SbDatabase.getInstance(getApplication())
+                         .getBookmarkDao()
+                         .getBookmarkUsingReference(references).getValue();
+    }
 }
