@@ -81,4 +81,4 @@
         android:src="@drawable/ic_save"
         app:layout_anchor="@id/act_bmrk_appbar" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout><!--
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
