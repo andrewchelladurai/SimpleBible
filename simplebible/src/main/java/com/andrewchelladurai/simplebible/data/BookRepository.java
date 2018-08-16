@@ -25,9 +25,13 @@ public class BookRepository
     public BookRepository(final Application application) {
         super(application);
         THIS_INSTANCE = this;
+        Log.d(TAG, "BookRepository: initialized");
     }
 
     public static BookRepository getInstance() {
+        if (THIS_INSTANCE == null) {
+            throw new UnsupportedOperationException("Singleton Instance is not yet initiated");
+        }
         return THIS_INSTANCE;
     }
 

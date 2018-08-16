@@ -11,10 +11,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.BookRepository;
+import com.andrewchelladurai.simplebible.data.BookmarkRepository;
+import com.andrewchelladurai.simplebible.data.VerseRepository;
 import com.andrewchelladurai.simplebible.presenter.SplashScreenPresenter;
 import com.andrewchelladurai.simplebible.ui.ops.SplashScreenOps;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.loader.content.Loader;
 
 public class SimpleBibleMainScreen
@@ -57,6 +61,11 @@ public class SimpleBibleMainScreen
     }
 
     private void initDatabase() {
+        // initialize repositories
+        ViewModelProviders.of(this).get(BookRepository.class);
+        ViewModelProviders.of(this).get(VerseRepository.class);
+        ViewModelProviders.of(this).get(BookmarkRepository.class);
+
         getSupportLoaderManager().initLoader(R.integer.DB_LOADER, null, this).forceLoad();
     }
 

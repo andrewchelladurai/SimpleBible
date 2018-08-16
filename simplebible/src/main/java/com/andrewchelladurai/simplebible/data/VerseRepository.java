@@ -32,9 +32,13 @@ public class VerseRepository
     public VerseRepository(final Application application) {
         super(application);
         THIS_INSTANCE = this;
+        Log.d(TAG, "VerseRepository: initialized");
     }
 
     public static VerseRepository getInstance() {
+        if (THIS_INSTANCE == null) {
+            throw new UnsupportedOperationException("Singleton Instance is not yet initiated");
+        }
         return THIS_INSTANCE;
     }
 
