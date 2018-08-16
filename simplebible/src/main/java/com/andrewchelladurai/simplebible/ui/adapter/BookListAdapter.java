@@ -48,8 +48,15 @@ public class BookListAdapter
 
     @Override
     public void updateList(@NonNull final List<?> list, @NonNull final Object... objects) {
-        if (!mList.isEmpty() && mList.size() == 66) {
-            Log.d(TAG, "updateList: already cached");
+
+        final int count = (int) objects[0];
+        final String firstBook = (String) objects[1];
+        final String lastBook = (String) objects[2];
+
+        if (getItemCount() == count
+            && mList.get(0).getName().equalsIgnoreCase(firstBook)
+            && mList.get(getItemCount() - 1).getName().equalsIgnoreCase(lastBook)) {
+            Log.e(TAG, "updateList: already cached");
             return;
         }
 
@@ -57,19 +64,19 @@ public class BookListAdapter
         for (Object book : list) {
             mList.add((Book) book);
         }
-        Log.d(TAG, "[" + mList.size() + "] verses updated in adapter cache");
+        Log.d(TAG, "updated [" + getItemCount() + "] books");
     }
 
-    public class ViewHolder
+    class ViewHolder
         extends RecyclerView.ViewHolder
         implements ViewHolderOps {
 
-        final   View     mView;
-        final   TextView mHeader;
-        final   TextView mDetails;
-        private Book     mBook;
+        private final View     mView;
+        private final TextView mHeader;
+        private final TextView mDetails;
+        private       Book     mBook;
 
-        ViewHolder(View view) {
+        private ViewHolder(View view) {
             super(view);
             mView = view;
             mView.setOnClickListener(this);
