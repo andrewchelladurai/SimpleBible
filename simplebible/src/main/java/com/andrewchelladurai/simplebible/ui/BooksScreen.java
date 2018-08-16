@@ -30,7 +30,6 @@ public class BooksScreen
     private static final String TAG = "BooksScreen";
     private static BookListAdapter      sAdapter;
     private static BooksScreenPresenter sPresenter;
-    private static BookRepository       mRepository;
     private        String               mNameTemplate;
     private        AutoCompleteTextView mChapterField;
     private        AutoCompleteTextView mBookField;
@@ -48,10 +47,6 @@ public class BooksScreen
             sAdapter = new BookListAdapter(this);
         }
 
-        if (mRepository == null) {
-            mRepository = ViewModelProviders.of(this).get(BookRepository.class);
-        }
-
         mNameTemplate = getString(R.string.item_book_name_template);
 
         RecyclerView recyclerView = findViewById(R.id.act_books_list);
@@ -64,9 +59,15 @@ public class BooksScreen
         mChapterField = findViewById(R.id.act_books_chapter);
         mChapterField.setOnFocusChangeListener(this);
 
-        mRepository.queryDatabase().observe(this, this);
-
         findViewById(R.id.act_books_button).setOnClickListener(this);
+
+        BookRepository mRepository = ViewModelProviders.of(this).get(BookRepository.class);
+        final int bookCount = 66;
+        final String firstBook = getString(R.string.first_book);
+        final String lastBook = getString(R.string.last_book);
+
+        mRepository.queryDatabase(bookCount, firstBook, lastBook)
+                   .observe(this, this);
     }
 
     private void handleButtonClickGoto() {
@@ -168,29 +169,28 @@ public class BooksScreen
 
     @Override
     public void onChanged(final List<Book> books) {
-        updateUi(books);
+        updateScreen(books);
     }
 
-    private void updateUi(@NonNull final List<Book> books) {
-        // isCacheValid is repository already contains cached data
-        boolean isCached = sPresenter.validateRepository(getString(R.string.first_book),
-                                                         getString(R.string.last_book));
-        if (!isCached) {
-            // populateCache cache in repository
-            mRepository.populateCache(books);
-
-            // get cached list from repository
-            // update list in adapter for recycler view
-            sAdapter.updateList(sPresenter.getBooksList(), 66);
+    private void updateScreen(@NonNull final List<Book> books) {
+        if (books == null || books.isEmpty()) {
+            Log.e(TAG, "updateScreen: empty list from LiveData");
+            // FIXME: 16/8/18 shows a eye-catching error on screen to inform developer
+            // FIXME: 16/8/18 hopefully it never shows to anyone
+            return;
         }
 
-        sAdapter.notifyDataSetChanged();
+        final int bookCount = 66;
+        final String firstBook = getString(R.string.first_book);
+        final String lastBook = getString(R.string.last_book);
 
-        // extract book names from cached list for lookup in
-        // auto-complete text field
-        mBookField.setAdapter(new ArrayAdapter<>(this,
-                                                 android.R.layout.simple_list_item_1,
-                                                 sPresenter.getAllBookNames()));
+        boolean success = sPresenter.populateCache(books, bookCount, firstBook, lastBook);
+        if (success) {
+            sAdapter.updateList(books, bookCount, firstBook, lastBook);
+            sAdapter.notifyDataSetChanged();
+            mBookField.setAdapter(new ArrayAdapter<>(
+                this, android.R.layout.simple_list_item_1, sPresenter.getAllBookNames()));
+        }
     }
 
     @Override
