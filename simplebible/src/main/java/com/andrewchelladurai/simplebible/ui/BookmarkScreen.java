@@ -25,31 +25,25 @@ public class BookmarkScreen
     extends AppCompatActivity
     implements BookmarkScreenOps, View.OnClickListener {
 
-    public static final  String REFERENCES = "REFERENCES";
     private static final String TAG        = "BookmarkScreen";
+    public static final  String REFERENCES = "REFERENCES";
 
-    private static BookmarkScreenPresenter presenter = null;
-    private static BookmarkVerseAdapter sAdapter;
-
-    private String            mReferences;
-    private RecyclerView      mRecyclerView;
-    private TextInputEditText mNoteField;
+    private BookmarkScreenPresenter mPresenter;
+    private BookmarkVerseAdapter    mAdapter;
+    private String                  mReferences;
+    private RecyclerView            mRecyclerView;
+    private TextInputEditText       mNoteField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmark);
 
-        if (sAdapter == null) {
-            sAdapter = new BookmarkVerseAdapter(this);
-        }
-
-        if (presenter == null) {
-            presenter = new BookmarkScreenPresenter(this);
-        }
+        mAdapter = new BookmarkVerseAdapter(this);
+        mPresenter = new BookmarkScreenPresenter(this);
 
         mRecyclerView = findViewById(R.id.act_bmrk_list);
-        mRecyclerView.setAdapter(sAdapter);
+        mRecyclerView.setAdapter(mAdapter);
 
         mNoteField = findViewById(R.id.act_bmrk_note);
 
@@ -67,6 +61,8 @@ public class BookmarkScreen
                 Log.d(TAG, "onCreate: passed reference [" + mReferences + "]");
                 if (!Utilities.getInstance().isValidBookmarkReference(mReferences)) {
                     Log.e(TAG, "onCreate: invalid bookmark reference");
+                    // FIXME: 16/8/18 show an error to contact dev
+                    // FIXME: 16/8/18 hopefully no one sees it
                     finish();
                 }
             }

@@ -27,16 +27,18 @@ public class BookmarkVerseAdapter
     extends RecyclerView.Adapter<BookmarkVerseAdapter.ViewHolder>
     implements AdapterOps {
 
-    private static final String           TAG                   = "BookmarkVerseAdapter";
-    private static final ArrayList<Verse> CACHE_LIST            = new ArrayList<>();
-    private static final StringBuilder    DISPLAY_TEXT_TEMPLATE = new StringBuilder();
-    private static       String           sReferences           = null;
+    private static final String TAG = "BookmarkVerseAdapter";
+
+    private final ArrayList<Verse> mCacheList           = new ArrayList<>();
+    private final StringBuilder    mDisplayTextTemplate = new StringBuilder();
     private final BookmarkScreenOps mOps;
+
+    private String mReferences;
 
     public BookmarkVerseAdapter(BookmarkScreenOps ops) {
         mOps = ops;
-        if (DISPLAY_TEXT_TEMPLATE.toString().isEmpty()) {
-            DISPLAY_TEXT_TEMPLATE.append(
+        if (mDisplayTextTemplate.toString().isEmpty()) {
+            mDisplayTextTemplate.append(
                 mOps.getSystemContent().getString(
                     R.string.content_bookmark_item_reference_template));
         }
@@ -52,39 +54,40 @@ public class BookmarkVerseAdapter
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        holder.updateView(CACHE_LIST.get(position));
+        holder.updateView(mCacheList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return CACHE_LIST.size();
+        return mCacheList.size();
     }
 
     @Override
     public void updateList(final List<?> list, final Object... objects) {
         final String references = (String) objects[0];
-        if (references != null && references.equalsIgnoreCase(sReferences)) {
-            Log.e(TAG, "updateList: already cached");
+        if (references != null && references.equalsIgnoreCase(mReferences)) {
+            Log.e(TAG, "already cached");
             return;
         }
 
-        CACHE_LIST.clear();
-        sReferences = references;
+        mCacheList.clear();
+        mReferences = references;
+
         for (final Object object : list) {
-            CACHE_LIST.add((Verse) object);
+            mCacheList.add((Verse) object);
         }
-        Log.d(TAG, "updateList: updated [" + getItemCount() + "] bookmarks");
+        Log.d(TAG, "updated cache with [" + getItemCount() + "] bookmarks");
     }
 
     class ViewHolder
         extends RecyclerView.ViewHolder
         implements ViewHolderOps {
 
-        final View     view;
-        final TextView textView;
-        Verse bookmarkVerse;
+        private final View     view;
+        private final TextView textView;
+        private       Verse    bookmarkVerse;
 
-        ViewHolder(View view) {
+        private ViewHolder(View view) {
             super(view);
             this.view = view;
             textView = view.findViewById(R.id.item_verse_text);
@@ -100,7 +103,7 @@ public class BookmarkVerseAdapter
         public void updateView(@NonNull Object modelObject) {
             bookmarkVerse = (Verse) modelObject;
             textView.setText(String.format(
-                DISPLAY_TEXT_TEMPLATE.toString(),
+                mDisplayTextTemplate.toString(),
                 Utilities.getInstance().getBookName(bookmarkVerse.getBook()),
                 bookmarkVerse.getChapter(),
                 bookmarkVerse.getVerse(),

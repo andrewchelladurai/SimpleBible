@@ -13,7 +13,6 @@ import java.util.List;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 /**
  * Created by : Andrew Chelladurai
@@ -24,11 +23,13 @@ public class BookmarkRepository
     extends AndroidViewModel
     implements RepositoryOps {
 
-    private static final String                    TAG       = "BookmarkRepository";
-    private static final List<Bookmark>            CACHE     = new ArrayList<>();
-    private static final HashMap<String, Bookmark> CACHE_MAP = new HashMap<>();
+    private static final String TAG = "BookmarkRepository";
     private static BookmarkRepository THIS_INSTANCE;
-    private static LiveData<List<Bookmark>> LIVE_DATA = new MutableLiveData<>();
+
+    private final List<Bookmark>            mCacheList = new ArrayList<>();
+    private final HashMap<String, Bookmark> mCacheMap  = new HashMap<>();
+
+    private LiveData<List<Bookmark>> mLiveData;
 
     public BookmarkRepository(final Application application) {
         super(application);
@@ -45,44 +46,45 @@ public class BookmarkRepository
 
     @Override
     public boolean populateCache(final List<?> list) {
+        // FIXME: 16/8/18 must accept params and populate only when cache is invalid
         clearCache();
         Bookmark bookmark;
         for (final Object object : list) {
             bookmark = (Bookmark) object;
-            CACHE.add(bookmark);
-            CACHE_MAP.put(bookmark.getReference(), bookmark);
+            mCacheList.add(bookmark);
+            mCacheMap.put(bookmark.getReference(), bookmark);
         }
-        Log.d(TAG, "populateCache: updated cache with [" + getCacheSize() + "] records");
+        Log.d(TAG, "populateCache: updated cache with [" + getCacheSize() + "] bookmarks");
         return false;
     }
 
     @Override
     public void clearCache() {
-        CACHE.clear();
-        CACHE_MAP.clear();
+        mCacheList.clear();
+        mCacheMap.clear();
     }
 
     @Override
     public boolean isCacheEmpty() {
-        return CACHE.isEmpty() && CACHE_MAP.isEmpty();
+        return mCacheList.isEmpty() && mCacheMap.isEmpty();
     }
 
     @Override
     public int getCacheSize() {
-        return (CACHE.size() == CACHE_MAP.size()) ? CACHE.size() : -1;
+        return (mCacheList.size() == mCacheMap.size()) ? mCacheList.size() : -1;
     }
 
     @Override
     public Bookmark getCachedRecordUsingKey(final Object key) {
         final String bookmarkReference = (String) key;
-        return CACHE_MAP.get(bookmarkReference);
+        return mCacheMap.get(bookmarkReference);
     }
 
     @Override
     @Nullable
     public Bookmark getCachedRecordUsingValue(final Object value) {
         final String note = (String) value;
-        for (final Bookmark bookmark : CACHE) {
+        for (final Bookmark bookmark : mCacheList) {
             if (bookmark.getNote().equalsIgnoreCase(note)) {
                 return bookmark;
             }
@@ -92,25 +94,23 @@ public class BookmarkRepository
 
     @Override
     public List<Bookmark> getCachedList() {
-        return CACHE;
+        return mCacheList;
     }
 
     @Override
     public LiveData<List<Bookmark>> queryDatabase() {
-        LIVE_DATA = SbDatabase.getInstance(getApplication()).getBookmarkDao().getAllBookmarks();
-        return LIVE_DATA;
+        throw new UnsupportedOperationException("do not use this");
     }
 
     @Override
     public LiveData<List<Bookmark>> queryDatabase(final Object... objects) {
-        final String bookmarkReference = (String) objects[0];
-        if (bookmarkReference.isEmpty()) {
-            Log.e(TAG, "queryDatabase: empty reference passed");
-            return null;
+        if (isCacheValid(objects)) {
+            Log.d(TAG, "returning cached live data");
+            return mLiveData;
         }
 
-        return SbDatabase.getInstance(getApplication()).getBookmarkDao()
-                         .getBookmarkUsingReference(bookmarkReference);
+        mLiveData = SbDatabase.getInstance(getApplication()).getBookmarkDao().getAllBookmarks();
+        return mLiveData;
     }
 
     @Override
