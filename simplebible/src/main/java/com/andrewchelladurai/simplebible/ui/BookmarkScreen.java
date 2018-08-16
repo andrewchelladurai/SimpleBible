@@ -52,6 +52,11 @@ public class BookmarkScreen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmark);
 
+        ViewModelProviders.of(this).get(BookmarkRepository.class);
+
+        BookmarkVerseRepository bookmarkVerseRepository =
+            ViewModelProviders.of(this).get(BookmarkVerseRepository.class);
+
         mAdapter = new BookmarkVerseAdapter(this);
         mPresenter = new BookmarkScreenPresenter(this);
 
@@ -93,9 +98,8 @@ public class BookmarkScreen
                 "onCreate: invalid references[" + mReferences + "] passed");
         }
 
-        BookmarkVerseRepository mRepository =
-            ViewModelProviders.of(this).get(BookmarkVerseRepository.class);
-        mRepository.queryDatabase(mReferences).observe(this, this);
+        bookmarkVerseRepository.queryDatabase(mReferences)
+                               .observe(this, this);
     }
 
     @Override
@@ -122,10 +126,8 @@ public class BookmarkScreen
     }
 
     private void showCorrectActions() {
-        BookmarkRepository repository =
-            ViewModelProviders.of(this).get(BookmarkRepository.class);
-        List<Bookmark> bookmarkList = repository.getBookmarkUsingReference(mReferences);
-        if (bookmarkList == null || bookmarkList.isEmpty()) {
+        Bookmark bookmark = mPresenter.getBookmarkUsingReference(mReferences);
+        if (bookmark == null) {
             findViewById(R.id.act_bmrk_menu_save).setVisibility(GONE);
             findViewById(R.id.act_bmrk_menu_edit).setVisibility(GONE);
             findViewById(R.id.act_bmrk_menu_delete).setVisibility(GONE);
@@ -207,7 +209,11 @@ public class BookmarkScreen
 
     @Override
     public void handleClickButSave() {
-        throw new UnsupportedOperationException();
+        if (mPresenter.createBookmark(getReferences(), getNote())) {
+            showMessageSaved();
+        } else {
+            showErrorSaveFailed();
+        }
     }
 
     @Override
@@ -217,12 +223,20 @@ public class BookmarkScreen
 
     @Override
     public void handleClickButDelete() {
-        throw new UnsupportedOperationException();
+        if (mPresenter.deleteBookmark(getReferences(), getNote())) {
+            showMessageDeleted();
+        } else {
+            showErrorDeleteFailed();
+        }
     }
 
     @Override
     public void handleClickButShare() {
-        throw new UnsupportedOperationException();
+        String textToShare = mPresenter.formatBookmarkToShare(
+            getNote(),
+            getString(R.string.content_bookmark_item_reference_template),
+            getString(R.string.act_bmrk_template_share));
+        Log.d(TAG, "handleClickButShare: " + textToShare);
     }
 
     @Override
