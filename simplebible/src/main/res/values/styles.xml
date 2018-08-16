@@ -59,7 +59,7 @@
         <!--<item name="android:statusBarColor">@color/redDarker</item>-->
 
         <item name="colorAccent">@color/redDarker</item>
-        <item name="colorPrimary">@color/red</item>
+        <item name="colorPrimary">@color/redLighter</item>
     </style>
 
     <style name="SbTheme.FAB"
