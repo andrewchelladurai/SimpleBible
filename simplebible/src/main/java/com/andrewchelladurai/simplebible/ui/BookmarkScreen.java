@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -236,7 +237,11 @@ public class BookmarkScreen
             getNote(),
             getString(R.string.content_bookmark_item_reference_template),
             getString(R.string.act_bmrk_template_share));
-        Log.d(TAG, "handleInteractionShare: " + textToShare);
+
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, textToShare);
+        sendIntent.setType("text/plain");
     }
 
     @Override
