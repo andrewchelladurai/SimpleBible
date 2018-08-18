@@ -104,9 +104,14 @@ public class BookmarkScreen
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.destroyCache();
+    }
+
+    @Override
     public void onChanged(final List<Verse> verses) {
         updateScreen(verses);
-
     }
 
     private void updateScreen(final List<Verse> verses) {

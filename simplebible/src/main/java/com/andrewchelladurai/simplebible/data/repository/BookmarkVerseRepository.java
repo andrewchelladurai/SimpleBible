@@ -45,7 +45,7 @@ public class BookmarkVerseRepository
     }
 
     @Override
-    void clearCache() {
+    public void clearCache() {
         mCacheReference = null;
         mCacheList.clear();
         mCacheMap.clear();

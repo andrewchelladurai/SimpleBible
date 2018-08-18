@@ -18,7 +18,5 @@ abstract class BaseRepository
         super(application);
     }
 
-    abstract void clearCache();
-
     abstract boolean isCacheValid(@NonNull Object... cacheParams);
 }

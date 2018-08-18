@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.repository.BookRepository;
 import com.andrewchelladurai.simplebible.data.repository.BookmarkRepository;
+import com.andrewchelladurai.simplebible.data.repository.BookmarkVerseRepository;
 import com.andrewchelladurai.simplebible.data.repository.VerseRepository;
 import com.andrewchelladurai.simplebible.presenter.SplashScreenPresenter;
 import com.andrewchelladurai.simplebible.ui.ops.SplashScreenOps;
@@ -60,11 +61,18 @@ public class SimpleBibleMainScreen
         initDatabase();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.destroyDatabases();
+    }
+
     private void initDatabase() {
         // initialize repositories
         ViewModelProviders.of(this).get(BookRepository.class);
         ViewModelProviders.of(this).get(VerseRepository.class);
         ViewModelProviders.of(this).get(BookmarkRepository.class);
+        ViewModelProviders.of(this).get(BookmarkVerseRepository.class);
 
         getSupportLoaderManager().initLoader(R.integer.DB_LOADER, null, this).forceLoad();
     }

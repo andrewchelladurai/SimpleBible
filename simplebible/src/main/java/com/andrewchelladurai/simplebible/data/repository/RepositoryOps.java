@@ -34,4 +34,7 @@ public interface RepositoryOps {
     boolean createRecord(Object entityObject);
 
     boolean deleteRecord(Object entityObject);
+
+    void clearCache();
+
 }

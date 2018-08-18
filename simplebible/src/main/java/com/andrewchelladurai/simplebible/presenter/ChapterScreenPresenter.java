@@ -67,4 +67,8 @@ public class ChapterScreenPresenter {
     public Book getBook(final int bookNumber) {
         return Utilities.getInstance().getBookUsingNumber(bookNumber);
     }
+
+    public void destroyCache() {
+        VerseRepository.getInstance().clearCache();
+    }
 }

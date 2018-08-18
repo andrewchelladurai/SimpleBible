@@ -89,6 +89,12 @@ public class ChapterScreen
         outState.putInt(CHAPTER_NUMBER, ARGS.getInt(CHAPTER_NUMBER));
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.destroyCache();
+    }
+
     private void showChapter(final int book, final int chapter) {
         Log.d(TAG, "showChapter: book = [" + book + "], chapter = [" + chapter + "]");
 

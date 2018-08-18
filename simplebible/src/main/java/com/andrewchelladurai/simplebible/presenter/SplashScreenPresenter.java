@@ -8,6 +8,9 @@ import com.andrewchelladurai.simplebible.data.dao.BookDao;
 import com.andrewchelladurai.simplebible.data.dao.VerseDao;
 import com.andrewchelladurai.simplebible.data.entities.Book;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
+import com.andrewchelladurai.simplebible.data.repository.BookmarkRepository;
+import com.andrewchelladurai.simplebible.data.repository.BookmarkVerseRepository;
+import com.andrewchelladurai.simplebible.data.repository.VerseRepository;
 import com.andrewchelladurai.simplebible.ui.ops.SplashScreenOps;
 
 import java.io.BufferedReader;
@@ -122,6 +125,14 @@ public class SplashScreenPresenter {
             Log.e(TAG, "getFileHandle: Error opening/accessing file [" + fileName + "]", ioe);
             throw ioe;
         }
+    }
+
+    public void destroyDatabases() {
+
+        VerseRepository.getInstance().clearCache();
+        BookmarkRepository.getInstance().clearCache();
+        BookmarkVerseRepository.getInstance().clearCache();
+
     }
 
     /**

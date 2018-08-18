@@ -76,4 +76,7 @@ public class BookmarkScreenPresenter {
         return BookmarkRepository.getInstance().deleteRecord(new Bookmark(references, note));
     }
 
+    public void destroyCache() {
+        BookmarkVerseRepository.getInstance().clearCache();
+    }
 }
