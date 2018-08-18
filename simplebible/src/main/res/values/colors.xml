@@ -29,4 +29,7 @@
     <color name="act_chap_snackbar">@color/blueDarker</color>
     <color name="act_chap_snackbar_text">@color/blueLight</color>
 
+    <color name="act_bmrk_snackbar_text">@color/redLighter</color>
+    <color name="act_bmrk_snackbar">@color/redDarker</color>
+
 </resources>

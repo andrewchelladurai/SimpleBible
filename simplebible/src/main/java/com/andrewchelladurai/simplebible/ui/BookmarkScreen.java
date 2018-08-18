@@ -257,30 +257,42 @@ public class BookmarkScreen
 
     @Override
     public void showMessageSaved() {
-        Snackbar.make(mNoteField, getString(R.string.act_bmrk_msg_saved),
-                      Snackbar.LENGTH_SHORT)
-                .show();
+        Utilities.getInstance().createSnackBar(
+            findViewById(R.id.act_chap_list),
+            R.string.act_bmrk_msg_saved,
+            Snackbar.LENGTH_SHORT,
+            getResources().getColor(R.color.act_bmrk_snackbar_text),
+            getResources().getColor(R.color.act_bmrk_snackbar)).show();
     }
 
     @Override
     public void showErrorSaveFailed() {
-        Snackbar.make(mNoteField, getString(R.string.act_bmrk_err_save_failed),
-                      Snackbar.LENGTH_SHORT)
-                .show();
+        Utilities.getInstance().createSnackBar(
+            findViewById(R.id.act_chap_list),
+            R.string.act_bmrk_err_save_failed,
+            Snackbar.LENGTH_SHORT,
+            getResources().getColor(R.color.act_bmrk_snackbar_text),
+            getResources().getColor(R.color.act_bmrk_snackbar)).show();
     }
 
     @Override
     public void showErrorDeleteFailed() {
-        Snackbar.make(mNoteField, getString(R.string.act_bmrk_err_delete_failed),
-                      Snackbar.LENGTH_SHORT)
-                .show();
+        Utilities.getInstance().createSnackBar(
+            findViewById(R.id.act_chap_list),
+            R.string.act_bmrk_err_delete_failed,
+            Snackbar.LENGTH_SHORT,
+            getResources().getColor(R.color.act_bmrk_snackbar_text),
+            getResources().getColor(R.color.act_bmrk_snackbar)).show();
     }
 
     @Override
     public void showMessageDeleted() {
-        Snackbar.make(mNoteField, getString(R.string.act_bmrk_msg_deleted),
-                      Snackbar.LENGTH_SHORT)
-                .show();
+        Utilities.getInstance().createSnackBar(
+            findViewById(R.id.act_chap_list),
+            R.string.act_bmrk_msg_deleted,
+            Snackbar.LENGTH_SHORT,
+            getResources().getColor(R.color.act_bmrk_snackbar_text),
+            getResources().getColor(R.color.act_bmrk_snackbar)).show();
     }
 
 }
