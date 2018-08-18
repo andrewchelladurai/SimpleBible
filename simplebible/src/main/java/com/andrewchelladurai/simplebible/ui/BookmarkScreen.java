@@ -215,11 +215,7 @@ public class BookmarkScreen
 
     @Override
     public void handleInteractionSave() {
-        if (mPresenter.createBookmark(getReferences(), getNote())) {
-            showMessageSaved();
-        } else {
-            showErrorSaveFailed();
-        }
+        mPresenter.createBookmark(getReferences(), getNote());
     }
 
     @Override
@@ -229,11 +225,7 @@ public class BookmarkScreen
 
     @Override
     public void handleInteractionDelete() {
-        if (mPresenter.deleteBookmark(getReferences(), getNote())) {
-            showMessageDeleted();
-        } else {
-            showErrorDeleteFailed();
-        }
+        mPresenter.deleteBookmark(getReferences(), getNote());
     }
 
     @Override
@@ -262,40 +254,48 @@ public class BookmarkScreen
 
     @Override
     public void showMessageSaved() {
-        Utilities.getInstance().createSnackBar(
-            findViewById(R.id.act_chap_list),
+        Utilities utilities = Utilities.getInstance();
+        utilities.hideKeyboard(getApplicationContext(), mNoteField);
+        utilities.createSnackBar(
+            findViewById(R.id.act_bmrk_list),
             R.string.act_bmrk_msg_saved,
-            Snackbar.LENGTH_SHORT,
+            Snackbar.LENGTH_LONG,
             getResources().getColor(R.color.act_bmrk_snackbar_text),
             getResources().getColor(R.color.act_bmrk_snackbar)).show();
     }
 
     @Override
     public void showErrorSaveFailed() {
-        Utilities.getInstance().createSnackBar(
-            findViewById(R.id.act_chap_list),
+        Utilities utilities = Utilities.getInstance();
+        utilities.hideKeyboard(getApplicationContext(), mNoteField);
+        utilities.createSnackBar(
+            findViewById(R.id.act_bmrk_list),
             R.string.act_bmrk_err_save_failed,
-            Snackbar.LENGTH_SHORT,
+            Snackbar.LENGTH_LONG,
             getResources().getColor(R.color.act_bmrk_snackbar_text),
             getResources().getColor(R.color.act_bmrk_snackbar)).show();
     }
 
     @Override
     public void showErrorDeleteFailed() {
-        Utilities.getInstance().createSnackBar(
-            findViewById(R.id.act_chap_list),
+        Utilities utilities = Utilities.getInstance();
+        utilities.hideKeyboard(getApplicationContext(), mNoteField);
+        utilities.createSnackBar(
+            findViewById(R.id.act_bmrk_list),
             R.string.act_bmrk_err_delete_failed,
-            Snackbar.LENGTH_SHORT,
+            Snackbar.LENGTH_LONG,
             getResources().getColor(R.color.act_bmrk_snackbar_text),
             getResources().getColor(R.color.act_bmrk_snackbar)).show();
     }
 
     @Override
     public void showMessageDeleted() {
-        Utilities.getInstance().createSnackBar(
-            findViewById(R.id.act_chap_list),
+        Utilities utilities = Utilities.getInstance();
+        utilities.hideKeyboard(getApplicationContext(), mNoteField);
+        utilities.createSnackBar(
+            findViewById(R.id.act_bmrk_list),
             R.string.act_bmrk_msg_deleted,
-            Snackbar.LENGTH_SHORT,
+            Snackbar.LENGTH_LONG,
             getResources().getColor(R.color.act_bmrk_snackbar_text),
             getResources().getColor(R.color.act_bmrk_snackbar)).show();
     }
