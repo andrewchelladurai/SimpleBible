@@ -1,5 +1,6 @@
 package com.andrewchelladurai.simplebible.presenter;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.andrewchelladurai.simplebible.data.entities.Bookmark;
@@ -22,7 +23,7 @@ import androidx.annotation.Nullable;
 public class BookmarkScreenPresenter {
 
     private static final String TAG = "BookmarkScreenPresenter";
-    private final BookmarkScreenOps mOps;
+    private static BookmarkScreenOps mOps;
 
     public BookmarkScreenPresenter(@NonNull BookmarkScreenOps ops) {
         mOps = ops;
@@ -58,25 +59,67 @@ public class BookmarkScreenPresenter {
         return String.format(bookmarkShareTemplate, verses, note);
     }
 
-    public boolean createBookmark(@NonNull final String references, @NonNull final String note) {
+    public void createBookmark(@NonNull final String references, @NonNull final String note) {
         if (!Utilities.getInstance().isValidBookmarkReference(references)) {
             Log.e(TAG, "saveBookmark: invalid bookmark reference");
-            return false;
+            mOps.showErrorSaveFailed();
         }
 
-        return BookmarkRepository.getInstance().createRecord(new Bookmark(references, note));
+        new CreateBookmarkTask().execute(new Bookmark(references, note));
     }
 
-    public boolean deleteBookmark(final String references, final String note) {
+    public void deleteBookmark(final String references, final String note) {
         if (!Utilities.getInstance().isValidBookmarkReference(references)) {
-            Log.e(TAG, "deleteBookmark: invalid bookmark reference");
-            return false;
+            mOps.showErrorDeleteFailed();
         }
 
-        return BookmarkRepository.getInstance().deleteRecord(new Bookmark(references, note));
+        new DeleteBookmarkTask().execute(new Bookmark(references, note));
     }
 
     public void destroyCache() {
         BookmarkVerseRepository.getInstance().clearCache();
     }
+
+    private static class CreateBookmarkTask
+        extends AsyncTask<Bookmark, Void, Boolean> {
+
+        private static final String TAG = "CreateBookmarkTask";
+
+        @Override
+        protected Boolean doInBackground(final Bookmark... bookmarks) {
+            Log.d(TAG, "doInBackground");
+            return BookmarkRepository.getInstance().createRecord(bookmarks[0]);
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean createdBookmark) {
+            if (createdBookmark) {
+                mOps.showMessageSaved();
+            } else {
+                mOps.showErrorSaveFailed();
+            }
+        }
+    }
+
+    private static class DeleteBookmarkTask
+        extends AsyncTask<Bookmark, Void, Boolean> {
+
+        private static final String TAG = "DeleteBookmarkTask";
+
+        @Override
+        protected Boolean doInBackground(final Bookmark... bookmarks) {
+            Log.d(TAG, "doInBackground");
+            return BookmarkRepository.getInstance().deleteRecord(bookmarks[0]);
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean deletedBookmark) {
+            if (deletedBookmark) {
+                mOps.showMessageDeleted();
+            } else {
+                mOps.showErrorDeleteFailed();
+            }
+        }
+    }
+
 }
