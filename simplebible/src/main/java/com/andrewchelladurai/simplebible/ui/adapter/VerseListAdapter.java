@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class VerseListAdapter
@@ -92,6 +93,23 @@ public class VerseListAdapter
             }
         }
         return isAnyVerseSelected();
+    }
+
+    @Nullable
+    public ArrayList<Verse> getSelectedVerses() {
+        if (!isAnyVerseSelected()) {
+            Log.e(TAG, "getSelectedVerses: no verse is selected");
+            return null;
+        }
+
+        final ArrayList<Verse> selectedList = new ArrayList<>();
+
+        for (Verse verse : CACHE_LIST) {
+            if (verse.isSelected()) {
+                selectedList.add(verse);
+            }
+        }
+        return selectedList;
     }
 
     class ViewHolder

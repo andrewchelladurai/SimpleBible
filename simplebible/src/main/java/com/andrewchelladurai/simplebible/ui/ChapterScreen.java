@@ -286,7 +286,8 @@ public class ChapterScreen
             return;
         }
 
-        final String references = mPresenter.getSelectedVerseReferences();
+        final String references =
+            mPresenter.getSelectedVerseReferences(mAdapter.getSelectedVerses());
 
         if (references == null || references.isEmpty()) {
             Log.e(TAG, "got Empty or Invalid bookmarkReference");

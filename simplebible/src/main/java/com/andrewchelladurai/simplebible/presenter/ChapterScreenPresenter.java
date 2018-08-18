@@ -48,27 +48,16 @@ public class ChapterScreenPresenter {
     }
 
     @Nullable
-    public String getSelectedVerseReferences() {
-        final List<?> list = VerseRepository.getInstance().getCachedList();
-        final ArrayList<Verse> selectedList = new ArrayList<>();
-        Verse verse;
-
-        for (Object object : list) {
-            verse = (Verse) object;
-            if (verse.isSelected()) {
-                selectedList.add(verse);
-            }
-        }
-
-        return Utilities.getInstance().createBookmarkReference(selectedList);
-    }
-
-    @Nullable
     public Book getBook(final int bookNumber) {
         return Utilities.getInstance().getBookUsingNumber(bookNumber);
     }
 
     public void destroyCache() {
         VerseRepository.getInstance().clearCache();
+    }
+
+    @Nullable
+    public String getSelectedVerseReferences(final ArrayList<Verse> selectedVerses) {
+        return Utilities.getInstance().createBookmarkReference(selectedVerses);
     }
 }
