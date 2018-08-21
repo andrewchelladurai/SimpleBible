@@ -124,14 +124,14 @@ public class BookRepository
             return LIVE_DATA;
         }
 
-        LIVE_DATA = SbDatabase.getInstance(getApplication()).getBookDao().getAllBooks();
+        LIVE_DATA = SbDatabase.getInstance(getApplication()).getBookDao().getAllRecords();
         return LIVE_DATA;
     }
 
     @Override
     public boolean createRecord(final Object entityObject) {
         SbDatabase.getInstance(getApplication()).getBookDao()
-                  .createNewBook((Book) entityObject);
+                  .createRecord((Book) entityObject);
         return true;
     }
 

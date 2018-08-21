@@ -49,7 +49,7 @@ public class SplashScreenPresenter {
         final String name = parts[2];
         final int chapters = Integer.valueOf(parts[3]);
         final int verses = Integer.valueOf(parts[4]);
-        bookDao.createNewBook(new Book(desc, number, name, chapters, verses));
+        bookDao.createRecord(new Book(desc, number, name, chapters, verses));
     }
 
     private static void createNewVerseRecord(@NonNull final VerseDao verseDao,
@@ -153,14 +153,14 @@ public class SplashScreenPresenter {
                 final Context context = mOps.getSystemContext();
                 final SbDatabase sbDatabase = SbDatabase.getInstance(context);
                 final BookDao bookDao = sbDatabase.getBookDao();
-                int count = bookDao.getRecordCount();
+                int count = bookDao.getNumberOfRecords();
                 Log.d(TAG, "getInstance: [" + count + "] books exist");
                 if (count != EXPECTED_BOOK_COUNT) {
                     Log.e(TAG, "getInstance: THERE MUST BE 66 BOOKS");
                     bookDao.deleteAllRecords();
                     Log.d(TAG, "getInstance: truncated Books table");
                     populateInitialData(sbDatabase, context, FILE_BOOK_DETAILS);
-                    count = bookDao.getRecordCount();
+                    count = bookDao.getNumberOfRecords();
                     Log.d(TAG, "getInstance: now there are [" + count + "] books");
                 }
 
