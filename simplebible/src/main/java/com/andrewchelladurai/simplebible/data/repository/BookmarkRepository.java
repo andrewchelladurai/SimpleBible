@@ -109,21 +109,21 @@ public class BookmarkRepository
 
         mLiveData = SbDatabase.getInstance(getApplication())
                               .getBookmarkDao()
-                              .getAllBookmarks();
+                              .getAllRecords();
         return mLiveData;
     }
 
     @Override
     public boolean createRecord(final Object entityObject) {
         SbDatabase.getInstance(getApplication()).getBookmarkDao()
-                  .createNewBookmark((Bookmark) entityObject);
+                  .createRecord((Bookmark) entityObject);
         return true;
     }
 
     @Override
     public boolean deleteRecord(final Object entityObject) {
         SbDatabase.getInstance(getApplication()).getBookmarkDao()
-                  .deleteBookmark((Bookmark) entityObject);
+                  .deleteRecord((Bookmark) entityObject);
         return true;
     }
 

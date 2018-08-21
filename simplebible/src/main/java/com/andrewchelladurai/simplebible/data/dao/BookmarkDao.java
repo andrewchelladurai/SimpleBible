@@ -11,6 +11,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 /**
  * Created by : Andrew Chelladurai
@@ -21,18 +22,28 @@ import androidx.room.Query;
 @Dao
 public interface BookmarkDao {
 
-    @Query("select distinct count(REFERENCE) from BOOKMARKS")
-    int getRecordCount();
-
-    @Query("select * from BOOKMARKS order by REFERENCE")
-    LiveData<List<Bookmark>> getAllBookmarks();
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void createNewBookmark(@SuppressWarnings("NullableProblems") @NonNull Bookmark bookmark);
+    void createRecord(@NonNull Bookmark bookmark);
 
-    @Query("select * from BOOKMARKS where REFERENCE=:references")
-    LiveData<List<Bookmark>> getBookmarkUsingReference(@NonNull String references);
+    @Query("select * from BOOKMARKS where REFERENCE=:reference")
+    LiveData<List<Bookmark>> readRecord(@NonNull String reference);
+
+    @Update
+    void updateRecord(@NonNull Bookmark bookmark);
 
     @Delete
-    void deleteBookmark(@NonNull Bookmark bookmark);
+    void deleteRecord(@NonNull Bookmark bookmark);
+
+    @Query("select * from BOOKMARKS order by REFERENCE")
+    LiveData<List<Bookmark>> getAllRecords();
+
+    @Query("select * from BOOKMARKS where REFERENCE LIKE :likeReference")
+    LiveData<List<Bookmark>> getRecordsContainingKey(@NonNull String likeReference);
+
+    @Query("select count(distinct REFERENCE) from BOOKMARKS")
+    int getNumberOfRecords();
+
+    @Query("delete from BOOKMARKS")
+    void deleteAllRecords();
+
 }
