@@ -28,7 +28,7 @@ public interface BookmarkDao {
     @Query("select * from BOOKMARKS where REFERENCE=:reference")
     LiveData<List<Bookmark>> readRecord(@NonNull String reference);
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateRecord(@NonNull Bookmark bookmark);
 
     @Delete

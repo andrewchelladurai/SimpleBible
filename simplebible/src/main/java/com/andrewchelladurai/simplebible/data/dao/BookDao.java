@@ -29,7 +29,7 @@ public interface BookDao {
     @Query("Select * from BOOKSTATS where BOOKNUMBER=:bookNumber order by BOOKNUMBER")
     LiveData<List<Book>> readRecord(@IntRange(from = 1, to = 66) int bookNumber);
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateRecord(@NonNull Book book);
 
     @Delete
