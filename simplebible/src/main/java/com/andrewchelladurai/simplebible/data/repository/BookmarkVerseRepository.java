@@ -150,7 +150,7 @@ public class BookmarkVerseRepository
 
         references[0] = mCacheReference;
         clearCache();
-        mLiveData = verseDao.getVerses(bookList, chapterList, verseList);
+        mLiveData = verseDao.getRecordsContainingKey(bookList, chapterList, verseList);
 
         Log.d(TAG, "retrieved verses for reference [" + references[0] + "]");
         return mLiveData;
@@ -159,7 +159,7 @@ public class BookmarkVerseRepository
     @Override
     public boolean createRecord(final Object entityObject) {
         SbDatabase.getInstance(getApplication()).getVerseDao()
-                  .createNewVerse((Verse) entityObject);
+                  .createRecord((Verse) entityObject);
         return true;
     }
 

@@ -141,7 +141,7 @@ public class VerseRepository
     @Override
     public boolean createRecord(final Object entityObject) {
         SbDatabase.getInstance(getApplication()).getVerseDao()
-                  .createNewVerse((Verse) entityObject);
+                  .createRecord((Verse) entityObject);
         return true;
     }
 
@@ -160,18 +160,18 @@ public class VerseRepository
         final ArrayList<Verse> verseList = new ArrayList<>();
         final Utilities utilities = Utilities.getInstance();
         final VerseDao verseDao = SbDatabase.getInstance(getApplication()).getVerseDao();
-        LiveData<Verse> verse;
+        List<Verse> verse;
 
         for (final String reference : references) {
             if (utilities.isValidReference(reference)) {
                 int[] parts = utilities.splitReference(reference);
-                verse = verseDao.getVerse(parts[0], parts[1], parts[2]);
+                verse = verseDao.readRecord(parts[0], parts[1], parts[2]).getValue();
                 if (verse == null) {
                     Log.e(TAG, "queryDatabaseForVerses: verse for reference [" + reference
                                + "] not found");
                     continue;
                 }
-                verseList.add(verse.getValue());
+                verseList.addAll(verse);
             }
         }
 

@@ -8,9 +8,11 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 /**
  * Created by : Andrew Chelladurai
@@ -21,12 +23,30 @@ import androidx.room.Query;
 @Dao
 public interface VerseDao {
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void createRecord(@NonNull Verse verse);
+
+    @Query("select * from BIBLEVERSES"
+           + " where BOOKNUMBER = :book"
+           + " and CHAPTERNUMBER = :chapter"
+           + " and VERSENUMBER = :verse"
+           + " order by VERSENUMBER ASC")
+    LiveData<List<Verse>> readRecord(@IntRange(from = 1, to = 66) int book,
+                                     @IntRange(from = 1) int chapter,
+                                     @IntRange(from = 1) int verse);
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    void updateRecord(@NonNull Verse verse);
+
+    @Delete
+    void deleteRecord(@NonNull Verse verse);
+
+    @Query("select * from BIBLEVERSES")
+    LiveData<List<Verse>> getAllRecords();
+
     @Query("select distinct count(BOOKNUMBER||CHAPTERNUMBER||VERSENUMBER)"
            + " from BIBLEVERSES")
-    int getRecordCount();
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void createNewVerse(@SuppressWarnings("NullableProblems") @NonNull Verse verse);
+    int getNumberOfRecords();
 
     @Query("delete from BIBLEVERSES")
     void deleteAllRecords();
@@ -39,15 +59,6 @@ public interface VerseDao {
                                      @IntRange(from = 1) int chapter);
 
     @Query("select * from BIBLEVERSES"
-           + " where BOOKNUMBER = :book"
-           + " and CHAPTERNUMBER = :chapter"
-           + " and VERSENUMBER = :verse"
-           + " order by VERSENUMBER ASC")
-    LiveData<Verse> getVerse(@IntRange(from = 1, to = 66) int book,
-                             @IntRange(from = 1) int chapter,
-                             @IntRange(from = 1) int verse);
-
-    @Query("select * from BIBLEVERSES"
            + " where VERSETEXT LIKE :text"
            + " order by BOOKNUMBER, CHAPTERNUMBER , VERSENUMBER ASC")
     LiveData<List<Verse>> getVerseWithText(@NonNull String text);
@@ -57,7 +68,7 @@ public interface VerseDao {
            + " and CHAPTERNUMBER in (:chapterList)"
            + " and VERSENUMBER in (:verseList)"
            + " order by BOOKNUMBER, CHAPTERNUMBER , VERSENUMBER ASC")
-    LiveData<List<Verse>> getVerses(@NonNull List<Integer> bookList,
-                                    @NonNull List<Integer> chapterList,
-                                    @NonNull List<Integer> verseList);
+    LiveData<List<Verse>> getRecordsContainingKey(@NonNull List<Integer> bookList,
+                                                  @NonNull List<Integer> chapterList,
+                                                  @NonNull List<Integer> verseList);
 }

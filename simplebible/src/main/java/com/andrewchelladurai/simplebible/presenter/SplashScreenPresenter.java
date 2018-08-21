@@ -60,7 +60,7 @@ public class SplashScreenPresenter {
         final int chapter = Integer.valueOf(parts[2]);
         final int verse = Integer.valueOf(parts[3]);
         final String text = parts[4];
-        verseDao.createNewVerse(new Verse(translation, book, chapter, verse, text));
+        verseDao.createRecord(new Verse(translation, book, chapter, verse, text));
     }
 
     private static void populateInitialData(final @NonNull SbDatabase sbDatabase,
@@ -165,14 +165,14 @@ public class SplashScreenPresenter {
                 }
 
                 final VerseDao verseDao = sbDatabase.getVerseDao();
-                count = verseDao.getRecordCount();
+                count = verseDao.getNumberOfRecords();
                 Log.d(TAG, "getInstance: [" + count + "] verses exist");
                 if (count != EXPECTED_VERSE_COUNT) {
                     Log.e(TAG, "getInstance: THERE MUST BE 31098 verses");
                     verseDao.deleteAllRecords();
                     Log.d(TAG, "getInstance: truncated Verses table");
                     populateInitialData(sbDatabase, context, FILE_VERSE_DETAILS);
-                    count = verseDao.getRecordCount();
+                    count = verseDao.getNumberOfRecords();
                     Log.d(TAG, "getInstance: now there are [" + count + "] verses");
                 }
             } catch (Exception e) {
