@@ -30,18 +30,35 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.8" />
 
-    <TextView
-        android:id="@+id/act_main_verse"
-        style="@style/SbTheme.Header"
+    <ScrollView
+        android:id="@+id/act_main_container_verse"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:gravity="center"
-        android:text="@string/act_main_splash_verse"
-        android:textAlignment="center"
+        android:fillViewport="true"
         app:layout_constraintBottom_toTopOf="@+id/act_main_gh60"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/act_main_gh10" />
+        app:layout_constraintTop_toTopOf="@+id/act_main_gh10">
+
+        <TextView
+            android:id="@+id/act_main_verse"
+            style="@style/SbTheme.Header"
+            android:gravity="center"
+            android:text="@string/act_main_splash_verse"
+            android:textAlignment="center" />
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/act_main_pbar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:indeterminateBehavior="repeat"
+        app:layout_constraintBottom_toTopOf="@id/act_main_msg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/act_main_container_verse" />
 
     <TextView
         android:id="@+id/act_main_msg"
@@ -51,20 +68,8 @@
         app:layout_constraintBottom_toTopOf="@+id/act_main_gh80"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/act_main_verse"
+        app:layout_constraintTop_toBottomOf="@+id/act_main_pbar"
         app:layout_constraintVertical_bias="1.0" />
-
-    <ProgressBar
-        android:id="@+id/act_main_pbar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:indeterminateBehavior="repeat"
-        app:layout_constraintBottom_toTopOf="@+id/act_main_msg"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/act_main_verse" />
 
     <LinearLayout
         android:id="@+id/act_main_container_fabs"
