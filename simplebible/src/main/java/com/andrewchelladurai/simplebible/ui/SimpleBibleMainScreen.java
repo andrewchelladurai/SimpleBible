@@ -37,7 +37,7 @@ public class SimpleBibleMainScreen
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.SbTheme_Splash);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_simple_bible);
 
         mVerse = findViewById(R.id.act_main_verse);
         mMessage = findViewById(R.id.act_main_msg);
@@ -99,7 +99,7 @@ public class SimpleBibleMainScreen
 
     @Override
     public void showLoadingSuccessScreen() {
-        mMessage.setVisibility(View.INVISIBLE);
+        findViewById(R.id.act_main_container_pbar).setVisibility(View.GONE);
         findViewById(R.id.act_main_container_fabs).setVisibility(View.VISIBLE);
     }
 
