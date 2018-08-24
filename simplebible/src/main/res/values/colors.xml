@@ -26,6 +26,12 @@
     <color name="redDark">#800</color>
     <color name="redDarker">#400</color>
 
+    <color name="yellow">#ffd34e</color>
+    <color name="yellowLight">#ffe492</color>
+    <color name="yellowLighter">#fff5d6</color>
+    <color name="yellowDark">#c59400</color>
+    <color name="yellowDarker">#5f4800</color>
+
     <color name="act_chap_snackbar">@color/blueDarker</color>
     <color name="act_chap_snackbar_text">@color/blueLight</color>
 
