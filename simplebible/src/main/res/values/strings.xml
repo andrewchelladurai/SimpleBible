@@ -66,4 +66,12 @@
     <string name="act_bmrk_menu_delete">Delete</string>
     <string name="act_bmrk_menu_share">Share</string>
 
+    <string name="act_srch_title">Search</string>
+    <string name="act_srch_butt_search">Search</string>
+    <string name="act_srch_input">Text to search</string>
+    <string name="act_srch_menu_settings">Settings</string>
+    <string name="act_srch_menu_clear">Clear</string>
+    <string name="act_srch_menu_share">Share</string>
+    <string name="act_srch_menu_bookmark">Bookmark</string>
+
 </resources>

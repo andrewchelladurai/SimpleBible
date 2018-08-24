@@ -163,7 +163,7 @@ public class SimpleBibleMainScreen
     }
 
     private void handleInteractionSearch() {
-        Log.d(TAG, "handleInteractionSearch() called");
+        startActivity(new Intent(this, SearchScreen.class));
     }
 
     private void handleInteractionBooks() {

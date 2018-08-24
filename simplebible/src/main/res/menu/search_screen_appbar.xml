@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/act_srch_menu_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/act_srch_menu_settings"
+        app:iconTint="?colorPrimary"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction,AppCompatResource" />
+    <item
+        android:id="@+id/act_srch_menu_clear"
+        android:icon="@drawable/ic_clear"
+        android:title="@string/act_srch_menu_clear"
+        app:iconTint="?colorPrimary"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction,AppCompatResource" />
+    <item
+        android:id="@+id/act_srch_menu_share"
+        android:icon="@drawable/ic_share"
+        android:title="@string/act_srch_menu_share"
+        app:iconTint="?colorPrimary"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction,AppCompatResource" />
+    <item
+        android:id="@+id/act_srch_menu_bookmark"
+        android:icon="@drawable/ic_bookmark"
+        android:title="@string/act_srch_menu_bookmark"
+        app:iconTint="?colorPrimary"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction,AppCompatResource" />
+</menu>
