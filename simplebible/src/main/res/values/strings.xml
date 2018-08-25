@@ -90,5 +90,6 @@
     <string name="act_srch_msg_no_results">No verses found, modify text &amp; retry</string>
     <string name="act_srch_msg_text_not_changed">Search Text not changed</string>
     <string name="act_srch_err_populate_cache_failed">Error updating cache</string>
+    <string name="act_srch_template_share">%s\n— Simple Bible\nThe World English Bible British Edition</string>
 
 </resources>

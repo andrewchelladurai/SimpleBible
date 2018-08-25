@@ -1,5 +1,6 @@
 package com.andrewchelladurai.simplebible.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
@@ -185,7 +186,27 @@ public class SearchScreen
     }
 
     private void handleInteractionShare() {
-        Log.d(TAG, "handleInteractionShare() called");
+        final boolean anyVerseSelected = mAdapter.isAnyVerseSelected();
+        if (!anyVerseSelected) {
+            showErrorEmptySelectedList();
+            return;
+        }
+
+        final String selectedVerses = mPresenter.getSelectedVersesTextToShare(
+            mAdapter.getSelectedVerses(), getSearchVerseTemplateString());
+
+        final String textToShare = String.format(getString(R.string.act_srch_template_share),
+                                                 selectedVerses);
+
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, textToShare);
+        sendIntent.setType("text/plain");
+
+        mAdapter.discardSelectedVerses();
+        mAdapter.notifyDataSetChanged();
+
+        startActivity(sendIntent);
     }
 
     @Override
@@ -253,5 +274,14 @@ public class SearchScreen
                      getResources().getColor(R.color.act_chap_snackbar_text))
                  .show();
         updateContent();
+    }
+
+    public void showErrorEmptySelectedList() {
+        Utilities.getInstance().createSnackBar(
+            findViewById(R.id.act_chap_list),
+            R.string.act_chap_err_empty_selection_list,
+            Snackbar.LENGTH_SHORT,
+            getResources().getColor(R.color.act_srch_snackbar_text),
+            getResources().getColor(R.color.act_srch_snackbar)).show();
     }
 }
