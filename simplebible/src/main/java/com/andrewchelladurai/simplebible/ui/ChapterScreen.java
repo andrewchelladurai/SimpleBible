@@ -304,7 +304,6 @@ public class ChapterScreen
         mAdapter.notifyDataSetChanged();
 
         startActivity(intent);
-
     }
 
     private void handleInteractionNext() {
