@@ -17,13 +17,14 @@
         <TextView
             android:id="@+id/act_srch_titlebar"
             style="@style/SbTheme.Header"
+            android:layout_margin="@dimen/gap_normal"
             android:text="@string/act_srch_title"
             android:textAlignment="center" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/act_srch_container_input"
-            android:layout_width="match_parent"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/act_srch_input">
 
