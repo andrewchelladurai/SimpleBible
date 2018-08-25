@@ -15,6 +15,7 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 public class BookRepository
     extends BaseRepository {
@@ -22,9 +23,9 @@ public class BookRepository
     private static final String TAG = "BookRepository";
 
     @SuppressLint("UseSparseArrays")
-    private static final Map<Integer, Book> CACHE_MAP  = new HashMap<>();
-    private static final List<Book>         CACHE_LIST = new ArrayList<>();
-    private LiveData<List<Book>> LIVE_DATA;
+    private static final Map<Integer, Book>   CACHE_MAP  = new HashMap<>();
+    private static final List<Book>           CACHE_LIST = new ArrayList<>();
+    private              LiveData<List<Book>> LIVE_DATA  = new MutableLiveData<>();
 
     private static RepositoryOps THIS_INSTANCE = null;
 
@@ -67,7 +68,7 @@ public class BookRepository
 
     @Override
     public boolean isCacheEmpty() {
-        return CACHE_MAP.isEmpty() || CACHE_LIST.isEmpty();
+        return LIVE_DATA == null || CACHE_MAP.size() != 66 || CACHE_LIST.size() != 66;
     }
 
     @Override
@@ -142,6 +143,11 @@ public class BookRepository
 
     @Override
     public boolean isCacheValid(@NonNull final Object... cacheParams) {
+        if (LIVE_DATA == null) {
+            Log.d(TAG, "isCacheValid: LIVE_DATA is null)");
+            return false;
+        }
+
         final int bookLimit = (int) cacheParams[0];
         final String firstBook = (String) cacheParams[1];
         final String lastBook = (String) cacheParams[2];
