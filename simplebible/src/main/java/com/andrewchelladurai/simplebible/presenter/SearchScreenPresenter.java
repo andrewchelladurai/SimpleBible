@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Created by : Andrew Chelladurai
@@ -67,5 +68,10 @@ public class SearchScreenPresenter {
         }
 
         return verses.toString();
+    }
+
+    @Nullable
+    public String getSelectedVerseReferences(final ArrayList<Verse> selectedVerses) {
+        return Utilities.getInstance().createBookmarkReference(selectedVerses);
     }
 }

@@ -182,7 +182,38 @@ public class SearchScreen
     }
 
     private void handleInteractionBookmark() {
-        Log.d(TAG, "handleInteractionBookmark() called");
+        if (!mAdapter.isAnyVerseSelected()) {
+            showErrorEmptySelectedList();
+            return;
+        }
+
+        final String references =
+            mPresenter.getSelectedVerseReferences(mAdapter.getSelectedVerses());
+
+        if (references == null || references.isEmpty()) {
+            Log.e(TAG, "got Empty or Invalid bookmarkReference");
+            showErrorInvalidReference();
+            return;
+        }
+
+        Bundle bundle = new Bundle();
+        bundle.putString(BookmarkScreen.REFERENCES, references);
+        final Intent intent = new Intent(this, BookmarkScreen.class);
+        intent.putExtras(bundle);
+
+        mAdapter.discardSelectedVerses();
+        mAdapter.notifyDataSetChanged();
+
+        startActivity(intent);
+    }
+
+    private void showErrorInvalidReference() {
+        Utilities.getInstance().createSnackBar(
+            findViewById(R.id.act_srch_list),
+            R.string.act_srch_err_invalid_bookmark_reference,
+            Snackbar.LENGTH_SHORT,
+            getResources().getColor(R.color.act_srch_snackbar_text),
+            getResources().getColor(R.color.act_srch_snackbar)).show();
     }
 
     private void handleInteractionShare() {
@@ -222,23 +253,50 @@ public class SearchScreen
 
     @Override
     public void showErrorEmptySearchText() {
-        mInputField.setError(getString(R.string.act_srch_err_empty));
+        Utilities.getInstance()
+                 .createSnackBar(
+                     mListView,
+                     R.string.act_srch_err_empty,
+                     Snackbar.LENGTH_LONG,
+                     getResources().getColor(R.color.act_srch_snackbar),
+                     getResources().getColor(R.color.act_srch_snackbar_text))
+                 .show();
+        mAdapter.clearList();
+        updateContent();
     }
 
     @Override
     public void showErrorMinLimit() {
-        mInputField.setError(getString(R.string.act_srch_err_length_min));
+        Utilities.getInstance()
+                 .createSnackBar(
+                     mListView,
+                     R.string.act_srch_err_length_min,
+                     Snackbar.LENGTH_LONG,
+                     getResources().getColor(R.color.act_srch_snackbar),
+                     getResources().getColor(R.color.act_srch_snackbar_text))
+                 .show();
+        mAdapter.clearList();
+        updateContent();
     }
 
     @Override
     public void showErrorMaxLimit() {
-        mInputField.setError(getString(R.string.act_srch_err_length_max));
+        Utilities.getInstance()
+                 .createSnackBar(
+                     mListView,
+                     R.string.act_srch_err_length_max,
+                     Snackbar.LENGTH_LONG,
+                     getResources().getColor(R.color.act_srch_snackbar),
+                     getResources().getColor(R.color.act_srch_snackbar_text))
+                 .show();
+        mAdapter.clearList();
+        updateContent();
     }
 
     private void showMessageNoResults() {
         Utilities.getInstance()
                  .createSnackBar(
-                     mInputField,
+                     mListView,
                      R.string.act_srch_msg_no_results,
                      Snackbar.LENGTH_LONG,
                      getResources().getColor(R.color.act_srch_snackbar),
@@ -260,28 +318,29 @@ public class SearchScreen
 
     @Override
     public void afterTextChanged(final Editable editable) {
-        mInputField.setError(null);
         mInputFieldHolder.setHint(getString(R.string.act_srch_input));
     }
 
     private void showErrorPopulatingCache() {
         Utilities.getInstance()
                  .createSnackBar(
-                     mInputField,
+                     mListView,
                      R.string.act_srch_err_populate_cache_failed,
                      Snackbar.LENGTH_LONG,
-                     getResources().getColor(R.color.act_chap_snackbar_text),
-                     getResources().getColor(R.color.act_chap_snackbar_text))
+                     getResources().getColor(R.color.act_srch_snackbar_text),
+                     getResources().getColor(R.color.act_srch_snackbar_text))
                  .show();
         updateContent();
     }
 
     public void showErrorEmptySelectedList() {
-        Utilities.getInstance().createSnackBar(
-            findViewById(R.id.act_chap_list),
-            R.string.act_chap_err_empty_selection_list,
-            Snackbar.LENGTH_SHORT,
-            getResources().getColor(R.color.act_srch_snackbar_text),
-            getResources().getColor(R.color.act_srch_snackbar)).show();
+        Utilities.getInstance()
+                 .createSnackBar(
+                     mListView,
+                     R.string.act_srch_err_empty_selection_list,
+                     Snackbar.LENGTH_SHORT,
+                     getResources().getColor(R.color.act_srch_snackbar_text),
+                     getResources().getColor(R.color.act_srch_snackbar))
+                 .show();
     }
 }
