@@ -2,12 +2,17 @@ package com.andrewchelladurai.simplebible.ui;
 
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.entities.Book;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
+import com.andrewchelladurai.simplebible.data.repository.BookRepository;
 import com.andrewchelladurai.simplebible.data.repository.SearchRepository;
 import com.andrewchelladurai.simplebible.presenter.SearchScreenPresenter;
 import com.andrewchelladurai.simplebible.ui.adapter.SearchListAdapter;
@@ -21,6 +26,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,31 +37,57 @@ public class SearchScreen
     private static final String TAG = "SearchScreen";
 
     private static SearchScreenPresenter mPresenter;
-    private        SearchListAdapter     mAdapter;
-    private        TextInputEditText     mInputField;
-    private        SearchRepository      mRepository;
+    private static SearchListAdapter     mAdapter;
+
+    private TextInputEditText mInputField;
+    private SearchRepository  mSearchRepository;
+    private BookRepository    mBookRepository;
+    private ScrollView        mHelpView;
+    private RecyclerView      mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        mRepository = ViewModelProviders.of(this).get(SearchRepository.class);
+        mSearchRepository = ViewModelProviders.of(this).get(SearchRepository.class);
+        mBookRepository = ViewModelProviders.of(this).get(BookRepository.class);
 
-        mPresenter = new SearchScreenPresenter(this);
-        mAdapter = new SearchListAdapter(this);
+        final int bookCount = 66;
+        final String firstBook = getString(R.string.first_book);
+        final String lastBook = getString(R.string.last_book);
+
+        mBookRepository.queryDatabase(bookCount, firstBook, lastBook)
+                       .observe(this, new Observer<List<Book>>() {
+                           @Override
+                           public void onChanged(final List<Book> books) {
+                               mBookRepository.populateCache(books, bookCount, firstBook, lastBook);
+                           }
+                       });
+
+        if (mPresenter == null || mAdapter == null) {
+            mPresenter = new SearchScreenPresenter(this);
+            mAdapter = new SearchListAdapter(this);
+        }
 
         mInputField = findViewById(R.id.act_srch_input);
         mInputField.addTextChangedListener(this);
 
-        RecyclerView recyclerView = findViewById(R.id.act_srch_list);
-        recyclerView.setAdapter(mAdapter);
+        mListView = findViewById(R.id.act_srch_list);
+        mListView.setAdapter(mAdapter);
 
         BottomAppBar mBar = findViewById(R.id.act_srch_appbar);
         mBar.replaceMenu(R.menu.search_screen_appbar);
         mBar.setOnMenuItemClickListener(this);
 
         findViewById(R.id.act_srch_fab).setOnClickListener(this);
+
+        TextView infoView = findViewById(R.id.act_srch_help);
+        infoView.setText(Html.fromHtml(getString(R.string.act_srch_help)));
+
+        mHelpView = findViewById(R.id.act_srch_container_help);
+
+        updateContent();
     }
 
     @Override
@@ -95,12 +127,27 @@ public class SearchScreen
         if (list.isEmpty()) {
             showMessageNoResults();
         } else {
-            if (mPresenter.populateCache(list, getSearchText())) {
-                mAdapter.updateList(list, getSearchText());
-                mAdapter.notifyDataSetChanged();
-            } else {
-                showErrorPopulatingCache();
-            }
+            updateScreen(list);
+        }
+    }
+
+    private void updateScreen(@NonNull final List<Verse> list) {
+        if (mPresenter.populateCache(list, getSearchText())) {
+            mAdapter.updateList(list, getSearchText());
+            mAdapter.notifyDataSetChanged();
+            updateContent();
+        } else {
+            showErrorPopulatingCache();
+        }
+    }
+
+    private void updateContent() {
+        if (mAdapter.getItemCount() > 0) {
+            mHelpView.setVisibility(View.GONE);
+            mListView.setVisibility(View.VISIBLE);
+        } else {
+            mHelpView.setVisibility(View.VISIBLE);
+            mListView.setVisibility(View.GONE);
         }
     }
 
@@ -113,7 +160,7 @@ public class SearchScreen
         final String searchText = getSearchText();
         boolean isValid = mPresenter.validateSearchText(searchText);
         if (isValid) {
-            mRepository.queryDatabase(searchText).observe(this, this);
+            mSearchRepository.queryDatabase(searchText).observe(this, this);
         }
     }
 

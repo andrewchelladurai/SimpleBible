@@ -44,9 +44,25 @@
             android:layout_height="0dp"
             android:layout_margin="@dimen/gap_normal"
             android:layout_weight="1"
+            android:visibility="gone"
             app:layoutManager="LinearLayoutManager"
             app:spanCount="@integer/act_srch_list"
             tools:listitem="@layout/item_verse" />
+
+        <ScrollView
+            android:id="@+id/act_srch_container_help"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/gap_normal"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/act_srch_help"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/act_srch_help"
+                android:textAlignment="center" />
+        </ScrollView>
     </LinearLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
