@@ -16,7 +16,7 @@
     </style>
 
     <style name="SbTheme.Splash">
-        <item name="android:windowBackground">@drawable/activity_main_gradient_background</item>
+        <item name="android:windowBackground">@drawable/act_main_bground</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
 
@@ -26,7 +26,7 @@
     </style>
 
     <style name="SbTheme.Splash.Temp">
-        <item name="android:windowBackground">@drawable/activity_main_background</item>
+        <item name="android:windowBackground">@drawable/act_main_splash_bground</item>
     </style>
 
     <style name="SbTheme.Green"
