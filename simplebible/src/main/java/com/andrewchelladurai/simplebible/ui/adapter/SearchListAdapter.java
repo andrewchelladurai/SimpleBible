@@ -109,6 +109,11 @@ public class SearchListAdapter
         return selectedList;
     }
 
+    public void clearList() {
+        mCacheText = "";
+        mCacheList.clear();
+    }
+
     public class ViewHolder
         extends RecyclerView.ViewHolder
         implements ViewHolderOps {
