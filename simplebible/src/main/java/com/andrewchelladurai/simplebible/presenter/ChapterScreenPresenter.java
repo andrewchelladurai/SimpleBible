@@ -32,13 +32,11 @@ public class ChapterScreenPresenter {
         return VerseRepository.getInstance().populateCache(verses, book, chapter);
     }
 
-    public String getSelectedVersesTextToShare(@NonNull final String verseContentTemplate) {
+    public String getSelectedVersesTextToShare(@NonNull final ArrayList<Verse> list,
+                                               @NonNull final String verseContentTemplate) {
         final StringBuilder verses = new StringBuilder();
-        final List<?> list = VerseRepository.getInstance().getCachedList();
-        Verse verse;
 
-        for (Object object : list) {
-            verse = (Verse) object;
+        for (Verse verse : list) {
             if (verse.isSelected()) {
                 verses.append(String.format(
                     verseContentTemplate, verse.getVerse(), verse.getText())).append("\n");

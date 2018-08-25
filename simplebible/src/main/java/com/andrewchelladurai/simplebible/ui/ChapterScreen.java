@@ -349,12 +349,15 @@ public class ChapterScreen
             return;
         }
 
-        final String selectedVerses = mPresenter.getSelectedVersesTextToShare(
-            getString(R.string.content_item_verse_text_template));
+        final String selectedVerses =
+            mPresenter.getSelectedVersesTextToShare(mAdapter.getSelectedVerses(), getString(
+                R.string.content_item_verse_text_template));
 
         final String textToShare = String.format(getString(R.string.act_chap_template_share),
                                                  selectedVerses,
                                                  getTitleDisplay());
+
+        Log.d(TAG, "handleInteractionShare: " + textToShare);
 
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
