@@ -32,9 +32,7 @@
     <style name="SbTheme.Green"
         parent="SbTheme">
         <item name="android:colorBackground">@color/greenLight</item>
-        <item name="android:windowBackground">@color/greenLighter</item>
-        <!--<item name="android:navigationBarColor">@color/green_background_light</item>-->
-        <!--<item name="android:statusBarColor">@color/green_background_light</item>-->
+        <item name="android:windowBackground">@color/greenLight</item>
 
         <item name="colorAccent">@color/greenDark</item>
         <item name="colorPrimary">@color/greenLight</item>
@@ -106,6 +104,13 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="textAllCaps">true</item>
         <item name="android:fontFamily">@font/inconsolata</item>
+    </style>
+
+    <style name="SbTheme.Button.Filled"
+        parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">?colorPrimary</item>
     </style>
 
 </resources>
