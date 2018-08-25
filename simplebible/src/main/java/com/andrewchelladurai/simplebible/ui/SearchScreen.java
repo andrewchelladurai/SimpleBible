@@ -21,6 +21,7 @@ import com.andrewchelladurai.simplebible.util.Utilities;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class SearchScreen
     private static SearchScreenPresenter mPresenter;
     private static SearchListAdapter     mAdapter;
 
+    private TextInputLayout   mInputFieldHolder;
     private TextInputEditText mInputField;
     private SearchRepository  mSearchRepository;
     private BookRepository    mBookRepository;
@@ -72,6 +74,7 @@ public class SearchScreen
 
         mInputField = findViewById(R.id.act_srch_input);
         mInputField.addTextChangedListener(this);
+        mInputFieldHolder = findViewById(R.id.act_srch_container_input);
 
         mListView = findViewById(R.id.act_srch_list);
         mListView.setAdapter(mAdapter);
@@ -142,13 +145,18 @@ public class SearchScreen
     }
 
     private void updateContent() {
-        if (mAdapter.getItemCount() > 0) {
+        final int itemCount = mAdapter.getItemCount();
+        if (itemCount > 0) {
             mHelpView.setVisibility(View.GONE);
             mListView.setVisibility(View.VISIBLE);
+            mInputFieldHolder.setHint(String.format(
+                getString(R.string.act_srch_input_template), itemCount));
         } else {
             mHelpView.setVisibility(View.VISIBLE);
             mListView.setVisibility(View.GONE);
+            mInputFieldHolder.setHint(getString(R.string.act_srch_input));
         }
+        mAdapter.notifyDataSetChanged();
     }
 
     @NonNull
@@ -207,7 +215,6 @@ public class SearchScreen
     }
 
     private void showMessageNoResults() {
-        mInputField.setError(getString(R.string.act_srch_msg_no_results));
         Utilities.getInstance()
                  .createSnackBar(
                      mInputField,
@@ -216,6 +223,8 @@ public class SearchScreen
                      getResources().getColor(R.color.act_srch_snackbar),
                      getResources().getColor(R.color.act_srch_snackbar_text))
                  .show();
+        mAdapter.clearList();
+        updateContent();
     }
 
     @Override
@@ -231,6 +240,7 @@ public class SearchScreen
     @Override
     public void afterTextChanged(final Editable editable) {
         mInputField.setError(null);
+        mInputFieldHolder.setHint(getString(R.string.act_srch_input));
     }
 
     private void showErrorPopulatingCache() {
@@ -242,5 +252,6 @@ public class SearchScreen
                      getResources().getColor(R.color.act_chap_snackbar_text),
                      getResources().getColor(R.color.act_chap_snackbar_text))
                  .show();
+        updateContent();
     }
 }
