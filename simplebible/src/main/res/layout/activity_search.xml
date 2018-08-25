@@ -23,13 +23,18 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/act_srch_container_input"
             android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_height="wrap_content"
             android:hint="@string/act_srch_input">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/act_srch_input"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="text|textAutoComplete|textAutoCorrect"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.recyclerview.widget.RecyclerView
