@@ -38,4 +38,7 @@
     <color name="act_bmrk_snackbar_text">@color/redLighter</color>
     <color name="act_bmrk_snackbar">@color/redDarker</color>
 
+    <color name="act_srch_snackbar_text">@color/yellow</color>
+    <color name="act_srch_snackbar">@color/yellowDarker</color>
+
 </resources>
