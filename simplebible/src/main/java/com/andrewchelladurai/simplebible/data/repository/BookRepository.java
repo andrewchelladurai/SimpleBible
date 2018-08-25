@@ -22,8 +22,8 @@ public class BookRepository
     private static final String TAG = "BookRepository";
 
     @SuppressLint("UseSparseArrays")
-    private final Map<Integer, Book> CACHE_MAP  = new HashMap<>();
-    private final List<Book>         CACHE_LIST = new ArrayList<>();
+    private static final Map<Integer, Book> CACHE_MAP  = new HashMap<>();
+    private static final List<Book>         CACHE_LIST = new ArrayList<>();
     private LiveData<List<Book>> LIVE_DATA;
 
     private static RepositoryOps THIS_INSTANCE = null;
