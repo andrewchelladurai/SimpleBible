@@ -23,6 +23,7 @@
     <string name="act_main_fab_bookmarks_desc">Bookmarks</string>
     <string name="act_main_fab_settings_desc">Settings</string>
 
+    <string name="act_books_title">Books</string>
     <string name="act_books_name_hint">Enter Book Name</string>
     <string name="act_books_chapter_hint">Select Chapter</string>
     <string name="act_books_button_label">Navigate</string>
