@@ -77,7 +77,7 @@
     <string name="act_srch_menu_bookmark">Bookmark</string>
     <string name="act_srch_verse_template">%s %d:%d - %s</string>
     <string name="act_srch_help"><![CDATA[
-        <br/><br/>Enter any text to search
+        Enter any text to search
         <br/><br/><u>The Rules are</u>
         <br/><br/><u>The text must be</u>
         <br/><b>MINIMUM 3 characters</b>

@@ -57,7 +57,9 @@
             android:layout_weight="1">
 
             <TextView
+                android:layout_gravity="center"
                 android:id="@+id/act_srch_help"
+                android:padding="@dimen/gap_big"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/act_srch_help"
