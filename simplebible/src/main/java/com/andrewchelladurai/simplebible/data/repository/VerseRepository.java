@@ -4,16 +4,13 @@ import android.app.Application;
 import android.util.Log;
 
 import com.andrewchelladurai.simplebible.data.SbDatabase;
-import com.andrewchelladurai.simplebible.data.dao.VerseDao;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
-import com.andrewchelladurai.simplebible.util.Utilities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -21,7 +18,8 @@ public class VerseRepository
     extends BaseRepository {
 
     private static final String TAG = "VerseRepository";
-    private static RepositoryOps THIS_INSTANCE;
+
+    private static VerseRepository THIS_INSTANCE;
     private static int sCachedBook    = 0;
     private static int sCachedChapter = 0;
 
@@ -35,7 +33,7 @@ public class VerseRepository
         Log.d(TAG, "VerseRepository: initialized");
     }
 
-    public static RepositoryOps getInstance() {
+    public static VerseRepository getInstance() {
         if (THIS_INSTANCE == null) {
             throw new UnsupportedOperationException("Singleton Instance is not yet initiated");
         }
@@ -150,31 +148,4 @@ public class VerseRepository
         throw new UnsupportedOperationException("should not be used");
     }
 
-    @Nullable
-    public ArrayList<Verse> queryDatabaseForVerses(@NonNull final String[] references) {
-        if (references.length < 1) {
-            Log.e(TAG, "queryDatabaseForVerses: empty reference list passed");
-            return null;
-        }
-
-        final ArrayList<Verse> verseList = new ArrayList<>();
-        final Utilities utilities = Utilities.getInstance();
-        final VerseDao verseDao = SbDatabase.getInstance(getApplication()).getVerseDao();
-        List<Verse> verse;
-
-        for (final String reference : references) {
-            if (utilities.isValidReference(reference)) {
-                int[] parts = utilities.splitReference(reference);
-                verse = verseDao.readRecord(parts[0], parts[1], parts[2]).getValue();
-                if (verse == null) {
-                    Log.e(TAG, "queryDatabaseForVerses: verse for reference [" + reference
-                               + "] not found");
-                    continue;
-                }
-                verseList.addAll(verse);
-            }
-        }
-
-        return verseList;
-    }
 }
