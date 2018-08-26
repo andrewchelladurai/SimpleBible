@@ -41,6 +41,10 @@
             android:name=".ui.SearchScreen"
             android:theme="@style/SbTheme.Yellow"
             android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name=".ui.BookmarkListScreen"
+            android:theme="@style/SbTheme.Red" />
     </application>
 
 </manifest>

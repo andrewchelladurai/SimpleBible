@@ -159,7 +159,7 @@ public class SimpleBibleMainScreen
     }
 
     private void handleInteractionBookmarks() {
-        Log.d(TAG, "handleInteractionBookmarks() called");
+        startActivity(new Intent(this, BookmarkListScreen.class));
     }
 
     private void handleInteractionSearch() {
