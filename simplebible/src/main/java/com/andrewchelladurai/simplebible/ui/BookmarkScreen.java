@@ -215,6 +215,7 @@ public class BookmarkScreen
 
     @Override
     public void handleInteractionSave() {
+        Utilities.getInstance().hideKeyboard(this, mNoteField);
         mPresenter.createBookmark(getReferences(), getNote());
     }
 
