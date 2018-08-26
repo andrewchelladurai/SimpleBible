@@ -93,5 +93,6 @@
     <string name="act_srch_template_share">%s\n— Simple Bible\nThe World English Bible British Edition</string>
     <string name="act_srch_err_invalid_bookmark_reference">Invalid bookmark reference created</string>
     <string name="act_srch_err_empty_selection_list">No Verses Selected</string>
+    <string name="act_srch_msg_discarded_selected_verses">Cleared results</string>
 
 </resources>

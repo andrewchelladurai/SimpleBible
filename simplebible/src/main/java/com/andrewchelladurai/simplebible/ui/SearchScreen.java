@@ -178,7 +178,18 @@ public class SearchScreen
     }
 
     private void handleInteractionClear() {
-        Log.d(TAG, "handleInteractionClear() called");
+        boolean anyVerseSelected = mAdapter.isAnyVerseSelected();
+
+        if (!anyVerseSelected) {
+            showErrorEmptySelectedList();
+            return;
+        }
+
+        anyVerseSelected = mAdapter.discardSelectedVerses();
+        if (!anyVerseSelected) {
+            showMessageDiscardSelectedVerses();
+            updateContent();
+        }
     }
 
     private void handleInteractionBookmark() {
@@ -338,6 +349,17 @@ public class SearchScreen
                  .createSnackBar(
                      mListView,
                      R.string.act_srch_err_empty_selection_list,
+                     Snackbar.LENGTH_SHORT,
+                     getResources().getColor(R.color.act_srch_snackbar_text),
+                     getResources().getColor(R.color.act_srch_snackbar))
+                 .show();
+    }
+
+    private void showMessageDiscardSelectedVerses() {
+        Utilities.getInstance()
+                 .createSnackBar(
+                     mListView,
+                     R.string.act_srch_msg_discarded_selected_verses,
                      Snackbar.LENGTH_SHORT,
                      getResources().getColor(R.color.act_srch_snackbar_text),
                      getResources().getColor(R.color.act_srch_snackbar))
