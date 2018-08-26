@@ -27,11 +27,11 @@ public class BookmarkRepository
 
     private final List<Bookmark>            mCacheList = new ArrayList<>();
     private final HashMap<String, Bookmark> mCacheMap  = new HashMap<>();
-
-    private LiveData<List<Bookmark>> mLiveData;
+    private static LiveData<List<Bookmark>> mLiveData;
 
     public BookmarkRepository(final Application application) {
         super(application);
+        mLiveData = SbDatabase.getInstance(getApplication()).getBookmarkDao().getAllRecords();
         THIS_INSTANCE = this;
         Log.d(TAG, "BookmarkRepository: initialized");
     }
@@ -45,11 +45,6 @@ public class BookmarkRepository
 
     @Override
     public boolean populateCache(@NonNull final List<?> list, @NonNull Object... cacheParams) {
-        if (isCacheValid(cacheParams)) {
-            Log.d(TAG, "already cached same data");
-            return true;
-        }
-
         clearCache();
         Bookmark bookmark;
         for (final Object object : list) {
@@ -58,7 +53,7 @@ public class BookmarkRepository
             mCacheMap.put(bookmark.getReference(), bookmark);
         }
         Log.d(TAG, "populateCache: updated cache with [" + getCacheSize() + "] bookmarks");
-        return false;
+        return true;
     }
 
     @Override
@@ -102,14 +97,6 @@ public class BookmarkRepository
 
     @Override
     public LiveData<List<Bookmark>> queryDatabase(@NonNull final Object... cacheParams) {
-        if (isCacheValid(cacheParams)) {
-            Log.d(TAG, "returning cached live data");
-            return mLiveData;
-        }
-
-        mLiveData = SbDatabase.getInstance(getApplication())
-                              .getBookmarkDao()
-                              .getAllRecords();
         return mLiveData;
     }
 
