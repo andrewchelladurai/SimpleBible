@@ -9,7 +9,8 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="?actionBarSize">
 
         <TextView
             android:id="@+id/act_bmrk_titlebar"
@@ -46,9 +47,10 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/act_bmrk_container_note"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:padding="@dimen/gap_big"
+            android:layout_margin="@dimen/gap_big"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
