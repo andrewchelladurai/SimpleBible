@@ -166,6 +166,7 @@ public class SearchScreen
     }
 
     private void handleActionSearch() {
+        Utilities.getInstance().hideKeyboard(this, mInputField);
         final String searchText = getSearchText();
         boolean isValid = mPresenter.validateSearchText(searchText);
         if (isValid) {
