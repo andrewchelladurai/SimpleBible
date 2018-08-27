@@ -8,6 +8,7 @@ import com.andrewchelladurai.simplebible.data.entities.Bookmark;
 import com.andrewchelladurai.simplebible.data.repository.BookmarkRepository;
 import com.andrewchelladurai.simplebible.presenter.BookmarkListScreenPresenter;
 import com.andrewchelladurai.simplebible.ui.adapter.BookmarkListAdapter;
+import com.andrewchelladurai.simplebible.ui.adapter.BookmarkListAdapter.BookmarkListViewHolder;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkListScreenOps;
 
 import java.util.List;
@@ -26,10 +27,6 @@ public class BookmarkListScreen
     private static BookmarkListScreenPresenter mPresenter  = null;
     private static BookmarkListAdapter         mAdapter    = null;
     private static BookmarkRepository          mRepository = null;
-    private static String mHeaderTemplate;
-    private static String mDetailTemplate;
-    private static String mEmptyNote;
-    private static String mVerseDisplayTemplate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,19 +35,10 @@ public class BookmarkListScreen
 
         if (mRepository == null
             || mAdapter == null
-            || mPresenter == null
-            || mHeaderTemplate == null
-            || mDetailTemplate == null
-            || mEmptyNote == null
-            || mVerseDisplayTemplate == null) {
+            || mPresenter == null) {
             mPresenter = new BookmarkListScreenPresenter(this);
             mAdapter = new BookmarkListAdapter(this);
             mRepository = ViewModelProviders.of(this).get(BookmarkRepository.class);
-
-            mHeaderTemplate = getString(R.string.item_bookmark_header_template);
-            mDetailTemplate = getString(R.string.item_bookmark_detail_template);
-            mEmptyNote = getString(R.string.item_bookmark_empty_note);
-            mVerseDisplayTemplate = getString(R.string.content_bookmark_item_reference_template);
         }
 
         mRepository.queryDatabase().observe(this, this);
@@ -59,6 +47,7 @@ public class BookmarkListScreen
         listView.setAdapter(mAdapter);
     }
 
+/*
     @Override
     public String getFormattedBookmarkHeader(@NonNull final Bookmark bookmark) {
         final int verseCount = mPresenter.getVerseCount(bookmark);
@@ -77,6 +66,7 @@ public class BookmarkListScreen
 
         return String.format(mDetailTemplate, note);
     }
+*/
 
     @Override
     public void handleActionBookmarkClick(@NonNull final Bookmark bookmark) {
@@ -91,6 +81,32 @@ public class BookmarkListScreen
     @Override
     public void handleActionShare(@NonNull final Bookmark bookmark) {
         Log.d(TAG, "handleActionShare() called with: bookmark = [" + bookmark + "]");
+    }
+
+    @Override
+    public void updateBookmarkHeader(@NonNull final Bookmark bookmark,
+                                     @NonNull final BookmarkListViewHolder bookmarkListViewHolder) {
+        mPresenter.updateBookmarkHeader(bookmark, bookmarkListViewHolder);
+    }
+
+    @Override
+    public String getHeaderTemplate() {
+        return getString(R.string.item_bookmark_header_template);
+    }
+
+    @Override
+    public String getDetailTemplate() {
+        return getString(R.string.item_bookmark_detail_template);
+    }
+
+    @Override
+    public String getEmptyNoteText() {
+        return getString(R.string.item_bookmark_empty_note);
+    }
+
+    @Override
+    public String getVerseDisplayTemplate() {
+        return getString(R.string.content_bookmark_item_reference_template);
     }
 
     @Override

@@ -31,9 +31,9 @@ public interface VerseDao {
            + " and CHAPTERNUMBER = :chapter"
            + " and VERSENUMBER = :verse"
            + " order by VERSENUMBER ASC")
-    LiveData<List<Verse>> readRecord(@IntRange(from = 1, to = 66) int book,
-                                     @IntRange(from = 1) int chapter,
-                                     @IntRange(from = 1) int verse);
+    List<Verse> readRecord(@IntRange(from = 1, to = 66) int book,
+                           @IntRange(from = 1) int chapter,
+                           @IntRange(from = 1) int verse);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateRecord(@NonNull Verse verse);

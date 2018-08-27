@@ -8,8 +8,10 @@ import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entities.Bookmark;
+import com.andrewchelladurai.simplebible.data.entities.Verse;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkListScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.ViewHolderOps;
+import com.andrewchelladurai.simplebible.util.Utilities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +28,22 @@ public class BookmarkListAdapter
     private static List<Bookmark> mCacheList = new ArrayList<>();
     private final BookmarkListScreenOps mOps;
 
+    private static String mHeaderTemplate;
+    private static String mDetailTemplate;
+    private static String mEmptyNote;
+    private static String mVerseDisplayTemplate;
+
     public BookmarkListAdapter(@NonNull BookmarkListScreenOps ops) {
         mOps = ops;
+        if (mHeaderTemplate == null || mHeaderTemplate.isEmpty()
+            || mDetailTemplate == null || mDetailTemplate.isEmpty()
+            || mEmptyNote == null || mEmptyNote.isEmpty()
+            || mVerseDisplayTemplate == null || mVerseDisplayTemplate.isEmpty()) {
+            mHeaderTemplate = mOps.getHeaderTemplate();
+            mDetailTemplate = mOps.getDetailTemplate();
+            mEmptyNote = mOps.getEmptyNoteText();
+            mVerseDisplayTemplate = mOps.getVerseDisplayTemplate();
+        }
     }
 
     @NonNull
@@ -58,7 +74,7 @@ public class BookmarkListAdapter
         Log.d(TAG, "updateList: updated list with [" + getItemCount() + "] records");
     }
 
-    class BookmarkListViewHolder
+    public class BookmarkListViewHolder
         extends RecyclerView.ViewHolder
         implements ViewHolderOps {
 
@@ -83,8 +99,10 @@ public class BookmarkListAdapter
         public void updateView(final Object item) {
             mBookmark = (Bookmark) item;
 
-            mHeader.setText(mOps.getFormattedBookmarkHeader(mBookmark));
-            mDetails.setText(mOps.getFormattedBookmarkDetails(mBookmark));
+            mOps.updateBookmarkHeader(mBookmark, this);
+
+            //            mHeader.setText(mOps.getFormattedBookmarkHeader(mBookmark));
+            //            mDetails.setText(mOps.getFormattedBookmarkDetails(mBookmark));
 
             mView.findViewById(R.id.item_bookmark_view).setOnClickListener(this);
             mView.findViewById(R.id.item_bookmark_action_delete).setOnClickListener(this);
@@ -107,6 +125,26 @@ public class BookmarkListAdapter
                 default:
                     Log.e(TAG, "onClick: Unknown click event");
             }
+        }
+
+        public void updateBookmarkHeader(@NonNull final ArrayList<Verse> list) {
+            Log.d(TAG, "updateBookmarkHeader() called with [" + list.size() + "] records");
+
+            if (list.isEmpty()) {
+                Log.e(TAG, "updateBookmarkHeader: empty or null verse list");
+                mHeader.setText("Error getting verse list");
+                return;
+            }
+
+            Verse verse = list.get(0);
+            String verseText = String.format(
+                mVerseDisplayTemplate,
+                Utilities.getInstance().getBookName(verse.getBook()),
+                verse.getChapter(),
+                verse.getVerse(),
+                verse.getText());
+
+            mHeader.setText(String.format(mHeaderTemplate, list.size(), verseText));
         }
     }
 }

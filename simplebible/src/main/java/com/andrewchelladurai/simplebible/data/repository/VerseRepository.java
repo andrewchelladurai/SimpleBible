@@ -148,4 +148,8 @@ public class VerseRepository
         throw new UnsupportedOperationException("should not be used");
     }
 
+    public List<Verse> getVerse(final int book, final int chapter, final int verse) {
+        return SbDatabase.getInstance(getApplication()).getVerseDao()
+                         .readRecord(book, chapter, verse);
+    }
 }
