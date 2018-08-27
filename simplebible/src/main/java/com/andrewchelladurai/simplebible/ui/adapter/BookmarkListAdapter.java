@@ -66,6 +66,7 @@ public class BookmarkListAdapter
 
     @Override
     public void updateList(final List<?> list, final Object... objects) {
+        mCacheList.clear();
         Bookmark bookmark;
         for (final Object object : list) {
             bookmark = (Bookmark) object;
