@@ -9,6 +9,7 @@
     android:layout_marginBottom="@dimen/gap_small"
     android:layout_marginEnd="@dimen/gap_normal"
     android:layout_marginStart="@dimen/gap_normal"
+    app:cardElevation="@dimen/gap_small"
     android:layout_marginTop="@dimen/gap_small">
 
     <android.support.constraint.ConstraintLayout
@@ -18,8 +19,8 @@
 
         <TextView
             android:id="@+id/item_bookmark_header"
-            style="@style/SbTheme.Header"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
