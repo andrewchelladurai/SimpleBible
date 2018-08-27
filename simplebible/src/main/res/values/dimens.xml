@@ -11,6 +11,7 @@
     <dimen name="gap_big">16dp</dimen>
     <dimen name="gap_normal">8dp</dimen>
     <dimen name="gap_small">4dp</dimen>
+    <dimen name="gap_none">0dp</dimen>
 
     <dimen name="activity_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
