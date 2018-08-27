@@ -18,7 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class BookmarkListAdapter
-    extends RecyclerView.Adapter<BookmarkListAdapter.ViewHolder>
+    extends RecyclerView.Adapter<BookmarkListAdapter.BookmarkListViewHolder>
     implements AdapterOps {
 
     private static final String TAG = "BookmarkListAdapter";
@@ -32,14 +32,14 @@ public class BookmarkListAdapter
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BookmarkListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                                   .inflate(R.layout.item_bookmark, parent, false);
-        return new ViewHolder(view);
+        return new BookmarkListViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final BookmarkListViewHolder holder, int position) {
         holder.updateView(mCacheList.get(position));
     }
 
@@ -58,7 +58,7 @@ public class BookmarkListAdapter
         Log.d(TAG, "updateList: updated list with [" + getItemCount() + "] records");
     }
 
-    class ViewHolder
+    class BookmarkListViewHolder
         extends RecyclerView.ViewHolder
         implements ViewHolderOps {
 
@@ -67,7 +67,7 @@ public class BookmarkListAdapter
         final TextView mDetails;
         Bookmark mBookmark;
 
-        ViewHolder(View view) {
+        BookmarkListViewHolder(View view) {
             super(view);
             mView = view;
             mHeader = view.findViewById(R.id.item_bookmark_header);
