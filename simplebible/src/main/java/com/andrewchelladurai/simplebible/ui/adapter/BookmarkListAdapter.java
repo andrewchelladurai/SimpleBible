@@ -101,8 +101,12 @@ public class BookmarkListAdapter
 
             mOps.updateBookmarkHeader(mBookmark, this);
 
-            //            mHeader.setText(mOps.getFormattedBookmarkHeader(mBookmark));
-            //            mDetails.setText(mOps.getFormattedBookmarkDetails(mBookmark));
+            final String note = mBookmark.getNote();
+            if (note.isEmpty()) {
+                mDetails.setText(mEmptyNote);
+            } else {
+                mDetails.setText(String.format(mDetailTemplate, note));
+            }
 
             mView.findViewById(R.id.item_bookmark_view).setOnClickListener(this);
             mView.findViewById(R.id.item_bookmark_action_delete).setOnClickListener(this);

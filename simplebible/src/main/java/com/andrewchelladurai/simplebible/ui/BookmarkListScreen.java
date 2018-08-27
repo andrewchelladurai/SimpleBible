@@ -47,27 +47,6 @@ public class BookmarkListScreen
         listView.setAdapter(mAdapter);
     }
 
-/*
-    @Override
-    public String getFormattedBookmarkHeader(@NonNull final Bookmark bookmark) {
-        final int verseCount = mPresenter.getVerseCount(bookmark);
-
-        final String firstVerse = mPresenter.getFirstVerse(bookmark, mVerseDisplayTemplate);
-
-        return String.format(mHeaderTemplate, verseCount, firstVerse);
-    }
-
-    @Override
-    public String getFormattedBookmarkDetails(@NonNull final Bookmark bookmark) {
-        final String note = bookmark.getNote();
-        if (note.isEmpty()) {
-            return mEmptyNote;
-        }
-
-        return String.format(mDetailTemplate, note);
-    }
-*/
-
     @Override
     public void handleActionBookmarkClick(@NonNull final Bookmark bookmark) {
         Log.d(TAG, "handleActionBookmarkClick() called with: bookmark = [" + bookmark + "]");

@@ -100,7 +100,7 @@
     <string name="item_bookmark_action_share">Share</string>
     <string name="item_bookmark_detail_template">%s</string>
     <string name="item_bookmark_empty_note">No note saved for bookmark</string>
-    <string name="item_bookmark_header_template">%d verses present in this bookmark\n%s</string>
+    <string name="item_bookmark_header_template">This bookmark has %d verses, the first verse is\n%s</string>
     <string name="act_blist_titlebar">Bookmarks</string>
 
 </resources>
