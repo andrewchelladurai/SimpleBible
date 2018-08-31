@@ -52,13 +52,13 @@
 
     <style name="SbTheme.Red"
         parent="SbTheme">
-        <item name="android:colorBackground">@color/redLighter</item>
-        <item name="android:windowBackground">@color/redLighter</item>
-        <item name="android:navigationBarColor">@color/redDarker</item>
+        <item name="android:colorBackground">@color/redLight</item>
+        <item name="android:windowBackground">@color/redLight</item>
+        <!--<item name="android:navigationBarColor">@color/redLight</item>-->
         <!--<item name="android:statusBarColor">@color/redDarker</item>-->
 
         <item name="colorAccent">@color/redDarker</item>
-        <item name="colorPrimary">@color/redLighter</item>
+        <item name="colorPrimary">@color/redLight</item>
     </style>
 
     <style name="SbTheme.Yellow"
@@ -108,10 +108,35 @@
     </style>
 
     <style name="SbTheme.Button.Filled"
-        parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        parent="Widget.MaterialComponents.Button">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">?colorPrimary</item>
+    </style>
+
+    <style name="SbTheme.Button.Outlined"
+        parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">?colorPrimary</item>
+        <item name="android:strokeColor">?colorPrimary</item>
+    </style>
+
+    <style name="SbTheme.Button.Filled.Icon"
+        parent="Widget.MaterialComponents.Button.Icon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">?colorPrimary</item>
+        <item name="iconTint">?colorPrimary</item>
+    </style>
+
+    <style name="SbTheme.Button.Outlined.Icon"
+        parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:strokeColor">?colorAccent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">?colorAccent</item>
+        <item name="iconTint">?colorAccent</item>
     </style>
 
 </resources>
