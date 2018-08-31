@@ -1,5 +1,6 @@
 package com.andrewchelladurai.simplebible.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -49,7 +50,12 @@ public class BookmarkListScreen
 
     @Override
     public void handleActionBookmarkClick(@NonNull final Bookmark bookmark) {
-        Log.d(TAG, "handleActionBookmarkClick() called with: bookmark = [" + bookmark + "]");
+        Bundle bundle = new Bundle();
+        bundle.putString(BookmarkScreen.REFERENCES, bookmark.getReference());
+        final Intent intent = new Intent(this, BookmarkScreen.class);
+        intent.putExtras(bundle);
+
+        startActivity(intent);
     }
 
     @Override
