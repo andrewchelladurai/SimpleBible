@@ -111,7 +111,7 @@ public class BookmarkListAdapter
 
             mView.findViewById(R.id.item_bookmark_view).setOnClickListener(this);
             mView.findViewById(R.id.item_bookmark_action_delete).setOnClickListener(this);
-            mView.findViewById(R.id.item_bookmark_action_delete).setOnClickListener(this);
+            mView.findViewById(R.id.item_bookmark_action_share).setOnClickListener(this);
         }
 
         @Override
