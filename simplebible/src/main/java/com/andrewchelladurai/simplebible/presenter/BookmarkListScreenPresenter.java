@@ -6,6 +6,7 @@ import android.util.Log;
 import com.andrewchelladurai.simplebible.data.entities.Bookmark;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
 import com.andrewchelladurai.simplebible.data.repository.VerseRepository;
+import com.andrewchelladurai.simplebible.data.repository.ops.BookmarkRepositoryOps;
 import com.andrewchelladurai.simplebible.ui.adapter.BookmarkListAdapter.BookmarkListViewHolder;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkListScreenOps;
 import com.andrewchelladurai.simplebible.util.Utilities;
@@ -26,9 +27,12 @@ public class BookmarkListScreenPresenter {
     private static final String TAG = "BookmarkListScreenPrese";
 
     private final BookmarkListScreenOps mOps;
+    private final BookmarkRepositoryOps mRepositoryOps;
 
-    public BookmarkListScreenPresenter(final BookmarkListScreenOps ops) {
+    public BookmarkListScreenPresenter(final BookmarkListScreenOps ops,
+                                       final BookmarkRepositoryOps repositoryOps) {
         mOps = ops;
+        mRepositoryOps = repositoryOps;
     }
 
     public int getVerseCount(@NonNull final Bookmark bookmark) {
@@ -56,6 +60,14 @@ public class BookmarkListScreenPresenter {
         }
 
         new GetBookmarkVerses(bookmarkListViewHolder).execute(bookmark.getReference());
+    }
+
+    public List<Bookmark> getCachedRecords() {
+        return mRepositoryOps.getCachedRecords();
+    }
+
+    public boolean populateRepositoryCache(final List<Bookmark> list) {
+        return mRepositoryOps.populateCache(list);
     }
 
     private static class GetBookmarkVerses
