@@ -14,6 +14,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
 
 /**
  * Created by : Andrew Chelladurai
@@ -78,6 +79,10 @@ public class BookmarkScreenPresenter {
 
     public void destroyCache() {
         BookmarkVerseRepository.getInstance().clearCache();
+    }
+
+    public LiveData<List<Bookmark>> doesBookmarkExist(final String bookmarkReference) {
+        return BookmarkRepository.getInstance().doesRecordExist(bookmarkReference);
     }
 
     private static class CreateBookmarkTask
