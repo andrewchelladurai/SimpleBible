@@ -57,6 +57,15 @@
         <item name="colorPrimary">@color/redLight</item>
     </style>
 
+    <style name="SbTheme.BookmarkListScreen"
+        parent="SbTheme">
+        <item name="android:colorBackground">@color/blueLighter</item>
+        <item name="android:windowBackground">@drawable/act_blist_bground</item>
+
+        <item name="colorAccent">@color/redDarker</item>
+        <item name="colorPrimary">@color/redLight</item>
+    </style>
+
     <style name="SbTheme.SearchScreen"
         parent="SbTheme">
         <item name="android:colorBackground">@color/yellowLighter</item>

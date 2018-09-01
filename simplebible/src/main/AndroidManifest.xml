@@ -48,7 +48,7 @@
 
         <activity
             android:name=".ui.BookmarkListScreen"
-            android:theme="@style/SbTheme.BookmarkScreen" />
+            android:theme="@style/SbTheme.BookmarkListScreen" />
     </application>
 
 </manifest>
