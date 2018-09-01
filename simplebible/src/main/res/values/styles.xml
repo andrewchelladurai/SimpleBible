@@ -37,12 +37,11 @@
         <item name="colorPrimary">@color/greenLight</item>
     </style>
 
-    <style name="SbTheme.Blue"
+    <style name="SbTheme.ChapterScreen"
         parent="SbTheme">
         <item name="android:colorBackground">@color/blueLight</item>
         <item name="android:windowBackground">@color/blueLight</item>
         <item name="android:navigationBarColor">@color/blueDarker</item>
-        <!--<item name="android:statusBarColor">@color/green_background_light</item>-->
 
         <item name="colorAccent">@color/blueDarker</item>
         <item name="colorPrimary">@color/blueLight</item>

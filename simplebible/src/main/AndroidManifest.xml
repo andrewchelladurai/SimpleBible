@@ -28,7 +28,7 @@
             android:windowSoftInputMode="stateHidden|adjustNothing" />
         <activity
             android:name=".ui.ChapterScreen"
-            android:theme="@style/SbTheme.Blue" />
+            android:theme="@style/SbTheme.ChapterScreen" />
 
         <meta-data
             android:name="preloaded_fonts"
