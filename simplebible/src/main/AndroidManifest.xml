@@ -40,6 +40,7 @@
         <activity
             android:name=".ui.BookmarkScreen"
             android:theme="@style/SbTheme.Red" />
+
         <activity
             android:name=".ui.SearchScreen"
             android:theme="@style/SbTheme.Yellow"
