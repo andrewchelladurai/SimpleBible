@@ -38,7 +38,7 @@ public interface BookmarkDao {
     void deleteBookmark(@NonNull Bookmark bookmark);
 
     @Query("select * from BOOKMARKS order by REFERENCE")
-    LiveData<List<Bookmark>> getAllBookmarks();
+    LiveData<List<Bookmark>> queryAllBookmarks();
 
     @Query("select count(distinct REFERENCE) from BOOKMARKS")
     int getNumberOfBookmarks();
