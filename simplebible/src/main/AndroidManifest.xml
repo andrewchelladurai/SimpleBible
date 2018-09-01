@@ -24,7 +24,7 @@
         </activity>
         <activity
             android:name=".ui.BooksScreen"
-            android:theme="@style/SbTheme.Green"
+            android:theme="@style/SbTheme.BooksScreen"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
         <activity
             android:name=".ui.ChapterScreen"
