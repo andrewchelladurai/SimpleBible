@@ -28,7 +28,7 @@ public interface BookmarkRepositoryOps {
 
     void deleteBookmark(@NonNull Bookmark bookmark);
 
-    LiveData<List<Bookmark>> getAllBookmarks();
+    LiveData<List<Bookmark>> queryAllBookmarks();
 
     int getNumberOfBookmarks();
 
