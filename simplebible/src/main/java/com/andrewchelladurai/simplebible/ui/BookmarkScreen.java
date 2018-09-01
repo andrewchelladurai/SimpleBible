@@ -204,7 +204,8 @@ public class BookmarkScreen
 
     @Override
     public void handleInteractionClick(@NonNull Verse verse) {
-        throw new UnsupportedOperationException();
+        Log.d(TAG, "handleInteractionClick: not implemented");
+        //        throw new UnsupportedOperationException();
     }
 
     @NonNull
