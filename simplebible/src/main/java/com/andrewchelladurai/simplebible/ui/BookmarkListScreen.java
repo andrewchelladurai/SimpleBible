@@ -16,6 +16,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,7 +43,12 @@ public class BookmarkListScreen
             mRepository = ViewModelProviders.of(this).get(BookmarkRepository.class);
         }
 
-        mRepository.queryDatabase().observe(this, this);
+        mRepository.queryAllBookmarks().observe(this, new Observer<List<Bookmark>>() {
+            @Override
+            public void onChanged(final List<Bookmark> list) {
+                updateList(list);
+            }
+        });
 
         final RecyclerView listView = findViewById(R.id.act_blist_list);
         listView.setAdapter(mAdapter);
@@ -92,11 +98,6 @@ public class BookmarkListScreen
     @Override
     public String getVerseDisplayTemplate() {
         return getString(R.string.content_bookmark_item_reference_template);
-    }
-
-    @Override
-    public void onChanged(@NonNull final List<Bookmark> list) {
-        updateList(list);
     }
 
     private void updateList(@NonNull final List<Bookmark> list) {
