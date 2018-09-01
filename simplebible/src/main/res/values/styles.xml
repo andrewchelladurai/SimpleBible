@@ -57,12 +57,11 @@
         <item name="colorPrimary">@color/redLight</item>
     </style>
 
-    <style name="SbTheme.Yellow"
+    <style name="SbTheme.SearchScreen"
         parent="SbTheme">
         <item name="android:colorBackground">@color/yellowLighter</item>
         <item name="android:windowBackground">@color/yellowLighter</item>
         <item name="android:navigationBarColor">@color/yellowDarker</item>
-        <!--<item name="android:statusBarColor">@color/yellowDarker</item>-->
 
         <item name="colorAccent">@color/yellowDarker</item>
         <item name="colorPrimary">@color/yellowLighter</item>

@@ -43,7 +43,7 @@
 
         <activity
             android:name=".ui.SearchScreen"
-            android:theme="@style/SbTheme.Yellow"
+            android:theme="@style/SbTheme.SearchScreen"
             android:windowSoftInputMode="stateHidden" />
 
         <activity
