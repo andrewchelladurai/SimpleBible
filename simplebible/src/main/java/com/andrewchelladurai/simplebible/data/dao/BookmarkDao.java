@@ -23,25 +23,25 @@ import androidx.room.Update;
 public interface BookmarkDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void createRecord(@NonNull Bookmark bookmark);
+    void createBookmark(@NonNull Bookmark bookmark);
 
-    @Query("select * from BOOKMARKS where REFERENCE=:reference")
-    LiveData<List<Bookmark>> readRecord(@NonNull String reference);
+    @Query("select * from BOOKMARKS where REFERENCE=:reference order by REFERENCE")
+    LiveData<List<Bookmark>> queryBookmarkUsingReference(@NonNull String reference);
+
+    @Query("select * from BOOKMARKS where NOTE LIKE note order by REFERENCE")
+    LiveData<List<Bookmark>> queryBookmarkUsingNote(@NonNull String note);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    void updateRecord(@NonNull Bookmark bookmark);
+    void updateBookmark(@NonNull Bookmark bookmark);
 
     @Delete
-    void deleteRecord(@NonNull Bookmark bookmark);
+    void deleteBookmark(@NonNull Bookmark bookmark);
 
     @Query("select * from BOOKMARKS order by REFERENCE")
-    LiveData<List<Bookmark>> getAllRecords();
-
-    @Query("select * from BOOKMARKS where REFERENCE LIKE :likeReference")
-    LiveData<List<Bookmark>> getRecordsContainingKey(@NonNull String likeReference);
+    LiveData<List<Bookmark>> getAllBookmarks();
 
     @Query("select count(distinct REFERENCE) from BOOKMARKS")
-    int getNumberOfRecords();
+    int getNumberOfBookmarks();
 
     @Query("delete from BOOKMARKS")
     void deleteAllRecords();
