@@ -1,34 +1,30 @@
 package com.andrewchelladurai.simplebible.data.repository;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
 import android.util.Log;
 
 import com.andrewchelladurai.simplebible.data.SbDatabase;
 import com.andrewchelladurai.simplebible.data.entities.Book;
+import com.andrewchelladurai.simplebible.data.repository.ops.BookRepositoryOps;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 public class BookRepository
-    extends AndroidViewModel {
+    extends AndroidViewModel
+    implements BookRepositoryOps {
 
     private static final String TAG = "BookRepository";
 
-    @SuppressLint("UseSparseArrays")
-    private static final Map<Integer, Book> CACHE_MAP  = new HashMap<>();
-    private static final List<Book>         CACHE_LIST = new ArrayList<>();
-
-    private LiveData<List<Book>> LIVE_DATA;
-
-    private static BookRepository THIS_INSTANCE = null;
+    private static BookRepositoryOps      THIS_INSTANCE = null;
+    private static ArrayList<Book>        mCachedList   = new ArrayList<>();
+    private static HashMap<Integer, Book> mCachedMap    = new HashMap<>();
+    //    private static LiveData<List<Book>>   sLiveData     = null;
 
     public BookRepository(final Application application) {
         super(application);
@@ -36,131 +32,108 @@ public class BookRepository
         Log.d(TAG, "BookRepository: initialized");
     }
 
-    public static BookRepository getInstance() {
+    public static BookRepositoryOps getInstance() {
         if (THIS_INSTANCE == null) {
-            throw new UnsupportedOperationException("Singleton Instance is not yet initiated");
+            throw new UnsupportedOperationException(
+                TAG + " getInstance: THIS_INSTANCE is not initialized");
         }
         return THIS_INSTANCE;
     }
 
-    public boolean populateCache(final List<?> list, @NonNull Object... cacheParams) {
-        if (isCacheValid(cacheParams)) {
-            Log.d(TAG, "already cached same data");
-            return true;
+    @Override
+    public boolean createBook(final Book book) {
+        SbDatabase.getInstance(getApplication()).getBookDao()
+                  .createBook(book);
+        return true;
+    }
+
+    @Override
+    public boolean updateBook(@NonNull Book book) {
+        SbDatabase.getInstance(getApplication()).getBookDao()
+                  .updateBook(book);
+        return true;
+    }
+
+    @Override
+    public boolean deleteBook(@NonNull Book book) {
+        SbDatabase.getInstance(getApplication()).getBookDao()
+                  .deleteBook(book);
+        return true;
+    }
+
+    @Override
+    public LiveData<List<Book>> queryAllBooks() {
+        return SbDatabase.getInstance(getApplication()).getBookDao().getAllRecords();
+    }
+
+    @Override
+    public LiveData<List<Book>> queryBookUsingNumber(final int bookNumber) {
+        return SbDatabase.getInstance(getApplication()).getBookDao().getBookUsingNumber(bookNumber);
+    }
+
+    @Override
+    public LiveData<List<Book>> queryBookUsingName(final String bookName) {
+        return SbDatabase.getInstance(getApplication()).getBookDao().getBookUsingName(bookName);
+    }
+
+    @Override
+    public List<Book> getAllBooks() {
+        if (!isCacheValid()) {
+            throw new UnsupportedOperationException(TAG + " getAllBooks: cache is inValid");
         }
+        return mCachedList;
+    }
 
-        clearCache();
-        Book book;
-        for (final Object object : list) {
-            book = (Book) object;
-            CACHE_LIST.add(book);
-            CACHE_MAP.put(book.getNumber(), book);
+    @Override
+    public Book getBookUsingNumber(final int bookNumber) {
+        if (!isCacheValid()) {
+            throw new UnsupportedOperationException(TAG + " getAllBooks: cache is inValid");
         }
-        Log.d(TAG, "updated cache with [" + getCacheSize() + "] books");
-        return !isCacheEmpty();
+        return mCachedMap.get(bookNumber);
     }
 
-    public void clearCache() {
-        CACHE_MAP.clear();
-        CACHE_LIST.clear();
-    }
-
-    public boolean isCacheEmpty() {
-        return LIVE_DATA == null || CACHE_MAP.size() != 66 || CACHE_LIST.size() != 66;
-    }
-
-    public int getCacheSize() {
-        return (CACHE_LIST.size() == CACHE_MAP.size()) ? CACHE_LIST.size() : -1;
-    }
-
-    @Nullable
-    public Book getCachedRecordUsingKey(@NonNull final Object bookNumber) {
-        if (isCacheEmpty()) {
-            Log.e(TAG, "getCachedRecordUsingKey: cache is empty");
-            return null;
+    @Override
+    public Book getBookUsingName(final String bookName) {
+        if (!isCacheValid()) {
+            throw new UnsupportedOperationException(TAG + " getAllBooks: cache is inValid");
         }
-
-        final int number = (int) bookNumber;
-        return CACHE_MAP.get(number);
-    }
-
-    @Nullable
-    public Book getCachedRecordUsingValue(@NonNull final Object bookName) {
-        if (isCacheEmpty()) {
-            Log.e(TAG, "getCachedRecordUsingValue: cache is empty");
-            return null;
-        }
-
-        final String name = (String) bookName;
-
-        for (final Book book : CACHE_LIST) {
-            if (book.getName().equalsIgnoreCase(name)) {
+        for (final Book book : mCachedList) {
+            if (book.getBookName().equalsIgnoreCase(bookName)) {
                 return book;
             }
         }
         return null;
     }
 
-    @Nullable
-    public List<Book> getCachedList() {
-        if (isCacheEmpty()) {
-            Log.e(TAG, "getCachedList: cache is empty");
-            return null;
-        }
-
-        return CACHE_LIST;
+    @Override
+    public int getNumberOfBooks() {
+        return SbDatabase.getInstance(getApplication()).getBookDao().getNumberOfBooks();
     }
 
-    @Nullable
-    public LiveData<List<Book>> queryDatabase(@NonNull final Object... cacheParams) {
-        if (isCacheValid(cacheParams)) {
-            Log.d(TAG, "returning cached data");
-            return LIVE_DATA;
-        }
-
-        LIVE_DATA = SbDatabase.getInstance(getApplication()).getBookDao().getAllRecords();
-        return LIVE_DATA;
-    }
-
-    public boolean createRecord(final Object entityObject) {
-        SbDatabase.getInstance(getApplication()).getBookDao()
-                  .createRecord((Book) entityObject);
+    @Override
+    public boolean deleteAllRecords() {
+        SbDatabase.getInstance(getApplication()).getBookDao().deleteAllRecords();
         return true;
     }
 
-    public boolean deleteRecord(final Object entityObject) {
-        throw new UnsupportedOperationException("should not be used");
+    @Override
+    public boolean populateCache(@NonNull final List<Book> list) {
+        mCachedList.clear();
+        mCachedMap.clear();
+
+        for (final Book book : list) {
+            mCachedList.add(book);
+            mCachedMap.put(book.getBookNumber(), book);
+        }
+
+        boolean cacheValid = isCacheValid();
+        Log.d(TAG, "populateCache returned : " + cacheValid);
+        return cacheValid;
     }
 
-    public boolean isCacheValid(@NonNull final Object... cacheParams) {
-        if (LIVE_DATA == null) {
-            Log.d(TAG, "isCacheValid: LIVE_DATA is null)");
-            return false;
-        }
-
-        final int bookLimit = (int) cacheParams[0];
-        final String firstBook = (String) cacheParams[1];
-        final String lastBook = (String) cacheParams[2];
-
-        if (bookLimit < 0 || firstBook.isEmpty() || lastBook.isEmpty()) {
-            throw new UnsupportedOperationException("isCacheValid: invalid values passed");
-        }
-
-        if (isCacheEmpty()) {
-            Log.d(TAG, "isCacheValid: [" + false + "]");
-            return false;
-        }
-
-        final List<Book> cachedList = getCachedList();
-        final int cacheSize = cachedList.size();
-        final String cachedFirstBook = cachedList.get(0).getName();
-        final String cachedLastBook = cachedList.get(cacheSize - 1).getName();
-
-        boolean isValid = (cacheSize == bookLimit
-                           && cachedFirstBook.equalsIgnoreCase(firstBook)
-                           && cachedLastBook.equalsIgnoreCase(lastBook));
-
-        Log.d(TAG, "isCacheValid: [" + isValid + "]");
-        return isValid;
+    public boolean isCacheValid() {
+        return !mCachedMap.isEmpty()
+               && !mCachedList.isEmpty()
+               && mCachedList.size() == mCachedMap.size();
     }
 }

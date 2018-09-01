@@ -17,57 +17,54 @@ public class Book {
 
     @ColumnInfo(name = "DESC")
     @NonNull
-    private final String description;
+    private final String mBookDescription;
 
     @ColumnInfo(name = "BOOKNUMBER")
     @IntRange(from = 1, to = 66)
     @PrimaryKey
-    private final int number;
+    private final int mBookNumber;
 
     @ColumnInfo(name = "BOOKNAME")
     @NonNull
-    private final String name;
+    private final String mBookName;
 
     @ColumnInfo(name = "CHAPTERCOUNT")
     @IntRange(from = 1)
-    private final int chapters;
+    private final int mBookChapterCount;
 
     @ColumnInfo(name = "VERSECOUNT")
     @IntRange(from = 1)
-    private final int verses;
+    private final int mBookVerseCount;
 
-    public Book(@NonNull final String description,
-                @IntRange(from = 1, to = 66) final int number,
-                @NonNull final String name,
-                @IntRange(from = 1) final int chapters,
-                @IntRange(from = 1) final int verses) {
-        this.description = description;
-        this.number = number;
-        this.name = name;
-        this.chapters = chapters;
-        this.verses = verses;
+    public Book(@NonNull final String bookDescription,
+                @IntRange(from = 1, to = 66) final int bookNumber,
+                @NonNull final String bookName,
+                @IntRange(from = 1) final int bookChapterCount,
+                @IntRange(from = 1) final int bookVerseCount) {
+        mBookDescription = bookDescription;
+        mBookNumber = bookNumber;
+        mBookName = bookName;
+        mBookChapterCount = bookChapterCount;
+        mBookVerseCount = bookVerseCount;
     }
 
-    @NonNull
-    public String getDescription() {
-        return description;
+    public String getBookDescription() {
+        return mBookDescription;
     }
 
-    public int getNumber() {
-        return number;
+    public int getBookNumber() {
+        return mBookNumber;
     }
 
-    @NonNull
-    public String getName() {
-        return name;
+    public String getBookName() {
+        return mBookName;
     }
 
-    public int getChapters() {
-        return chapters;
+    public int getBookChapterCount() {
+        return mBookChapterCount;
     }
 
-    public int getVerses() {
-        return verses;
+    public int getBookVerseCount() {
+        return mBookVerseCount;
     }
-
 }

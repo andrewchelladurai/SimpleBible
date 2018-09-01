@@ -6,10 +6,7 @@ import android.view.View;
 
 import com.andrewchelladurai.simplebible.data.entities.Book;
 
-import java.util.List;
-
 import androidx.annotation.NonNull;
-import androidx.lifecycle.Observer;
 
 /**
  * Created by : Andrew Chelladurai
@@ -17,7 +14,7 @@ import androidx.lifecycle.Observer;
  * on : 11-Aug-2018 @ 7:16 PM.
  */
 public interface BooksScreenOps
-    extends Observer<List<Book>>, View.OnClickListener, View.OnFocusChangeListener, TextWatcher {
+    extends View.OnClickListener, View.OnFocusChangeListener, TextWatcher {
 
     void onListFragmentInteraction(Book book);
 

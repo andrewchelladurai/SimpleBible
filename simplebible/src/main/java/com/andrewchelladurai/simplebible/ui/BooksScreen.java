@@ -20,6 +20,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,16 +32,20 @@ public class BooksScreen
 
     private BookListAdapter      mAdapter;
     private BooksScreenPresenter mPresenter;
-    private String               mNameTemplate;
+
     private AutoCompleteTextView mChapterField;
     private AutoCompleteTextView mBookField;
+
+    private String mNameTemplate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_books);
 
-        mPresenter = new BooksScreenPresenter(this);
+        BookRepository repository = ViewModelProviders.of(this).get(BookRepository.class);
+
+        mPresenter = new BooksScreenPresenter(this, repository);
         mAdapter = new BookListAdapter(this);
 
         mNameTemplate = getString(R.string.item_book_name_template);
@@ -57,32 +62,36 @@ public class BooksScreen
 
         findViewById(R.id.act_books_button).setOnClickListener(this);
 
-        BookRepository mRepository = ViewModelProviders.of(this).get(BookRepository.class);
-        final int bookCount = 66;
-        final String firstBook = getString(R.string.first_book);
-        final String lastBook = getString(R.string.last_book);
-
-        mRepository.queryDatabase(bookCount, firstBook, lastBook)
-                   .observe(this, this);
+        repository.queryAllBooks().observe(this, new Observer<List<Book>>() {
+            @Override
+            public void onChanged(final List<Book> list) {
+                updateScreen(list);
+            }
+        });
     }
 
     private void handleInteractionGoto() {
-        final Book book = mPresenter.getBookUsingName(getBookInput());
+        if (!mPresenter.isRepositoryCacheValid()) {
+            Log.e(TAG, "handleInteractionGoto: cache is invalid");
+            return;
+        }
+
+        Book book = mPresenter.getBookUsingName(getBookInput());
         if (book == null) {
             showErrorInvalidBookInput();
             return;
         }
+
         final int chapter = getChapterInput();
-        boolean valid = mPresenter.validateChapterForBook(chapter, book);
-        if (valid) {
-            showChapterActivity(book.getNumber(), chapter);
+        if (mPresenter.validateChapterForBook(chapter, book)) {
+            showChapterActivity(book.getBookNumber(), chapter);
         } else {
             showErrorInvalidChapterInput();
         }
     }
 
     public void onListFragmentInteraction(final Book book) {
-        showChapterActivity(book.getNumber(), 1);
+        showChapterActivity(book.getBookNumber(), 1);
     }
 
     public void resetChapterField() {
@@ -152,22 +161,18 @@ public class BooksScreen
 
     @Override
     public String getFormattedBookListHeader(final Book book) {
-        return String.format(mNameTemplate, book.getName());
+        return String.format(mNameTemplate, book.getBookName());
     }
 
     @Override
     public String getFormattedBookListDetails(final Book book) {
-        final int chapters = book.getChapters();
+        final int chapters = book.getBookChapterCount();
         return getResources().getQuantityString(
             R.plurals.item_book_details_template, chapters, chapters);
     }
 
-    @Override
-    public void onChanged(final List<Book> books) {
-        updateScreen(books);
-    }
-
     private void updateScreen(@NonNull final List<Book> books) {
+        Log.d(TAG, "updateScreen: ");
         if (books == null || books.isEmpty()) {
             Log.e(TAG, "updateScreen: empty list from LiveData");
             // FIXME: 16/8/18 shows a eye-catching error on screen to inform developer
@@ -175,16 +180,11 @@ public class BooksScreen
             return;
         }
 
-        final int bookCount = 66;
-        final String firstBook = getString(R.string.first_book);
-        final String lastBook = getString(R.string.last_book);
-
-        boolean success = mPresenter.populateCache(books, bookCount, firstBook, lastBook);
-        if (success) {
-            mAdapter.updateList(books, bookCount, firstBook, lastBook);
+        if (mPresenter.populateCache(books, 66)) {
+            mAdapter.updateList(books, 66);
             mAdapter.notifyDataSetChanged();
             mBookField.setAdapter(new ArrayAdapter<>(
-                this, android.R.layout.simple_list_item_1, mPresenter.getAllBookNames()));
+                this, android.R.layout.simple_list_item_1, mPresenter.getAllBookNames(books)));
         }
     }
 
@@ -219,13 +219,21 @@ public class BooksScreen
 
     private void handleInteractionChapterFieldGainFocus() {
         final String bookName = getBookInput();
-        final Book book = mPresenter.getBookUsingName(bookName);
-        if (book != null) {
-            resetChapterField();
-            prepareChapterField(book.getChapters());
-        } else {
-            showErrorInvalidBookInput();
+
+        if (!mPresenter.isRepositoryCacheValid()) {
+            Log.e(TAG, "handleInteractionGoto: cache is invalid");
+            return;
         }
+
+        Book book = mPresenter.getBookUsingName(bookName);
+
+        if (book == null) {
+            showErrorInvalidBookInput();
+            return;
+        }
+
+        resetChapterField();
+        prepareChapterField(book.getBookChapterCount());
     }
 
     @Override

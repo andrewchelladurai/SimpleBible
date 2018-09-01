@@ -48,22 +48,23 @@ public class BookListAdapter
 
     @Override
     public void updateList(@NonNull final List<?> list, @NonNull final Object... objects) {
-        final int count = (int) objects[0];
-        final String firstBook = (String) objects[1];
-        final String lastBook = (String) objects[2];
+        if (mList.isEmpty()
+            || getItemCount() != list.size()) {
 
-        if (getItemCount() == count
-            && mList.get(0).getName().equalsIgnoreCase(firstBook)
-            && mList.get(getItemCount() - 1).getName().equalsIgnoreCase(lastBook)) {
-            Log.d(TAG, "already cached");
-            return;
-        }
+            String firstBookName = ((Book) list.get(0)).getBookName();
+            String lastBookName = ((Book) list.get(list.size())).getBookName();
 
-        mList.clear();
-        for (Object book : list) {
-            mList.add((Book) book);
+            if (!mList.get(0).getBookName().equalsIgnoreCase(firstBookName)
+                || !mList.get(getItemCount()).getBookName().equalsIgnoreCase(lastBookName)) {
+                mList.clear();
+                for (Object book : list) {
+                    mList.add((Book) book);
+                }
+                Log.d(TAG, "updated cache with [" + getItemCount() + "] books");
+            } else {
+                Log.e(TAG, "updateList: already cached");
+            }
         }
-        Log.d(TAG, "updated cache with [" + getItemCount() + "] books");
     }
 
     class ViewHolder

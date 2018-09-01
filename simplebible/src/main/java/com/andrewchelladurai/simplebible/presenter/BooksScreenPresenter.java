@@ -3,8 +3,9 @@ package com.andrewchelladurai.simplebible.presenter;
 import android.util.Log;
 
 import com.andrewchelladurai.simplebible.data.entities.Book;
-import com.andrewchelladurai.simplebible.data.repository.BookRepository;
+import com.andrewchelladurai.simplebible.data.repository.ops.BookRepositoryOps;
 import com.andrewchelladurai.simplebible.ui.ops.BooksScreenOps;
+import com.andrewchelladurai.simplebible.util.Utilities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,44 +22,41 @@ import androidx.annotation.Nullable;
 public class BooksScreenPresenter {
 
     private static final String TAG = "BooksScreenPresenter";
-    private final BooksScreenOps mOps;
 
-    public BooksScreenPresenter(final BooksScreenOps ops) {
+    private final BooksScreenOps    mOps;
+    private final BookRepositoryOps mRepository;
+
+    public BooksScreenPresenter(final BooksScreenOps ops,
+                                final BookRepositoryOps repository) {
         mOps = ops;
+        mRepository = repository;
     }
 
     @Nullable
     public Book getBookUsingName(@NonNull final String bookName) {
-        return (Book) BookRepository.getInstance().getCachedRecordUsingValue(bookName);
+        return mRepository.getBookUsingName(bookName);
     }
 
     public boolean validateChapterForBook(@IntRange(from = 1) final int chapter,
                                           @NonNull final Book book) {
-        return (chapter > 0 && chapter <= book.getChapters());
+        return Utilities.getInstance().isValidChapterNumber(book, chapter);
     }
 
     public boolean populateCache(@NonNull final List<Book> list,
-                                 @IntRange(from = 1, to = 66) final int count,
-                                 @NonNull final String firstBook,
-                                 @NonNull final String lastBook) {
+                                 @IntRange(from = 1, to = 66) final int count) {
         if (list == null
             || list.isEmpty()
+            || list.size() != 66
             || count < 0
-            || count > 66
-            || firstBook == null
-            || firstBook.isEmpty()
-            || lastBook == null
-            || lastBook.isEmpty()) {
+            || count > 66) {
             Log.e(TAG, "populateCache: invalid params passed");
             return false;
         }
-
-        return BookRepository.getInstance().populateCache(list, count, firstBook, lastBook);
+        return mRepository.populateCache(list);
     }
 
     @NonNull
-    public ArrayList<String> getAllBookNames() {
-        final List<?> list = BookRepository.getInstance().getCachedList();
+    public ArrayList<String> getAllBookNames(List<Book> list) {
 
         if (list == null || list.isEmpty()) {
             Log.e(TAG, "getAllBookNames: empty list from repository");
@@ -66,10 +64,14 @@ public class BooksScreenPresenter {
         }
 
         final ArrayList<String> names = new ArrayList<>();
-        for (final Object object : list) {
-            names.add(((Book) object).getName());
+        for (final Book book : list) {
+            names.add((book.getBookName()));
         }
 
         return names;
+    }
+
+    public boolean isRepositoryCacheValid() {
+        return mRepository.isCacheValid();
     }
 }

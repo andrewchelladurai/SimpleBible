@@ -8,9 +8,6 @@ import com.andrewchelladurai.simplebible.data.dao.BookDao;
 import com.andrewchelladurai.simplebible.data.dao.VerseDao;
 import com.andrewchelladurai.simplebible.data.entities.Book;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
-import com.andrewchelladurai.simplebible.data.repository.BookmarkRepository;
-import com.andrewchelladurai.simplebible.data.repository.BookmarkVerseRepository;
-import com.andrewchelladurai.simplebible.data.repository.VerseRepository;
 import com.andrewchelladurai.simplebible.ui.ops.SplashScreenOps;
 
 import java.io.BufferedReader;
@@ -49,7 +46,7 @@ public class SplashScreenPresenter {
         final String name = parts[2];
         final int chapters = Integer.valueOf(parts[3]);
         final int verses = Integer.valueOf(parts[4]);
-        bookDao.createRecord(new Book(desc, number, name, chapters, verses));
+        bookDao.createBook(new Book(desc, number, name, chapters, verses));
     }
 
     private static void createNewVerseRecord(@NonNull final VerseDao verseDao,
@@ -127,13 +124,13 @@ public class SplashScreenPresenter {
         }
     }
 
+/*
     public void destroyDatabases() {
-
         VerseRepository.getInstance().clearCache();
         BookmarkRepository.getInstance().clearCache();
         BookmarkVerseRepository.getInstance().clearCache();
-
     }
+*/
 
     /**
      * Created by : Andrew Chelladurai
@@ -153,14 +150,14 @@ public class SplashScreenPresenter {
                 final Context context = mOps.getSystemContext();
                 final SbDatabase sbDatabase = SbDatabase.getInstance(context);
                 final BookDao bookDao = sbDatabase.getBookDao();
-                int count = bookDao.getNumberOfRecords();
+                int count = bookDao.getNumberOfBooks();
                 Log.d(TAG, "getInstance: [" + count + "] books exist");
                 if (count != EXPECTED_BOOK_COUNT) {
                     Log.e(TAG, "getInstance: THERE MUST BE 66 BOOKS");
                     bookDao.deleteAllRecords();
                     Log.d(TAG, "getInstance: truncated Books table");
                     populateInitialData(sbDatabase, context, FILE_BOOK_DETAILS);
-                    count = bookDao.getNumberOfRecords();
+                    count = bookDao.getNumberOfBooks();
                     Log.d(TAG, "getInstance: now there are [" + count + "] books");
                 }
 

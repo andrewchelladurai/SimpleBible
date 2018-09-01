@@ -309,7 +309,7 @@ public class ChapterScreen
     private void handleInteractionNext() {
         int newChapter = getChapter() + 1;
         Book book = Utilities.getInstance().getBookUsingNumber(getBook());
-        if (book != null && newChapter > book.getChapters()) {
+        if (book != null && newChapter > book.getBookChapterCount()) {
             showErrorLastChapter();
             return;
         }
@@ -337,7 +337,7 @@ public class ChapterScreen
             return;
         }
 
-        mChapterDialog = ChapterListDialog.newInstance(this, book.getChapters());
+        mChapterDialog = ChapterListDialog.newInstance(this, book.getBookChapterCount());
         mChapterDialog.show(getSupportFragmentManager(), "ChapterListDialog");
     }
 

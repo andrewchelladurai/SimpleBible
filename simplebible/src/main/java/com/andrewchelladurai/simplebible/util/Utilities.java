@@ -122,6 +122,7 @@ public class Utilities {
         }
     }
 
+/*
     public boolean isValidChapterNumber(@IntRange(from = 1, to = 66) final int bookNumber,
                                         @IntRange(from = 1) final int chapterNumber) {
         if (chapterNumber == 0) {
@@ -148,13 +149,30 @@ public class Utilities {
         }
         return true;
     }
+*/
+
+    public boolean isValidChapterNumber(@NonNull Book book,
+                                        @IntRange(from = 1, to = 66) final int chapter) {
+
+        if (book == null) {
+            Log.e(TAG, "isValidChapterNumber: passed null book");
+            return false;
+        }
+
+        if (chapter == 0) {
+            Log.e(TAG, "isValidChapterNumber: chapterNumber can not be zero");
+            return false;
+        }
+
+        return (chapter >= 1 && chapter <= book.getBookChapterCount());
+    }
 
     @Nullable
     public String getBookName(@IntRange(from = 1, to = 66) final int bookNumber) {
         if (isValidBookNumber(bookNumber)) {
             final Book book = getBookUsingNumber(bookNumber);
             if (null != book) {
-                return book.getName();
+                return book.getBookName();
             }
         }
         return null;
@@ -165,7 +183,7 @@ public class Utilities {
     }
 
     public Book getBookUsingNumber(@NonNull final Integer bookNumber) {
-        return (Book) BookRepository.getInstance().getCachedRecordUsingKey(bookNumber);
+        return BookRepository.getInstance().getBookUsingNumber(bookNumber);
     }
 
     @Nullable

@@ -11,9 +11,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.entities.Book;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
-import com.andrewchelladurai.simplebible.data.repository.BookRepository;
 import com.andrewchelladurai.simplebible.data.repository.SearchRepository;
 import com.andrewchelladurai.simplebible.presenter.SearchScreenPresenter;
 import com.andrewchelladurai.simplebible.ui.adapter.SearchListAdapter;
@@ -28,7 +26,6 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,10 +38,10 @@ public class SearchScreen
     private static SearchScreenPresenter mPresenter;
     private static SearchListAdapter     mAdapter;
 
+    private SearchRepository mSearchRepository;
+
     private TextInputLayout   mInputFieldHolder;
     private TextInputEditText mInputField;
-    private SearchRepository  mSearchRepository;
-    private BookRepository    mBookRepository;
     private ScrollView        mHelpView;
     private RecyclerView      mListView;
 
@@ -54,19 +51,6 @@ public class SearchScreen
         setContentView(R.layout.activity_search);
 
         mSearchRepository = ViewModelProviders.of(this).get(SearchRepository.class);
-        mBookRepository = ViewModelProviders.of(this).get(BookRepository.class);
-
-        final int bookCount = 66;
-        final String firstBook = getString(R.string.first_book);
-        final String lastBook = getString(R.string.last_book);
-
-        mBookRepository.queryDatabase(bookCount, firstBook, lastBook)
-                       .observe(this, new Observer<List<Book>>() {
-                           @Override
-                           public void onChanged(final List<Book> books) {
-                               mBookRepository.populateCache(books, bookCount, firstBook, lastBook);
-                           }
-                       });
 
         if (mPresenter == null || mAdapter == null) {
             mPresenter = new SearchScreenPresenter(this);

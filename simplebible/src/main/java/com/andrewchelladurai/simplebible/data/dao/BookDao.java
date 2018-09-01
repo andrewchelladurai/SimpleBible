@@ -24,25 +24,25 @@ import androidx.room.Update;
 public interface BookDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void createRecord(@NonNull Book book);
-
-    @Query("Select * from BOOKSTATS where BOOKNUMBER=:bookNumber order by BOOKNUMBER")
-    LiveData<List<Book>> readRecord(@IntRange(from = 1, to = 66) int bookNumber);
+    void createBook(@NonNull Book book);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    void updateRecord(@NonNull Book book);
+    void updateBook(@NonNull Book book);
 
     @Delete
-    void deleteRecord(@NonNull Book book);
+    void deleteBook(@NonNull Book book);
 
     @Query("select * from BOOKSTATS order by BOOKNUMBER")
     LiveData<List<Book>> getAllRecords();
 
     @Query("Select * from BOOKSTATS where BOOKNUMBER=:bookNumber order by BOOKNUMBER")
-    LiveData<List<Book>> getRecordsContainingKey(@IntRange(from = 1, to = 66) int bookNumber);
+    LiveData<List<Book>> getBookUsingNumber(@IntRange(from = 1, to = 66) int bookNumber);
+
+    @Query("Select * from BOOKSTATS where BOOKNAME=:bookName order by BOOKNUMBER")
+    LiveData<List<Book>> getBookUsingName(String bookName);
 
     @Query("select distinct count(BOOKNUMBER) from BOOKSTATS")
-    int getNumberOfRecords();
+    int getNumberOfBooks();
 
     @Query("delete from BOOKSTATS")
     void deleteAllRecords();
