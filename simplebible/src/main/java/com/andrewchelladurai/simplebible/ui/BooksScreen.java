@@ -171,6 +171,11 @@ public class BooksScreen
             R.plurals.item_book_details_template, chapters, chapters);
     }
 
+    @Override
+    public List<Book> getAllCachedBooks() {
+        return mPresenter.getAllCachedBooks();
+    }
+
     private void updateScreen(@NonNull final List<Book> books) {
         Log.d(TAG, "updateScreen: ");
         if (books == null || books.isEmpty()) {
@@ -180,8 +185,11 @@ public class BooksScreen
             return;
         }
 
-        if (mPresenter.populateCache(books, 66)) {
-            mAdapter.updateList(books, 66);
+        String firstBook = getString(R.string.first_book);
+        String lastBook = getString(R.string.last_book);
+
+        if (mPresenter.populateCache(books, 66, firstBook, lastBook)) {
+            mAdapter.updateList(books, 66, firstBook, lastBook);
             mAdapter.notifyDataSetChanged();
             mBookField.setAdapter(new ArrayAdapter<>(
                 this, android.R.layout.simple_list_item_1, mPresenter.getAllBookNames(books)));
