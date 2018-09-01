@@ -12,6 +12,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 /**
@@ -20,7 +21,7 @@ import androidx.lifecycle.LiveData;
  * on : 15-Aug-2018 @ 6:57 PM.
  */
 public class BookmarkRepository
-    extends BaseRepository {
+    extends AndroidViewModel {
 
     private static final String TAG = "BookmarkRepository";
     private static BookmarkRepository THIS_INSTANCE;
@@ -43,7 +44,6 @@ public class BookmarkRepository
         return THIS_INSTANCE;
     }
 
-    @Override
     public boolean populateCache(@NonNull final List<?> list, @NonNull Object... cacheParams) {
         clearCache();
         Bookmark bookmark;
@@ -56,29 +56,24 @@ public class BookmarkRepository
         return true;
     }
 
-    @Override
     public void clearCache() {
         mCacheList.clear();
         mCacheMap.clear();
     }
 
-    @Override
     public boolean isCacheEmpty() {
         return mCacheList.isEmpty() && mCacheMap.isEmpty();
     }
 
-    @Override
     public int getCacheSize() {
         return (mCacheList.size() == mCacheMap.size()) ? mCacheList.size() : -1;
     }
 
-    @Override
     public Bookmark getCachedRecordUsingKey(@NonNull final Object key) {
         final String bookmarkReference = (String) key;
         return mCacheMap.get(bookmarkReference);
     }
 
-    @Override
     @Nullable
     public Bookmark getCachedRecordUsingValue(@NonNull final Object value) {
         final String note = (String) value;
@@ -90,31 +85,26 @@ public class BookmarkRepository
         return null;
     }
 
-    @Override
     public List<Bookmark> getCachedList() {
         return mCacheList;
     }
 
-    @Override
     public LiveData<List<Bookmark>> queryDatabase(@NonNull final Object... cacheParams) {
         return mLiveData;
     }
 
-    @Override
     public boolean createRecord(final Object entityObject) {
         SbDatabase.getInstance(getApplication()).getBookmarkDao()
                   .createRecord((Bookmark) entityObject);
         return true;
     }
 
-    @Override
     public boolean deleteRecord(final Object entityObject) {
         SbDatabase.getInstance(getApplication()).getBookmarkDao()
                   .deleteRecord((Bookmark) entityObject);
         return true;
     }
 
-    @Override
     public boolean isCacheValid(final Object... cacheParams) {
         return isCacheEmpty();
     }

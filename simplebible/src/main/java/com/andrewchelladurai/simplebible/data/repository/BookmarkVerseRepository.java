@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 /**
@@ -22,10 +23,10 @@ import androidx.lifecycle.LiveData;
  * on : 16-Aug-2018 @ 7:31 PM.
  */
 public class BookmarkVerseRepository
-    extends BaseRepository {
+    extends AndroidViewModel {
 
     private static final String TAG = "BookmarkVerseRepository";
-    private static RepositoryOps THIS_INSTANCE;
+    private static BookmarkVerseRepository THIS_INSTANCE;
 
     private LiveData<List<Verse>> mLiveData;
     private List<Verse>        mCacheList = new ArrayList<>();
@@ -37,21 +38,19 @@ public class BookmarkVerseRepository
         THIS_INSTANCE = this;
     }
 
-    public static RepositoryOps getInstance() {
+    public static BookmarkVerseRepository getInstance() {
         if (THIS_INSTANCE == null) {
             throw new UnsupportedOperationException("Singleton instance not initialized");
         }
         return THIS_INSTANCE;
     }
 
-    @Override
     public void clearCache() {
         mCacheReference = null;
         mCacheList.clear();
         mCacheMap.clear();
     }
 
-    @Override
     boolean isCacheValid(@NonNull final Object... cacheParams) {
         if (isCacheEmpty()) {
             Log.d(TAG, "empty cache");
@@ -62,7 +61,6 @@ public class BookmarkVerseRepository
         return mCacheReference.equalsIgnoreCase(reference);
     }
 
-    @Override
     public boolean populateCache(@NonNull final List<?> list,
                                  @NonNull final Object... cacheParams) {
         if (isCacheValid(cacheParams)) {
@@ -84,34 +82,28 @@ public class BookmarkVerseRepository
         return !isCacheEmpty();
     }
 
-    @Override
     public boolean isCacheEmpty() {
         return ((mCacheReference == null || mCacheReference.isEmpty())
                 && (mCacheMap.isEmpty() && mCacheList.isEmpty()));
     }
 
-    @Override
     public int getCacheSize() {
         return (mCacheList.size() == mCacheMap.size()) ? mCacheList.size() : -1;
     }
 
-    @Override
     public Verse getCachedRecordUsingKey(@NonNull final Object verseReference) {
         final String reference = (String) verseReference;
         return mCacheMap.get(reference);
     }
 
-    @Override
     public Verse getCachedRecordUsingValue(@NonNull final Object value) {
         throw new UnsupportedOperationException("use \"getCachedRecordUsingKey()\" instead");
     }
 
-    @Override
     public List<Verse> getCachedList() {
         return mCacheList;
     }
 
-    @Override
     public LiveData<List<Verse>> queryDatabase(@NonNull final Object... cacheParams) {
         if (isCacheValid(cacheParams)) {
             Log.d(TAG, "returning cached live data for [" + mCacheReference + "]");
@@ -156,14 +148,12 @@ public class BookmarkVerseRepository
         return mLiveData;
     }
 
-    @Override
     public boolean createRecord(final Object entityObject) {
         SbDatabase.getInstance(getApplication()).getVerseDao()
                   .createRecord((Verse) entityObject);
         return true;
     }
 
-    @Override
     public boolean deleteRecord(final Object entityObject) {
         throw new UnsupportedOperationException("should not be used");
     }

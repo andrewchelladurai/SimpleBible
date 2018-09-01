@@ -13,6 +13,7 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 /**
@@ -22,13 +23,13 @@ import androidx.lifecycle.LiveData;
  * TODO: Replace all uses of this class before publishing your app.
  */
 public class SearchRepository
-    extends BaseRepository {
+    extends AndroidViewModel {
 
     private static final String             TAG         = "SearchRepository";
     private static final List<Verse>        mCacheList  = new ArrayList<>();
     private static final Map<String, Verse> mCacheMap   = new HashMap<>();
     private static final StringBuilder      mCachedText = new StringBuilder();
-    private static RepositoryOps         THIS_INSTANCE;
+    private static SearchRepository      THIS_INSTANCE;
     private static LiveData<List<Verse>> mLiveData;
 
     SearchRepository(final Application application) {
@@ -37,14 +38,13 @@ public class SearchRepository
         Log.d(TAG, "SearchRepository: initialized");
     }
 
-    public static RepositoryOps getInstance() {
+    public static SearchRepository getInstance() {
         if (THIS_INSTANCE == null) {
             throw new UnsupportedOperationException("Singleton Instance is not yet initiated");
         }
         return THIS_INSTANCE;
     }
 
-    @Override
     boolean isCacheValid(final Object... cacheParams) {
         final String searchText = (String) cacheParams[0];
         if (searchText.isEmpty()) {
@@ -59,7 +59,6 @@ public class SearchRepository
         return searchText.equalsIgnoreCase(mCachedText.toString());
     }
 
-    @Override
     public boolean populateCache(final List<?> list, final Object... cacheParams) {
         final String searchText = (String) cacheParams[0];
         clearCache();
@@ -77,17 +76,14 @@ public class SearchRepository
         return !isCacheEmpty();
     }
 
-    @Override
     public boolean isCacheEmpty() {
         return mCacheList.isEmpty() && mCacheMap.isEmpty() && mCachedText.toString().isEmpty();
     }
 
-    @Override
     public int getCacheSize() {
         return (mCacheList.size() == mCacheMap.size()) ? mCacheList.size() : -1;
     }
 
-    @Override
     @Nullable
     public Verse getCachedRecordUsingKey(@NonNull final Object key) {
         final String reference = (String) key;
@@ -98,18 +94,15 @@ public class SearchRepository
         return mCacheMap.get(reference);
     }
 
-    @Override
     @Nullable
     public Verse getCachedRecordUsingValue(@NonNull final Object value) {
         throw new UnsupportedOperationException("use method getCachedRecordUsingKey() instead");
     }
 
-    @Override
     public List<Verse> getCachedList() {
         return mCacheList;
     }
 
-    @Override
     public LiveData<List<Verse>> queryDatabase(@NonNull final Object... cacheParams) {
         final String searchText = (String) cacheParams[0];
         if (isCacheValid(cacheParams)) {
@@ -124,17 +117,14 @@ public class SearchRepository
         return mLiveData;
     }
 
-    @Override
     public boolean createRecord(final Object entityObject) {
         throw new UnsupportedOperationException(TAG + " createRecord: do not use this method");
     }
 
-    @Override
     public boolean deleteRecord(final Object entityObject) {
         throw new UnsupportedOperationException(TAG + " deleteRecord: do not use this method");
     }
 
-    @Override
     public void clearCache() {
         mCacheMap.clear();
         mCacheList.clear();

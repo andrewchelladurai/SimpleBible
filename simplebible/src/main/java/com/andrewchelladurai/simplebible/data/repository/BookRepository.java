@@ -14,10 +14,11 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 public class BookRepository
-    extends BaseRepository {
+    extends AndroidViewModel {
 
     private static final String TAG = "BookRepository";
 
@@ -27,7 +28,7 @@ public class BookRepository
 
     private LiveData<List<Book>> LIVE_DATA;
 
-    private static RepositoryOps THIS_INSTANCE = null;
+    private static BookRepository THIS_INSTANCE = null;
 
     public BookRepository(final Application application) {
         super(application);
@@ -35,14 +36,13 @@ public class BookRepository
         Log.d(TAG, "BookRepository: initialized");
     }
 
-    public static RepositoryOps getInstance() {
+    public static BookRepository getInstance() {
         if (THIS_INSTANCE == null) {
             throw new UnsupportedOperationException("Singleton Instance is not yet initiated");
         }
         return THIS_INSTANCE;
     }
 
-    @Override
     public boolean populateCache(final List<?> list, @NonNull Object... cacheParams) {
         if (isCacheValid(cacheParams)) {
             Log.d(TAG, "already cached same data");
@@ -60,23 +60,19 @@ public class BookRepository
         return !isCacheEmpty();
     }
 
-    @Override
     public void clearCache() {
         CACHE_MAP.clear();
         CACHE_LIST.clear();
     }
 
-    @Override
     public boolean isCacheEmpty() {
         return LIVE_DATA == null || CACHE_MAP.size() != 66 || CACHE_LIST.size() != 66;
     }
 
-    @Override
     public int getCacheSize() {
         return (CACHE_LIST.size() == CACHE_MAP.size()) ? CACHE_LIST.size() : -1;
     }
 
-    @Override
     @Nullable
     public Book getCachedRecordUsingKey(@NonNull final Object bookNumber) {
         if (isCacheEmpty()) {
@@ -88,7 +84,6 @@ public class BookRepository
         return CACHE_MAP.get(number);
     }
 
-    @Override
     @Nullable
     public Book getCachedRecordUsingValue(@NonNull final Object bookName) {
         if (isCacheEmpty()) {
@@ -106,7 +101,6 @@ public class BookRepository
         return null;
     }
 
-    @Override
     @Nullable
     public List<Book> getCachedList() {
         if (isCacheEmpty()) {
@@ -117,7 +111,6 @@ public class BookRepository
         return CACHE_LIST;
     }
 
-    @Override
     @Nullable
     public LiveData<List<Book>> queryDatabase(@NonNull final Object... cacheParams) {
         if (isCacheValid(cacheParams)) {
@@ -129,19 +122,16 @@ public class BookRepository
         return LIVE_DATA;
     }
 
-    @Override
     public boolean createRecord(final Object entityObject) {
         SbDatabase.getInstance(getApplication()).getBookDao()
                   .createRecord((Book) entityObject);
         return true;
     }
 
-    @Override
     public boolean deleteRecord(final Object entityObject) {
         throw new UnsupportedOperationException("should not be used");
     }
 
-    @Override
     public boolean isCacheValid(@NonNull final Object... cacheParams) {
         if (LIVE_DATA == null) {
             Log.d(TAG, "isCacheValid: LIVE_DATA is null)");

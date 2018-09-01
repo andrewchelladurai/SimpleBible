@@ -11,11 +11,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 public class VerseRepository
-    extends BaseRepository {
+    extends AndroidViewModel {
 
     private static final String TAG = "VerseRepository";
 
@@ -40,13 +41,11 @@ public class VerseRepository
         return THIS_INSTANCE;
     }
 
-    @Override
     public void clearCache() {
         mCacheList.clear();
         mCacheMap.clear();
     }
 
-    @Override
     public boolean isCacheValid(@NonNull final Object... cacheParams) {
         if (isCacheEmpty()) {
             Log.d(TAG, "cache is empty");
@@ -64,7 +63,6 @@ public class VerseRepository
         return false;
     }
 
-    @Override
     public boolean populateCache(@NonNull final List<?> list,
                                  @NonNull final Object... cacheParams) {
         if (isCacheValid(cacheParams)) {
@@ -85,17 +83,14 @@ public class VerseRepository
         return true;
     }
 
-    @Override
     public boolean isCacheEmpty() {
         return mCacheList.isEmpty() & mCacheMap.isEmpty();
     }
 
-    @Override
     public int getCacheSize() {
         return (mCacheMap.size() == mCacheList.size()) ? mCacheList.size() : -1;
     }
 
-    @Override
     public Object getCachedRecordUsingKey(@NonNull final Object key) {
         final String reference = (String) key;
         if (mCacheMap.containsKey(reference)) {
@@ -104,17 +99,14 @@ public class VerseRepository
         return null;
     }
 
-    @Override
     public Object getCachedRecordUsingValue(@NonNull final Object value) {
         throw new UnsupportedOperationException("Do not look for verse using value");
     }
 
-    @Override
     public List<Verse> getCachedList() {
         return mCacheList;
     }
 
-    @Override
     public LiveData<List<Verse>> queryDatabase(@NonNull final Object... cacheParams) {
         if (isCacheValid(cacheParams)) {
             Log.d(TAG, "returning cached live data");
@@ -136,14 +128,12 @@ public class VerseRepository
         return mLiveData;
     }
 
-    @Override
     public boolean createRecord(final Object entityObject) {
         SbDatabase.getInstance(getApplication()).getVerseDao()
                   .createRecord((Verse) entityObject);
         return true;
     }
 
-    @Override
     public boolean deleteRecord(final Object entityObject) {
         throw new UnsupportedOperationException("should not be used");
     }
