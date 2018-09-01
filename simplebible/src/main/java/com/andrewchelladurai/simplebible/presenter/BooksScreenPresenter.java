@@ -43,16 +43,22 @@ public class BooksScreenPresenter {
     }
 
     public boolean populateCache(@NonNull final List<Book> list,
-                                 @IntRange(from = 1, to = 66) final int count) {
+                                 @IntRange(from = 1, to = 66) final int count,
+                                 @NonNull final String firstBook,
+                                 @NonNull final String lastBook) {
         if (list == null
             || list.isEmpty()
             || list.size() != 66
             || count < 0
-            || count > 66) {
+            || count > 66
+            || firstBook == null
+            || firstBook.isEmpty()
+            || lastBook == null
+            || lastBook.isEmpty()) {
             Log.e(TAG, "populateCache: invalid params passed");
             return false;
         }
-        return mRepository.populateCache(list);
+        return mRepository.populateCache(list, count, firstBook, lastBook);
     }
 
     @NonNull
@@ -73,5 +79,9 @@ public class BooksScreenPresenter {
 
     public boolean isRepositoryCacheValid() {
         return mRepository.isCacheValid();
+    }
+
+    public List<Book> getAllCachedBooks() {
+        return mRepository.getAllBooks();
     }
 }
