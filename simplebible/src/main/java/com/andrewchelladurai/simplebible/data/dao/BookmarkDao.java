@@ -28,7 +28,7 @@ public interface BookmarkDao {
     @Query("select * from BOOKMARKS where REFERENCE=:reference order by REFERENCE")
     LiveData<List<Bookmark>> queryBookmarkUsingReference(@NonNull String reference);
 
-    @Query("select * from BOOKMARKS where NOTE LIKE note order by REFERENCE")
+    @Query("select * from BOOKMARKS where NOTE LIKE :note order by REFERENCE")
     LiveData<List<Bookmark>> queryBookmarkUsingNote(@NonNull String note);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
