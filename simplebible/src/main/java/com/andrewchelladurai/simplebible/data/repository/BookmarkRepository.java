@@ -103,7 +103,7 @@ public class BookmarkRepository
 
     @Override
     @Nullable
-    public LiveData<List<Bookmark>> getAllBookmarks() {
+    public LiveData<List<Bookmark>> queryAllBookmarks() {
         return SbDatabase.getInstance(getApplication()).getBookmarkDao()
                          .queryAllBookmarks();
     }
