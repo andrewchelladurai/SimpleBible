@@ -67,12 +67,8 @@ public class BookmarkListAdapter
     @Override
     public void updateList(final List<?> list, final Object... objects) {
         mCacheList.clear();
-        Bookmark bookmark;
-        for (final Object object : list) {
-            bookmark = (Bookmark) object;
-            mCacheList.add(bookmark);
-        }
-        Log.d(TAG, "updateList: updated list with [" + getItemCount() + "] records");
+        mCacheList.addAll(mOps.getCachedBookmarks());
+        Log.d(TAG, "updateList: updated [" + getItemCount() + "] bookmarks");
     }
 
     public class BookmarkListViewHolder
