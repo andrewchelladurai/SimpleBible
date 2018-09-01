@@ -23,7 +23,7 @@ public class BookmarkRepository
     extends BaseRepository {
 
     private static final String TAG = "BookmarkRepository";
-    private static RepositoryOps THIS_INSTANCE;
+    private static BookmarkRepository THIS_INSTANCE;
 
     private final List<Bookmark>            mCacheList = new ArrayList<>();
     private final HashMap<String, Bookmark> mCacheMap  = new HashMap<>();
@@ -36,7 +36,7 @@ public class BookmarkRepository
         Log.d(TAG, "BookmarkRepository: initialized");
     }
 
-    public static RepositoryOps getInstance() {
+    public static BookmarkRepository getInstance() {
         if (THIS_INSTANCE == null) {
             throw new UnsupportedOperationException("Singleton Instance is not yet initiated");
         }
@@ -117,5 +117,11 @@ public class BookmarkRepository
     @Override
     public boolean isCacheValid(final Object... cacheParams) {
         return isCacheEmpty();
+    }
+
+    public LiveData<List<Bookmark>> doesRecordExist(final String bookmarkReference) {
+        return SbDatabase.getInstance(getApplication()).getBookmarkDao()
+                         .readRecord(bookmarkReference);
+
     }
 }
