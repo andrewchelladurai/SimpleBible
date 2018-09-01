@@ -41,4 +41,6 @@ public interface BookmarkRepositoryOps {
     public int getCachedRecordCount();
 
     public void clearCache();
+
+    List<Bookmark> getCachedRecords();
 }
