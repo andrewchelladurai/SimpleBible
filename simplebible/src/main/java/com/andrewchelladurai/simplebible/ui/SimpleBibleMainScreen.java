@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.entities.Book;
 import com.andrewchelladurai.simplebible.data.repository.BookRepository;
 import com.andrewchelladurai.simplebible.data.repository.BookmarkRepository;
 import com.andrewchelladurai.simplebible.data.repository.BookmarkVerseRepository;
@@ -19,7 +20,10 @@ import com.andrewchelladurai.simplebible.data.repository.VerseRepository;
 import com.andrewchelladurai.simplebible.presenter.SplashScreenPresenter;
 import com.andrewchelladurai.simplebible.ui.ops.SplashScreenOps;
 
+import java.util.List;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.loader.content.Loader;
 
@@ -67,7 +71,9 @@ public class SimpleBibleMainScreen
         // initialize repositories
         ViewModelProviders.of(this).get(BookmarkRepository.class);
         ViewModelProviders.of(this).get(BookmarkVerseRepository.class);
-        ViewModelProviders.of(this).get(BookRepository.class);
+
+        //        ViewModelProviders.of(this).get(BookRepository.class);
+
         ViewModelProviders.of(this).get(SearchRepository.class);
         ViewModelProviders.of(this).get(VerseRepository.class);
 
@@ -98,6 +104,26 @@ public class SimpleBibleMainScreen
     public void showLoadingSuccessScreen() {
         findViewById(R.id.act_main_container_pbar).setVisibility(View.GONE);
         findViewById(R.id.act_main_container_fabs).setVisibility(View.VISIBLE);
+
+        populateBooksCache();
+    }
+
+    private void populateBooksCache() {
+        Log.d(TAG, "populateBooksCache");
+        final int bookCount = 66;
+        final String firstBook = getString(R.string.first_book);
+        final String lastBook = getString(R.string.last_book);
+        final BookRepository bookRepository = ViewModelProviders.of(this).get(BookRepository.class);
+        bookRepository.queryAllBooks().observe(this, new Observer<List<Book>>() {
+            @Override
+            public void onChanged(final List<Book> list) {
+                if (list == null || list.isEmpty()) {
+                    Log.e(TAG, "showLoadingSuccessScreen: empty iveData for Books");
+                    return;
+                }
+                bookRepository.populateCache(list, bookCount, firstBook, lastBook);
+            }
+        });
     }
 
     @Override
