@@ -26,24 +26,22 @@ public class BookmarkListScreen
 
     private static final String TAG = "BookmarkListScreen";
 
-    private static BookmarkListScreenPresenter mPresenter  = null;
-    private static BookmarkListAdapter         mAdapter    = null;
-    private static BookmarkRepository          mRepository = null;
+    private static BookmarkListScreenPresenter mPresenter = null;
+    private static BookmarkListAdapter         mAdapter   = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmark_list);
+        BookmarkRepository repository = ViewModelProviders.of(this).get(BookmarkRepository.class);
 
-        if (mRepository == null
-            || mAdapter == null
+        if (mAdapter == null
             || mPresenter == null) {
-            mPresenter = new BookmarkListScreenPresenter(this);
+            mPresenter = new BookmarkListScreenPresenter(this, repository);
             mAdapter = new BookmarkListAdapter(this);
-            mRepository = ViewModelProviders.of(this).get(BookmarkRepository.class);
         }
 
-        mRepository.queryAllBookmarks().observe(this, new Observer<List<Bookmark>>() {
+        repository.queryAllBookmarks().observe(this, new Observer<List<Bookmark>>() {
             @Override
             public void onChanged(final List<Bookmark> list) {
                 updateList(list);
@@ -100,8 +98,17 @@ public class BookmarkListScreen
         return getString(R.string.content_bookmark_item_reference_template);
     }
 
+    @Override
+    public List<Bookmark> getCachedBookmarks() {
+        return mPresenter.getCachedRecords();
+    }
+
     private void updateList(@NonNull final List<Bookmark> list) {
-        Log.d(TAG, "updateList: [" + list.size() + "] records retrieved");
+        Log.d(TAG, "updateList: got [" + list.size() + "] bookmarks");
+        if (!mPresenter.populateRepositoryCache(list)) {
+            Log.e(TAG, "updateList: populating repository cache failed");
+            return;
+        }
         mAdapter.updateList(list);
         mAdapter.notifyDataSetChanged();
     }

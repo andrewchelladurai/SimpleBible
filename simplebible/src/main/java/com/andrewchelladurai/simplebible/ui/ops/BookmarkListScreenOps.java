@@ -3,6 +3,8 @@ package com.andrewchelladurai.simplebible.ui.ops;
 import com.andrewchelladurai.simplebible.data.entities.Bookmark;
 import com.andrewchelladurai.simplebible.ui.adapter.BookmarkListAdapter.BookmarkListViewHolder;
 
+import java.util.List;
+
 import androidx.annotation.NonNull;
 
 /**
@@ -32,4 +34,7 @@ public interface BookmarkListScreenOps {
 
     @NonNull
     String getVerseDisplayTemplate();
+
+    @NonNull
+    List<Bookmark> getCachedBookmarks();
 }
