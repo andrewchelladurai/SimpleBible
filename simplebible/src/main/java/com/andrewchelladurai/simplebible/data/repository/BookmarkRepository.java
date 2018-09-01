@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.andrewchelladurai.simplebible.data.SbDatabase;
 import com.andrewchelladurai.simplebible.data.entities.Bookmark;
+import com.andrewchelladurai.simplebible.data.repository.ops.BookmarkRepositoryOps;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,30 +22,106 @@ import androidx.lifecycle.LiveData;
  * on : 15-Aug-2018 @ 6:57 PM.
  */
 public class BookmarkRepository
-    extends AndroidViewModel {
+    extends AndroidViewModel
+    implements BookmarkRepositoryOps {
 
     private static final String TAG = "BookmarkRepository";
-    private static BookmarkRepository THIS_INSTANCE;
+    private static BookmarkRepositoryOps THIS_INSTANCE;
 
     private final List<Bookmark>            mCacheList = new ArrayList<>();
     private final HashMap<String, Bookmark> mCacheMap  = new HashMap<>();
-    private static LiveData<List<Bookmark>> mLiveData;
 
     public BookmarkRepository(final Application application) {
         super(application);
-        mLiveData = SbDatabase.getInstance(getApplication()).getBookmarkDao().getAllRecords();
         THIS_INSTANCE = this;
         Log.d(TAG, "BookmarkRepository: initialized");
     }
 
-    public static BookmarkRepository getInstance() {
+    public static BookmarkRepositoryOps getInstance() {
         if (THIS_INSTANCE == null) {
             throw new UnsupportedOperationException("Singleton Instance is not yet initiated");
         }
         return THIS_INSTANCE;
     }
 
-    public boolean populateCache(@NonNull final List<?> list, @NonNull Object... cacheParams) {
+    @Override
+    public void createBookmark(@NonNull final Bookmark bookmark) {
+        SbDatabase.getInstance(getApplication()).getBookmarkDao()
+                  .createBookmark(bookmark);
+    }
+
+    @Override
+    @Nullable
+    public LiveData<List<Bookmark>> queryBookmarkUsingReference(@NonNull final String reference) {
+        return SbDatabase.getInstance(getApplication()).getBookmarkDao()
+                         .queryBookmarkUsingReference(reference);
+    }
+
+    @Override
+    @Nullable
+    public LiveData<List<Bookmark>> queryBookmarkUsingNote(@NonNull final String note) {
+        return SbDatabase.getInstance(getApplication()).getBookmarkDao()
+                         .queryBookmarkUsingNote(note);
+    }
+
+    @Override
+    @Nullable
+    public Bookmark getBookmarkUsingReference(@NonNull final String reference) {
+        if (!isCacheValid()) {
+            throw new UnsupportedOperationException(
+                TAG + " getBookmarkUsingReference: cache is inValid");
+        }
+        return mCacheMap.get(reference);
+    }
+
+    @Override
+    @Nullable
+    public Bookmark getBookmarkUsingNote(@NonNull final String note) {
+        if (!isCacheValid()) {
+            throw new UnsupportedOperationException(
+                TAG + " getBookmarkUsingReference: cache is inValid");
+        }
+        for (final Bookmark bookmark : mCacheList) {
+            if (bookmark.getNote().contains(note)) {
+                return bookmark;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void updateBookmark(@NonNull final Bookmark bookmark) {
+        SbDatabase.getInstance(getApplication()).getBookmarkDao()
+                  .updateBookmark(bookmark);
+    }
+
+    @Override
+    public void deleteBookmark(@NonNull final Bookmark bookmark) {
+        SbDatabase.getInstance(getApplication()).getBookmarkDao()
+                  .deleteBookmark(bookmark);
+    }
+
+    @Override
+    @Nullable
+    public LiveData<List<Bookmark>> getAllBookmarks() {
+        return SbDatabase.getInstance(getApplication()).getBookmarkDao()
+                         .queryAllBookmarks();
+    }
+
+    @Override
+    public int getNumberOfBookmarks() {
+        return SbDatabase.getInstance(getApplication()).getBookmarkDao()
+                         .getNumberOfBookmarks();
+    }
+
+    @Override
+    public void deleteAllRecords() {
+        SbDatabase.getInstance(getApplication()).getBookmarkDao()
+                  .deleteAllRecords();
+    }
+
+    @Override
+    public boolean populateCache(@NonNull final List<Bookmark> list) {
         clearCache();
         Bookmark bookmark;
         for (final Object object : list) {
@@ -52,8 +129,18 @@ public class BookmarkRepository
             mCacheList.add(bookmark);
             mCacheMap.put(bookmark.getReference(), bookmark);
         }
-        Log.d(TAG, "populateCache: updated cache with [" + getCacheSize() + "] bookmarks");
+        Log.d(TAG, "populateCache: cached [" + getCachedRecordCount() + "] bookmarks");
         return true;
+    }
+
+    @Override
+    public boolean isCacheValid() {
+        return mCacheList.isEmpty() && mCacheMap.isEmpty();
+    }
+
+    @Override
+    public int getCachedRecordCount() {
+        return (mCacheList.size() == mCacheMap.size()) ? mCacheList.size() : -1;
     }
 
     public void clearCache() {
@@ -61,57 +148,4 @@ public class BookmarkRepository
         mCacheMap.clear();
     }
 
-    public boolean isCacheEmpty() {
-        return mCacheList.isEmpty() && mCacheMap.isEmpty();
-    }
-
-    public int getCacheSize() {
-        return (mCacheList.size() == mCacheMap.size()) ? mCacheList.size() : -1;
-    }
-
-    public Bookmark getCachedRecordUsingKey(@NonNull final Object key) {
-        final String bookmarkReference = (String) key;
-        return mCacheMap.get(bookmarkReference);
-    }
-
-    @Nullable
-    public Bookmark getCachedRecordUsingValue(@NonNull final Object value) {
-        final String note = (String) value;
-        for (final Bookmark bookmark : mCacheList) {
-            if (bookmark.getNote().equalsIgnoreCase(note)) {
-                return bookmark;
-            }
-        }
-        return null;
-    }
-
-    public List<Bookmark> getCachedList() {
-        return mCacheList;
-    }
-
-    public LiveData<List<Bookmark>> queryDatabase(@NonNull final Object... cacheParams) {
-        return mLiveData;
-    }
-
-    public boolean createRecord(final Object entityObject) {
-        SbDatabase.getInstance(getApplication()).getBookmarkDao()
-                  .createRecord((Bookmark) entityObject);
-        return true;
-    }
-
-    public boolean deleteRecord(final Object entityObject) {
-        SbDatabase.getInstance(getApplication()).getBookmarkDao()
-                  .deleteRecord((Bookmark) entityObject);
-        return true;
-    }
-
-    public boolean isCacheValid(final Object... cacheParams) {
-        return isCacheEmpty();
-    }
-
-    public LiveData<List<Bookmark>> doesRecordExist(final String bookmarkReference) {
-        return SbDatabase.getInstance(getApplication()).getBookmarkDao()
-                         .readRecord(bookmarkReference);
-
-    }
 }
