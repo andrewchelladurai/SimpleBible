@@ -36,7 +36,7 @@ public class BookmarkScreenPresenter {
 
     @Nullable
     public Bookmark getBookmarkUsingReference(@NonNull final String references) {
-        return (Bookmark) BookmarkRepository.getInstance().getCachedRecordUsingKey(references);
+        return BookmarkRepository.getInstance().getBookmarkUsingReference(references);
     }
 
     @NonNull
@@ -82,7 +82,7 @@ public class BookmarkScreenPresenter {
     }
 
     public LiveData<List<Bookmark>> doesBookmarkExist(final String bookmarkReference) {
-        return BookmarkRepository.getInstance().doesRecordExist(bookmarkReference);
+        return BookmarkRepository.getInstance().queryBookmarkUsingReference(bookmarkReference);
     }
 
     private static class CreateBookmarkTask
@@ -93,7 +93,8 @@ public class BookmarkScreenPresenter {
         @Override
         protected Boolean doInBackground(final Bookmark... bookmarks) {
             Log.d(TAG, "doInBackground");
-            return BookmarkRepository.getInstance().createRecord(bookmarks[0]);
+            BookmarkRepository.getInstance().createBookmark(bookmarks[0]);
+            return true;
         }
 
         @Override
@@ -114,7 +115,8 @@ public class BookmarkScreenPresenter {
         @Override
         protected Boolean doInBackground(final Bookmark... bookmarks) {
             Log.d(TAG, "doInBackground");
-            return BookmarkRepository.getInstance().deleteRecord(bookmarks[0]);
+            BookmarkRepository.getInstance().deleteBookmark(bookmarks[0]);
+            return true;
         }
 
         @Override
