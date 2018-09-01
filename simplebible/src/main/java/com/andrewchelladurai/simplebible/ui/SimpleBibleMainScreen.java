@@ -35,7 +35,7 @@ public class SimpleBibleMainScreen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.SbTheme_Splash);
+        setTheme(R.style.SbTheme_Home);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simple_bible);
 

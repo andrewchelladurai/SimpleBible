@@ -16,17 +16,15 @@
         <item name="android:textColor">@android:color/black</item>
     </style>
 
-    <style name="SbTheme.Splash">
+    <style name="SbTheme.Home">
         <item name="android:windowBackground">@drawable/act_main_bground</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
 
         <item name="colorPrimary">@color/greenLight</item>
         <item name="colorPrimaryDark">@color/greenDark</item>
         <item name="colorAccent">?colorPrimaryDark</item>
     </style>
 
-    <style name="SbTheme.Splash.Temp">
+    <style name="SbTheme.Home.Splash">
         <item name="android:windowBackground">@drawable/act_main_splash_bground</item>
     </style>
 
