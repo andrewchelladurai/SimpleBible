@@ -26,6 +26,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -132,26 +133,31 @@ public class BookmarkScreen
     }
 
     private void showCorrectActions() {
-        Bookmark bookmark = mPresenter.getBookmarkUsingReference(mReferences);
-        if (bookmark == null) {
-            findViewById(R.id.act_bmrk_menu_save).setVisibility(GONE);
-            findViewById(R.id.act_bmrk_menu_edit).setVisibility(GONE);
-            findViewById(R.id.act_bmrk_menu_delete).setVisibility(GONE);
-            findViewById(R.id.act_bmrk_menu_share).setVisibility(VISIBLE);
-            findViewById(R.id.act_bmrk_menu_settings).setVisibility(VISIBLE);
-            mFabAction = R.id.act_bmrk_menu_save;
-            mFab.setImageResource(R.drawable.ic_save);
-            mTitleBar.setText(R.string.act_bmrk_titlebar_create);
-        } else {
-            findViewById(R.id.act_bmrk_menu_save).setVisibility(GONE);
-            findViewById(R.id.act_bmrk_menu_edit).setVisibility(GONE);
-            findViewById(R.id.act_bmrk_menu_delete).setVisibility(VISIBLE);
-            findViewById(R.id.act_bmrk_menu_share).setVisibility(VISIBLE);
-            findViewById(R.id.act_bmrk_menu_settings).setVisibility(VISIBLE);
-            mFabAction = R.id.act_bmrk_menu_edit;
-            mFab.setImageResource(R.drawable.ic_edit);
-            mTitleBar.setText(R.string.act_bmrk_titlebar_edit);
-        }
+        // update actions and title depending on passed reference being present in DB
+        mPresenter.doesBookmarkExist(mReferences).observe(this, new Observer<List<Bookmark>>() {
+            @Override
+            public void onChanged(final List<Bookmark> list) {
+                if (list == null || list.isEmpty()) {
+                    findViewById(R.id.act_bmrk_menu_save).setVisibility(GONE);
+                    findViewById(R.id.act_bmrk_menu_edit).setVisibility(GONE);
+                    findViewById(R.id.act_bmrk_menu_delete).setVisibility(GONE);
+                    // findViewById(R.id.act_bmrk_menu_share).setVisibility(VISIBLE);
+                    // findViewById(R.id.act_bmrk_menu_settings).setVisibility(VISIBLE);
+                    mFabAction = R.id.act_bmrk_menu_save;
+                    mFab.setImageResource(R.drawable.ic_save);
+                    mTitleBar.setText(R.string.act_bmrk_titlebar_create);
+                } else {
+                    findViewById(R.id.act_bmrk_menu_save).setVisibility(GONE);
+                    findViewById(R.id.act_bmrk_menu_edit).setVisibility(GONE);
+                    findViewById(R.id.act_bmrk_menu_delete).setVisibility(VISIBLE);
+                    // findViewById(R.id.act_bmrk_menu_share).setVisibility(VISIBLE);
+                    // findViewById(R.id.act_bmrk_menu_settings).setVisibility(VISIBLE);
+                    mFabAction = R.id.act_bmrk_menu_edit;
+                    mFab.setImageResource(R.drawable.ic_edit);
+                    mTitleBar.setText(R.string.act_bmrk_titlebar_edit);
+                }
+            }
+        });
     }
 
     @Override
