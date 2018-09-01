@@ -1,6 +1,5 @@
 package com.andrewchelladurai.simplebible.ui.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,23 +47,9 @@ public class BookListAdapter
 
     @Override
     public void updateList(@NonNull final List<?> list, @NonNull final Object... objects) {
-        if (mList.isEmpty()
-            || getItemCount() != list.size()) {
-
-            String firstBookName = ((Book) list.get(0)).getBookName();
-            String lastBookName = ((Book) list.get(list.size())).getBookName();
-
-            if (!mList.get(0).getBookName().equalsIgnoreCase(firstBookName)
-                || !mList.get(getItemCount()).getBookName().equalsIgnoreCase(lastBookName)) {
-                mList.clear();
-                for (Object book : list) {
-                    mList.add((Book) book);
-                }
-                Log.d(TAG, "updated cache with [" + getItemCount() + "] books");
-            } else {
-                Log.e(TAG, "updateList: already cached");
-            }
-        }
+        // FIXME: 1/9/18 remove passed params
+        mList.clear();
+        mList.addAll(mOps.getAllCachedBooks());
     }
 
     class ViewHolder
