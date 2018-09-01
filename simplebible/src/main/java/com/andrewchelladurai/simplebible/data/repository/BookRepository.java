@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -24,7 +25,6 @@ public class BookRepository
     private static BookRepositoryOps      THIS_INSTANCE = null;
     private static ArrayList<Book>        mCachedList   = new ArrayList<>();
     private static HashMap<Integer, Book> mCachedMap    = new HashMap<>();
-    //    private static LiveData<List<Book>>   sLiveData     = null;
 
     public BookRepository(final Application application) {
         super(application);
@@ -117,7 +117,17 @@ public class BookRepository
     }
 
     @Override
-    public boolean populateCache(@NonNull final List<Book> list) {
+    public boolean populateCache(@NonNull List<Book> list,
+                                 @IntRange(from = 1, to = 66) final int count,
+                                 @NonNull final String firstBook,
+                                 @NonNull final String lastBook) {
+        if (getCachedRecordCount() == count
+            && mCachedList.get(0).getBookName().equalsIgnoreCase(firstBook)
+            && mCachedList.get(mCachedList.size() - 1).getBookName().equalsIgnoreCase(lastBook)) {
+            Log.d(TAG, "populateCache: already cached");
+            return true;
+        }
+
         mCachedList.clear();
         mCachedMap.clear();
 
@@ -125,9 +135,10 @@ public class BookRepository
             mCachedList.add(book);
             mCachedMap.put(book.getBookNumber(), book);
         }
+        Log.d(TAG, "populateCache: [" + getCachedRecordCount() + "] books populated");
 
         boolean cacheValid = isCacheValid();
-        Log.d(TAG, "populateCache returned : " + cacheValid);
+        Log.d(TAG, "populateCache: returned [cacheValid=" + cacheValid + "]");
         return cacheValid;
     }
 
@@ -135,5 +146,10 @@ public class BookRepository
         return !mCachedMap.isEmpty()
                && !mCachedList.isEmpty()
                && mCachedList.size() == mCachedMap.size();
+    }
+
+    @Override
+    public int getCachedRecordCount() {
+        return (mCachedList.size() == mCachedMap.size()) ? mCachedList.size() : -1;
     }
 }

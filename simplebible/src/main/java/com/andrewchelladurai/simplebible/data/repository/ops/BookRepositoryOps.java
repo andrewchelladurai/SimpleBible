@@ -37,8 +37,13 @@ public interface BookRepositoryOps {
 
     boolean deleteAllRecords();
 
-    boolean populateCache(@NonNull List<Book> list);
+    boolean populateCache(@NonNull List<Book> list,
+                          @IntRange(from = 1, to = 66) final int count,
+                          @NonNull final String firstBook,
+                          @NonNull final String lastBook);
 
     public boolean isCacheValid();
+
+    public int getCachedRecordCount();
 
 }
