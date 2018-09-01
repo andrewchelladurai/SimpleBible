@@ -6,6 +6,8 @@ import android.view.View;
 
 import com.andrewchelladurai.simplebible.data.entities.Book;
 
+import java.util.List;
+
 import androidx.annotation.NonNull;
 
 /**
@@ -26,4 +28,7 @@ public interface BooksScreenOps
 
     @NonNull
     String getFormattedBookListDetails(@NonNull Book book);
+
+    @NonNull
+    List<Book> getAllCachedBooks();
 }
