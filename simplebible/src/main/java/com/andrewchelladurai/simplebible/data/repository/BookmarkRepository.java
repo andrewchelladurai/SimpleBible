@@ -148,4 +148,9 @@ public class BookmarkRepository
         mCacheMap.clear();
     }
 
+    @Override
+    public List<Bookmark> getCachedRecords() {
+        return mCacheList;
+    }
+
 }
