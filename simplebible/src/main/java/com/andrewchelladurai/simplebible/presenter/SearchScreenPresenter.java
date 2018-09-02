@@ -1,7 +1,7 @@
 package com.andrewchelladurai.simplebible.presenter;
 
 import com.andrewchelladurai.simplebible.data.entities.Verse;
-import com.andrewchelladurai.simplebible.data.repository.SearchRepository;
+import com.andrewchelladurai.simplebible.data.repository.ops.SearchRepositoryOps;
 import com.andrewchelladurai.simplebible.ui.ops.SearchScreenOps;
 import com.andrewchelladurai.simplebible.util.Utilities;
 
@@ -18,10 +18,13 @@ import androidx.annotation.Nullable;
  */
 public class SearchScreenPresenter {
 
-    private final SearchScreenOps mOps;
+    private final SearchScreenOps     mOps;
+    private final SearchRepositoryOps mRepositoryOps;
 
-    public SearchScreenPresenter(final SearchScreenOps ops) {
+    public SearchScreenPresenter(final SearchScreenOps ops,
+                                 final SearchRepositoryOps repositoryOps) {
         mOps = ops;
+        mRepositoryOps = repositoryOps;
     }
 
     public boolean validateSearchText(final String searchText) {
@@ -45,7 +48,7 @@ public class SearchScreenPresenter {
 
     public boolean populateCache(@NonNull final List<Verse> list,
                                  @NonNull final String searchText) {
-        return SearchRepository.getInstance().populateCache(list, searchText);
+        return mRepositoryOps.populateCache(list, searchText);
     }
 
     public String getSelectedVersesTextToShare(@NonNull final ArrayList<Verse> list,
@@ -54,9 +57,10 @@ public class SearchScreenPresenter {
         String bookName, verseText;
         int chapterNumber, verseNumber;
 
+        final Utilities utilities = Utilities.getInstance();
         for (Verse verse : list) {
             if (verse.isSelected()) {
-                bookName = Utilities.getInstance().getBookName(verse.getBook());
+                bookName = utilities.getBookName(verse.getBook());
                 chapterNumber = verse.getChapter();
                 verseNumber = verse.getVerse();
                 verseText = verse.getText();
