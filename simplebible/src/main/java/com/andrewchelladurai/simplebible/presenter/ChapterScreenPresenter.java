@@ -2,7 +2,7 @@ package com.andrewchelladurai.simplebible.presenter;
 
 import com.andrewchelladurai.simplebible.data.entities.Book;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
-import com.andrewchelladurai.simplebible.data.repository.VerseRepository;
+import com.andrewchelladurai.simplebible.data.repository.ops.VerseRepositoryOps;
 import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;
 import com.andrewchelladurai.simplebible.util.Utilities;
 
@@ -20,16 +20,19 @@ import androidx.annotation.Nullable;
  */
 public class ChapterScreenPresenter {
 
-    private final ChapterScreenOps mOps;
+    private final ChapterScreenOps   mOps;
+    private final VerseRepositoryOps mRepositoryOps;
 
-    public ChapterScreenPresenter(final ChapterScreenOps ops) {
+    public ChapterScreenPresenter(final ChapterScreenOps ops,
+                                  final VerseRepositoryOps repositoryOps) {
         mOps = ops;
+        mRepositoryOps = repositoryOps;
     }
 
     public boolean populateCache(@NonNull final List<Verse> verses,
                                  @IntRange(from = 1, to = 66) final int book,
                                  @IntRange(from = 1) final int chapter) {
-        return VerseRepository.getInstance().populateCache(verses, book, chapter);
+        return mRepositoryOps.populateCache(verses, book, chapter);
     }
 
     public String getSelectedVersesTextToShare(@NonNull final ArrayList<Verse> list,
@@ -51,7 +54,7 @@ public class ChapterScreenPresenter {
     }
 
     public void destroyCache() {
-        VerseRepository.getInstance().clearCache();
+        mRepositoryOps.clearCache();
     }
 
     @Nullable
