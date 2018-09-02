@@ -60,7 +60,7 @@ public class BookmarkScreen
             ViewModelProviders.of(this).get(BookmarkVerseRepository.class);
 
         mAdapter = new BookmarkVerseAdapter(this);
-        mPresenter = new BookmarkScreenPresenter(this);
+        mPresenter = new BookmarkScreenPresenter(this, bookmarkVerseRepository);
 
         mTitleBar = findViewById(R.id.act_bmrk_titlebar);
 
@@ -100,19 +100,21 @@ public class BookmarkScreen
                 "onCreate: invalid references[" + mReferences + "] passed");
         }
 
-        bookmarkVerseRepository.queryDatabase(mReferences)
-                               .observe(this, this);
+        bookmarkVerseRepository.queryBookmarkVerses(mReferences)
+                               .observe(this, new Observer<List<Verse>>() {
+                                   @Override
+                                   public void onChanged(final List<Verse> list) {
+                                       updateScreen(list);
+                                   }
+                               });
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mPresenter.destroyCache();
-    }
-
-    @Override
-    public void onChanged(final List<Verse> verses) {
-        updateScreen(verses);
+        if (!mPresenter.clearRepositoryCache()) {
+            Log.e(TAG, "onDestroy: failed to clear repository cache");
+        }
     }
 
     private void updateScreen(final List<Verse> verses) {
