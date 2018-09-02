@@ -26,6 +26,7 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,7 +42,6 @@ public class ChapterScreen
 
     private ChapterScreenPresenter mPresenter;
     private VerseListAdapter       mAdapter;
-    private VerseRepository        mRepository;
     private RecyclerView           mRecyclerView;
     private BottomAppBar           mBottomAppBar;
     private FloatingActionButton   mFab;
@@ -61,8 +61,8 @@ public class ChapterScreen
             ARGS.putInt(CHAPTER_NUMBER, getIntent().getIntExtra(CHAPTER_NUMBER, 0));
         }
 
-        mRepository = ViewModelProviders.of(this).get(VerseRepository.class);
-        mPresenter = new ChapterScreenPresenter(this);
+        VerseRepository mRepository = ViewModelProviders.of(this).get(VerseRepository.class);
+        mPresenter = new ChapterScreenPresenter(this, mRepository);
         mAdapter = new VerseListAdapter(this);
 
         mBottomAppBar = findViewById(R.id.act_chap_appbar);
@@ -89,11 +89,13 @@ public class ChapterScreen
         outState.putInt(CHAPTER_NUMBER, ARGS.getInt(CHAPTER_NUMBER));
     }
 
+/*
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mPresenter.destroyCache();
     }
+*/
 
     private void showChapter(final int book, final int chapter) {
         Log.d(TAG, "showChapter: book = [" + book + "], chapter = [" + chapter + "]");
@@ -101,12 +103,13 @@ public class ChapterScreen
         ARGS.putInt(BOOK_NUMBER, book);
         ARGS.putInt(CHAPTER_NUMBER, chapter);
 
-        mRepository.queryDatabase(book, chapter).observe(this, this);
-    }
-
-    @Override
-    public void onChanged(final List<Verse> verses) {
-        updateVerseList(verses);
+        VerseRepository.getInstance().queryDatabase(book, chapter)
+                       .observe(this, new Observer<List<Verse>>() {
+                           @Override
+                           public void onChanged(final List<Verse> list) {
+                               updateVerseList(list);
+                           }
+                       });
     }
 
     private void updateVerseList(@Nullable final List<Verse> verses) {
