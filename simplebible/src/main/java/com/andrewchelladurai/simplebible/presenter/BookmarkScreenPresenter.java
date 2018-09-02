@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.andrewchelladurai.simplebible.data.entities.Bookmark;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
-import com.andrewchelladurai.simplebible.data.repository.BookmarkRepository;
+import com.andrewchelladurai.simplebible.data.repository.ops.BookmarkRepositoryOps;
 import com.andrewchelladurai.simplebible.data.repository.ops.BookmarkVerseRepositoryOps;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkScreenOps;
 import com.andrewchelladurai.simplebible.util.Utilities;
@@ -24,23 +24,26 @@ public class BookmarkScreenPresenter {
 
     private static final String TAG = "BookmarkScreenPresenter";
     private static BookmarkScreenOps          mOps;
-    private final  BookmarkVerseRepositoryOps mRepositoryOps;
+    private static BookmarkRepositoryOps      mRepositoryOps;
+    private final  BookmarkVerseRepositoryOps mVerseRepositoryOps;
 
     public BookmarkScreenPresenter(@NonNull BookmarkScreenOps ops,
-                                   @NonNull BookmarkVerseRepositoryOps repositoryOps) {
+                                   @NonNull BookmarkRepositoryOps repositoryOps,
+                                   @NonNull BookmarkVerseRepositoryOps bookmarkVerseRepositoryOps) {
         mOps = ops;
         mRepositoryOps = repositoryOps;
+        mVerseRepositoryOps = bookmarkVerseRepositoryOps;
     }
 
     public boolean populateCache(final List<Verse> verses, final String references) {
-        return mRepositoryOps.populateCache(verses, references);
+        return mVerseRepositoryOps.populateCache(verses, references);
     }
 
     @NonNull
     public String formatBookmarkToShare(@NonNull final String note,
                                         @NonNull final String bookmarkVerseTemplate,
                                         @NonNull final String bookmarkShareTemplate) {
-        final List<Verse> list = mRepositoryOps.getCachedRecords();
+        final List<Verse> list = mVerseRepositoryOps.getCachedRecords();
         final StringBuilder verses = new StringBuilder();
         final Utilities utilities = Utilities.getInstance();
 
@@ -73,12 +76,12 @@ public class BookmarkScreenPresenter {
     }
 
     public LiveData<List<Bookmark>> doesBookmarkExist(final String bookmarkReference) {
-        return BookmarkRepository.getInstance().queryBookmarkUsingReference(bookmarkReference);
+        return mRepositoryOps.queryBookmarkUsingReference(bookmarkReference);
     }
 
     public boolean clearRepositoryCache() {
-        mRepositoryOps.clearCache();
-        return mRepositoryOps.isCacheEmpty();
+        mVerseRepositoryOps.clearCache();
+        return mVerseRepositoryOps.isCacheEmpty();
     }
 
     private static class CreateBookmarkTask
@@ -89,7 +92,7 @@ public class BookmarkScreenPresenter {
         @Override
         protected Boolean doInBackground(final Bookmark... bookmarks) {
             Log.d(TAG, "doInBackground");
-            BookmarkRepository.getInstance().createBookmark(bookmarks[0]);
+            mRepositoryOps.createBookmark(bookmarks[0]);
             return true;
         }
 
@@ -111,7 +114,7 @@ public class BookmarkScreenPresenter {
         @Override
         protected Boolean doInBackground(final Bookmark... bookmarks) {
             Log.d(TAG, "doInBackground");
-            BookmarkRepository.getInstance().deleteBookmark(bookmarks[0]);
+            mRepositoryOps.deleteBookmark(bookmarks[0]);
             return true;
         }
 

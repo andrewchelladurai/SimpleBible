@@ -43,7 +43,6 @@ public class BookmarkScreen
     private BookmarkScreenPresenter mPresenter;
     private BookmarkVerseAdapter    mAdapter;
     private String                  mReferences;
-    private RecyclerView            mRecyclerView;
     private TextInputEditText       mNoteField;
     private TextView                mTitleBar;
     private FloatingActionButton    mFab;
@@ -54,24 +53,25 @@ public class BookmarkScreen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmark);
 
-        ViewModelProviders.of(this).get(BookmarkRepository.class);
+        BookmarkRepository bookmarkRepository =
+            ViewModelProviders.of(this).get(BookmarkRepository.class);
 
         BookmarkVerseRepository bookmarkVerseRepository =
             ViewModelProviders.of(this).get(BookmarkVerseRepository.class);
 
         mAdapter = new BookmarkVerseAdapter(this);
-        mPresenter = new BookmarkScreenPresenter(this, bookmarkVerseRepository);
+        mPresenter = new BookmarkScreenPresenter(this, bookmarkRepository, bookmarkVerseRepository);
 
         mTitleBar = findViewById(R.id.act_bmrk_titlebar);
 
-        mRecyclerView = findViewById(R.id.act_bmrk_list);
-        mRecyclerView.setAdapter(mAdapter);
+        RecyclerView recyclerView = findViewById(R.id.act_bmrk_list);
+        recyclerView.setAdapter(mAdapter);
 
         mNoteField = findViewById(R.id.act_bmrk_note);
 
-        BottomAppBar mBottomAppBar = findViewById(R.id.act_bmrk_appbar);
-        mBottomAppBar.replaceMenu(R.menu.bookmark_screen_appbar);
-        mBottomAppBar.setOnMenuItemClickListener(this);
+        BottomAppBar bottomAppBar = findViewById(R.id.act_bmrk_appbar);
+        bottomAppBar.replaceMenu(R.menu.bookmark_screen_appbar);
+        bottomAppBar.setOnMenuItemClickListener(this);
 
         mFab = findViewById(R.id.act_bmrk_fab);
         mFab.setOnClickListener(this);
@@ -104,9 +104,26 @@ public class BookmarkScreen
                                .observe(this, new Observer<List<Verse>>() {
                                    @Override
                                    public void onChanged(final List<Verse> list) {
-                                       updateScreen(list);
+                                       updateVerseList(list);
                                    }
                                });
+
+        bookmarkRepository.queryBookmarkUsingReference(mReferences)
+                          .observe(this, new Observer<List<Bookmark>>() {
+                              @Override
+                              public void onChanged(final List<Bookmark> list) {
+                                  updateNoteField(list);
+                              }
+                          });
+        showCorrectActions();
+    }
+
+    private void updateNoteField(final List<Bookmark> list) {
+        if (list == null || list.isEmpty()) {
+            Log.e(TAG, "updateNoteField: empty bookmark list");
+            return;
+        }
+        mNoteField.setText(list.get(0).getNote());
     }
 
     @Override
@@ -117,21 +134,20 @@ public class BookmarkScreen
         }
     }
 
-    private void updateScreen(final List<Verse> verses) {
+    private void updateVerseList(final List<Verse> verses) {
         if (verses == null || verses.isEmpty()) {
             // FIXME: 16/8/18 show an error to user on screen that hopefully no one sees ever
             throw new UnsupportedOperationException(
-                "updateScreen: empty list returned from live data");
+                "updateVerseList: empty list returned from live data");
         }
 
         if (!mPresenter.populateCache(verses, mReferences)) {
             // FIXME: 16/8/18 show an error to user on screen that hopefully no one sees ever
             throw new UnsupportedOperationException(
-                "updateScreen: could nto populate cache");
+                "updateVerseList: could nto populate cache");
         }
 
         mAdapter.updateList(verses, mReferences);
-        showCorrectActions();
     }
 
     private void showCorrectActions() {
