@@ -82,7 +82,7 @@ public class BookmarkListScreenPresenter {
         @Override
         protected ArrayList<Verse> doInBackground(final String... params) {
             final String bookmarkReference = params[0];
-            Log.e(TAG, "doInBackground: passed bookmarkReference[" + bookmarkReference + "]");
+            Log.d(TAG, "doInBackground: passed bookmarkReference[" + bookmarkReference + "]");
 
             final ArrayList<Verse> verseList = new ArrayList<>();
             final Utilities utilities = Utilities.getInstance();
