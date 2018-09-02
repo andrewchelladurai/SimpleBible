@@ -7,6 +7,7 @@ import com.andrewchelladurai.simplebible.data.entities.Bookmark;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
 import com.andrewchelladurai.simplebible.data.repository.VerseRepository;
 import com.andrewchelladurai.simplebible.data.repository.ops.BookmarkRepositoryOps;
+import com.andrewchelladurai.simplebible.data.repository.ops.VerseRepositoryOps;
 import com.andrewchelladurai.simplebible.ui.adapter.BookmarkListAdapter.BookmarkListViewHolder;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkListScreenOps;
 import com.andrewchelladurai.simplebible.util.Utilities;
@@ -87,7 +88,7 @@ public class BookmarkListScreenPresenter {
             final ArrayList<Verse> verseList = new ArrayList<>();
             final Utilities utilities = Utilities.getInstance();
             final String[] verseReferences = utilities.splitReferences(bookmarkReference);
-            final VerseRepository verseRepository = VerseRepository.getInstance();
+            final VerseRepositoryOps repositoryOps = VerseRepository.getInstance();
             int[] parts;
             List<Verse> list;
 
@@ -98,7 +99,7 @@ public class BookmarkListScreenPresenter {
                 }
 
                 parts = utilities.splitReference(reference);
-                list = verseRepository.getVerse(parts[0], parts[1], parts[2]);
+                list = repositoryOps.queryVerse(parts[0], parts[1], parts[2]);
                 if (list == null || list.isEmpty()) {
                     Log.e(TAG, "doInBackground: no verse found for [reference=" + reference + "]");
                     continue;
