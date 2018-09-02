@@ -6,14 +6,13 @@ import android.util.Log;
 import com.andrewchelladurai.simplebible.data.entities.Bookmark;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
 import com.andrewchelladurai.simplebible.data.repository.BookmarkRepository;
-import com.andrewchelladurai.simplebible.data.repository.BookmarkVerseRepository;
+import com.andrewchelladurai.simplebible.data.repository.ops.BookmarkVerseRepositoryOps;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkScreenOps;
 import com.andrewchelladurai.simplebible.util.Utilities;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 
 /**
@@ -24,32 +23,28 @@ import androidx.lifecycle.LiveData;
 public class BookmarkScreenPresenter {
 
     private static final String TAG = "BookmarkScreenPresenter";
-    private static BookmarkScreenOps mOps;
+    private static BookmarkScreenOps          mOps;
+    private final  BookmarkVerseRepositoryOps mRepositoryOps;
 
-    public BookmarkScreenPresenter(@NonNull BookmarkScreenOps ops) {
+    public BookmarkScreenPresenter(@NonNull BookmarkScreenOps ops,
+                                   @NonNull BookmarkVerseRepositoryOps repositoryOps) {
         mOps = ops;
+        mRepositoryOps = repositoryOps;
     }
 
     public boolean populateCache(final List<Verse> verses, final String references) {
-        return BookmarkVerseRepository.getInstance().populateCache(verses, references);
-    }
-
-    @Nullable
-    public Bookmark getBookmarkUsingReference(@NonNull final String references) {
-        return BookmarkRepository.getInstance().getBookmarkUsingReference(references);
+        return mRepositoryOps.populateCache(verses, references);
     }
 
     @NonNull
     public String formatBookmarkToShare(@NonNull final String note,
                                         @NonNull final String bookmarkVerseTemplate,
                                         @NonNull final String bookmarkShareTemplate) {
-        final List<?> list = BookmarkVerseRepository.getInstance().getCachedList();
+        final List<Verse> list = mRepositoryOps.getCachedRecords();
         final StringBuilder verses = new StringBuilder();
         final Utilities utilities = Utilities.getInstance();
 
-        Verse verse;
-        for (Object object : list) {
-            verse = (Verse) object;
+        for (Verse verse : list) {
             verses.append(String.format(bookmarkVerseTemplate,
                                         utilities.getBookName(verse.getBook()),
                                         verse.getChapter(),
@@ -77,12 +72,13 @@ public class BookmarkScreenPresenter {
         new DeleteBookmarkTask().execute(new Bookmark(references, note));
     }
 
-    public void destroyCache() {
-        BookmarkVerseRepository.getInstance().clearCache();
-    }
-
     public LiveData<List<Bookmark>> doesBookmarkExist(final String bookmarkReference) {
         return BookmarkRepository.getInstance().queryBookmarkUsingReference(bookmarkReference);
+    }
+
+    public boolean clearRepositoryCache() {
+        mRepositoryOps.clearCache();
+        return mRepositoryOps.isCacheEmpty();
     }
 
     private static class CreateBookmarkTask
