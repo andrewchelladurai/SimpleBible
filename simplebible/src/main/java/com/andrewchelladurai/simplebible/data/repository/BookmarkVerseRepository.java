@@ -6,6 +6,7 @@ import android.util.Log;
 import com.andrewchelladurai.simplebible.data.SbDatabase;
 import com.andrewchelladurai.simplebible.data.dao.VerseDao;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
+import com.andrewchelladurai.simplebible.data.repository.ops.BookmarkVerseRepositoryOps;
 import com.andrewchelladurai.simplebible.util.Utilities;
 
 import java.util.ArrayList;
@@ -23,12 +24,12 @@ import androidx.lifecycle.LiveData;
  * on : 16-Aug-2018 @ 7:31 PM.
  */
 public class BookmarkVerseRepository
-    extends AndroidViewModel {
+    extends AndroidViewModel
+    implements BookmarkVerseRepositoryOps {
 
     private static final String TAG = "BookmarkVerseRepository";
-    private static BookmarkVerseRepository THIS_INSTANCE;
+    private static BookmarkVerseRepositoryOps THIS_INSTANCE;
 
-    private LiveData<List<Verse>> mLiveData;
     private List<Verse>        mCacheList = new ArrayList<>();
     private Map<String, Verse> mCacheMap  = new HashMap<>();
     private String mCacheReference;
@@ -38,40 +39,50 @@ public class BookmarkVerseRepository
         THIS_INSTANCE = this;
     }
 
-    public static BookmarkVerseRepository getInstance() {
+    public static BookmarkVerseRepositoryOps getInstance() {
         if (THIS_INSTANCE == null) {
             throw new UnsupportedOperationException("Singleton instance not initialized");
         }
         return THIS_INSTANCE;
     }
 
+    @Override
+    public boolean isCacheEmpty() {
+        return ((mCacheReference == null || mCacheReference.isEmpty())
+                && (mCacheMap.isEmpty() && mCacheList.isEmpty()));
+    }
+
+    @Override
+    public boolean isCacheValid(@NonNull final Object... cacheParams) {
+        if (isCacheEmpty()) {
+            Log.d(TAG, "empty cache");
+            return false;
+        }
+
+        return mCacheReference.equalsIgnoreCase((String) cacheParams[0]);
+    }
+
+    @Override
     public void clearCache() {
         mCacheReference = null;
         mCacheList.clear();
         mCacheMap.clear();
     }
 
-    boolean isCacheValid(@NonNull final Object... cacheParams) {
-        if (isCacheEmpty()) {
-            Log.d(TAG, "empty cache");
-            return false;
-        }
-
-        final String reference = (String) cacheParams[0];
-        return mCacheReference.equalsIgnoreCase(reference);
+    @Override
+    public int getCacheSize() {
+        return (mCacheList.size() == mCacheMap.size()) ? mCacheList.size() : -1;
     }
 
-    public boolean populateCache(@NonNull final List<?> list,
-                                 @NonNull final Object... cacheParams) {
+    @Override
+    public boolean populateCache(final List<Verse> list, final Object... cacheParams) {
         if (isCacheValid(cacheParams)) {
             Log.d(TAG, "already cached [" + mCacheReference + "]");
             return true;
         }
 
         clearCache();
-        Verse verse;
-        for (final Object object : list) {
-            verse = (Verse) object;
+        for (Verse verse : list) {
             mCacheList.add(verse);
             mCacheMap.put(verse.getReference(), verse);
         }
@@ -82,32 +93,16 @@ public class BookmarkVerseRepository
         return !isCacheEmpty();
     }
 
-    public boolean isCacheEmpty() {
-        return ((mCacheReference == null || mCacheReference.isEmpty())
-                && (mCacheMap.isEmpty() && mCacheList.isEmpty()));
-    }
-
-    public int getCacheSize() {
-        return (mCacheList.size() == mCacheMap.size()) ? mCacheList.size() : -1;
-    }
-
-    public Verse getCachedRecordUsingKey(@NonNull final Object verseReference) {
-        final String reference = (String) verseReference;
-        return mCacheMap.get(reference);
-    }
-
-    public Verse getCachedRecordUsingValue(@NonNull final Object value) {
-        throw new UnsupportedOperationException("use \"getCachedRecordUsingKey()\" instead");
-    }
-
-    public List<Verse> getCachedList() {
+    @Override
+    public List<Verse> getCachedRecords() {
         return mCacheList;
     }
 
-    public LiveData<List<Verse>> queryDatabase(@NonNull final Object... cacheParams) {
+    @Override
+    public LiveData<List<Verse>> queryBookmarkVerses(@NonNull final Object... cacheParams) {
         if (isCacheValid(cacheParams)) {
             Log.d(TAG, "returning cached live data for [" + mCacheReference + "]");
-            return mLiveData;
+            return null;
         }
 
         mCacheReference = (String) cacheParams[0];
@@ -142,19 +137,8 @@ public class BookmarkVerseRepository
 
         references[0] = mCacheReference;
         clearCache();
-        mLiveData = verseDao.getRecordsContainingKey(bookList, chapterList, verseList);
-
         Log.d(TAG, "retrieved verses for reference [" + references[0] + "]");
-        return mLiveData;
+        return verseDao.getRecordsContainingKey(bookList, chapterList, verseList);
     }
 
-    public boolean createRecord(final Object entityObject) {
-        SbDatabase.getInstance(getApplication()).getVerseDao()
-                  .createRecord((Verse) entityObject);
-        return true;
-    }
-
-    public boolean deleteRecord(final Object entityObject) {
-        throw new UnsupportedOperationException("should not be used");
-    }
 }
