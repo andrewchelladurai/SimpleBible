@@ -26,6 +26,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,8 +39,6 @@ public class SearchScreen
     private static SearchScreenPresenter mPresenter;
     private static SearchListAdapter     mAdapter;
 
-    private SearchRepository mSearchRepository;
-
     private TextInputLayout   mInputFieldHolder;
     private TextInputEditText mInputField;
     private ScrollView        mHelpView;
@@ -50,10 +49,11 @@ public class SearchScreen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        mSearchRepository = ViewModelProviders.of(this).get(SearchRepository.class);
+        SearchRepository repository =
+            ViewModelProviders.of(this).get(SearchRepository.class);
 
         if (mPresenter == null || mAdapter == null) {
-            mPresenter = new SearchScreenPresenter(this);
+            mPresenter = new SearchScreenPresenter(this, repository);
             mAdapter = new SearchListAdapter(this);
         }
 
@@ -110,15 +110,6 @@ public class SearchScreen
         }
     }
 
-    @Override
-    public void onChanged(final List<Verse> list) {
-        if (list.isEmpty()) {
-            showMessageNoResults();
-        } else {
-            updateScreen(list);
-        }
-    }
-
     private void updateScreen(@NonNull final List<Verse> list) {
         if (mPresenter.populateCache(list, getSearchText())) {
             mAdapter.updateList(list, getSearchText());
@@ -152,10 +143,23 @@ public class SearchScreen
     private void handleActionSearch() {
         Utilities.getInstance().hideKeyboard(this, mInputField);
         final String searchText = getSearchText();
-        boolean isValid = mPresenter.validateSearchText(searchText);
-        if (isValid) {
-            mSearchRepository.queryDatabase(searchText).observe(this, this);
+        if (!mPresenter.validateSearchText(searchText)) {
+            Log.e(TAG, "handleActionSearch: invalid search text");
+            return;
         }
+
+        SearchRepository.getInstance().queryDatabase(searchText)
+                        .observe(this, new Observer<List<Verse>>() {
+                            @Override
+                            public void onChanged(
+                                final List<Verse> list) {
+                                if (list.isEmpty()) {
+                                    showMessageNoResults();
+                                } else {
+                                    updateScreen(list);
+                                }
+                            }
+                        });
     }
 
     private void handleInteractionSettings() {
