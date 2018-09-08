@@ -20,11 +20,11 @@
     <color name="blueDark">#076bb3</color>
     <color name="blueDarker">#021d30</color>
 
-    <color name="red">#f33</color>
-    <color name="redLight">#faa</color>
-    <color name="redLighter">#fdd</color>
-    <color name="redDark">#800</color>
-    <color name="redDarker">#400</color>
+    <color name="maroon">#994f3d</color>
+    <color name="maroonLight">#d59181</color>
+    <color name="maroonLighter">#ffddc6</color>
+    <color name="maroonDark">#732a1d</color>
+    <color name="maroonDarker">#440000</color>
 
     <color name="yellow">#ffd34e</color>
     <color name="yellowLight">#ffe492</color>
@@ -35,8 +35,8 @@
     <color name="act_chap_snackbar">@color/blueDarker</color>
     <color name="act_chap_snackbar_text">@color/blueLight</color>
 
-    <color name="act_bmrk_snackbar_text">@color/redLighter</color>
-    <color name="act_bmrk_snackbar">@color/redDarker</color>
+    <color name="act_bmrk_snackbar_text">@color/maroonLighter</color>
+    <color name="act_bmrk_snackbar">@color/maroonDarker</color>
 
     <color name="act_srch_snackbar_text">@color/yellow</color>
     <color name="act_srch_snackbar">@color/yellowDarker</color>

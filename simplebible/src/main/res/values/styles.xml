@@ -13,7 +13,7 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
 
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="SbTheme.Home">
@@ -49,21 +49,22 @@
 
     <style name="SbTheme.BookmarkScreen"
         parent="SbTheme">
-        <item name="android:colorBackground">@color/redLight</item>
-        <item name="android:windowBackground">@color/redLight</item>
-        <item name="android:navigationBarColor">@color/redDarker</item>
+        <item name="android:colorBackground">@color/maroonLighter</item>
+        <item name="android:windowBackground">@color/maroonLighter</item>
+        <item name="android:navigationBarColor">@color/maroonDarker</item>
 
-        <item name="colorAccent">@color/redDarker</item>
-        <item name="colorPrimary">@color/redLight</item>
+        <item name="colorAccent">@color/maroonDarker</item>
+        <item name="colorPrimary">@color/maroonLighter</item>
     </style>
 
     <style name="SbTheme.BookmarkListScreen"
         parent="SbTheme">
-        <item name="android:colorBackground">@color/blueLighter</item>
-        <item name="android:windowBackground">@drawable/act_blist_bground</item>
+        <item name="android:colorBackground">@color/maroonDarker</item>
+        <item name="android:windowBackground">@color/maroonDarker</item>
+        <item name="cardBackgroundColor">@color/maroonLighter</item>
 
-        <item name="colorAccent">@color/redDarker</item>
-        <item name="colorPrimary">@color/redLight</item>
+        <item name="colorAccent">@color/maroonDarker</item>
+        <item name="colorPrimary">@color/maroonLighter</item>
     </style>
 
     <style name="SbTheme.SearchScreen"
