@@ -69,8 +69,7 @@ public class SimpleBibleMainScreen
             Log.d(TAG, "initDatabase() called");
             getSupportLoaderManager().initLoader(R.integer.DB_LOADER, null, this).forceLoad();
         } else {
-            stopLoadingScreen();
-            showLoadingSuccessScreen();
+            onLoadFinished(null, true);
         }
     }
 
@@ -97,10 +96,8 @@ public class SimpleBibleMainScreen
 
     public void showLoadingSuccessScreen() {
         Log.d(TAG, "showLoadingSuccessScreen() called");
-        initRepositories();
         findViewById(R.id.act_main_container_pbar).setVisibility(View.GONE);
         findViewById(R.id.act_main_container_fabs).setVisibility(View.VISIBLE);
-        updateDailyVerse();
     }
 
     private void populateBooksCache() {
@@ -196,7 +193,9 @@ public class SimpleBibleMainScreen
         mPresenter.setDatabaseLoaded(data);
         stopLoadingScreen();
         if (data) {
+            initRepositories();
             showLoadingSuccessScreen();
+            updateDailyVerse();
         } else {
             showLoadingFailureScreen();
         }
