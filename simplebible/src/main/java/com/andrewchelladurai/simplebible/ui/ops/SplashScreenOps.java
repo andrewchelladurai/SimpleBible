@@ -3,6 +3,8 @@ package com.andrewchelladurai.simplebible.ui.ops;
 import android.content.Context;
 import android.view.View;
 
+import com.andrewchelladurai.simplebible.data.entities.Verse;
+
 import androidx.annotation.NonNull;
 import androidx.loader.app.LoaderManager;
 
@@ -24,4 +26,12 @@ public interface SplashScreenOps
     void showLoadingSuccessScreen();
 
     void showLoadingFailureScreen();
+
+    void displayVerseForToday(@NonNull Verse verse);
+
+    void stopLoadingScreen();
+
+    void initRepositories();
+
+    void updateDailyVerse();
 }

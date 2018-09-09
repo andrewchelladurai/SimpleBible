@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible.presenter;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.andrewchelladurai.simplebible.data.SbDatabase;
@@ -8,11 +9,14 @@ import com.andrewchelladurai.simplebible.data.dao.BookDao;
 import com.andrewchelladurai.simplebible.data.dao.VerseDao;
 import com.andrewchelladurai.simplebible.data.entities.Book;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
+import com.andrewchelladurai.simplebible.data.repository.ops.VerseRepositoryOps;
 import com.andrewchelladurai.simplebible.ui.ops.SplashScreenOps;
+import com.andrewchelladurai.simplebible.util.Utilities;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.loader.content.AsyncTaskLoader;
@@ -33,9 +37,11 @@ public class SplashScreenPresenter {
     @SuppressWarnings("FieldCanBeLocal")
     private static final int    EXPECTED_VERSE_COUNT = 31098;
     private static SplashScreenOps mOps;
+    private static boolean sDatabaseLoaded = false;
 
     public SplashScreenPresenter(final SplashScreenOps ops) {
         mOps = ops;
+        sDatabaseLoaded = false;
     }
 
     private static void createNewBookRecord(@NonNull final BookDao bookDao,
@@ -124,13 +130,19 @@ public class SplashScreenPresenter {
         }
     }
 
-/*
-    public void destroyDatabases() {
-        VerseRepository.getInstance().clearCache();
-        BookmarkRepository.getInstance().clearCache();
-        BookmarkVerseRepository.getInstance().clearCache();
+    public void getVerseForToday(@NonNull final String reference,
+                                 @NonNull final String defaultReference,
+                                 @NonNull final VerseRepositoryOps verseRepositoryOps) {
+        new GetVerseForTodayTask(reference, defaultReference, verseRepositoryOps).execute();
     }
-*/
+
+    public boolean isDatabaseLoaded() {
+        return sDatabaseLoaded;
+    }
+
+    public void setDatabaseLoaded(final Boolean loaded) {
+        sDatabaseLoaded = loaded;
+    }
 
     /**
      * Created by : Andrew Chelladurai
@@ -142,10 +154,12 @@ public class SplashScreenPresenter {
 
         public DbSetupAsyncTask() {
             super(mOps.getSystemContext());
+            sDatabaseLoaded = false;
         }
 
         @Override
         public Boolean loadInBackground() {
+            sDatabaseLoaded = false;
             try {
                 final Context context = mOps.getSystemContext();
                 final SbDatabase sbDatabase = SbDatabase.getInstance(context);
@@ -179,4 +193,44 @@ public class SplashScreenPresenter {
             return true;
         }
     }
+
+    static class GetVerseForTodayTask
+        extends AsyncTask<Void, Void, Verse> {
+
+        private final String             mReference;
+        private final String             mDefaultReference;
+        private final VerseRepositoryOps mVerseRepositoryOps;
+
+        GetVerseForTodayTask(@NonNull final String reference,
+                             @NonNull final String defaultReference,
+                             @NonNull final VerseRepositoryOps verseRepositoryOps) {
+            mReference = reference;
+            mDefaultReference = defaultReference;
+            mVerseRepositoryOps = verseRepositoryOps;
+        }
+
+        @Override
+        protected Verse doInBackground(final Void... voids) {
+            Utilities utilities = Utilities.getInstance();
+            int[] versePart = (utilities.isValidReference(mReference))
+                              ? utilities.splitReference(mReference)
+                              : utilities.splitReference(mDefaultReference);
+
+            List<Verse> verseList = mVerseRepositoryOps.queryVerse(versePart[0], versePart[1],
+                                                                   versePart[2]);
+            if (verseList == null || verseList.isEmpty()) {
+                Log.e(TAG,
+                      "getVerseForToday: no verses found for daily verse reference ["
+                      + mReference + "]");
+                return null;
+            }
+            return verseList.get(0);
+        }
+
+        @Override
+        protected void onPostExecute(final Verse verse) {
+            mOps.displayVerseForToday(verse);
+        }
+    }
+
 }
