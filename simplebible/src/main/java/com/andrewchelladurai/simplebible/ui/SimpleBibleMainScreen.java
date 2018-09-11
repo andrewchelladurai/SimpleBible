@@ -50,10 +50,12 @@ public class SimpleBibleMainScreen
             mPresenter = new SplashScreenPresenter(this);
         }
 
-        findViewById(R.id.act_main_fab_books).setOnClickListener(this);
-        findViewById(R.id.act_main_fab_search).setOnClickListener(this);
-        findViewById(R.id.act_main_fab_bookmarks).setOnClickListener(this);
-        findViewById(R.id.act_main_fab_settings).setOnClickListener(this);
+        InteractionEventHandler eventHandler = new InteractionEventHandler();
+
+        findViewById(R.id.act_main_fab_books).setOnClickListener(eventHandler);
+        findViewById(R.id.act_main_fab_search).setOnClickListener(eventHandler);
+        findViewById(R.id.act_main_fab_bookmarks).setOnClickListener(eventHandler);
+        findViewById(R.id.act_main_fab_settings).setOnClickListener(eventHandler);
 
         // FIXME: 9/9/18 Daily Verse does not show after DB is loaded and screen rotated
 
@@ -66,26 +68,6 @@ public class SimpleBibleMainScreen
         LoaderManager.getInstance(this)
                      .initLoader(R.integer.DB_LOADER, null, new DatabaseLoaderCallback())
                      .forceLoad();
-    }
-
-    @Override
-    public void onClick(final View view) {
-        switch (view.getId()) {
-            case R.id.act_main_fab_books:
-                handleInteractionBooks();
-                break;
-            case R.id.act_main_fab_search:
-                handleInteractionSearch();
-                break;
-            case R.id.act_main_fab_bookmarks:
-                handleInteractionBookmarks();
-                break;
-            case R.id.act_main_fab_settings:
-                handleInteractionSettings();
-                break;
-            default:
-                Log.d(TAG, "onClick: unhandled click event from view");
-        }
     }
 
     private void handleInteractionSettings() {
@@ -250,6 +232,31 @@ public class SimpleBibleMainScreen
         public void onLoaderReset(final Loader<Boolean> loader) {
             Log.d(TAG, "DatabaseLoaderCallback : onLoaderReset");
             showLoadingFailureScreen();
+        }
+
+    }
+
+    private class InteractionEventHandler
+        implements View.OnClickListener {
+
+        @Override
+        public void onClick(final View view) {
+            switch (view.getId()) {
+                case R.id.act_main_fab_books:
+                    handleInteractionBooks();
+                    break;
+                case R.id.act_main_fab_search:
+                    handleInteractionSearch();
+                    break;
+                case R.id.act_main_fab_bookmarks:
+                    handleInteractionBookmarks();
+                    break;
+                case R.id.act_main_fab_settings:
+                    handleInteractionSettings();
+                    break;
+                default:
+                    Log.d(TAG, "onClick: unhandled click event from view");
+            }
         }
 
     }
