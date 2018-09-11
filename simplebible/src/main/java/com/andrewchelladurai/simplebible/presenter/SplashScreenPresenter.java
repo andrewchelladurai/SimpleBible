@@ -1,7 +1,6 @@
 package com.andrewchelladurai.simplebible.presenter;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.util.Log;
 
 import com.andrewchelladurai.simplebible.data.SbDatabase;
@@ -51,14 +50,14 @@ public class SplashScreenPresenter {
         @SuppressWarnings("FieldCanBeLocal")
         private static final int    EXPECTED_VERSE_COUNT = 31098;
 
-        public DbSetupAsyncTask() {
-            super(mOps.getSystemContext());
+        public DbSetupAsyncTask(Context context) {
+            super(context);
         }
 
         @Override
         public Boolean loadInBackground() {
             try {
-                final Context context = mOps.getSystemContext();
+                final Context context = getContext();
                 final SbDatabase sbDatabase = SbDatabase.getInstance(context);
                 final BookDao bookDao = sbDatabase.getBookDao();
                 int count = bookDao.getNumberOfBooks();
@@ -177,30 +176,33 @@ public class SplashScreenPresenter {
     }
 
     public static class GetVerseForTodayTask
-        extends AsyncTask<Void, Void, Verse> {
+        extends AsyncTaskLoader<Verse> {
 
         private final String   mDefaultReference;
-        private final String[] mVerseArray;
+        private final String[] mVerseReferenceArray;
 
-        public GetVerseForTodayTask(@NonNull final String defaultReference, String[] verseArray) {
+        public GetVerseForTodayTask(@NonNull final String defaultReference,
+                                    @NonNull final String[] referenceArray,
+                                    final Context context) {
+            super(context);
             mDefaultReference = defaultReference;
-            mVerseArray = verseArray;
+            mVerseReferenceArray = referenceArray;
         }
 
         @Override
-        protected Verse doInBackground(final Void... voids) {
+        public Verse loadInBackground() {
             int dayOfTheYear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
             Log.d(TAG, "doInBackground: dayOfTheYear [" + dayOfTheYear + "]");
 
-            String reference = (dayOfTheYear > mVerseArray.length) ? mDefaultReference
-                                                                   : mVerseArray[dayOfTheYear];
+            String reference = (dayOfTheYear > mVerseReferenceArray.length)
+                               ? mDefaultReference : mVerseReferenceArray[dayOfTheYear];
 
             Utilities utilities = Utilities.getInstance();
             int[] versePart = (utilities.isValidReference(reference))
                               ? utilities.splitReference(reference)
                               : utilities.splitReference(mDefaultReference);
 
-            List<Verse> verseList = SbDatabase.getInstance(mOps.getSystemContext())
+            List<Verse> verseList = SbDatabase.getInstance(getContext())
                                               .getVerseDao()
                                               .readRecord(versePart[0], versePart[1], versePart[2]);
             if (verseList == null || verseList.isEmpty()) {
@@ -208,11 +210,6 @@ public class SplashScreenPresenter {
                 return null;
             }
             return verseList.get(0);
-        }
-
-        @Override
-        protected void onPostExecute(final Verse verse) {
-            mOps.displayVerseForToday(verse);
         }
     }
 

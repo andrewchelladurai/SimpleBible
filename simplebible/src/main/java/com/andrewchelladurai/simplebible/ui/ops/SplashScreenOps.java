@@ -1,12 +1,5 @@
 package com.andrewchelladurai.simplebible.ui.ops;
 
-import android.content.Context;
-
-import com.andrewchelladurai.simplebible.data.entities.Verse;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 /**
  * Created by : Andrew Chelladurai
  * Email : TheUnknownAndrew[at]GMail[dot]com
@@ -14,8 +7,4 @@ import androidx.annotation.Nullable;
  */
 public interface SplashScreenOps {
 
-    @NonNull
-    Context getSystemContext();
-
-    void displayVerseForToday(@Nullable Verse verse);
 }

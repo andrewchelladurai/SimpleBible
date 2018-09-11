@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="DB_LOADER">16</integer>
+    <integer name="DAILY_VERSE_LOADER">14</integer>
 
     <integer name="act_books_list">2</integer>
     <integer name="act_chapter_list">1</integer>

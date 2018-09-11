@@ -1,6 +1,5 @@
 package com.andrewchelladurai.simplebible.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -57,8 +56,6 @@ public class SimpleBibleMainScreen
         findViewById(R.id.act_main_fab_bookmarks).setOnClickListener(eventHandler);
         findViewById(R.id.act_main_fab_settings).setOnClickListener(eventHandler);
 
-        // FIXME: 9/9/18 Daily Verse does not show after DB is loaded and screen rotated
-
         showLoadingScreen();
         loadDatabase();
     }
@@ -86,12 +83,7 @@ public class SimpleBibleMainScreen
         startActivity(new Intent(this, BooksScreen.class));
     }
 
-    @Override
-    public Context getSystemContext() {
-        return getApplicationContext();
-    }
-
-    public void showLoadingScreen() {
+    private void showLoadingScreen() {
         Log.d(TAG, "showLoadingScreen");
         TextView textView = findViewById(R.id.act_main_verse);
         textView.setVisibility(View.VISIBLE);
@@ -109,7 +101,7 @@ public class SimpleBibleMainScreen
         progressBar.setVisibility(View.VISIBLE);
     }
 
-    public void stopLoadingScreen() {
+    private void stopLoadingScreen() {
         Log.d(TAG, "stopLoadingScreen");
         ProgressBar progressBar = findViewById(R.id.act_main_pbar);
         progressBar.setVisibility(View.INVISIBLE);
@@ -118,15 +110,15 @@ public class SimpleBibleMainScreen
         textView.setVisibility(View.INVISIBLE);
     }
 
-    public String getDefaultDailyVerseReference() {
+    private String getDefaultDailyVerseReference() {
         return getString(R.string.default_daily_verse_reference);
     }
 
-    public String[] getDefaultDailyVerseReferenceArray() {
+    private String[] getDefaultDailyVerseReferenceArray() {
         return getResources().getStringArray(R.array.daily_verse_list);
     }
 
-    public void initRepositories() {
+    private void initRepositories() {
         Log.d(TAG, "initRepositories");
         final BookRepository bookRepository = ViewModelProviders.of(this).get(BookRepository.class);
         bookRepository.queryAllBooks().observe(this, new Observer<List<Book>>() {
@@ -155,12 +147,12 @@ public class SimpleBibleMainScreen
         ViewModelProviders.of(this).get(VerseRepository.class);
     }
 
-    public void showLoadingSuccessScreen() {
+    private void showLoadingSuccessScreen() {
         Log.d(TAG, "showLoadingSuccessScreen");
         findViewById(R.id.act_main_container_fabs).setVisibility(View.VISIBLE);
     }
 
-    public void showLoadingFailureScreen() {
+    private void showLoadingFailureScreen() {
         Log.d(TAG, "showLoadingFailureScreen");
         TextView textView = findViewById(R.id.act_main_verse);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -175,8 +167,14 @@ public class SimpleBibleMainScreen
         textView.setText(R.string.act_main_splash_msg_err);
     }
 
-    @Override
-    public void displayVerseForToday(@NonNull final Verse verse) {
+    private void updateDailyVerse() {
+        Log.d(TAG, "updateDailyVerse");
+        LoaderManager.getInstance(this)
+                     .initLoader(R.integer.DAILY_VERSE_LOADER, null, new DailyVerseLoaderCallback())
+                     .forceLoad();
+    }
+
+    private void displayVerseForToday(@NonNull final Verse verse) {
         if (verse == null) {
             Log.e(TAG, "displayVerseForToday: no verse returned, keeping default");
             return;
@@ -205,7 +203,7 @@ public class SimpleBibleMainScreen
         @Override
         public Loader<Boolean> onCreateLoader(final int id, final Bundle args) {
             Log.d(TAG, "DatabaseLoaderCallback : onCreateLoader");
-            return new SplashScreenPresenter.DbSetupAsyncTask();
+            return new SplashScreenPresenter.DbSetupAsyncTask(getApplicationContext());
         }
 
         @Override
@@ -215,17 +213,10 @@ public class SimpleBibleMainScreen
             if (isDatabaseLoaded) {
                 initRepositories();
                 showLoadingSuccessScreen();
+                updateDailyVerse();
             } else {
                 showLoadingFailureScreen();
             }
-/*
-            if (isDatabaseLoaded) {
-                final String defaultReference = getDefaultDailyVerseReference();
-                final String[] referenceArray = getDefaultDailyVerseReferenceArray();
-                new SplashScreenPresenter.GetVerseForTodayTask(
-                    defaultReference, referenceArray).execute();
-            }
-*/
         }
 
         @Override
@@ -259,5 +250,29 @@ public class SimpleBibleMainScreen
             }
         }
 
+    }
+
+    private class DailyVerseLoaderCallback
+        implements LoaderManager.LoaderCallbacks<Verse> {
+
+        @Override
+        public Loader<Verse> onCreateLoader(final int id, final Bundle args) {
+            Log.d(TAG, "DailyVerseLoaderCallback : onCreateLoader");
+            final String defaultReference = getDefaultDailyVerseReference();
+            final String[] referenceArray = getDefaultDailyVerseReferenceArray();
+            return new SplashScreenPresenter.GetVerseForTodayTask(
+                defaultReference, referenceArray, getApplicationContext());
+        }
+
+        @Override
+        public void onLoadFinished(final Loader<Verse> loader, final Verse verse) {
+            Log.d(TAG, "DailyVerseLoaderCallback : onLoadFinished");
+            displayVerseForToday(verse);
+        }
+
+        @Override
+        public void onLoaderReset(final Loader<Verse> loader) {
+            Log.d(TAG, "DailyVerseLoaderCallback : onLoaderReset");
+        }
     }
 }
