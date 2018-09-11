@@ -97,15 +97,30 @@ public class SimpleBibleMainScreen
     }
 
     private void handleInteractionBookmarks() {
-        startActivity(new Intent(this, BookmarkListScreen.class));
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(getApplicationContext(), BookmarkListScreen.class));
+            }
+        }, 500);
     }
 
     private void handleInteractionSearch() {
-        startActivity(new Intent(this, SearchScreen.class));
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(getApplicationContext(), SearchScreen.class));
+            }
+        }, 500);
     }
 
     private void handleInteractionBooks() {
-        startActivity(new Intent(this, BooksScreen.class));
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(getApplicationContext(), BooksScreen.class));
+            }
+        }, 500);
     }
 
     private void showLoadingScreen() {
