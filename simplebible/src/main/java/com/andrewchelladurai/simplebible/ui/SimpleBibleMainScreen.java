@@ -3,6 +3,7 @@ package com.andrewchelladurai.simplebible.ui;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -73,11 +74,25 @@ public class SimpleBibleMainScreen
         }
     }
 
-    private void handleInteractionVerseClick(final View view) {
-        Log.d(TAG, "handleInteractionVerseClick: ");
+    private void handleInteractionVerseClick() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                String textToShare = ((TextView) findViewById(R.id.act_main_verse))
+                    .getText().toString().trim();
+
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, textToShare);
+                sendIntent.setType("text/plain");
+
+                Log.d(TAG, "handleInteractionVerseClick: sharing [" + textToShare + "]");
+                startActivity(sendIntent);
+            }
+        }, 1000);
     }
 
-    private void handleInteractionSettings(final View fab) {
+    private void handleInteractionSettings() {
         Log.d(TAG, "handleInteractionSettings() called");
     }
 
@@ -257,10 +272,10 @@ public class SimpleBibleMainScreen
                     handleInteractionBookmarks();
                     break;
                 case R.id.act_main_fab_settings:
-                    handleInteractionSettings(view);
+                    handleInteractionSettings();
                     break;
                 case R.id.act_main_verse:
-                    handleInteractionVerseClick(view);
+                    handleInteractionVerseClick();
                     break;
                 default:
                     Log.d(TAG, "onClick: unhandled click event from view");

@@ -5,7 +5,7 @@
     <string name="default_verse_reference">John Chapter 3 : Verse 16</string>
     <string name="default_verse_text">For God so loved the world, that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life.</string>
     <string name="default_verse_with_reference"><![CDATA[<h1>SIMPLE BIBLE</h1><br/>For God so loved the world, that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life.<br/><br/>Gospel of John<br/>Chapter 3 : Verse 16]]></string>
-    <string name="daily_verse_template"><![CDATA[<h1>SIMPLE BIBLE</h1><br/>%s<br/><br/>%s<br/>Chapter %d : Verse %d]]></string>
+    <string name="daily_verse_template"><![CDATA[<h1>SIMPLE BIBLE</h1><br/>%s<br/><br/>%s<br/>Chapter %d : Verse %d<br/><br/><small>(The World English Bible Edition)<small/>]]></string>
     <string name="msg_unexpected">How did this happen?</string>
 
     <string name="first_book">Genesis</string>
