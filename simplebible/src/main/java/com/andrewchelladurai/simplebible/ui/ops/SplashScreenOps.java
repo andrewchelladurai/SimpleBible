@@ -6,7 +6,7 @@ import android.view.View;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
 
 import androidx.annotation.NonNull;
-import androidx.loader.app.LoaderManager;
+import androidx.annotation.Nullable;
 
 /**
  * Created by : Andrew Chelladurai
@@ -14,24 +14,20 @@ import androidx.loader.app.LoaderManager;
  * on : 09-Aug-2018 @ 8:44 PM.
  */
 public interface SplashScreenOps
-    extends LoaderManager.LoaderCallbacks<Boolean>, View.OnClickListener {
+    extends View.OnClickListener {
 
     @NonNull
     Context getSystemContext();
 
-    void updateProgress(Integer value);
-
     void showLoadingScreen();
+
+    void initRepositories();
 
     void showLoadingSuccessScreen();
 
     void showLoadingFailureScreen();
 
-    void displayVerseForToday(@NonNull Verse verse);
-
     void stopLoadingScreen();
 
-    void initRepositories();
-
-    void updateDailyVerse();
+    void displayVerseForToday(@Nullable Verse verse);
 }
