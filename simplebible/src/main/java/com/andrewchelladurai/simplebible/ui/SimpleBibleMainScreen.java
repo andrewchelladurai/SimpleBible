@@ -55,6 +55,7 @@ public class SimpleBibleMainScreen
         findViewById(R.id.act_main_fab_search).setOnClickListener(eventHandler);
         findViewById(R.id.act_main_fab_bookmarks).setOnClickListener(eventHandler);
         findViewById(R.id.act_main_fab_settings).setOnClickListener(eventHandler);
+        findViewById(R.id.act_main_verse).setOnClickListener(eventHandler);
 
         showLoadingScreen();
         loadDatabase();
@@ -72,7 +73,11 @@ public class SimpleBibleMainScreen
         }
     }
 
-    private void handleInteractionSettings() {
+    private void handleInteractionVerseClick(final View view) {
+        Log.d(TAG, "handleInteractionVerseClick: ");
+    }
+
+    private void handleInteractionSettings(final View fab) {
         Log.d(TAG, "handleInteractionSettings() called");
     }
 
@@ -252,7 +257,10 @@ public class SimpleBibleMainScreen
                     handleInteractionBookmarks();
                     break;
                 case R.id.act_main_fab_settings:
-                    handleInteractionSettings();
+                    handleInteractionSettings(view);
+                    break;
+                case R.id.act_main_verse:
+                    handleInteractionVerseClick(view);
                     break;
                 default:
                     Log.d(TAG, "onClick: unhandled click event from view");

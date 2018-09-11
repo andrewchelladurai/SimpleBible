@@ -39,6 +39,7 @@
             android:id="@+id/act_main_verse"
             style="@style/SbTheme.Header"
             android:gravity="center"
+            android:stateListAnimator="@xml/animate_scale_decrease"
             android:text="@string/act_main_splash_verse"
             android:textAlignment="center" />
     </ScrollView>
@@ -88,7 +89,8 @@
             android:layout_margin="@dimen/gap_normal"
             android:layout_weight="1"
             android:contentDescription="@string/act_main_fab_books_desc"
-            android:src="@drawable/ic_list" />
+            android:src="@drawable/ic_list"
+            android:stateListAnimator="@xml/animate_scale_increase" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/act_main_fab_search"
@@ -96,7 +98,8 @@
             android:layout_margin="@dimen/gap_normal"
             android:layout_weight="1"
             android:contentDescription="@string/act_main_fab_search_desc"
-            android:src="@drawable/ic_search" />
+            android:src="@drawable/ic_search"
+            android:stateListAnimator="@xml/animate_scale_increase" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/act_main_fab_bookmarks"
@@ -104,7 +107,8 @@
             android:layout_margin="@dimen/gap_normal"
             android:layout_weight="1"
             android:contentDescription="@string/act_main_fab_bookmarks_desc"
-            android:src="@drawable/ic_bookmark" />
+            android:src="@drawable/ic_bookmark"
+            android:stateListAnimator="@xml/animate_scale_increase" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/act_main_fab_settings"
@@ -112,7 +116,8 @@
             android:layout_margin="@dimen/gap_normal"
             android:layout_weight="1"
             android:contentDescription="@string/act_main_fab_settings_desc"
-            android:src="@drawable/ic_settings" />
+            android:src="@drawable/ic_settings"
+            android:stateListAnimator="@xml/animate_scale_increase" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
