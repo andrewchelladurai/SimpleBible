@@ -61,10 +61,15 @@ public class SimpleBibleMainScreen
     }
 
     private void loadDatabase() {
-        Log.d(TAG, "loadDatabase: loader initiated");
-        LoaderManager.getInstance(this)
-                     .initLoader(R.integer.DB_LOADER, null, new DatabaseLoaderCallback())
-                     .forceLoad();
+        if (LoaderManager.getInstance(this).getLoader(R.integer.DB_LOADER) == null) {
+            Log.d(TAG, "loadDatabase: loader initiated");
+            LoaderManager.getInstance(this)
+                         .initLoader(R.integer.DB_LOADER, null, new DatabaseLoaderCallback())
+                         .forceLoad();
+        } else {
+            stopLoadingScreen();
+            databaseLoaded();
+        }
     }
 
     private void handleInteractionSettings() {
@@ -167,6 +172,12 @@ public class SimpleBibleMainScreen
         textView.setText(R.string.act_main_splash_msg_err);
     }
 
+    private void databaseLoaded() {
+        initRepositories();
+        showLoadingSuccessScreen();
+        updateDailyVerse();
+    }
+
     private void updateDailyVerse() {
         Log.d(TAG, "updateDailyVerse");
         LoaderManager.getInstance(this)
@@ -211,9 +222,7 @@ public class SimpleBibleMainScreen
             Log.d(TAG, "DatabaseLoaderCallback : onLoadFinished");
             stopLoadingScreen();
             if (isDatabaseLoaded) {
-                initRepositories();
-                showLoadingSuccessScreen();
-                updateDailyVerse();
+                databaseLoaded();
             } else {
                 showLoadingFailureScreen();
             }
