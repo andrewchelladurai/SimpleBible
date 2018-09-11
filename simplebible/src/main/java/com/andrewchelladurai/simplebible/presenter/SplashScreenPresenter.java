@@ -9,13 +9,13 @@ import com.andrewchelladurai.simplebible.data.dao.BookDao;
 import com.andrewchelladurai.simplebible.data.dao.VerseDao;
 import com.andrewchelladurai.simplebible.data.entities.Book;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
-import com.andrewchelladurai.simplebible.data.repository.ops.VerseRepositoryOps;
 import com.andrewchelladurai.simplebible.ui.ops.SplashScreenOps;
 import com.andrewchelladurai.simplebible.util.Utilities;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Calendar;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -28,120 +28,11 @@ import androidx.loader.content.AsyncTaskLoader;
  */
 public class SplashScreenPresenter {
 
-    private static final String TAG                  = "SplashScreenPresenter";
-    private static final String FILE_VERSE_DETAILS   = "mainStepsVerses.csv";
-    private static final String FILE_BOOK_DETAILS    = "mainStepsBooks.csv";
-    private static final String SPLIT_REGEX          = "~";
-    @SuppressWarnings("FieldCanBeLocal")
-    private static final int    EXPECTED_BOOK_COUNT  = 66;
-    @SuppressWarnings("FieldCanBeLocal")
-    private static final int    EXPECTED_VERSE_COUNT = 31098;
+    private static final String TAG = "SplashScreenPresenter";
     private static SplashScreenOps mOps;
-    private static boolean sDatabaseLoaded = false;
 
     public SplashScreenPresenter(final SplashScreenOps ops) {
         mOps = ops;
-        sDatabaseLoaded = false;
-    }
-
-    private static void createNewBookRecord(@NonNull final BookDao bookDao,
-                                            @NonNull final String line) {
-        final String[] parts = line.split(SPLIT_REGEX);
-        final String desc = parts[0];
-        final int number = Integer.valueOf(parts[1]);
-        final String name = parts[2];
-        final int chapters = Integer.valueOf(parts[3]);
-        final int verses = Integer.valueOf(parts[4]);
-        bookDao.createBook(new Book(desc, number, name, chapters, verses));
-    }
-
-    private static void createNewVerseRecord(@NonNull final VerseDao verseDao,
-                                             @NonNull final String line) {
-        final String[] parts = line.split(SPLIT_REGEX);
-        final String translation = parts[0];
-        final int book = Integer.valueOf(parts[1]);
-        final int chapter = Integer.valueOf(parts[2]);
-        final int verse = Integer.valueOf(parts[3]);
-        final String text = parts[4];
-        verseDao.createRecord(new Verse(translation, book, chapter, verse, text));
-    }
-
-    private static void populateInitialData(final @NonNull SbDatabase sbDatabase,
-                                            final @NonNull Context context,
-                                            final @NonNull String fileName) throws IOException {
-        final VerseDao verseDao = sbDatabase.getVerseDao();
-        final BookDao bookDao = sbDatabase.getBookDao();
-        InputStreamReader script = getFileHandle(context, fileName);
-        Log.d(TAG, "populateInitialData: beginning execution of " + fileName);
-
-        BufferedReader reader = null;
-        boolean isCreated;
-        boolean isClosed = true;
-        try {
-            reader = new BufferedReader(script);
-            String line;
-            int i = 0;
-            while (null != (line = reader.readLine())) {
-                // is this a valid line to process
-                if (!line.isEmpty() && line.contains(SPLIT_REGEX)) {
-                    switch (fileName) {
-                        case FILE_VERSE_DETAILS:
-                            createNewVerseRecord(verseDao, line);
-                            break;
-                        case FILE_BOOK_DETAILS:
-                            createNewBookRecord(bookDao, line);
-                            break;
-                        default:
-                            throw new UnsupportedOperationException(
-                                "populateInitialData: unknown filename : " + fileName);
-                    }
-                }
-            }
-            isCreated = true;
-            Log.d(TAG, "populateInitialData: finished executing " + fileName);
-        } catch (IOException ioe) {
-            isCreated = false;
-            Log.e(TAG, "populateInitialData: " + ioe.getLocalizedMessage(), ioe);
-        } finally {
-            if (null != reader) {
-                try {
-                    reader.close();
-                    isClosed = true;
-                    Log.d(TAG, "populateInitialData: closed handle to " + fileName);
-                } catch (IOException e) {
-                    isClosed = false;
-                    Log.e(TAG, "populateInitialData: " + e.getLocalizedMessage(), e);
-                }
-            }
-        }
-        String msg = (isCreated & isClosed) ? "Successfully executed " + fileName
-                                            : "Failed executing " + fileName;
-        Log.d(TAG, "populateInitialData: " + msg);
-    }
-
-    private static InputStreamReader getFileHandle(@NonNull final Context context,
-                                                   @NonNull final String fileName)
-        throws IOException {
-        try {
-            return new InputStreamReader(context.getAssets().open(fileName));
-        } catch (IOException ioe) {
-            Log.e(TAG, "getFileHandle: Error opening/accessing file [" + fileName + "]", ioe);
-            throw ioe;
-        }
-    }
-
-    public void getVerseForToday(@NonNull final String reference,
-                                 @NonNull final String defaultReference,
-                                 @NonNull final VerseRepositoryOps verseRepositoryOps) {
-        new GetVerseForTodayTask(reference, defaultReference, verseRepositoryOps).execute();
-    }
-
-    public boolean isDatabaseLoaded() {
-        return sDatabaseLoaded;
-    }
-
-    public void setDatabaseLoaded(final Boolean loaded) {
-        sDatabaseLoaded = loaded;
     }
 
     /**
@@ -152,14 +43,20 @@ public class SplashScreenPresenter {
     public static class DbSetupAsyncTask
         extends AsyncTaskLoader<Boolean> {
 
+        private static final String FILE_VERSE_DETAILS   = "mainStepsVerses.csv";
+        private static final String FILE_BOOK_DETAILS    = "mainStepsBooks.csv";
+        private static final String SPLIT_REGEX          = "~";
+        @SuppressWarnings("FieldCanBeLocal")
+        private static final int    EXPECTED_BOOK_COUNT  = 66;
+        @SuppressWarnings("FieldCanBeLocal")
+        private static final int    EXPECTED_VERSE_COUNT = 31098;
+
         public DbSetupAsyncTask() {
             super(mOps.getSystemContext());
-            sDatabaseLoaded = false;
         }
 
         @Override
         public Boolean loadInBackground() {
-            sDatabaseLoaded = false;
             try {
                 final Context context = mOps.getSystemContext();
                 final SbDatabase sbDatabase = SbDatabase.getInstance(context);
@@ -192,36 +89,122 @@ public class SplashScreenPresenter {
             }
             return true;
         }
+
+        private void createNewBookRecord(@NonNull final BookDao bookDao,
+                                         @NonNull final String line) {
+            final String[] parts = line.split(SPLIT_REGEX);
+            final String desc = parts[0];
+            final int number = Integer.valueOf(parts[1]);
+            final String name = parts[2];
+            final int chapters = Integer.valueOf(parts[3]);
+            final int verses = Integer.valueOf(parts[4]);
+            bookDao.createBook(new Book(desc, number, name, chapters, verses));
+        }
+
+        private void createNewVerseRecord(@NonNull final VerseDao verseDao,
+                                          @NonNull final String line) {
+            final String[] parts = line.split(SPLIT_REGEX);
+            final String translation = parts[0];
+            final int book = Integer.valueOf(parts[1]);
+            final int chapter = Integer.valueOf(parts[2]);
+            final int verse = Integer.valueOf(parts[3]);
+            final String text = parts[4];
+            verseDao.createRecord(new Verse(translation, book, chapter, verse, text));
+        }
+
+        private void populateInitialData(final @NonNull SbDatabase sbDatabase,
+                                         final @NonNull Context context,
+                                         final @NonNull String fileName) throws IOException {
+            final VerseDao verseDao = sbDatabase.getVerseDao();
+            final BookDao bookDao = sbDatabase.getBookDao();
+            InputStreamReader script = getFileHandle(context, fileName);
+            Log.d(TAG, "populateInitialData: beginning execution of " + fileName);
+
+            BufferedReader reader = null;
+            boolean isCreated;
+            boolean isClosed = true;
+            try {
+                reader = new BufferedReader(script);
+                String line;
+                while (null != (line = reader.readLine())) {
+                    // is this a valid line to process
+                    if (!line.isEmpty() && line.contains(SPLIT_REGEX)) {
+                        switch (fileName) {
+                            case FILE_VERSE_DETAILS:
+                                createNewVerseRecord(verseDao, line);
+                                break;
+                            case FILE_BOOK_DETAILS:
+                                createNewBookRecord(bookDao, line);
+                                break;
+                            default:
+                                throw new UnsupportedOperationException(
+                                    "populateInitialData: unknown filename : " + fileName);
+                        }
+                    }
+                }
+                isCreated = true;
+                Log.d(TAG, "populateInitialData: finished executing " + fileName);
+            } catch (IOException ioe) {
+                isCreated = false;
+                Log.e(TAG, "populateInitialData: " + ioe.getLocalizedMessage(), ioe);
+            } finally {
+                if (null != reader) {
+                    try {
+                        reader.close();
+                        isClosed = true;
+                        Log.d(TAG, "populateInitialData: closed handle to " + fileName);
+                    } catch (IOException e) {
+                        isClosed = false;
+                        Log.e(TAG, "populateInitialData: " + e.getLocalizedMessage(), e);
+                    }
+                }
+            }
+            String msg = (isCreated & isClosed) ? "Successfully executed " + fileName
+                                                : "Failed executing " + fileName;
+            Log.d(TAG, "populateInitialData: " + msg);
+        }
+
+        private InputStreamReader getFileHandle(@NonNull final Context context,
+                                                @NonNull final String fileName)
+            throws IOException {
+            try {
+                return new InputStreamReader(context.getAssets().open(fileName));
+            } catch (IOException ioe) {
+                Log.e(TAG, "getFileHandle: Error opening/accessing file [" + fileName + "]", ioe);
+                throw ioe;
+            }
+        }
     }
 
-    static class GetVerseForTodayTask
+    public static class GetVerseForTodayTask
         extends AsyncTask<Void, Void, Verse> {
 
-        private final String             mReference;
-        private final String             mDefaultReference;
-        private final VerseRepositoryOps mVerseRepositoryOps;
+        private final String   mDefaultReference;
+        private final String[] mVerseArray;
 
-        GetVerseForTodayTask(@NonNull final String reference,
-                             @NonNull final String defaultReference,
-                             @NonNull final VerseRepositoryOps verseRepositoryOps) {
-            mReference = reference;
+        public GetVerseForTodayTask(@NonNull final String defaultReference, String[] verseArray) {
             mDefaultReference = defaultReference;
-            mVerseRepositoryOps = verseRepositoryOps;
+            mVerseArray = verseArray;
         }
 
         @Override
         protected Verse doInBackground(final Void... voids) {
+            int dayOfTheYear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+            Log.d(TAG, "doInBackground: dayOfTheYear [" + dayOfTheYear + "]");
+
+            String reference = (dayOfTheYear > mVerseArray.length) ? mDefaultReference
+                                                                   : mVerseArray[dayOfTheYear];
+
             Utilities utilities = Utilities.getInstance();
-            int[] versePart = (utilities.isValidReference(mReference))
-                              ? utilities.splitReference(mReference)
+            int[] versePart = (utilities.isValidReference(reference))
+                              ? utilities.splitReference(reference)
                               : utilities.splitReference(mDefaultReference);
 
-            List<Verse> verseList = mVerseRepositoryOps.queryVerse(versePart[0], versePart[1],
-                                                                   versePart[2]);
+            List<Verse> verseList = SbDatabase.getInstance(mOps.getSystemContext())
+                                              .getVerseDao()
+                                              .readRecord(versePart[0], versePart[1], versePart[2]);
             if (verseList == null || verseList.isEmpty()) {
-                Log.e(TAG,
-                      "getVerseForToday: no verses found for daily verse reference ["
-                      + mReference + "]");
+                Log.e(TAG, "doInBackground: no verses found for reference [" + reference + "]");
                 return null;
             }
             return verseList.get(0);
