@@ -1,5 +1,6 @@
 package com.andrewchelladurai.simplebible.ui;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -74,11 +75,11 @@ public class SimpleBibleMainScreen
         }
     }
 
-    private void handleInteractionVerseClick() {
+    private void handleInteractionVerseClick(final View clickedView) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                String textToShare = ((TextView) findViewById(R.id.act_main_verse))
+                String textToShare = ((TextView) clickedView)
                     .getText().toString().trim();
 
                 Intent sendIntent = new Intent();
@@ -86,39 +87,47 @@ public class SimpleBibleMainScreen
                 sendIntent.putExtra(Intent.EXTRA_TEXT, textToShare);
                 sendIntent.setType("text/plain");
 
-                Log.d(TAG, "handleInteractionVerseClick: sharing [" + textToShare + "]");
                 startActivity(sendIntent);
             }
         }, 1000);
     }
 
-    private void handleInteractionSettings() {
+    private void handleInteractionSettings(final View clickedView) {
         Log.d(TAG, "handleInteractionSettings() called");
     }
 
-    private void handleInteractionBookmarks() {
+    private void handleInteractionBookmarks(final View clickedView) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(getApplicationContext(), BookmarkListScreen.class));
+                startActivity(new Intent(getApplicationContext(), BookmarkListScreen.class),
+                              ActivityOptions
+                                  .makeSceneTransitionAnimation(SimpleBibleMainScreen.this)
+                                  .toBundle());
             }
         }, 500);
     }
 
-    private void handleInteractionSearch() {
+    private void handleInteractionSearch(final View clickedView) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(getApplicationContext(), SearchScreen.class));
+                startActivity(new Intent(getApplicationContext(), SearchScreen.class),
+                              ActivityOptions
+                                  .makeSceneTransitionAnimation(SimpleBibleMainScreen.this)
+                                  .toBundle());
             }
         }, 500);
     }
 
-    private void handleInteractionBooks() {
+    private void handleInteractionBooks(final View clickedView) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(getApplicationContext(), BooksScreen.class));
+                startActivity(new Intent(getApplicationContext(), BooksScreen.class),
+                              ActivityOptions
+                                  .makeSceneTransitionAnimation(SimpleBibleMainScreen.this)
+                                  .toBundle());
             }
         }, 500);
     }
@@ -278,19 +287,19 @@ public class SimpleBibleMainScreen
         public void onClick(final View view) {
             switch (view.getId()) {
                 case R.id.act_main_fab_books:
-                    handleInteractionBooks();
+                    handleInteractionBooks(view);
                     break;
                 case R.id.act_main_fab_search:
-                    handleInteractionSearch();
+                    handleInteractionSearch(view);
                     break;
                 case R.id.act_main_fab_bookmarks:
-                    handleInteractionBookmarks();
+                    handleInteractionBookmarks(view);
                     break;
                 case R.id.act_main_fab_settings:
-                    handleInteractionSettings();
+                    handleInteractionSettings(view);
                     break;
                 case R.id.act_main_verse:
-                    handleInteractionVerseClick();
+                    handleInteractionVerseClick(view);
                     break;
                 default:
                     Log.d(TAG, "onClick: unhandled click event from view");
