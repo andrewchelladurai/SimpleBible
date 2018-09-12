@@ -89,14 +89,6 @@ public class ChapterScreen
         outState.putInt(CHAPTER_NUMBER, ARGS.getInt(CHAPTER_NUMBER));
     }
 
-/*
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mPresenter.destroyCache();
-    }
-*/
-
     private void showChapter(final int book, final int chapter) {
         Log.d(TAG, "showChapter: book = [" + book + "], chapter = [" + chapter + "]");
 
@@ -123,16 +115,10 @@ public class ChapterScreen
         final int book = getBook();
         final int chapter = getChapter();
 
-        if (mPresenter.populateCache(verses, book, chapter)) {
-            updateTitle();
-            mAdapter.updateList(verses, book, chapter);
-            mAdapter.notifyDataSetChanged();
-            mRecyclerView.scrollToPosition(0);
-        } else {
-            // FIXME: 16/8/18 This should show an error on screen asking to inform dev
-            // FIXME: 16/8/18 hopefully it never shows to anyone
-            Log.e(TAG, "updateVerseList: error updating UI");
-        }
+        updateTitle();
+        mAdapter.updateList(verses, book, chapter);
+        mAdapter.notifyDataSetChanged();
+        mRecyclerView.scrollToPosition(0);
     }
 
     private void updateTitle() {
