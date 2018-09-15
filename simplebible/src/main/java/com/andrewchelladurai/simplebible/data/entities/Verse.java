@@ -15,6 +15,8 @@ import androidx.room.Entity;
         primaryKeys = {"BOOKNUMBER", "CHAPTERNUMBER", "VERSENUMBER"})
 public class Verse {
 
+    private static final String TAG = "Verse";
+
     public static String SEPARATOR = ":";
 
     @NonNull
@@ -83,12 +85,22 @@ public class Verse {
     }
 
     public String getReference() {
-        return "";
-        //        return Utilities.getInstance().createReference(book, chapter, verse);
+        return createReference(book, chapter, verse);
     }
 
     @Override
     public String toString() {
         return getReference();
+    }
+
+    @NonNull
+    public static String createReference(@IntRange(from = 1,
+                                                   to = 66) int book,
+                                         @IntRange(from = 1) int chapter,
+                                         @IntRange(from = 1) int verse) {
+        if (book < 1 || book > 66 || chapter < 1 || verse < 1) {
+            throw new UnsupportedOperationException(TAG + " : createReference: invalid params");
+        }
+        return book + SEPARATOR + chapter + SEPARATOR + verse;
     }
 }
