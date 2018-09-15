@@ -12,17 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/SbTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-
         <activity
             android:name=".ui.SimpleBibleMainScreen"
             android:theme="@style/SbTheme.Home.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

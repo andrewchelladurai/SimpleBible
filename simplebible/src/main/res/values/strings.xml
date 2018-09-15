@@ -2,7 +2,12 @@
 <resources>
     <string name="application_name">Simple Bible</string>
 
+    <string name="main_bottom_navigation_home">Home</string>
+    <string name="main_bottom_navigation_dashboard">Dashboard</string>
+    <string name="main_bottom_navigation_notifications">Notifications</string>
+
     <string name="default_daily_verse_reference">43:3:16</string>
+
     <string-array name="daily_verse_list">
         <item>1:1:01</item>
         <item>1:1:26</item>
