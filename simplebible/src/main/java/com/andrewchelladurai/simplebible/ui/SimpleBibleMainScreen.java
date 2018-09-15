@@ -28,6 +28,7 @@ package com.andrewchelladurai.simplebible.ui;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -39,6 +40,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.app.LoaderManager.LoaderCallbacks;
 import androidx.loader.content.Loader;
@@ -57,6 +59,8 @@ public class SimpleBibleMainScreen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen_simple_bible);
 
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+
         // Load database
         DbSetupLoaderCallback dbSetupLoaderCallback = new DbSetupLoaderCallback();
         LoaderManager.getInstance(this)
@@ -66,8 +70,30 @@ public class SimpleBibleMainScreen
         showLoadingScreen();
 
         mTextMessage = findViewById(R.id.message);
-        BottomNavigationView navigation = findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationSelectionListener());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.main_menu_settings:
+                showSettingsScreen();
+                return true;
+            default:
+                Log.e(TAG, "onOptionsItemSelected: unknown menuItem[" + item.getTitle() + "]");
+                return false;
+        }
+    }
+
+    private void showSettingsScreen() {
+        Log.d(TAG, "showSettingsScreen: ");
     }
 
     private void showLoadingScreen() {

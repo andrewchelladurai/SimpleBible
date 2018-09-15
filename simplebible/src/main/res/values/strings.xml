@@ -8,6 +8,7 @@
     <string name="main_bottom_navigation_bookmarks">Bookmarks</string>
 
     <string name="default_daily_verse_reference">43:3:16</string>
+    <string name="main_menu_settings">Settings</string>
 
     <string-array name="daily_verse_list">
         <item>1:1:01</item>
