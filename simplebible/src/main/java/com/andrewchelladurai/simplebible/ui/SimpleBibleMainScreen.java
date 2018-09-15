@@ -30,17 +30,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.presenter.DbSetupLoader;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.bottomnavigation.BottomNavigationView
-    .OnNavigationItemSelectedListener;
+import com.google.android.material.bottomappbar.BottomAppBar;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.app.LoaderManager.LoaderCallbacks;
 import androidx.loader.content.Loader;
@@ -50,8 +46,6 @@ public class SimpleBibleMainScreen
 
     private static final String TAG = "SimpleBibleMainScreen";
 
-    private TextView mTextMessage;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.SbTheme_Home);
@@ -59,7 +53,9 @@ public class SimpleBibleMainScreen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen_simple_bible);
 
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        BottomAppBar bottomBar = findViewById(R.id.bottom_bar);
+        bottomBar.replaceMenu(R.menu.main_bottom_navigation);
+        bottomBar.setOnMenuItemClickListener(new BottomNavigationSelectionListener());
 
         // Load database
         DbSetupLoaderCallback dbSetupLoaderCallback = new DbSetupLoaderCallback();
@@ -68,10 +64,6 @@ public class SimpleBibleMainScreen
                      .forceLoad();
 
         showLoadingScreen();
-
-        mTextMessage = findViewById(R.id.message);
-        BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
-        navigation.setOnNavigationItemSelectedListener(new BottomNavigationSelectionListener());
     }
 
     @Override
@@ -94,6 +86,22 @@ public class SimpleBibleMainScreen
 
     private void showSettingsScreen() {
         Log.d(TAG, "showSettingsScreen: ");
+    }
+
+    private void showBookmarksScreen() {
+        Log.d(TAG, "showBookmarksScreen: ");
+    }
+
+    private void showSearchScreen() {
+        Log.d(TAG, "showSearchScreen: ");
+    }
+
+    private void showBooksScreen() {
+        Log.d(TAG, "showBooksScreen: ");
+    }
+
+    private void showHomeScreen() {
+        Log.d(TAG, "showHomeScreen: ");
     }
 
     private void showLoadingScreen() {
@@ -139,25 +147,29 @@ public class SimpleBibleMainScreen
     }
 
     private class BottomNavigationSelectionListener
-        implements OnNavigationItemSelectedListener {
+        implements OnMenuItemClickListener {
 
         @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        public boolean onMenuItemClick(final MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.main_bottom_navigation_home);
+                    showHomeScreen();
                     return true;
                 case R.id.navigation_books:
-                    mTextMessage.setText(R.string.main_bottom_navigation_books);
+                    showBooksScreen();
                     return true;
                 case R.id.navigation_search:
-                    mTextMessage.setText(R.string.main_bottom_navigation_search);
+                    showSearchScreen();
                     return true;
                 case R.id.navigation_bookmarks:
-                    mTextMessage.setText(R.string.main_bottom_navigation_bookmarks);
+                    showBookmarksScreen();
+                    return true;
+                case R.id.navigation_settings:
+                    showSettingsScreen();
                     return true;
             }
             return false;
         }
     }
+
 }
