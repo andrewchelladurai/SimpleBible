@@ -39,6 +39,21 @@ public class Bookmark {
     }
 
     @NonNull
+    public static String createBookmarkReference(@NonNull final ArrayList<Verse> list) {
+        if (list.isEmpty()) {
+            Log.e(TAG, "createBookmarkReference: Empty list passed");
+            return "";
+        }
+        final StringBuilder value = new StringBuilder();
+        for (Verse verse : list) {
+            value.append(createReference(verse.getBook(), verse.getChapter(), verse.getVerse()))
+                 .append(SEPARATOR);
+        }
+        value.deleteCharAt(value.lastIndexOf(SEPARATOR));
+        return value.toString();
+    }
+
+    @NonNull
     public String getReference() {
         return reference;
     }
@@ -54,20 +69,5 @@ public class Bookmark {
 
     public void setNote(@NonNull String note) {
         this.note = note;
-    }
-
-    @NonNull
-    public static String createBookmarkReference(@NonNull final ArrayList<Verse> list) {
-        if (list.isEmpty()) {
-            Log.e(TAG, "createBookmarkReference: Empty list passed");
-            return "";
-        }
-        final StringBuilder value = new StringBuilder();
-        for (Verse verse : list) {
-            value.append(createReference(verse.getBook(), verse.getChapter(), verse.getVerse()))
-                 .append(SEPARATOR);
-        }
-        value.deleteCharAt(value.lastIndexOf(SEPARATOR));
-        return value.toString();
     }
 }

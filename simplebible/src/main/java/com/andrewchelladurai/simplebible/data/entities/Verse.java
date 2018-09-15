@@ -57,45 +57,6 @@ public class Verse {
     }
 
     @NonNull
-    public String getTranslation() {
-        return translation;
-    }
-
-    public int getBook() {
-        return book;
-    }
-
-    public int getChapter() {
-        return chapter;
-    }
-
-    public int getVerse() {
-        return verse;
-    }
-
-    @NonNull
-    public String getText() {
-        return text;
-    }
-
-    public boolean isSelected() {
-        return selected;
-    }
-
-    public void setSelected(final boolean selected) {
-        this.selected = selected;
-    }
-
-    public String getReference() {
-        return createReference(book, chapter, verse);
-    }
-
-    @Override
-    public String toString() {
-        return getReference();
-    }
-
-    @NonNull
     public static String createReference(@IntRange(from = 1, to = 66) int book,
                                          @IntRange(from = 1) int chapter,
                                          @IntRange(from = 1) int verse)
@@ -155,6 +116,45 @@ public class Verse {
             }
         }
         return sections;
+    }
+
+    @NonNull
+    public String getTranslation() {
+        return translation;
+    }
+
+    public int getBook() {
+        return book;
+    }
+
+    public int getChapter() {
+        return chapter;
+    }
+
+    public int getVerse() {
+        return verse;
+    }
+
+    @NonNull
+    public String getText() {
+        return text;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(final boolean selected) {
+        this.selected = selected;
+    }
+
+    public String getReference() {
+        return createReference(book, chapter, verse);
+    }
+
+    @Override
+    public String toString() {
+        return getReference();
     }
 
 }
