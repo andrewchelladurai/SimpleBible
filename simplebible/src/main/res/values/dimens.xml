@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="DB_LOADER">16</integer>
-    <integer name="DAILY_VERSE_LOADER">14</integer>
-
-    <integer name="act_books_list">2</integer>
-    <integer name="act_chapter_list">1</integer>
-    <integer name="chapter_dialog_list">5</integer>
-    <integer name="act_bmrk_list_column_count">1</integer>
-    <integer name="act_srch_list">1</integer>
 
     <dimen name="gap_big">16dp</dimen>
     <dimen name="gap_normal">8dp</dimen>
     <dimen name="gap_small">4dp</dimen>
     <dimen name="gap_none">0dp</dimen>
 
-    <dimen name="activity_margin">16dp</dimen>
-    <dimen name="text_margin">16dp</dimen>
+    <dimen name="main_content_padding">@dimen/gap_normal</dimen>
 </resources>

@@ -4,41 +4,11 @@
     <color name="white">@android:color/white</color>
     <color name="transparent">@android:color/transparent</color>
 
-    <color name="ic_default">@color/white</color>
-    <color name="background_light">#e6e6e6</color>
-    <color name="background_dark">#1a1a1a</color>
+    <color name="dark">@android:color/black</color>
+    <color name="light">@android:color/white</color>
 
-    <color name="green">#1BBC9B</color>
-    <color name="greenLight">#83edd7</color>
-    <color name="greenLighter">#cdf8ef</color>
-    <color name="greenDark">#08362d</color>
-    <color name="greenDarker">#041914</color>
-
-    <color name="blue">#4aaff8</color>
-    <color name="blueLight">#acdbfc</color>
-    <color name="blueLighter">#ddf0fe</color>
-    <color name="blueDark">#076bb3</color>
-    <color name="blueDarker">#021d30</color>
-
-    <color name="maroon">#994f3d</color>
-    <color name="maroonLight">#d59181</color>
-    <color name="maroonLighter">#ffddc6</color>
-    <color name="maroonDark">#732a1d</color>
-    <color name="maroonDarker">#440000</color>
-
-    <color name="yellow">#ffd34e</color>
-    <color name="yellowLight">#ffe492</color>
-    <color name="yellowLighter">#fff5d6</color>
-    <color name="yellowDark">#c59400</color>
-    <color name="yellowDarker">#5f4800</color>
-
-    <color name="act_chap_snackbar">@color/blueDarker</color>
-    <color name="act_chap_snackbar_text">@color/blueLight</color>
-
-    <color name="act_bmrk_snackbar_text">@color/maroonLighter</color>
-    <color name="act_bmrk_snackbar">@color/maroonDarker</color>
-
-    <color name="act_srch_snackbar_text">@color/yellow</color>
-    <color name="act_srch_snackbar">@color/yellowDarker</color>
+    <color name="background_color">@color/light</color>
+    <color name="accent">@color/black</color>
+    <color name="primary">@color/black</color>
 
 </resources>

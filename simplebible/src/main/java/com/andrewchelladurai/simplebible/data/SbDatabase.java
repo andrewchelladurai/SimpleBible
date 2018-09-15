@@ -3,9 +3,6 @@ package com.andrewchelladurai.simplebible.data;
 import android.content.Context;
 import android.util.Log;
 
-import com.andrewchelladurai.simplebible.data.dao.BookDao;
-import com.andrewchelladurai.simplebible.data.dao.BookmarkDao;
-import com.andrewchelladurai.simplebible.data.dao.VerseDao;
 import com.andrewchelladurai.simplebible.data.entities.Book;
 import com.andrewchelladurai.simplebible.data.entities.Bookmark;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
@@ -25,6 +22,7 @@ import androidx.room.RoomDatabase;
           // epoch time in seconds : date +%s
           version = 1520969806, // March 13, 2018 7:36:46 PM
           exportSchema = false)
+
 public abstract class SbDatabase
     extends RoomDatabase {
 
@@ -40,16 +38,18 @@ public abstract class SbDatabase
                                                     DATABASE_NAME)
                                    .fallbackToDestructiveMigration()
                                    .build();
-                Log.d(TAG, "getInstance: Database created");
+                Log.d(TAG, "getInstance: instantiated database");
             }
         }
         return thisInstance;
     }
 
+/*
     public abstract VerseDao getVerseDao();
 
     public abstract BookDao getBookDao();
 
     public abstract BookmarkDao getBookmarkDao();
+*/
 
 }
