@@ -36,7 +36,7 @@
         <bitmap
             android:gravity="center"
             android:mipMap="true"
-            android:src="@drawable/ic_launcher_web"
+            android:src="@drawable/ic_launcher_splash"
             android:tileMode="disabled" />
     </item>
 
