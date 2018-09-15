@@ -26,13 +26,18 @@
 
 package com.andrewchelladurai.simplebible.ui;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 
+import com.andrewchelladurai.simplebible.HomeScreen;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.presenter.DbSetupLoader;
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
@@ -55,6 +60,15 @@ public class SimpleBibleMainScreen
         BottomAppBar bottomBar = findViewById(R.id.bottom_bar);
         bottomBar.replaceMenu(R.menu.main_bottom_navigation);
         bottomBar.setOnMenuItemClickListener(new BottomNavigationSelectionListener());
+
+        FloatingActionButton fab = findViewById(R.id.bottom_bar_fab);
+        fab.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(final View v) {
+                showHomeScreen();
+            }
+        });
 
         // Load database
         DbSetupLoaderCallback dbSetupLoaderCallback = new DbSetupLoaderCallback();
@@ -87,6 +101,11 @@ public class SimpleBibleMainScreen
 
     private void showLoadingScreen() {
         Log.d(TAG, "showLoadingScreen: ");
+
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                       .add(R.id.content, HomeScreen.newInstance())
+                       .commit();
     }
 
     private void showFailedScreen() {
@@ -133,9 +152,6 @@ public class SimpleBibleMainScreen
         @Override
         public boolean onMenuItemClick(final MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    showHomeScreen();
-                    return true;
                 case R.id.navigation_books:
                     showBooksScreen();
                     return true;

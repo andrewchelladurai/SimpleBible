@@ -27,41 +27,32 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
-    <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home"
-        android:title="@string/main_bottom_navigation_home"
-        app:iconTint="@color/black"
-        app:showAsAction="always"
-        tools:ignore="AlwaysShowAction,AppCompatResource" />
     <item
         android:id="@+id/navigation_books"
         android:icon="@drawable/ic_books"
         android:title="@string/main_bottom_navigation_books"
-        app:iconTint="@color/black"
+        app:iconTint="?colorPrimary"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction,AppCompatResource" />
     <item
         android:id="@+id/navigation_search"
         android:icon="@drawable/ic_search"
         android:title="@string/main_bottom_navigation_search"
-        app:iconTint="@color/black"
+        app:iconTint="?colorPrimary"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction,AppCompatResource" />
     <item
         android:id="@+id/navigation_bookmarks"
         android:icon="@drawable/ic_bookmark"
         android:title="@string/main_bottom_navigation_bookmarks"
-        app:iconTint="@color/black"
+        app:iconTint="?colorPrimary"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction,AppCompatResource" />
     <item
         android:id="@+id/navigation_settings"
         android:icon="@drawable/ic_settings"
         android:title="@string/main_menu_settings"
-        app:iconTint="@color/black"
+        app:iconTint="?colorPrimary"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction,AppCompatResource" />
-
 </menu>

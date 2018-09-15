@@ -31,7 +31,6 @@
 
     <style name="SbTheme.Home" parent="SbTheme">
         <item name="android:navigationBarColor">?colorAccent</item>
-        <item name="android:statusBarColor">?colorAccent</item>
     </style>
 
     <style name="SbTheme.Home.Splash" parent="SbTheme.Home">
