@@ -3,10 +3,6 @@ package com.andrewchelladurai.simplebible.data;
 import android.content.Context;
 import android.util.Log;
 
-import com.andrewchelladurai.simplebible.data.entities.Book;
-import com.andrewchelladurai.simplebible.data.entities.Bookmark;
-import com.andrewchelladurai.simplebible.data.entities.Verse;
-
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
@@ -43,12 +39,10 @@ public abstract class SbDatabase
         return thisInstance;
     }
 
-/*
     public abstract VerseDao getVerseDao();
 
     public abstract BookDao getBookDao();
 
     public abstract BookmarkDao getBookmarkDao();
-*/
 
 }
