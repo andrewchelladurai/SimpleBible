@@ -20,24 +20,23 @@ import androidx.room.RoomDatabase;
 
 @Database(entities = {Verse.class, Book.class, Bookmark.class},
           // epoch time in seconds : date +%s
-          version = 1520969806, // March 13, 2018 7:36:46 PM
+          version = 1520969806,
+          // March 13, 2018 7:36:46 PM
           exportSchema = false)
 
 public abstract class SbDatabase
     extends RoomDatabase {
 
-    private static final String     TAG                  = "SbDatabase";
-    private static final String     DATABASE_NAME        = "SimpleBible.db";
-    private static       SbDatabase thisInstance         = null;
+    private static final String TAG = "SbDatabase";
+    private static final String DATABASE_NAME = "SimpleBible.db";
+    private static SbDatabase thisInstance = null;
 
     public static SbDatabase getInstance(@NonNull final Context context) {
         synchronized (SbDatabase.class) {
             if (thisInstance == null) {
                 thisInstance = Room.databaseBuilder(context.getApplicationContext(),
-                                                    SbDatabase.class,
-                                                    DATABASE_NAME)
-                                   .fallbackToDestructiveMigration()
-                                   .build();
+                                                    SbDatabase.class, DATABASE_NAME)
+                                   .fallbackToDestructiveMigration().build();
                 Log.d(TAG, "getInstance: instantiated database");
             }
         }

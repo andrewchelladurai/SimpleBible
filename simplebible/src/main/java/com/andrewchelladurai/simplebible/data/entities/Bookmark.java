@@ -12,8 +12,7 @@ import androidx.room.PrimaryKey;
  */
 
 @Entity(tableName = "BOOKMARKS")
-public
-class Bookmark {
+public class Bookmark {
 
     public static String SEPARATOR = "~";
 
@@ -26,35 +25,26 @@ class Bookmark {
     @ColumnInfo(name = "NOTE")
     private String note;
 
-    public
-    Bookmark(final String reference, final String note) {
+    public Bookmark(final String reference, final String note) {
         this.reference = reference;
         this.note = note;
     }
 
     @NonNull
-    public
-    String getReference() {
+    public String getReference() {
         return reference;
     }
 
-    public
-    void setReference(
-        @NonNull
-            String reference) {
+    public void setReference(@NonNull String reference) {
         this.reference = reference;
     }
 
     @NonNull
-    public
-    String getNote() {
+    public String getNote() {
         return note;
     }
 
-    public
-    void setNote(
-        @NonNull
-            String note) {
+    public void setNote(@NonNull String note) {
         this.note = note;
     }
 }

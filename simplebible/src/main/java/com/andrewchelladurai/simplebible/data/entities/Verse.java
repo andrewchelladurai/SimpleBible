@@ -13,8 +13,7 @@ import androidx.room.Entity;
 
 @Entity(tableName = "BIBLEVERSES",
         primaryKeys = {"BOOKNUMBER", "CHAPTERNUMBER", "VERSENUMBER"})
-public
-class Verse {
+public class Verse {
 
     public static String SEPARATOR = ":";
 
@@ -41,19 +40,10 @@ class Verse {
 
     private boolean selected = false;
 
-    public
-    Verse(
-        @NonNull
-        final String translation,
-        @IntRange(from = 1,
-                  to = 66)
-        final int book,
-        @IntRange(from = 1)
-        final int chapter,
-        @IntRange(from = 1)
-        final int verse,
-        @NonNull
-        final String text) {
+    public Verse(@NonNull final String translation, @IntRange(from = 1,
+                                                              to = 66) final int book,
+                 @IntRange(from = 1) final int chapter, @IntRange(from = 1) final int verse,
+                 @NonNull final String text) {
         this.translation = translation;
         this.book = book;
         this.chapter = chapter;
@@ -63,51 +53,42 @@ class Verse {
     }
 
     @NonNull
-    public
-    String getTranslation() {
+    public String getTranslation() {
         return translation;
     }
 
-    public
-    int getBook() {
+    public int getBook() {
         return book;
     }
 
-    public
-    int getChapter() {
+    public int getChapter() {
         return chapter;
     }
 
-    public
-    int getVerse() {
+    public int getVerse() {
         return verse;
     }
 
     @NonNull
-    public
-    String getText() {
+    public String getText() {
         return text;
     }
 
-    public
-    boolean isSelected() {
+    public boolean isSelected() {
         return selected;
     }
 
-    public
-    void setSelected(final boolean selected) {
+    public void setSelected(final boolean selected) {
         this.selected = selected;
     }
 
-    public
-    String getReference() {
+    public String getReference() {
         return "";
         //        return Utilities.getInstance().createReference(book, chapter, verse);
     }
 
     @Override
-    public
-    String toString() {
+    public String toString() {
         return getReference();
     }
 }

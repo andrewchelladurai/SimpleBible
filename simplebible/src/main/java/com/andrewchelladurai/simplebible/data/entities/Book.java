@@ -20,7 +20,8 @@ public class Book {
     private final String mBookDescription;
 
     @ColumnInfo(name = "BOOKNUMBER")
-    @IntRange(from = 1, to = 66)
+    @IntRange(from = 1,
+              to = 66)
     @PrimaryKey
     private final int mBookNumber;
 
@@ -36,10 +37,9 @@ public class Book {
     @IntRange(from = 1)
     private final int mBookVerseCount;
 
-    public Book(@NonNull final String bookDescription,
-                @IntRange(from = 1, to = 66) final int bookNumber,
-                @NonNull final String bookName,
-                @IntRange(from = 1) final int bookChapterCount,
+    public Book(@NonNull final String bookDescription, @IntRange(from = 1,
+                                                                 to = 66) final int bookNumber,
+                @NonNull final String bookName, @IntRange(from = 1) final int bookChapterCount,
                 @IntRange(from = 1) final int bookVerseCount) {
         mBookDescription = bookDescription;
         mBookNumber = bookNumber;
