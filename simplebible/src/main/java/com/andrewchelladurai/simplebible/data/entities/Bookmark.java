@@ -1,9 +1,15 @@
 package com.andrewchelladurai.simplebible.data.entities;
 
+import android.util.Log;
+
+import java.util.ArrayList;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import static com.andrewchelladurai.simplebible.data.entities.Verse.createReference;
 
 /**
  * Created by : Andrew Chelladurai
@@ -13,6 +19,8 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "BOOKMARKS")
 public class Bookmark {
+
+    private static final String TAG = "Bookmark";
 
     public static String SEPARATOR = "~";
 
@@ -46,5 +54,20 @@ public class Bookmark {
 
     public void setNote(@NonNull String note) {
         this.note = note;
+    }
+
+    @NonNull
+    public static String createBookmarkReference(@NonNull final ArrayList<Verse> list) {
+        if (list.isEmpty()) {
+            Log.e(TAG, "createBookmarkReference: Empty list passed");
+            return "";
+        }
+        final StringBuilder value = new StringBuilder();
+        for (Verse verse : list) {
+            value.append(createReference(verse.getBook(), verse.getChapter(), verse.getVerse()))
+                 .append(SEPARATOR);
+        }
+        value.deleteCharAt(value.lastIndexOf(SEPARATOR));
+        return value.toString();
     }
 }
