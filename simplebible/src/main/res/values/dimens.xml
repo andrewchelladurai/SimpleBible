@@ -7,4 +7,5 @@
     <dimen name="gap_none">0dp</dimen>
 
     <dimen name="main_content_padding">@dimen/gap_normal</dimen>
+    <integer name="DB_LOADER">16</integer>
 </resources>
