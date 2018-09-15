@@ -3,8 +3,9 @@
     <string name="application_name">Simple Bible</string>
 
     <string name="main_bottom_navigation_home">Home</string>
-    <string name="main_bottom_navigation_dashboard">Dashboard</string>
-    <string name="main_bottom_navigation_notifications">Notifications</string>
+    <string name="main_bottom_navigation_books">Books</string>
+    <string name="main_bottom_navigation_search">Search</string>
+    <string name="main_bottom_navigation_bookmarks">Bookmarks</string>
 
     <string name="default_daily_verse_reference">43:3:16</string>
 

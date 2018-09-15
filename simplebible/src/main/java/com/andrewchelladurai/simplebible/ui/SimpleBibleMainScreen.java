@@ -34,6 +34,8 @@ import android.widget.TextView;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.presenter.DbSetupLoader;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomnavigation.BottomNavigationView
+    .OnNavigationItemSelectedListener;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,26 +49,6 @@ public class SimpleBibleMainScreen
     private static final String TAG = "SimpleBibleMainScreen";
 
     private TextView mTextMessage;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-        = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.main_bottom_navigation_home);
-                    return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.main_bottom_navigation_dashboard);
-                    return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.main_bottom_navigation_notifications);
-                    return true;
-            }
-            return false;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,9 +65,9 @@ public class SimpleBibleMainScreen
 
         showLoadingScreen();
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        mTextMessage = findViewById(R.id.message);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationSelectionListener());
     }
 
     private void showLoadingScreen() {
@@ -130,4 +112,26 @@ public class SimpleBibleMainScreen
         }
     }
 
+    private class BottomNavigationSelectionListener
+        implements OnNavigationItemSelectedListener {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    mTextMessage.setText(R.string.main_bottom_navigation_home);
+                    return true;
+                case R.id.navigation_books:
+                    mTextMessage.setText(R.string.main_bottom_navigation_books);
+                    return true;
+                case R.id.navigation_search:
+                    mTextMessage.setText(R.string.main_bottom_navigation_search);
+                    return true;
+                case R.id.navigation_bookmarks:
+                    mTextMessage.setText(R.string.main_bottom_navigation_bookmarks);
+                    return true;
+            }
+            return false;
+        }
+    }
 }
