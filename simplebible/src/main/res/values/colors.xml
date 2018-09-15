@@ -4,16 +4,16 @@
     <color name="white">@android:color/white</color>
     <color name="transparent">@android:color/transparent</color>
 
-    <color name="background_color">@color/primaryColor</color>
-
     <color name="primaryColor">#cfd8dc</color>
     <color name="primaryLightColor">#e0e0e0</color>
     <color name="primaryDarkColor">#9ea7aa</color>
     <color name="primaryTextColor">@color/black</color>
 
-    <color name="secondaryColor">#263238</color>
-    <color name="secondaryLightColor">#4f5b62</color>
-    <color name="secondaryDarkColor">#000a12</color>
-    <color name="secondaryTextColor">@color/white</color>
+    <color name="secondaryColor">#8bc34a</color>
+    <color name="secondaryLightColor">#bef67a</color>
+    <color name="secondaryDarkColor">#5a9216</color>
+    <color name="secondaryTextColor">@color/black</color>
+
+    <color name="background_color">@color/primaryColor</color>
 
 </resources>
