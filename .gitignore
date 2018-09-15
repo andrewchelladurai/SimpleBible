@@ -166,3 +166,6 @@ fabric.properties
 /.editorconfig
 /.idea/
 /assets/
+/gradle/wrapper/
+/gradlew
+/gradlew.bat
