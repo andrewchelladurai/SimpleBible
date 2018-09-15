@@ -28,7 +28,6 @@ package com.andrewchelladurai.simplebible.ui;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.andrewchelladurai.simplebible.R;
@@ -64,24 +63,6 @@ public class SimpleBibleMainScreen
                      .forceLoad();
 
         showLoadingScreen();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.main_menu_settings:
-                showSettingsScreen();
-                return true;
-            default:
-                Log.e(TAG, "onOptionsItemSelected: unknown menuItem[" + item.getTitle() + "]");
-                return false;
-        }
     }
 
     private void showSettingsScreen() {
