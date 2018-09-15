@@ -43,7 +43,7 @@ import androidx.room.Update;
  * on 15-Sep-2018 @ 4:02 PM
  */
 @Dao
-interface BookDao {
+public interface BookDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void createBook(@NonNull Book book);
@@ -66,4 +66,6 @@ interface BookDao {
     @Query("select distinct count(BOOKNUMBER) from BOOKSTATS")
     int getNumberOfBooks();
 
+    @Query("delete from BOOKSTATS")
+    void deleteAllRecords();
 }

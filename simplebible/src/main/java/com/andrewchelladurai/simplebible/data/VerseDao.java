@@ -41,7 +41,7 @@ import androidx.room.Query;
  * on 15-Sep-2018 @ 3:55 PM
  */
 @Dao
-interface VerseDao {
+public interface VerseDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void createVerse(@NonNull Verse verse);
@@ -75,4 +75,11 @@ interface VerseDao {
     LiveData<List<Verse>> getVersesForBookmarkReference(@NonNull List<Integer> bookList,
                                                         @NonNull List<Integer> chapterList,
                                                         @NonNull List<Integer> verseList);
+
+    @Query("select distinct count(BOOKNUMBER||CHAPTERNUMBER||VERSENUMBER)"
+           + " from BIBLEVERSES")
+    int getNumberOfRecords();
+
+    @Query("delete from BIBLEVERSES")
+    void deleteAllRecords();
 }

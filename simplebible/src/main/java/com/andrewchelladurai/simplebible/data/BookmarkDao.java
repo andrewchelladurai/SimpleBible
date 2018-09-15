@@ -41,7 +41,7 @@ import androidx.room.Update;
  * on 15-Sep-2018 @ 4:05 PM
  */
 @Dao
-interface BookmarkDao {
+public interface BookmarkDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void createBookmark(@NonNull Bookmark bookmark);
