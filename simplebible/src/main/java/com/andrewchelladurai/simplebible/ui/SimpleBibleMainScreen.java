@@ -64,7 +64,7 @@ public class SimpleBibleMainScreen
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.SbTheme_Home);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.simple_bible_main_screen);
+        setContentView(R.layout.main_screen);
 
         mPresenter = new MainScreenPresenter(this);
 
