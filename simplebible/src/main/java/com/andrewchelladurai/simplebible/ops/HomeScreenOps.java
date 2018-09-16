@@ -26,6 +26,10 @@
 
 package com.andrewchelladurai.simplebible.ops;
 
+import com.andrewchelladurai.simplebible.data.Verse;
+
+import androidx.annotation.NonNull;
+
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
  * on 16-Sep-2018 @ 6:42 PM
@@ -37,4 +41,8 @@ public interface HomeScreenOps {
     void stopLoadingScreen();
 
     void showFailedLoadingMessage();
+
+    void showDefaultDailyVerse();
+
+    void showDailyVerse(@NonNull Verse verse);
 }

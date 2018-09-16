@@ -40,6 +40,7 @@ import com.andrewchelladurai.simplebible.ops.MainScreenOps;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.loader.content.AsyncTaskLoader;
@@ -197,6 +198,21 @@ public class MainScreenPresenter {
                 Log.e(TAG, "getFileHandle: Error opening/accessing file [" + fileName + "]", ioe);
                 throw ioe;
             }
+        }
+    }
+
+    public static class DailyVerseLoader
+        extends AsyncTaskLoader<List<Verse>> {
+
+        private static final String TAG = "DailyVerseLoader";
+
+        public DailyVerseLoader() {
+            super(mOps.getSystemContext());
+        }
+
+        @Override
+        public List<Verse> loadInBackground() {
+            return null;
         }
     }
 }

@@ -35,9 +35,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.Verse;
 import com.andrewchelladurai.simplebible.ops.HomeScreenOps;
 import com.andrewchelladurai.simplebible.presenter.HomeScreenPresenter;
 
+import androidx.annotation.NonNull;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 
@@ -95,6 +97,7 @@ public class HomeScreen
 
     @Override
     public void showFailedLoadingMessage() {
+        Log.d(TAG, "showFailedLoadingMessage:");
         mVerseView.setText(HtmlCompat.fromHtml(
             getString(R.string.home_screen_daily_verse_failure),
             HtmlCompat.FROM_HTML_MODE_LEGACY));
@@ -102,6 +105,17 @@ public class HomeScreen
         mMessage.setText(R.string.home_screen_message_loading_failure);
 
         mProgressBar.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void showDefaultDailyVerse() {
+        Log.d(TAG, "showDefaultDailyVerse:");
+        stopLoadingScreen();
+    }
+
+    @Override
+    public void showDailyVerse(@NonNull final Verse verse) {
+        Log.d(TAG, "showDailyVerse:");
     }
 
 }

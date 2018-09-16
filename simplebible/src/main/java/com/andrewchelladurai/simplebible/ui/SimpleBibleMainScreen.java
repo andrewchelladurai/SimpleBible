@@ -34,12 +34,15 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.Verse;
 import com.andrewchelladurai.simplebible.ops.HomeScreenOps;
 import com.andrewchelladurai.simplebible.ops.MainScreenOps;
 import com.andrewchelladurai.simplebible.presenter.MainScreenPresenter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.BottomNavigationView
     .OnNavigationItemSelectedListener;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -96,6 +99,14 @@ public class SimpleBibleMainScreen
                      .forceLoad();
     }
 
+    private void loadDailyVerse() {
+        Log.d(TAG, "loadDailyVerse:");
+        LoaderManager.getInstance(this)
+                     .initLoader(R.integer.DAILY_VERSE_LOADER, null,
+                                 new DailyVerseLoaderCallback())
+                     .forceLoad();
+    }
+
     private void showHomeScreen() {
         Log.d(TAG, "showHomeScreen:");
         final HomeScreen homeScreen = new HomeScreen();
@@ -109,21 +120,43 @@ public class SimpleBibleMainScreen
 
     private void showFailedScreen() {
         Log.d(TAG, "showFailedScreen:");
+        mHomeScreenOps.showFailedLoadingMessage();
     }
 
     private void handleDbInitLoaderResult(final boolean databaseLoaded) {
-        Log.d(TAG, "handleDbInitLoaderResult: databaseLoaded = [" + databaseLoaded + "]");
+        Log.d(TAG, "handleDbInitLoaderResult:");
+        mHomeScreenOps.stopLoadingScreen();
+        if (databaseLoaded) {
+            loadDailyVerse();
+            showBottomBar();
+        } else {
+            mHomeScreenOps.showFailedLoadingMessage();
+        }
     }
 
-    @Override
-    public Context getSystemContext() {
-        return getApplicationContext();
+    private void handleDailyVerseLoaderResult(final List<Verse> list) {
+        Log.d(TAG, "handleDailyVerseLoaderResult: ");
+        if (list == null || list.isEmpty()) {
+            mHomeScreenOps.showDefaultDailyVerse();
+        } else {
+            mHomeScreenOps.showDailyVerse(list.get(0));
+        }
     }
 
     @Override
     public void startLoadingScreen() {
         Log.d(TAG, "startLoadingScreen:");
         mHomeScreenOps.startLoadingScreen();
+    }
+
+    private void showDefaultDailyVerse() {
+        Log.d(TAG, "showDefaultDailyVerse:");
+        mHomeScreenOps.showDefaultDailyVerse();
+    }
+
+    @Override
+    public Context getSystemContext() {
+        return getApplicationContext();
     }
 
     private class BottomNavigationListener
@@ -154,8 +187,11 @@ public class SimpleBibleMainScreen
     private class DbInitLoaderCallback
         implements LoaderManager.LoaderCallbacks<Boolean> {
 
+        private static final String TAG = "DbInitLoaderCallback";
+
         @Override
         public Loader<Boolean> onCreateLoader(final int id, final Bundle args) {
+            Log.d(TAG, "onCreateLoader:");
             return new MainScreenPresenter.DbInitLoader();
         }
 
@@ -166,7 +202,31 @@ public class SimpleBibleMainScreen
 
         @Override
         public void onLoaderReset(final Loader<Boolean> loader) {
+            Log.d(TAG, "onLoaderReset:");
             showFailedScreen();
+        }
+    }
+
+    private class DailyVerseLoaderCallback
+        implements LoaderManager.LoaderCallbacks<List<Verse>> {
+
+        private static final String TAG = "DailyVerseLoaderCallbac";
+
+        @Override
+        public Loader<List<Verse>> onCreateLoader(final int id, final Bundle args) {
+            Log.d(TAG, "onCreateLoader:");
+            return new MainScreenPresenter.DailyVerseLoader();
+        }
+
+        @Override
+        public void onLoadFinished(final Loader<List<Verse>> loader, final List<Verse> list) {
+            handleDailyVerseLoaderResult(list);
+        }
+
+        @Override
+        public void onLoaderReset(final Loader<List<Verse>> loader) {
+            Log.d(TAG, "onLoaderReset:");
+            showDefaultDailyVerse();
         }
     }
 
