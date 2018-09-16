@@ -26,24 +26,31 @@
 
 package com.andrewchelladurai.simplebible.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.ops.MainScreenOps;
+import com.andrewchelladurai.simplebible.presenter.MainScreenPresenter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.BottomNavigationView
     .OnNavigationItemSelectedListener;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
 
 public class SimpleBibleMainScreen
-    extends AppCompatActivity {
+    extends AppCompatActivity
+    implements MainScreenOps {
 
     private static final String TAG = "SimpleBibleMainScreen";
 
+    private MainScreenPresenter mPresenter;
     private TextView mTextMessage;
 
     @Override
@@ -52,9 +59,32 @@ public class SimpleBibleMainScreen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.simple_bible_main_screen);
 
+        mPresenter = new MainScreenPresenter(this);
+
         mTextMessage = findViewById(R.id.message);
         BottomNavigationView navigation = findViewById(R.id.main_bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationListener());
+
+        loadDatabase();
+    }
+
+    private void loadDatabase() {
+        LoaderManager.getInstance(this)
+                     .initLoader(R.integer.DB_LOADER, null, new DbInitLoaderCallback())
+                     .forceLoad();
+    }
+
+    private void showFailedScreen() {
+        Log.d(TAG, "showFailedScreen: ");
+    }
+
+    private void handleDbInitLoaderResult(final boolean databaseLoaded) {
+        Log.d(TAG, "handleDbInitLoaderResult: databaseLoaded = [" + databaseLoaded + "]");
+    }
+
+    @Override
+    public Context getSystemContext() {
+        return getApplicationContext();
     }
 
     private class BottomNavigationListener
@@ -81,4 +111,24 @@ public class SimpleBibleMainScreen
             }
         }
     }
+
+    private class DbInitLoaderCallback
+        implements LoaderManager.LoaderCallbacks<Boolean> {
+
+        @Override
+        public Loader<Boolean> onCreateLoader(final int id, final Bundle args) {
+            return new MainScreenPresenter.DbInitLoader();
+        }
+
+        @Override
+        public void onLoadFinished(final Loader<Boolean> loader, final Boolean databaseLoaded) {
+            handleDbInitLoaderResult(databaseLoaded);
+        }
+
+        @Override
+        public void onLoaderReset(final Loader<Boolean> loader) {
+            showFailedScreen();
+        }
+    }
+
 }
