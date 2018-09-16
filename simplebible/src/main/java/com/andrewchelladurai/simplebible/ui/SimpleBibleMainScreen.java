@@ -34,6 +34,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.ops.HomeScreenOps;
 import com.andrewchelladurai.simplebible.ops.MainScreenOps;
 import com.andrewchelladurai.simplebible.presenter.MainScreenPresenter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -52,7 +53,7 @@ public class SimpleBibleMainScreen
     private static final String TAG = "SimpleBibleMainScreen";
 
     private MainScreenPresenter mPresenter;
-    private HomeScreen homeScreen;
+    private HomeScreenOps mHomeScreenOps;
 
     private TextView mTextMessage;
 
@@ -79,31 +80,35 @@ public class SimpleBibleMainScreen
     }
 
     private void hideBottomBar() {
+        Log.d(TAG, "hideBottomBar:");
         findViewById(R.id.main_bottom_navigation).setVisibility(View.INVISIBLE);
     }
 
     private void showBottomBar() {
+        Log.d(TAG, "showBottomBar:");
         findViewById(R.id.main_bottom_navigation).setVisibility(View.VISIBLE);
     }
 
     private void loadDatabase() {
+        Log.d(TAG, "loadDatabase:");
         LoaderManager.getInstance(this)
                      .initLoader(R.integer.DB_LOADER, null, new DbInitLoaderCallback())
                      .forceLoad();
     }
 
     private void showHomeScreen() {
-        homeScreen = new HomeScreen();
+        Log.d(TAG, "showHomeScreen:");
+        final HomeScreen homeScreen = new HomeScreen();
         final String tag = homeScreen.getClass().getSimpleName();
-        Log.d(TAG, "showHomeScreen: Loading Screen [" + tag + "]");
 
         getSupportFragmentManager().beginTransaction()
                                    .replace(R.id.main_fragment_container, homeScreen, tag)
                                    .commit();
+        mHomeScreenOps = homeScreen;
     }
 
     private void showFailedScreen() {
-        Log.d(TAG, "showFailedScreen: ");
+        Log.d(TAG, "showFailedScreen:");
     }
 
     private void handleDbInitLoaderResult(final boolean databaseLoaded) {
@@ -117,7 +122,8 @@ public class SimpleBibleMainScreen
 
     @Override
     public void startLoadingScreen() {
-        homeScreen.startLoadingScreen();
+        Log.d(TAG, "startLoadingScreen:");
+        mHomeScreenOps.startLoadingScreen();
     }
 
     private class BottomNavigationListener
