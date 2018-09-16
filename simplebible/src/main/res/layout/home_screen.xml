@@ -1,17 +1,51 @@
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginEnd="@dimen/content_padding"
-    android:layout_marginStart="@dimen/content_padding"
-    android:orientation="vertical">
+    android:paddingEnd="@dimen/content_padding"
+    android:paddingStart="@dimen/content_padding">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/hGuide60"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/hGuide70"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/hGuide80"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="?actionBarSize"
+        android:text="@string/application_name"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/content_padding"
-        android:layout_marginStart="@dimen/content_padding"
-        android:layout_weight="0.6"
-        android:fillViewport="true">
+        android:id="@+id/container_daily_verse"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/hGuide60"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title">
 
         <TextView
             android:id="@+id/daily_verse"
@@ -24,15 +58,31 @@
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="0.2"
-        android:indeterminate="true" />
+        android:indeterminate="true"
+        app:layout_constraintBottom_toTopOf="@+id/hGuide70"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hGuide60" />
 
     <TextView
         android:id="@+id/message"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/home_screen_message_loading"
-        android:textAlignment="center" />
+        app:layout_constraintBottom_toTopOf="@+id/hGuide80"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hGuide70" />
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_share"
+        android:text="@string/share"
+        android:tint="@color/primaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/hGuide80" />
+
+</android.support.constraint.ConstraintLayout>
