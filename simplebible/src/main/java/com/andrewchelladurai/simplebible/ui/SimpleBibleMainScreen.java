@@ -27,11 +27,14 @@
 package com.andrewchelladurai.simplebible.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomnavigation.BottomNavigationView
+    .OnNavigationItemSelectedListener;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,10 +42,23 @@ import androidx.appcompat.app.AppCompatActivity;
 public class SimpleBibleMainScreen
     extends AppCompatActivity {
 
+    private static final String TAG = "SimpleBibleMainScreen";
+
     private TextView mTextMessage;
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-        = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.SbTheme_Home);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.simple_bible_main_screen);
+
+        mTextMessage = findViewById(R.id.message);
+        BottomNavigationView navigation = findViewById(R.id.main_bottom_navigation);
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationListener());
+    }
+
+    private class BottomNavigationListener
+        implements OnNavigationItemSelectedListener {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -59,19 +75,10 @@ public class SimpleBibleMainScreen
                 case R.id.navigation_bookmarks:
                     mTextMessage.setText(R.string.bottom_bar_bookmarks);
                     return true;
+                default:
+                    Log.e(TAG, "onNavigationItemSelected: unknown [" + item.getTitle() + "]]");
+                    return false;
             }
-            return false;
         }
-    };
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.simple_bible_main_screen);
-
-        mTextMessage = findViewById(R.id.message);
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
-
 }
