@@ -30,15 +30,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
 
+import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 
 public class HomeScreen
     extends Fragment {
 
+    private static final String TAG = "HomeScreen";
+
     private static HomeScreen THIS_INSTANCE = new HomeScreen();
+    private TextView mVerseView;
+    private ProgressBar mProgressbar;
+    private TextView mLoadingMessage;
 
     public HomeScreen() {
         // Required empty public constructor
@@ -48,18 +56,26 @@ public class HomeScreen
         return THIS_INSTANCE;
     }
 
+/*
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
     }
+*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home_screen, container, false);
+        final View view = inflater.inflate(R.layout.fragment_home_screen, container, false);
+
+        mVerseView = view.findViewById(R.id.daily_verse);
+        mVerseView.setText(HtmlCompat.fromHtml(
+            getString(R.string.home_screen_daily_verse_loading), HtmlCompat.FROM_HTML_MODE_LEGACY));
+
+        mProgressbar = view.findViewById(R.id.progress_bar);
+        mLoadingMessage = view.findViewById(R.id.loading_message);
+
+        return view;
     }
 
 /*
