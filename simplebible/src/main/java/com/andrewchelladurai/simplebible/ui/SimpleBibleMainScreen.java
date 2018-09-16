@@ -58,7 +58,7 @@ public class SimpleBibleMainScreen
         setContentView(R.layout.main_screen_simple_bible);
 
         BottomAppBar bottomBar = findViewById(R.id.bottom_bar);
-        bottomBar.replaceMenu(R.menu.main_bottom_navigation);
+        bottomBar.replaceMenu(R.menu.bottom_app_bar);
         bottomBar.setOnMenuItemClickListener(new BottomNavigationSelectionListener());
 
         FloatingActionButton fab = findViewById(R.id.bottom_bar_fab);

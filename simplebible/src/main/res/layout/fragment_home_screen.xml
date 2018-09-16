@@ -69,7 +69,7 @@
             android:layout_height="?actionBarSize"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="@string/splash_screen_loading_message" />
+            android:text="@string/home_screen_daily_verse_default" />
     </ScrollView>
 
     <ProgressBar
@@ -87,7 +87,7 @@
         android:id="@+id/loading_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/splash_screen_loading_message"
+        android:text="@string/home_screen_message_loading"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/hGuide90" />

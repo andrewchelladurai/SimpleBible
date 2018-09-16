@@ -35,14 +35,14 @@ import android.view.ViewGroup;
 public class HomeScreen
     extends Fragment {
 
-//    private OnFragmentInteractionListener mListener;
+    private static HomeScreen THIS_INSTANCE = new HomeScreen();
 
     public HomeScreen() {
         // Required empty public constructor
     }
 
     public static HomeScreen newInstance() {
-        return new HomeScreen();
+        return THIS_INSTANCE;
     }
 
     @Override
