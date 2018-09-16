@@ -37,4 +37,6 @@ import androidx.annotation.NonNull;
 public interface MainScreenOps {
 
     @NonNull Context getSystemContext();
+
+    void startLoadingScreen();
 }

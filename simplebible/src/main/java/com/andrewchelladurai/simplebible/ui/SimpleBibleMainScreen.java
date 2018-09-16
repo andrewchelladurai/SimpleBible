@@ -30,6 +30,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
@@ -51,6 +52,8 @@ public class SimpleBibleMainScreen
     private static final String TAG = "SimpleBibleMainScreen";
 
     private MainScreenPresenter mPresenter;
+    private HomeScreen homeScreen;
+
     private TextView mTextMessage;
 
     @Override
@@ -65,13 +68,38 @@ public class SimpleBibleMainScreen
         BottomNavigationView navigation = findViewById(R.id.main_bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationListener());
 
+        // hide the bottom bar, we will show it after the DB is loaded
+        // and the daily verse is updated on the home screen
+        // If the DB could not be loaded, keep the bottom bar hidden
+        // and show a message to the use to inform the developer - me
+        hideBottomBar();
+
+        showHomeScreen();
         loadDatabase();
+    }
+
+    private void hideBottomBar() {
+        findViewById(R.id.main_bottom_navigation).setVisibility(View.INVISIBLE);
+    }
+
+    private void showBottomBar() {
+        findViewById(R.id.main_bottom_navigation).setVisibility(View.VISIBLE);
     }
 
     private void loadDatabase() {
         LoaderManager.getInstance(this)
                      .initLoader(R.integer.DB_LOADER, null, new DbInitLoaderCallback())
                      .forceLoad();
+    }
+
+    private void showHomeScreen() {
+        homeScreen = new HomeScreen();
+        final String tag = homeScreen.getClass().getSimpleName();
+        Log.d(TAG, "showHomeScreen: Loading Screen [" + tag + "]");
+
+        getSupportFragmentManager().beginTransaction()
+                                   .replace(R.id.main_fragment_container, homeScreen, tag)
+                                   .commit();
     }
 
     private void showFailedScreen() {
@@ -85,6 +113,11 @@ public class SimpleBibleMainScreen
     @Override
     public Context getSystemContext() {
         return getApplicationContext();
+    }
+
+    @Override
+    public void startLoadingScreen() {
+        homeScreen.startLoadingScreen();
     }
 
     private class BottomNavigationListener

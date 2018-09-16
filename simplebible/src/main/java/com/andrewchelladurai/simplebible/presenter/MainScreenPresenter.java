@@ -74,6 +74,12 @@ public class MainScreenPresenter {
         }
 
         @Override
+        protected void onStartLoading() {
+            super.onStartLoading();
+            mOps.startLoadingScreen();
+        }
+
+        @Override
         public Boolean loadInBackground() {
             try {
                 final Context context = getContext();
