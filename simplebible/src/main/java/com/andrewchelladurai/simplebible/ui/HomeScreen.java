@@ -27,9 +27,11 @@
 package com.andrewchelladurai.simplebible.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
@@ -47,12 +49,16 @@ public class HomeScreen
 
     private static HomeScreenPresenter mPresenter;
 
+    private TextView mVerseView;
+    private TextView mMessage;
+    private ProgressBar mProgressBar;
+
     @SuppressWarnings("WeakerAccess")
     public HomeScreen() {
         mPresenter = new HomeScreenPresenter(this);
     }
 
-    /*
+/*
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,39 +68,40 @@ public class HomeScreen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.home_screen, container, false);
+        final View rootView = inflater.inflate(R.layout.home_screen, container, false);
+        mVerseView = rootView.findViewById(R.id.daily_verse);
+        mMessage = rootView.findViewById(R.id.message);
+        mProgressBar = rootView.findViewById(R.id.progress_bar);
+        return rootView;
     }
 
     @Override
     public void startLoadingScreen() {
-        TextView textView = getView().findViewById(R.id.daily_verse);
-        textView.setText(HtmlCompat.fromHtml(
+        Log.d(TAG, "startLoadingScreen: ");
+        mVerseView.setText(HtmlCompat.fromHtml(
             getString(R.string.home_screen_daily_verse_loading),
             HtmlCompat.FROM_HTML_MODE_LEGACY));
     }
 
     @Override
     public void stopLoadingScreen() {
-        TextView textView = getView().findViewById(R.id.daily_verse);
-        textView.setText(HtmlCompat.fromHtml(
+        mVerseView.setText(HtmlCompat.fromHtml(
             getString(R.string.home_screen_daily_verse_default),
             HtmlCompat.FROM_HTML_MODE_LEGACY));
 
-        getView().findViewById(R.id.message).setVisibility(View.INVISIBLE);
-        getView().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
+        mMessage.setVisibility(View.INVISIBLE);
+        mProgressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void showFailedLoadingMessage() {
-        TextView textView = getView().findViewById(R.id.daily_verse);
-        textView.setText(HtmlCompat.fromHtml(
+        mVerseView.setText(HtmlCompat.fromHtml(
             getString(R.string.home_screen_daily_verse_failure),
             HtmlCompat.FROM_HTML_MODE_LEGACY));
 
-        textView = getView().findViewById(R.id.message);
-        textView.setText(R.string.home_screen_message_loading_failure);
+        mMessage.setText(R.string.home_screen_message_loading_failure);
 
-        getView().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
+        mProgressBar.setVisibility(View.INVISIBLE);
     }
 
 }
