@@ -26,13 +26,14 @@
 
 package com.andrewchelladurai.simplebible.ui;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.andrewchelladurai.simplebible.R;
+
+import androidx.fragment.app.Fragment;
 
 public class HomeScreen
     extends Fragment {
@@ -50,6 +51,9 @@ public class HomeScreen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
     }
 
     @Override

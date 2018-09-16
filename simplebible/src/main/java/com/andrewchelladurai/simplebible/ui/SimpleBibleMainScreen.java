@@ -26,7 +26,6 @@
 
 package com.andrewchelladurai.simplebible.ui;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -48,6 +47,8 @@ public class SimpleBibleMainScreen
     extends AppCompatActivity {
 
     private static final String TAG = "SimpleBibleMainScreen";
+
+    private HomeScreen mHomeScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,11 +101,12 @@ public class SimpleBibleMainScreen
 
     private void showLoadingScreen() {
         Log.d(TAG, "showLoadingScreen: ");
+        mHomeScreen = HomeScreen.newInstance();
 
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                       .add(R.id.content, HomeScreen.newInstance())
-                       .commit();
+        getSupportFragmentManager().beginTransaction()
+                                   .add(R.id.content, mHomeScreen, HomeScreen.class.getName())
+                                   .commit();
+
     }
 
     private void showFailedScreen() {
