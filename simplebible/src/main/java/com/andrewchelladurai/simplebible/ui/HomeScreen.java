@@ -30,6 +30,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -38,6 +39,7 @@ import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.Verse;
 import com.andrewchelladurai.simplebible.ops.HomeScreenOps;
 import com.andrewchelladurai.simplebible.presenter.HomeScreenPresenter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.annotation.NonNull;
 import androidx.core.text.HtmlCompat;
@@ -54,6 +56,7 @@ public class HomeScreen
     private TextView mVerseView;
     private TextView mMessage;
     private ProgressBar mProgressBar;
+    private FloatingActionButton mFab;
 
     @SuppressWarnings("WeakerAccess")
     public HomeScreen() {
@@ -74,7 +77,20 @@ public class HomeScreen
         mVerseView = rootView.findViewById(R.id.daily_verse);
         mMessage = rootView.findViewById(R.id.message);
         mProgressBar = rootView.findViewById(R.id.progress_bar);
+        mFab = rootView.findViewById(R.id.share);
+        mFab.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(final View v) {
+                shareDailyVerse();
+            }
+        });
+
         return rootView;
+    }
+
+    private void shareDailyVerse() {
+        Log.d(TAG, "shareDailyVerse:");
     }
 
     @Override

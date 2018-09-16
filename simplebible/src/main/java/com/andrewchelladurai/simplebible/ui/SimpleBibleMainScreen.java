@@ -123,7 +123,7 @@ public class SimpleBibleMainScreen
         mHomeScreenOps.showFailedLoadingMessage();
     }
 
-    private void handleDbInitLoaderResult(final boolean databaseLoaded) {
+    private void handleDbInitLoaderResult(final Boolean databaseLoaded) {
         Log.d(TAG, "handleDbInitLoaderResult:");
         mHomeScreenOps.stopLoadingScreen();
         if (databaseLoaded) {
