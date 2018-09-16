@@ -1,34 +1,38 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginEnd="@dimen/content_padding"
+    android:layout_marginStart="@dimen/content_padding"
     android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fillViewport="true"
-        android:layout_weight="0.6">
+        android:layout_marginEnd="@dimen/content_padding"
+        android:layout_marginStart="@dimen/content_padding"
+        android:layout_weight="0.6"
+        android:fillViewport="true">
 
         <TextView
             android:id="@+id/daily_verse"
-            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:gravity="center" />
     </ScrollView>
 
     <ProgressBar
-        android:layout_gravity="center"
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_weight="0.2"
         android:indeterminate="true" />
 
     <TextView
-        android:textAlignment="center"
         android:id="@+id/message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/home_screen_message_loading" />
+        android:text="@string/home_screen_message_loading"
+        android:textAlignment="center" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
