@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">@android:color/black</color>
-    <color name="white">@android:color/white</color>
-    <color name="transparent">@android:color/transparent</color>
 
     <color name="primaryColor">#cfd8dc</color>
     <color name="primaryLightColor">#e0e0e0</color>
@@ -13,6 +10,12 @@
     <color name="secondaryLightColor">#4f5b62</color>
     <color name="secondaryDarkColor">#000a12</color>
     <color name="secondaryTextColor">@color/white</color>
+
+    <color name="ic_launcher_background">@color/secondaryColor</color>
+
+    <color name="black">@android:color/black</color>
+    <color name="white">@android:color/white</color>
+    <color name="transparent">@android:color/transparent</color>
 
     <color name="background_color">@color/primaryColor</color>
 

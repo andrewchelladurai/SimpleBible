@@ -2,11 +2,11 @@
 <resources>
     <string name="application_name">Simple Bible</string>
 
-    <string name="bottom_app_bar_home">Home</string>
-    <string name="bottom_app_bar_books">Books</string>
-    <string name="bottom_app_bar_search">Search</string>
-    <string name="bottom_app_bar_bookmarks">Bookmarks</string>
-    <string name="bottom_app_bar_settings">Settings</string>
+    <string name="bottom_bar_home">Home</string>
+    <string name="bottom_bar_books">Books</string>
+    <string name="bottom_bar_search">Search</string>
+    <string name="bottom_bar_bookmarks">Bookmarks</string>
+    <string name="bottom_bar_settings">Settings</string>
 
     <string name="home_screen_message_loading">Creating Database</string>
     <string name="home_screen_message_loading_failure">Failed Creating Database</string>

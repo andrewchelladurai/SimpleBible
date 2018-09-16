@@ -1,6 +1,6 @@
 /*
  *
- * This file 'ActivitySimpleBible.java' is part of SimpleBible :
+ * This file 'SimpleBibleMainScreen.java' is part of SimpleBible :
  *
  * Copyright (c) 2018.
  *
@@ -27,147 +27,51 @@
 package com.andrewchelladurai.simplebible.ui;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.presenter.DbSetupLoader;
-import com.google.android.material.bottomappbar.BottomAppBar;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
-import androidx.loader.app.LoaderManager;
-import androidx.loader.app.LoaderManager.LoaderCallbacks;
-import androidx.loader.content.Loader;
 
 public class SimpleBibleMainScreen
     extends AppCompatActivity {
 
-    private static final String TAG = "SimpleBibleMainScreen";
+    private TextView mTextMessage;
 
-    private HomeScreen mHomeScreen;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.SbTheme_Home);
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_screen_simple_bible);
-
-        BottomAppBar bottomBar = findViewById(R.id.bottom_bar);
-        bottomBar.replaceMenu(R.menu.bottom_app_bar);
-        bottomBar.setOnMenuItemClickListener(new BottomNavigationSelectionListener());
-
-        FloatingActionButton fab = findViewById(R.id.bottom_bar_fab);
-        fab.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(final View v) {
-                showHomeScreen();
-            }
-        });
-
-        // Load database
-        DbSetupLoaderCallback dbSetupLoaderCallback = new DbSetupLoaderCallback();
-        LoaderManager.getInstance(this)
-                     .initLoader(R.integer.DB_LOADER, null, dbSetupLoaderCallback)
-                     .forceLoad();
-
-        showLoadingScreen();
-    }
-
-    private void showSettingsScreen() {
-        Log.d(TAG, "showSettingsScreen: ");
-    }
-
-    private void showBookmarksScreen() {
-        Log.d(TAG, "showBookmarksScreen: ");
-    }
-
-    private void showSearchScreen() {
-        Log.d(TAG, "showSearchScreen: ");
-    }
-
-    private void showBooksScreen() {
-        Log.d(TAG, "showBooksScreen: ");
-    }
-
-    private void showHomeScreen() {
-        Log.d(TAG, "showHomeScreen: ");
-    }
-
-    private void showLoadingScreen() {
-        Log.d(TAG, "showLoadingScreen: ");
-        mHomeScreen = HomeScreen.newInstance();
-
-        getSupportFragmentManager().beginTransaction()
-                                   .add(R.id.content, mHomeScreen, HomeScreen.class.getName())
-                                   .commit();
-
-    }
-
-    private void showFailedScreen() {
-        Log.d(TAG, "showFailedScreen: ");
-    }
-
-    private void showDailyVerse() {
-        Log.d(TAG, "showDailyVerse: ");
-    }
-
-    private void showSuccessScreen() {
-        Log.d(TAG, "showSuccessScreen: ");
-    }
-
-    private class DbSetupLoaderCallback
-        implements LoaderCallbacks<Boolean> {
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+        = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
-        public Loader<Boolean> onCreateLoader(final int id, final Bundle args) {
-            Log.d(TAG, "onCreateLoader: ");
-            return new DbSetupLoader(SimpleBibleMainScreen.this);
-        }
-
-        @Override
-        public void onLoadFinished(final Loader<Boolean> loader, final Boolean loaded) {
-            if (loaded) {
-                showDailyVerse();
-                showSuccessScreen();
-            } else {
-                showFailedScreen();
-            }
-        }
-
-        @Override
-        public void onLoaderReset(final Loader<Boolean> loader) {
-            Log.d(TAG, "onLoaderReset: ");
-            showFailedScreen();
-        }
-    }
-
-    private class BottomNavigationSelectionListener
-        implements OnMenuItemClickListener {
-
-        @Override
-        public boolean onMenuItemClick(final MenuItem item) {
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    mTextMessage.setText(R.string.bottom_bar_home);
+                    return true;
                 case R.id.navigation_books:
-                    showBooksScreen();
+                    mTextMessage.setText(R.string.bottom_bar_books);
                     return true;
                 case R.id.navigation_search:
-                    showSearchScreen();
+                    mTextMessage.setText(R.string.bottom_bar_search);
                     return true;
                 case R.id.navigation_bookmarks:
-                    showBookmarksScreen();
-                    return true;
-                case R.id.navigation_settings:
-                    showSettingsScreen();
+                    mTextMessage.setText(R.string.bottom_bar_bookmarks);
                     return true;
             }
             return false;
         }
+    };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.simple_bible_main_screen);
+
+        mTextMessage = findViewById(R.id.message);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
 }
