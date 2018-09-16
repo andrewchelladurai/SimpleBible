@@ -33,7 +33,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.andrewchelladurai.simplebible.HomeScreen;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.presenter.DbSetupLoader;
 import com.google.android.material.bottomappbar.BottomAppBar;
