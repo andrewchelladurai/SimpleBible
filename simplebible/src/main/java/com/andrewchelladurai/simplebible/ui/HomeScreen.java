@@ -155,7 +155,7 @@ public class HomeScreen
 
     private void updateDailyVerse(@NonNull final Book book, @NonNull final Verse verse) {
         Log.d(TAG, "updateDailyVerse:");
-        final String bookName = book.getBookName();
+        final String bookName = book.getBookName().toUpperCase();
         final int chapterNumber = verse.getChapter();
         final int verseNumber = verse.getVerse();
         final String verseText = verse.getText();
