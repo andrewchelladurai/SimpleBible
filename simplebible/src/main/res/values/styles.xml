@@ -27,6 +27,8 @@
 
         <item name="android:textColorPrimary">@color/primaryTextColor</item>
         <item name="android:textColorSecondary">@color/secondaryTextColor</item>
+
+        <item name="android:textColor">@color/primaryTextColor</item>
     </style>
 
     <style name="SbTheme.Home" parent="SbTheme">
