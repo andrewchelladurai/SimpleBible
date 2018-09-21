@@ -36,14 +36,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.Book;
 import com.andrewchelladurai.simplebible.data.Verse;
 import com.andrewchelladurai.simplebible.ops.HomeScreenOps;
 import com.andrewchelladurai.simplebible.presenter.HomeScreenPresenter;
+import com.andrewchelladurai.simplebible.repository.BookRepository;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 public class HomeScreen
     extends Fragment
@@ -131,7 +137,34 @@ public class HomeScreen
 
     @Override
     public void showDailyVerse(@NonNull final Verse verse) {
-        Log.d(TAG, "showDailyVerse:");
+        Log.d(TAG, "showDailyVerse:" + verse.getReference());
+
+        BookRepository repository = ViewModelProviders.of(this).get(BookRepository.class);
+        repository.getBookName(verse.getBook()).observe(this, new Observer<List<Book>>() {
+
+            @Override
+            public void onChanged(final List<Book> books) {
+                if (books == null || books.isEmpty()) {
+                    Log.e(TAG, "empty book returned for passed verse reference");
+                    return;
+                }
+                updateDailyVerse(books.get(0), verse);
+            }
+        });
+    }
+
+    private void updateDailyVerse(@NonNull final Book book, @NonNull final Verse verse) {
+        Log.d(TAG, "updateDailyVerse:");
+        final String bookName = book.getBookName();
+        final int chapterNumber = verse.getChapter();
+        final int verseNumber = verse.getVerse();
+        final String verseText = verse.getText();
+
+        final String displayText = String.format(
+            getString(R.string.daily_verse_home_screen_template),
+            verseText, bookName, chapterNumber, verseNumber);
+
+        mVerseView.setText(HtmlCompat.fromHtml(displayText, HtmlCompat.FROM_HTML_MODE_LEGACY));
     }
 
 }

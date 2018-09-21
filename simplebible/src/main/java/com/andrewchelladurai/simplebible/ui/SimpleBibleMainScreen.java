@@ -38,6 +38,7 @@ import com.andrewchelladurai.simplebible.data.Verse;
 import com.andrewchelladurai.simplebible.ops.HomeScreenOps;
 import com.andrewchelladurai.simplebible.ops.MainScreenOps;
 import com.andrewchelladurai.simplebible.presenter.MainScreenPresenter;
+import com.andrewchelladurai.simplebible.repository.VerseRepository;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.BottomNavigationView
     .OnNavigationItemSelectedListener;
@@ -46,6 +47,8 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 
@@ -101,10 +104,24 @@ public class SimpleBibleMainScreen
 
     private void loadDailyVerse() {
         Log.d(TAG, "loadDailyVerse:");
-        LoaderManager.getInstance(this)
-                     .initLoader(R.integer.DAILY_VERSE_LOADER, null,
-                                 new DailyVerseLoaderCallback())
-                     .forceLoad();
+
+        final String[] array = getResources().getStringArray(R.array.daily_verse_list);
+        final String defaultReference = getString(R.string.daily_verse_default_reference);
+
+        VerseRepository repository = ViewModelProviders.of(this).get(VerseRepository.class);
+        repository.getVerseForReference(mPresenter.getDailyVerseReference(array, defaultReference))
+                  .observe(this, new Observer<List<Verse>>() {
+
+                      @Override
+                      public void onChanged(final List<Verse> list) {
+                          if (list == null || list.isEmpty()) {
+                              Log.e(TAG, "empty daily verse reference passed");
+                              mHomeScreenOps.showDefaultDailyVerse();
+                              return;
+                          }
+                          mHomeScreenOps.showDailyVerse(list.get(0));
+                      }
+                  });
     }
 
     private void showHomeScreen() {
@@ -134,24 +151,10 @@ public class SimpleBibleMainScreen
         }
     }
 
-    private void handleDailyVerseLoaderResult(final List<Verse> list) {
-        Log.d(TAG, "handleDailyVerseLoaderResult: ");
-        if (list == null || list.isEmpty()) {
-            mHomeScreenOps.showDefaultDailyVerse();
-        } else {
-            mHomeScreenOps.showDailyVerse(list.get(0));
-        }
-    }
-
     @Override
     public void startLoadingScreen() {
         Log.d(TAG, "startLoadingScreen:");
         mHomeScreenOps.startLoadingScreen();
-    }
-
-    private void showDefaultDailyVerse() {
-        Log.d(TAG, "showDefaultDailyVerse:");
-        mHomeScreenOps.showDefaultDailyVerse();
     }
 
     @Override
@@ -204,29 +207,6 @@ public class SimpleBibleMainScreen
         public void onLoaderReset(final Loader<Boolean> loader) {
             Log.d(TAG, "onLoaderReset:");
             showFailedScreen();
-        }
-    }
-
-    private class DailyVerseLoaderCallback
-        implements LoaderManager.LoaderCallbacks<List<Verse>> {
-
-        private static final String TAG = "DailyVerseLoaderCallbac";
-
-        @Override
-        public Loader<List<Verse>> onCreateLoader(final int id, final Bundle args) {
-            Log.d(TAG, "onCreateLoader:");
-            return new MainScreenPresenter.DailyVerseLoader();
-        }
-
-        @Override
-        public void onLoadFinished(final Loader<List<Verse>> loader, final List<Verse> list) {
-            handleDailyVerseLoaderResult(list);
-        }
-
-        @Override
-        public void onLoaderReset(final Loader<List<Verse>> loader) {
-            Log.d(TAG, "onLoaderReset:");
-            showDefaultDailyVerse();
         }
     }
 
