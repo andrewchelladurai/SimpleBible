@@ -27,8 +27,10 @@
 package com.andrewchelladurai.simplebible.repository;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.andrewchelladurai.simplebible.data.Book;
+import com.andrewchelladurai.simplebible.data.BookDao;
 import com.andrewchelladurai.simplebible.data.SbDatabase;
 
 import java.util.List;
@@ -43,11 +45,21 @@ import androidx.lifecycle.LiveData;
 public class BookRepository
     extends AndroidViewModel {
 
+    private static final String TAG = "BookRepository";
+    static BookDao mBookDao;
+
     public BookRepository(final Application application) {
         super(application);
+        mBookDao = SbDatabase.getInstance(getApplication()).getBookDao();
+        Log.d(TAG, "BookRepository: init done [" + (mBookDao != null) + "]");
     }
 
     public LiveData<List<Book>> getBookName(final int bookNumber) {
-        return SbDatabase.getInstance(getApplication()).getBookDao().getBookUsingNumber(bookNumber);
+        return mBookDao.getBookUsingNumber(bookNumber);
     }
+
+    public LiveData<List<Book>> getAllBooks() {
+        return mBookDao.getAllBookDetails();
+    }
+
 }
