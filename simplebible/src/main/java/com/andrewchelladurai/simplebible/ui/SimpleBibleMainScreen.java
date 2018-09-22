@@ -57,6 +57,9 @@ public class SimpleBibleMainScreen
     extends AppCompatActivity
     implements MainScreenOps {
 
+    // FIXME: 22/9/18 Rotating screen loads HomesScreen by default
+    // FIXME: 22/9/18 DO not show loading screen if already init
+
     private static final String TAG = "SimpleBibleMainScreen";
 
     private MainScreenPresenter mPresenter;
@@ -160,7 +163,7 @@ public class SimpleBibleMainScreen
             loadDailyVerse();
             showBottomBar();
         } else {
-            mHomeScreenOps.showFailedLoadingMessage();
+            showFailedScreen();
         }
     }
 
