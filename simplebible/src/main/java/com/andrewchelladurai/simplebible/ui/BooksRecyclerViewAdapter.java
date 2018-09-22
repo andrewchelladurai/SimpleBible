@@ -49,7 +49,7 @@ public class BooksRecyclerViewAdapter
 
     private static final String TAG = "BooksRecyclerViewAdapte";
 
-    private final List<Book> mCache = new ArrayList<>();
+    private static final List<Book> mCache = new ArrayList<>();
     private final BooksScreenOps mOps;
 
     BooksRecyclerViewAdapter(BooksScreenOps ops) {
@@ -78,7 +78,7 @@ public class BooksRecyclerViewAdapter
         return (!mCache.isEmpty()
                 && mCache.size() == Book.EXPECTED_BOOK_COUNT
                 && mCache.get(0).getBookName().equalsIgnoreCase(first_book_name)
-                && mCache.get(mCache.size()).getBookName().equalsIgnoreCase(last_book_name));
+                && mCache.get(mCache.size() - 1).getBookName().equalsIgnoreCase(last_book_name));
     }
 
     public void updateList(@NonNull final List<Book> books) {
