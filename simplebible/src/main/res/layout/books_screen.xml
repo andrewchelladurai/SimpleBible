@@ -1,0 +1,13 @@
+<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/books_list"
+    android:name="com.andrewchelladurai.simplebible.ui.BooksScreen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    app:layoutManager="LinearLayoutManager"
+    app:spanCount="@integer/books_list"
+    tools:context=".ui.BooksScreen"
+    tools:listitem="@layout/item_book" />

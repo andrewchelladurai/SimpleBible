@@ -41,6 +41,8 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "BOOKSTATS")
 public class Book {
 
+    public static final int EXPECTED_BOOK_COUNT = 66;
+
     @ColumnInfo(name = "DESC")
     @NonNull
     private final String mBookDescription;

@@ -19,6 +19,11 @@
 
     <string name="daily_verse_default_reference">43:3:16</string>
 
+    <string name="msg_unexpected">How did this happen?</string>
+
+    <string name="bible_first_book_name">Genesis</string>
+    <string name="bible_last_book_name">Revelation</string>
+
     <string name="share">Share</string>
 
     <string-array name="daily_verse_list">
@@ -498,11 +503,6 @@
     </string-array>
 
     <!--
-    <string name="msg_unexpected">How did this happen?</string>
-
-    <string name="first_book">Genesis</string>
-    <string name="last_book">Revelation</string>
-
     <string name="act_main_splash_msg">Creating Database</string>
     <string name="act_main_splash_msg_err">Error Creating Database</string>
     <string name="act_main_splash_msg_success">Successfully loaded database</string>

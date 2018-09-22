@@ -10,4 +10,5 @@
 
     <integer name="DB_LOADER">16</integer>
     <integer name="DAILY_VERSE_LOADER">14</integer>
+    <integer name="books_list">1</integer>
 </resources>

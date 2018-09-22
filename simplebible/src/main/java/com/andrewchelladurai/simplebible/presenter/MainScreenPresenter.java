@@ -45,6 +45,8 @@ import java.util.Calendar;
 import androidx.annotation.NonNull;
 import androidx.loader.content.AsyncTaskLoader;
 
+import static com.andrewchelladurai.simplebible.data.Book.EXPECTED_BOOK_COUNT;
+
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
  * on 16-Sep-2018 @ 6:17 PM
@@ -86,8 +88,6 @@ public class MainScreenPresenter {
         private final String FILE_VERSE_DETAILS = "init_WEB_Translation.txt";
         private final String FILE_BOOK_DETAILS = "init_Stats.txt";
         private final String SPLIT_REGEX = Bookmark.SEPARATOR;
-        @SuppressWarnings("FieldCanBeLocal")
-        private final int EXPECTED_BOOK_COUNT = 66;
         @SuppressWarnings("FieldCanBeLocal")
         private final int EXPECTED_VERSE_COUNT = 31098;
 

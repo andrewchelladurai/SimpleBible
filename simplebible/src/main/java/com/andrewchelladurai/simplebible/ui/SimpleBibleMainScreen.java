@@ -35,6 +35,7 @@ import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.Verse;
+import com.andrewchelladurai.simplebible.ops.BooksScreenOps;
 import com.andrewchelladurai.simplebible.ops.HomeScreenOps;
 import com.andrewchelladurai.simplebible.ops.MainScreenOps;
 import com.andrewchelladurai.simplebible.presenter.MainScreenPresenter;
@@ -60,6 +61,7 @@ public class SimpleBibleMainScreen
 
     private MainScreenPresenter mPresenter;
     private HomeScreenOps mHomeScreenOps;
+    private BooksScreenOps mBooksScreenOps;
 
     private TextView mTextMessage;
 
@@ -135,6 +137,17 @@ public class SimpleBibleMainScreen
         mHomeScreenOps = homeScreen;
     }
 
+    private void showBooksScreen() {
+        Log.d(TAG, "showBooksScreen:");
+        final BooksScreen booksScreen = new BooksScreen();
+        final String tag = booksScreen.getClass().getSimpleName();
+
+        getSupportFragmentManager().beginTransaction()
+                                   .replace(R.id.main_fragment_container, booksScreen, tag)
+                                   .commit();
+        mBooksScreenOps = booksScreen;
+    }
+
     private void showFailedScreen() {
         Log.d(TAG, "showFailedScreen:");
         mHomeScreenOps.showFailedLoadingMessage();
@@ -169,10 +182,10 @@ public class SimpleBibleMainScreen
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.bottom_bar_home);
+                    showHomeScreen();
                     return true;
                 case R.id.navigation_books:
-                    mTextMessage.setText(R.string.bottom_bar_books);
+                    showBooksScreen();
                     return true;
                 case R.id.navigation_search:
                     mTextMessage.setText(R.string.bottom_bar_search);
