@@ -31,14 +31,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.Book;
 import com.andrewchelladurai.simplebible.ops.BooksScreenOps;
+import com.andrewchelladurai.simplebible.ops.ViewHolderOps;
 import com.andrewchelladurai.simplebible.repository.BookRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -50,8 +54,11 @@ public class BooksScreen
 
     private static final String TAG = "BooksScreen";
 
-    private BooksRecyclerViewAdapter mAdapter;
+    private static final List<Book> mCache = new ArrayList<>();
 
+    private BooksListAdapter mAdapter;
+
+    @SuppressWarnings("WeakerAccess")
     public BooksScreen() {
     }
 
@@ -91,14 +98,15 @@ public class BooksScreen
         Log.d(TAG, "updateScreen:");
 
         if (mAdapter == null) {
-            mAdapter = new BooksRecyclerViewAdapter(this);
+            mAdapter = new BooksListAdapter();
         }
 
         RecyclerView recyclerView = getView().findViewById(R.id.books_list);
         recyclerView.setAdapter(mAdapter);
-        if (!mAdapter.isCacheValid(getString(R.string.bible_first_book_name),
-                                   getString(R.string.bible_last_book_name))) {
-            mAdapter.updateList(books);
+
+        if (!isCacheValid(getString(R.string.bible_first_book_name),
+                          getString(R.string.bible_last_book_name))) {
+            updateList(books);
         }
         mAdapter.notifyDataSetChanged();
 
@@ -112,4 +120,74 @@ public class BooksScreen
     public void handleInteractionBook(final Book book) {
         Log.d(TAG, "handleInteractionBook: " + book.getBookName());
     }
+
+    private boolean isCacheValid(@NonNull final String first_book_name,
+                                 @NonNull final String last_book_name) {
+        return (!mCache.isEmpty()
+                && mCache.size() == Book.EXPECTED_BOOK_COUNT
+                && mCache.get(0).getBookName().equalsIgnoreCase(first_book_name)
+                && mCache.get(mCache.size() - 1).getBookName().equalsIgnoreCase(
+            last_book_name));
+    }
+
+    private void updateList(@NonNull final List<Book> books) {
+        mCache.clear();
+        mCache.addAll(books);
+        Log.d(TAG, "updateList : populated [" + mCache.size() + "] books");
+    }
+
+    class BooksListAdapter
+        extends RecyclerView.Adapter<BookView> {
+
+        @Override
+        public BookView onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext())
+                                      .inflate(R.layout.item_book, parent, false);
+            return new BookView(view);
+        }
+
+        @Override
+        public void onBindViewHolder(final BookView holder, int position) {
+            holder.updateView(mCache.get(position));
+        }
+
+        @Override
+        public int getItemCount() {
+            return mCache.size();
+        }
+
+    }
+
+    class BookView
+        extends RecyclerView.ViewHolder
+        implements ViewHolderOps {
+
+        private final View mView;
+        private final TextView mName;
+        private final TextView mDetails;
+        private Book mBook;
+
+        BookView(View view) {
+            super(view);
+            mView = view;
+            mName = view.findViewById(R.id.book_name);
+            mDetails = view.findViewById(R.id.book_details);
+        }
+
+        @Override
+        public void updateView(final Object object) {
+            mBook = (Book) object;
+            mName.setText(mBook.getBookName());
+            mDetails.setText(String.valueOf(mBook.getBookChapterCount()));
+
+            mView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    handleInteractionBook(mBook);
+                }
+            });
+        }
+    }
+
 }
