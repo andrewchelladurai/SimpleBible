@@ -192,8 +192,8 @@ public class BooksScreen
         BookView(View view) {
             super(view);
             mView = view;
-            mName = view.findViewById(R.id.book_name);
-            mDetails = view.findViewById(R.id.book_details);
+            mName = view.findViewById(R.id.item_book_name);
+            mDetails = view.findViewById(R.id.item_book_details);
         }
 
         @Override

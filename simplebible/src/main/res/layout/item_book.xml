@@ -4,12 +4,12 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/book_name"
+        android:id="@+id/item_book_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/book_details"
+        android:id="@+id/item_book_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>
