@@ -30,6 +30,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -56,6 +57,9 @@ public class BooksScreen
 
     private static final List<Book> mCache = new ArrayList<>();
 
+    private TextView mBook;
+    private TextView mChapter;
+    private RecyclerView mListView;
     private BooksListAdapter mAdapter;
 
     @SuppressWarnings("WeakerAccess")
@@ -77,6 +81,20 @@ public class BooksScreen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.books_screen, container, false);
+
+        mBook = view.findViewById(R.id.book_screen_book);
+        mChapter = view.findViewById(R.id.book_screen_chapter);
+
+        // create click listener for the Navigate button
+        view.findViewById(R.id.book_screen_navigate).setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(final View v) {
+                handleInteractionNavigate();
+            }
+        });
+
+        mListView = view.findViewById(R.id.book_screen_books_list);
 
         BookRepository repository = ViewModelProviders.of(this).get(BookRepository.class);
         repository.getAllBooks().observe(this, new Observer<List<Book>>() {
@@ -101,8 +119,7 @@ public class BooksScreen
             mAdapter = new BooksListAdapter();
         }
 
-        RecyclerView recyclerView = getView().findViewById(R.id.book_screen_books_list);
-        recyclerView.setAdapter(mAdapter);
+        mListView.setAdapter(mAdapter);
 
         if (!isCacheValid(getString(R.string.bible_first_book_name),
                           getString(R.string.bible_last_book_name))) {
@@ -114,11 +131,16 @@ public class BooksScreen
 
     private void showErrorScreen() {
         Log.d(TAG, "showErrorScreen:");
+        // FIXME: 23/9/18 show an error message and hide everything else
     }
 
     @Override
     public void handleInteractionBook(final Book book) {
         Log.d(TAG, "handleInteractionBook: " + book.getBookName());
+    }
+
+    private void handleInteractionNavigate() {
+        Log.d(TAG, "handleInteractionNavigate:");
     }
 
     private boolean isCacheValid(@NonNull final String first_book_name,
