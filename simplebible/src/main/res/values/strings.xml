@@ -29,6 +29,13 @@
     <string name="book_screen_hint_container_chapter_number">Chapter</string>
     <string name="book_screen_navigate">Navigate</string>
 
+    <string name="item_book_name_template">%s</string>
+
+    <plurals name="item_book_details_template">
+        <item quantity="one">%d Chapter</item>
+        <item quantity="other">%d Chapters</item>
+    </plurals>
+
     <string-array name="daily_verse_list">
         <item>1:1:01</item>
         <item>1:1:26</item>

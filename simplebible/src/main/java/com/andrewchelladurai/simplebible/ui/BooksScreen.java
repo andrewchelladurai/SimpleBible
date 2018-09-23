@@ -199,8 +199,15 @@ public class BooksScreen
         @Override
         public void updateView(final Object object) {
             mBook = (Book) object;
-            mName.setText(mBook.getBookName());
-            mDetails.setText(String.valueOf(mBook.getBookChapterCount()));
+
+            // set book title
+            mName.setText(String.format(
+                getString(R.string.item_book_name_template), mBook.getBookName()));
+
+            // set book details : Chapter Count
+            final int chapters = mBook.getBookChapterCount();
+            mDetails.setText(getResources().getQuantityString(
+                R.plurals.item_book_details_template, chapters, chapters));
 
             mView.setOnClickListener(new View.OnClickListener() {
 
