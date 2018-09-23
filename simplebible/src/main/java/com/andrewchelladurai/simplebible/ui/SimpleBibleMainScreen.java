@@ -132,23 +132,23 @@ public class SimpleBibleMainScreen
     private void showHomeScreen() {
         Log.d(TAG, "showHomeScreen:");
         final HomeScreen homeScreen = new HomeScreen();
+        mHomeScreenOps = homeScreen;
         final String tag = homeScreen.getClass().getSimpleName();
 
         getSupportFragmentManager().beginTransaction()
                                    .replace(R.id.main_fragment_container, homeScreen, tag)
                                    .commit();
-        mHomeScreenOps = homeScreen;
     }
 
     private void showBooksScreen() {
         Log.d(TAG, "showBooksScreen:");
         final BooksScreen booksScreen = new BooksScreen();
+        mBooksScreenOps = booksScreen;
         final String tag = booksScreen.getClass().getSimpleName();
 
         getSupportFragmentManager().beginTransaction()
                                    .replace(R.id.main_fragment_container, booksScreen, tag)
                                    .commit();
-        mBooksScreenOps = booksScreen;
     }
 
     private void showFailedScreen() {
