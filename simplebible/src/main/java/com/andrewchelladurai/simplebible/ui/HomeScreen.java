@@ -161,7 +161,7 @@ public class HomeScreen
         final String verseText = verse.getText();
 
         final String displayText = String.format(
-            getString(R.string.daily_verse_home_screen_template),
+            getString(R.string.daily_verse_template),
             verseText, bookName, chapterNumber, verseNumber);
 
         mVerseView.setText(HtmlCompat.fromHtml(displayText, HtmlCompat.FROM_HTML_MODE_LEGACY));

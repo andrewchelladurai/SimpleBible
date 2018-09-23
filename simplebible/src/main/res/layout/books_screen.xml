@@ -1,13 +1,97 @@
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/books_list"
     android:name="com.andrewchelladurai.simplebible.ui.BooksScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    app:layoutManager="GridLayoutManager"
-    app:spanCount="@integer/books_list"
-    tools:context=".ui.BooksScreen"
-    tools:listitem="@layout/item_book" />
+    android:layout_marginEnd="@dimen/gap_big"
+    android:layout_marginStart="@dimen/gap_big"
+    tools:context=".ui.BooksScreen">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/book_screen_vGuide60"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <TextView
+        android:id="@+id/book_screen_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/book_screen_title"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <LinearLayout
+        android:id="@+id/book_screen_container_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/book_screen_title"
+        app:layout_constraintVertical_bias="0">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/book_screen_container_book"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/book_screen_hint_container_book_name">
+
+            <AutoCompleteTextView
+                android:id="@+id/book_screen_book"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textAutoCorrect|textAutoComplete"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/book_screen_container_chapter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/book_screen_hint_container_chapter_number">
+
+            <AutoCompleteTextView
+                android:id="@+id/book_screen_chapter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/book_screen_navigate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/book_screen_navigate"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/book_screen_container_input"
+        app:layout_constraintVertical_bias="0" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/book_screen_books_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/gap_normal"
+        app:layoutManager="GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/book_screen_navigate"
+        app:spanCount="@integer/book_screen_books_list"
+        tools:listitem="@layout/item_book" />
+
+</android.support.constraint.ConstraintLayout>

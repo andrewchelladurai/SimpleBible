@@ -101,7 +101,7 @@ public class BooksScreen
             mAdapter = new BooksListAdapter();
         }
 
-        RecyclerView recyclerView = getView().findViewById(R.id.books_list);
+        RecyclerView recyclerView = getView().findViewById(R.id.book_screen_books_list);
         recyclerView.setAdapter(mAdapter);
 
         if (!isCacheValid(getString(R.string.bible_first_book_name),
