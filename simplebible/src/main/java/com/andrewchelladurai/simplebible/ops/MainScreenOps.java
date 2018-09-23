@@ -26,17 +26,12 @@
 
 package com.andrewchelladurai.simplebible.ops;
 
-import android.content.Context;
-
-import androidx.annotation.NonNull;
-
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
  * on 16-Sep-2018 @ 6:18 PM
  */
 public interface MainScreenOps {
 
-    @NonNull Context getSystemContext();
-
-    void startLoadingScreen();
+    void hideNavigationControls();
+    void showNavigationControls();
 }

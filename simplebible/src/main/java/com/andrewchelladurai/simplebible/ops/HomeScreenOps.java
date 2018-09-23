@@ -26,7 +26,7 @@
 
 package com.andrewchelladurai.simplebible.ops;
 
-import com.andrewchelladurai.simplebible.data.Verse;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 
@@ -38,11 +38,7 @@ public interface HomeScreenOps {
 
     void startLoadingScreen();
 
-    void stopLoadingScreen();
+    @NonNull
+    Context getSystemContext();
 
-    void showFailedLoadingMessage();
-
-    void showDefaultDailyVerse();
-
-    void showDailyVerse(@NonNull Verse verse);
 }

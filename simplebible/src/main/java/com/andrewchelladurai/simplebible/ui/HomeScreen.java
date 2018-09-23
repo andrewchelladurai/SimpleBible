@@ -26,6 +26,7 @@
 
 package com.andrewchelladurai.simplebible.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,8 +40,10 @@ import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.Book;
 import com.andrewchelladurai.simplebible.data.Verse;
 import com.andrewchelladurai.simplebible.ops.HomeScreenOps;
+import com.andrewchelladurai.simplebible.ops.MainScreenOps;
 import com.andrewchelladurai.simplebible.presenter.HomeScreenPresenter;
 import com.andrewchelladurai.simplebible.repository.BookRepository;
+import com.andrewchelladurai.simplebible.repository.VerseRepository;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -50,6 +53,8 @@ import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
 
 public class HomeScreen
     extends Fragment
@@ -58,23 +63,22 @@ public class HomeScreen
     private static final String TAG = "HomeScreen";
 
     private static HomeScreenPresenter mPresenter;
+    private MainScreenOps mMainScreenOps;
 
     private TextView mVerseView;
     private TextView mMessage;
     private ProgressBar mProgressBar;
-    private FloatingActionButton mFab;
 
     @SuppressWarnings("WeakerAccess")
     public HomeScreen() {
         mPresenter = new HomeScreenPresenter(this);
     }
 
-/*
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadDatabase();
     }
-*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,8 +87,9 @@ public class HomeScreen
         mVerseView = rootView.findViewById(R.id.daily_verse);
         mMessage = rootView.findViewById(R.id.message);
         mProgressBar = rootView.findViewById(R.id.progress_bar);
-        mFab = rootView.findViewById(R.id.share);
-        mFab.setOnClickListener(new OnClickListener() {
+
+        FloatingActionButton fab = rootView.findViewById(R.id.share);
+        fab.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(final View v) {
@@ -95,20 +100,41 @@ public class HomeScreen
         return rootView;
     }
 
+    @Override
+    public void onAttach(final Context context) {
+        super.onAttach(context);
+        // the parent activity must implement this interface
+        // allows us to hide and show navigation controls
+        mMainScreenOps = (MainScreenOps) context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        // no longer needed
+        mMainScreenOps = null;
+    }
+
+    private void loadDatabase() {
+        Log.d(TAG, "loadDatabase:");
+        LoaderManager.getInstance(this)
+                     .initLoader(R.integer.DB_LOADER, null, new DbInitLoaderCallback())
+                     .forceLoad();
+    }
+
     private void shareDailyVerse() {
         Log.d(TAG, "shareDailyVerse:");
     }
 
-    @Override
     public void startLoadingScreen() {
         Log.d(TAG, "startLoadingScreen: ");
+        mMainScreenOps.hideNavigationControls();
         mVerseView.setText(HtmlCompat.fromHtml(
             getString(R.string.home_screen_daily_verse_loading),
             HtmlCompat.FROM_HTML_MODE_LEGACY));
     }
 
-    @Override
-    public void stopLoadingScreen() {
+    private void stopLoadingScreen() {
         mVerseView.setText(HtmlCompat.fromHtml(
             getString(R.string.home_screen_daily_verse_default),
             HtmlCompat.FROM_HTML_MODE_LEGACY));
@@ -117,8 +143,7 @@ public class HomeScreen
         mProgressBar.setVisibility(View.INVISIBLE);
     }
 
-    @Override
-    public void showFailedLoadingMessage() {
+    private void showFailedLoadingMessage() {
         Log.d(TAG, "showFailedLoadingMessage:");
         mVerseView.setText(HtmlCompat.fromHtml(
             getString(R.string.home_screen_daily_verse_failure),
@@ -129,14 +154,12 @@ public class HomeScreen
         mProgressBar.setVisibility(View.INVISIBLE);
     }
 
-    @Override
-    public void showDefaultDailyVerse() {
+    private void showDefaultDailyVerse() {
         Log.d(TAG, "showDefaultDailyVerse:");
         stopLoadingScreen();
     }
 
-    @Override
-    public void showDailyVerse(@NonNull final Verse verse) {
+    private void showDailyVerse(@NonNull final Verse verse) {
         Log.d(TAG, "showDailyVerse:" + verse.getReference());
 
         BookRepository repository = ViewModelProviders.of(this).get(BookRepository.class);
@@ -153,6 +176,10 @@ public class HomeScreen
         });
     }
 
+    public Context getSystemContext() {
+        return getContext();
+    }
+
     private void updateDailyVerse(@NonNull final Book book, @NonNull final Verse verse) {
         Log.d(TAG, "updateDailyVerse:");
         final String bookName = book.getBookName().toUpperCase();
@@ -167,4 +194,59 @@ public class HomeScreen
         mVerseView.setText(HtmlCompat.fromHtml(displayText, HtmlCompat.FROM_HTML_MODE_LEGACY));
     }
 
+    private void handleDbInitLoaderResult(final Boolean databaseLoaded) {
+        Log.d(TAG, "handleDbInitLoaderResult: " + databaseLoaded);
+        stopLoadingScreen();
+        if (databaseLoaded) {
+            loadDailyVerse();
+            mMainScreenOps.showNavigationControls();
+        } else {
+            showFailedLoadingMessage();
+        }
+    }
+
+    private void loadDailyVerse() {
+        Log.d(TAG, "loadDailyVerse:");
+
+        final String[] array = getResources().getStringArray(R.array.daily_verse_list);
+        final String defaultReference = getString(R.string.daily_verse_default_reference);
+
+        VerseRepository repository = ViewModelProviders.of(this).get(VerseRepository.class);
+        repository.getVerseForReference(mPresenter.getDailyVerseReference(array, defaultReference))
+                  .observe(this, new Observer<List<Verse>>() {
+
+                      @Override
+                      public void onChanged(final List<Verse> list) {
+                          if (list == null || list.isEmpty()) {
+                              Log.e(TAG, "empty daily verse reference passed");
+                              showDefaultDailyVerse();
+                              return;
+                          }
+                          showDailyVerse(list.get(0));
+                      }
+                  });
+    }
+
+    private class DbInitLoaderCallback
+        implements LoaderManager.LoaderCallbacks<Boolean> {
+
+        private static final String TAG = "DbInitLoaderCallback";
+
+        @Override
+        public Loader<Boolean> onCreateLoader(final int id, final Bundle args) {
+            Log.d(TAG, "onCreateLoader:");
+            return new HomeScreenPresenter.DbInitLoader();
+        }
+
+        @Override
+        public void onLoadFinished(final Loader<Boolean> loader, final Boolean databaseLoaded) {
+            handleDbInitLoaderResult(databaseLoaded);
+        }
+
+        @Override
+        public void onLoaderReset(final Loader<Boolean> loader) {
+            Log.d(TAG, "onLoaderReset:");
+            showFailedLoadingMessage();
+        }
+    }
 }

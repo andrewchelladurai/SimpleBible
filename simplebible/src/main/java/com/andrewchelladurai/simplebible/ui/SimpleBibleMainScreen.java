@@ -26,7 +26,6 @@
 
 package com.andrewchelladurai.simplebible.ui;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -34,30 +33,20 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.Verse;
 import com.andrewchelladurai.simplebible.ops.BooksScreenOps;
 import com.andrewchelladurai.simplebible.ops.HomeScreenOps;
 import com.andrewchelladurai.simplebible.ops.MainScreenOps;
 import com.andrewchelladurai.simplebible.presenter.MainScreenPresenter;
-import com.andrewchelladurai.simplebible.repository.VerseRepository;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.BottomNavigationView
     .OnNavigationItemSelectedListener;
 
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.loader.app.LoaderManager;
-import androidx.loader.content.Loader;
 
 public class SimpleBibleMainScreen
     extends AppCompatActivity
     implements MainScreenOps {
-
-    // FIXME: 22/9/18 DO not show loading screen if already init
 
     private static final String TAG = "SimpleBibleMainScreen";
 
@@ -84,49 +73,23 @@ public class SimpleBibleMainScreen
             // and the daily verse is updated on the home screen
             // If the DB could not be loaded, keep the bottom bar hidden
             // and show a message to the use to inform the developer - me
-            hideBottomBar();
+
+            // hideNavigationControls();
             showHomeScreen();
-            loadDatabase();
+            // loadDatabase();
         }
     }
 
-    private void hideBottomBar() {
-        Log.d(TAG, "hideBottomBar:");
+    @Override
+    public void hideNavigationControls() {
+        Log.d(TAG, "hideNavigationControls:");
         findViewById(R.id.main_bottom_navigation).setVisibility(View.INVISIBLE);
     }
 
-    private void showBottomBar() {
-        Log.d(TAG, "showBottomBar:");
+    @Override
+    public void showNavigationControls() {
+        Log.d(TAG, "showNavigationControls:");
         findViewById(R.id.main_bottom_navigation).setVisibility(View.VISIBLE);
-    }
-
-    private void loadDatabase() {
-        Log.d(TAG, "loadDatabase:");
-        LoaderManager.getInstance(this)
-                     .initLoader(R.integer.DB_LOADER, null, new DbInitLoaderCallback())
-                     .forceLoad();
-    }
-
-    private void loadDailyVerse() {
-        Log.d(TAG, "loadDailyVerse:");
-
-        final String[] array = getResources().getStringArray(R.array.daily_verse_list);
-        final String defaultReference = getString(R.string.daily_verse_default_reference);
-
-        VerseRepository repository = ViewModelProviders.of(this).get(VerseRepository.class);
-        repository.getVerseForReference(mPresenter.getDailyVerseReference(array, defaultReference))
-                  .observe(this, new Observer<List<Verse>>() {
-
-                      @Override
-                      public void onChanged(final List<Verse> list) {
-                          if (list == null || list.isEmpty()) {
-                              Log.e(TAG, "empty daily verse reference passed");
-                              mHomeScreenOps.showDefaultDailyVerse();
-                              return;
-                          }
-                          mHomeScreenOps.showDailyVerse(list.get(0));
-                      }
-                  });
     }
 
     private void showHomeScreen() {
@@ -149,33 +112,6 @@ public class SimpleBibleMainScreen
         getSupportFragmentManager().beginTransaction()
                                    .replace(R.id.main_fragment_container, booksScreen, tag)
                                    .commit();
-    }
-
-    private void showFailedScreen() {
-        Log.d(TAG, "showFailedScreen:");
-        mHomeScreenOps.showFailedLoadingMessage();
-    }
-
-    private void handleDbInitLoaderResult(final Boolean databaseLoaded) {
-        Log.d(TAG, "handleDbInitLoaderResult:");
-        mHomeScreenOps.stopLoadingScreen();
-        if (databaseLoaded) {
-            loadDailyVerse();
-            showBottomBar();
-        } else {
-            showFailedScreen();
-        }
-    }
-
-    @Override
-    public void startLoadingScreen() {
-        Log.d(TAG, "startLoadingScreen:");
-        mHomeScreenOps.startLoadingScreen();
-    }
-
-    @Override
-    public Context getSystemContext() {
-        return getApplicationContext();
     }
 
     private class BottomNavigationListener
@@ -202,28 +138,4 @@ public class SimpleBibleMainScreen
             }
         }
     }
-
-    private class DbInitLoaderCallback
-        implements LoaderManager.LoaderCallbacks<Boolean> {
-
-        private static final String TAG = "DbInitLoaderCallback";
-
-        @Override
-        public Loader<Boolean> onCreateLoader(final int id, final Bundle args) {
-            Log.d(TAG, "onCreateLoader:");
-            return new MainScreenPresenter.DbInitLoader();
-        }
-
-        @Override
-        public void onLoadFinished(final Loader<Boolean> loader, final Boolean databaseLoaded) {
-            handleDbInitLoaderResult(databaseLoaded);
-        }
-
-        @Override
-        public void onLoaderReset(final Loader<Boolean> loader) {
-            Log.d(TAG, "onLoaderReset:");
-            showFailedScreen();
-        }
-    }
-
 }
