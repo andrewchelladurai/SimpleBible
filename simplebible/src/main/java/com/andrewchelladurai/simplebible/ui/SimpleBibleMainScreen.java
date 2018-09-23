@@ -44,6 +44,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+// https://github.com/andrewchelladurai/SimpleBible/tree/a65c798fcab4948806b04073506a7623cc282581
+// Commit point from previous version where everything worked
+
 public class SimpleBibleMainScreen
     extends AppCompatActivity
     implements MainScreenOps {
