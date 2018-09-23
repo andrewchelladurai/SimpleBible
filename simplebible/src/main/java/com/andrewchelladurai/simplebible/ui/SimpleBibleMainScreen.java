@@ -57,7 +57,6 @@ public class SimpleBibleMainScreen
     extends AppCompatActivity
     implements MainScreenOps {
 
-    // FIXME: 22/9/18 Rotating screen loads HomesScreen by default
     // FIXME: 22/9/18 DO not show loading screen if already init
 
     private static final String TAG = "SimpleBibleMainScreen";
@@ -80,14 +79,15 @@ public class SimpleBibleMainScreen
         BottomNavigationView navigation = findViewById(R.id.main_bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationListener());
 
-        // hide the bottom bar, we will show it after the DB is loaded
-        // and the daily verse is updated on the home screen
-        // If the DB could not be loaded, keep the bottom bar hidden
-        // and show a message to the use to inform the developer - me
-        hideBottomBar();
-
-        showHomeScreen();
-        loadDatabase();
+        if (savedInstanceState == null) {
+            // hide the bottom bar, we will show it after the DB is loaded
+            // and the daily verse is updated on the home screen
+            // If the DB could not be loaded, keep the bottom bar hidden
+            // and show a message to the use to inform the developer - me
+            hideBottomBar();
+            showHomeScreen();
+            loadDatabase();
+        }
     }
 
     private void hideBottomBar() {
