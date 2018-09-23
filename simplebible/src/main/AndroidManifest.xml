@@ -15,6 +15,7 @@
         <activity
             android:name=".ui.SimpleBibleMainScreen"
             android:label="@string/application_name"
+            android:windowSoftInputMode="stateHidden|adjustNothing"
             android:theme="@style/SbTheme.Home.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
