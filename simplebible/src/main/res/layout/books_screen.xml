@@ -4,8 +4,8 @@
     android:name="com.andrewchelladurai.simplebible.ui.BooksScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginEnd="@dimen/gap_big"
     android:layout_marginStart="@dimen/gap_big"
+    android:layout_marginEnd="@dimen/gap_big"
     tools:context=".ui.BooksScreen">
 
     <android.support.constraint.Guideline
@@ -50,7 +50,9 @@
                 android:id="@+id/book_screen_book"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:completionThreshold="1"
                 android:inputType="textAutoCorrect|textAutoComplete"
+                android:selectAllOnFocus="true"
                 tools:ignore="LabelFor" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -65,7 +67,9 @@
                 android:id="@+id/book_screen_chapter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:completionThreshold="1"
                 android:inputType="number"
+                android:selectAllOnFocus="true"
                 tools:ignore="LabelFor" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
