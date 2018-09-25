@@ -27,7 +27,10 @@
     <string name="book_screen_title">Books</string>
     <string name="book_screen_hint_container_book_name">Book Name</string>
     <string name="book_screen_hint_container_chapter_number">Chapter</string>
+    <string name="book_screen_hint_chapter">up-to %d</string>
     <string name="book_screen_navigate">Navigate</string>
+    <string name="book_screen_err_book_invalid">Incorrect / Empty Book Name</string>
+    <string name="book_screen_err_chapter_invalid">Incorrect Chapter Number</string>
 
     <string name="item_book_name_template">%s</string>
 
