@@ -35,6 +35,8 @@ import com.andrewchelladurai.simplebible.data.SbDatabase;
 
 import java.util.List;
 
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
@@ -46,7 +48,7 @@ public class BookRepository
     extends AndroidViewModel {
 
     private static final String TAG = "BookRepository";
-    static BookDao mBookDao;
+    private static BookDao mBookDao;
 
     public BookRepository(final Application application) {
         super(application);
@@ -54,7 +56,7 @@ public class BookRepository
         Log.d(TAG, "BookRepository: init done [" + (mBookDao != null) + "]");
     }
 
-    public LiveData<List<Book>> getBookName(final int bookNumber) {
+    public LiveData<List<Book>> getBookUsingNumber(final int bookNumber) {
         return mBookDao.getBookUsingNumber(bookNumber);
     }
 
@@ -62,4 +64,12 @@ public class BookRepository
         return mBookDao.getAllBookDetails();
     }
 
+    public LiveData<List<Book>> getBookUsingName(@NonNull final String bookName) {
+        return mBookDao.getBookUsingName(bookName);
+    }
+
+    public boolean isChapterValid(@IntRange(from = 1) final int chapter,
+                                  @NonNull final Book book) {
+        return (chapter < 1 || chapter > book.getBookChapterCount());
+    }
 }

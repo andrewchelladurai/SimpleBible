@@ -163,7 +163,7 @@ public class HomeScreen
         Log.d(TAG, "showDailyVerse:" + verse.getReference());
 
         BookRepository repository = ViewModelProviders.of(this).get(BookRepository.class);
-        repository.getBookName(verse.getBook()).observe(this, new Observer<List<Book>>() {
+        repository.getBookUsingNumber(verse.getBook()).observe(this, new Observer<List<Book>>() {
 
             @Override
             public void onChanged(final List<Book> books) {

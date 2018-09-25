@@ -53,10 +53,9 @@ import static com.andrewchelladurai.simplebible.data.Book.EXPECTED_BOOK_COUNT;
  */
 public class HomeScreenPresenter {
 
+    private static HomeScreenOps mOps;
     @SuppressWarnings("FieldCanBeLocal")
     private final String TAG = "HomeScreenPresenter";
-
-    private static HomeScreenOps mOps;
 
     public HomeScreenPresenter(final HomeScreenOps ops) {
         mOps = ops;

@@ -1,6 +1,6 @@
 /*
  *
- * This file 'MainScreenOps.java' is part of SimpleBible :
+ * This file 'BooksScreenPresenter.java' is part of SimpleBible :
  *
  * Copyright (c) 2018.
  *
@@ -24,15 +24,21 @@
  *
  */
 
-package com.andrewchelladurai.simplebible.ops;
+package com.andrewchelladurai.simplebible.presenter;
+
+import com.andrewchelladurai.simplebible.ops.BooksScreenOps;
 
 /**
  * Created by Andrew Chelladurai - TheUnknownAndrew[at]GMail[dot]com
- * on 16-Sep-2018 @ 6:18 PM
+ * on 25-Sep-2018 @ 11:31 PM
  */
-public interface MainScreenOps {
+public class BooksScreenPresenter {
 
-    void hideNavigationControls();
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
+    private final BooksScreenOps mOps;
 
-    void showNavigationControls();
+    public BooksScreenPresenter(final BooksScreenOps ops) {
+        mOps = ops;
+    }
+
 }

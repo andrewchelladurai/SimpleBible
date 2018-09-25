@@ -26,18 +26,25 @@
 
 package com.andrewchelladurai.simplebible.ui;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.Book;
 import com.andrewchelladurai.simplebible.ops.BooksScreenOps;
 import com.andrewchelladurai.simplebible.ops.ViewHolderOps;
+import com.andrewchelladurai.simplebible.presenter.BooksScreenPresenter;
 import com.andrewchelladurai.simplebible.repository.BookRepository;
 
 import java.util.ArrayList;
@@ -56,43 +63,101 @@ public class BooksScreen
     private static final String TAG = "BooksScreen";
 
     private static final List<Book> mCache = new ArrayList<>();
-
-    private TextView mBook;
-    private TextView mChapter;
+    private static BooksScreenPresenter mPresenter;
+    private AutoCompleteTextView mBook;
+    private AutoCompleteTextView mChapter;
     private RecyclerView mListView;
     private BooksListAdapter mAdapter;
+    private BookRepository mBookRepository;
 
     @SuppressWarnings("WeakerAccess")
     public BooksScreen() {
     }
 
-/*
+    /*
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
-    }
-*/
+    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.books_screen, container, false);
+        mBookRepository = ViewModelProviders.of(this).get(BookRepository.class);
+        mPresenter = new BooksScreenPresenter(this);
 
         mBook = view.findViewById(R.id.book_screen_book);
-        mChapter = view.findViewById(R.id.book_screen_chapter);
-
-        // create click listener for the Navigate button
-        view.findViewById(R.id.book_screen_navigate).setOnClickListener(new OnClickListener() {
+        mBook.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void onClick(final View v) {
-                handleInteractionNavigate();
+            public void beforeTextChanged(final CharSequence s, final int start, final int count,
+                                          final int after) {
+            }
+
+            @Override
+            public void onTextChanged(final CharSequence s, final int start, final int before,
+                                      final int count) {
+            }
+
+            @Override
+            public void afterTextChanged(final Editable s) {
+                resetChapterField();
             }
         });
+
+        final Context context = getContext();
+        mBookRepository.getAllBooks().observe(this, new Observer<List<Book>>() {
+            @Override
+            public void onChanged(final List<Book> books) {
+                if (books == null || books.isEmpty()) {
+                    Log.e(TAG, "onCreateView: Empty Books list returned from Repository");
+                    return;
+                }
+                // create a array of all book names
+                String bookNames[] = new String[books.size()];
+                int i = -1;
+                for (final Book book : books) {
+                    bookNames[++i] = book.getBookName();
+                }
+
+                // use the name array for book autocomplete
+                mBook.setAdapter(new ArrayAdapter<>(
+                    context, android.R.layout.simple_list_item_1, bookNames));
+                Log.d(TAG, "onCreate: setup autocomplete of " + bookNames.length + " BookNames");
+            }
+        });
+
+        mChapter = view.findViewById(R.id.book_screen_chapter);
+        mChapter.setOnFocusChangeListener(new OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(final View v, final boolean hasFocus) {
+                switch (v.getId()) {
+                    case R.id.book_screen_book:
+                        Log.d(TAG, "book_field hasFocus [" + hasFocus + "]");
+                        break;
+                    case R.id.book_screen_chapter:
+                        if (hasFocus) { //chapter input field gained focus
+                            handleInteractionChapterFieldGainFocus();
+                        } else { // chapter input field is losing focus
+                            resetChapterFieldHint();
+                        }
+                        break;
+                    default:
+                        Log.e(TAG, "onFocusChange: " + getString(R.string.msg_unexpected));
+                }
+            }
+        });
+
+        // create click listener for the Navigate button
+        view.findViewById(R.id.book_screen_navigate)
+            .setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+                    handleInteractionNavigate();
+                }
+            });
 
         mListView = view.findViewById(R.id.book_screen_books_list);
 
@@ -129,6 +194,113 @@ public class BooksScreen
 
     }
 
+    private void handleInteractionNavigate() {
+        Log.d(TAG, "handleInteractionNavigate: ");
+
+        final String bookName = getBookInput();
+        final Book[] book = new Book[1];
+        mBookRepository.getBookUsingName(bookName).observe(this, new Observer<List<Book>>() {
+            @Override
+            public void onChanged(final List<Book> list) {
+                if (list == null || list.isEmpty()) {
+                    Log.e(TAG,
+                          "handleInteractionNavigate: No Book exists with name [" + bookName + "]");
+                    showErrorInvalidBookInput();
+                    return;
+                }
+                book[0] = list.get(0);
+                final int chapter = getChapterInput();
+                if (mBookRepository.isChapterValid(chapter, book[0])) {
+                    showChapterActivity(book[0].getBookNumber(), chapter);
+                } else {
+                    showErrorInvalidChapterInput();
+                }
+            }
+        });
+    }
+
+    private void resetChapterField() {
+        mChapter.setText(null);
+        mChapter.setAdapter(null);
+        mChapter.setError(null);
+        resetChapterFieldHint();
+    }
+
+    private void resetChapterFieldHint() {
+        mChapter.setHint(null);
+    }
+
+    private void showChapterActivity(final int book, final int chapter) {
+    /*    resetChapterField();
+        resetBookField();
+        Intent intent = new Intent(this, ChapterScreen.class);
+        intent.putExtra(ChapterScreen.BOOK_NUMBER, book);
+        intent.putExtra(ChapterScreen.CHAPTER_NUMBER, chapter);
+        startActivity(intent);
+    */
+    }
+
+    private void resetBookField() {
+        mBook.setText(null);
+        mBook.setError(null);
+    }
+
+    private void showErrorInvalidChapterInput() {
+        mChapter.setError(getString(R.string.book_screen_err_chapter_invalid));
+        mChapter.requestFocus();
+    }
+
+    private void showErrorInvalidBookInput() {
+        mBook.setError(getString(R.string.book_screen_err_book_invalid));
+        mBook.requestFocus();
+    }
+
+    private void prepareChapterField(int chapters) {
+        resetChapterField();
+        String[] values = new String[chapters];
+        for (int i = 1; i <= chapters; i++) {
+            values[i - 1] = String.valueOf(i);
+        }
+        mChapter.setAdapter(new ArrayAdapter<>(
+            getContext(), android.R.layout.simple_list_item_1, values));
+        mChapter.setHint(
+            String.format(getString(R.string.book_screen_hint_chapter), chapters));
+    }
+
+    private String getBookInput() {
+        return mBook.getText().toString().trim();
+    }
+
+    private int getChapterInput() {
+        try {
+            return Integer.parseInt(mChapter.getText().toString().trim());
+        } catch (NumberFormatException nfe) {
+            Log.e(TAG, "invalid chapter, returning default 1");
+            return 1;
+        }
+    }
+
+    private void handleInteractionChapterFieldGainFocus() {
+        final String bookName = getBookInput();
+
+        final Book[] book = new Book[1];
+        mBookRepository.getBookUsingName(bookName).observe(this, new Observer<List<Book>>() {
+            @Override
+            public void onChanged(final List<Book> list) {
+                if (list == null || list.isEmpty()) {
+                    Log.e(TAG,
+                          "handleInteractionChapterFieldGainFocus: No Book exists with name [" +
+                          bookName + "]");
+                    showErrorInvalidBookInput();
+                    return;
+                }
+                book[0] = list.get(0);
+                resetChapterField();
+                prepareChapterField(book[0].getBookChapterCount());
+            }
+        });
+    }
+
     private void showErrorScreen() {
         Log.d(TAG, "showErrorScreen:");
         // FIXME: 23/9/18 show an error message and hide everything else
@@ -137,10 +309,7 @@ public class BooksScreen
     @Override
     public void handleInteractionBook(final Book book) {
         Log.d(TAG, "handleInteractionBook: " + book.getBookName());
-    }
-
-    private void handleInteractionNavigate() {
-        Log.d(TAG, "handleInteractionNavigate:");
+        showChapterActivity(book.getBookNumber(), 1);
     }
 
     private boolean isCacheValid(@NonNull final String first_book_name,
