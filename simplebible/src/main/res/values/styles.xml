@@ -1,42 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Base Style applied to entire application -->
-    <style name="SbTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Enable Transitions and Animations-->
-        <item name="android:windowActivityTransitions">true</item>
-        <item name="android:windowContentTransitions">true</item>
-
-        <!-- Enable Dark Nav and Status Bar on versions that support it-->
-        <!--<item name="android:windowLightStatusBar">true</item>-->
-        <!--<item name="android:windowLightNavigationBar">true</item>-->
-
-        <!-- Enable Transparent Status and Nav bar on versions where above properties do not work-->
-        <item name="android:navigationBarColor">@color/transparent</item>
-        <item name="android:statusBarColor">@color/transparent</item>
-
-        <!-- Background color used through out the app -->
-        <item name="android:colorBackground">@color/background_color</item>
-        <item name="android:windowBackground">@color/background_color</item>
-
-        <!-- Base colors for the app -->
-        <item name="colorPrimary">@color/primaryColor</item>
-        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
-        <item name="colorSecondary">@color/secondaryColor</item>
-        <item name="colorAccent">@color/secondaryColor</item>
-
-        <item name="android:textColorPrimary">@color/primaryTextColor</item>
-        <item name="android:textColorSecondary">@color/secondaryTextColor</item>
-
-        <item name="android:textColor">@color/primaryTextColor</item>
-    </style>
-
-    <style name="SbTheme.Home" parent="SbTheme">
-        <item name="android:navigationBarColor">?colorAccent</item>
-    </style>
-
-    <style name="SbTheme.Home.Splash" parent="SbTheme.Home">
-        <item name="android:windowBackground">@drawable/splash_background</item>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
 </resources>

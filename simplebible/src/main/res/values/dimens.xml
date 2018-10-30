@@ -1,14 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <dimen name="gap_big">16dp</dimen>
-    <dimen name="gap_normal">8dp</dimen>
-    <dimen name="gap_small">4dp</dimen>
-    <dimen name="gap_none">0dp</dimen>
-
-    <dimen name="content_padding">@dimen/gap_big</dimen>
-
-    <integer name="DB_LOADER">16</integer>
-    <integer name="DAILY_VERSE_LOADER">14</integer>
-    <integer name="book_screen_books_list">2</integer>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
 </resources>
