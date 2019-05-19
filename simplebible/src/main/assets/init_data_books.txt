@@ -1,0 +1,66 @@
+Old Testament~The 1st Book of Moses~1~Genesis~50~1533
+Old Testament~The 2nd Book of Moses~2~Exodus~40~1213
+Old Testament~The 3rd Book of Moses~3~Leviticus~27~859
+Old Testament~The 4th Book of Moses~4~Numbers~36~1288
+Old Testament~The 5th Book of Moses~5~Deuteronomy~34~959
+Old Testament~Narrative of Rulers and Kings~6~Joshua~24~658
+Old Testament~Narrative of Rulers and Kings~7~Judges~21~618
+Old Testament~Narrative of Rulers and Kings~8~Ruth~4~85
+Old Testament~Narrative of Rulers and Kings~9~Samuel 1~31~810
+Old Testament~Narrative of Rulers and Kings~10~Samuel 2~24~695
+Old Testament~Narrative of Rulers and Kings~11~Kings 1~22~816
+Old Testament~Narrative of Rulers and Kings~12~Kings 2~25~719
+Old Testament~Narrative of Rulers and Kings~13~Chronicles 1~29~942
+Old Testament~Narrative of Rulers and Kings~14~Chronicles 2~36~822
+Old Testament~Narrative of Rulers and Kings~15~Ezra~10~280
+Old Testament~Narrative of Rulers and Kings~16~Nehemiah~13~406
+Old Testament~Narrative of Rulers and Kings~17~Esther~10~167
+Old Testament~Literature of Wisdom~18~Job~42~1070
+Old Testament~Literature of Wisdom~19~Psalms~150~2461
+Old Testament~Literature of Wisdom~20~Proverbs~31~915
+Old Testament~Literature of Wisdom~21~Ecclesiastes~12~222
+Old Testament~Literature of Wisdom~22~Song of Solomon~8~117
+Old Testament~The Books of The Major Prophets~23~Isaiah~66~1292
+Old Testament~The Books of The Major Prophets~24~Jeremiah~52~1364
+Old Testament~The Books of The Major Prophets~25~Lamentations~5~154
+Old Testament~The Books of The Major Prophets~26~Ezekiel~48~1273
+Old Testament~The Books of The Major Prophets~27~Daniel~12~357
+Old Testament~The Books of The Minor Prophets~28~Hosea~14~197
+Old Testament~The Books of The Minor Prophets~29~Joel~3~73
+Old Testament~The Books of The Minor Prophets~30~Amos~9~146
+Old Testament~The Books of The Minor Prophets~31~Obadiah~1~21
+Old Testament~The Books of The Minor Prophets~32~Jonah~4~48
+Old Testament~The Books of The Minor Prophets~33~Micah~7~105
+Old Testament~The Books of The Minor Prophets~34~Nahum~3~47
+Old Testament~The Books of The Minor Prophets~35~Habakkuk~3~56
+Old Testament~The Books of The Minor Prophets~36~Zephaniah~3~53
+Old Testament~The Books of The Minor Prophets~37~Haggai~2~38
+Old Testament~The Books of The Minor Prophets~38~Zechariah~14~211
+Old Testament~The Books of The Minor Prophets~39~Malachi~4~55
+New Testament~The Gospel~40~Matthew~28~1071
+New Testament~The Gospel~41~Mark~16~678
+New Testament~The Gospel~42~Luke~24~1151
+New Testament~The Gospel~43~John~21~879
+New Testament~Narrative of The Early Church~44~Acts~28~1007
+New Testament~Letters of Apostle Paul~45~Romans~16~433
+New Testament~Letters of Apostle Paul~46~Corinthians 1~16~437
+New Testament~Letters of Apostle Paul~47~Corinthians 2~13~257
+New Testament~Letters of Apostle Paul~48~Galatians~6~149
+New Testament~Letters of Apostle Paul~49~Ephesians~6~155
+New Testament~Letters of Apostle Paul~50~Philippians~4~104
+New Testament~Letters of Apostle Paul~51~Colossians~4~95
+New Testament~Letters of Apostle Paul~52~Thessalonians 1~5~89
+New Testament~Letters of Apostle Paul~53~Thessalonians 2~3~47
+New Testament~Letters of Apostle Paul~54~Timothy 1~6~113
+New Testament~Letters of Apostle Paul~55~Timothy 2~4~83
+New Testament~Letters of Apostle Paul~56~Titus~3~46
+New Testament~Letters of Apostle Paul~57~Philemon~1~25
+New Testament~Letters of Other Apostles~58~Hebrews~13~303
+New Testament~Letters of Other Apostles~59~James~5~108
+New Testament~Letters of Other Apostles~60~Peter 1~5~105
+New Testament~Letters of Other Apostles~61~Peter 2~3~61
+New Testament~Letters of Other Apostles~62~John 1~5~105
+New Testament~Letters of Other Apostles~63~John 2~1~13
+New Testament~Letters of Other Apostles~64~John 3~1~14
+New Testament~Letters of Other Apostles~65~Jude~1~25
+New Testament~Apocalyptic Epistle~66~Revelation~22~404
