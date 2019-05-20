@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Simple Bible</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Strings used in and/or for ErrorScreen -->
+    <string name="err_scr_img_desc">Bug or Error found in Simple Bible</string>
+    <string name="err_scr_disclaimer">Only the text displayed above will be shared with the Developer.</string>
+    <string name="err_scr_button">Email Developer</string>
 </resources>

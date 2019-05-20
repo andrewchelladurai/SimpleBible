@@ -49,7 +49,16 @@
         android:id="@+id/errorScreen"
         android:name="com.andrewchelladurai.simplebible.ui.ErrorScreen"
         android:label="error_screen"
-        tools:layout="@layout/error_screen" />
+        tools:layout="@layout/error_screen">
+        <argument
+            android:name="ARG_MESSAGE"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="ARG_EMAIL_DEV"
+            android:defaultValue="true"
+            app:argType="boolean" />
+    </fragment>
 
     <action
         android:id="@+id/action_global_errorScreen"
