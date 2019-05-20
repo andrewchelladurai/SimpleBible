@@ -9,34 +9,30 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.andrewchelladurai.simplebible.R;
 
-
 public class BookDetailsScreen extends Fragment {
 
-    private FragmentInteractionListener mListener;
+  private FragmentInteractionListener mListener;
 
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.bookdetails_screen, container, false);
+  @Override public void onAttach(@NonNull Context context) {
+    super.onAttach(context);
+    if (context instanceof FragmentInteractionListener) {
+      mListener = (FragmentInteractionListener) context;
+    } else {
+      throw new RuntimeException(context.toString() + " must implement FragmentInteractionListener");
     }
+  }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        if (context instanceof FragmentInteractionListener) {
-            mListener = (FragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement FragmentInteractionListener");
-        }
-    }
+  @Override public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    return inflater.inflate(R.layout.bookdetails_screen, container, false);
+  }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
+  @Override public void onDetach() {
+    super.onDetach();
+    mListener = null;
+  }
 
-    interface FragmentInteractionListener {
-    }
+  interface FragmentInteractionListener {
+
+  }
+
 }

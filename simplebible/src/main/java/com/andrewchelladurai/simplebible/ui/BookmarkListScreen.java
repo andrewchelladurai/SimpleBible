@@ -11,31 +11,28 @@ import com.andrewchelladurai.simplebible.R;
 
 public class BookmarkListScreen extends Fragment {
 
-    private OnFragmentInteractionListener mListener;
+  private OnFragmentInteractionListener mListener;
 
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.bookmarklist_screen, container, false);
+  @Override public void onAttach(@NonNull Context context) {
+    super.onAttach(context);
+    if (context instanceof OnFragmentInteractionListener) {
+      mListener = (OnFragmentInteractionListener) context;
+    } else {
+      throw new RuntimeException(context.toString() + " must implement FragmentInteractionListener");
     }
+  }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement FragmentInteractionListener");
-        }
-    }
+  @Override public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    return inflater.inflate(R.layout.bookmarklist_screen, container, false);
+  }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
+  @Override public void onDetach() {
+    super.onDetach();
+    mListener = null;
+  }
 
-    interface OnFragmentInteractionListener {
-    }
+  interface OnFragmentInteractionListener {
+
+  }
+
 }

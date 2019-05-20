@@ -1,69 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_nav_graph"
-    app:startDestination="@id/homeScreen">
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/main_nav_graph"
+            app:startDestination="@id/homeScreen">
 
-    <fragment
-        android:id="@+id/homeScreen"
-        android:name="com.andrewchelladurai.simplebible.ui.HomeScreen"
-        android:label="home_screen"
-        tools:layout="@layout/home_screen" />
-    <fragment
-        android:id="@+id/bookListScreen"
-        android:name="com.andrewchelladurai.simplebible.ui.BookListScreen"
-        android:label="booklist_screen"
-        tools:layout="@layout/booklist_screen" />
-    <fragment
-        android:id="@+id/searchScreen"
-        android:name="com.andrewchelladurai.simplebible.ui.SearchScreen"
-        android:label="search_screen"
-        tools:layout="@layout/search_screen" />
-    <fragment
-        android:id="@+id/bookmarkListScreen"
-        android:name="com.andrewchelladurai.simplebible.ui.BookmarkListScreen"
-        android:label="bookmarklist_screen"
-        tools:layout="@layout/bookmarklist_screen" />
-    <fragment
-        android:id="@+id/preferencesScreen"
-        android:name="com.andrewchelladurai.simplebible.ui.PreferencesScreen"
-        android:label="preferences_screen"
-        tools:layout="@layout/preferences_screen" />
-    <fragment
-        android:id="@+id/chapterScreen"
-        android:name="com.andrewchelladurai.simplebible.ui.ChapterScreen"
-        android:label="chapter_screen"
-        tools:layout="@layout/chapter_screen" />
-    <fragment
-        android:id="@+id/bookmarkScreen"
-        android:name="com.andrewchelladurai.simplebible.ui.BookmarkScreen"
-        android:label="bookmark_screen"
-        tools:layout="@layout/bookmark_screen" />
-    <fragment
-        android:id="@+id/bookDetailsScreen"
-        android:name="com.andrewchelladurai.simplebible.ui.BookDetailsScreen"
-        android:label="bookdetails_screen"
-        tools:layout="@layout/bookdetails_screen" />
-    <fragment
-        android:id="@+id/errorScreen"
-        android:name="com.andrewchelladurai.simplebible.ui.ErrorScreen"
-        android:label="error_screen"
-        tools:layout="@layout/error_screen">
-        <argument
-            android:name="ARG_MESSAGE"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="ARG_EMAIL_DEV"
-            android:defaultValue="true"
-            app:argType="boolean" />
-    </fragment>
+  <fragment
+    android:id="@+id/homeScreen"
+    android:name="com.andrewchelladurai.simplebible.ui.HomeScreen"
+    android:label="home_screen"
+    tools:layout="@layout/home_screen" />
+  <fragment
+    android:id="@+id/bookListScreen"
+    android:name="com.andrewchelladurai.simplebible.ui.BookListScreen"
+    android:label="booklist_screen"
+    tools:layout="@layout/booklist_screen" />
+  <fragment
+    android:id="@+id/searchScreen"
+    android:name="com.andrewchelladurai.simplebible.ui.SearchScreen"
+    android:label="search_screen"
+    tools:layout="@layout/search_screen" />
+  <fragment
+    android:id="@+id/bookmarkListScreen"
+    android:name="com.andrewchelladurai.simplebible.ui.BookmarkListScreen"
+    android:label="bookmarklist_screen"
+    tools:layout="@layout/bookmarklist_screen" />
+  <fragment
+    android:id="@+id/preferencesScreen"
+    android:name="com.andrewchelladurai.simplebible.ui.PreferencesScreen"
+    android:label="preferences_screen"
+    tools:layout="@layout/preferences_screen" />
+  <fragment
+    android:id="@+id/chapterScreen"
+    android:name="com.andrewchelladurai.simplebible.ui.ChapterScreen"
+    android:label="chapter_screen"
+    tools:layout="@layout/chapter_screen" />
+  <fragment
+    android:id="@+id/bookmarkScreen"
+    android:name="com.andrewchelladurai.simplebible.ui.BookmarkScreen"
+    android:label="bookmark_screen"
+    tools:layout="@layout/bookmark_screen" />
+  <fragment
+    android:id="@+id/bookDetailsScreen"
+    android:name="com.andrewchelladurai.simplebible.ui.BookDetailsScreen"
+    android:label="bookdetails_screen"
+    tools:layout="@layout/bookdetails_screen" />
+  <fragment
+    android:id="@+id/errorScreen"
+    android:name="com.andrewchelladurai.simplebible.ui.ErrorScreen"
+    android:label="error_screen"
+    tools:layout="@layout/error_screen">
+    <argument
+      android:name="ARG_MESSAGE"
+      app:argType="string"
+      app:nullable="true" />
+    <argument
+      android:name="ARG_EMAIL_DEV"
+      android:defaultValue="true"
+      app:argType="boolean" />
+  </fragment>
 
-    <action
-        android:id="@+id/action_global_errorScreen"
-        app:destination="@id/errorScreen"
-        app:launchSingleTop="true"
-        app:popUpTo="@+id/main_nav_graph"
-        app:popUpToInclusive="true" />
+  <action
+    android:id="@+id/action_global_errorScreen"
+    app:destination="@id/errorScreen"
+    app:launchSingleTop="true"
+    app:popUpTo="@+id/main_nav_graph"
+    app:popUpToInclusive="true" />
 </navigation>
