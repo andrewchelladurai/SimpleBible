@@ -30,10 +30,20 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha05'
+
+    // ConstraintLayout Dependency
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta1'
+
+    // Material UI Components Dependency
     implementation 'com.google.android.material:material:1.1.0-alpha06'
+
+    // NavigationComponent Dependencies
     implementation 'android.arch.navigation:navigation-fragment:1.0.0'
     implementation 'android.arch.navigation:navigation-ui:1.0.0'
+
+    // Room Persistence Storage Dependencies
+    implementation "androidx.room:room-runtime:2.1.0-beta01"
+    annotationProcessor "androidx.room:room-compiler:2.1.0-beta01"
 
     testImplementation 'junit:junit:4.13-beta-3'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
