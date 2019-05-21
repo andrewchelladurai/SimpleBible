@@ -29,27 +29,27 @@ public class Book
 
   @NonNull
   @ColumnInfo(name = "testament")
-  private final String testament;
+  private String testament;
 
   @NonNull
   @ColumnInfo(name = "description")
-  private final String description;
+  private String description;
 
   @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT)
   @ColumnInfo(name = "number")
-  private final int number;
+  private int number;
 
   @NonNull
   @ColumnInfo(name = "name")
-  private final String name;
+  private String name;
 
   @IntRange(from = 1)
   @ColumnInfo(name = "chapters")
-  private final int chapters;
+  private int chapters;
 
   @IntRange(from = 1)
   @ColumnInfo(name = "verses")
-  private final int verses;
+  private int verses;
 
   public Book(@NonNull final String testament,
               @NonNull final String description,
@@ -103,30 +103,57 @@ public class Book
   }
 
   @NonNull
-  private String getTestament() {
+  public String getTestament() {
     return testament;
   }
 
+  public void setTestament(@NonNull final String testament) {
+    this.testament = testament;
+  }
+
   @NonNull
-  private String getDescription() {
+  public String getDescription() {
     return description;
   }
 
-  private int getNumber() {
+  public void setDescription(@NonNull final String description) {
+    this.description = description;
+  }
+
+  @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT)
+  public int getNumber() {
     return number;
   }
 
+  public void setNumber(@IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int number) {
+    this.number = number;
+  }
+
   @NonNull
-  private String getName() {
+  public String getName() {
     return name;
   }
 
-  private int getChapters() {
+  public void setName(@NonNull final String name) {
+    this.name = name;
+  }
+
+  @IntRange(from = 1)
+  public int getChapters() {
     return chapters;
   }
 
-  private int getVerses() {
+  public void setChapters(@IntRange(from = 1) final int chapters) {
+    this.chapters = chapters;
+  }
+
+  @IntRange(from = 1)
+  public int getVerses() {
     return verses;
+  }
+
+  public void setVerses(@IntRange(from = 1) final int verses) {
+    this.verses = verses;
   }
 
   @Override

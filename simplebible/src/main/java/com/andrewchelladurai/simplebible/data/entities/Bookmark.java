@@ -27,30 +27,20 @@ public class Bookmark
 
   @NonNull
   @ColumnInfo(name = "references")
-  private final String references;
+  private String references;
 
   @NonNull
   @ColumnInfo(name = "note")
-  private final String note;
-
-  public Bookmark(@NonNull final String references, @NonNull final String note) {
-    this.references = references;
-    this.note = note;
-  }
+  private String note;
 
   protected Bookmark(Parcel in) {
     references = in.readString();
     note = in.readString();
   }
 
-  @NonNull
-  private String getReferences() {
-    return references;
-  }
-
-  @NonNull
-  private String getNote() {
-    return note;
+  public Bookmark(@NonNull final String references, @NonNull final String note) {
+    this.references = references;
+    this.note = note;
   }
 
   @Override
@@ -69,6 +59,24 @@ public class Bookmark
     final Bookmark bookmark = (Bookmark) o;
     return references.equals(bookmark.references) &&
            note.equals(bookmark.note);
+  }
+
+  @NonNull
+  public String getReferences() {
+    return references;
+  }
+
+  public void setReferences(@NonNull final String references) {
+    this.references = references;
+  }
+
+  @NonNull
+  public String getNote() {
+    return note;
+  }
+
+  public void setNote(@NonNull final String note) {
+    this.note = note;
   }
 
   @Override

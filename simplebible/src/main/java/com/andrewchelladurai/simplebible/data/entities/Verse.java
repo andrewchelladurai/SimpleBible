@@ -12,7 +12,7 @@ import com.andrewchelladurai.simplebible.utils.VerseUtils;
 import java.util.Objects;
 
 @Entity(tableName = "sb_verses",
-        primaryKeys = {"version", "book, chapter, verse"})
+        primaryKeys = {"version", "book", "chapter", "verse"})
 public class Verse
     implements Parcelable {
 
@@ -30,29 +30,29 @@ public class Verse
 
   @NonNull
   @ColumnInfo(name = "version")
-  private final String version;
+  private String version;
 
   @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT)
   @ColumnInfo(name = "book")
-  private final int bookNumber;
+  private int bookNumber;
 
   @IntRange(from = 1)
   @ColumnInfo(name = "chapter")
-  private final int chapterNumber;
+  private int chapterNumber;
 
   @IntRange(from = 1)
   @ColumnInfo(name = "verse")
-  private final int verseNumber;
+  private int verseNumber;
 
   @NonNull
   @ColumnInfo(name = "text")
-  private final String text;
+  private String text;
 
-  private Verse(@NonNull String version,
-                @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) int bookNumber,
-                @IntRange(from = 1) int chapterNumber,
-                @IntRange(from = 1) int verseNumber,
-                @NonNull String text) {
+  public Verse(@NonNull final String version,
+               @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int bookNumber,
+               @IntRange(from = 1) final int chapterNumber,
+               @IntRange(from = 1) final int verseNumber,
+               @NonNull final String text) {
     this.version = version;
     this.bookNumber = bookNumber;
     this.chapterNumber = chapterNumber;
@@ -68,36 +68,6 @@ public class Verse
     text = in.readString();
   }
 
-  @NonNull
-  private String getVersion() {
-    return version;
-  }
-
-  @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT)
-  private int getBookNumber() {
-    return bookNumber;
-  }
-
-  @IntRange(from = 1)
-  private int getChapterNumber() {
-    return chapterNumber;
-  }
-
-  @IntRange(from = 1)
-  private int getVerseNumber() {
-    return verseNumber;
-  }
-
-  @NonNull
-  private String getText() {
-    return text;
-  }
-
-  @NonNull
-  public String getReference() {
-    return VerseUtils.createReference(bookNumber, chapterNumber, verseNumber);
-  }
-
   @Override
   public int hashCode() {
     return Objects.hash(version, bookNumber, chapterNumber, verseNumber, text);
@@ -108,23 +78,67 @@ public class Verse
     if (this == o) {
       return true;
     }
-
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-
     final Verse verse = (Verse) o;
-    return bookNumber == verse.bookNumber
-           && chapterNumber == verse.chapterNumber
-           && verseNumber == verse.verseNumber
-           && version.equals(verse.version)
-           && text.equals(verse.text);
+    return bookNumber == verse.bookNumber &&
+           chapterNumber == verse.chapterNumber &&
+           verseNumber == verse.verseNumber &&
+           version.equals(verse.version) &&
+           text.equals(verse.text);
   }
 
   @NonNull
   @Override
   public String toString() {
-    return getReference();
+    return VerseUtils.createReference(bookNumber, chapterNumber, verseNumber);
+  }
+
+  @NonNull
+  public String getVersion() {
+    return version;
+  }
+
+  public void setVersion(@NonNull final String version) {
+    this.version = version;
+  }
+
+  @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT)
+  public int getBookNumber() {
+    return bookNumber;
+  }
+
+  public void setBookNumber(
+      @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int bookNumber) {
+    this.bookNumber = bookNumber;
+  }
+
+  @IntRange(from = 1)
+  public int getChapterNumber() {
+    return chapterNumber;
+  }
+
+  public void setChapterNumber(@IntRange(from = 1) final int chapterNumber) {
+    this.chapterNumber = chapterNumber;
+  }
+
+  @IntRange(from = 1)
+  public int getVerseNumber() {
+    return verseNumber;
+  }
+
+  public void setVerseNumber(@IntRange(from = 1) final int verseNumber) {
+    this.verseNumber = verseNumber;
+  }
+
+  @NonNull
+  public String getText() {
+    return text;
+  }
+
+  public void setText(@NonNull final String text) {
+    this.text = text;
   }
 
   @Override
