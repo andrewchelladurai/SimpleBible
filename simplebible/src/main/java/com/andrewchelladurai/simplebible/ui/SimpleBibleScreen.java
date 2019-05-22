@@ -31,12 +31,7 @@ public class SimpleBibleScreen
 
   private static final String TAG = "SimpleBibleScreen";
 
-  private NotificationChannel notifChannel = null;
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-  }
+  private NotificationChannel notificationChannel = null;
 
   @Override
   protected void onCreate(Bundle savedState) {
@@ -63,12 +58,13 @@ public class SimpleBibleScreen
 
   private void createNotificationChannel() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      notifChannel = new NotificationChannel(getPackageName(),
-                                             getString(R.string.app_notification_channel_name),
-                                             NotificationManager.IMPORTANCE_HIGH);
-      notifChannel.setDescription(getString(R.string.app_notification_channel_description));
+      notificationChannel = new NotificationChannel(getPackageName(),
+                                                    getString(
+                                                        R.string.app_notification_channel_name),
+                                                    NotificationManager.IMPORTANCE_HIGH);
+      notificationChannel.setDescription(getString(R.string.app_notification_channel_description));
 
-      getSystemService(NotificationManager.class).createNotificationChannel(notifChannel);
+      getSystemService(NotificationManager.class).createNotificationChannel(notificationChannel);
       Log.d(TAG, "createNotificationChannel: created");
     }
     Log.d(TAG, "createNotificationChannel: skipped");
