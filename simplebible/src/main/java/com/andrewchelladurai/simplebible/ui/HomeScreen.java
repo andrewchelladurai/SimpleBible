@@ -23,6 +23,11 @@ import com.andrewchelladurai.simplebible.model.HomeScreenModel;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleScreenOps;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 import com.andrewchelladurai.simplebible.utils.VerseUtils;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+import static androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY;
 
 public class HomeScreen
     extends Fragment {
@@ -40,6 +45,8 @@ public class HomeScreen
   private TextView tvVerse;
 
   private HomeScreenModel model;
+
+  private FloatingActionButton fabShare;
 
   @Override
   public void onAttach(@NonNull Context context) {
@@ -60,14 +67,15 @@ public class HomeScreen
 
     pBar = view.findViewById(R.id.home_src_pbar);
     tvVerse = view.findViewById(R.id.home_src_txt_verse);
-    tvVerse.setText(HtmlCompat.fromHtml(getString(R.string.home_src_txt_verse_default),
-                                        HtmlCompat.FROM_HTML_MODE_LEGACY));
+    fabShare = view.findViewById(R.id.home_src_fab_share);
 
     if (savedState == null && !flagSetupFinished) {
       actvityOps.hideNavigationComponent();
+      showLoadingScreen();
       startDbSetupService();
+    } else {
+      showDailyVerse();
     }
-
     return view;
   }
 
@@ -82,6 +90,13 @@ public class HomeScreen
     super.onDetach();
     fragListener = null;
     actvityOps = null;
+  }
+
+  private void showLoadingScreen() {
+    pBar.setVisibility(VISIBLE);
+    fabShare.setVisibility(GONE);
+    tvVerse.setText(HtmlCompat.fromHtml(getString(R.string.home_src_txt_verse_loading),
+                                        FROM_HTML_MODE_LEGACY));
   }
 
   private void setupDbServiceListeners() {
@@ -107,6 +122,11 @@ public class HomeScreen
 
   private void showDailyVerse() {
     Log.d(TAG, "showDailyVerse:");
+    pBar.setVisibility(GONE);
+    fabShare.setVisibility(VISIBLE);
+    tvVerse.setText(HtmlCompat.fromHtml(getString(R.string.home_src_txt_verse_default),
+                                        FROM_HTML_MODE_LEGACY));
+    // TODO: 22/5/19 Query the DB and show the Day's verse
   }
 
   private void startDbSetupService() {

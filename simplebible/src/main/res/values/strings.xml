@@ -21,14 +21,15 @@
   <!-- Strings used in and/or for HomeScreen -->
   <string name="db_init_notification_title">Setup Database</string>
   <string name="db_init_notification_message">Creating database, please wait a few moments.</string>
-  <string name="db_init_error_load_books">Error creating books table in database.</string>
-  <string name="db_init_error_load_verses">Error creating verses table in database.</string>
-  <string name="db_init_error">Error creating database</string>
+  <string name="db_init_err_load_books">Error creating books table in database.</string>
+  <string name="db_init_err_load_verses">Error creating verses table in database.</string>
+  <string name="db_init_err">Error creating database</string>
   <string name="db_init_success">Database successfully created.</string>
 
-  <string name="error_incorrect_live_data_all_books">Received incorrect list of books from repository.</string>
-
-  <string name="home_src_txt_verse_default">
+  <string name="home_scr_err_default_reference_invalid">The default verse reference set in the resources is invalid.</string>
+  <string name="home_scr_err_nonexistent_verse">No verse found for reference %s. Proceeding with default reference</string>
+  <string name="home_scr_err_nonexistent_book">No Book found with position %d</string>
+  <string name="home_src_txt_verse_loading">
     <![CDATA[
     <h1>Simple Bible</h1>
     <h5>CREATING DATABASE</h5>
@@ -41,10 +42,7 @@
     for the love he had for her.</h3><br/><br/>
     <b>The World English Bible</b>]]>
   </string>
-  <string name="home_scr_error_default_reference_invalid">The default verse reference set in the resources is invalid.</string>
-  <string name="home_scr_error_nonexistent_verse">No verse found for reference %s. Proceeding with default reference</string>
-  <string name="home_scr_error_nonexistent_book">No Book found with position %d</string>
-  <string name="home_scr_template_verse">
+  <string name="home_src_txt_verse_template">
     <![CDATA[
     <h1>Simple Bible</h1><br/>
     <h5>%s</h5>
@@ -52,7 +50,7 @@
     <h3>%s</h3><br/>
     The World English Bible]]>
   </string>
-  <string name="home_scr_default_verse">
+  <string name="home_src_txt_verse_default">
     <![CDATA[
     <h1>Simple Bible</h1><br/>
     <h5>The Gospel of John<br/>

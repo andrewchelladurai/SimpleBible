@@ -46,7 +46,7 @@
       android:layout_margin="@dimen/gap_normal"
       android:gravity="center"
       android:padding="@dimen/gap_normal"
-      android:text="@string/home_src_txt_verse_default"
+      android:text="@string/home_src_txt_verse_loading"
       android:textAlignment="center" />
 
   </ScrollView>
