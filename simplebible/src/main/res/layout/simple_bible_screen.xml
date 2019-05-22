@@ -23,6 +23,7 @@
     android:id="@+id/main_scr_bottom_nav_bar"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
+    app:elevation="@dimen/gap_none"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
