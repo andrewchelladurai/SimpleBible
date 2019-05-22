@@ -10,13 +10,20 @@
                                                      app:layout_constraintStart_toStartOf="parent"
                                                      tools:context=".ui.SimpleBibleScreen">
 
-  <fragment
-    android:id="@+id/main_scr_nav_host_fragment"
-    android:name="androidx.navigation.fragment.NavHostFragment"
+  <androidx.core.widget.NestedScrollView
+    android:id="@+id/main_scr_container_nav_host_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:defaultNavHost="true"
-    app:navGraph="@navigation/main_nav_graph" />
+    android:fillViewport="true">
+
+    <fragment
+      android:id="@+id/main_scr_nav_host_fragment"
+      android:name="androidx.navigation.fragment.NavHostFragment"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:defaultNavHost="true"
+      app:navGraph="@navigation/main_nav_graph" />
+  </androidx.core.widget.NestedScrollView>
 
   <com.google.android.material.bottomappbar.BottomAppBar
     android:id="@+id/main_scr_bottom_app_bar"
@@ -24,11 +31,11 @@
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
     app:backgroundTint="@color/colorPrimary"
-    app:fabAlignmentMode="center"
+    app:fabAlignmentMode="end"
     app:fabAnimationMode="slide"
     app:hideOnScroll="true"
     app:layout_dodgeInsetEdges="all"
-    app:navigationIcon="@drawable/ic_menu"
+    app:menu="@menu/main_scr_bottom_app_bar"
     app:title="@string/app_name" />
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton

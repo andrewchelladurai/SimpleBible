@@ -1,9 +1,14 @@
 <resources>
-  <string name="hello_blank_fragment">Hello blank fragment</string>
-
   <string name="app_name">Simple Bible</string>
   <string name="app_notification_channel_name">All notifications</string>
   <string name="app_notification_channel_description">Reminders and Service notifications from the SimpleBible application will be using this notification channel.</string>
+
+  <!-- Strings used in and/or for MainScreen : SimpleBible -->
+  <string name="main_menu_home_screen">home</string>
+  <string name="main_menu_bookList_screen">books</string>
+  <string name="main_menu_search_screen">search</string>
+  <string name="main_menu_bookmarkList_screen">bookmarks</string>
+  <string name="main_menu_preferences_screen">settings</string>
 
   <!-- Strings used in and/or for ErrorScreen -->
   <string name="err_scr_img_desc">Bug or Error found in Simple Bible</string>
