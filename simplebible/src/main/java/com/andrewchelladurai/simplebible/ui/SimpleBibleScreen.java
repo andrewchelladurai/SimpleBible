@@ -3,7 +3,10 @@ package com.andrewchelladurai.simplebible.ui;
 import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,11 +15,18 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.DbSetupService;
+import com.andrewchelladurai.simplebible.model.SimpleBibleModel;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleScreenOps;
+import com.andrewchelladurai.simplebible.utils.BookUtils;
+import com.andrewchelladurai.simplebible.utils.VerseUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -31,12 +41,17 @@ public class SimpleBibleScreen
 
   private static final String TAG = "SimpleBibleScreen";
 
+  private static boolean flagSetupFinished = false;
+
   private NotificationChannel notifChannel = null;
+
+  private SimpleBibleModel model;
 
   @Override
   protected void onResume() {
+    model = ViewModelProviders.of(this).get(SimpleBibleModel.class);
     setupNavigationComponent();
-    //    setupDbServiceListeners();
+    setupDbServiceListeners();
     super.onResume();
   }
 
@@ -50,8 +65,51 @@ public class SimpleBibleScreen
       // hide the bottom navigation bar because it is useless when the application is not yet setup.
       hideNavigationComponent();
       createNotificationChannel();
-      //      startDbSetupService();
+      startDbSetupService();
     }
+  }
+
+  private void startDbSetupService() {
+    // create a listener to handle failed database setup
+    LocalBroadcastManager.getInstance(this).registerReceiver(new BroadcastReceiver() {
+      @Override
+      public void onReceive(final Context context, final Intent intent) {
+        Log.d(TAG, "onReceive: DbSetupService setup failed");
+        Bundle args = new Bundle();
+        args.putString(ErrorScreen.ARG_MESSAGE, getString(R.string.db_init_error));
+        args.putBoolean(ErrorScreen.ARG_EMAIL_DEV, true);
+        Navigation.findNavController(SimpleBibleScreen.this, R.id.main_scr_nav_host_fragment)
+                  .navigate(R.id.action_global_errorScreen, args);
+      }
+    }, new IntentFilter(DbSetupService.ACTION_SETUP_FAILURE));
+
+    // start the database setup service
+    ContextCompat.startForegroundService(this, new Intent(this, DbSetupService.class));
+  }
+
+  private void setupDbServiceListeners() {
+    Log.d(TAG, "setupDbServiceListeners() : flagSetupFinished [" + flagSetupFinished + "]");
+    if (flagSetupFinished) {
+      showNavigationComponent();
+      return;
+    }
+
+    hideNavigationComponent();
+    model.getBookCount().observe(this, bookCount -> {
+      if (bookCount == BookUtils.EXPECTED_COUNT) {
+        model.getVerseCount().observe(this, verseCount -> {
+          if (verseCount == VerseUtils.EXPECTED_COUNT) {
+            flagSetupFinished = true;
+            showNavigationComponent();
+            showDailyVerse();
+          }
+        });
+      }
+    });
+  }
+
+  private void showDailyVerse() {
+    Log.d(TAG, "showDailyVerse: ");
   }
 
   private void setupNavigationComponent() {

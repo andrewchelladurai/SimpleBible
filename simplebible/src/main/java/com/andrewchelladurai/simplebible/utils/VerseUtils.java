@@ -9,6 +9,12 @@ public class VerseUtils {
 
   private static final char SEPARATOR = ':';
 
+  public static final String SETUP_FILE = "init_data_translation_web.txt";
+
+  public static final String SETUP_FILE_RECORD_SEPARATOR = "~";
+
+  public static final int SETUP_FILE_RECORD_SEPARATOR_COUNT = 4;
+
   @NonNull
   public static String createReference(
       @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int bookNumber,

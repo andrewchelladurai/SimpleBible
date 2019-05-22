@@ -20,6 +20,9 @@ public interface VerseDao {
   @Query("select count(book||chapter||verse) from sb_verses")
   int getRecordCount();
 
+  @Query("select count(book||chapter||verse) from sb_verses")
+  LiveData<Integer> getLiveVerseCount();
+
   @Query("select * from sb_verses "
          + "where book=:book and chapter=:chapter and verse=:verse")
   Verse getRecord(@IntRange(from = 1, to = 66) int book,

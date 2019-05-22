@@ -1,5 +1,8 @@
 <resources>
   <string name="app_name">Simple Bible</string>
+  <string name="default_verse_reference">43:3:16</string>
+  <string name="first_book_name">Genesis</string>
+  <string name="last_book_name">Revelation</string>
   <string name="app_notification_channel_name">All notifications</string>
   <string name="app_notification_channel_description">Reminders and Service notifications from the SimpleBible application will be using this notification channel.</string>
 
