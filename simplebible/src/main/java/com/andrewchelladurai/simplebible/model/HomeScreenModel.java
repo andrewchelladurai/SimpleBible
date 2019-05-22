@@ -8,14 +8,14 @@ import com.andrewchelladurai.simplebible.data.SbDatabase;
 import com.andrewchelladurai.simplebible.data.dao.BookDao;
 import com.andrewchelladurai.simplebible.data.dao.VerseDao;
 
-public class SimpleBibleModel
+public class HomeScreenModel
     extends AndroidViewModel {
 
   private final VerseDao verseDao;
 
   private final BookDao bookDao;
 
-  public SimpleBibleModel(@NonNull final Application application) {
+  public HomeScreenModel(@NonNull final Application application) {
     super(application);
     bookDao = SbDatabase.getDatabase(application).getBookDao();
     verseDao = SbDatabase.getDatabase(application).getVerseDao();

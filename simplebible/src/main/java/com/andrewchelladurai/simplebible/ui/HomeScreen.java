@@ -19,7 +19,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.DbSetupService;
-import com.andrewchelladurai.simplebible.model.SimpleBibleModel;
+import com.andrewchelladurai.simplebible.model.HomeScreenModel;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleScreenOps;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 import com.andrewchelladurai.simplebible.utils.VerseUtils;
@@ -39,7 +39,7 @@ public class HomeScreen
 
   private TextView tvVerse;
 
-  private SimpleBibleModel model;
+  private HomeScreenModel model;
 
   @Override
   public void onAttach(@NonNull Context context) {
@@ -50,7 +50,7 @@ public class HomeScreen
     }
     fragListener = (FragmentInteractionListener) context;
     actvityOps = (SimpleBibleScreenOps) context;
-    model = ViewModelProviders.of(this).get(SimpleBibleModel.class);
+    model = ViewModelProviders.of(this).get(HomeScreenModel.class);
   }
 
   @Override
