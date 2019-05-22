@@ -86,27 +86,4 @@
     app:popUpTo="@+id/main_nav_graph"
     app:popUpToInclusive="true" />
 
-  <action
-    android:id="@+id/action_global_homeScreen"
-    app:destination="@id/homeScreen" />
-
-  <action
-    android:id="@+id/action_global_bookListScreen"
-    app:destination="@id/bookListScreen" />
-
-  <action
-    android:id="@+id/action_global_preferencesScreen"
-    app:destination="@id/preferencesScreen" />
-
-  <action
-    android:id="@+id/action_global_chapterScreen"
-    app:destination="@id/chapterScreen" />
-
-  <action
-    android:id="@+id/action_global_searchScreen"
-    app:destination="@id/searchScreen" />
-
-  <action
-    android:id="@+id/action_global_bookmarkListScreen"
-    app:destination="@id/bookmarkListScreen" />
 </navigation>
