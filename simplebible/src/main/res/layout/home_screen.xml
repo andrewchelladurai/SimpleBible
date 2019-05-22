@@ -1,14 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".ui.HomeScreen">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   tools:context=".ui.HomeScreen">
 
-  <!-- TODO: Update blank fragment layout -->
-  <TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:text="@string/hello_blank_fragment" />
+  <androidx.constraintlayout.widget.Guideline
+    android:id="@+id/home_src_gh7"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintGuide_percent="0.69" />
 
-</FrameLayout>
+  <androidx.constraintlayout.widget.Guideline
+    android:id="@+id/home_src_gh9"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintGuide_percent="0.9" />
+
+  <ScrollView
+    android:id="@+id/home_src_container_verse"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:fillViewport="true"
+    app:layout_constraintBottom_toTopOf="@+id/home_src_gh7"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+      android:id="@+id/home_src_txt_verse"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:text="@string/home_src_txt_verse_default"
+      android:textAlignment="center" />
+
+  </ScrollView>
+
+  <ProgressBar
+    android:id="@+id/home_src_pbar"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:indeterminate="true"
+    android:indeterminateBehavior="cycle"
+    app:layout_constraintBottom_toBottomOf="@+id/home_src_gh9"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/home_src_gh7" />
+
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/home_src_fab_share"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="?attr/actionModeShareDrawable"
+    app:layout_constraintBottom_toBottomOf="@+id/home_src_gh9"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/home_src_gh7" />
+</androidx.constraintlayout.widget.ConstraintLayout>
