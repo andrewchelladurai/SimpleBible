@@ -48,5 +48,18 @@
     <h5>Chapter %d Verse %d</h5><br/>
     <h3>%s</h3><br/>
     The World English Bible]]>
-</string>
+  </string>
+  <string name="home_scr_default_verse">
+    <![CDATA[
+    <h1>Simple Bible</h1><br/>
+    <h5>The Gospel of John<br/>
+    Chapter 03 Verse 16</h5><br/>
+    <h3>For God so loved the world,<br/>
+    that he gave his one and only Son,<br/>
+    that whoever believes in him<br/>
+    should not perish,<br/>
+    but have eternal life.</h3><br/>
+    <b>The World English Bible</b>]]>
+  </string>
+
 </resources>

@@ -8,6 +8,7 @@
 
   <ProgressBar
     android:id="@+id/home_src_pbar"
+    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/gap_normal"
@@ -23,6 +24,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/gap_normal"
     android:src="@drawable/ic_share"
+    app:fabSize="mini"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent" />
@@ -38,14 +40,15 @@
     app:layout_constraintTop_toTopOf="parent">
 
     <TextView
-      android:layout_margin="@dimen/gap_normal"
-      android:padding="@dimen/gap_normal"
       android:id="@+id/home_src_txt_verse"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_margin="@dimen/gap_normal"
       android:gravity="center"
+      android:padding="@dimen/gap_normal"
       android:text="@string/home_src_txt_verse_default"
       android:textAlignment="center" />
 
   </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
