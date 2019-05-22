@@ -1,9 +1,47 @@
 <resources>
-  <string name="app_name">Simple Bible</string>
   <string name="hello_blank_fragment">Hello blank fragment</string>
+
+  <string name="app_name">Simple Bible</string>
+  <string name="app_notification_channel_name">All notifications</string>
+  <string name="app_notification_channel_description">Reminders and Service notifications from the SimpleBible application will be using this notification channel.</string>
 
   <!-- Strings used in and/or for ErrorScreen -->
   <string name="err_scr_img_desc">Bug or Error found in Simple Bible</string>
   <string name="err_scr_disclaimer">Only the text displayed above will be shared with the Developer.</string>
   <string name="err_scr_button">Email Developer</string>
+
+  <!-- Strings used in and/or for HomeScreen -->
+  <string name="db_init_notification_title">Setup Database</string>
+  <string name="db_init_notification_message">Creating database, please wait a few moments.</string>
+  <string name="db_init_error_load_books">Error creating books table in database.</string>
+  <string name="db_init_error_load_verses">Error creating verses table in database.</string>
+  <string name="db_init_error">Error creating database</string>
+  <string name="db_init_success">Database successfully created.</string>
+
+  <string name="error_incorrect_live_data_all_books">Received incorrect list of books from repository.</string>
+
+  <string name="home_src_txt_verse_default">
+    <![CDATA[
+    <h1>Simple Bible</h1>
+    <h5>CREATING DATABASE</h5>
+    <h5>Please be patient like Jacob<br/>
+    for it is said in<br/><br/>
+    <b>The Book of Genesis<br/>
+    Chapter 29 Verse 20</b></h5>
+    <h3>Jacob served seven years for Rachel.<br/>
+    They seemed to him but a few days,<br/>
+    for the love he had for her.</h3><br/><br/>
+    <b>The World English Bible</b>]]>
+  </string>
+  <string name="screen_home_error_default_reference_invalid">The default verse reference set in the resources is invalid.</string>
+  <string name="screen_home_error_nonexistent_verse">No verse found for reference %s. Proceeding with default reference</string>
+  <string name="screen_home_error_nonexistent_book">No Book found with position %d</string>
+  <string name="screen_home_template_verse">
+    <![CDATA[
+    <h1>Simple Bible</h1><br/>
+    <h5>%s</h5>
+    <h5>Chapter %d Verse %d</h5><br/>
+    <h3>%s</h3><br/>
+    The World English Bible]]>
+</string>
 </resources>
