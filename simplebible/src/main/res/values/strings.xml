@@ -33,10 +33,10 @@
     for the love he had for her.</h3><br/><br/>
     <b>The World English Bible</b>]]>
   </string>
-  <string name="screen_home_error_default_reference_invalid">The default verse reference set in the resources is invalid.</string>
-  <string name="screen_home_error_nonexistent_verse">No verse found for reference %s. Proceeding with default reference</string>
-  <string name="screen_home_error_nonexistent_book">No Book found with position %d</string>
-  <string name="screen_home_template_verse">
+  <string name="home_scr_error_default_reference_invalid">The default verse reference set in the resources is invalid.</string>
+  <string name="home_scr_error_nonexistent_verse">No verse found for reference %s. Proceeding with default reference</string>
+  <string name="home_scr_error_nonexistent_book">No Book found with position %d</string>
+  <string name="home_scr_template_verse">
     <![CDATA[
     <h1>Simple Bible</h1><br/>
     <h5>%s</h5>
