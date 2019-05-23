@@ -23,7 +23,7 @@ import com.google.android.material.snackbar.Snackbar;
 public class SimpleBibleScreen
     extends AppCompatActivity
     implements SimpleBibleScreenOps,
-               BookListScreen.FragmentInteractionListener,
+               ChapterScreen.FragmentInteractionListener,
                SearchScreen.FragmentInteractionListener,
                BookmarkListScreen.OnFragmentInteractionListener,
                PreferencesScreen.FragmentInteractionListener {
