@@ -50,7 +50,16 @@
     android:id="@+id/chapterScreen"
     android:name="com.andrewchelladurai.simplebible.ui.ChapterScreen"
     android:label="chapter_screen"
-    tools:layout="@layout/chapter_screen" />
+    tools:layout="@layout/chapter_screen">
+    <argument
+      android:name="ARG_BOOK_NUMBER"
+      android:defaultValue="1"
+      app:argType="integer" />
+    <argument
+      android:name="ARG_CHAPTER_NUMBER"
+      android:defaultValue="1"
+      app:argType="integer" />
+  </fragment>
 
   <fragment
     android:id="@+id/bookmarkScreen"
