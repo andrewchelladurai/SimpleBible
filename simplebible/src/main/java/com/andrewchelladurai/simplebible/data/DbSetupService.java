@@ -1,7 +1,6 @@
 package com.andrewchelladurai.simplebible.data;
 
 import android.app.IntentService;
-import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.util.Log;
@@ -297,17 +296,14 @@ public class DbSetupService
     Log.d(TAG, "startNotification: ");
     final Intent intent = new Intent(this, SimpleBibleScreen.class);
     final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-    Notification notification = new NotificationCompat
-                                        .Builder(this, getPackageName())
-                                    .setContentTitle(getString(R.string.db_init_notification_title))
-                                    .setContentText(
-                                        getString(R.string.db_init_notification_message))
-                                    .setContentIntent(pendingIntent)
-                                    .setOngoing(true)
-                                    .setOnlyAlertOnce(true)
-                                    .setPriority(NotificationCompat.PRIORITY_MAX)
-                                    .build();
-    startForeground(13, notification);
+    startForeground(13, new NotificationCompat.Builder(this, getPackageName())
+                            .setContentTitle(getString(R.string.db_init_notification_title))
+                            .setContentText(getString(R.string.db_init_notification_message))
+                            .setContentIntent(pendingIntent)
+                            .setOngoing(true)
+                            .setOnlyAlertOnce(true)
+                            .setPriority(NotificationCompat.PRIORITY_MAX)
+                            .build());
   }
 
 }
