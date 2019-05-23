@@ -1,13 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".ui.BookListScreen">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   android:layout_margin="@dimen/activity_margin"
+                                                   tools:context=".ui.BookListScreen">
 
-  <TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:text="BookListScreen" />
+  <AutoCompleteTextView
+    android:id="@+id/blist_screen_input"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/gap_normal"
+    android:completionThreshold="1"
+    android:drawableEnd="@drawable/ic_search"
+    android:drawablePadding="@dimen/gap_normal"
+    android:hint="@string/blist_screen_input_hint"
+    android:imeOptions="actionSearch"
+    android:inputType="textAutoComplete|textAutoCorrect"
+    android:lines="1"
+    android:selectAllOnFocus="true"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/blist_screen_list"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginTop="@dimen/gap_normal"
+    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="@id/blist_screen_input"
+    app:layout_constraintStart_toStartOf="@id/blist_screen_input"
+    app:layout_constraintTop_toBottomOf="@id/blist_screen_input"
+    app:spanCount="@integer/blist_screen_list_columns"
+    tools:listitem="@layout/item_book" />
+</androidx.constraintlayout.widget.ConstraintLayout>
