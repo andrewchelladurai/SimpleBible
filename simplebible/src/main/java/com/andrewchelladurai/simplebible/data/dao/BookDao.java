@@ -27,6 +27,10 @@ public interface BookDao {
          + "where number=:number")
   Book getRecord(@IntRange(from = 1, to = 66) final int number);
 
+  @Query("select * from sb_books "
+         + "where number=:number")
+  LiveData<Book> getRecordLive(@IntRange(from = 1, to = 66) final int number);
+
   @Query("select * from sb_books order by number")
   List<Book> getAllRecordsLive();
 
