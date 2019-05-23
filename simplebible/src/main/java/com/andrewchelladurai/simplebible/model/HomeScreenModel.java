@@ -26,6 +26,8 @@ public class HomeScreenModel
 
   private String verseText = "";
 
+  private int dayOfYear = 0;
+
   public HomeScreenModel(@NonNull final Application application) {
     super(application);
     bookDao = SbDatabase.getDatabase(application).getBookDao();
@@ -82,7 +84,13 @@ public class HomeScreenModel
 
   public void setCachedVerseText(@NonNull final String verseText) {
     this.verseText = verseText;
+    dayOfYear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
     Log.d(TAG, "setCachedVerseText: size [" + verseText.length() + "]");
+  }
+
+  @IntRange(from = 1, to = 365)
+  public int getCachedVerseDay() {
+    return dayOfYear;
   }
 
 }

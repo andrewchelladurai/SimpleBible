@@ -25,6 +25,8 @@ import com.andrewchelladurai.simplebible.utils.BookUtils;
 import com.andrewchelladurai.simplebible.utils.VerseUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.Calendar;
+
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY;
@@ -38,8 +40,6 @@ public class HomeScreen
 
   private SimpleBibleScreenOps activityOps;
 
-  private FragmentInteractionListener fragListener;
-
   private ProgressBar progressBar;
 
   private TextView tvVerse;
@@ -51,11 +51,9 @@ public class HomeScreen
   @Override
   public void onAttach(@NonNull Context context) {
     super.onAttach(context);
-    if (!(context instanceof FragmentInteractionListener)) {
-      throw new RuntimeException(
-          context.toString() + " must implement FragmentInteractionListener");
+    if (!(context instanceof SimpleBibleScreenOps)) {
+      throw new RuntimeException(context.toString() + " must implement SimpleBibleScreenOps");
     }
-    fragListener = (FragmentInteractionListener) context;
     activityOps = (SimpleBibleScreenOps) context;
     model = ViewModelProviders.of(this).get(HomeScreenModel.class);
   }
@@ -68,6 +66,7 @@ public class HomeScreen
     progressBar = view.findViewById(R.id.home_src_pbar);
     tvVerse = view.findViewById(R.id.home_src_txt_verse);
     fabShare = view.findViewById(R.id.home_src_fab_share);
+    fabShare.setOnClickListener(v -> handleClickFabShare());
 
     showLoadingScreen();
 
@@ -75,10 +74,9 @@ public class HomeScreen
       activityOps.hideNavigationComponent();
       startDbSetupService();
     }
-
-    if (savedState != null
-        && flagSetupFinished
-        && !model.getCachedVerseText().isEmpty()) {
+    if (flagSetupFinished
+        && !model.getCachedVerseText().isEmpty()
+        && model.getCachedVerseDay() == Calendar.getInstance().get(Calendar.DAY_OF_YEAR)) {
       // hide progress & show shareFab since the dbSetupFlag is set
       progressBar.setVisibility(GONE);
       fabShare.setVisibility(VISIBLE);
@@ -101,8 +99,12 @@ public class HomeScreen
   @Override
   public void onDetach() {
     super.onDetach();
-    fragListener = null;
     activityOps = null;
+  }
+
+  private void handleClickFabShare() {
+    activityOps.shareText(
+        HtmlCompat.fromHtml(model.getCachedVerseText(), FROM_HTML_MODE_LEGACY).toString());
   }
 
   private void showLoadingScreen() {
@@ -135,6 +137,10 @@ public class HomeScreen
 
   private void showDailyVerse() {
     Log.d(TAG, "showDailyVerse:");
+
+    progressBar.setVisibility(GONE);
+    fabShare.setVisibility(VISIBLE);
+
     final String reference = model.getVerseReferenceForToday(
         getString(R.string.default_verse_reference),
         getResources().getStringArray(R.array.daily_verse));
@@ -194,10 +200,6 @@ public class HomeScreen
     // start the database setup service
     final Context context = requireContext();
     ContextCompat.startForegroundService(context, new Intent(context, DbSetupService.class));
-  }
-
-  interface FragmentInteractionListener {
-
   }
 
 }
