@@ -82,11 +82,7 @@ public class HomeScreen
       fabShare.setVisibility(VISIBLE);
       tvVerse.setText(HtmlCompat.fromHtml(model.getCachedVerseText(), FROM_HTML_MODE_LEGACY));
       Log.d(TAG, "onCreateView: using cached verse text");
-    } /*else {
-      // get today's verse and populate the cache
-      showDailyVerse();
-    }*/
-
+    }
     return view;
   }
 
