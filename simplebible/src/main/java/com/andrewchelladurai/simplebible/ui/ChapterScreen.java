@@ -9,24 +9,34 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.andrewchelladurai.simplebible.R;
 
-public class ChapterScreen extends Fragment {
+public class ChapterScreen
+    extends Fragment {
+
+  public static final String ARG_BOOK_NUMBER = "ARG_BOOK_NUMBER";
+
+  public static final String ARG_CHAPTER_NUMBER = "ARG_CHAPTER_NUMBER";
 
   private FragmentInteractionListener mListener;
 
-  @Override public void onAttach(@NonNull Context context) {
+  @Override
+  public void onAttach(@NonNull Context context) {
     super.onAttach(context);
     if (context instanceof FragmentInteractionListener) {
       mListener = (FragmentInteractionListener) context;
     } else {
-      throw new RuntimeException(context.toString() + " must implement FragmentInteractionListener");
+      throw new RuntimeException(
+          context.toString() + " must implement FragmentInteractionListener");
     }
   }
 
-  @Override public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+  @Override
+  public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                           Bundle savedInstanceState) {
     return inflater.inflate(R.layout.chapter_screen, container, false);
   }
 
-  @Override public void onDetach() {
+  @Override
+  public void onDetach() {
     super.onDetach();
     mListener = null;
   }
