@@ -36,11 +36,11 @@ public class HomeScreen
 
   private static boolean flagSetupFinished = false;
 
-  private SimpleBibleScreenOps actvityOps;
+  private SimpleBibleScreenOps activityOps;
 
   private FragmentInteractionListener fragListener;
 
-  private ProgressBar pBar;
+  private ProgressBar progressBar;
 
   private TextView tvVerse;
 
@@ -56,7 +56,7 @@ public class HomeScreen
           context.toString() + " must implement FragmentInteractionListener");
     }
     fragListener = (FragmentInteractionListener) context;
-    actvityOps = (SimpleBibleScreenOps) context;
+    activityOps = (SimpleBibleScreenOps) context;
     model = ViewModelProviders.of(this).get(HomeScreenModel.class);
   }
 
@@ -65,17 +65,30 @@ public class HomeScreen
                            Bundle savedState) {
     final View view = inflater.inflate(R.layout.home_screen, container, false);
 
-    pBar = view.findViewById(R.id.home_src_pbar);
+    progressBar = view.findViewById(R.id.home_src_pbar);
     tvVerse = view.findViewById(R.id.home_src_txt_verse);
     fabShare = view.findViewById(R.id.home_src_fab_share);
 
+    showLoadingScreen();
+
     if (savedState == null && !flagSetupFinished) {
-      actvityOps.hideNavigationComponent();
-      showLoadingScreen();
+      activityOps.hideNavigationComponent();
       startDbSetupService();
-    } else {
-      showDailyVerse();
     }
+
+    if (savedState != null
+        && flagSetupFinished
+        && !model.getCachedVerseText().isEmpty()) {
+      // hide progress & show shareFab since the dbSetupFlag is set
+      progressBar.setVisibility(GONE);
+      fabShare.setVisibility(VISIBLE);
+      tvVerse.setText(HtmlCompat.fromHtml(model.getCachedVerseText(), FROM_HTML_MODE_LEGACY));
+      Log.d(TAG, "onCreateView: using cached verse text");
+    } /*else {
+      // get today's verse and populate the cache
+      showDailyVerse();
+    }*/
+
     return view;
   }
 
@@ -89,11 +102,11 @@ public class HomeScreen
   public void onDetach() {
     super.onDetach();
     fragListener = null;
-    actvityOps = null;
+    activityOps = null;
   }
 
   private void showLoadingScreen() {
-    pBar.setVisibility(VISIBLE);
+    progressBar.setVisibility(VISIBLE);
     fabShare.setVisibility(GONE);
     tvVerse.setText(HtmlCompat.fromHtml(getString(R.string.home_src_txt_verse_loading),
                                         FROM_HTML_MODE_LEGACY));
@@ -101,18 +114,18 @@ public class HomeScreen
 
   private void setupDbServiceListeners() {
     Log.d(TAG, "setupDbServiceListeners() : flagSetupFinished [" + flagSetupFinished + "]");
-    if (flagSetupFinished) {
-      actvityOps.showNavigationComponent();
+    if (flagSetupFinished && !model.getCachedVerseText().isEmpty()) {
+      activityOps.showNavigationComponent();
       return;
     }
 
-    actvityOps.hideNavigationComponent();
+    activityOps.hideNavigationComponent();
     model.getBookCount().observe(this, bookCount -> {
       if (bookCount == BookUtils.EXPECTED_COUNT) {
         model.getVerseCount().observe(this, verseCount -> {
           if (verseCount == VerseUtils.EXPECTED_COUNT) {
             flagSetupFinished = true;
-            actvityOps.showNavigationComponent();
+            activityOps.showNavigationComponent();
             showDailyVerse();
           }
         });
@@ -122,11 +135,49 @@ public class HomeScreen
 
   private void showDailyVerse() {
     Log.d(TAG, "showDailyVerse:");
-    pBar.setVisibility(GONE);
-    fabShare.setVisibility(VISIBLE);
+    final String reference = model.getVerseReferenceForToday(
+        getString(R.string.default_verse_reference),
+        getResources().getStringArray(R.array.daily_verse));
+
+    model.getVerseForToday(reference).observe(this, verse -> {
+      if (verse == null) {
+        showDefaultVerseText();
+        final String message =
+            String.format(getString(R.string.home_scr_err_nonexistent_verse),
+                          reference);
+        Log.e(TAG, "showDailyVerse: " + message);
+        // activityOps.showErrorScreen(message, true);
+        return;
+      }
+
+      model.getBook(verse.getBookNumber()).observe(this, book -> {
+        if (book == null) {
+          showDefaultVerseText();
+          final String message =
+              String.format(getString(R.string.home_scr_err_nonexistent_book),
+                            verse.getBookNumber());
+          Log.e(TAG, "showDailyVerse: " + message);
+          // activityOps.showErrorScreen(message, true);
+          return;
+        }
+
+        final String formattedText = String.format(getString(R.string.home_src_txt_verse_template),
+                                                   book.getName(),
+                                                   verse.getChapterNumber(),
+                                                   verse.getVerseNumber(),
+                                                   verse.getText());
+        tvVerse.setText(HtmlCompat.fromHtml(formattedText, FROM_HTML_MODE_LEGACY));
+
+        // saved a cached version so we can use it later and avoid redoing all this
+        model.setCachedVerseText(formattedText);
+      });
+    });
+
+  }
+
+  private void showDefaultVerseText() {
     tvVerse.setText(HtmlCompat.fromHtml(getString(R.string.home_src_txt_verse_default),
                                         FROM_HTML_MODE_LEGACY));
-    // TODO: 22/5/19 Query the DB and show the Day's verse
   }
 
   private void startDbSetupService() {
@@ -136,7 +187,7 @@ public class HomeScreen
       public void onReceive(final Context context, final Intent intent) {
         String message = ": onReceive: DbSetupService setup failed";
         Log.d(TAG, message);
-        actvityOps.showErrorScreen(TAG + message, true);
+        activityOps.showErrorScreen(TAG + message, true);
       }
     }, new IntentFilter(DbSetupService.ACTION_SETUP_FAILURE));
 
