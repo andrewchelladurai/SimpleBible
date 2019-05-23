@@ -4,6 +4,7 @@
                                                    xmlns:tools="http://schemas.android.com/tools"
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
+                                                   android:layout_margin="@dimen/activity_margin"
                                                    tools:context=".ui.HomeScreen">
 
   <androidx.constraintlayout.widget.Guideline
@@ -39,9 +40,7 @@
   <ScrollView
     android:id="@+id/home_src_container_verse"
     android:layout_width="0dp"
-    android:layout_height="0dp"
-    android:layout_margin="@dimen/gap_big"
-    android:fillViewport="true"
+    android:layout_height="wrap_content"
     android:padding="@dimen/gap_big"
     app:layout_constraintBottom_toTopOf="@+id/home_src_gh86"
     app:layout_constraintEnd_toEndOf="parent"
