@@ -6,7 +6,7 @@
                                                    android:layout_height="match_parent"
                                                    android:padding="@dimen/activity_margin"
                                                    tools:context=".ui.SearchScreen">
-
+  <!--todo create a landscape version-->
   <androidx.constraintlayout.widget.Guideline
     android:id="@+id/search_src_gv3"
     android:layout_width="wrap_content"
@@ -27,6 +27,8 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     app:layout_constraintGuide_percent="0.2" />
+
+  <!--todo use a better way to show the search field and the button-->
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/search_scr_fab_search"
@@ -95,6 +97,8 @@
     app:layout_constraintTop_toBottomOf="@id/search_src_input"
     app:spanCount="@integer/search_src_list_columns"
     tools:listitem="@layout/item_search_result" />
+
+  <!--todo redesign screen to show action buttons in a better method-->
 
   <androidx.appcompat.widget.AppCompatImageButton
     android:id="@+id/search_scr_butt_share"
