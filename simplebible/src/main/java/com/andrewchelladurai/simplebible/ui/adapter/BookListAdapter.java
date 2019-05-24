@@ -65,7 +65,8 @@ public class BookListAdapter
 
     BookView(final View rootView) {
       super(rootView);
-      rootView.setOnClickListener(v -> ops.handleClickBookSelection(book.getName()));
+      rootView.findViewById(R.id.item_book)
+              .setOnClickListener(v -> ops.handleClickBookSelection(book.getName()));
 
       name = rootView.findViewById(R.id.item_book_name);
       name.setOnClickListener(v -> ops.handleClickBookSelection(book.getName()));

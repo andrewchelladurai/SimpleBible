@@ -64,15 +64,15 @@
   </string>
 
   <!-- Strings used in and/or for BookListScreen -->
-  <string name="blist_screen_input_hint">Book Name</string>
-  <string name="blist_screen_error_incorrect_book_count">Number of Books in database is not equal to the expected count.</string>
-  <string name="blist_screen_error_invalid_book_name">Incorrect Book Name</string>
+  <string name="blist_scr_input_hint">Book Name</string>
+  <string name="blist_scr_err_incorrect_book_count">Number of Books in database is not equal to the expected count.</string>
+  <string name="blist_scr_err_invalid_book_name">Incorrect Book Name</string>
   <string name="item_book_details_template">%s in %s</string>
-  <plurals name="item_book_chapter_content_template">
+  <plurals name="item_book_chapter_template">
     <item quantity="one">%d Chapter</item>
     <item quantity="other">%d Chapters</item>
   </plurals>
-  <plurals name="item_book_verses_content_template">
+  <plurals name="item_book_verses_template">
     <item quantity="one">%d Verse</item>
     <item quantity="other">%d Verses</item>
   </plurals>

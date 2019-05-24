@@ -6,6 +6,6 @@
   <dimen name="gap_normal">8dp</dimen>
   <dimen name="gap_big">12dp</dimen>
   <dimen name="gap_huge">16dp</dimen>
-  <integer name="blist_screen_list_columns">1</integer>
+  <integer name="blist_scr_list_columns">1</integer>
   <integer name="chapter_scr_list_column">1</integer>
 </resources>
