@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -166,10 +167,15 @@ public class BookListScreen
 
   @NonNull
   @Override
-  public String getChapterQuantityString(final int value) {
-    return getResources()
-               .getQuantityString(R.plurals.blist_screen_item_chapter_details_template, value,
-                                  value);
+  public String getContentString(@IntRange(from = 1) final int verses,
+                                 @IntRange(from = 1) final int chapters) {
+    final String template = getString(R.string.item_book_details_template);
+    final String verseString = getResources().getQuantityString(
+        R.plurals.item_book_verses_content_template, verses, verses);
+    final String chapterString = getResources().getQuantityString(
+        R.plurals.item_book_chapter_content_template, chapters, chapters);
+
+    return String.format(template, verseString, chapterString);
   }
 
 }

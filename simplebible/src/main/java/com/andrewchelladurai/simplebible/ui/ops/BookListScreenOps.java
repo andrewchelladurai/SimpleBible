@@ -7,6 +7,7 @@ public interface BookListScreenOps {
 
   void handleClickBookSelection(@NonNull final String bookName);
 
-  String getChapterQuantityString(@IntRange(from = 1) int chapters);
+  @NonNull
+  String getContentString(@IntRange(from = 1) int verses, @IntRange(from = 1) int chapters);
 
 }

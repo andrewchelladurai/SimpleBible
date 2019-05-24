@@ -13,7 +13,6 @@ import com.andrewchelladurai.simplebible.ui.ops.BookListScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SbRvAdapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.SbRvHolderOps;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
-import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,17 +74,25 @@ public class BookListAdapter
 
     private TextView description;
 
-    private Chip chapters;
+    private TextView details;
+
+    private TextView testament;
 
     BookView(final View rootView) {
       super(rootView);
       rootView.setOnClickListener(v -> ops.handleClickBookSelection(book.getName()));
+
       name = rootView.findViewById(R.id.item_book_name);
       name.setOnClickListener(v -> ops.handleClickBookSelection(book.getName()));
+
       description = rootView.findViewById(R.id.item_book_desc);
       description.setOnClickListener(v -> ops.handleClickBookSelection(book.getName()));
-      chapters = rootView.findViewById(R.id.item_book_chapters);
-      chapters.setOnClickListener(v -> ops.handleClickBookSelection(book.getName()));
+
+      details = rootView.findViewById(R.id.item_book_details);
+      details.setOnClickListener(v -> ops.handleClickBookSelection(book.getName()));
+
+      testament = rootView.findViewById(R.id.item_book_testament);
+      testament.setOnClickListener(v -> ops.handleClickBookSelection(book.getName()));
     }
 
     @Override
@@ -93,7 +100,8 @@ public class BookListAdapter
       book = (Book) object;
       name.setText(book.getName());
       description.setText(book.getDescription());
-      chapters.setText(ops.getChapterQuantityString(book.getChapters()));
+      details.setText(ops.getContentString(book.getVerses(), book.getChapters()));
+      testament.setText(book.getTestament());
     }
 
   }
