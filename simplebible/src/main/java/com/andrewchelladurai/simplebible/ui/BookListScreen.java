@@ -23,6 +23,7 @@ import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleScreenOps;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BookListScreen
     extends Fragment
@@ -96,7 +97,7 @@ public class BookListScreen
         setupInputItemClickListener(model.getBookNameAdapter());
         setupEditorActionListener();
       });
-      Log.d(TAG, "setupInputField:");
+      Log.d(TAG, "setupInputField: finished");
     }
   }
 
@@ -131,11 +132,13 @@ public class BookListScreen
 
   private void setupListView() {
     list.setAdapter(listAdapter);
+
     if (listAdapter.getItemCount() == BookUtils.EXPECTED_COUNT) {
       listAdapter.notifyDataSetChanged();
-      Log.d(TAG, "setupListView: listAdapter is already setup, returning");
+      Log.d(TAG, "setupListView: using cached version");
       return;
     }
+
     model.getAllBooks().observe(this, list -> {
       if (list == null || list.isEmpty() || list.size() != BookUtils.EXPECTED_COUNT) {
         final String message = getString(R.string.blist_screen_error_incorrect_book_count);
@@ -181,6 +184,28 @@ public class BookListScreen
         R.plurals.item_book_chapter_content_template, chapters, chapters);
 
     return String.format(template, verseString, chapterString);
+  }
+
+  @Override
+  public void refreshCachedList(@NonNull final List<?> list) {
+    model.refreshCachedList(list);
+  }
+
+  @NonNull
+  @Override
+  public List<?> getCachedList() {
+    return model.getCachedList();
+  }
+
+  @NonNull
+  @Override
+  public Object getCachedItemAt(final int position) {
+    return model.getCachedItemAt(position);
+  }
+
+  @Override
+  public int getCachedListSize() {
+    return model.getCachedListSize();
   }
 
 }

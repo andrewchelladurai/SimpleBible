@@ -1,6 +1,5 @@
 package com.andrewchelladurai.simplebible.ui.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,18 +11,12 @@ import com.andrewchelladurai.simplebible.data.entities.Book;
 import com.andrewchelladurai.simplebible.ui.ops.BookListScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SbRvAdapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.SbRvHolderOps;
-import com.andrewchelladurai.simplebible.utils.BookUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BookListAdapter
     extends RecyclerView.Adapter
     implements SbRvAdapterOps {
-
-  private static final String TAG = "BookListAdapter";
-
-  private static ArrayList<Book> list = new ArrayList<>(BookUtils.EXPECTED_COUNT);
 
   private BookListScreenOps ops;
 
@@ -41,27 +34,23 @@ public class BookListAdapter
 
   @Override
   public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
-    ((BookView) holder).updateContent(list.get(position));
+    ((BookView) holder).updateContent(ops.getCachedItemAt(position));
   }
 
   @Override
   public int getItemCount() {
-    return list.size();
+    return ops.getCachedListSize();
   }
 
   @Override
   public void refreshList(@NonNull final List<?> list) {
-    BookListAdapter.list.clear();
-    for (final Object object : list) {
-      BookListAdapter.list.add((Book) object);
-    }
-    Log.d(TAG, "refreshList: now has [" + getItemCount() + "] records");
+    ops.refreshCachedList(list);
   }
 
   @NonNull
   @Override
   public List<?> getList() {
-    return list;
+    return ops.getCachedList();
   }
 
   private class BookView
@@ -69,13 +58,9 @@ public class BookListAdapter
       implements SbRvHolderOps {
 
     private Book book;
-
     private TextView name;
-
     private TextView description;
-
     private TextView details;
-
     private TextView testament;
 
     BookView(final View rootView) {
