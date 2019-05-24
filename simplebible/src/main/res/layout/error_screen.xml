@@ -32,7 +32,7 @@
     android:id="@+id/err_scr_img"
     android:layout_width="0dp"
     android:layout_height="0dp"
-    android:contentDescription="@string/err_scr_img_desc"
+    android:contentDescription="@string/error_scr_img_desc"
     android:src="@drawable/ic_hero_bug"
     app:layout_constraintBottom_toTopOf="@+id/err_scr_gh4"
     app:layout_constraintDimensionRatio="1:1"
@@ -65,7 +65,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/gap_huge"
-    android:text="@string/err_scr_button"
+    android:text="@string/error_scr_button"
     app:layout_constraintBottom_toTopOf="@id/err_scr_container_disclaimer"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_chainStyle="packed"
@@ -90,7 +90,7 @@
       android:layout_height="wrap_content"
       android:fontFamily="sans-serif-black"
       android:padding="@dimen/gap_small"
-      android:text="@string/err_scr_disclaimer"
+      android:text="@string/error_scr_disclaimer"
       android:textAlignment="center" />
   </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

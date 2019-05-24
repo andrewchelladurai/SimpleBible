@@ -14,9 +14,9 @@
   <string name="main_menu_preferences_screen">settings</string>
 
   <!-- Strings used in and/or for ErrorScreen -->
-  <string name="err_scr_img_desc">Bug or Error found in Simple Bible</string>
-  <string name="err_scr_disclaimer">Only the text displayed above will be shared with the Developer.</string>
-  <string name="err_scr_button">Email Developer</string>
+  <string name="error_scr_img_desc">Bug or Error found in Simple Bible</string>
+  <string name="error_scr_disclaimer">Only the text displayed above will be shared with the Developer.</string>
+  <string name="error_scr_button">Email Developer</string>
 
   <!-- Strings used in and/or for HomeScreen -->
   <string name="db_init_notification_title">Setup Database</string>
