@@ -76,4 +76,29 @@
     <item quantity="one">%d Verse</item>
     <item quantity="other">%d Verses</item>
   </plurals>
+
+  <!-- Strings used in and/or for SearchScreen -->
+  <string name="screen_search_hint_input">Text to search</string>
+  <string name="screen_search_selection_share_template">%s\nWorld English Bible Translation\nShared using Simple Bible</string>
+  <string name="screen_search_error_empty_input">Empty text to search</string>
+  <string name="screen_search_error_min_count">Min 3 chars needed</string>
+  <string name="screen_search_error_max_count">Max 50 chars allowed</string>
+  <string name="screen_search_error_empty_selection">No search result selected</string>
+  <string name="screen_search_button_search">search</string>
+  <string name="screen_search_text_default">
+    <![CDATA[
+    <h3>TO SEARCH FOR A VERSE</h3>
+    <b>Text must have at least 3 alphabets<br/>
+    Text must not be more than 50 alphabets<br/><br/>
+    Tap on any search result to select it.<br/>
+    Selecting a verse will show action buttons.<br/>
+    Selected verse(s) can be shared or bookmarked.</b>]]>
+  </string>
+  <string name="screen_search_text_empty_results">
+    <![CDATA[
+    <h3>No Verses Found</h3>
+    <b>with text<br/>%s</b>]]>
+  </string>
+  <string name="item_search_result_content_template"><![CDATA[<b>%s (%d:%d)</b> - %s]]></string>
+  <string name="item_search_result_failure_message"><![CDATA[<b>Failure getting data</b>]]></string>
 </resources>
