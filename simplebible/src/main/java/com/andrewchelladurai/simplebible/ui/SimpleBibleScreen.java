@@ -24,7 +24,6 @@ public class SimpleBibleScreen
     extends AppCompatActivity
     implements SimpleBibleScreenOps,
                BookmarkScreen.OnFragmentInteractionListener,
-               ChapterScreen.FragmentInteractionListener,
                BookmarkListScreen.OnFragmentInteractionListener,
                PreferencesScreen.FragmentInteractionListener {
 

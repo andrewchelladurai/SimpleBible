@@ -101,4 +101,15 @@
   </string>
   <string name="item_search_result_content_template"><![CDATA[<b>%s (%d:%d)</b> - %s]]></string>
   <string name="item_search_result_failure_message"><![CDATA[<b>Failure getting data</b>]]></string>
+
+  <!-- Strings used in and/or for ChapterScreen -->
+  <string name="chapter_scr_title">Chapter</string>
+  <string name="chapter_scr_butt_chapters">chapters</string>
+  <string name="chapter_scr_butt_clear">clear</string>
+  <string name="chapter_scr_butt_bmark">bookmark</string>
+  <string name="chapter_src_butt_share">share</string>
+  <string name="chapter_src_err_empty_list">Chapter %d does not exist in Book Number %d</string>
+  <string name="chapter_scr_err_no_arguments"><![CDATA[Missing Book & Chapter details in arguments]]></string>
+  <string name="item_chapter_verse_content_template"><![CDATA[<b>%d :</b> %s]]></string>
+
 </resources>
