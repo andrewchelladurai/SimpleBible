@@ -88,6 +88,7 @@ public class SearchScreen
     butReset = view.findViewById(R.id.search_scr_butt_reset);
     butReset.setOnClickListener(v -> handleButtonClickReset());
 
+    // handle action key event from keyboard on input field
     input.setOnEditorActionListener((v, actionId, event) -> {
       if (event == null) {
         handleButtonClickSearch();
@@ -96,9 +97,9 @@ public class SearchScreen
       return false;
     });
 
-    if (savedState == null) {
+    if (savedState == null && model.getCachedListSize() == 0) {
       showHelpText(true);
-    } else {
+    } else if (savedState != null && model.getCachedListSize() > 0) {
       showHelpText(false);
     }
 
@@ -112,31 +113,42 @@ public class SearchScreen
     model = null;
   }
 
+  private void resetScreen() {
+    Log.d(TAG, "resetScreen:");
+    input.setText(null);
+    mainOps.hideKeyboard();
+    model.clearCachedList();
+    toggleActionButtons();
+    adapter.notifyDataSetChanged();
+    showHelpText(true);
+  }
+
   private void handleButtonClickSearch() {
+    mainOps.hideKeyboard();
     final String text = getInput();
-    if (model.isEmptyText(text)) {
+
+    if (text.isEmpty()) {
       showErrorMessage(getString(R.string.screen_search_error_empty_input));
-      return;
-    }
-    if (model.isMinimumLength(text)) {
+    } else if (text.trim().length() < 3) {
       showErrorMessage(getString(R.string.screen_search_error_min_count));
-      return;
-    }
-    if (model.isMaximumLength(text)) {
+    } else if (text.trim().length() > 50) {
       showErrorMessage(getString(R.string.screen_search_error_max_count));
-      return;
+    } else {
+
+      model.searchText(text).observe(this, verses -> {
+        if (verses == null || verses.isEmpty()) {
+          showHelpText(true);
+          final String template = getString(R.string.screen_search_text_empty_results);
+          final String htmlText = String.format(template, text);
+          textView.setText(HtmlCompat.fromHtml(htmlText, FROM_HTML_MODE_LEGACY));
+        } else {
+          showHelpText(false);
+          adapter.refreshList(verses);
+          adapter.notifyDataSetChanged();
+        }
+      });
+
     }
-    model.searchText(text).observe(this, verses -> {
-      if (verses == null || verses.isEmpty()) {
-        showHelpText(true);
-        textView.setText(HtmlCompat.fromHtml(getString(
-            R.string.screen_search_text_empty_results), FROM_HTML_MODE_LEGACY));
-        return;
-      }
-      showHelpText(false);
-      adapter.refreshList(verses);
-      adapter.notifyDataSetChanged();
-    });
   }
 
   private void showErrorMessage(@NonNull final String message) {
@@ -146,87 +158,18 @@ public class SearchScreen
   }
 
   private void showHelpText(boolean showHelp) {
-    toggleActionButtons();
     list.setVisibility((!showHelp) ? View.VISIBLE : View.GONE);
     imageView.setVisibility((showHelp) ? View.VISIBLE : View.GONE);
     textView.setVisibility((showHelp) ? View.VISIBLE : View.GONE);
     textView.setText(HtmlCompat.fromHtml(getString(
         R.string.screen_search_text_default), FROM_HTML_MODE_LEGACY));
+    toggleActionButtons();
   }
 
   @NonNull
   private String getInput() {
     final Editable editable = input.getText();
     return (editable != null) ? editable.toString().trim() : "";
-  }
-
-  @Override
-  public void showFormattedResultContent(@NonNull final TextView textView,
-                                         @NonNull final Verse verse) {
-    model.getBook(verse.getBookNumber()).observe(this, book -> {
-      if (book == null) {
-        Log.e(TAG, "showFormattedResultContent: no book found for this verse [" + verse + "]");
-        return;
-      }
-      textView.setText(HtmlCompat.fromHtml(String.format(contentTemplate,
-                                                         book.getName(),
-                                                         verse.getChapterNumber(),
-                                                         verse.getVerseNumber(),
-                                                         verse.getText()), FROM_HTML_MODE_LEGACY));
-    });
-  }
-
-  @NonNull
-  @Override
-  public List<?> getAdapterList() {
-    return model.getAdapterList();
-  }
-
-  @NonNull
-  @Override
-  public Object getAdapterItemAt(final int position) {
-    return model.getAdapterItemAt(position);
-  }
-
-  @Override
-  public void addToAdapterList(@NonNull final Object object) {
-    model.addToAdapterList((Verse) object);
-  }
-
-  @Override
-  public int getAdapterListSize() {
-    return model.getAdapterListSize();
-  }
-
-  @Override
-  public void clearAdapterList() {
-    model.clearAdapterList();
-    toggleActionButtons();
-  }
-
-  @Override
-  public void addSelectedResult(@NonNull final Verse verse) {
-    model.addSelectedResult(verse);
-  }
-
-  @Override
-  public void removeSelectedText(@NonNull final String text) {
-    model.removeSelectedText(text);
-  }
-
-  @Override
-  public boolean isResultSelected(@NonNull final Verse verse) {
-    return model.isResultSelected(verse);
-  }
-
-  @Override
-  public void addSelectedText(@NonNull final String text) {
-    model.addSelectedText(text);
-  }
-
-  @Override
-  public void removeSelectedResult(@NonNull final Verse verse) {
-    model.removeSelectedResult(verse);
   }
 
   @Override
@@ -237,27 +180,93 @@ public class SearchScreen
     butReset.setVisibility(visibilityValue);
   }
 
+  @Override
+  public void showContent(@NonNull final TextView textView,
+                          @NonNull final Verse verse) {
+    model.getBook(verse.getBookNumber()).observe(this, book -> {
+      if (book == null) {
+        Log.e(TAG, "showContent: no book found for this verse [" + verse + "]");
+        return;
+      }
+      textView.setText(HtmlCompat.fromHtml(String.format(contentTemplate,
+                                                         book.getName(),
+                                                         verse.getChapterNumber(),
+                                                         verse.getVerseNumber(),
+                                                         verse.getText()), FROM_HTML_MODE_LEGACY));
+    });
+  }
+
+  @Override
+  public void refreshCachedList(@NonNull final List<?> list) {
+    model.refreshCachedList(list);
+  }
+
+  @NonNull
+  @Override
+  public List<?> getCachedList() {
+    return model.getCachedList();
+  }
+
+  @NonNull
+  @Override
+  public Object getCachedItemAt(final int position) {
+    return model.getCachedItemAt(position);
+  }
+
+  @Override
+  public int getCachedListSize() {
+    return model.getCachedListSize();
+  }
+
+  @Override
+  public void addSelection(@NonNull final Verse verse) {
+    model.addSelection(verse);
+  }
+
+  @Override
+  public void removeSelection(@NonNull final Verse verse) {
+    model.removeSelection(verse);
+  }
+
+  @Override
+  public void addSelection(@NonNull final String text) {
+    model.addSelection(text);
+  }
+
+  @Override
+  public void removeSelection(@NonNull final String text) {
+    model.removeSelection(text);
+  }
+
+  @Override
+  public boolean isSelected(@NonNull final Verse verse) {
+    return model.isSelected(verse);
+  }
+
   private void handleButtonClickBookmark() {
     Log.d(TAG, "handleButtonClickBookmark() called");
+    mainOps.hideKeyboard();
     if (model.isSelectionEmpty()) {
       mainOps.showErrorMessage(getString(R.string.screen_search_error_empty_selection));
       return;
     }
-    final HashSet<Verse> results = model.getSelectedResults();
+    final HashSet<Verse> results = model.getSelectedVerses();
     Verse[] verseArray = new Verse[results.size()];
     results.toArray(verseArray);
     Bundle args = new Bundle();
     args.putParcelableArray(BookmarkScreen.ARG_ARRAY_VERSES, verseArray);
     NavHostFragment.findNavController(this)
                    .navigate(R.id.action_searchScreen_to_bookmarkScreen, args);
+    resetScreen();
   }
 
   private void handleButtonClickShare() {
+    mainOps.hideKeyboard();
     if (model.isSelectionEmpty()) {
       mainOps.showErrorMessage(getString(R.string.screen_search_error_empty_selection));
       return;
     }
-    final HashSet<String> selectedTextList = model.getSelectedText();
+    final HashSet<String> selectedTextList = model.getSelectedTexts();
     final StringBuilder shareText = new StringBuilder();
     for (final String text : selectedTextList) {
       shareText.append(text);
@@ -265,17 +274,16 @@ public class SearchScreen
     }
     mainOps.shareText(String.format(
         getString(R.string.screen_search_selection_share_template), shareText));
+    resetScreen();
   }
 
   private void handleButtonClickReset() {
+    mainOps.hideKeyboard();
     if (model.isSelectionEmpty()) {
       mainOps.showErrorMessage(getString(R.string.screen_search_error_empty_selection));
       return;
     }
-    model.clearAdapterList();
-    toggleActionButtons();
-    adapter.notifyDataSetChanged();
-    showHelpText(true);
+    resetScreen();
   }
 
 }

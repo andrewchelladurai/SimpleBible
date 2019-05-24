@@ -8,30 +8,28 @@ import java.util.List;
 
 public interface SearchScreenOps {
 
-  void showFormattedResultContent(@NonNull TextView textView, @NonNull Verse verse);
-
-  @NonNull
-  List<?> getAdapterList();
-
-  @NonNull
-  Object getAdapterItemAt(int position);
-
-  void addToAdapterList(@NonNull Object object);
-
-  int getAdapterListSize();
-
-  void clearAdapterList();
-
-  void addSelectedResult(@NonNull Verse verse);
-
-  void removeSelectedText(@NonNull String text);
-
-  boolean isResultSelected(@NonNull Verse verse);
-
-  void addSelectedText(@NonNull String text);
-
-  void removeSelectedResult(@NonNull Verse verse);
-
   void toggleActionButtons();
+
+  void showContent(@NonNull TextView textView, @NonNull Verse verse);
+
+  void refreshCachedList(@NonNull List<?> list);
+
+  @NonNull
+  List<?> getCachedList();
+
+  @NonNull
+  Object getCachedItemAt(int position);
+
+  int getCachedListSize();
+
+  void addSelection(@NonNull Verse verse);
+
+  void removeSelection(@NonNull Verse verse);
+
+  void addSelection(@NonNull String text);
+
+  void removeSelection(@NonNull String text);
+
+  boolean isSelected(@NonNull Verse verse);
 
 }

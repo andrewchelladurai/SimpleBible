@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible.model;
 
 import android.app.Application;
+import android.util.Log;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -18,10 +19,13 @@ import java.util.List;
 public class SearchScreenModel
     extends AndroidViewModel {
 
+  private static final String TAG = "SearchScreenModel";
+
   private final BookDao bookDao;
   private final VerseDao verseDao;
-  private HashSet<Verse> selectedVerseSet = new HashSet<>();
-  private HashSet<String> selectedTextSet = new HashSet<>();
+
+  private HashSet<Verse> selectedVerses = new HashSet<>();
+  private HashSet<String> selectedTexts = new HashSet<>();
   private ArrayList<Verse> list = new ArrayList<>();
 
   public SearchScreenModel(@NonNull final Application application) {
@@ -30,80 +34,72 @@ public class SearchScreenModel
     verseDao = SbDatabase.getDatabase(getApplication()).getVerseDao();
   }
 
-  public boolean isEmptyText(final @NonNull String text) {
-    return text.trim().isEmpty();
+  public void refreshCachedList(@NonNull final List<?> newList) {
+    clearCachedList();
+    for (final Object object : newList) {
+      list.add((Verse) object);
+    }
+    Log.d(TAG, "refreshCachedList: cached [" + getCachedListSize() + "] records");
   }
 
-  public boolean isMinimumLength(final @NonNull String text) {
-    return text.trim().length() < 3;
+  public Verse getCachedItemAt(final int position) {
+    return list.get(position);
   }
 
-  public boolean isMaximumLength(final @NonNull String text) {
-    return text.trim().length() > 50;
+  public int getCachedListSize() {
+    return list.size();
+  }
+
+  public boolean isSelected(@NonNull final Verse verse) {
+    return selectedVerses.contains(verse);
+  }
+
+  public void removeSelection(@NonNull final Verse verse) {
+    selectedVerses.remove(verse);
+  }
+
+  public void removeSelection(@NonNull final String text) {
+    selectedTexts.remove(text);
+  }
+
+  public void addSelection(@NonNull final String text) {
+    selectedTexts.add(text);
+  }
+
+  public void addSelection(@NonNull final Verse verse) {
+    selectedVerses.add(verse);
   }
 
   public LiveData<List<Verse>> searchText(@NonNull final String text) {
     return verseDao.getRecordsWithText("%" + text + "%");
   }
 
+  public boolean isSelectionEmpty() {
+    return selectedVerses.isEmpty();
+  }
+
   public LiveData<Book> getBook(@IntRange(from = 1, to = 66) final int bookNumber) {
     return bookDao.getRecordLive(bookNumber);
   }
 
-  public List<?> getAdapterList() {
+  public List<?> getCachedList() {
     return list;
   }
 
-  public Verse getAdapterItemAt(final int position) {
-    return list.get(position);
+  @NonNull
+  public HashSet<Verse> getSelectedVerses() {
+    return selectedVerses;
   }
 
-  public int getAdapterListSize() {
-    return list.size();
+  @NonNull
+  public HashSet<String> getSelectedTexts() {
+    return selectedTexts;
   }
 
-  public void clearAdapterList() {
+  public void clearCachedList() {
     list.clear();
-    selectedVerseSet.clear();
-    selectedTextSet.clear();
-  }
-
-  public void addToAdapterList(final Verse verse) {
-    list.add(verse);
-  }
-
-  public boolean isResultSelected(@NonNull final Verse verse) {
-    return selectedVerseSet.contains(verse);
-  }
-
-  public void removeSelectedResult(@NonNull final Verse verse) {
-    selectedVerseSet.remove(verse);
-  }
-
-  public void removeSelectedText(@NonNull final String text) {
-    selectedTextSet.remove(text);
-  }
-
-  public void addSelectedResult(@NonNull final Verse verse) {
-    selectedVerseSet.add(verse);
-  }
-
-  public void addSelectedText(@NonNull final String text) {
-    selectedTextSet.add(text);
-  }
-
-  @NonNull
-  public HashSet<Verse> getSelectedResults() {
-    return selectedVerseSet;
-  }
-
-  public boolean isSelectionEmpty() {
-    return selectedVerseSet.isEmpty();
-  }
-
-  @NonNull
-  public HashSet<String> getSelectedText() {
-    return selectedTextSet;
+    selectedVerses.clear();
+    selectedTexts.clear();
   }
 
 }

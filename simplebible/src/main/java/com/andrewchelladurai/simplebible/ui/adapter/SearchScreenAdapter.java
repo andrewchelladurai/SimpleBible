@@ -1,6 +1,5 @@
 package com.andrewchelladurai.simplebible.ui.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ public class SearchScreenAdapter
     extends RecyclerView.Adapter
     implements SbRvAdapterOps {
 
-  private static final String TAG = "SearchScreenAdapter";
   private SearchScreenOps ops;
 
   public SearchScreenAdapter(@NonNull final SearchScreenOps ops) {
@@ -37,27 +35,24 @@ public class SearchScreenAdapter
 
   @Override
   public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
-    ((SearchResultView) holder).updateContent(ops.getAdapterItemAt(position));
+    ((SearchResultView) holder).updateContent(ops.getCachedItemAt(position));
   }
 
   @Override
   public int getItemCount() {
-    return ops.getAdapterListSize();
+    return ops.getCachedListSize();
   }
 
   @Override
   public void refreshList(@NonNull final List<?> newList) {
-    ops.clearAdapterList();
-    for (final Object object : newList) {
-      ops.addToAdapterList(object);
-    }
-    Log.d(TAG, "refreshList: list now contains [" + getItemCount() + "] records");
+    ops.refreshCachedList(newList);
+    ops.toggleActionButtons();
   }
 
   @NonNull
   @Override
   public List<?> getList() {
-    return ops.getAdapterList();
+    return ops.getCachedList();
   }
 
   class SearchResultView
@@ -79,20 +74,20 @@ public class SearchScreenAdapter
     @Override
     public void updateContent(final Object object) {
       verse = (Verse) object;
-      ops.showFormattedResultContent(textView, verse);
+      ops.showContent(textView, verse);
       textView.setText(verse.getText());
-      rootView.setSelected(ops.isResultSelected(verse));
+      rootView.setSelected(ops.isSelected(verse));
     }
 
     private void toggleVerseSelection() {
-      if (ops.isResultSelected(verse)) {
-        ops.removeSelectedResult(verse);
-        ops.removeSelectedText(String.valueOf(textView.getText()));
+      if (ops.isSelected(verse)) {
+        ops.removeSelection(verse);
+        ops.removeSelection(String.valueOf(textView.getText()));
       } else {
-        ops.addSelectedResult(verse);
-        ops.addSelectedText(String.valueOf(textView.getText()));
+        ops.addSelection(verse);
+        ops.addSelection(String.valueOf(textView.getText()));
       }
-      rootView.setSelected(ops.isResultSelected(verse));
+      rootView.setSelected(ops.isSelected(verse));
       ops.toggleActionButtons();
     }
 
