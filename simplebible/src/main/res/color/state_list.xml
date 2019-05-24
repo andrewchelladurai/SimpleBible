@@ -1,4 +1,5 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:color="?colorAccent" android:state_selected="true" />
-  <item android:color="?android:colorBackground" />
+  <item android:color="#FECEA8" android:state_selected="true" />
+  <item android:color="#FAFAFA" />
+  <!--todo use attribute ?colorSurface rather than an hardcoded value-->
 </selector>

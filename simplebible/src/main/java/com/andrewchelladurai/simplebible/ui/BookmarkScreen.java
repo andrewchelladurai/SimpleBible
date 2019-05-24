@@ -11,6 +11,7 @@ import com.andrewchelladurai.simplebible.R;
 
 public class BookmarkScreen extends Fragment {
 
+  public static final String ARG_ARRAY_VERSES = "ARG_ARRAY_VERSES";
   private OnFragmentInteractionListener mListener;
 
   @Override public void onAttach(@NonNull Context context) {
