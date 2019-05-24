@@ -128,17 +128,17 @@ public class SearchScreen
     final String text = getInput();
 
     if (text.isEmpty()) {
-      showErrorMessage(getString(R.string.screen_search_error_empty_input));
+      showErrorMessage(getString(R.string.search_scr_error_empty_input));
     } else if (text.trim().length() < 3) {
-      showErrorMessage(getString(R.string.screen_search_error_min_count));
+      showErrorMessage(getString(R.string.search_scr_err_min_count));
     } else if (text.trim().length() > 50) {
-      showErrorMessage(getString(R.string.screen_search_error_max_count));
+      showErrorMessage(getString(R.string.search_scr_err_max_count));
     } else {
 
       model.searchText(text).observe(this, verses -> {
         if (verses == null || verses.isEmpty()) {
           showHelpText(true);
-          final String template = getString(R.string.screen_search_text_empty_results);
+          final String template = getString(R.string.search_scr_text_empty_results);
           final String htmlText = String.format(template, text);
           textView.setText(HtmlCompat.fromHtml(htmlText, FROM_HTML_MODE_LEGACY));
         } else {
@@ -162,7 +162,7 @@ public class SearchScreen
     imageView.setVisibility((showHelp) ? View.VISIBLE : View.GONE);
     textView.setVisibility((showHelp) ? View.VISIBLE : View.GONE);
     textView.setText(HtmlCompat.fromHtml(getString(
-        R.string.screen_search_text_default), FROM_HTML_MODE_LEGACY));
+        R.string.search_scr_text_default), FROM_HTML_MODE_LEGACY));
     toggleActionButtons();
   }
 
@@ -247,7 +247,7 @@ public class SearchScreen
     Log.d(TAG, "handleButtonClickBookmark() called");
     mainOps.hideKeyboard();
     if (model.isSelectionEmpty()) {
-      mainOps.showErrorMessage(getString(R.string.screen_search_error_empty_selection));
+      mainOps.showErrorMessage(getString(R.string.search_scr_err_empty_selection));
       return;
     }
     final HashSet<Verse> results = model.getSelectedVerses();
@@ -263,7 +263,7 @@ public class SearchScreen
   private void handleButtonClickShare() {
     mainOps.hideKeyboard();
     if (model.isSelectionEmpty()) {
-      mainOps.showErrorMessage(getString(R.string.screen_search_error_empty_selection));
+      mainOps.showErrorMessage(getString(R.string.search_scr_err_empty_selection));
       return;
     }
     final HashSet<String> selectedTextList = model.getSelectedTexts();
@@ -273,14 +273,14 @@ public class SearchScreen
       shareText.append("\n");
     }
     mainOps.shareText(String.format(
-        getString(R.string.screen_search_selection_share_template), shareText));
+        getString(R.string.search_scr_selection_share_template), shareText));
     resetScreen();
   }
 
   private void handleButtonClickReset() {
     mainOps.hideKeyboard();
     if (model.isSelectionEmpty()) {
-      mainOps.showErrorMessage(getString(R.string.screen_search_error_empty_selection));
+      mainOps.showErrorMessage(getString(R.string.search_scr_err_empty_selection));
       return;
     }
     resetScreen();
