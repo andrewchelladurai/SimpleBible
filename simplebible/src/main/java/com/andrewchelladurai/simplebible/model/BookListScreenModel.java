@@ -1,6 +1,8 @@
 package com.andrewchelladurai.simplebible.model;
 
 import android.app.Application;
+import android.util.Log;
+import android.widget.ArrayAdapter;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -15,7 +17,10 @@ import java.util.List;
 public class BookListScreenModel
     extends AndroidViewModel {
 
+  private static final String TAG = "BookListScreenModel";
+
   private final BookDao bookDao;
+  private ArrayAdapter<String> bookNameAdapter;
 
   public BookListScreenModel(@NonNull final Application application) {
     super(application);
@@ -36,6 +41,15 @@ public class BookListScreenModel
       }
     }
     return 0;
+  }
+
+  public ArrayAdapter<String> getBookNameAdapter() {
+    return bookNameAdapter;
+  }
+
+  public void setBookNameAdapter(@NonNull final ArrayAdapter<String> adapter) {
+    bookNameAdapter = adapter;
+    Log.d(TAG, "setBookNameAdapter: cached [" + bookNameAdapter.getCount() + "] records");
   }
 
 }

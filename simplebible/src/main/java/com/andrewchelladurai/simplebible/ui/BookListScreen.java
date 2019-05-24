@@ -29,17 +29,10 @@ public class BookListScreen
     implements BookListScreenOps {
 
   private static final String TAG = "BookListScreen";
-
-  private static ArrayAdapter<String> bookNameAdapter;
-
   private BookListAdapter listAdapter;
-
   private RecyclerView list;
-
   private AutoCompleteTextView input;
-
   private SimpleBibleScreenOps activityOps;
-
   private BookListScreenModel model;
 
   @Override
@@ -75,17 +68,39 @@ public class BookListScreen
   }
 
   private void setupInputField() {
-    // setup listener to handle clicks on the auto-complete drop down items
-    input.setOnItemClickListener((parent, view, position, id) -> {
-      final String bookName = bookNameAdapter.getItem(position);
-      if (bookName != null && !bookName.isEmpty()) {
-        activityOps.hideKeyboard();
-        handleClickBookSelection(bookName);
-      } else {
-        Log.e(TAG, "setupInputField: this is unexpected, how did I get here?");
-      }
-    });
-    // setup listener to handle the search button click on the keyboard
+    final ArrayAdapter<String> nameAdapter = model.getBookNameAdapter();
+    if (nameAdapter != null && nameAdapter.getCount() == BookUtils.EXPECTED_COUNT) {
+      // setup listener to handle clicks on the auto-complete drop down items
+      setupInputItemClickListener(nameAdapter);
+      // setup listener to handle the search button click on the keyboard
+      setupEditorActionListener();
+
+      input.setAdapter(nameAdapter);
+      Log.d(TAG, "setupInputField: using cached [" + nameAdapter.getCount() + "] records");
+    } else {
+      model.getAllBooks().observe(this, list -> {
+        if (list == null || list.isEmpty() || list.size() != BookUtils.EXPECTED_COUNT) {
+          final String message = getString(R.string.blist_screen_error_incorrect_book_count);
+          Log.e(TAG, "setupInputField: " + message);
+          activityOps.showErrorScreen(message, true);
+          return;
+        }
+        final ArrayList<String> names = new ArrayList<>(list.size());
+        for (final Book book : list) {
+          names.add(book.getName());
+        }
+        model.setBookNameAdapter(new ArrayAdapter<>(
+            requireContext(), android.R.layout.simple_dropdown_item_1line, names));
+
+        input.setAdapter(model.getBookNameAdapter());
+        setupInputItemClickListener(model.getBookNameAdapter());
+        setupEditorActionListener();
+      });
+      Log.d(TAG, "setupInputField:");
+    }
+  }
+
+  private void setupEditorActionListener() {
     input.setOnEditorActionListener((v, actionId, event) -> {
       if (event == null) {
         final String bookName = input.getText().toString().trim();
@@ -98,30 +113,20 @@ public class BookListScreen
       }
       return false;
     });
-    // if the bookNameAdapter is not null, it means it is previously setup, so let's reuse it
-    if (bookNameAdapter != null && bookNameAdapter.getCount() == BookUtils.EXPECTED_COUNT) {
-      input.setAdapter(bookNameAdapter);
-      Log.d(TAG, "setupInputField: using [" + bookNameAdapter.getCount()
-                 + "] records from cached bookNameAdapter");
-      return;
-    }
+    Log.d(TAG, "setupEditorActionListener:");
+  }
 
-    model.getAllBooks().observe(this, list -> {
-      if (list == null || list.isEmpty() || list.size() != BookUtils.EXPECTED_COUNT) {
-        final String message = getString(R.string.blist_screen_error_incorrect_book_count);
-        Log.e(TAG, "setupInputField: " + message);
-        activityOps.showErrorScreen(message, true);
-        return;
+  private void setupInputItemClickListener(@NonNull final ArrayAdapter<String> nameAdapter) {
+    input.setOnItemClickListener((parent, view, position, id) -> {
+      final String bookName = nameAdapter.getItem(position);
+      if (bookName != null && !bookName.isEmpty()) {
+        activityOps.hideKeyboard();
+        handleClickBookSelection(bookName);
+      } else {
+        Log.e(TAG, "setupInputItemClickListener: this is unexpected, how did I get here?");
       }
-      final ArrayList<String> names = new ArrayList<>(list.size());
-      for (final Book book : list) {
-        names.add(book.getName());
-      }
-      bookNameAdapter = new ArrayAdapter<>(
-          requireContext(), android.R.layout.simple_dropdown_item_1line, names);
-      input.setAdapter(bookNameAdapter);
     });
-    Log.d(TAG, "setupInputField() returned");
+    Log.d(TAG, "setupInputItemClickListener:");
   }
 
   private void setupListView() {
