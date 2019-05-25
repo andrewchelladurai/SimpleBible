@@ -71,17 +71,25 @@ public class HomeScreen
     showLoadingScreen();
 
     if (savedState == null && !flagSetupFinished) {
+      // this is a new instance of the fragment and the DB is not yet setup. If yes then initiate
+      // the database setup process.
       activityOps.hideNavigationComponent();
       startDbSetupService();
-    }
-    if (flagSetupFinished
-        && !model.getCachedVerseText().isEmpty()
-        && model.getCachedVerseDay() == Calendar.getInstance().get(Calendar.DAY_OF_YEAR)) {
-      // hide progress & show shareFab since the dbSetupFlag is set
+    } else if (savedState != null
+               && flagSetupFinished
+               && !model.getCachedVerseText().isEmpty()
+               && model.getCachedVerseDay() == Calendar.getInstance().get(Calendar.DAY_OF_YEAR)) {
+      // if there is a previously saved instance and the DB is setup, it means that the verses
+      // are also present. Verify that this is so and then check if the day has changed, if no
+      // then use the cached verse for the day
       progressBar.setVisibility(GONE);
       fabShare.setVisibility(VISIBLE);
       tvVerse.setText(HtmlCompat.fromHtml(model.getCachedVerseText(), FROM_HTML_MODE_LEGACY));
       Log.d(TAG, "onCreateView: using cached verse text");
+    } else {
+      // if we are here, it means we have a previous saved instance and a cached version of the
+      // verse also exists BUT the day has changed. So we must update the day's verse.
+      showDailyVerse();
     }
     return view;
   }
