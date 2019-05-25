@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import com.andrewchelladurai.simplebible.data.SbDatabase;
-import com.andrewchelladurai.simplebible.data.dao.VerseDao;
+import com.andrewchelladurai.simplebible.data.entities.Book;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 
@@ -23,14 +23,12 @@ public class ChapterScreenModel
   private static int bookNumber = 1;
   @IntRange(from = 1)
   private static int chapterNumber = 1;
-  private final VerseDao verseDao;
   private ArrayList<Verse> cacheList = new ArrayList<>();
   private HashSet<Verse> selectedVerses = new HashSet<>();
   private HashSet<String> selectedTexts = new HashSet<>();
 
   public ChapterScreenModel(@NonNull final Application application) {
     super(application);
-    verseDao = SbDatabase.getDatabase(application).getVerseDao();
   }
 
   @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT)
@@ -52,7 +50,9 @@ public class ChapterScreenModel
   }
 
   public LiveData<List<Verse>> getChapterVerses() {
-    return verseDao.getRecordsOfChapter(bookNumber, chapterNumber);
+    return SbDatabase.getDatabase(getApplication())
+                     .getVerseDao()
+                     .getRecordsOfChapter(bookNumber, chapterNumber);
   }
 
   public void updateCache(@NonNull final List<?> newList) {
@@ -116,6 +116,12 @@ public class ChapterScreenModel
   public void cleatSelections() {
     selectedTexts.clear();
     selectedVerses.clear();
+  }
+
+  public LiveData<Book> getBook() {
+    return SbDatabase.getDatabase(getApplication())
+                     .getBookDao()
+                     .getRecordLive(getBookNumber());
   }
 
 }

@@ -112,8 +112,21 @@ public class ChapterScreen
         activityOps.showErrorScreen(message, true);
         return;
       }
-      // TODO: 25/5/19 - Update title
-      // titleView.setText();
+
+      model.getBook().observe(this, book -> {
+        if (book == null) {
+          final String template = getString(R.string.chapter_src_err_book_not_found);
+          final String message = ": onViewCreated: "
+                                 + String.format(template, model.getBookNumber());
+          Log.e(TAG, message);
+          activityOps.showErrorScreen(message, true);
+          return;
+        }
+
+        final String template = getString(R.string.chapter_scr_title_template);
+        titleView.setText(String.format(template, book.getName(), model.getChapterNumber()));
+      });
+
       adapter.refreshList(verses);
       adapter.notifyDataSetChanged();
     });
