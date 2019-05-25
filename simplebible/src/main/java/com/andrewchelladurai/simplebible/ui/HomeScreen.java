@@ -142,9 +142,6 @@ public class HomeScreen
   private void showDailyVerse() {
     Log.d(TAG, "showDailyVerse:");
 
-    progressBar.setVisibility(GONE);
-    fabShare.setVisibility(VISIBLE);
-
     final String reference = model.getVerseReferenceForToday(
         getString(R.string.default_verse_reference),
         getResources().getStringArray(R.array.daily_verse));
@@ -180,6 +177,10 @@ public class HomeScreen
 
         // saved a cached version so we can use it later and avoid redoing all this
         model.setCachedVerseText(formattedText);
+
+        // hide the loading view and show the share fab
+        progressBar.setVisibility(GONE);
+        fabShare.setVisibility(VISIBLE);
       });
     });
 
