@@ -38,8 +38,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0-alpha06'
 
     // NavigationComponent Dependencies
-    implementation 'android.arch.navigation:navigation-fragment:1.0.0'
-    implementation 'android.arch.navigation:navigation-ui:1.0.0'
+    implementation "androidx.navigation:navigation-fragment:2.1.0-alpha04"
+    implementation "androidx.navigation:navigation-ui:2.1.0-alpha04"
 
     // Room Persistence Storage Dependencies
     implementation "androidx.room:room-runtime:2.1.0-beta01"
