@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
@@ -20,6 +21,7 @@ import com.andrewchelladurai.simplebible.ui.adapter.ChapterScreenAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleScreenOps;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class ChapterScreen
@@ -37,7 +39,7 @@ public class ChapterScreen
   private AppCompatImageButton shareButView;
   private AppCompatImageButton bookmarkButView;
   private AppCompatImageButton resetButView;
-  private AppCompatImageButton listButView;
+  private AppCompatImageButton chaptersButView;
   private TextView titleView;
 
   public ChapterScreen() {
@@ -68,9 +70,13 @@ public class ChapterScreen
 
     // TODO: 25/5/19 implement interaction handlers for actions
     shareButView = view.findViewById(R.id.chapter_scr_butt_share);
+    shareButView.setOnClickListener(v -> handleClickActionShare());
     bookmarkButView = view.findViewById(R.id.chapter_scr_butt_bmark);
+    bookmarkButView.setOnClickListener(v -> handleClickActionBookmark());
     resetButView = view.findViewById(R.id.chapter_scr_butt_clear);
-    listButView = view.findViewById(R.id.chapter_scr_butt_chapters);
+    resetButView.setOnClickListener(v -> handleClickActionReset());
+    chaptersButView = view.findViewById(R.id.chapter_scr_butt_chapters);
+    chaptersButView.setOnClickListener(v -> handleClickActionChapters());
 
     if (savedState == null) {
       final Bundle arguments = getArguments();
@@ -121,13 +127,56 @@ public class ChapterScreen
     adapter = null;
   }
 
+  private void handleClickActionChapters() {
+    // TODO: 25/5/19 implement this
+  }
+
+  private void handleClickActionReset() {
+    model.cleatSelections();
+    adapter.notifyDataSetChanged();
+    toggleActionButtons();
+  }
+
+  private void handleClickActionBookmark() {
+    // get the selected verses into an array so we can pass it
+    final HashSet<Verse> selection = model.getSelection();
+    final Verse[] verseArray = new Verse[selection.size()];
+    selection.toArray(verseArray);
+
+    // now clear the selection
+    handleClickActionReset();
+
+    // now pass the array to the BookmarkScreen
+    Bundle bundle = new Bundle();
+    bundle.putParcelableArray(BookmarkScreen.ARG_ARRAY_VERSES, verseArray);
+    NavHostFragment.findNavController(this)
+                   .navigate(R.id.action_chapterScreen_to_bookmarkScreen, bundle);
+  }
+
+  private void handleClickActionShare() {
+    // get the list of texts that are selected and prepare it for sharing
+    final HashSet<String> selectedTextList = model.getSelectedText();
+    final StringBuilder shareText = new StringBuilder();
+    for (final String text : selectedTextList) {
+      shareText.append(text);
+      shareText.append("\n");
+    }
+
+    // now reset the selected list
+    handleClickActionReset();
+
+    // now let the activity do it's job
+    activityOps.shareText(String.format(
+        getString(R.string.search_scr_selection_share_template), shareText));
+  }
+
   @Override
   public void toggleActionButtons() {
     final int visibilityValue = (model.isSelectionEmpty()) ? View.GONE : View.VISIBLE;
     shareButView.setVisibility(visibilityValue);
     bookmarkButView.setVisibility(visibilityValue);
     resetButView.setVisibility(visibilityValue);
-    listButView.setVisibility(visibilityValue);
+    chaptersButView.setVisibility(visibilityValue);
   }
 
   @Override

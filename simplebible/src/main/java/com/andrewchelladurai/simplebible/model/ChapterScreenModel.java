@@ -113,4 +113,9 @@ public class ChapterScreenModel
     return selectedTextSet;
   }
 
+  public void cleatSelections() {
+    selectedTextSet.clear();
+    selectedVerseSet.clear();
+  }
+
 }

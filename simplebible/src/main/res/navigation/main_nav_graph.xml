@@ -63,6 +63,9 @@
       android:name="ARG_CHAPTER_NUMBER"
       android:defaultValue="1"
       app:argType="integer" />
+    <action
+      android:id="@+id/action_chapterScreen_to_bookmarkScreen"
+      app:destination="@id/bookmarkScreen" />
   </fragment>
 
   <fragment
