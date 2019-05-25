@@ -155,10 +155,12 @@ public class BookListScreen
   @Override
   public void handleClickBookSelection(@NonNull final String bookName) {
     Log.d(TAG, "handleClickBookSelection(): bookName = [" + bookName + "]");
+    activityOps.hideKeyboard();
     if (bookName.isEmpty()) {
       Log.e(TAG, "handleClickBookSelection: how did I get an empty bookName, ignoring it");
       return;
     }
+
     final int bookNumber = model.getBookNumber(bookName, listAdapter.getList());
     if (bookNumber == 0) {
       input.requestFocus();
@@ -166,6 +168,8 @@ public class BookListScreen
       activityOps.showErrorMessage(message);
       return;
     }
+
+    input.setText(null);
     Bundle args = new Bundle();
     args.putInt(ChapterScreen.ARG_BOOK_NUMBER, bookNumber);
     args.putInt(ChapterScreen.ARG_CHAPTER_NUMBER, 1);
