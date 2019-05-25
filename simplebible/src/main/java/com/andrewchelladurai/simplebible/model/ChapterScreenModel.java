@@ -25,8 +25,8 @@ public class ChapterScreenModel
   private static int chapterNumber = 1;
   private final VerseDao verseDao;
   private ArrayList<Verse> cacheList = new ArrayList<>();
-  private HashSet<Verse> selectedVerseSet = new HashSet<>();
-  private HashSet<String> selectedTextSet = new HashSet<>();
+  private HashSet<Verse> selectedVerses = new HashSet<>();
+  private HashSet<String> selectedTexts = new HashSet<>();
 
   public ChapterScreenModel(@NonNull final Application application) {
     super(application);
@@ -79,43 +79,43 @@ public class ChapterScreenModel
     return cacheList.get(position);
   }
 
-  public boolean isResultSelected(@NonNull final Verse verse) {
-    return selectedVerseSet.contains(verse);
+  public boolean isSelected(@NonNull final Verse verse) {
+    return selectedVerses.contains(verse);
   }
 
   public void removeSelection(@NonNull final Verse verse) {
-    selectedVerseSet.remove(verse);
+    selectedVerses.remove(verse);
   }
 
   public void removeSelection(@NonNull final String text) {
-    selectedTextSet.remove(text);
+    selectedTexts.remove(text);
   }
 
   public void addSelection(@NonNull final Verse verse) {
-    selectedVerseSet.add(verse);
+    selectedVerses.add(verse);
   }
 
   public void addSelection(@NonNull final String text) {
-    selectedTextSet.add(text);
+    selectedTexts.add(text);
   }
 
   @NonNull
-  public HashSet<Verse> getSelection() {
-    return selectedVerseSet;
+  public HashSet<Verse> getSelectedVerses() {
+    return selectedVerses;
   }
 
   public boolean isSelectionEmpty() {
-    return selectedVerseSet.isEmpty();
+    return selectedVerses.isEmpty();
   }
 
   @NonNull
-  public HashSet<String> getSelectedText() {
-    return selectedTextSet;
+  public HashSet<String> getSelectedTexts() {
+    return selectedTexts;
   }
 
   public void cleatSelections() {
-    selectedTextSet.clear();
-    selectedVerseSet.clear();
+    selectedTexts.clear();
+    selectedVerses.clear();
   }
 
 }

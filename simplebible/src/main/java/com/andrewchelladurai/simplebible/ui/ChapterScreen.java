@@ -139,7 +139,7 @@ public class ChapterScreen
 
   private void handleClickActionBookmark() {
     // get the selected verses into an array so we can pass it
-    final HashSet<Verse> selection = model.getSelection();
+    final HashSet<Verse> selection = model.getSelectedVerses();
     final Verse[] verseArray = new Verse[selection.size()];
     selection.toArray(verseArray);
 
@@ -155,7 +155,7 @@ public class ChapterScreen
 
   private void handleClickActionShare() {
     // get the list of texts that are selected and prepare it for sharing
-    final HashSet<String> selectedTextList = model.getSelectedText();
+    final HashSet<String> selectedTextList = model.getSelectedTexts();
     final StringBuilder shareText = new StringBuilder();
     for (final String text : selectedTextList) {
       shareText.append(text);
@@ -203,7 +203,7 @@ public class ChapterScreen
 
   @Override
   public boolean isSelected(@NonNull final Verse verse) {
-    return model.isResultSelected(verse);
+    return model.isSelected(verse);
   }
 
   @Override
