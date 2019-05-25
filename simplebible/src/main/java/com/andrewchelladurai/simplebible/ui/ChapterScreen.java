@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.fragment.NavHostFragment;
@@ -16,10 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
 import com.andrewchelladurai.simplebible.model.ChapterScreenModel;
+import com.andrewchelladurai.simplebible.ui.adapter.ChapterNumberAdapter;
 import com.andrewchelladurai.simplebible.ui.adapter.ChapterScreenAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleScreenOps;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -31,11 +32,13 @@ public class ChapterScreen
   public static final String ARG_BOOK_NUMBER = "BOOK_NUMBER";
   public static final String ARG_CHAPTER_NUMBER = "CHAPTER_NUMBER";
   private static boolean isChapterNavBarShown;
-
+  private static int chapterListVisibility;
+  private ChapterNumberAdapter chapterNumberAdapter;
   private SimpleBibleScreenOps activityOps;
   private ChapterScreenModel model;
   private ChapterScreenAdapter adapter;
   private TextView titleView;
+  private RecyclerView chapterList;
 
   public ChapterScreen() {
   }
@@ -48,6 +51,7 @@ public class ChapterScreen
       model = ViewModelProviders.of(this).get(ChapterScreenModel.class);
       adapter = new ChapterScreenAdapter(this,
                                          getString(R.string.item_chapter_verse_content_template));
+      chapterNumberAdapter = new ChapterNumberAdapter(this);
     } else {
       throw new RuntimeException(context.toString()
                                  + " must implement InteractionListener");
@@ -61,7 +65,14 @@ public class ChapterScreen
 
     final RecyclerView listView = view.findViewById(R.id.chapter_scr_list);
     listView.setAdapter(adapter);
+
     titleView = view.findViewById(R.id.chapter_scr_title);
+
+    chapterList = view.findViewById(R.id.chapter_scr_list_chapters);
+    chapterList.setAdapter(chapterNumberAdapter);
+
+    view.findViewById(R.id.chapter_scr_butt_chapters)
+        .setOnClickListener(v -> handleClickActionChapters());
 
     if (savedState == null) {
       final Bundle arguments = getArguments();
@@ -82,15 +93,28 @@ public class ChapterScreen
       Log.d(TAG,
             "onCreateView: state already saved for book["
             + model.getBookNumber() + "], chapter[" + model.getChapterNumber() + "]");
+      chapterList.setVisibility(chapterListVisibility);
     }
 
     toggleActionButtons();
+    updateVerseListView();
+
     return view;
   }
 
   @Override
-  public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedState) {
-    super.onViewCreated(view, savedState);
+  public void onDetach() {
+    super.onDetach();
+    activityOps.showMainActivityNavBar();
+    isChapterNavBarShown = false;
+    chapterListVisibility = chapterList.getVisibility();
+    activityOps = null;
+    model = null;
+    adapter = null;
+  }
+
+  private void updateVerseListView() {
+    Log.d(TAG, "updateVerseListView:");
     model.getChapterVerses().observe(this, verses -> {
       if (verses == null || verses.isEmpty()) {
         final String message = String.format(getString(R.string.chapter_src_err_empty_list),
@@ -110,23 +134,24 @@ public class ChapterScreen
           return;
         }
 
+        // update the title
         final String template = getString(R.string.chapter_scr_title_template);
         titleView.setText(String.format(template, book.getName(), model.getChapterNumber()));
+
+        final int chapterCount = book.getChapters();
+        if (chapterNumberAdapter.getItemCount() != chapterCount - 1) {
+          ArrayList<String> list = new ArrayList<>();
+          for (int i = 1; i <= chapterCount; i++) {
+            list.add(String.valueOf(i));
+          }
+          chapterNumberAdapter.refreshList(list);
+          chapterNumberAdapter.notifyDataSetChanged();
+        }
       });
 
       adapter.refreshList(verses);
       adapter.notifyDataSetChanged();
     });
-  }
-
-  @Override
-  public void onDetach() {
-    super.onDetach();
-    activityOps.showMainActivityNavBar();
-    isChapterNavBarShown = false;
-    activityOps = null;
-    model = null;
-    adapter = null;
   }
 
   @Override
@@ -231,8 +256,25 @@ public class ChapterScreen
   }
 
   @Override
+  public void handleClickChapterNumber(final int newChapterNumber) {
+    Log.d(TAG, "handleClickChapterNumber() called with [" + newChapterNumber + "]");
+    final Bundle arguments = getArguments();
+    if (arguments == null) {
+      Log.e(TAG, "handleClickChapterNumber: null argument bundle, returning");
+      return;
+    }
+
+    arguments.putInt(ARG_CHAPTER_NUMBER, newChapterNumber);
+    model.setChapterNumber(newChapterNumber);
+    arguments.putInt(ARG_BOOK_NUMBER, model.getBookNumber());
+
+    handleClickActionReset();
+    updateVerseListView();
+  }
+
   public void handleClickActionChapters() {
-    // TODO: 25/5/19 implement this
+    chapterList.setVisibility(
+        (chapterList.getVisibility() == View.VISIBLE) ? View.GONE : View.VISIBLE);
   }
 
 }

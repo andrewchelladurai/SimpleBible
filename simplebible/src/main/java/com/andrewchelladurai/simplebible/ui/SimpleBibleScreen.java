@@ -134,9 +134,6 @@ public class SimpleBibleScreen
             case R.id.chapter_scr_butt_clear:
               chapterOps.handleClickActionReset();
               return true;
-            case R.id.chapter_scr_butt_chapters:
-              chapterOps.handleClickActionChapters();
-              return true;
             default:
               Log.e(TAG, "showChapterScreenNavBar: unknown chapter navBar item");
               return false;

@@ -1,5 +1,6 @@
 package com.andrewchelladurai.simplebible.ui.ops;
 
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
 
@@ -35,6 +36,6 @@ public interface ChapterScreenOps {
 
   void handleClickActionReset();
 
-  void handleClickActionChapters();
+  void handleClickChapterNumber(@IntRange(from = 1) int newChapterNumber);
 
 }
