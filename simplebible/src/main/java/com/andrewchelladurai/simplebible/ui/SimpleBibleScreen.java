@@ -16,6 +16,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleScreenOps;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -38,20 +39,12 @@ public class SimpleBibleScreen
     setContentView(R.layout.simple_bible_screen);
 
     // this we need to do all the times we start the application
-    setupNavigationComponent();
+    showMainActivityNavBar();
 
     if (savedState == null) {
       // Need this only once when the application launches
       createNotificationChannel();
     }
-  }
-
-  private void setupNavigationComponent() {
-    Log.d(TAG, "setupNavigationComponent:");
-    final NavController navController =
-        Navigation.findNavController(this, R.id.main_scr_nav_host_fragment);
-    final BottomNavigationView navBar = findViewById(R.id.main_scr_bottom_nav_bar);
-    NavigationUI.setupWithNavController(navBar, navController);
   }
 
   private void createNotificationChannel() {
@@ -122,6 +115,44 @@ public class SimpleBibleScreen
       view = new View(this);
     }
     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+  }
+
+  @Override
+  public void showChapterScreenNavBar(@NonNull final ChapterScreenOps chapterOps) {
+    final BottomNavigationView navBar = findViewById(R.id.main_scr_bottom_nav_bar);
+    navBar.getMenu().clear();
+    navBar.inflateMenu(R.menu.chapter_scr_bottom_nav_bar);
+    navBar.setOnNavigationItemSelectedListener(
+        item -> {
+          switch (item.getItemId()) {
+            case R.id.chapter_scr_butt_share:
+              chapterOps.handleClickActionShare();
+              return true;
+            case R.id.chapter_scr_butt_bmark:
+              chapterOps.handleClickActionBookmark();
+              return true;
+            case R.id.chapter_scr_butt_clear:
+              chapterOps.handleClickActionReset();
+              return true;
+            case R.id.chapter_scr_butt_chapters:
+              chapterOps.handleClickActionChapters();
+              return true;
+            default:
+              Log.e(TAG, "showChapterScreenNavBar: unknown chapter navBar item");
+              return false;
+          }
+        });
+  }
+
+  @Override
+  public void showMainActivityNavBar() {
+    final BottomNavigationView navBar = findViewById(R.id.main_scr_bottom_nav_bar);
+    navBar.getMenu().clear();
+    navBar.inflateMenu(R.menu.main_scr_bottom_nav_bar);
+
+    final NavController navController =
+        Navigation.findNavController(this, R.id.main_scr_nav_host_fragment);
+    NavigationUI.setupWithNavController(navBar, navController);
   }
 
 }

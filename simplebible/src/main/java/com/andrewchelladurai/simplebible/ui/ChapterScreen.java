@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.fragment.NavHostFragment;
@@ -31,15 +30,11 @@ public class ChapterScreen
   public static final String TAG = "ChapterScreen";
   public static final String ARG_BOOK_NUMBER = "BOOK_NUMBER";
   public static final String ARG_CHAPTER_NUMBER = "CHAPTER_NUMBER";
+  private static boolean isChapterNavBarShown;
 
   private SimpleBibleScreenOps activityOps;
   private ChapterScreenModel model;
   private ChapterScreenAdapter adapter;
-
-  private AppCompatImageButton shareButView;
-  private AppCompatImageButton bookmarkButView;
-  private AppCompatImageButton resetButView;
-  private AppCompatImageButton chaptersButView;
   private TextView titleView;
 
   public ChapterScreen() {
@@ -68,16 +63,6 @@ public class ChapterScreen
     listView.setAdapter(adapter);
     titleView = view.findViewById(R.id.chapter_scr_title);
 
-    // TODO: 25/5/19 implement interaction handlers for actions
-    shareButView = view.findViewById(R.id.chapter_scr_butt_share);
-    shareButView.setOnClickListener(v -> handleClickActionShare());
-    bookmarkButView = view.findViewById(R.id.chapter_scr_butt_bmark);
-    bookmarkButView.setOnClickListener(v -> handleClickActionBookmark());
-    resetButView = view.findViewById(R.id.chapter_scr_butt_clear);
-    resetButView.setOnClickListener(v -> handleClickActionReset());
-    chaptersButView = view.findViewById(R.id.chapter_scr_butt_chapters);
-    chaptersButView.setOnClickListener(v -> handleClickActionChapters());
-
     if (savedState == null) {
       final Bundle arguments = getArguments();
       if (arguments != null
@@ -98,6 +83,8 @@ public class ChapterScreen
             "onCreateView: state already saved for book["
             + model.getBookNumber() + "], chapter[" + model.getChapterNumber() + "]");
     }
+
+    toggleActionButtons();
     return view;
   }
 
@@ -135,61 +122,23 @@ public class ChapterScreen
   @Override
   public void onDetach() {
     super.onDetach();
+    activityOps.showMainActivityNavBar();
+    isChapterNavBarShown = false;
     activityOps = null;
     model = null;
     adapter = null;
   }
 
-  private void handleClickActionChapters() {
-    // TODO: 25/5/19 implement this
-  }
-
-  private void handleClickActionReset() {
-    model.cleatSelections();
-    adapter.notifyDataSetChanged();
-    toggleActionButtons();
-  }
-
-  private void handleClickActionBookmark() {
-    // get the selected verses into an array so we can pass it
-    final HashSet<Verse> selection = model.getSelectedVerses();
-    final Verse[] verseArray = new Verse[selection.size()];
-    selection.toArray(verseArray);
-
-    // now clear the selection
-    handleClickActionReset();
-
-    // now pass the array to the BookmarkScreen
-    Bundle bundle = new Bundle();
-    bundle.putParcelableArray(BookmarkScreen.ARG_ARRAY_VERSES, verseArray);
-    NavHostFragment.findNavController(this)
-                   .navigate(R.id.action_chapterScreen_to_bookmarkScreen, bundle);
-  }
-
-  private void handleClickActionShare() {
-    // get the list of texts that are selected and prepare it for sharing
-    final HashSet<String> selectedTextList = model.getSelectedTexts();
-    final StringBuilder shareText = new StringBuilder();
-    for (final String text : selectedTextList) {
-      shareText.append(text);
-      shareText.append("\n");
-    }
-
-    // now reset the selected list
-    handleClickActionReset();
-
-    // now let the activity do it's job
-    activityOps.shareText(String.format(
-        getString(R.string.search_scr_selection_share_template), shareText));
-  }
-
   @Override
   public void toggleActionButtons() {
-    final int visibilityValue = (model.isSelectionEmpty()) ? View.GONE : View.VISIBLE;
-    shareButView.setVisibility(visibilityValue);
-    bookmarkButView.setVisibility(visibilityValue);
-    resetButView.setVisibility(visibilityValue);
-    chaptersButView.setVisibility(visibilityValue);
+    final boolean selectionEmpty = model.isSelectionEmpty();
+    if (selectionEmpty && isChapterNavBarShown) {
+      activityOps.showMainActivityNavBar();
+      isChapterNavBarShown = false;
+    } else if (!selectionEmpty && !isChapterNavBarShown) {
+      activityOps.showChapterScreenNavBar(this);
+      isChapterNavBarShown = true;
+    }
   }
 
   @Override
@@ -237,6 +186,53 @@ public class ChapterScreen
   @Override
   public void removeSelection(@NonNull final String text) {
     model.removeSelection(text);
+  }
+
+  @Override
+  public void handleClickActionShare() {
+    // get the list of texts that are selected and prepare it for sharing
+    final HashSet<String> selectedTextList = model.getSelectedTexts();
+    final StringBuilder shareText = new StringBuilder();
+    for (final String text : selectedTextList) {
+      shareText.append(text);
+      shareText.append("\n");
+    }
+
+    // now reset the selected list
+    handleClickActionReset();
+
+    // now let the activity do it's job
+    activityOps.shareText(String.format(
+        getString(R.string.search_scr_selection_share_template), shareText));
+  }
+
+  @Override
+  public void handleClickActionBookmark() {
+    // get the selected verses into an array so we can pass it
+    final HashSet<Verse> selection = model.getSelectedVerses();
+    final Verse[] verseArray = new Verse[selection.size()];
+    selection.toArray(verseArray);
+
+    // now clear the selection
+    handleClickActionReset();
+
+    // now pass the array to the BookmarkScreen
+    Bundle bundle = new Bundle();
+    bundle.putParcelableArray(BookmarkScreen.ARG_ARRAY_VERSES, verseArray);
+    NavHostFragment.findNavController(this)
+                   .navigate(R.id.action_chapterScreen_to_bookmarkScreen, bundle);
+  }
+
+  @Override
+  public void handleClickActionReset() {
+    model.cleatSelections();
+    adapter.notifyDataSetChanged();
+    toggleActionButtons();
+  }
+
+  @Override
+  public void handleClickActionChapters() {
+    // TODO: 25/5/19 implement this
   }
 
 }

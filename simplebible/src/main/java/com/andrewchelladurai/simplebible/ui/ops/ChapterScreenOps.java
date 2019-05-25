@@ -29,4 +29,12 @@ public interface ChapterScreenOps {
 
   void removeSelection(@NonNull String text);
 
+  void handleClickActionShare();
+
+  void handleClickActionBookmark();
+
+  void handleClickActionReset();
+
+  void handleClickActionChapters();
+
 }
