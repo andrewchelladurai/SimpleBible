@@ -12,12 +12,12 @@ import com.andrewchelladurai.simplebible.R;
 public class BookmarkScreen extends Fragment {
 
   public static final String ARG_ARRAY_VERSES = "ARG_ARRAY_VERSES";
-  private OnFragmentInteractionListener mListener;
+  private BookmarkScreenListener screenListener;
 
   @Override public void onAttach(@NonNull Context context) {
     super.onAttach(context);
-    if (context instanceof OnFragmentInteractionListener) {
-      mListener = (OnFragmentInteractionListener) context;
+    if (context instanceof BookmarkScreenListener) {
+      screenListener = (BookmarkScreenListener) context;
     } else {
       throw new RuntimeException(context.toString() + " must implement FragmentInteractionListener");
     }
@@ -29,10 +29,10 @@ public class BookmarkScreen extends Fragment {
 
   @Override public void onDetach() {
     super.onDetach();
-    mListener = null;
+    screenListener = null;
   }
 
-  interface OnFragmentInteractionListener {
+  interface BookmarkScreenListener {
 
   }
 

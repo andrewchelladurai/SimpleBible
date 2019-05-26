@@ -110,7 +110,14 @@
   <string name="chapter_src_butt_share">share</string>
   <string name="chapter_src_err_empty_list">Chapter %d does not exist in Book Number %d</string>
   <string name="chapter_scr_err_no_arguments"><![CDATA[Missing Book & Chapter details in arguments]]></string>
-  <string name="item_chapter_verse_content_template"><![CDATA[<b>%d :</b> %s]]></string>
   <string name="chapter_src_err_book_not_found">No book found at position %d</string>
+  <string name="item_chapter_verse_content_template"><![CDATA[<b>%d :</b> %s]]></string>
+
+  <!-- Strings used in and/or for BookmarkScreen -->
+  <string name="bookmark_scr_note_hint">Note for bookmarked verse(s)</string>
+  <string name="bookmark_scr_action_edit">EDIT</string>
+  <string name="bookmark_scr_action_save">SAVE</string>
+  <string name="bookmark_scr_action_delete">DELETE</string>
+  <string name="bookmark_scr_action_share">SHARE</string>
 
 </resources>
