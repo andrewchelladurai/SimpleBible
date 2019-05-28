@@ -119,5 +119,9 @@
   <string name="bookmark_scr_action_save">SAVE</string>
   <string name="bookmark_scr_action_delete">DELETE</string>
   <string name="bookmark_scr_action_share">SHARE</string>
+  <string name="bookmark_scr_err_no_args_passed">No arguments passed</string>
+  <string name="bookmark_scr_err_no_verses_passed">No verses passed</string>
+  <string name="bookmark_scr_err_empty_verse_array_passed">Empty Verse List Passed</string>
+  <string name="item_bookmark_verse_content_template"><![CDATA[<b>%s (%d:%d)</b> - %s]]></string>
 
 </resources>
