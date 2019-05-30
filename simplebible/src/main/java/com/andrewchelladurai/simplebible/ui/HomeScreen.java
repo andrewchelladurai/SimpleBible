@@ -154,6 +154,10 @@ public class HomeScreen
                           reference);
         Log.e(TAG, "showDailyVerse: " + message);
         // activityOps.showErrorScreen(message, true);
+
+        // hide the loading view and show the share fab
+        progressBar.setVisibility(GONE);
+        fabShare.setVisibility(VISIBLE);
         return;
       }
 
@@ -165,6 +169,10 @@ public class HomeScreen
                             verse.getBookNumber());
           Log.e(TAG, "showDailyVerse: " + message);
           // activityOps.showErrorScreen(message, true);
+
+          // hide the loading view and show the share fab
+          progressBar.setVisibility(GONE);
+          fabShare.setVisibility(VISIBLE);
           return;
         }
 
