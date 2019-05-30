@@ -3,11 +3,13 @@ package com.andrewchelladurai.simplebible.ui;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
@@ -19,6 +21,7 @@ import com.andrewchelladurai.simplebible.model.BookmarkScreenModel;
 import com.andrewchelladurai.simplebible.ui.adapter.BookmarkedVerseListAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleScreenOps;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Arrays;
@@ -37,8 +40,10 @@ public class BookmarkScreen
   private BookmarkScreenListener screenListener;
   private BookmarkedVerseListAdapter verseListAdapter;
   private BookmarkScreenModel model;
+
   private TextInputEditText noteField;
   private SimpleBibleScreenOps activityOps;
+  private Chip editButton, saveButton, deleteButton, shareButton;
 
   @Override
   public void onAttach(@NonNull Context context) {
@@ -80,19 +85,24 @@ public class BookmarkScreen
       }
     }
 
-    view.findViewById(R.id.bookmark_scr_action_edit)
-        .setOnClickListener(v -> handleClickActionEdit());
-    view.findViewById(R.id.bookmark_scr_action_save)
-        .setOnClickListener(v -> handleClickActionSave());
-    view.findViewById(R.id.bookmark_scr_action_delete)
-        .setOnClickListener(v -> handleClickActionDelete());
-    view.findViewById(R.id.bookmark_scr_action_share)
-        .setOnClickListener(v -> handleClickActionShare());
+    editButton = view.findViewById(R.id.bookmark_scr_action_edit);
+    editButton.setOnClickListener(v -> handleClickActionEdit());
+
+    saveButton = view.findViewById(R.id.bookmark_scr_action_save);
+    saveButton.setOnClickListener(v -> handleClickActionSave());
+
+    deleteButton = view.findViewById(R.id.bookmark_scr_action_delete);
+    deleteButton.setOnClickListener(v -> handleClickActionDelete());
+
+    shareButton = view.findViewById(R.id.bookmark_scr_action_share);
+    shareButton.setOnClickListener(v -> handleClickActionShare());
 
     noteField = view.findViewById(R.id.bookmark_scr_note);
 
     RecyclerView verseList = view.findViewById(R.id.bookmark_scr_list);
     verseList.setAdapter(verseListAdapter);
+
+    activityOps.hideNavigationComponent();
 
     return view;
   }
@@ -100,6 +110,7 @@ public class BookmarkScreen
   @Override
   public void onDetach() {
     super.onDetach();
+    activityOps.showNavigationComponent();
     activityOps = null;
     screenListener = null;
     verseListAdapter = null;
@@ -110,7 +121,13 @@ public class BookmarkScreen
   }
 
   private void handleClickActionSave() {
-    // TODO: 26/5/19 implement this
+    final Editable fieldText = noteField.getText();
+    final String note = (fieldText != null) ? fieldText.toString().trim() : "";
+    final Integer bookmarkRow = model.createBookmark(note);
+    final String message = (bookmarkRow != null)
+                           ? getString(R.string.bookmark_scr_new_record_created)
+                           : getString(R.string.bookmark_scr_new_record_failed);
+    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
   }
 
   private void handleClickActionEdit() {
@@ -123,7 +140,15 @@ public class BookmarkScreen
 
   @Override
   public void refreshList(@NonNull final List<?> newList) {
-    model.updateCacheList(newList);
+    model.doesBookmarkExist(model.createBookmarkReference(newList))
+         .observe(this, count -> {
+           final boolean exists = (count > 0);
+           Log.d(TAG, "refreshList: exists [" + exists + "]");
+
+           toggleActionButtons(exists);
+
+           model.updateCacheList(newList);
+         });
   }
 
   @NonNull
@@ -156,6 +181,16 @@ public class BookmarkScreen
                                                          verse.getVerseNumber(),
                                                          verse.getText()), FROM_HTML_MODE_LEGACY));
     });
+  }
+
+  private void toggleActionButtons(final boolean bookmarkExists) {
+    // if a bookmark doesn't exist, the only valid option to show is to save it
+    saveButton.setVisibility((bookmarkExists) ? View.GONE : View.VISIBLE);
+
+    // if a bookmark exists, these are the valid options
+    editButton.setVisibility((bookmarkExists) ? View.VISIBLE : View.GONE);
+    deleteButton.setVisibility((bookmarkExists) ? View.VISIBLE : View.GONE);
+    shareButton.setVisibility((bookmarkExists) ? View.VISIBLE : View.GONE);
   }
 
   interface BookmarkScreenListener {

@@ -123,5 +123,7 @@
   <string name="bookmark_scr_err_no_verses_passed">No verses passed</string>
   <string name="bookmark_scr_err_empty_verse_array_passed">Empty Verse List Passed</string>
   <string name="item_bookmark_verse_content_template"><![CDATA[<b>%s (%d:%d)</b> - %s]]></string>
+  <string name="bookmark_scr_new_record_created">New bookmark created</string>
+  <string name="bookmark_scr_new_record_failed">Bookmark Creation Failed</string>
 
 </resources>

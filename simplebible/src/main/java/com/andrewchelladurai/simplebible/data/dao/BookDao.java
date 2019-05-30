@@ -34,4 +34,7 @@ public interface BookDao {
   @Query("select * from sb_books order by number")
   LiveData<List<Book>> getAllRecordsLive();
 
+  @Query("select count(`references`) from sb_bookmarks where `references`=:reference")
+  LiveData<Integer> doesBookmarkExist(@NonNull String reference);
+
 }

@@ -1,25 +1,39 @@
 package com.andrewchelladurai.simplebible.model;
 
 import android.app.Application;
+import android.os.AsyncTask;
+import android.util.Log;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import com.andrewchelladurai.simplebible.data.SbDatabase;
+import com.andrewchelladurai.simplebible.data.dao.BookDao;
+import com.andrewchelladurai.simplebible.data.dao.BookmarkDao;
 import com.andrewchelladurai.simplebible.data.entities.Book;
+import com.andrewchelladurai.simplebible.data.entities.Bookmark;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
+import com.andrewchelladurai.simplebible.utils.BookmarkUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class BookmarkScreenModel
     extends AndroidViewModel {
 
-  private ArrayList<Verse> list = new ArrayList<>();
+  private static final String TAG = "BookmarkScreenModel";
+
+  private final BookmarkDao bookmarkDao;
+  private final BookDao bookDao;
+  private final ArrayList<Verse> list = new ArrayList<>();
 
   public BookmarkScreenModel(@NonNull final Application application) {
     super(application);
+    bookDao = SbDatabase.getDatabase(getApplication()).getBookDao();
+    bookmarkDao = SbDatabase.getDatabase(getApplication()).getBookmarkDao();
   }
 
   public void updateCacheList(final List<?> newList) {
@@ -43,7 +57,56 @@ public class BookmarkScreenModel
 
   public LiveData<Book> getBook(
       @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int bookNumber) {
-    return SbDatabase.getDatabase(getApplication()).getBookDao().getRecordLive(bookNumber);
+    return bookDao.getRecordLive(bookNumber);
+  }
+
+  public String createBookmarkReference(@NonNull final List<?> newList) {
+    return BookmarkUtils.createBookmarkReference(newList);
+  }
+
+  @NonNull
+  public LiveData<Integer> doesBookmarkExist(final String reference) {
+    return bookDao.doesBookmarkExist(reference);
+  }
+
+  @Nullable
+  public Integer createBookmark(@NonNull final String note) {
+    final String reference = BookmarkUtils.createBookmarkReference(list);
+    Log.d(TAG, "createBookmark: note = [" + note + "], reference[" + reference + "]");
+    final CreateBookmarkTask createBookmarkTask = new CreateBookmarkTask(bookmarkDao);
+    createBookmarkTask.execute(
+        new Bookmark(reference, note));
+    try {
+      return createBookmarkTask.get();
+    } catch (ExecutionException e) {
+      e.printStackTrace();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  private static class CreateBookmarkTask
+      extends AsyncTask<Bookmark, Void, Integer> {
+
+    private BookmarkDao bookmarkDao;
+
+    CreateBookmarkTask(@NonNull final BookmarkDao bookmarkDao) {
+      this.bookmarkDao = bookmarkDao;
+    }
+
+    @Override
+    protected Integer doInBackground(final Bookmark... bookmarks) {
+      final Bookmark bookmark = bookmarks[0];
+      bookmarkDao.createRecord(bookmark);
+      return bookmarkDao.doesRecordExist("%" + bookmark.getReferences() + "%");
+    }
+
+    @Override
+    protected void onPostExecute(final Integer integer) {
+      super.onPostExecute(integer);
+    }
+
   }
 
 }
