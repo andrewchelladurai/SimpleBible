@@ -62,6 +62,15 @@ public class Bookmark
   }
 
   @NonNull
+  @Override
+  public String toString() {
+    return "Bookmark{"
+           + "references='" + references + '\''
+           + ", note='" + note + '\''
+           + '}';
+  }
+
+  @NonNull
   public String getReferences() {
     return references;
   }
