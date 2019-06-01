@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible.model;
 
 import android.app.Application;
+import android.util.ArrayMap;
 import android.util.Log;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
@@ -37,10 +38,29 @@ public class BookmarkScreenModel
   }
 
   public void updateCacheList(final List<?> newList) {
-    list.clear();
+    // all this is to sort the verses we have got in the list
+    ArrayMap<Integer, Verse> tempMap = new ArrayMap<>();
+    int location;
+    Verse verse;
     for (final Object o : newList) {
-      list.add((Verse) o);
+      verse = (Verse) o;
+      location = Integer.parseInt(verse.getBookNumber()
+                                  + "" + verse.getChapterNumber()
+                                  + "" + verse.getVerseNumber());
+      tempMap.put(location, verse);
     }
+
+    final Integer[] keys = new Integer[tempMap.size()];
+    for (int i = 0; i < keys.length; i++) {
+      keys[i] = tempMap.keyAt(i);
+    }
+
+    // now update the sorted list
+    list.clear();
+    for (final Integer key : keys) {
+      list.add(tempMap.get(key));
+    }
+
   }
 
   public List<?> getCachedList() {
