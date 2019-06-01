@@ -107,7 +107,7 @@ public class ChapterScreen
     super.onDetach();
     activityOps.showMainActivityNavBar();
     isChapterNavBarShown = false;
-    chapterListVisibility = chapterList.getVisibility();
+    chapterListVisibility = (chapterList != null) ? chapterList.getVisibility() : View.GONE;
     activityOps = null;
     model = null;
     adapter = null;
