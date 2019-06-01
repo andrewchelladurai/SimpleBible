@@ -7,6 +7,8 @@ import com.andrewchelladurai.simplebible.data.dao.BookmarkDao;
 import com.andrewchelladurai.simplebible.data.entities.Bookmark;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BookmarkUtils {
@@ -16,10 +18,21 @@ public class BookmarkUtils {
 
   @NonNull
   public static String createBookmarkReference(@NonNull final List<?> list) {
-    StringBuilder builder = new StringBuilder();
-    Verse verse;
+    if (list.isEmpty()) {
+      throw new IllegalArgumentException(TAG + " createBookmarkReference: Empty list passed");
+    }
+
+    final ArrayList<Verse> tempList = new ArrayList<>();
     for (final Object o : list) {
-      verse = (Verse) o;
+      tempList.add((Verse) o);
+    }
+
+    //noinspection unchecked
+    Collections.sort(tempList);
+
+    StringBuilder builder = new StringBuilder();
+
+    for (final Verse verse : tempList) {
       builder.append(verse.toString())
              .append(SEPARATOR);
     }
