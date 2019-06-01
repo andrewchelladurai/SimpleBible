@@ -27,8 +27,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.Arrays;
 import java.util.List;
 
-import static androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY;
-
 public class BookmarkScreen
     extends Fragment
     implements BookmarkScreenOps {
@@ -40,10 +38,13 @@ public class BookmarkScreen
   private BookmarkScreenListener screenListener;
   private BookmarkedVerseListAdapter verseListAdapter;
   private BookmarkScreenModel model;
+  private SimpleBibleScreenOps activityOps;
 
   private TextInputEditText noteField;
-  private SimpleBibleScreenOps activityOps;
-  private MaterialButton editButton, saveButton, deleteButton, shareButton;
+  private MaterialButton editButton;
+  private MaterialButton saveButton;
+  private MaterialButton deleteButton;
+  private MaterialButton shareButton;
 
   @Override
   public void onAttach(@NonNull Context context) {
@@ -128,10 +129,12 @@ public class BookmarkScreen
                            ? getString(R.string.bookmark_scr_new_record_created)
                            : getString(R.string.bookmark_scr_new_record_failed);
     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+    toggleActionButtons(bookmarkRow != null);
   }
 
   private void handleClickActionEdit() {
-    // TODO: 26/5/19 implement this
+    noteField.setEnabled(true);
+    noteField.requestFocus();
   }
 
   private void handleClickActionShare() {
@@ -179,7 +182,8 @@ public class BookmarkScreen
                                                          book.getName(),
                                                          verse.getChapterNumber(),
                                                          verse.getVerseNumber(),
-                                                         verse.getText()), FROM_HTML_MODE_LEGACY));
+                                                         verse.getText()),
+                                           HtmlCompat.FROM_HTML_MODE_LEGACY));
     });
   }
 
@@ -191,6 +195,9 @@ public class BookmarkScreen
     editButton.setVisibility((bookmarkExists) ? View.VISIBLE : View.GONE);
     deleteButton.setVisibility((bookmarkExists) ? View.VISIBLE : View.GONE);
     shareButton.setVisibility((bookmarkExists) ? View.VISIBLE : View.GONE);
+
+    // update the note field to be enabled or disabled if the bookmark exists
+    noteField.setEnabled(!bookmarkExists);
   }
 
   interface BookmarkScreenListener {
