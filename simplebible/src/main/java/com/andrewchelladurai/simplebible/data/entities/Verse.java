@@ -16,6 +16,8 @@ import java.util.Objects;
 public class Verse
     implements Parcelable {
 
+  // TODO: 1/6/19 implement a sorting method - Comparator / Iterator
+
   public static final Creator<Verse> CREATOR = new Creator<Verse>() {
     @Override
     public Verse createFromParcel(Parcel in) {

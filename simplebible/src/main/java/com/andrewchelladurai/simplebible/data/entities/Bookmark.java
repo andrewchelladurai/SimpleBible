@@ -13,6 +13,8 @@ import java.util.Objects;
 public class Bookmark
     implements Parcelable {
 
+  // TODO: 1/6/19 implement a sorting method - Comparator / Iterator
+
   public static final Creator<Bookmark> CREATOR = new Creator<Bookmark>() {
     @Override
     public Bookmark createFromParcel(Parcel in) {
