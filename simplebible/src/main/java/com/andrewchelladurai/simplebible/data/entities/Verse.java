@@ -14,9 +14,8 @@ import java.util.Objects;
 @Entity(tableName = "sb_verses",
         primaryKeys = {"version", "book", "chapter", "verse"})
 public class Verse
-    implements Parcelable {
-
-  // TODO: 1/6/19 implement a sorting method - Comparator / Iterator
+    implements Parcelable,
+               Comparable {
 
   public static final Creator<Verse> CREATOR = new Creator<Verse>() {
     @Override
@@ -155,6 +154,20 @@ public class Verse
     dest.writeInt(chapterNumber);
     dest.writeInt(verseNumber);
     dest.writeString(text);
+  }
+
+  @Override
+  public int compareTo(final Object o) {
+    final Verse thisVerse = this;
+    final Verse otherVerse = (Verse) o;
+
+    final int thisVersePosition = Integer.parseInt(
+        thisVerse.bookNumber + "" + thisVerse.chapterNumber + "" + thisVerse.verseNumber);
+
+    final int otherVersePosition = Integer.parseInt(
+        otherVerse.bookNumber + "" + otherVerse.chapterNumber + "" + otherVerse.verseNumber);
+
+    return thisVersePosition - otherVersePosition;
   }
 
 }

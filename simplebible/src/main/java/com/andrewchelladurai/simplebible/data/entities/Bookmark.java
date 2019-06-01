@@ -11,9 +11,8 @@ import java.util.Objects;
 @Entity(tableName = "sb_bookmarks",
         primaryKeys = {"references", "note"})
 public class Bookmark
-    implements Parcelable {
-
-  // TODO: 1/6/19 implement a sorting method - Comparator / Iterator
+    implements Parcelable,
+               Comparable {
 
   public static final Creator<Bookmark> CREATOR = new Creator<Bookmark>() {
     @Override
@@ -59,8 +58,8 @@ public class Bookmark
       return false;
     }
     final Bookmark bookmark = (Bookmark) o;
-    return references.equals(bookmark.references) &&
-           note.equals(bookmark.note);
+    return references.equals(bookmark.references)
+           && note.equals(bookmark.note);
   }
 
   @NonNull
@@ -99,6 +98,15 @@ public class Bookmark
   public void writeToParcel(final Parcel dest, final int flags) {
     dest.writeString(references);
     dest.writeString(note);
+  }
+
+  @Override
+  public int compareTo(final Object o) {
+
+    final Bookmark thisBookmark = this;
+    final Bookmark otherBookmark = (Bookmark) o;
+
+    return thisBookmark.references.compareToIgnoreCase(otherBookmark.getReferences());
   }
 
 }

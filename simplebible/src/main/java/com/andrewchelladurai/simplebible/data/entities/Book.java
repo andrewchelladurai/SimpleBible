@@ -13,9 +13,8 @@ import java.util.Objects;
 @Entity(tableName = "sb_books",
         primaryKeys = {"testament", "number", "name", "chapters", "verses"})
 public class Book
-    implements Parcelable {
-
-  // TODO: 1/6/19 implement a sorting method - Comparator / Iterator
+    implements Parcelable,
+               Comparable {
 
   public static final Creator<Book> CREATOR = new Creator<Book>() {
     @Override
@@ -171,6 +170,14 @@ public class Book
     dest.writeString(name);
     dest.writeInt(chapters);
     dest.writeInt(verses);
+  }
+
+  @Override
+  public int compareTo(final Object o) {
+    final Book thisBook = this;
+    final Book otherBook = (Book) o;
+
+    return thisBook.getNumber() - otherBook.getNumber();
   }
 
 }
