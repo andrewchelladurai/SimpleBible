@@ -43,7 +43,7 @@ public class BookmarkUtils {
   }
 
   public static class CreateBookmarkTask
-      extends AsyncTask<Bookmark, Void, Integer> {
+      extends AsyncTask<Bookmark, Void, Void> {
 
     private static final String TAG = "CreateBookmarkTask";
     private BookmarkDao bookmarkDao;
@@ -53,11 +53,11 @@ public class BookmarkUtils {
     }
 
     @Override
-    protected Integer doInBackground(final Bookmark... bookmarks) {
+    protected Void doInBackground(final Bookmark... bookmarks) {
       final Bookmark bookmark = bookmarks[0];
       Log.d(TAG, "doInBackground() called with: bookmarks = [" + bookmark + "]");
       bookmarkDao.createRecord(bookmark);
-      return bookmarkDao.doesRecordExist("%" + bookmark.getReferences() + "%");
+      return null;
     }
 
   }

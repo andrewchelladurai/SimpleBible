@@ -3,6 +3,7 @@ package com.andrewchelladurai.simplebible.ui;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,10 +20,10 @@ import com.andrewchelladurai.simplebible.model.BookmarkScreenModel;
 import com.andrewchelladurai.simplebible.ui.adapter.BookmarkedVerseListAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleScreenOps;
+import com.andrewchelladurai.simplebible.utils.BookmarkUtils;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class BookmarkScreen
 
   public static final String ARG_ARRAY_VERSES = "ARG_ARRAY_VERSES";
   private static final String TAG = "BookmarkScreen";
+
   private static String contentTemplate;
 
   private BookmarkedVerseListAdapter verseListAdapter;
@@ -94,8 +96,7 @@ public class BookmarkScreen
         activityOps.showErrorScreen(message, true);
       } else {
         // now we have the array of verses passed to this screen
-        contentTemplate = getString(R.string.item_bookmark_verse_content_template);
-        verseListAdapter.refreshList(Arrays.asList(array));
+        updateContent(Arrays.asList(array));
       }
     }
 
@@ -110,12 +111,59 @@ public class BookmarkScreen
     verseListAdapter = null;
   }
 
+  private void updateContent(final List<Parcelable> list) {
+    Log.d(TAG, "updateContent:");
+    if (contentTemplate == null) {
+      contentTemplate = getString(R.string.item_bookmark_verse_content_template);
+    }
+
+    final String reference = BookmarkUtils.createBookmarkReference(list);
+    model.bookmarkExists(reference).observe(this, rowCount -> {
+      if (rowCount != null && rowCount > 0) {
+        Log.d(TAG, "onCreateView: reference found, getting record");
+        model.getBookmark(reference)
+             .observe(this, bookmark -> noteField.setText(bookmark.getNote()));
+        toggleActionButtons(true);
+      } else {
+        toggleActionButtons(false);
+      }
+      verseListAdapter.refreshList(list);
+    });
+  }
+
+  private void toggleActionButtons(final boolean bookmarkExists) {
+    Log.d(TAG, "toggleActionButtons(): bookmarkExists = [" + bookmarkExists + "]");
+
+    noteField.setEnabled(!bookmarkExists);
+
+    saveButton.setVisibility((bookmarkExists) ? View.GONE : View.VISIBLE);
+
+    editButton.setVisibility((bookmarkExists) ? View.VISIBLE : View.GONE);
+    deleteButton.setVisibility((bookmarkExists) ? View.VISIBLE : View.GONE);
+    shareButton.setVisibility((bookmarkExists) ? View.VISIBLE : View.GONE);
+  }
+
+  private String getNote() {
+    final Editable editable = noteField.getText();
+    if (editable == null) {
+      Log.e(TAG, "getNote: null Editable found, returning blank");
+      return "";
+    }
+
+    return editable.toString().trim();
+  }
+
   private void handleClickActionDelete() {
     // TODO: 26/5/19 implement this
   }
 
   private void handleClickActionSave() {
-    // TODO: 1/6/19 implement this
+    model.saveBookmark(model.getCachedReference(), getNote()).observe(this, rowCount -> {
+      final boolean bookmarkExists = rowCount != null && rowCount > 0;
+      if (bookmarkExists) {
+        activityOps.showErrorMessage(getString(R.string.bookmark_scr_new_record_created));
+      }
+    });
   }
 
   private void handleClickActionEdit() {
@@ -128,27 +176,29 @@ public class BookmarkScreen
 
   @Override
   public void refreshList(@NonNull final List<?> newList) {
-    // TODO: 1/6/19 implement this
+    if (newList.isEmpty()) {
+      Log.d(TAG, "refreshList: empty list passed, returning");
+      return;
+    }
+
+    model.updateCache(newList);
   }
 
   @NonNull
   @Override
   public List<?> getCachedList() {
-    // TODO: 1/6/19 implement this
-    return new ArrayList<>();
+    return model.getCachedList();
   }
 
   @NonNull
   @Override
   public Object getCachedItemAt(final int position) {
-    // TODO: 1/6/19 implement this
-    return new Object();
+    return model.getCachedItemAt(position);
   }
 
   @Override
   public int getCachedListSize() {
-    // TODO: 1/6/19 implement this
-    return 0;
+    return model.getCachedListSize();
   }
 
   @Override

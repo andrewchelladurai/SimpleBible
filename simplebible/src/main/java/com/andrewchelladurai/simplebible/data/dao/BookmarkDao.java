@@ -16,11 +16,10 @@ public interface BookmarkDao {
   void createRecord(@NonNull Bookmark bookmark);
 
   @SuppressWarnings("NullableProblems")
-  @Query("select count(`references`) from sb_bookmarks where `references` like :reference")
-  int doesRecordExist(@NonNull String reference);
-
-  @SuppressWarnings("NullableProblems")
   @Query("select count(*) from sb_bookmarks where `references` = :reference")
   LiveData<Integer> doesRecordExistLive(@NonNull String reference);
+
+  @Query("select * from sb_bookmarks where `references` = :reference")
+  LiveData<Bookmark> getRecordLive(@NonNull String reference);
 
 }
