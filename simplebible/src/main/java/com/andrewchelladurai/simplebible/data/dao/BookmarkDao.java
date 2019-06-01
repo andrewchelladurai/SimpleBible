@@ -11,12 +11,15 @@ import com.andrewchelladurai.simplebible.data.entities.Bookmark;
 @Dao
 public interface BookmarkDao {
 
+  @SuppressWarnings("NullableProblems")
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   void createRecord(@NonNull Bookmark bookmark);
 
+  @SuppressWarnings("NullableProblems")
   @Query("select count(`references`) from sb_bookmarks where `references` like :reference")
   int doesRecordExist(@NonNull String reference);
 
+  @SuppressWarnings("NullableProblems")
   @Query("select count(*) from sb_bookmarks where `references` like :reference")
   LiveData<Integer> doesRecordExistLive(@NonNull String reference);
 
