@@ -21,7 +21,7 @@ import com.andrewchelladurai.simplebible.model.BookmarkScreenModel;
 import com.andrewchelladurai.simplebible.ui.adapter.BookmarkedVerseListAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleScreenOps;
-import com.google.android.material.chip.Chip;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Arrays;
@@ -43,7 +43,7 @@ public class BookmarkScreen
 
   private TextInputEditText noteField;
   private SimpleBibleScreenOps activityOps;
-  private Chip editButton, saveButton, deleteButton, shareButton;
+  private MaterialButton editButton, saveButton, deleteButton, shareButton;
 
   @Override
   public void onAttach(@NonNull Context context) {
