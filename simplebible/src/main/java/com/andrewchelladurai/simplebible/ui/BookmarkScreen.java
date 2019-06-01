@@ -35,7 +35,6 @@ public class BookmarkScreen
   private static final String TAG = "BookmarkScreen";
   private static String contentTemplate;
 
-  private BookmarkScreenListener screenListener;
   private BookmarkedVerseListAdapter verseListAdapter;
   private BookmarkScreenModel model;
   private SimpleBibleScreenOps activityOps;
@@ -49,16 +48,11 @@ public class BookmarkScreen
   @Override
   public void onAttach(@NonNull Context context) {
     super.onAttach(context);
-    if (!(context instanceof BookmarkScreenListener)) {
-      throw new RuntimeException(
-          context.toString() + " must implement FragmentInteractionListener");
-    }
     if (!(context instanceof SimpleBibleScreenOps)) {
       throw new RuntimeException(
           context.toString() + " must implement SimpleBibleScreenOps");
     }
     activityOps = (SimpleBibleScreenOps) context;
-    screenListener = (BookmarkScreenListener) context;
     verseListAdapter = new BookmarkedVerseListAdapter(this);
     model = ViewModelProviders.of(this).get(BookmarkScreenModel.class);
   }
@@ -113,7 +107,6 @@ public class BookmarkScreen
     super.onDetach();
     activityOps.showNavigationComponent();
     activityOps = null;
-    screenListener = null;
     verseListAdapter = null;
   }
 
@@ -198,10 +191,6 @@ public class BookmarkScreen
 
     // update the note field to be enabled or disabled if the bookmark exists
     noteField.setEnabled(!bookmarkExists);
-  }
-
-  interface BookmarkScreenListener {
-
   }
 
 }
