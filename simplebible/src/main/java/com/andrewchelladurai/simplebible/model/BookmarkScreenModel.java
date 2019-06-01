@@ -1,7 +1,6 @@
 package com.andrewchelladurai.simplebible.model;
 
 import android.app.Application;
-import android.os.AsyncTask;
 import android.util.Log;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
@@ -16,6 +15,7 @@ import com.andrewchelladurai.simplebible.data.entities.Bookmark;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 import com.andrewchelladurai.simplebible.utils.BookmarkUtils;
+import com.andrewchelladurai.simplebible.utils.BookmarkUtils.CreateBookmarkTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,39 +74,15 @@ public class BookmarkScreenModel
     final String reference = BookmarkUtils.createBookmarkReference(list);
     Log.d(TAG, "createBookmark: note = [" + note + "], reference[" + reference + "]");
     final CreateBookmarkTask createBookmarkTask = new CreateBookmarkTask(bookmarkDao);
-    createBookmarkTask.execute(
-        new Bookmark(reference, note));
+    createBookmarkTask.execute(new Bookmark(reference, note));
     try {
       return createBookmarkTask.get();
     } catch (ExecutionException e) {
-      e.printStackTrace();
+      Log.e(TAG, "createBookmark: ", e);
     } catch (InterruptedException e) {
-      e.printStackTrace();
+      Log.e(TAG, "createBookmark: ", e);
     }
     return null;
-  }
-
-  private static class CreateBookmarkTask
-      extends AsyncTask<Bookmark, Void, Integer> {
-
-    private BookmarkDao bookmarkDao;
-
-    CreateBookmarkTask(@NonNull final BookmarkDao bookmarkDao) {
-      this.bookmarkDao = bookmarkDao;
-    }
-
-    @Override
-    protected Integer doInBackground(final Bookmark... bookmarks) {
-      final Bookmark bookmark = bookmarks[0];
-      bookmarkDao.createRecord(bookmark);
-      return bookmarkDao.doesRecordExist("%" + bookmark.getReferences() + "%");
-    }
-
-    @Override
-    protected void onPostExecute(final Integer integer) {
-      super.onPostExecute(integer);
-    }
-
   }
 
 }
