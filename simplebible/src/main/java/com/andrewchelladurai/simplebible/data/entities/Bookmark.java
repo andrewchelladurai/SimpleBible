@@ -5,11 +5,10 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-
 import java.util.Objects;
 
 @Entity(tableName = "sb_bookmarks",
-        primaryKeys = {"references", "note"})
+        primaryKeys = {"references"})
 public class Bookmark
     implements Parcelable,
                Comparable {
