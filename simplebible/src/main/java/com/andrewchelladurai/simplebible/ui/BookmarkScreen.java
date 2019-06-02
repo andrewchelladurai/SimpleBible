@@ -26,6 +26,7 @@ import com.andrewchelladurai.simplebible.ui.adapter.BookmarkedVerseListAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleScreenOps;
 import com.andrewchelladurai.simplebible.utils.BookmarkUtils.CreateBookmarkLoader;
+import com.andrewchelladurai.simplebible.utils.BookmarkUtils.UpdateBookmarkLoader;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import java.util.Arrays;
@@ -162,12 +163,20 @@ public class BookmarkScreen
   }
 
   private void handleClickActionSave() {
-    LoaderManager.getInstance(this)
-                 .initLoader(CreateBookmarkLoader.ID, null, new CreateBookmarkLoaderListener())
-                 .forceLoad();
+    final String buttonText = saveButton.getText().toString();
+    if (buttonText.equalsIgnoreCase(getString(R.string.bookmark_scr_action_save))) {
+      LoaderManager.getInstance(this)
+                   .initLoader(CreateBookmarkLoader.ID, null, new CreateBookmarkLoaderListener())
+                   .forceLoad();
+    } else if (buttonText.equalsIgnoreCase(getString(R.string.bookmark_scr_action_update))) {
+      LoaderManager.getInstance(this)
+                   .initLoader(UpdateBookmarkLoader.ID, null, new UpdateBookmarkListener())
+                   .forceLoad();
+    }
   }
 
   private void handleClickActionEdit() {
+    saveButton.setText(getString(R.string.bookmark_scr_action_update));
     toggleActionButtons(false);
   }
 
@@ -269,6 +278,52 @@ public class BookmarkScreen
     @Override
     public void onLoaderReset(@NonNull final Loader<Boolean> loader) {
       Log.d(TAG, "onLoaderReset: ");
+    }
+
+  }
+
+  private class UpdateBookmarkListener
+      implements LoaderManager.LoaderCallbacks<Boolean> {
+
+    private static final String TAG = "UpdateBookmarkListener";
+
+    @NonNull
+    @Override
+    public Loader<Boolean> onCreateLoader(final int id, @Nullable final Bundle args) {
+      Log.d(TAG, "onCreateLoader:");
+      return new UpdateBookmarkLoader(requireContext(),
+                                      new Bookmark(model.getCachedReference(), getNote()));
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull final Loader<Boolean> loader, final Boolean data) {
+      Log.d(TAG, "onLoadFinished:");
+      final String reference = model.getCachedReference();
+      model.doesBookmarkExist(reference)
+           .observe(BookmarkScreen.this, rowCount -> {
+             final boolean exists = rowCount != null && rowCount > 0;
+             if (exists) {
+               model.getBookmark(model.getCachedReference())
+                    .observe(BookmarkScreen.this, bookmark -> {
+                      if (bookmark != null) {
+                        noteField.setText(bookmark.getNote());
+                      } else {
+                        Log.e(TAG, "toggleActionButtons: bookmark with reference["
+                                   + reference + "] not found");
+                      }
+                    });
+             }
+
+             toggleActionButtons(exists);
+             activityOps.showErrorMessage(
+                 exists ? getString(R.string.bookmark_scr_action_update_success) :
+                 getString(R.string.bookmark_scr_action_update_failure));
+           });
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull final Loader<Boolean> loader) {
+
     }
 
   }

@@ -6,6 +6,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 import com.andrewchelladurai.simplebible.data.entities.Bookmark;
 
 @Dao
@@ -22,5 +23,8 @@ public interface BookmarkDao {
   @SuppressWarnings("NullableProblems")
   @Query("select * from sb_bookmarks where `references` = :reference")
   LiveData<Bookmark> getRecordLive(@NonNull String reference);
+
+  @Update(onConflict = OnConflictStrategy.REPLACE)
+  void updateRecord(@NonNull final Bookmark bookmark);
 
 }

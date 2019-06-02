@@ -69,4 +69,27 @@ public class BookmarkUtils {
 
   }
 
+  public static class UpdateBookmarkLoader
+      extends AsyncTaskLoader<Boolean> {
+
+    public static final int ID = 14;
+    private final Bookmark bookmark;
+    private final BookmarkDao bookmarkDao;
+
+    public UpdateBookmarkLoader(final Context context, final Bookmark bookmark) {
+      super(context);
+      bookmarkDao = SbDatabase.getDatabase(getContext()).getBookmarkDao();
+      this.bookmark = bookmark;
+    }
+
+    @Nullable
+    @Override
+    public Boolean loadInBackground() {
+      Log.d(TAG, "loadInBackground: " + bookmark);
+      bookmarkDao.updateRecord(bookmark);
+      return true;
+    }
+
+  }
+
 }

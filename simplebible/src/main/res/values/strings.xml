@@ -119,6 +119,7 @@
   <string name="bookmark_scr_action_save">SAVE</string>
   <string name="bookmark_scr_action_save_success">Bookmark Saved</string>
   <string name="bookmark_scr_action_save_failure">Failed to Save Bookmark</string>
+  <string name="bookmark_scr_action_update">UPDATE</string>
   <string name="bookmark_scr_action_update_success">Bookmark updated</string>
   <string name="bookmark_scr_action_update_failure">Failed to update Bookmark</string>
   <string name="bookmark_scr_action_delete">DELETE</string>
