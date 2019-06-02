@@ -13,7 +13,6 @@ import com.andrewchelladurai.simplebible.data.entities.Bookmark;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 import com.andrewchelladurai.simplebible.utils.BookmarkUtils;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -22,10 +21,10 @@ public class BookmarkScreenModel
     extends AndroidViewModel {
 
   private static final String TAG = "BookmarkScreenModel";
-  private static ArrayList<Verse> cacheList = new ArrayList<>();
-  private static String cacheReference = "";
 
   private final BookmarkDao bookmarkDao;
+  private ArrayList<Verse> cacheList = new ArrayList<>();
+  private String cacheReference = "";
 
   public BookmarkScreenModel(@NonNull final Application application) {
     super(application);
@@ -37,6 +36,17 @@ public class BookmarkScreenModel
     return SbDatabase.getDatabase(getApplication())
                      .getBookDao()
                      .getRecordLive(bookNumber);
+  }
+
+  public String createBookmarkReference(@NonNull final List<?> list) {
+    return BookmarkUtils.createBookmarkReference(list);
+  }
+
+  public LiveData<Integer> doesBookmarkExist(@NonNull final String reference) {
+    if (reference.isEmpty()) {
+      throw new IllegalArgumentException(TAG + " bookmarkExists: Empty reference passed");
+    }
+    return bookmarkDao.doesRecordExistLive(reference);
   }
 
   public void updateCache(@NonNull final List<?> newList) {
@@ -77,31 +87,18 @@ public class BookmarkScreenModel
     return cacheList.size();
   }
 
+  @NonNull
+  public String getCachedReference() {
+    return cacheReference;
+  }
+
+  @NonNull
   public Verse getCachedItemAt(@IntRange(from = 0) final int position) {
     return cacheList.get(position);
   }
 
-  public LiveData<Integer> bookmarkExists(@NonNull final String reference) {
-    if (reference.isEmpty()) {
-      throw new IllegalArgumentException(TAG + " bookmarkExists: Empty reference passed");
-    }
-
-    return bookmarkDao.doesRecordExistLive(reference);
-  }
-
-  public LiveData<Integer> saveBookmark(@NonNull final String reference,
-                                        @NonNull final String note) {
-    new BookmarkUtils.CreateBookmarkTask(bookmarkDao).execute(new Bookmark(reference, note));
-    return bookmarkExists(reference);
-  }
-
-  public LiveData<Bookmark> getBookmark(@NonNull final String reference) {
+  public LiveData<Bookmark> getBookmark(final String reference) {
     return bookmarkDao.getRecordLive(reference);
-  }
-
-  @NonNull
-  public String getCachedReference() {
-    return cacheReference;
   }
 
 }
