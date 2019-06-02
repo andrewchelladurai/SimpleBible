@@ -29,7 +29,7 @@ import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleScreenOps;
 import com.andrewchelladurai.simplebible.utils.BookmarkUtils.CreateBookmarkLoader;
 import com.andrewchelladurai.simplebible.utils.BookmarkUtils.DeleteBookmarkLoader;
 import com.andrewchelladurai.simplebible.utils.BookmarkUtils.UpdateBookmarkLoader;
-import com.google.android.material.button.MaterialButton;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.textfield.TextInputEditText;
 import java.util.Arrays;
 import java.util.List;
@@ -48,10 +48,10 @@ public class BookmarkScreen
   private SimpleBibleScreenOps activityOps;
 
   private TextInputEditText noteField;
-  private MaterialButton editButton;
-  private MaterialButton saveButton;
-  private MaterialButton deleteButton;
-  private MaterialButton shareButton;
+  private Chip editButton;
+  private Chip saveButton;
+  private Chip deleteButton;
+  private Chip shareButton;
   private StringBuilder verseListText;
 
   @Override
