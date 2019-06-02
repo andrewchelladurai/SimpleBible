@@ -166,7 +166,7 @@ public class BookmarkScreen
     final String buttonText = saveButton.getText().toString();
     if (buttonText.equalsIgnoreCase(getString(R.string.bookmark_scr_action_save))) {
       LoaderManager.getInstance(this)
-                   .initLoader(CreateBookmarkLoader.ID, null, new CreateBookmarkLoaderListener())
+                   .initLoader(CreateBookmarkLoader.ID, null, new CreateBookmarkListener())
                    .forceLoad();
     } else if (buttonText.equalsIgnoreCase(getString(R.string.bookmark_scr_action_update))) {
       LoaderManager.getInstance(this)
@@ -236,7 +236,7 @@ public class BookmarkScreen
     });
   }
 
-  private class CreateBookmarkLoaderListener
+  private class CreateBookmarkListener
       implements LoaderManager.LoaderCallbacks<Boolean> {
 
     private static final String TAG = "CreateBookmarkLoaderLis";
