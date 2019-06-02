@@ -4,26 +4,30 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.Editable;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.RecyclerView;
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.entities.Bookmark;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
 import com.andrewchelladurai.simplebible.model.BookmarkScreenModel;
 import com.andrewchelladurai.simplebible.ui.adapter.BookmarkedVerseListAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleScreenOps;
-import com.andrewchelladurai.simplebible.utils.BookmarkUtils;
+import com.andrewchelladurai.simplebible.utils.BookmarkUtils.CreateBookmarkLoader;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,6 +49,7 @@ public class BookmarkScreen
   private MaterialButton saveButton;
   private MaterialButton deleteButton;
   private MaterialButton shareButton;
+  private StringBuilder verseListText;
 
   @Override
   public void onAttach(@NonNull Context context) {
@@ -77,29 +82,50 @@ public class BookmarkScreen
 
     noteField = view.findViewById(R.id.bookmark_scr_note);
 
-    RecyclerView verseList = view.findViewById(R.id.bookmark_scr_list);
-    verseList.setAdapter(verseListAdapter);
+    ((RecyclerView) view.findViewById(R.id.bookmark_scr_list))
+        .setAdapter(verseListAdapter);
+
+    if (contentTemplate == null) {
+      contentTemplate = getString(R.string.item_bookmark_verse_content_template);
+    }
 
     activityOps.hideNavigationComponent();
 
-    final Bundle args = getArguments();
-    if (args == null) {
-      final String message = getString(R.string.bookmark_scr_err_no_args_passed);
-      activityOps.showErrorScreen(message, true);
-    } else if (!args.containsKey(ARG_ARRAY_VERSES)) {
-      final String message = getString(R.string.bookmark_scr_err_no_verses_passed);
-      activityOps.showErrorScreen(message, true);
-    } else {
-      final Parcelable[] array = args.getParcelableArray(ARG_ARRAY_VERSES);
-      if (array == null || array.length == 0) {
-        final String message = getString(R.string.bookmark_scr_err_empty_verse_array_passed);
-        activityOps.showErrorScreen(message, true);
+    if (savedState == null) {
+      final Bundle args = getArguments();
+      if (args == null) {
+        activityOps.showErrorScreen(getString(R.string.bookmark_scr_err_no_args_passed), true);
+      } else if (!args.containsKey(ARG_ARRAY_VERSES)) {
+        activityOps.showErrorScreen(getString(R.string.bookmark_scr_err_no_verses_passed), true);
       } else {
-        // now we have the array of verses passed to this screen
-        updateContent(Arrays.asList(array));
+        final Parcelable[] array = args.getParcelableArray(ARG_ARRAY_VERSES);
+        if (array == null || array.length == 0) {
+          activityOps.showErrorScreen(getString(R.string.bookmark_scr_err_no_verses_passed), true);
+        } else {
+          final List<Parcelable> argVerseList = Arrays.asList(array);
+          final String reference = model.createBookmarkReference(argVerseList);
+          model.doesBookmarkExist(reference)
+               .observe(this, rowCount -> {
+                 final boolean exists = rowCount != null && rowCount > 0;
+                 Log.d(TAG, "onCreateView: reference[" + reference + "], exists[" + exists + "]");
+
+                 if (exists) {
+                   model.getBookmark(reference).observe(this, bookmark -> {
+                     if (bookmark != null) {
+                       noteField.setText(bookmark.getNote());
+                     } else {
+                       Log.e(TAG, "toggleActionButtons: bookmark with reference["
+                                  + model.getCachedReference() + "] not found");
+                     }
+                   });
+                 }
+
+                 toggleActionButtons(exists);
+                 verseListAdapter.refreshList(argVerseList);
+               });
+        }
       }
     }
-
     return view;
   }
 
@@ -111,29 +137,7 @@ public class BookmarkScreen
     verseListAdapter = null;
   }
 
-  private void updateContent(final List<Parcelable> list) {
-    Log.d(TAG, "updateContent:");
-    if (contentTemplate == null) {
-      contentTemplate = getString(R.string.item_bookmark_verse_content_template);
-    }
-
-    final String reference = BookmarkUtils.createBookmarkReference(list);
-    model.bookmarkExists(reference).observe(this, rowCount -> {
-      if (rowCount != null && rowCount > 0) {
-        Log.d(TAG, "onCreateView: reference found, getting record");
-        model.getBookmark(reference)
-             .observe(this, bookmark -> noteField.setText(bookmark.getNote()));
-        toggleActionButtons(true);
-      } else {
-        toggleActionButtons(false);
-      }
-      verseListAdapter.refreshList(list);
-    });
-  }
-
   private void toggleActionButtons(final boolean bookmarkExists) {
-    Log.d(TAG, "toggleActionButtons(): bookmarkExists = [" + bookmarkExists + "]");
-
     noteField.setEnabled(!bookmarkExists);
 
     saveButton.setVisibility((bookmarkExists) ? View.GONE : View.VISIBLE);
@@ -158,20 +162,18 @@ public class BookmarkScreen
   }
 
   private void handleClickActionSave() {
-    model.saveBookmark(model.getCachedReference(), getNote()).observe(this, rowCount -> {
-      final boolean bookmarkExists = rowCount != null && rowCount > 0;
-      if (bookmarkExists) {
-        activityOps.showErrorMessage(getString(R.string.bookmark_scr_new_record_created));
-      }
-    });
+    LoaderManager.getInstance(this)
+                 .initLoader(CreateBookmarkLoader.ID, null, new CreateBookmarkLoaderListener())
+                 .forceLoad();
   }
 
   private void handleClickActionEdit() {
-    // TODO: 1/6/19 implement this
+    toggleActionButtons(false);
   }
 
   private void handleClickActionShare() {
-    // TODO: 26/5/19 implement this
+    activityOps.shareText(String.format(
+        getString(R.string.bookmark_scr_action_share_template), verseListText, getNote()));
   }
 
   @Override
@@ -208,13 +210,67 @@ public class BookmarkScreen
         Log.e(TAG, "showContent: no book found for this verse [" + verse + "]");
         return;
       }
-      textView.setText(HtmlCompat.fromHtml(String.format(contentTemplate,
-                                                         book.getName(),
-                                                         verse.getChapterNumber(),
-                                                         verse.getVerseNumber(),
-                                                         verse.getText()),
-                                           HtmlCompat.FROM_HTML_MODE_LEGACY));
+      final Spanned htmlText = HtmlCompat.fromHtml(String.format(contentTemplate,
+                                                                 book.getName(),
+                                                                 verse.getChapterNumber(),
+                                                                 verse.getVerseNumber(),
+                                                                 verse.getText()),
+                                                   HtmlCompat.FROM_HTML_MODE_LEGACY);
+      textView.setText(htmlText);
+
+      if (verseListText == null) {
+        verseListText = new StringBuilder();
+      }
+
+      verseListText.append(htmlText)
+                   .append("\n");
     });
+  }
+
+  private class CreateBookmarkLoaderListener
+      implements LoaderManager.LoaderCallbacks<Boolean> {
+
+    private static final String TAG = "CreateBookmarkLoaderLis";
+
+    @NonNull
+    @Override
+    public Loader<Boolean> onCreateLoader(final int id, @Nullable final Bundle args) {
+      Log.d(TAG, "onCreateLoader:");
+      return new CreateBookmarkLoader(requireContext(),
+                                      new Bookmark(model.getCachedReference(), getNote()));
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull final Loader<Boolean> loader, final Boolean data) {
+      Log.d(TAG, "onLoadFinished:");
+      final String reference = model.getCachedReference();
+      model.doesBookmarkExist(reference)
+           .observe(BookmarkScreen.this, rowCount -> {
+             final boolean exists = rowCount != null && rowCount > 0;
+             if (exists) {
+               model.getBookmark(model.getCachedReference())
+                    .observe(BookmarkScreen.this, bookmark -> {
+                      if (bookmark != null) {
+                        noteField.setText(bookmark.getNote());
+                      } else {
+                        Log.e(TAG, "toggleActionButtons: bookmark with reference["
+                                   + reference + "] not found");
+                      }
+                    });
+             }
+
+             toggleActionButtons(exists);
+             activityOps.showErrorMessage(
+                 exists ? getString(R.string.bookmark_scr_action_save_success) :
+                 getString(R.string.bookmark_scr_action_save_failure));
+           });
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull final Loader<Boolean> loader) {
+      Log.d(TAG, "onLoaderReset: ");
+    }
+
   }
 
 }
