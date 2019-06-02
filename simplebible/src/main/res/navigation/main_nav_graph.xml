@@ -76,6 +76,11 @@
     <argument
       android:name="ARG_ARRAY_VERSES"
       app:argType="com.andrewchelladurai.simplebible.data.entities.Verse[]" />
+    <action
+      android:id="@+id/action_bookmarkScreen_pop"
+      app:launchSingleTop="true"
+      app:popUpTo="@id/bookmarkScreen"
+      app:popUpToInclusive="true" />
   </fragment>
 
   <fragment

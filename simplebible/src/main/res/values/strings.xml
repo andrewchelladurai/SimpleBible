@@ -123,6 +123,8 @@
   <string name="bookmark_scr_action_update_success">Bookmark updated</string>
   <string name="bookmark_scr_action_update_failure">Failed to update Bookmark</string>
   <string name="bookmark_scr_action_delete">DELETE</string>
+  <string name="bookmark_scr_action_delete_success">Bookmark Deleted</string>
+  <string name="bookmark_scr_action_delete_failure">Delete failed</string>
   <string name="bookmark_scr_action_share">SHARE</string>
   <string name="bookmark_scr_action_share_template">Bookmarked Verse(s)\n%s\nBookmark Note\n%s\n\n\n---World English Bible Translation\nShared using Simple Bible</string>
   <string name="bookmark_scr_err_no_args_passed">No arguments passed</string>

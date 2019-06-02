@@ -92,4 +92,28 @@ public class BookmarkUtils {
 
   }
 
+  public static class DeleteBookmarkLoader
+      extends AsyncTaskLoader<Boolean> {
+
+    public static final int ID = 16;
+    @NonNull
+    private final Bookmark bookmark;
+    private final BookmarkDao bookmarkDao;
+
+    public DeleteBookmarkLoader(@NonNull final Context context, @NonNull Bookmark bookmark) {
+      super(context);
+      bookmarkDao = SbDatabase.getDatabase(getContext()).getBookmarkDao();
+      this.bookmark = bookmark;
+    }
+
+    @Nullable
+    @Override
+    public Boolean loadInBackground() {
+      Log.d(TAG, "loadInBackground: " + bookmark);
+      bookmarkDao.deleteRecord(bookmark);
+      return true;
+    }
+
+  }
+
 }

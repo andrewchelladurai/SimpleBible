@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entities.Bookmark;
@@ -26,6 +27,7 @@ import com.andrewchelladurai.simplebible.ui.adapter.BookmarkedVerseListAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleScreenOps;
 import com.andrewchelladurai.simplebible.utils.BookmarkUtils.CreateBookmarkLoader;
+import com.andrewchelladurai.simplebible.utils.BookmarkUtils.DeleteBookmarkLoader;
 import com.andrewchelladurai.simplebible.utils.BookmarkUtils.UpdateBookmarkLoader;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -159,7 +161,9 @@ public class BookmarkScreen
   }
 
   private void handleClickActionDelete() {
-    // TODO: 26/5/19 implement this
+    LoaderManager.getInstance(this)
+                 .initLoader(DeleteBookmarkLoader.ID, null, new DeleteBookmarkListener())
+                 .forceLoad();
   }
 
   private void handleClickActionSave() {
@@ -318,6 +322,44 @@ public class BookmarkScreen
              activityOps.showErrorMessage(
                  exists ? getString(R.string.bookmark_scr_action_update_success) :
                  getString(R.string.bookmark_scr_action_update_failure));
+           });
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull final Loader<Boolean> loader) {
+
+    }
+
+  }
+
+  private class DeleteBookmarkListener
+      implements LoaderManager.LoaderCallbacks<Boolean> {
+
+    private static final String TAG = "DeleteBookmarkListener";
+
+    @NonNull
+    @Override
+    public Loader<Boolean> onCreateLoader(final int id, @Nullable final Bundle args) {
+      Log.d(TAG, "onCreateLoader:");
+      return new DeleteBookmarkLoader(requireContext(),
+                                      new Bookmark(model.getCachedReference(), getNote()));
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull final Loader<Boolean> loader, final Boolean data) {
+      Log.d(TAG, "onLoadFinished:");
+      final String reference = model.getCachedReference();
+      model.doesBookmarkExist(reference)
+           .observe(BookmarkScreen.this, rowCount -> {
+             final boolean exists = rowCount != null && rowCount > 0;
+             toggleActionButtons(exists);
+             activityOps.showErrorMessage(
+                 exists ? getString(R.string.bookmark_scr_action_delete_failure) :
+                 getString(R.string.bookmark_scr_action_delete_success));
+             if (!exists) {
+               NavHostFragment.findNavController(BookmarkScreen.this)
+                              .navigate(R.id.action_bookmarkScreen_pop);
+             }
            });
     }
 
