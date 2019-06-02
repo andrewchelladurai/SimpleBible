@@ -19,6 +19,7 @@ public interface BookmarkDao {
   @Query("select count(*) from sb_bookmarks where `references` = :reference")
   LiveData<Integer> doesRecordExistLive(@NonNull String reference);
 
+  @SuppressWarnings("NullableProblems")
   @Query("select * from sb_bookmarks where `references` = :reference")
   LiveData<Bookmark> getRecordLive(@NonNull String reference);
 
