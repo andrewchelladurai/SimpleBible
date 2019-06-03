@@ -17,8 +17,4 @@ public interface SimpleBibleScreenOps {
 
   void hideKeyboard();
 
-  void showChapterScreenNavBar(@NonNull final ChapterScreenOps chapterScreenOps);
-
-  void showMainActivityNavBar();
-
 }

@@ -12,7 +12,6 @@ import com.andrewchelladurai.simplebible.data.entities.Verse;
 import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SbRvAdapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.SbRvHolderOps;
-
 import java.util.List;
 
 public class ChapterScreenAdapter
@@ -62,14 +61,16 @@ public class ChapterScreenAdapter
       extends RecyclerView.ViewHolder
       implements SbRvHolderOps {
 
-    private final View rootView;
+    //    private final View rootView;
     private final TextView contentView;
     private Verse verse;
 
     public ChapterVerseItem(final View view) {
       super(view);
+/*
       rootView = view.findViewById(R.id.item_chapter_verse);
       rootView.setOnClickListener(v -> toggleVerseSelection());
+*/
 
       contentView = view.findViewById(R.id.item_chapter_verse_content);
       contentView.setOnClickListener(v -> toggleVerseSelection());
@@ -81,7 +82,7 @@ public class ChapterScreenAdapter
       contentView.setText(HtmlCompat.fromHtml(
           String.format(contentTemplate, verse.getVerseNumber(), verse.getText()),
           HtmlCompat.FROM_HTML_MODE_LEGACY));
-      rootView.setSelected(ops.isSelected(verse));
+      contentView.setSelected(ops.isSelected(verse));
     }
 
     private void toggleVerseSelection() {
@@ -92,7 +93,7 @@ public class ChapterScreenAdapter
         ops.addSelection(verse);
         ops.addSelection(String.valueOf(contentView.getText()));
       }
-      rootView.setSelected(ops.isSelected(verse));
+      contentView.setSelected(ops.isSelected(verse));
       ops.toggleActionButtons();
     }
 

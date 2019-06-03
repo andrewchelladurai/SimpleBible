@@ -19,7 +19,6 @@ import com.andrewchelladurai.simplebible.ui.adapter.ChapterNumberAdapter;
 import com.andrewchelladurai.simplebible.ui.adapter.ChapterScreenAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleScreenOps;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -32,13 +31,14 @@ public class ChapterScreen
   public static final String ARG_BOOK_NUMBER = "BOOK_NUMBER";
   public static final String ARG_CHAPTER_NUMBER = "CHAPTER_NUMBER";
   private static boolean isChapterNavBarShown;
-  private static int chapterListVisibility;
+
   private ChapterNumberAdapter chapterNumberAdapter;
   private SimpleBibleScreenOps activityOps;
   private ChapterScreenModel model;
   private ChapterScreenAdapter adapter;
+
   private TextView titleView;
-  private RecyclerView chapterList;
+  private View actionContainer;
 
   public ChapterScreen() {
   }
@@ -61,6 +61,7 @@ public class ChapterScreen
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                            Bundle savedState) {
+    activityOps.hideNavigationComponent();
     final View view = inflater.inflate(R.layout.chapter_screen, container, false);
 
     final RecyclerView listView = view.findViewById(R.id.chapter_scr_list);
@@ -68,11 +69,16 @@ public class ChapterScreen
 
     titleView = view.findViewById(R.id.chapter_scr_title);
 
-    chapterList = view.findViewById(R.id.chapter_scr_list_chapters);
+    RecyclerView chapterList = view.findViewById(R.id.chapter_scr_list_chapters);
     chapterList.setAdapter(chapterNumberAdapter);
 
-    view.findViewById(R.id.chapter_scr_butt_chapters)
-        .setOnClickListener(v -> handleClickActionChapters());
+    actionContainer = view.findViewById(R.id.chapter_scr_action_container);
+    view.findViewById(R.id.chapter_scr_butt_share)
+        .setOnClickListener(v -> handleClickActionShare());
+    view.findViewById(R.id.chapter_scr_butt_bmark)
+        .setOnClickListener(v -> handleClickActionBookmark());
+    view.findViewById(R.id.chapter_scr_butt_clear)
+        .setOnClickListener(v -> handleClickActionReset());
 
     if (savedState == null) {
       final Bundle arguments = getArguments();
@@ -89,11 +95,6 @@ public class ChapterScreen
         Log.e(TAG, message);
         activityOps.showErrorScreen(TAG + message, true);
       }
-    } else {
-      Log.d(TAG,
-            "onCreateView: state already saved for book["
-            + model.getBookNumber() + "], chapter[" + model.getChapterNumber() + "]");
-      chapterList.setVisibility(chapterListVisibility);
     }
 
     toggleActionButtons();
@@ -105,9 +106,8 @@ public class ChapterScreen
   @Override
   public void onDetach() {
     super.onDetach();
-    activityOps.showMainActivityNavBar();
+    activityOps.showNavigationComponent();
     isChapterNavBarShown = false;
-    chapterListVisibility = (chapterList != null) ? chapterList.getVisibility() : View.GONE;
     activityOps = null;
     model = null;
     adapter = null;
@@ -158,10 +158,10 @@ public class ChapterScreen
   public void toggleActionButtons() {
     final boolean selectionEmpty = model.isSelectionEmpty();
     if (selectionEmpty && isChapterNavBarShown) {
-      activityOps.showMainActivityNavBar();
+      actionContainer.setVisibility(View.GONE);
       isChapterNavBarShown = false;
     } else if (!selectionEmpty && !isChapterNavBarShown) {
-      activityOps.showChapterScreenNavBar(this);
+      actionContainer.setVisibility(View.VISIBLE);
       isChapterNavBarShown = true;
     }
   }
@@ -270,11 +270,6 @@ public class ChapterScreen
 
     handleClickActionReset();
     updateVerseListView();
-  }
-
-  public void handleClickActionChapters() {
-    chapterList.setVisibility(
-        (chapterList.getVisibility() == View.VISIBLE) ? View.GONE : View.VISIBLE);
   }
 
 }
