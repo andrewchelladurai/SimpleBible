@@ -135,7 +135,6 @@ public class BookmarkScreen
   @Override
   public void onDetach() {
     super.onDetach();
-    activityOps.showNavigationComponent();
     activityOps = null;
     verseListAdapter = null;
   }
