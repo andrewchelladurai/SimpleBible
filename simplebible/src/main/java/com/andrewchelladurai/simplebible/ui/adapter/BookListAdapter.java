@@ -72,7 +72,7 @@ public class BookListAdapter
       Book book;
       for (final Object obj : cachedList) {
         book = (Book) obj;
-        if ((book).getName().contains(queryText)) {
+        if ((book).getName().toLowerCase().contains(queryText.toLowerCase())) {
           list.add(book);
         }
       }
