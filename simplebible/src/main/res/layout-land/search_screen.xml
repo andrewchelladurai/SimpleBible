@@ -66,18 +66,25 @@
     app:layout_constraintTop_toBottomOf="@id/search_scr_container_top"
     app:srcCompat="@drawable/ic_hero_search" />
 
-  <TextView
-    android:id="@+id/search_scr_help_text"
+  <ScrollView
+    android:id="@+id/search_scr_container_help_text"
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:layout_margin="@dimen/gap_huge"
+    android:fillViewport="true"
     android:padding="@dimen/gap_huge"
-    android:text="@string/search_scr_help_text_default"
-    android:textAlignment="center"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="@id/search_scr_container_top"
     app:layout_constraintStart_toEndOf="@id/search_scr_help_image"
-    app:layout_constraintTop_toBottomOf="@id/search_scr_container_top" />
+    app:layout_constraintTop_toBottomOf="@id/search_scr_container_top">
+
+    <TextView
+      android:id="@+id/search_scr_help_text"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/search_scr_help_text_default"
+      android:textAlignment="center" />
+  </ScrollView>
 
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/search_scr_list"
