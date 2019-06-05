@@ -111,17 +111,10 @@ public class SearchScreen
     rootView.findViewById(R.id.search_scr_action_reset)
             .setOnClickListener(v -> resetScreen());
 
-    if (savedState == null && model.getCachedListSize() == 0) {
+    if (savedState == null) {
       showHelpText(true);
-    } else if (savedState != null && model.getCachedListSize() > 0) {
+    } else {
       showHelpText(false);
-      final TextView textView = rootView.findViewById(R.id.search_scr_result);
-      textView.setText(String.format(
-          getString(R.string.search_src_result_template), adapter.getItemCount()));
-
-      searchView.setVisibility(GONE);
-      rootView.findViewById(R.id.search_scr_result).setVisibility(VISIBLE);
-      rootView.findViewById(R.id.search_scr_action_reset).setVisibility(VISIBLE);
     }
 
     return rootView;
@@ -197,13 +190,30 @@ public class SearchScreen
   }
 
   private void showHelpText(boolean showHelp) {
+    // search input field
     rootView.findViewById(R.id.search_src_input)
-            .setVisibility((!showHelp) ? VISIBLE : GONE);
+            .setVisibility((showHelp) ? VISIBLE : GONE);
+
+    // search reset button
+    rootView.findViewById(R.id.search_scr_action_reset)
+            .setVisibility((showHelp) ? GONE : VISIBLE);
+
+    // search results count message
+    final TextView resultsCountView = rootView.findViewById(R.id.search_scr_result);
+    resultsCountView.setVisibility((showHelp) ? GONE : VISIBLE);
+    if (model.getCachedListSize() > 0) {
+      resultsCountView.setText(String.format(
+          getString(R.string.search_src_result_template), adapter.getItemCount()));
+    }
+
+    // hero image
     rootView.findViewById(R.id.search_scr_image)
             .setVisibility((showHelp) ? VISIBLE : GONE);
-    TextView textView = rootView.findViewById(R.id.search_scr_text);
-    textView.setVisibility((showHelp) ? VISIBLE : GONE);
-    textView.setText(HtmlCompat.fromHtml(getString(
+
+    // help message
+    final TextView helpText = rootView.findViewById(R.id.search_scr_text);
+    helpText.setVisibility((showHelp) ? VISIBLE : GONE);
+    helpText.setText(HtmlCompat.fromHtml(getString(
         R.string.search_scr_text_default),
                                          HtmlCompat.FROM_HTML_MODE_LEGACY));
     toggleActionButtons();

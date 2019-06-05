@@ -57,15 +57,13 @@
       android:layout_weight="1"
       android:fontFamily="sans-serif-black"
       android:textAlignment="center"
-      android:textAllCaps="true"
-      android:visibility="gone" />
+      android:textAllCaps="true" />
 
     <com.google.android.material.chip.Chip
       android:id="@+id/search_scr_action_reset"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/search_scr_action_reset"
-      android:visibility="gone" />
+      android:text="@string/search_scr_action_reset" />
   </LinearLayout>
 
   <ImageView
