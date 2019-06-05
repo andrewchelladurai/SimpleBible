@@ -9,25 +9,11 @@
   tools:context=".ui.SearchScreen">
 
   <androidx.constraintlayout.widget.Guideline
-    android:id="@+id/search_scr_port_gv3"
+    android:id="@+id/search_scr_land_gv3"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     app:layout_constraintGuide_percent="0.3" />
-
-  <androidx.constraintlayout.widget.Guideline
-    android:id="@+id/search_scr_port_gv7"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    app:layout_constraintGuide_percent="0.7" />
-
-  <androidx.constraintlayout.widget.Guideline
-    android:id="@+id/search_scr_port_gh2"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintGuide_percent="0.2" />
 
   <LinearLayout
     android:id="@+id/search_scr_container_top"
@@ -71,27 +57,27 @@
     android:id="@+id/search_scr_help_image"
     android:layout_width="0dp"
     android:layout_height="0dp"
+    android:layout_margin="@dimen/gap_big"
     android:contentDescription="@string/search_scr_help_image_description"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintDimensionRatio="1:1"
-    app:layout_constraintEnd_toEndOf="@id/search_scr_port_gv7"
-    app:layout_constraintStart_toStartOf="@id/search_scr_port_gv3"
-    app:layout_constraintTop_toBottomOf="@id/search_scr_port_gh2"
-    app:layout_constraintVertical_bias="0"
+    app:layout_constraintEnd_toStartOf="@id/search_scr_land_gv3"
+    app:layout_constraintStart_toStartOf="@id/search_scr_container_top"
+    app:layout_constraintTop_toBottomOf="@id/search_scr_container_top"
     app:srcCompat="@drawable/ic_hero_search" />
 
   <TextView
     android:id="@+id/search_scr_help_text"
-    android:layout_width="wrap_content"
+    android:layout_width="0dp"
     android:layout_height="0dp"
     android:layout_margin="@dimen/gap_huge"
     android:padding="@dimen/gap_huge"
     android:text="@string/search_scr_help_text_default"
     android:textAlignment="center"
-    app:layout_constraintBottom_toTopOf="@id/search_scr_container_action"
+    app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="@id/search_scr_container_top"
-    app:layout_constraintStart_toStartOf="@id/search_scr_container_top"
-    app:layout_constraintTop_toBottomOf="@id/search_scr_help_image" />
+    app:layout_constraintStart_toEndOf="@id/search_scr_help_image"
+    app:layout_constraintTop_toBottomOf="@id/search_scr_container_top" />
 
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/search_scr_list"
