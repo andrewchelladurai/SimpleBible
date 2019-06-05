@@ -7,25 +7,18 @@
   tools:context=".ui.BookmarkListScreen">
 
   <androidx.constraintlayout.widget.Guideline
-    android:id="@+id/bookmark_list_scr_port_gv3"
+    android:id="@+id/bookmark_list_scr_land_gv1"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    app:layout_constraintGuide_percent="0.3" />
-
-  <androidx.constraintlayout.widget.Guideline
-    android:id="@+id/bookmark_list_scr_port_gv7"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    app:layout_constraintGuide_percent="0.7" />
-
-  <androidx.constraintlayout.widget.Guideline
-    android:id="@+id/bookmark_list_scr_port_gh1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
     app:layout_constraintGuide_percent="0.1" />
+
+  <androidx.constraintlayout.widget.Guideline
+    android:id="@+id/bookmark_list_scr_land_gv4"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintGuide_percent="0.4" />
 
   <ImageView
     android:id="@+id/bookmark_list_scr_help_image"
@@ -34,10 +27,9 @@
     android:contentDescription="@string/bookmark_list_scr_help_image_description"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintDimensionRatio="1:1"
-    app:layout_constraintEnd_toEndOf="@id/bookmark_list_scr_port_gv7"
-    app:layout_constraintStart_toStartOf="@id/bookmark_list_scr_port_gv3"
-    app:layout_constraintTop_toBottomOf="@id/bookmark_list_scr_port_gh1"
-    app:layout_constraintVertical_bias="0"
+    app:layout_constraintEnd_toStartOf="@id/bookmark_list_scr_land_gv4"
+    app:layout_constraintStart_toEndOf="@id/bookmark_list_scr_land_gv1"
+    app:layout_constraintTop_toTopOf="parent"
     app:srcCompat="@drawable/ic_hero_bookmark" />
 
   <ScrollView
@@ -48,8 +40,8 @@
     android:padding="@dimen/gap_huge"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/bookmark_list_scr_help_image">
+    app:layout_constraintStart_toEndOf="@id/bookmark_list_scr_help_image"
+    app:layout_constraintTop_toTopOf="parent">
 
     <TextView
       android:id="@+id/bookmark_list_scr_help_text"

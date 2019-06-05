@@ -139,4 +139,18 @@
   <string name="bookmark_scr_err_no_verses_passed">No verses passed</string>
   <string name="bookmark_scr_err_empty_verse_array_passed">Empty Verse List Passed</string>
   <string name="item_bookmark_verse_content_template"><![CDATA[<b>%s (%d:%d)</b> - %s]]></string>
+
+  <!-- Strings used in and/or for BookmarkListScreen -->
+  <string name="bookmark_list_scr_help_image_description">bookmarks</string>
+  <string name="bookmark_list_scr_help_text">
+    <![CDATA[
+    <h3>No Bookmarks Found<br/>
+    To create a bookmark</h3>
+    <b><u>In a Chapter</u></b><br/>
+    Tap on verses select them<br/>
+    Choose the bookmark action at the bottom<br/><br/>
+    <b><u>On a Search Screen</u></b><br/>
+    Tap on results to select them<br/>
+    Choose the bookmark action at the bottom]]>
+  </string>
 </resources>

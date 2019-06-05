@@ -30,6 +30,6 @@
     app:layout_constraintEnd_toEndOf="@id/book_list_scr_query"
     app:layout_constraintStart_toStartOf="@id/book_list_scr_query"
     app:layout_constraintTop_toBottomOf="@id/book_list_scr_query"
-    app:spanCount="@integer/blist_scr_list_columns"
+    app:spanCount="@integer/book_list_scr_list_columns"
     tools:listitem="@layout/item_book" />
 </androidx.constraintlayout.widget.ConstraintLayout>
