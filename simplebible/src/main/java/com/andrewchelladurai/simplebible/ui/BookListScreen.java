@@ -46,7 +46,7 @@ public class BookListScreen
                            Bundle savedState) {
     final View view = inflater.inflate(R.layout.booklist_screen, container, false);
 
-    final SearchView searchView = view.findViewById(R.id.blist_scr_input);
+    final SearchView searchView = view.findViewById(R.id.book_list_scr_query);
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
       @Override
       public boolean onQueryTextSubmit(final String query) {
@@ -59,13 +59,13 @@ public class BookListScreen
       }
     });
 
-    final RecyclerView recyclerView = view.findViewById(R.id.blist_scr_list);
+    final RecyclerView recyclerView = view.findViewById(R.id.book_list_scr_list);
     recyclerView.setAdapter(listAdapter);
 
     if (savedState == null) {
       model.getAllBooks().observe(this, bookList -> {
         if (bookList == null || bookList.isEmpty() || bookList.size() != BookUtils.EXPECTED_COUNT) {
-          final String message = getString(R.string.blist_scr_err_incorrect_book_count);
+          final String message = getString(R.string.book_list_scr_err_book_count);
           Log.e(TAG, "onCreateView: " + message);
           activityOps.showErrorScreen(message, true);
           return;
@@ -96,7 +96,7 @@ public class BookListScreen
 
     final int bookNumber = model.getBookNumber(bookName, listAdapter.getList());
     if (bookNumber == 0) {
-      String message = getString(R.string.blist_scr_err_invalid_book_name);
+      String message = getString(R.string.book_list_scr_err_book_name);
       activityOps.showErrorMessage(message);
       return;
     }
@@ -112,11 +112,11 @@ public class BookListScreen
   @Override
   public String getContentString(@IntRange(from = 1) final int verses,
                                  @IntRange(from = 1) final int chapters) {
-    final String template = getString(R.string.item_book_details_template);
+    final String template = getString(R.string.item_book_template_details);
     final String verseString = getResources().getQuantityString(
-        R.plurals.item_book_verses_template, verses, verses);
+        R.plurals.item_book_template_verses, verses, verses);
     final String chapterString = getResources().getQuantityString(
-        R.plurals.item_book_chapter_template, chapters, chapters);
+        R.plurals.item_book_template_chapter, chapters, chapters);
 
     return String.format(template, verseString, chapterString);
   }
