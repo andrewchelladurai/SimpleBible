@@ -62,35 +62,32 @@ public class SearchScreenAdapter
       extends RecyclerView.ViewHolder
       implements SbRvHolderOps {
 
-    private final View rootView;
     private Verse verse;
-    private TextView textView;
+    private TextView contentView;
 
     SearchResultView(@NonNull final View rootView) {
       super(rootView);
-      textView = rootView.findViewById(R.id.item_search_result_content);
-      textView.setOnClickListener(v -> toggleVerseSelection());
-      this.rootView = itemView.findViewById(R.id.item_search_result_root);
-      this.rootView.setOnClickListener(v -> toggleVerseSelection());
+      contentView = rootView.findViewById(R.id.item_search_result_content);
+      contentView.setOnClickListener(v -> toggleVerseSelection());
     }
 
     @Override
     public void updateContent(final Object object) {
       verse = (Verse) object;
-      ops.showContent(textView, verse);
-      textView.setText(verse.getText());
-      rootView.setSelected(ops.isSelected(verse));
+      ops.showContent(contentView, verse);
+      contentView.setText(verse.getText());
+      contentView.setSelected(ops.isSelected(verse));
     }
 
     private void toggleVerseSelection() {
       if (ops.isSelected(verse)) {
         ops.removeSelection(verse);
-        ops.removeSelection(String.valueOf(textView.getText()));
+        ops.removeSelection(String.valueOf(contentView.getText()));
       } else {
         ops.addSelection(verse);
-        ops.addSelection(String.valueOf(textView.getText()));
+        ops.addSelection(String.valueOf(contentView.getText()));
       }
-      rootView.setSelected(ops.isSelected(verse));
+      contentView.setSelected(ops.isSelected(verse));
       ops.toggleActionButtons();
     }
 
