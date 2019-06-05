@@ -6,8 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
+import android.widget.SearchView;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -15,14 +14,11 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.entities.Book;
 import com.andrewchelladurai.simplebible.model.BookListScreenModel;
 import com.andrewchelladurai.simplebible.ui.adapter.BookListAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BookListScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleScreenOps;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class BookListScreen
@@ -31,8 +27,6 @@ public class BookListScreen
 
   private static final String TAG = "BookListScreen";
   private BookListAdapter listAdapter;
-  private RecyclerView list;
-  private AutoCompleteTextView input;
   private SimpleBibleScreenOps activityOps;
   private BookListScreenModel model;
 
@@ -49,14 +43,37 @@ public class BookListScreen
 
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                           Bundle savedInstanceState) {
+                           Bundle savedState) {
     final View view = inflater.inflate(R.layout.booklist_screen, container, false);
 
-    input = view.findViewById(R.id.blist_scr_input);
-    list = view.findViewById(R.id.blist_scr_list);
+    final SearchView searchView = view.findViewById(R.id.blist_scr_input);
+    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+      @Override
+      public boolean onQueryTextSubmit(final String query) {
+        return listAdapter.filterList(query);
+      }
 
-    setupInputField();
-    setupListView();
+      @Override
+      public boolean onQueryTextChange(final String newText) {
+        return listAdapter.filterList(newText);
+      }
+    });
+
+    final RecyclerView recyclerView = view.findViewById(R.id.blist_scr_list);
+    recyclerView.setAdapter(listAdapter);
+
+    if (savedState == null) {
+      model.getAllBooks().observe(this, bookList -> {
+        if (bookList == null || bookList.isEmpty() || bookList.size() != BookUtils.EXPECTED_COUNT) {
+          final String message = getString(R.string.blist_scr_err_incorrect_book_count);
+          Log.e(TAG, "onCreateView: " + message);
+          activityOps.showErrorScreen(message, true);
+          return;
+        }
+        listAdapter.refreshList(bookList);
+        listAdapter.notifyDataSetChanged();
+      });
+    }
 
     return view;
   }
@@ -66,90 +83,6 @@ public class BookListScreen
     super.onDetach();
     activityOps = null;
     listAdapter = null;
-  }
-
-  private void setupInputField() {
-    final ArrayAdapter<String> nameAdapter = model.getBookNameAdapter();
-    if (nameAdapter != null && nameAdapter.getCount() == BookUtils.EXPECTED_COUNT) {
-      // setup listener to handle clicks on the auto-complete drop down items
-      setupInputItemClickListener(nameAdapter);
-      // setup listener to handle the search button click on the keyboard
-      setupEditorActionListener();
-
-      input.setAdapter(nameAdapter);
-      Log.d(TAG, "setupInputField: using cached [" + nameAdapter.getCount() + "] records");
-    } else {
-      model.getAllBooks().observe(this, list -> {
-        if (list == null || list.isEmpty() || list.size() != BookUtils.EXPECTED_COUNT) {
-          final String message = getString(R.string.blist_scr_err_incorrect_book_count);
-          Log.e(TAG, "setupInputField: " + message);
-          activityOps.showErrorScreen(message, true);
-          return;
-        }
-        final ArrayList<String> names = new ArrayList<>(list.size());
-        for (final Book book : list) {
-          names.add(book.getName());
-        }
-        model.setBookNameAdapter(new ArrayAdapter<>(
-            requireContext(), android.R.layout.simple_dropdown_item_1line, names));
-
-        input.setAdapter(model.getBookNameAdapter());
-        setupInputItemClickListener(model.getBookNameAdapter());
-        setupEditorActionListener();
-      });
-      Log.d(TAG, "setupInputField: finished");
-    }
-  }
-
-  private void setupEditorActionListener() {
-    input.setOnEditorActionListener((v, actionId, event) -> {
-      if (event == null) {
-        final String bookName = input.getText().toString().trim();
-        if (!bookName.isEmpty()) {
-          activityOps.hideKeyboard();
-          handleClickBookSelection(bookName);
-          return true;
-        }
-        return false;
-      }
-      return false;
-    });
-    Log.d(TAG, "setupEditorActionListener:");
-  }
-
-  private void setupInputItemClickListener(@NonNull final ArrayAdapter<String> nameAdapter) {
-    input.setOnItemClickListener((parent, view, position, id) -> {
-      final String bookName = nameAdapter.getItem(position);
-      if (bookName != null && !bookName.isEmpty()) {
-        activityOps.hideKeyboard();
-        handleClickBookSelection(bookName);
-      } else {
-        Log.e(TAG, "setupInputItemClickListener: this is unexpected, how did I get here?");
-      }
-    });
-    Log.d(TAG, "setupInputItemClickListener:");
-  }
-
-  private void setupListView() {
-    list.setAdapter(listAdapter);
-
-    if (listAdapter.getItemCount() == BookUtils.EXPECTED_COUNT) {
-      listAdapter.notifyDataSetChanged();
-      Log.d(TAG, "setupListView: using cached version");
-      return;
-    }
-
-    model.getAllBooks().observe(this, list -> {
-      if (list == null || list.isEmpty() || list.size() != BookUtils.EXPECTED_COUNT) {
-        final String message = getString(R.string.blist_scr_err_incorrect_book_count);
-        Log.e(TAG, "setupInputField: " + message);
-        activityOps.showErrorScreen(message, true);
-        return;
-      }
-      listAdapter.refreshList(list);
-      listAdapter.notifyDataSetChanged();
-    });
-    Log.d(TAG, "setupListView() returned");
   }
 
   @Override
@@ -163,13 +96,11 @@ public class BookListScreen
 
     final int bookNumber = model.getBookNumber(bookName, listAdapter.getList());
     if (bookNumber == 0) {
-      input.requestFocus();
       String message = getString(R.string.blist_scr_err_invalid_book_name);
       activityOps.showErrorMessage(message);
       return;
     }
 
-    input.setText(null);
     Bundle args = new Bundle();
     args.putInt(ChapterScreen.ARG_BOOK_NUMBER, bookNumber);
     args.putInt(ChapterScreen.ARG_CHAPTER_NUMBER, 1);
