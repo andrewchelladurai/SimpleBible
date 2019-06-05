@@ -23,6 +23,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 public class ChapterScreen
     extends Fragment
     implements ChapterScreenOps {
@@ -155,10 +158,12 @@ public class ChapterScreen
   public void toggleActionButtons() {
     final boolean selectionEmpty = model.isSelectionEmpty();
     if (selectionEmpty && isChapterNavBarShown) {
-      rootView.findViewById(R.id.chapter_scr_action_container).setVisibility(View.GONE);
+      rootView.findViewById(R.id.chapter_scr_action_container).setVisibility(GONE);
+      rootView.findViewById(R.id.chapter_scr_list_chapters_container).setVisibility(VISIBLE);
       isChapterNavBarShown = false;
     } else if (!selectionEmpty && !isChapterNavBarShown) {
-      rootView.findViewById(R.id.chapter_scr_action_container).setVisibility(View.VISIBLE);
+      rootView.findViewById(R.id.chapter_scr_action_container).setVisibility(VISIBLE);
+      rootView.findViewById(R.id.chapter_scr_list_chapters_container).setVisibility(GONE);
       isChapterNavBarShown = true;
     }
   }
