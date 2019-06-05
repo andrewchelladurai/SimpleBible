@@ -47,12 +47,8 @@ public class BookmarkScreen
   private BookmarkScreenModel model;
   private SimpleBibleScreenOps activityOps;
 
-  private TextInputEditText noteField;
-  private Chip editButton;
-  private Chip saveButton;
-  private Chip deleteButton;
-  private Chip shareButton;
   private StringBuilder verseListText;
+  private View rootView;
 
   @Override
   public void onAttach(@NonNull Context context) {
@@ -69,23 +65,21 @@ public class BookmarkScreen
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                            Bundle savedState) {
-    final View view = inflater.inflate(R.layout.bookmark_screen, container, false);
+    rootView = inflater.inflate(R.layout.bookmark_screen, container, false);
 
-    editButton = view.findViewById(R.id.bookmark_scr_action_edit);
-    editButton.setOnClickListener(v -> handleClickActionEdit());
+    rootView.findViewById(R.id.bookmark_scr_action_edit)
+            .setOnClickListener(v -> handleClickActionEdit());
 
-    saveButton = view.findViewById(R.id.bookmark_scr_action_save);
-    saveButton.setOnClickListener(v -> handleClickActionSave());
+    rootView.findViewById(R.id.bookmark_scr_action_save)
+            .setOnClickListener(v -> handleClickActionSave());
 
-    deleteButton = view.findViewById(R.id.bookmark_scr_action_delete);
-    deleteButton.setOnClickListener(v -> handleClickActionDelete());
+    rootView.findViewById(R.id.bookmark_scr_action_delete)
+            .setOnClickListener(v -> handleClickActionDelete());
 
-    shareButton = view.findViewById(R.id.bookmark_scr_action_share);
-    shareButton.setOnClickListener(v -> handleClickActionShare());
+    rootView.findViewById(R.id.bookmark_scr_action_share)
+            .setOnClickListener(v -> handleClickActionShare());
 
-    noteField = view.findViewById(R.id.bookmark_scr_note);
-
-    ((RecyclerView) view.findViewById(R.id.bookmark_scr_list))
+    ((RecyclerView) rootView.findViewById(R.id.bookmark_scr_list))
         .setAdapter(verseListAdapter);
 
     if (contentTemplate == null) {
@@ -115,7 +109,8 @@ public class BookmarkScreen
                  if (exists) {
                    model.getBookmark(reference).observe(this, bookmark -> {
                      if (bookmark != null) {
-                       noteField.setText(bookmark.getNote());
+                       ((TextInputEditText) rootView.findViewById(R.id.bookmark_scr_note))
+                           .setText(bookmark.getNote());
                      } else {
                        Log.e(TAG, "toggleActionButtons: bookmark with reference["
                                   + model.getCachedReference() + "] not found");
@@ -129,7 +124,7 @@ public class BookmarkScreen
         }
       }
     }
-    return view;
+    return rootView;
   }
 
   @Override
@@ -140,17 +135,22 @@ public class BookmarkScreen
   }
 
   private void toggleActionButtons(final boolean bookmarkExists) {
-    noteField.setEnabled(!bookmarkExists);
+    rootView.findViewById(R.id.bookmark_scr_note).setEnabled(!bookmarkExists);
 
-    saveButton.setVisibility((bookmarkExists) ? View.GONE : View.VISIBLE);
+    rootView.findViewById(R.id.bookmark_scr_action_save)
+            .setVisibility((bookmarkExists) ? View.GONE : View.VISIBLE);
 
-    editButton.setVisibility((bookmarkExists) ? View.VISIBLE : View.GONE);
-    deleteButton.setVisibility((bookmarkExists) ? View.VISIBLE : View.GONE);
-    shareButton.setVisibility((bookmarkExists) ? View.VISIBLE : View.GONE);
+    rootView.findViewById(R.id.bookmark_scr_action_edit)
+            .setVisibility((bookmarkExists) ? View.VISIBLE : View.GONE);
+    rootView.findViewById(R.id.bookmark_scr_action_delete)
+            .setVisibility((bookmarkExists) ? View.VISIBLE : View.GONE);
+    rootView.findViewById(R.id.bookmark_scr_action_share)
+            .setVisibility((bookmarkExists) ? View.VISIBLE : View.GONE);
   }
 
   private String getNote() {
-    final Editable editable = noteField.getText();
+    final Editable editable = ((TextInputEditText) rootView.findViewById(R.id.bookmark_scr_note))
+                                  .getText();
     if (editable == null) {
       Log.e(TAG, "getNote: null Editable found, returning blank");
       return "";
@@ -166,7 +166,8 @@ public class BookmarkScreen
   }
 
   private void handleClickActionSave() {
-    final String buttonText = saveButton.getText().toString();
+    final String buttonText = ((Chip) rootView.findViewById(R.id.bookmark_scr_action_save))
+                                  .getText().toString();
     if (buttonText.equalsIgnoreCase(getString(R.string.bookmark_scr_action_save))) {
       LoaderManager.getInstance(this)
                    .initLoader(CreateBookmarkLoader.ID, null, new CreateBookmarkListener())
@@ -179,7 +180,8 @@ public class BookmarkScreen
   }
 
   private void handleClickActionEdit() {
-    saveButton.setText(getString(R.string.bookmark_scr_action_update));
+    ((Chip) rootView.findViewById(R.id.bookmark_scr_action_save))
+        .setText(getString(R.string.bookmark_scr_action_update));
     toggleActionButtons(false);
   }
 
@@ -263,7 +265,8 @@ public class BookmarkScreen
                model.getBookmark(model.getCachedReference())
                     .observe(BookmarkScreen.this, bookmark -> {
                       if (bookmark != null) {
-                        noteField.setText(bookmark.getNote());
+                        ((TextInputEditText) rootView.findViewById(R.id.bookmark_scr_note))
+                            .setText(bookmark.getNote());
                       } else {
                         Log.e(TAG, "toggleActionButtons: bookmark with reference["
                                    + reference + "] not found");
@@ -309,7 +312,8 @@ public class BookmarkScreen
                model.getBookmark(model.getCachedReference())
                     .observe(BookmarkScreen.this, bookmark -> {
                       if (bookmark != null) {
-                        noteField.setText(bookmark.getNote());
+                        ((TextInputEditText) rootView.findViewById(R.id.bookmark_scr_note))
+                            .setText(bookmark.getNote());
                       } else {
                         Log.e(TAG, "toggleActionButtons: bookmark with reference["
                                    + reference + "] not found");

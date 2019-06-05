@@ -37,8 +37,7 @@ public class ChapterScreen
   private ChapterScreenModel model;
   private ChapterScreenAdapter adapter;
 
-  private TextView titleView;
-  private View actionContainer;
+  private View rootView;
 
   public ChapterScreen() {
   }
@@ -61,24 +60,21 @@ public class ChapterScreen
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                            Bundle savedState) {
+    rootView = inflater.inflate(R.layout.chapter_screen, container, false);
     activityOps.hideNavigationComponent();
-    final View view = inflater.inflate(R.layout.chapter_screen, container, false);
 
-    final RecyclerView listView = view.findViewById(R.id.chapter_scr_list);
+    final RecyclerView listView = rootView.findViewById(R.id.chapter_scr_list);
     listView.setAdapter(adapter);
 
-    titleView = view.findViewById(R.id.chapter_scr_title);
-
-    RecyclerView chapterList = view.findViewById(R.id.chapter_scr_list_chapters);
+    RecyclerView chapterList = rootView.findViewById(R.id.chapter_scr_list_chapters);
     chapterList.setAdapter(chapterNumberAdapter);
 
-    actionContainer = view.findViewById(R.id.chapter_scr_action_container);
-    view.findViewById(R.id.chapter_scr_butt_share)
-        .setOnClickListener(v -> handleClickActionShare());
-    view.findViewById(R.id.chapter_scr_butt_bmark)
-        .setOnClickListener(v -> handleClickActionBookmark());
-    view.findViewById(R.id.chapter_scr_butt_clear)
-        .setOnClickListener(v -> handleClickActionReset());
+    rootView.findViewById(R.id.chapter_scr_butt_share)
+            .setOnClickListener(v -> handleClickActionShare());
+    rootView.findViewById(R.id.chapter_scr_butt_bmark)
+            .setOnClickListener(v -> handleClickActionBookmark());
+    rootView.findViewById(R.id.chapter_scr_butt_clear)
+            .setOnClickListener(v -> handleClickActionReset());
 
     if (savedState == null) {
       final Bundle arguments = getArguments();
@@ -100,7 +96,7 @@ public class ChapterScreen
     toggleActionButtons();
     updateVerseListView();
 
-    return view;
+    return rootView;
   }
 
   @Override
@@ -136,7 +132,8 @@ public class ChapterScreen
 
         // update the title
         final String template = getString(R.string.chapter_scr_title_template);
-        titleView.setText(String.format(template, book.getName(), model.getChapterNumber()));
+        ((TextView) rootView.findViewById(R.id.chapter_scr_title))
+            .setText(String.format(template, book.getName(), model.getChapterNumber()));
 
         final int chapterCount = book.getChapters();
         if (chapterNumberAdapter.getItemCount() != chapterCount - 1) {
@@ -158,10 +155,10 @@ public class ChapterScreen
   public void toggleActionButtons() {
     final boolean selectionEmpty = model.isSelectionEmpty();
     if (selectionEmpty && isChapterNavBarShown) {
-      actionContainer.setVisibility(View.GONE);
+      rootView.findViewById(R.id.chapter_scr_action_container).setVisibility(View.GONE);
       isChapterNavBarShown = false;
     } else if (!selectionEmpty && !isChapterNavBarShown) {
-      actionContainer.setVisibility(View.VISIBLE);
+      rootView.findViewById(R.id.chapter_scr_action_container).setVisibility(View.VISIBLE);
       isChapterNavBarShown = true;
     }
   }
@@ -228,7 +225,8 @@ public class ChapterScreen
 
     // now let the activity do it's job
     activityOps.shareText(String.format(
-        getString(R.string.chapter_src_selection_share_template), titleView.getText(),
+        getString(R.string.chapter_src_selection_share_template),
+        ((TextView) rootView.findViewById(R.id.chapter_scr_title)).getText(),
         shareText));
   }
 
