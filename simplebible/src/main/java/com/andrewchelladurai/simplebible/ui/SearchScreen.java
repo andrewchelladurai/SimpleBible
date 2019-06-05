@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -32,18 +31,12 @@ public class SearchScreen
     implements SearchScreenOps {
 
   private static final String TAG = "SearchScreen";
-
+  private static String contentTemplate;
   private SimpleBibleScreenOps mainOps;
   private SearchScreenModel model;
   private SearchScreenAdapter adapter;
 
-  private String contentTemplate;
   private View rootView;
-
-  private RecyclerView list;
-  private SearchView input;
-  private ImageView imageView;
-  private TextView textView;
 
   public SearchScreen() {
   }
@@ -66,13 +59,9 @@ public class SearchScreen
                            Bundle savedState) {
     rootView = inflater.inflate(R.layout.search_screen, container, false);
 
-    imageView = rootView.findViewById(R.id.search_scr_image);
-    textView = rootView.findViewById(R.id.search_scr_text);
-    list = rootView.findViewById(R.id.search_scr_list);
-
-    input = rootView.findViewById(R.id.search_src_input);
-    input.setSubmitButtonEnabled(true);
-    input.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+    final SearchView searchView = rootView.findViewById(R.id.search_src_input);
+    searchView.setSubmitButtonEnabled(true);
+    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
       @Override
       public boolean onQueryTextSubmit(final String query) {
         if (query == null || query.isEmpty()) {
@@ -104,8 +93,11 @@ public class SearchScreen
       }
     });
 
-    list.setAdapter(adapter);
-    contentTemplate = getString(R.string.item_search_result_content_template);
+    if (contentTemplate == null || contentTemplate.isEmpty()) {
+      contentTemplate = getString(R.string.item_search_result_content_template);
+    }
+
+    ((RecyclerView) rootView.findViewById(R.id.search_scr_list)).setAdapter(adapter);
 
     rootView.findViewById(R.id.search_scr_butt_share)
             .setOnClickListener(v -> handleButtonClickShare());
@@ -127,7 +119,7 @@ public class SearchScreen
       textView.setText(String.format(
           getString(R.string.search_src_result_template), adapter.getItemCount()));
 
-      input.setVisibility(GONE);
+      searchView.setVisibility(GONE);
       rootView.findViewById(R.id.search_scr_result).setVisibility(VISIBLE);
       rootView.findViewById(R.id.search_scr_action_reset).setVisibility(VISIBLE);
     }
@@ -147,8 +139,9 @@ public class SearchScreen
     rootView.findViewById(R.id.search_scr_action_reset).setVisibility(GONE);
     rootView.findViewById(R.id.search_scr_result).setVisibility(GONE);
 
-    input.setVisibility(VISIBLE);
-    input.setQuery("", false);
+    final SearchView searchView = rootView.findViewById(R.id.search_src_input);
+    searchView.setVisibility(VISIBLE);
+    searchView.setQuery("", false);
 
     mainOps.hideKeyboard();
     model.clearCachedList();
@@ -174,7 +167,8 @@ public class SearchScreen
           showHelpText(true);
           final String template = getString(R.string.search_scr_text_empty_results);
           final String htmlText = String.format(template, text);
-          textView.setText(HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_LEGACY));
+          ((TextView) rootView.findViewById(R.id.search_scr_text))
+              .setText(HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_LEGACY));
         } else {
           showHelpText(false);
           adapter.refreshList(verses);
@@ -184,10 +178,10 @@ public class SearchScreen
           textView.setText(String.format(
               getString(R.string.search_src_result_template), adapter.getItemCount()));
 
-          input.setVisibility(GONE);
+          rootView.findViewById(R.id.search_src_input).setVisibility(GONE);
           rootView.findViewById(R.id.search_scr_result).setVisibility(VISIBLE);
           rootView.findViewById(R.id.search_scr_action_reset).setVisibility(VISIBLE);
-          list.scrollToPosition(0);
+          ((RecyclerView) rootView.findViewById(R.id.search_scr_list)).scrollToPosition(0);
         }
       });
 
@@ -199,12 +193,15 @@ public class SearchScreen
     resetScreen();
     showHelpText(true);
     mainOps.showErrorMessage(message);
-    input.requestFocus();
+    rootView.findViewById(R.id.search_src_input).requestFocus();
   }
 
   private void showHelpText(boolean showHelp) {
-    list.setVisibility((!showHelp) ? VISIBLE : GONE);
-    imageView.setVisibility((showHelp) ? VISIBLE : GONE);
+    rootView.findViewById(R.id.search_src_input)
+            .setVisibility((!showHelp) ? VISIBLE : GONE);
+    rootView.findViewById(R.id.search_scr_image)
+            .setVisibility((showHelp) ? VISIBLE : GONE);
+    TextView textView = rootView.findViewById(R.id.search_scr_text);
     textView.setVisibility((showHelp) ? VISIBLE : GONE);
     textView.setText(HtmlCompat.fromHtml(getString(
         R.string.search_scr_text_default),
