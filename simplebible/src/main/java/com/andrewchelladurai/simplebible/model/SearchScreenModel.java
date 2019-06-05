@@ -11,7 +11,6 @@ import com.andrewchelladurai.simplebible.data.dao.BookDao;
 import com.andrewchelladurai.simplebible.data.dao.VerseDao;
 import com.andrewchelladurai.simplebible.data.entities.Book;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -98,8 +97,12 @@ public class SearchScreenModel
 
   public void clearCachedList() {
     list.clear();
-    selectedVerses.clear();
+    clearSelection();
+  }
+
+  public void clearSelection() {
     selectedTexts.clear();
+    selectedVerses.clear();
   }
 
 }

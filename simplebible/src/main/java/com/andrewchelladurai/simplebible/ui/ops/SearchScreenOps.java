@@ -31,4 +31,6 @@ public interface SearchScreenOps {
 
   boolean isSelected(@NonNull Verse verse);
 
+  void clearSelection();
+
 }

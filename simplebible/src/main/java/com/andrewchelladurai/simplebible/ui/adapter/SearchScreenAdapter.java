@@ -11,7 +11,6 @@ import com.andrewchelladurai.simplebible.data.entities.Verse;
 import com.andrewchelladurai.simplebible.ui.ops.SbRvAdapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.SbRvHolderOps;
 import com.andrewchelladurai.simplebible.ui.ops.SearchScreenOps;
-
 import java.util.List;
 
 public class SearchScreenAdapter
@@ -53,6 +52,10 @@ public class SearchScreenAdapter
   @Override
   public List<?> getList() {
     return ops.getCachedList();
+  }
+
+  public void clearSelection() {
+    ops.clearSelection();
   }
 
   class SearchResultView

@@ -4,6 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:animateLayoutChanges="true"
   android:padding="@dimen/activity_margin"
   tools:context=".ui.SearchScreen">
   <!--todo create a landscape version-->
@@ -28,19 +29,44 @@
     android:orientation="horizontal"
     app:layout_constraintGuide_percent="0.2" />
 
-  <SearchView
-    android:id="@+id/search_src_input"
+  <LinearLayout
+    android:id="@+id/search_src_top_container"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:iconifiedByDefault="false"
-    android:inputType="textAutoComplete|textAutoCorrect"
-    android:queryHint="@string/search_scr_hint_input"
-    android:searchIcon="@drawable/ic_search"
+    android:animateLayoutChanges="true"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0" />
+    app:layout_constraintVertical_bias="0">
+
+    <SearchView
+      android:id="@+id/search_src_input"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:iconifiedByDefault="false"
+      android:inputType="textAutoComplete|textAutoCorrect"
+      android:queryHint="@string/search_scr_hint_input"
+      android:searchIcon="@drawable/ic_search" />
+
+    <TextView
+      android:id="@+id/search_scr_result"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:fontFamily="sans-serif-black"
+      android:textAlignment="center"
+      android:textAllCaps="true"
+      android:visibility="gone" />
+
+    <com.google.android.material.chip.Chip
+      android:id="@+id/search_scr_action_reset"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/search_scr_action_reset"
+      android:visibility="gone" />
+  </LinearLayout>
 
   <ImageView
     android:id="@+id/search_scr_image"
@@ -63,62 +89,73 @@
     android:padding="@dimen/gap_huge"
     android:text="@string/search_scr_text_default"
     android:textAlignment="center"
-    app:layout_constraintBottom_toTopOf="@id/search_scr_butt_share"
-    app:layout_constraintEnd_toEndOf="@id/search_src_input"
-    app:layout_constraintStart_toStartOf="@id/search_src_input"
+    app:layout_constraintBottom_toTopOf="@id/search_scr_action_container"
+    app:layout_constraintEnd_toEndOf="@id/search_src_top_container"
+    app:layout_constraintStart_toStartOf="@id/search_src_top_container"
     app:layout_constraintTop_toBottomOf="@id/search_scr_image" />
 
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/search_scr_list"
     android:layout_width="0dp"
     android:layout_height="0dp"
-    android:layout_marginTop="@dimen/gap_big"
-    android:layout_marginBottom="@dimen/gap_big"
     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-    app:layout_constraintBottom_toTopOf="@id/search_scr_butt_share"
-    app:layout_constraintEnd_toEndOf="@id/search_src_input"
-    app:layout_constraintStart_toStartOf="@id/search_src_input"
-    app:layout_constraintTop_toBottomOf="@id/search_src_input"
+    app:layout_constraintBottom_toTopOf="@id/search_scr_action_container"
+    app:layout_constraintEnd_toEndOf="@id/search_src_top_container"
+    app:layout_constraintStart_toStartOf="@id/search_src_top_container"
+    app:layout_constraintTop_toBottomOf="@id/search_src_top_container"
     app:spanCount="@integer/search_src_list_columns"
     tools:listitem="@layout/item_search_result" />
 
-  <!--todo redesign screen to show action buttons in a better method-->
-
-  <androidx.appcompat.widget.AppCompatImageButton
-    android:id="@+id/search_scr_butt_share"
-    android:layout_width="wrap_content"
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/search_scr_action_container"
+    android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:background="@android:color/transparent"
-    android:padding="@dimen/gap_small"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toStartOf="@id/search_scr_butt_bmark"
-    app:layout_constraintHorizontal_chainStyle="spread"
-    app:layout_constraintStart_toStartOf="parent"
-    app:srcCompat="@drawable/ic_share" />
-
-  <androidx.appcompat.widget.AppCompatImageButton
-    android:id="@+id/search_scr_butt_bmark"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@android:color/transparent"
-    android:padding="@dimen/gap_small"
-    app:layout_constraintBottom_toBottomOf="@id/search_scr_butt_share"
-    app:layout_constraintEnd_toStartOf="@id/search_scr_butt_reset"
-    app:layout_constraintHorizontal_chainStyle="spread"
-    app:layout_constraintStart_toEndOf="@id/search_scr_butt_share"
-    app:layout_constraintTop_toTopOf="@id/search_scr_butt_share"
-    app:srcCompat="@drawable/ic_bookmark" />
-
-  <androidx.appcompat.widget.AppCompatImageButton
-    android:id="@+id/search_scr_butt_reset"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@android:color/transparent"
-    android:padding="@dimen/gap_small"
-    app:layout_constraintBottom_toBottomOf="@id/search_scr_butt_bmark"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_chainStyle="spread"
-    app:layout_constraintStart_toEndOf="@id/search_scr_butt_bmark"
-    app:layout_constraintTop_toTopOf="@id/search_scr_butt_bmark"
-    app:srcCompat="@drawable/ic_clear" />
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="1">
+
+    <com.google.android.material.chip.Chip
+      android:id="@+id/search_scr_butt_share"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/gap_small"
+      android:layout_marginEnd="@dimen/gap_small"
+      android:text="@string/search_scr_butt_share"
+      android:textAlignment="center"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/search_scr_butt_bookmark"
+      app:layout_constraintHorizontal_chainStyle="spread"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.chip.Chip
+      android:id="@+id/search_scr_butt_bookmark"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/gap_small"
+      android:layout_marginEnd="@dimen/gap_small"
+      android:text="@string/search_scr_butt_bookmark"
+      android:textAlignment="center"
+      app:layout_constraintBottom_toBottomOf="@id/search_scr_butt_share"
+      app:layout_constraintEnd_toStartOf="@id/search_scr_butt_clear"
+      app:layout_constraintHorizontal_chainStyle="spread"
+      app:layout_constraintStart_toEndOf="@id/search_scr_butt_share"
+      app:layout_constraintTop_toTopOf="@id/search_scr_butt_share" />
+
+    <com.google.android.material.chip.Chip
+      android:id="@+id/search_scr_butt_clear"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/gap_small"
+      android:layout_marginEnd="@dimen/gap_small"
+      android:text="@string/search_scr_butt_clear"
+      android:textAlignment="center"
+      app:layout_constraintBottom_toBottomOf="@id/search_scr_butt_bookmark"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_chainStyle="spread"
+      app:layout_constraintStart_toEndOf="@id/search_scr_butt_bookmark"
+      app:layout_constraintTop_toTopOf="@id/search_scr_butt_bookmark" />
+  </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
