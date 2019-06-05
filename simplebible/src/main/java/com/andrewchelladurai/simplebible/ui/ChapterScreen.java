@@ -228,7 +228,8 @@ public class ChapterScreen
 
     // now let the activity do it's job
     activityOps.shareText(String.format(
-        getString(R.string.search_scr_selection_share_template), titleView.getText(), shareText));
+        getString(R.string.chapter_src_selection_share_template), titleView.getText(),
+        shareText));
   }
 
   @Override
