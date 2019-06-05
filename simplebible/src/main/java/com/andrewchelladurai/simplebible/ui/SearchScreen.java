@@ -2,14 +2,15 @@ package com.andrewchelladurai.simplebible.ui;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
@@ -22,12 +23,8 @@ import com.andrewchelladurai.simplebible.model.SearchScreenModel;
 import com.andrewchelladurai.simplebible.ui.adapter.SearchScreenAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.SearchScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleScreenOps;
-import com.google.android.material.textfield.TextInputEditText;
-
 import java.util.HashSet;
 import java.util.List;
-
-import static androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY;
 
 public class SearchScreen
     extends Fragment
@@ -41,7 +38,7 @@ public class SearchScreen
 
   private String contentTemplate;
   private RecyclerView list;
-  private TextInputEditText input;
+  private SearchView input;
   private ImageView imageView;
   private TextView textView;
   private AppCompatImageButton butShare;
@@ -68,13 +65,44 @@ public class SearchScreen
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                            Bundle savedState) {
     final View view = inflater.inflate(R.layout.search_screen, container, false);
-    view.findViewById(R.id.search_scr_fab_search)
-        .setOnClickListener(v -> handleButtonClickSearch());
 
     imageView = view.findViewById(R.id.search_scr_image);
     textView = view.findViewById(R.id.search_scr_text);
-    input = view.findViewById(R.id.search_src_input);
     list = view.findViewById(R.id.search_scr_list);
+    input = view.findViewById(R.id.search_src_input);
+    input.setSubmitButtonEnabled(true);
+    input.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+      @Override
+      public boolean onQueryTextSubmit(final String query) {
+        if (query == null || query.isEmpty()) {
+          showErrorMessage(getString(R.string.search_scr_error_empty_input));
+        } else if (query.trim().length() < 3) {
+          showErrorMessage(getString(R.string.search_scr_err_min_count));
+        } else if (query.trim().length() > 50) {
+          showErrorMessage(getString(R.string.search_scr_err_max_count));
+        } else {
+          Log.d(TAG, "onQueryTextSubmit:");
+          return handleButtonClickSearch(query);
+        }
+        return false;
+      }
+
+      @Override
+      public boolean onQueryTextChange(final String query) {
+        if (query == null
+            || query.isEmpty()
+            || query.trim().length() < 3
+            || query.trim().length() > 50) {
+          model.clearCachedList();
+          toggleActionButtons();
+          adapter.notifyDataSetChanged();
+          showHelpText(true);
+          Log.d(TAG, "onQueryTextChange : reset");
+          return false;
+        }
+        return true;
+      }
+    });
 
     list.setAdapter(adapter);
     contentTemplate = getString(R.string.item_search_result_content_template);
@@ -87,15 +115,6 @@ public class SearchScreen
 
     butReset = view.findViewById(R.id.search_scr_butt_reset);
     butReset.setOnClickListener(v -> handleButtonClickReset());
-
-    // handle action key event from keyboard on input field
-    input.setOnEditorActionListener((v, actionId, event) -> {
-      if (event == null) {
-        handleButtonClickSearch();
-        return true;
-      }
-      return false;
-    });
 
     if (savedState == null && model.getCachedListSize() == 0) {
       showHelpText(true);
@@ -115,7 +134,7 @@ public class SearchScreen
 
   private void resetScreen() {
     Log.d(TAG, "resetScreen:");
-    input.setText(null);
+    input.setQuery("", false);
     mainOps.hideKeyboard();
     model.clearCachedList();
     toggleActionButtons();
@@ -123,11 +142,11 @@ public class SearchScreen
     showHelpText(true);
   }
 
-  private void handleButtonClickSearch() {
+  private boolean handleButtonClickSearch(@Nullable final String text) {
+    Log.d(TAG, "handleButtonClickSearch: text = [" + text + "]");
     mainOps.hideKeyboard();
-    final String text = getInput();
 
-    if (text.isEmpty()) {
+    if (text == null || text.isEmpty()) {
       showErrorMessage(getString(R.string.search_scr_error_empty_input));
     } else if (text.trim().length() < 3) {
       showErrorMessage(getString(R.string.search_scr_err_min_count));
@@ -140,7 +159,7 @@ public class SearchScreen
           showHelpText(true);
           final String template = getString(R.string.search_scr_text_empty_results);
           final String htmlText = String.format(template, text);
-          textView.setText(HtmlCompat.fromHtml(htmlText, FROM_HTML_MODE_LEGACY));
+          textView.setText(HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_LEGACY));
         } else {
           showHelpText(false);
           adapter.refreshList(verses);
@@ -149,6 +168,7 @@ public class SearchScreen
       });
 
     }
+    return true;
   }
 
   private void showErrorMessage(@NonNull final String message) {
@@ -162,14 +182,9 @@ public class SearchScreen
     imageView.setVisibility((showHelp) ? View.VISIBLE : View.GONE);
     textView.setVisibility((showHelp) ? View.VISIBLE : View.GONE);
     textView.setText(HtmlCompat.fromHtml(getString(
-        R.string.search_scr_text_default), FROM_HTML_MODE_LEGACY));
+        R.string.search_scr_text_default),
+                                         HtmlCompat.FROM_HTML_MODE_LEGACY));
     toggleActionButtons();
-  }
-
-  @NonNull
-  private String getInput() {
-    final Editable editable = input.getText();
-    return (editable != null) ? editable.toString().trim() : "";
   }
 
   @Override
@@ -192,7 +207,8 @@ public class SearchScreen
                                                          book.getName(),
                                                          verse.getChapterNumber(),
                                                          verse.getVerseNumber(),
-                                                         verse.getText()), FROM_HTML_MODE_LEGACY));
+                                                         verse.getText()),
+                                           HtmlCompat.FROM_HTML_MODE_LEGACY));
     });
   }
 
@@ -224,13 +240,13 @@ public class SearchScreen
   }
 
   @Override
-  public void removeSelection(@NonNull final Verse verse) {
-    model.removeSelection(verse);
+  public void addSelection(@NonNull final String text) {
+    model.addSelection(text);
   }
 
   @Override
-  public void addSelection(@NonNull final String text) {
-    model.addSelection(text);
+  public void removeSelection(@NonNull final Verse verse) {
+    model.removeSelection(verse);
   }
 
   @Override

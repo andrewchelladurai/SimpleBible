@@ -3,7 +3,6 @@ package com.andrewchelladurai.simplebible.ui.ops;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
-
 import java.util.List;
 
 public interface SearchScreenOps {
@@ -24,9 +23,9 @@ public interface SearchScreenOps {
 
   void addSelection(@NonNull Verse verse);
 
-  void removeSelection(@NonNull Verse verse);
-
   void addSelection(@NonNull String text);
+
+  void removeSelection(@NonNull Verse verse);
 
   void removeSelection(@NonNull String text);
 

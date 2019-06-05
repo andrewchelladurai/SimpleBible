@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent"
-                                                   android:padding="@dimen/activity_margin"
-                                                   tools:context=".ui.SearchScreen">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:padding="@dimen/activity_margin"
+  tools:context=".ui.SearchScreen">
   <!--todo create a landscape version-->
   <androidx.constraintlayout.widget.Guideline
     android:id="@+id/search_src_gv3"
@@ -28,47 +28,31 @@
     android:orientation="horizontal"
     app:layout_constraintGuide_percent="0.2" />
 
-  <!--todo use a better way to show the search field and the button-->
-
-  <com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/search_scr_fab_search"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:elevation="@dimen/gap_none"
-    app:fabSize="mini"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toEndOf="@id/search_src_input"
-    app:layout_constraintTop_toTopOf="parent"
-    app:srcCompat="@drawable/ic_search" />
-
-  <com.google.android.material.textfield.TextInputEditText
+  <SearchView
     android:id="@+id/search_src_input"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="@dimen/gap_normal"
-    android:layout_marginBottom="@dimen/gap_normal"
-    android:hint="@string/search_scr_hint_input"
-    android:imeOptions="actionSearch"
+    android:iconifiedByDefault="false"
     android:inputType="textAutoComplete|textAutoCorrect"
-    android:lines="1"
-    android:selectAllOnFocus="true"
-    android:text="rachel"
-    app:layout_constraintBottom_toBottomOf="@id/search_scr_fab_search"
-    app:layout_constraintEnd_toStartOf="@id/search_scr_fab_search"
-    app:layout_constraintHorizontal_bias="0"
-    app:layout_constraintHorizontal_chainStyle="spread"
+    android:queryHint="@string/search_scr_hint_input"
+    android:searchIcon="@drawable/ic_search"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="@id/search_scr_fab_search" />
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0" />
 
   <ImageView
     android:id="@+id/search_scr_image"
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:contentDescription="@string/search_scr_butt_search"
+    app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintDimensionRatio="1:1"
     app:layout_constraintEnd_toEndOf="@id/search_src_gv7"
     app:layout_constraintStart_toStartOf="@id/search_src_gv3"
     app:layout_constraintTop_toBottomOf="@id/search_src_gh2"
+    app:layout_constraintVertical_bias="0"
     app:srcCompat="@drawable/ic_hero_search" />
 
   <TextView
@@ -80,7 +64,7 @@
     android:text="@string/search_scr_text_default"
     android:textAlignment="center"
     app:layout_constraintBottom_toTopOf="@id/search_scr_butt_share"
-    app:layout_constraintEnd_toEndOf="@id/search_scr_fab_search"
+    app:layout_constraintEnd_toEndOf="@id/search_src_input"
     app:layout_constraintStart_toStartOf="@id/search_src_input"
     app:layout_constraintTop_toBottomOf="@id/search_scr_image" />
 
@@ -92,7 +76,7 @@
     android:layout_marginBottom="@dimen/gap_big"
     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
     app:layout_constraintBottom_toTopOf="@id/search_scr_butt_share"
-    app:layout_constraintEnd_toEndOf="@id/search_scr_fab_search"
+    app:layout_constraintEnd_toEndOf="@id/search_src_input"
     app:layout_constraintStart_toStartOf="@id/search_src_input"
     app:layout_constraintTop_toBottomOf="@id/search_src_input"
     app:spanCount="@integer/search_src_list_columns"
