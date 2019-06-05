@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -23,8 +22,6 @@ import com.andrewchelladurai.simplebible.model.HomeScreenModel;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleScreenOps;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 import com.andrewchelladurai.simplebible.utils.VerseUtils;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.util.Calendar;
 
 import static android.view.View.GONE;
@@ -35,18 +32,11 @@ public class HomeScreen
     extends Fragment {
 
   private static final String TAG = "HomeScreen";
-
   private static boolean flagSetupFinished = false;
-
   private SimpleBibleScreenOps activityOps;
-
-  private ProgressBar progressBar;
-
-  private TextView tvVerse;
-
   private HomeScreenModel model;
 
-  private FloatingActionButton fabShare;
+  private View rootView;
 
   @Override
   public void onAttach(@NonNull Context context) {
@@ -61,12 +51,10 @@ public class HomeScreen
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                            Bundle savedState) {
-    final View view = inflater.inflate(R.layout.home_screen, container, false);
+    rootView = inflater.inflate(R.layout.home_screen, container, false);
 
-    progressBar = view.findViewById(R.id.home_src_pbar);
-    tvVerse = view.findViewById(R.id.home_src_txt_verse);
-    fabShare = view.findViewById(R.id.home_src_fab_share);
-    fabShare.setOnClickListener(v -> handleClickFabShare());
+    rootView.findViewById(R.id.home_src_fab_share)
+            .setOnClickListener(v -> handleClickFabShare());
 
     showLoadingScreen();
 
@@ -82,16 +70,17 @@ public class HomeScreen
       // if there is a previously saved instance and the DB is setup, it means that the verses
       // are also present. Verify that this is so and then check if the day has changed, if no
       // then use the cached verse for the day
-      progressBar.setVisibility(GONE);
-      fabShare.setVisibility(VISIBLE);
-      tvVerse.setText(HtmlCompat.fromHtml(model.getCachedVerseText(), FROM_HTML_MODE_LEGACY));
+      rootView.findViewById(R.id.home_src_pbar).setVisibility(GONE);
+      rootView.findViewById(R.id.home_src_fab_share).setVisibility(VISIBLE);
+      ((TextView) rootView.findViewById(R.id.home_src_txt_verse))
+          .setText(HtmlCompat.fromHtml(model.getCachedVerseText(), FROM_HTML_MODE_LEGACY));
       Log.d(TAG, "onCreateView: using cached verse text");
     } else {
       // if we are here, it means we have a previous saved instance and a cached version of the
       // verse also exists BUT the day has changed. So we must update the day's verse.
       showDailyVerse();
     }
-    return view;
+    return rootView;
   }
 
   @Override
@@ -112,10 +101,11 @@ public class HomeScreen
   }
 
   private void showLoadingScreen() {
-    progressBar.setVisibility(VISIBLE);
-    fabShare.setVisibility(GONE);
-    tvVerse.setText(HtmlCompat.fromHtml(getString(R.string.home_src_txt_verse_loading),
-                                        FROM_HTML_MODE_LEGACY));
+    rootView.findViewById(R.id.home_src_pbar).setVisibility(VISIBLE);
+    rootView.findViewById(R.id.home_src_fab_share).setVisibility(GONE);
+    ((TextView) rootView.findViewById(R.id.home_src_txt_verse))
+        .setText(HtmlCompat.fromHtml(getString(R.string.home_src_txt_verse_loading),
+                                     FROM_HTML_MODE_LEGACY));
   }
 
   private void setupDbServiceListeners() {
@@ -155,9 +145,9 @@ public class HomeScreen
         Log.e(TAG, "showDailyVerse: " + message);
         // activityOps.showErrorScreen(message, true);
 
-        // hide the loading view and show the share fab
-        progressBar.setVisibility(GONE);
-        fabShare.setVisibility(VISIBLE);
+        // hide the loading rootView and show the share fab
+        rootView.findViewById(R.id.home_src_pbar).setVisibility(GONE);
+        rootView.findViewById(R.id.home_src_fab_share).setVisibility(VISIBLE);
         return;
       }
 
@@ -170,9 +160,9 @@ public class HomeScreen
           Log.e(TAG, "showDailyVerse: " + message);
           // activityOps.showErrorScreen(message, true);
 
-          // hide the loading view and show the share fab
-          progressBar.setVisibility(GONE);
-          fabShare.setVisibility(VISIBLE);
+          // hide the loading rootView and show the share fab
+          rootView.findViewById(R.id.home_src_pbar).setVisibility(GONE);
+          rootView.findViewById(R.id.home_src_fab_share).setVisibility(VISIBLE);
           return;
         }
 
@@ -181,22 +171,24 @@ public class HomeScreen
                                                    verse.getChapterNumber(),
                                                    verse.getVerseNumber(),
                                                    verse.getText());
-        tvVerse.setText(HtmlCompat.fromHtml(formattedText, FROM_HTML_MODE_LEGACY));
+        ((TextView) rootView.findViewById(R.id.home_src_txt_verse))
+            .setText(HtmlCompat.fromHtml(formattedText, FROM_HTML_MODE_LEGACY));
 
         // saved a cached version so we can use it later and avoid redoing all this
         model.setCachedVerseText(formattedText);
 
-        // hide the loading view and show the share fab
-        progressBar.setVisibility(GONE);
-        fabShare.setVisibility(VISIBLE);
+        // hide the loading rootView and show the share fab
+        rootView.findViewById(R.id.home_src_pbar).setVisibility(GONE);
+        rootView.findViewById(R.id.home_src_fab_share).setVisibility(VISIBLE);
       });
     });
 
   }
 
   private void showDefaultVerseText() {
-    tvVerse.setText(HtmlCompat.fromHtml(getString(R.string.home_src_txt_verse_default),
-                                        FROM_HTML_MODE_LEGACY));
+    ((TextView) rootView.findViewById(R.id.home_src_txt_verse))
+        .setText(HtmlCompat.fromHtml(getString(R.string.home_src_txt_verse_default),
+                                     FROM_HTML_MODE_LEGACY));
   }
 
   private void startDbSetupService() {
