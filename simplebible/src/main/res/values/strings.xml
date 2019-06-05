@@ -78,20 +78,20 @@
   </plurals>
 
   <!-- Strings used in and/or for SearchScreen -->
-  <string name="search_src_result_template">%d verses found</string>
-  <string name="search_scr_hint_input">Text to search</string>
-  <string name="search_scr_selection_share_template">%s\nWorld English Bible Translation\nShared using Simple Bible</string>
-  <string name="search_scr_error_empty_input">Cannot search empty text</string>
-  <string name="search_scr_err_min_count">Min 3 chars needed</string>
-  <string name="search_scr_err_max_count">Max 50 chars allowed</string>
+  <string name="search_scr_query_field_template">%d verses found</string>
+  <string name="search_scr_query_field_hint">Text to search</string>
+  <string name="search_scr_err_empty_input">Cannot search empty text</string>
   <string name="search_scr_err_empty_selection">No search result selected</string>
+  <string name="search_scr_err_count_min">Min 3 chars needed</string>
+  <string name="search_scr_err_count_max">Max 50 chars allowed</string>
   <string name="search_scr_action_reset">Reset</string>
-  <string name="search_scr_butt_search">search</string>
-  <string name="search_scr_butt_bookmark">bookmark</string>
-  <string name="search_scr_butt_clear">clear</string>
-  <string name="search_scr_butt_share">share</string>
+  <string name="search_scr_action_bookmark">bookmark</string>
+  <string name="search_scr_action_clear">clear</string>
+  <string name="search_scr_action_share">share</string>
+  <string name="search_scr_action_share_template">%s\nWorld English Bible Translation\nShared using Simple Bible</string>
 
-  <string name="search_scr_text_default">
+  <string name="search_scr_help_image_description">search</string>
+  <string name="search_scr_help_text_default">
     <![CDATA[
     <h3>TO SEARCH FOR A VERSE</h3>
     <b>Text must have at least 3 alphabets<br/>
@@ -103,7 +103,8 @@
   <string name="search_scr_text_empty_results">
     <![CDATA[
     <h3>No Verses Found</h3>
-    <b>with text<br/>%s</b>]]>
+    <b>with text</b>
+    <h3>%s</h3>]]>
   </string>
   <string name="item_search_result_content_template"><![CDATA[<b>%s (%d:%d)</b> - %s]]></string>
   <string name="item_search_result_failure_message"><![CDATA[<b>Failure getting data</b>]]></string>

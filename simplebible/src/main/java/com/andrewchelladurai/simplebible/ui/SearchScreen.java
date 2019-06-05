@@ -59,17 +59,17 @@ public class SearchScreen
                            Bundle savedState) {
     rootView = inflater.inflate(R.layout.search_screen, container, false);
 
-    final SearchView searchView = rootView.findViewById(R.id.search_src_input);
+    final SearchView searchView = rootView.findViewById(R.id.search_scr_query_field);
     searchView.setSubmitButtonEnabled(true);
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
       @Override
       public boolean onQueryTextSubmit(final String query) {
         if (query == null || query.isEmpty()) {
-          showErrorMessage(getString(R.string.search_scr_error_empty_input));
+          showErrorMessage(getString(R.string.search_scr_err_empty_input));
         } else if (query.trim().length() < 3) {
-          showErrorMessage(getString(R.string.search_scr_err_min_count));
+          showErrorMessage(getString(R.string.search_scr_err_count_min));
         } else if (query.trim().length() > 50) {
-          showErrorMessage(getString(R.string.search_scr_err_max_count));
+          showErrorMessage(getString(R.string.search_scr_err_count_max));
         } else {
           Log.d(TAG, "onQueryTextSubmit:");
           return handleButtonClickSearch(query);
@@ -99,13 +99,13 @@ public class SearchScreen
 
     ((RecyclerView) rootView.findViewById(R.id.search_scr_list)).setAdapter(adapter);
 
-    rootView.findViewById(R.id.search_scr_butt_share)
+    rootView.findViewById(R.id.search_scr_action_share)
             .setOnClickListener(v -> handleButtonClickShare());
 
-    rootView.findViewById(R.id.search_scr_butt_bookmark)
+    rootView.findViewById(R.id.search_scr_action_bookmark)
             .setOnClickListener(v -> handleButtonClickBookmark());
 
-    rootView.findViewById(R.id.search_scr_butt_clear)
+    rootView.findViewById(R.id.search_scr_action_clear)
             .setOnClickListener(v -> handleButtonClickClearSelection());
 
     rootView.findViewById(R.id.search_scr_action_reset)
@@ -130,9 +130,9 @@ public class SearchScreen
   private void resetScreen() {
     Log.d(TAG, "resetScreen:");
     rootView.findViewById(R.id.search_scr_action_reset).setVisibility(GONE);
-    rootView.findViewById(R.id.search_scr_result).setVisibility(GONE);
+    rootView.findViewById(R.id.search_scr_query_result_count).setVisibility(GONE);
 
-    final SearchView searchView = rootView.findViewById(R.id.search_src_input);
+    final SearchView searchView = rootView.findViewById(R.id.search_scr_query_field);
     searchView.setVisibility(VISIBLE);
     searchView.setQuery("", false);
 
@@ -148,11 +148,11 @@ public class SearchScreen
     mainOps.hideKeyboard();
 
     if (text == null || text.isEmpty()) {
-      showErrorMessage(getString(R.string.search_scr_error_empty_input));
+      showErrorMessage(getString(R.string.search_scr_err_empty_input));
     } else if (text.trim().length() < 3) {
-      showErrorMessage(getString(R.string.search_scr_err_min_count));
+      showErrorMessage(getString(R.string.search_scr_err_count_min));
     } else if (text.trim().length() > 50) {
-      showErrorMessage(getString(R.string.search_scr_err_max_count));
+      showErrorMessage(getString(R.string.search_scr_err_count_max));
     } else {
 
       model.searchText(text).observe(this, verses -> {
@@ -160,19 +160,19 @@ public class SearchScreen
           showHelpText(true);
           final String template = getString(R.string.search_scr_text_empty_results);
           final String htmlText = String.format(template, text);
-          ((TextView) rootView.findViewById(R.id.search_scr_text))
+          ((TextView) rootView.findViewById(R.id.search_scr_help_text))
               .setText(HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_LEGACY));
         } else {
           showHelpText(false);
           adapter.refreshList(verses);
           adapter.notifyDataSetChanged();
 
-          final TextView textView = rootView.findViewById(R.id.search_scr_result);
+          final TextView textView = rootView.findViewById(R.id.search_scr_query_result_count);
           textView.setText(String.format(
-              getString(R.string.search_src_result_template), adapter.getItemCount()));
+              getString(R.string.search_scr_query_field_template), adapter.getItemCount()));
 
-          rootView.findViewById(R.id.search_src_input).setVisibility(GONE);
-          rootView.findViewById(R.id.search_scr_result).setVisibility(VISIBLE);
+          rootView.findViewById(R.id.search_scr_query_field).setVisibility(GONE);
+          rootView.findViewById(R.id.search_scr_query_result_count).setVisibility(VISIBLE);
           rootView.findViewById(R.id.search_scr_action_reset).setVisibility(VISIBLE);
           ((RecyclerView) rootView.findViewById(R.id.search_scr_list)).scrollToPosition(0);
         }
@@ -186,12 +186,12 @@ public class SearchScreen
     resetScreen();
     showHelpText(true);
     mainOps.showErrorMessage(message);
-    rootView.findViewById(R.id.search_src_input).requestFocus();
+    rootView.findViewById(R.id.search_scr_query_field).requestFocus();
   }
 
   private void showHelpText(boolean showHelp) {
     // search input field
-    rootView.findViewById(R.id.search_src_input)
+    rootView.findViewById(R.id.search_scr_query_field)
             .setVisibility((showHelp) ? VISIBLE : GONE);
 
     // search reset button
@@ -199,29 +199,29 @@ public class SearchScreen
             .setVisibility((showHelp) ? GONE : VISIBLE);
 
     // search results count message
-    final TextView resultsCountView = rootView.findViewById(R.id.search_scr_result);
+    final TextView resultsCountView = rootView.findViewById(R.id.search_scr_query_result_count);
     resultsCountView.setVisibility((showHelp) ? GONE : VISIBLE);
     if (model.getCachedListSize() > 0) {
       resultsCountView.setText(String.format(
-          getString(R.string.search_src_result_template), adapter.getItemCount()));
+          getString(R.string.search_scr_query_field_template), adapter.getItemCount()));
     }
 
     // hero image
-    rootView.findViewById(R.id.search_scr_image)
+    rootView.findViewById(R.id.search_scr_help_image)
             .setVisibility((showHelp) ? VISIBLE : GONE);
 
     // help message
-    final TextView helpText = rootView.findViewById(R.id.search_scr_text);
+    final TextView helpText = rootView.findViewById(R.id.search_scr_help_text);
     helpText.setVisibility((showHelp) ? VISIBLE : GONE);
     helpText.setText(HtmlCompat.fromHtml(getString(
-        R.string.search_scr_text_default),
+        R.string.search_scr_help_text_default),
                                          HtmlCompat.FROM_HTML_MODE_LEGACY));
     toggleActionButtons();
   }
 
   @Override
   public void toggleActionButtons() {
-    rootView.findViewById(R.id.search_scr_action_container)
+    rootView.findViewById(R.id.search_scr_container_action)
             .setVisibility((model.isSelectionEmpty()) ? GONE : VISIBLE);
   }
 
@@ -322,7 +322,7 @@ public class SearchScreen
       shareText.append("\n");
     }
     mainOps.shareText(String.format(
-        getString(R.string.search_scr_selection_share_template), shareText));
+        getString(R.string.search_scr_action_share_template), shareText));
     resetScreen();
   }
 
