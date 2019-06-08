@@ -153,4 +153,10 @@
     Tap on results to select them<br/>
     Choose the bookmark action at the bottom]]>
   </string>
+  <string name="item_bookmark_content_template"><![CDATA[<b>%d</b> verse(s) are referenced in this bookmark.]]></string>
+  <string name="item_bookmark_note_template"><![CDATA[<b>Bookmark Note : </b>%s]]></string>
+  <string name="item_bookmark_action_edit">edit</string>
+  <string name="item_bookmark_action_delete">delete</string>
+  <string name="item_bookmark_action_share">share</string>
+  <string name="item_bookmark_msg_empty_note">This bookmark does not have any note.</string>
 </resources>

@@ -16,7 +16,7 @@ import java.util.List;
 public class BookmarkUtils {
 
   private static final String TAG = "BookmarkUtils";
-  private static final String SEPARATOR = "~";
+  public static final String SEPARATOR = "~";
 
   @NonNull
   public static String createBookmarkReference(@NonNull final List<?> list) {

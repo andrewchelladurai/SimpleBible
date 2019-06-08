@@ -9,6 +9,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 import com.andrewchelladurai.simplebible.data.entities.Bookmark;
+import java.util.List;
 
 @Dao
 public interface BookmarkDao {
@@ -30,5 +31,8 @@ public interface BookmarkDao {
 
   @Delete
   void deleteRecord(@NonNull final Bookmark bookmark);
+
+  @Query("select * from sb_bookmarks order by `references`")
+  LiveData<List<Bookmark>> getAllRecords();
 
 }
