@@ -1,15 +1,5 @@
 <resources>
-  <dimen name="activity_margin">16dp</dimen>
-
-  <dimen name="gap_none">0dp</dimen>
-  <dimen name="gap_small">4dp</dimen>
-  <dimen name="gap_normal">8dp</dimen>
-  <dimen name="gap_big">12dp</dimen>
-  <dimen name="gap_huge">16dp</dimen>
-
-  <integer name="book_list_scr_list_columns">1</integer>
-  <integer name="chapter_scr_list_column">1</integer>
-  <integer name="bookmark_scr_list">1</integer>
-  <integer name="bookmark_list_scr_list_columns">1</integer>
-
+  <!-- Default screen margins, per the Android Design guidelines. -->
+  <dimen name="activity_horizontal_margin">16dp</dimen>
+  <dimen name="activity_vertical_margin">16dp</dimen>
 </resources>

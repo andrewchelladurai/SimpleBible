@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/nav_graph_simple_bible"
+  app:startDestination="@id/screenHome">
+
+  <fragment
+    android:id="@+id/screenHome"
+    android:name="com.andrewchelladurai.simplebible.ui.ScreenHome"
+    android:label="screen_home_fragment"
+    tools:layout="@layout/screen_home_fragment" />
+
+  <fragment
+    android:id="@+id/screenBookList"
+    android:name="com.andrewchelladurai.simplebible.ui.ScreenBookList"
+    android:label="fragment_screen_book_list"
+    tools:layout="@layout/screen_book_list_fragment" />
+
+  <fragment
+    android:id="@+id/screenSearch"
+    android:name="com.andrewchelladurai.simplebible.ui.ScreenSearch"
+    android:label="fragment_screen_search"
+    tools:layout="@layout/screen_search_fragment" />
+
+  <fragment
+    android:id="@+id/screenBookmarkList"
+    android:name="com.andrewchelladurai.simplebible.ui.ScreenBookmarkList"
+    android:label="fragment_screen_bookmark_list"
+    tools:layout="@layout/screen_bookmark_list_fragment" />
+
+  <fragment
+    android:id="@+id/screenBookmark"
+    android:name="com.andrewchelladurai.simplebible.ui.ScreenBookmark"
+    android:label="fragment_screen_bookmark"
+    tools:layout="@layout/screen_bookmark_fragment" />
+
+  <fragment
+    android:id="@+id/screenChapter"
+    android:name="com.andrewchelladurai.simplebible.ui.ScreenChapter"
+    android:label="fragment_screen_chapter"
+    tools:layout="@layout/screen_chapter_fragment" />
+
+  <fragment
+    android:id="@+id/screenError"
+    android:name="com.andrewchelladurai.simplebible.ui.ScreenError"
+    android:label="fragment_screen_error"
+    tools:layout="@layout/screen_error_fragment" />
+
+  <fragment
+    android:id="@+id/screenSettings"
+    android:name="com.andrewchelladurai.simplebible.ui.ScreenSettings"
+    android:label="screen_settings_fragment"
+    tools:layout="@layout/screen_settings_fragment" />
+
+</navigation>
