@@ -8,7 +8,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import java.util.Objects;
 
-@Entity(tableName = "sb_bookmarks", primaryKeys = {"reference"})
+@Entity(tableName = "sb_bookmarks")
 public class Bookmark
     implements Comparable,
                Parcelable {
@@ -28,7 +28,6 @@ public class Bookmark
   @PrimaryKey
   @ColumnInfo(name = "reference")
   @NonNull
-
   private final String reference;
   @ColumnInfo(name = "note")
   @NonNull
