@@ -10,16 +10,16 @@
     android:id="@+id/scrHomeGuide"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintGuide_percent="0.8" />
+    android:orientation="vertical"
+    app:layout_constraintGuide_percent="0.85" />
 
   <ScrollView
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:fillViewport="true"
     android:padding="@dimen/gapNormal"
-    app:layout_constraintBottom_toTopOf="@id/scrHomeGuide"
-    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toStartOf="@id/scrHomeGuide"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
@@ -40,8 +40,8 @@
     android:indeterminateBehavior="cycle"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/scrHomeGuide" />
+    app:layout_constraintStart_toEndOf="@id/scrHomeGuide"
+    app:layout_constraintTop_toTopOf="parent" />
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/scrHomeFabShare"
@@ -50,7 +50,7 @@
     android:src="@drawable/ic_share"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/scrHomeGuide" />
+    app:layout_constraintStart_toEndOf="@id/scrHomeGuide"
+    app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
