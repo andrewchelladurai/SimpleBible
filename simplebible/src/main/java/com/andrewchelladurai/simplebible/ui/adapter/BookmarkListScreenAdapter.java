@@ -55,6 +55,7 @@ public class BookmarkListScreenAdapter
       list.add((Bookmark) object);
     }
     Log.d(TAG, "refreshList: updated [" + getItemCount() + "] bookmark records");
+    notifyDataSetChanged();
   }
 
   @NonNull
@@ -89,7 +90,7 @@ public class BookmarkListScreenAdapter
       final TextView noteTv = rootView.findViewById(R.id.item_bookmark_note);
       noteTv.setText(bookmarkNote);
 
-      rootView.findViewById(R.id.item_bookmark_action_edit)
+      rootView.findViewById(R.id.item_bookmark_action_view)
               .setOnClickListener(v -> ops.handleBookmarkActionEdit(bookmark));
       rootView.findViewById(R.id.item_bookmark_action_delete)
               .setOnClickListener(v -> ops.handleBookmarkActionDelete(bookmark));

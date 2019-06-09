@@ -8,7 +8,6 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import com.andrewchelladurai.simplebible.data.entities.Verse;
-
 import java.util.List;
 
 @Dao
@@ -35,6 +34,7 @@ public interface VerseDao {
                                 @IntRange(from = 1) int chapter,
                                 @IntRange(from = 1) int verse);
 
+  @SuppressWarnings("NullableProblems")
   @Query("select * from sb_verses "
          + "where lower(text) like lower(:text) order by book, chapter, verse")
   LiveData<List<Verse>> getRecordsWithText(@NonNull String text);
@@ -43,5 +43,14 @@ public interface VerseDao {
          + "where book=:book and chapter=:chapter order by verse asc")
   LiveData<List<Verse>> getRecordsOfChapter(@IntRange(from = 1, to = 66) int book,
                                             @IntRange(from = 1) int chapter);
+
+  @Query("select * from sb_verses"
+         + " where book in (:books)"
+         + " and chapter in (:chapters)"
+         + " and verse in  (:verses)"
+         + "order by book, chapter, verse")
+  LiveData<List<Verse>> getRecords(@NonNull List<Integer> books,
+                                   @NonNull List<Integer> chapters,
+                                   @NonNull List<Integer> verses);
 
 }

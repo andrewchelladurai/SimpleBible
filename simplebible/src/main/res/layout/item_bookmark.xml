@@ -45,11 +45,11 @@
       app:layout_constraintVertical_bias="0" />
 
     <com.google.android.material.chip.Chip
-      android:id="@+id/item_bookmark_action_edit"
+      android:id="@+id/item_bookmark_action_view"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/gap_normal"
-      android:text="@string/item_bookmark_action_edit"
+      android:text="@string/item_bookmark_action_view"
       android:textAlignment="center"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@id/item_bookmark_action_delete"
@@ -65,10 +65,10 @@
       android:layout_marginEnd="@dimen/gap_normal"
       android:text="@string/item_bookmark_action_delete"
       android:textAlignment="center"
-      app:layout_constraintBottom_toBottomOf="@id/item_bookmark_action_edit"
+      app:layout_constraintBottom_toBottomOf="@id/item_bookmark_action_view"
       app:layout_constraintEnd_toStartOf="@id/item_bookmark_action_share"
-      app:layout_constraintStart_toEndOf="@id/item_bookmark_action_edit"
-      app:layout_constraintTop_toTopOf="@id/item_bookmark_action_edit" />
+      app:layout_constraintStart_toEndOf="@id/item_bookmark_action_view"
+      app:layout_constraintTop_toTopOf="@id/item_bookmark_action_view" />
 
     <com.google.android.material.chip.Chip
       android:id="@+id/item_bookmark_action_share"
