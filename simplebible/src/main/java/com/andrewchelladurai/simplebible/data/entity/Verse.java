@@ -6,7 +6,7 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import com.andrewchelladurai.simplebible.utils.Utils;
+import com.andrewchelladurai.simplebible.utils.BookUtils;
 import java.util.Objects;
 
 @Entity(tableName = "sb_verses", primaryKeys = {"book", "chapter", "verse"})
@@ -31,7 +31,7 @@ public class Verse
   private final String translation;
 
   @ColumnInfo(name = "book")
-  @IntRange(from = 1, to = Utils.TOTAL_BOOKS)
+  @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT)
   private final int book;
 
   @ColumnInfo(name = "chapter")
@@ -47,7 +47,7 @@ public class Verse
   private final String text;
 
   public Verse(@NonNull final String translation,
-               @IntRange(from = 1, to = Utils.TOTAL_BOOKS) final int book,
+               @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int book,
                @IntRange(from = 1) final int chapter,
                @IntRange(from = 1) final int verse,
                @NonNull final String text) {
