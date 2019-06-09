@@ -9,7 +9,7 @@ import androidx.room.Entity;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 import java.util.Objects;
 
-@Entity(tableName = "sb_books", primaryKeys = {"number", "name", "chapter", "verse"})
+@Entity(tableName = "sb_books", primaryKeys = {"number", "name", "chapters", "verses"})
 public class Book
     implements Comparable,
                Parcelable {
