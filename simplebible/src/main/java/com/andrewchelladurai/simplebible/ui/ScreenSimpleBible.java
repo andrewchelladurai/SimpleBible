@@ -6,8 +6,6 @@ import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.ResultReceiver;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -16,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.DbSetupJob;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -41,23 +38,10 @@ public class ScreenSimpleBible
         Navigation.findNavController(this, R.id.scrMainNavHostFragment));
 
     if (savedState == null) {
-      hideNavigationView();
-
       // Need this only once when the application launches
       createNotificationChannel();
-      startDbSetupService();
-
     }
 
-  }
-
-  private void startDbSetupService() {
-    Log.d(TAG, "startDbSetupService() called");
-
-    final Intent intent = new Intent(this, DbSetupJob.class);
-
-    // start the database setup service
-    DbSetupJob.startWork(this, intent, new DbSetupJobResultReceiver(new Handler()));
   }
 
   private void createNotificationChannel() {
@@ -117,32 +101,6 @@ public class ScreenSimpleBible
       view = new View(this);
     }
     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-  }
-
-  public class DbSetupJobResultReceiver
-      extends ResultReceiver {
-
-    DbSetupJobResultReceiver(Handler handler) {
-      super(handler);
-    }
-
-    @Override
-    protected void onReceiveResult(int resultCode, Bundle resultData) {
-      switch (resultCode) {
-        case DbSetupJob.STARTED:
-          Log.d(TAG, "onReceiveResult: STARTED");
-          break;
-        case DbSetupJob.RUNNING:
-          Log.d(TAG, "onReceiveResult: RUNNING");
-          break;
-        case DbSetupJob.FINISHED:
-          Log.d(TAG, "onReceiveResult: FINISHED");
-          break;
-        default:
-          Log.d(TAG, "onReceiveResult: unknown state");
-      }
-    }
-
   }
 
 }
