@@ -4,6 +4,9 @@
   <string name="bookNameFirst">Genesis</string>
   <string name="bookNameLast">Revelation</string>
 
+  <string name="dbSetupNotificationTitle">Database Loading</string>
+  <string name="dbSetupNotificationMessage">Setup is in progress</string>
+
   <!-- Strings used in the Main Screen -->
   <string name="scrMainBottomNavViewHome">home</string>
   <string name="scrMainBottomNavViewBookList">books</string>

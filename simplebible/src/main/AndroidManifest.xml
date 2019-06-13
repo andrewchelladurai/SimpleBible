@@ -3,6 +3,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   package="com.andrewchelladurai.simplebible">
 
+  <uses-permission android:name="android.permission.WAKE_LOCK" />
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
   <application
@@ -14,6 +15,12 @@
     android:supportsRtl="true"
     android:theme="@style/SbLoadSplash"
     tools:ignore="GoogleAppIndexingWarning">
+
+    <service
+      android:name=".data.DbSetupJob"
+      android:exported="false"
+      android:permission="android.permission.BIND_JOB_SERVICE" />
+
     <activity
       android:name=".ui.ScreenSimpleBible"
       android:label="@string/appName"
