@@ -14,8 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.DbSetupJob;
+import com.andrewchelladurai.simplebible.model.ScreenHomeModel;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
 
 import static androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY;
@@ -24,7 +26,7 @@ public class ScreenHome
     extends Fragment {
 
   private static final String TAG = "ScreenHome";
-
+  private ScreenHomeModel model;
   private ScreenSimpleBibleOps mainOps;
   private View rootView;
 
@@ -38,6 +40,8 @@ public class ScreenHome
       throw new RuntimeException(context.toString() + " must implement ScreenSimpleBibleOps");
     }
     mainOps = (ScreenSimpleBibleOps) context;
+    model = ViewModelProviders.of(this).get(ScreenHomeModel.class);
+
   }
 
   @Override
@@ -49,17 +53,20 @@ public class ScreenHome
     rootView.findViewById(R.id.scrHomeFabShare)
             .setOnClickListener(v -> handleActionShare());
 
+    // start observing the DbSetupJobState in the model even before we start it
+    // this is so that we do nto miss any changes in the state
+    model.getDbSetupJobState().observe(this, state -> {
+      if (state == DbSetupJob.FINISHED) {
+        Log.d(TAG, "onCreateView: DbSetupJob state = FINISHED)");
+        showDailyVerse();
+      } else {
+        showLoadingVerse();
+      }
+    });
+
     // Activity / Fragment launched for the first time
     if (savedState == null) {
-      // show the verse text for a loading progress
-      showVerseText(R.string.scrHomeVerseLoading);
-
-      // show the progress bar
-      rootView.findViewById(R.id.scrHomeProgress).setVisibility(View.VISIBLE);
-
-      // hide the share fab
-      rootView.findViewById(R.id.scrHomeFabShare).setVisibility(View.GONE);
-
+      Log.d(TAG, "onCreateView: first run since [savedState == null]");
       startDbSetupService();
     }
 
@@ -92,6 +99,38 @@ public class ScreenHome
     // TODO: 10/6/19 share the text in the verse view
   }
 
+  private void showLoadingVerse() {
+    Log.d(TAG, "showLoadingVerse:");
+    mainOps.hideNavigationView();
+
+    // show the verse text for a loading progress
+    showVerseText(R.string.scrHomeVerseLoading);
+
+    // show the progress bar
+    rootView.findViewById(R.id.scrHomeProgress)
+            .setVisibility(View.VISIBLE);
+
+    // hide the share fab
+    rootView.findViewById(R.id.scrHomeFabShare)
+            .setVisibility(View.GONE);
+  }
+
+  private void showDailyVerse() {
+    Log.d(TAG, "showDailyVerse: ");
+    mainOps.showNavigationView();
+
+    // show the verse text for a loading progress
+    showVerseText(R.string.scrHomeVerseDefault);
+
+    // hide the progress bar
+    rootView.findViewById(R.id.scrHomeProgress)
+            .setVisibility(View.GONE);
+
+    // show the share fab
+    rootView.findViewById(R.id.scrHomeFabShare)
+            .setVisibility(View.VISIBLE);
+  }
+
   public class DbSetupJobResultReceiver
       extends ResultReceiver {
 
@@ -101,18 +140,7 @@ public class ScreenHome
 
     @Override
     protected void onReceiveResult(int resultCode, Bundle resultData) {
-      switch (resultCode) {
-        case DbSetupJob.FINISHED:
-          mainOps.showNavigationView();
-          break;
-        case DbSetupJob.STARTED:
-        case DbSetupJob.RUNNING:
-          mainOps.hideNavigationView();
-          break;
-        default:
-          mainOps.hideNavigationView();
-          Log.d(TAG, "onReceiveResult: unknown resultCode[" + resultCode + "]");
-      }
+      model.setDbSetupJobState(resultCode);
     }
 
   }

@@ -35,7 +35,7 @@ public class DbSetupJob
     Log.d(TAG, "onHandleWork");
     startForegroundNotification();
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 17; i++) {
       Log.i("DbSetupJob", "Running service " + (i + 1)
                           + "/5 @ " + SystemClock.elapsedRealtime());
       try {
