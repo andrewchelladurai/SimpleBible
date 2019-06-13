@@ -85,8 +85,14 @@ public class ScreenHome
     final Context context = requireContext();
     final Intent intent = new Intent(context, DbSetupJob.class);
 
-    // start the database setup service
-    DbSetupJob.startWork(context, intent, new DbSetupJobResultReceiver(new Handler()));
+    // start the database setup service & tie it with a ResultReceiver
+    // to update the model with the job's status when it changes
+    DbSetupJob.startWork(context, intent, new ResultReceiver(new Handler()) {
+      @Override
+      protected void onReceiveResult(final int resultCode, final Bundle resultData) {
+        model.setDbSetupJobState(resultCode);
+      }
+    });
   }
 
   private void showVerseText(@StringRes int stringResId) {
@@ -129,20 +135,6 @@ public class ScreenHome
     // show the share fab
     rootView.findViewById(R.id.scrHomeFabShare)
             .setVisibility(View.VISIBLE);
-  }
-
-  public class DbSetupJobResultReceiver
-      extends ResultReceiver {
-
-    DbSetupJobResultReceiver(Handler handler) {
-      super(handler);
-    }
-
-    @Override
-    protected void onReceiveResult(int resultCode, Bundle resultData) {
-      model.setDbSetupJobState(resultCode);
-    }
-
   }
 
 }
