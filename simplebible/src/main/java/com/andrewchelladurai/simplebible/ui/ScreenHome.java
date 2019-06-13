@@ -55,7 +55,6 @@ public class ScreenHome
       // hide the share fab
       rootView.findViewById(R.id.scrHomeFabShare).setVisibility(View.GONE);
 
-      startDbSetupService();
     }
 
     return rootView;
@@ -65,10 +64,6 @@ public class ScreenHome
   public void onDetach() {
     super.onDetach();
     mainOps = null;
-  }
-
-  private void startDbSetupService() {
-    Log.d(TAG, "startDbSetupService:");
   }
 
   private void showVerseText(@StringRes int stringResId) {
