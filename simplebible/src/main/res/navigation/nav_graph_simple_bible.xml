@@ -45,12 +45,33 @@
     android:id="@+id/screenError"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenError"
     android:label="fragment_screen_error"
-    tools:layout="@layout/screen_error_fragment" />
+    tools:layout="@layout/screen_error_fragment">
+    <argument
+      android:name="ARG_MESSAGE"
+      android:defaultValue="Something unexpected happened and we do not know how. Help us find out by sharing details. Press the below button to send the developer an email."
+      app:argType="string"
+      app:nullable="true" />
+    <argument
+      android:name="ARG_INFORM_DEV"
+      android:defaultValue="true"
+      app:argType="boolean" />
+    <argument
+      android:name="ARG_EXIT_APP"
+      android:defaultValue="true"
+      app:argType="boolean" />
+  </fragment>
 
   <fragment
     android:id="@+id/screenSettings"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenSettings"
     android:label="screen_settings_fragment"
     tools:layout="@layout/screen_settings_fragment" />
+
+  <action
+    android:id="@+id/action_global_screenError"
+    app:destination="@id/screenError"
+    app:launchSingleTop="true"
+    app:popUpTo="@id/nav_graph_simple_bible"
+    app:popUpToInclusive="true" />
 
 </navigation>
