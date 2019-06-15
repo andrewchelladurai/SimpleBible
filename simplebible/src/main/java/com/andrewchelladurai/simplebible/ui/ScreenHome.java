@@ -19,6 +19,7 @@ import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.DbSetupJob;
 import com.andrewchelladurai.simplebible.model.ScreenHomeModel;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
+import com.andrewchelladurai.simplebible.utils.VerseUtils;
 
 import static androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY;
 
@@ -57,8 +58,11 @@ public class ScreenHome
     // this is so that we do nto miss any changes in the state
     model.getDbSetupJobState().observe(this, state -> {
       if (state == DbSetupJob.FINISHED) {
-        Log.d(TAG, "onCreateView: DbSetupJob state = FINISHED)");
-        showDailyVerse();
+        Log.d(TAG, "onCreateView: DbSetupJob state = FINISHED");
+        updateContent();
+      } else if (state == DbSetupJob.FAILED) {
+        Log.d(TAG, "onCreateView: DbSetupJob state = FAILED");
+        mainOps.showErrorScreen(getString(R.string.dbSetupFailureMessage), true, true);
       } else {
         showLoadingVerse();
       }
@@ -121,20 +125,33 @@ public class ScreenHome
             .setVisibility(View.GONE);
   }
 
-  private void showDailyVerse() {
-    Log.d(TAG, "showDailyVerse: ");
-    mainOps.showNavigationView();
+  private void updateContent() {
+    Log.d(TAG, "updateContent: ");
 
-    // show the verse text for a loading progress
-    showVerseText(R.string.scrHomeVerseDefault);
+    model.getVerseCount().observe(this, verseCount -> {
+      if (verseCount == VerseUtils.EXPECTED_COUNT) {
 
-    // hide the progress bar
-    rootView.findViewById(R.id.scrHomeProgress)
-            .setVisibility(View.GONE);
+        mainOps.showNavigationView();
 
-    // show the share fab
-    rootView.findViewById(R.id.scrHomeFabShare)
-            .setVisibility(View.VISIBLE);
+        // show the verse text for a loading progress
+        showVerseText(R.string.scrHomeVerseDefault);
+
+        // hide the progress bar
+        rootView.findViewById(R.id.scrHomeProgress)
+                .setVisibility(View.GONE);
+
+        // show the share fab
+        rootView.findViewById(R.id.scrHomeFabShare)
+                .setVisibility(View.VISIBLE);
+
+        showDailyText();
+      }
+    });
+
+  }
+
+  private void showDailyText() {
+    Log.d(TAG, "showDailyText:");
   }
 
 }

@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible.ui.ops;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public interface ScreenSimpleBibleOps {
 
@@ -13,5 +14,7 @@ public interface ScreenSimpleBibleOps {
   void showMessage(@NonNull final String message);
 
   void hideKeyboard();
+
+  void showErrorScreen(@Nullable String message, boolean informDev, boolean exitApp);
 
 }

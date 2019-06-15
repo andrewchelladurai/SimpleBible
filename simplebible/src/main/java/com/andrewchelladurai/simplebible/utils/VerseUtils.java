@@ -1,21 +1,32 @@
 package com.andrewchelladurai.simplebible.utils;
 
+import android.os.AsyncTask;
 import android.util.Log;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
+import com.andrewchelladurai.simplebible.data.dao.VerseDao;
+import com.andrewchelladurai.simplebible.data.entity.Verse;
 
 public class VerseUtils {
 
-  public static final int TOTAL_VERSES = 31098;
+  public static final int EXPECTED_COUNT = 31098;
   public static final String SETUP_FILE = "init_data_translation_web.txt";
   public static final String SETUP_FILE_RECORD_SEPARATOR = "~";
   public static final int SETUP_FILE_RECORD_SEPARATOR_COUNT = 4;
   public static final String SEPARATOR = ":";
 
   private static final String TAG = "VerseUtils";
+  private static VerseUtils THIS_INSTANCE = new VerseUtils();
+
+  private VerseUtils() {
+  }
+
+  public static VerseUtils getInstance() {
+    return THIS_INSTANCE;
+  }
 
   @NonNull
-  public static String createReference(
+  public String createReference(
       @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int bookNumber,
       @IntRange(from = 1) final int chapterNumber,
       @IntRange(from = 1) final int verseNumber) {
@@ -29,7 +40,7 @@ public class VerseUtils {
     throw new IllegalArgumentException("one of the reference arguments is invalid");
   }
 
-  public static boolean validateReference(@NonNull final String reference) {
+  public boolean validateReference(@NonNull final String reference) {
     if (reference.isEmpty()) {
       Log.e(TAG, "validateReference: empty reference");
       return false;
@@ -77,7 +88,7 @@ public class VerseUtils {
   }
 
   @NonNull
-  public static int[] splitReference(@NonNull final String reference) {
+  public int[] splitReference(@NonNull final String reference) {
     if (!validateReference(reference)) {
       throw new UnsupportedOperationException(
           TAG + " splitReference: invalid reference [" + reference + "]");
@@ -90,6 +101,31 @@ public class VerseUtils {
     }
 
     return parts;
+  }
+
+  public void createVerse(@NonNull final VerseDao verseDao,
+                          @NonNull final Verse verse) {
+    new CreateVerseTask(verseDao).execute(verse);
+  }
+
+  static class CreateVerseTask
+      extends AsyncTask<Verse, Void, Void> {
+
+    @NonNull
+    private final VerseDao verseDao;
+
+    CreateVerseTask(@NonNull final VerseDao verseDao) {
+      this.verseDao = verseDao;
+    }
+
+    @Override
+    protected Void doInBackground(final Verse... verses) {
+      for (final Verse verse : verses) {
+        verseDao.createVerse(verse);
+      }
+      return null;
+    }
+
   }
 
 }

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -101,6 +102,20 @@ public class ScreenSimpleBible
       view = new View(this);
     }
     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+  }
+
+  @Override
+  public void showErrorScreen(@Nullable final String message, final boolean informDev,
+                              final boolean exitApp) {
+    Log.d(TAG, "showErrorScreen() called with: message = ["
+               + message + "], informDev = [" + informDev + "], exitApp = [" + exitApp + "]");
+    final Bundle bundle = new Bundle();
+    bundle.putString(ScreenError.ARG_MESSAGE, message);
+    bundle.putBoolean(ScreenError.ARG_INFORM_DEV, informDev);
+    bundle.putBoolean(ScreenError.ARG_EXIT_APP, exitApp);
+
+    Navigation.findNavController(this, R.id.scrMainNavHostFragment)
+              .navigate(R.id.action_global_screenError, bundle);
   }
 
 }
