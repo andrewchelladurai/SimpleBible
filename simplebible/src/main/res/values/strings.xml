@@ -7,6 +7,8 @@
   <string name="dbSetupNotificationTitle">Database Loading</string>
   <string name="dbSetupNotificationMessage">Setup is in progress</string>
 
+  <string name="dbSetupFailureMessage">Database Setup failed, please use the below button to inform the developer.</string>
+
   <!-- Strings used in the Main Screen -->
   <string name="scrMainBottomNavViewHome">home</string>
   <string name="scrMainBottomNavViewBookList">books</string>
