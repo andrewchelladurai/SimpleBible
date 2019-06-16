@@ -54,4 +54,13 @@
     <b>The World English Bible</b>]]>
   </string>
 
+  <!-- String used in the ScreenBookList -->
+  <string name="scrBookListErrNullList">No books found in the database. Please clear the application data or reinstall the application again. if the issue persists, please inform the developer.</string>
+  <string name="scrBookListErrCount">Number of books in the database is not the Expected count. Please clear the application data or reinstall the application again. if the issue persists, please inform the developer.</string>
+  <string name="scrBookListSearchHint">Book name</string>
+
+  <plurals name="itemBookChapterTemplate">
+    <item quantity="one">%d Chapter</item>
+    <item quantity="other">%d Chapters</item>
+  </plurals>
 </resources>

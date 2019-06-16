@@ -1,13 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   tools:context=".ui.ScreenBookList">
 
-  <TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:text="book list" />
+  <SearchView
+    android:id="@+id/scrBookListSearch"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/gapSmall"
+    android:iconifiedByDefault="false"
+    android:imeOptions="actionSearch"
+    android:queryHint="@string/scrBookListSearchHint"
+    android:searchIcon="@drawable/ic_search"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/scrBookListList"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginTop="@dimen/gapSmall"
+    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/scrBookListSearch"
+    app:spanCount="@integer/scrBookListListColumnCount"
+    tools:listitem="@layout/item_book" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

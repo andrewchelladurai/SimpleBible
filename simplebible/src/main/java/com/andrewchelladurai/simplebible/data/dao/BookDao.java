@@ -9,6 +9,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import com.andrewchelladurai.simplebible.data.entity.Book;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
+import java.util.List;
 
 @Dao
 public interface BookDao {
@@ -27,5 +28,8 @@ public interface BookDao {
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   void createBook(@NonNull Book book);
+
+  @Query("select * from sb_books order by number asc")
+  LiveData<List<Book>> getAllBooksLive();
 
 }
