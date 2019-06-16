@@ -31,7 +31,9 @@ public class DbSetupJob
 
   private static final String TAG = "DbSetupJob";
   private static final int JOB_ID = 131416;
+  public static final String LINE_PROGRESS = "LINE_PROGRESS";
   private static ResultReceiver RESULT_RECEIVER;
+  private int lineProgressValue = 0;
 
   public static void startWork(@NonNull Context context,
                                @NonNull Intent work,
@@ -157,6 +159,10 @@ public class DbSetupJob
         }
         // using the values, create a new verse in the database.
         verseDao.createVerse(new Verse(translation, book, chapter, verse, text));
+        lineProgressValue = lineProgressValue + 1;
+        final Bundle bundle = new Bundle();
+        bundle.putInt(LINE_PROGRESS, lineProgressValue);
+        RESULT_RECEIVER.send(RUNNING, bundle);
       }
     } catch (IOException e) {
       Log.e(TAG, "populateVersesTable: exception processing [" + fileName + "]", e);
@@ -268,6 +274,10 @@ public class DbSetupJob
 
         // using the data values, create a new book record in the database
         bookDao.createBook(new Book(testament, description, position, name, chapters, verses));
+        lineProgressValue = lineProgressValue + 1;
+        final Bundle bundle = new Bundle();
+        bundle.putInt(LINE_PROGRESS, lineProgressValue);
+        RESULT_RECEIVER.send(RUNNING, bundle);
       }
     } catch (IOException e) {
       Log.e(TAG, "populateBooksTable: exception processing [" + fileName + "]", e);

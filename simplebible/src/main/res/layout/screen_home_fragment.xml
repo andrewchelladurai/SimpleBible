@@ -32,8 +32,18 @@
       tools:text="@string/appName" />
   </ScrollView>
 
+  <TextView
+    android:id="@+id/scrHomeProgressText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:fontFamily="sans-serif-black"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/scrHomeGuide" />
+
   <ProgressBar
-    android:id="@+id/scrHomeProgress"
+    android:id="@+id/scrHomeProgressBar"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:indeterminate="true"

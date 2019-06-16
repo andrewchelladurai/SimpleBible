@@ -19,6 +19,7 @@ import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.DbSetupJob;
 import com.andrewchelladurai.simplebible.model.ScreenHomeModel;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
+import com.andrewchelladurai.simplebible.utils.BookUtils;
 import com.andrewchelladurai.simplebible.utils.VerseUtils;
 
 import static androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY;
@@ -27,9 +28,13 @@ public class ScreenHome
     extends Fragment {
 
   private static final String TAG = "ScreenHome";
+  private static int PROGRESS_VALUE;
   private ScreenHomeModel model;
   private ScreenSimpleBibleOps mainOps;
   private View rootView;
+  private TextView progressTextView;
+  private int maxProgressValue;
+  private String progressTextTemplate;
 
   public ScreenHome() {
   }
@@ -54,18 +59,26 @@ public class ScreenHome
     rootView.findViewById(R.id.scrHomeFabShare)
             .setOnClickListener(v -> handleActionShare());
 
+    // We will be referencing items in the next block more than 30K times
+    // let's avoid the extra calls and save some time.
+    progressTextView = rootView.findViewById(R.id.scrHomeProgressText);
+    maxProgressValue = VerseUtils.EXPECTED_COUNT + BookUtils.EXPECTED_COUNT;
+    progressTextTemplate = getString(R.string.scrHomeProgressTextTemplate);
+
     // start observing the DbSetupJobState in the model even before we start it
     // this is so that we do nto miss any changes in the state
-    model.getDbSetupJobState().observe(this, state -> {
-      if (state == DbSetupJob.FINISHED) {
-        Log.d(TAG, "onCreateView: DbSetupJob state = FINISHED");
-        updateContent();
-      } else if (state == DbSetupJob.FAILED) {
+    model.getDbSetupJobState().observe(this, newJobState -> {
+      if (newJobState == DbSetupJob.STARTED
+          || newJobState == DbSetupJob.RUNNING) {
+        showLoadingVerse();
+      } else if (newJobState == DbSetupJob.FAILED) {
         Log.d(TAG, "onCreateView: DbSetupJob state = FAILED");
         mainOps.showErrorScreen(getString(R.string.dbSetupFailureMessage), true, true);
-      } else {
-        showLoadingVerse();
+      } else if (newJobState == DbSetupJob.FINISHED) {
+        Log.d(TAG, "onCreateView: DbSetupJob state = FINISHED");
+        updateContent();
       }
+
     });
 
     // Activity / Fragment launched for the first time
@@ -92,9 +105,13 @@ public class ScreenHome
     // start the database setup service & tie it with a ResultReceiver
     // to update the model with the job's status when it changes
     DbSetupJob.startWork(context, intent, new ResultReceiver(new Handler()) {
+
       @Override
-      protected void onReceiveResult(final int resultCode, final Bundle resultData) {
-        model.setDbSetupJobState(resultCode);
+      protected void onReceiveResult(final int newJobState, final Bundle resultData) {
+        if (newJobState == DbSetupJob.RUNNING) {
+          PROGRESS_VALUE = resultData.getInt(DbSetupJob.LINE_PROGRESS);
+        }
+        model.setDbSetupJobState(newJobState);
       }
     });
   }
@@ -110,19 +127,29 @@ public class ScreenHome
   }
 
   private void showLoadingVerse() {
-    Log.d(TAG, "showLoadingVerse:");
     mainOps.hideNavigationView();
 
     // show the verse text for a loading progress
     showVerseText(R.string.scrHomeVerseLoading);
 
     // show the progress bar
-    rootView.findViewById(R.id.scrHomeProgress)
-            .setVisibility(View.VISIBLE);
+    View view = rootView.findViewById(R.id.scrHomeProgressBar);
+    if (view.getVisibility() != View.VISIBLE) {
+      view.setVisibility(View.VISIBLE);
+    }
+
+    // show the progress text
+    if (progressTextView.getVisibility() != View.VISIBLE) {
+      progressTextView.setVisibility(View.VISIBLE);
+    }
+    progressTextView.setText(String.format(progressTextTemplate,
+                                           (PROGRESS_VALUE * 100) / maxProgressValue));
 
     // hide the share fab
-    rootView.findViewById(R.id.scrHomeFabShare)
-            .setVisibility(View.GONE);
+    view = rootView.findViewById(R.id.scrHomeFabShare);
+    if (view.getVisibility() != View.GONE) {
+      view.setVisibility(View.GONE);
+    }
   }
 
   private void updateContent() {
@@ -137,12 +164,21 @@ public class ScreenHome
         showVerseText(R.string.scrHomeVerseDefault);
 
         // hide the progress bar
-        rootView.findViewById(R.id.scrHomeProgress)
-                .setVisibility(View.GONE);
+        View view = rootView.findViewById(R.id.scrHomeProgressBar);
+        if (view.getVisibility() != View.GONE) {
+          view.setVisibility(View.GONE);
+        }
+
+        // hide the progress text
+        if (progressTextView.getVisibility() != View.GONE) {
+          progressTextView.setVisibility(View.GONE);
+        }
 
         // show the share fab
-        rootView.findViewById(R.id.scrHomeFabShare)
-                .setVisibility(View.VISIBLE);
+        view = rootView.findViewById(R.id.scrHomeFabShare);
+        if (view.getVisibility() != View.VISIBLE) {
+          view.setVisibility(View.VISIBLE);
+        }
 
         showDailyText();
       }

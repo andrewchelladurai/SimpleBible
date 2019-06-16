@@ -19,6 +19,7 @@
   <string name="notificationChannelDescription">Will show the Daily Verse notifications and others</string>
 
   <!-- String used in the HomeScreen -->
+  <string name="scrHomeProgressTextTemplate">%d</string>
   <string name="scrHomeVerseLoading">
     <![CDATA[
     <h1>Simple Bible</h1>

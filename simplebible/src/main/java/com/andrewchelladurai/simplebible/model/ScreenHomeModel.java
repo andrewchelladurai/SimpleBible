@@ -1,7 +1,6 @@
 package com.andrewchelladurai.simplebible.model;
 
 import android.app.Application;
-import android.util.Log;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -33,7 +32,6 @@ public class ScreenHomeModel
 
   public void setDbSetupJobState(
       @IntRange(from = DbSetupJob.STARTED, to = DbSetupJob.FINISHED) final int state) {
-    Log.d(TAG, "setDbSetupJobState: state = [" + state + "]");
     dbSetupJobState.postValue(state);
   }
 
