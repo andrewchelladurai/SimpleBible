@@ -10,6 +10,11 @@ import com.andrewchelladurai.simplebible.data.DbSetupJob;
 import com.andrewchelladurai.simplebible.data.SbDatabase;
 import com.andrewchelladurai.simplebible.data.dao.BookDao;
 import com.andrewchelladurai.simplebible.data.dao.VerseDao;
+import com.andrewchelladurai.simplebible.data.entity.Book;
+import com.andrewchelladurai.simplebible.data.entity.Verse;
+import com.andrewchelladurai.simplebible.utils.BookUtils;
+import com.andrewchelladurai.simplebible.utils.VerseUtils;
+import java.util.Calendar;
 
 public class ScreenHomeModel
     extends AndroidViewModel {
@@ -37,6 +42,19 @@ public class ScreenHomeModel
 
   public LiveData<Integer> getVerseCount() {
     return verseDao.getLiveVerseCount();
+  }
+
+  public int getDayNumber() {
+    return Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+  }
+
+  public LiveData<Verse> getVerse(final String reference) {
+    final int[] parts = VerseUtils.getInstance().splitReference(reference);
+    return verseDao.getLiveVerse(parts[0], parts[1], parts[2]);
+  }
+
+  public LiveData<Book> getBook(@IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int book) {
+    return bookDao.getBookUsingPositionLive(book);
   }
 
 }

@@ -22,8 +22,6 @@ import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 import com.andrewchelladurai.simplebible.utils.VerseUtils;
 
-import static androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY;
-
 public class ScreenHome
     extends Fragment {
 
@@ -118,7 +116,7 @@ public class ScreenHome
 
   private void showVerseText(@StringRes int stringResId) {
     ((TextView) rootView.findViewById(R.id.scrHomeVerse))
-        .setText(HtmlCompat.fromHtml(getString(stringResId), FROM_HTML_MODE_LEGACY));
+        .setText(HtmlCompat.fromHtml(getString(stringResId), HtmlCompat.FROM_HTML_MODE_LEGACY));
   }
 
   private void handleActionShare() {
@@ -180,14 +178,51 @@ public class ScreenHome
           view.setVisibility(View.VISIBLE);
         }
 
-        showDailyText();
+        showDailyVerse();
       }
     });
 
   }
 
-  private void showDailyText() {
-    Log.d(TAG, "showDailyText:");
+  private void showDailyVerse() {
+    Log.d(TAG, "showDailyVerse:");
+    final int dayNumber = model.getDayNumber();
+    final String[] array = getResources().getStringArray(R.array.daily_verse);
+    final String reference = (array.length >= dayNumber)
+                             ? array[dayNumber]
+                             : getString(R.string.defaultVerseReference);
+    if (!VerseUtils.getInstance().validateReference(reference)) {
+      Log.e(TAG, "showDailyVerse: invalid reference [" + reference + "]");
+      showVerseText(R.string.scrHomeVerseDefault);
+      return;
+    }
+    model.getVerse(reference).observe(this, verse -> {
+      if (verse == null) {
+        Log.e(TAG, "showDailyVerse: no verse found for reference [" + reference + "]");
+        showVerseText(R.string.scrHomeVerseDefault);
+        return;
+      }
+      model.getBook(verse.getBook()).observe(this, book -> {
+        if (book == null) {
+          Log.e(TAG, "showDailyVerse: no book found for position [" + verse.getBook() + "]");
+          showVerseText(R.string.scrHomeVerseDefault);
+          return;
+        }
+
+        Log.d(TAG, "showDailyVerse: dayNumber[" + dayNumber + "] has reference[" + reference + "]");
+        final String template = getString(R.string.scrHomeVerseTemplate);
+        final String bookName = book.getName();
+        final int chapterNum = verse.getChapter();
+        final int verseNum = verse.getVerse();
+        final String verseText = verse.getText();
+        final String formattedText = String.format(
+            template, bookName, chapterNum, verseNum, verseText);
+
+        final TextView textView = rootView.findViewById(R.id.scrHomeVerse);
+        textView.setText(HtmlCompat.fromHtml(formattedText, HtmlCompat.FROM_HTML_MODE_LEGACY));
+
+      });
+    });
   }
 
 }

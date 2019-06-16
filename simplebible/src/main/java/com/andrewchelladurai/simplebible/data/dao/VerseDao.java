@@ -1,5 +1,6 @@
 package com.andrewchelladurai.simplebible.data.dao;
 
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -7,6 +8,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import com.andrewchelladurai.simplebible.data.entity.Verse;
+import com.andrewchelladurai.simplebible.utils.BookUtils;
 
 @Dao
 public interface VerseDao {
@@ -19,5 +21,13 @@ public interface VerseDao {
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   void createVerse(@NonNull Verse verse);
+
+  @Query("select * from sb_verses"
+         + " where book=:book"
+         + " and chapter=:chapter"
+         + " and verse=:verse")
+  LiveData<Verse> getLiveVerse(@IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) int book,
+                               @IntRange(from = 1) int chapter,
+                               @IntRange(from = 1) int verse);
 
 }

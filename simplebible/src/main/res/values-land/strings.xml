@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="scrHomeVerseLoading">
+    <![CDATA[
+    <h1>Simple Bible</h1>
+    <h5>CREATING DATABASE</h5>
+    <h5>Please be patient like Jacob for it is said in<br/><br/>
+    <b>The Book of Genesis Chapter 29 Verse 20</b></h5>
+    <h3>Jacob served seven years for Rachel.<br/>
+    They seemed to him but a few days,<br/>
+    for the love he had for her.</h3><br/><br/>
+    <b>The World English Bible</b>]]>
+  </string>
+  <string name="scrHomeVerseTemplate">
+    <![CDATA[
+    <h1>Simple Bible</h1>
+    <h5>%s<br/>
+    Chapter %d Verse %d</h5>
+    <h3>%s</h3><br/>
+    The World English Bible]]>
+  </string>
+</resources>

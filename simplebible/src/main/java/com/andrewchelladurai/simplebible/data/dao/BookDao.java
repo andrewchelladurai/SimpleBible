@@ -2,7 +2,7 @@ package com.andrewchelladurai.simplebible.data.dao;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -13,13 +13,17 @@ import com.andrewchelladurai.simplebible.utils.BookUtils;
 @Dao
 public interface BookDao {
 
+  int maxBookNumber = BookUtils.EXPECTED_COUNT;
+
   @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT)
   @Query("select count(number) from sb_books;")
   int getBookCount();
 
-  @Nullable
   @Query("select * from sb_books where number=:bookNumber;")
-  Book getBookUsingPosition(@IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) int bookNumber);
+  Book getBookUsingPosition(@IntRange(from = 1, to = maxBookNumber) int bookNumber);
+
+  @Query("select * from sb_books where number=:bookNumber;")
+  LiveData<Book> getBookUsingPositionLive(@IntRange(from = 1, to = maxBookNumber) int bookNumber);
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   void createBook(@NonNull Book book);
