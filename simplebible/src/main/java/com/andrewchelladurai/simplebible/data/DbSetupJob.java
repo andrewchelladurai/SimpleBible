@@ -46,30 +46,22 @@ public class DbSetupJob
     RESULT_RECEIVER.send(STARTED, Bundle.EMPTY);
     startForegroundNotification();
 
-    final BookDao bookDao = SbDatabase.getDatabase(getApplication()).getBookDao();
     // check if contents of books table is valid*/
-    if (!validateBooksTable(bookDao)) {
+    if (!validateBooksTable()) {
       // if not then populate the table
-      if (!populateBooksTable(bookDao)) {
+      if (!populateBooksTable()) {
         // if population of table fails, broadcast failure
         RESULT_RECEIVER.send(FAILED, Bundle.EMPTY);
         return;
-      } else {
-        Log.d(TAG, "onHandleWork: now bookCount[" + bookDao.getBookCount()
-                   + "] && expectedCount[" + BookUtils.EXPECTED_COUNT + "]");
       }
     }
 
-    final VerseDao verseDao = SbDatabase.getDatabase(getApplication()).getVerseDao();
     // check if contents of verses table is valid*/
-    if (!validateVersesTable(verseDao)) {
+    if (!validateVersesTable()) {
       // if not then populate the table
-      if (!populateVersesTable(verseDao)) {
+      if (!populateVersesTable()) {
         // if population of table fails, broadcast failure
         RESULT_RECEIVER.send(FAILED, Bundle.EMPTY);
-      } else {
-        Log.d(TAG, "onHandleWork: now verseCount[" + verseDao.getVerseCount()
-                   + "] && expectedCount[" + VerseUtils.EXPECTED_COUNT + "]");
       }
     }
 
@@ -93,13 +85,12 @@ public class DbSetupJob
   }
 
   /**
-   * Fill the verses table in the database by reading contents of an asset file. @param verseDao used
-   * to invoke the utility method of creating a verse record in the table. @return true if record is
-   * successfully created, false otherwise.
-   *
-   * @param verseDao
+   * Fill the verses table in the database by reading contents of an asset file. @param verseDao
+   * used to invoke the utility method of creating a verse record in the table. @return true if
+   * record is successfully created, false otherwise.
    */
-  private boolean populateVersesTable(@NonNull final VerseDao verseDao) {
+  private boolean populateVersesTable() {
+    final VerseDao verseDao = SbDatabase.getDatabase(getApplication()).getVerseDao();
     final String fileName = VerseUtils.SETUP_FILE;
     final String separator = VerseUtils.SETUP_FILE_RECORD_SEPARATOR;
     final int separatorCount = VerseUtils.SETUP_FILE_RECORD_SEPARATOR_COUNT;
@@ -173,16 +164,17 @@ public class DbSetupJob
     }
 
     Log.d(TAG, "populateVersesTable: processed [" + fileName + "]");
+    Log.d(TAG, "populateVersesTable: now verseCount[" + verseDao.getVerseCount()
+               + "] && expectedCount[" + VerseUtils.EXPECTED_COUNT + "]");
     return true;
   }
 
   /**
    * Check the verses table to check if it's contents are valid. @param verseDao used for invoking
    * utility methods @return true if table meets expectations, false otherwise
-   *
-   * @param verseDao
    */
-  private boolean validateVersesTable(@NonNull VerseDao verseDao) {
+  private boolean validateVersesTable() {
+    final VerseDao verseDao = SbDatabase.getDatabase(getApplication()).getVerseDao();
     final int expectedCount = VerseUtils.EXPECTED_COUNT;
     if (verseDao.getVerseCount() != expectedCount) {
       Log.e(TAG, "validateVersesTable: verseCount[" + verseDao.getVerseCount()
@@ -199,7 +191,8 @@ public class DbSetupJob
    * to invoke the utility method of creating a book record in the table. @return true if a record
    * is successfully created, false otherwise.
    */
-  private boolean populateBooksTable(@NonNull final BookDao bookDao) {
+  private boolean populateBooksTable() {
+    final BookDao bookDao = SbDatabase.getDatabase(getApplication()).getBookDao();
     final String fileName = BookUtils.SETUP_FILE;
     final String separator = BookUtils.SETUP_FILE_RECORD_SEPARATOR;
     final int separatorCount = BookUtils.SETUP_FILE_RECORD_SEPARATOR_COUNT;
@@ -282,6 +275,8 @@ public class DbSetupJob
     }
 
     Log.d(TAG, "populateBooksTable: processed [" + fileName + "]");
+    Log.d(TAG, "populateBooksTable: now bookCount[" + bookDao.getBookCount()
+               + "] && expectedCount[" + BookUtils.EXPECTED_COUNT + "]");
     return true;
   }
 
@@ -289,7 +284,8 @@ public class DbSetupJob
    * Check the books table to check if it's contents are valid. @param utils used for invoking
    * utility methods @return true if table meets expectations, false otherwise
    */
-  private boolean validateBooksTable(@NonNull final BookDao dao) {
+  private boolean validateBooksTable() {
+    final BookDao dao = SbDatabase.getDatabase(getApplication()).getBookDao();
     final int expectedCount = BookUtils.EXPECTED_COUNT;
 
     if (dao.getBookCount() != expectedCount) {
@@ -300,14 +296,16 @@ public class DbSetupJob
     Log.d(TAG, "validateBooksTable: [" + expectedCount + "] books exist");
 
     String expectedValue = getString(R.string.bookNameFirst);
-    if (!dao.getBookUsingPosition(1).getName().equalsIgnoreCase(expectedValue)) {
+    final Book firstBook = dao.getBookUsingPosition(1);
+    if (firstBook != null && !firstBook.getName().equalsIgnoreCase(expectedValue)) {
       Log.e(TAG, "validateBooksTable: incorrect first book in db");
       return false;
     }
     Log.d(TAG, "validateBooksTable: book[" + 1 + "] name is [" + expectedValue + "]");
 
     expectedValue = getString(R.string.bookNameLast);
-    if (!dao.getBookUsingPosition(expectedCount).getName().equalsIgnoreCase(expectedValue)) {
+    final Book lastBook = dao.getBookUsingPosition(expectedCount);
+    if (lastBook != null && !lastBook.getName().equalsIgnoreCase(expectedValue)) {
       Log.e(TAG, "validateBooksTable: incorrect last book in db");
       return false;
     }
