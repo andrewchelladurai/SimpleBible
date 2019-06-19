@@ -22,6 +22,7 @@ public class ScreenBookListAdapter
     implements SbRecyclerViewAdapterOps {
 
   private static final String TAG = "ScreenBookListAdapter";
+  private static ArrayList<Book> ALL_BOOKS = new ArrayList<>(BookUtils.EXPECTED_COUNT);
   private static ArrayList<Book> BOOK_LIST = new ArrayList<>(BookUtils.EXPECTED_COUNT);
   private final ScreenBookListOps viewOps;
 
@@ -48,13 +49,31 @@ public class ScreenBookListAdapter
   }
 
   @Override
-  public void updateList(final List<?> list) {
-    BOOK_LIST.clear();
+  public void updateList(@NonNull final List<?> list) {
+    ALL_BOOKS.clear();
     for (final Object o : list) {
-      BOOK_LIST.add((Book) o);
+      ALL_BOOKS.add((Book) o);
+    }
+
+    BOOK_LIST.addAll(ALL_BOOKS);
+    notifyDataSetChanged();
+
+    Log.d(TAG, "updateList: added [" + getItemCount() + "] books");
+  }
+
+  @Override
+  public void filterList(@NonNull final String searchTerm) {
+    BOOK_LIST.clear();
+    if (searchTerm.isEmpty()) {
+      BOOK_LIST.addAll(ALL_BOOKS);
+    } else {
+      for (final Book book : ALL_BOOKS) {
+        if (book.getName().toLowerCase().contains(searchTerm.toLowerCase())) {
+          BOOK_LIST.add(book);
+        }
+      }
     }
     notifyDataSetChanged();
-    Log.d(TAG, "updateList: added [" + getItemCount() + "] books");
   }
 
   private class BookViewHolder

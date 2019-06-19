@@ -53,11 +53,25 @@ public class ScreenBookList
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
       @Override
       public boolean onQueryTextSubmit(final String query) {
+        if (query != null) {
+          if (query.isEmpty()) {
+            adapter.filterList("");
+          } else {
+            adapter.filterList(query);
+          }
+        }
         return false;
       }
 
       @Override
-      public boolean onQueryTextChange(final String newText) {
+      public boolean onQueryTextChange(final String query) {
+        if (query != null) {
+          if (query.isEmpty()) {
+            adapter.filterList("");
+          } else {
+            adapter.filterList(query);
+          }
+        }
         return false;
       }
     });
