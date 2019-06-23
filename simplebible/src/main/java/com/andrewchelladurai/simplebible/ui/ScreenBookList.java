@@ -50,6 +50,7 @@ public class ScreenBookList
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                            Bundle savedState) {
     rootView = inflater.inflate(R.layout.screen_book_list_fragment, container, false);
+    mainOps.showNavigationView();
 
     final SearchView searchView = rootView.findViewById(R.id.scrBookListSearch);
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
