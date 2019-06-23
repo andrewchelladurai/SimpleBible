@@ -31,6 +31,8 @@ public class ScreenChapter
       throw new RuntimeException(context.toString() + " must implement ScreenSimpleBibleOps");
     }
     mainOps = (ScreenSimpleBibleOps) context;
+    mainOps.hideNavigationView();
+    mainOps.hideKeyboard();
   }
 
   @Override
