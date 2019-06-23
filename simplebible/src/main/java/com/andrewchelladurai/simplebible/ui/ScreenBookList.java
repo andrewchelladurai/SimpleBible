@@ -10,8 +10,10 @@ import android.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.entity.Book;
 import com.andrewchelladurai.simplebible.model.ScreenBookListModel;
 import com.andrewchelladurai.simplebible.ui.adapter.ScreenBookListAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.SbRecyclerViewAdapterOps;
@@ -108,10 +110,19 @@ public class ScreenBookList
     adapter = null;
   }
 
+  @NonNull
   @Override
   public String getFormattedBookDetails(final int chapterCount) {
     return getResources().getQuantityString(
         R.plurals.itemBookChapterTemplate, chapterCount, chapterCount);
+  }
+
+  @Override
+  public void handleBookClick(@NonNull final Book book) {
+    final Bundle bundle = new Bundle();
+    bundle.putParcelable(ScreenChapter.ARG_BOOK, book);
+    NavHostFragment.findNavController(this)
+                   .navigate(R.id.action_screenBookList_to_screenChapter, bundle);
   }
 
 }

@@ -15,7 +15,11 @@
     android:id="@+id/screenBookList"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenBookList"
     android:label="fragment_screen_book_list"
-    tools:layout="@layout/screen_book_list_fragment" />
+    tools:layout="@layout/screen_book_list_fragment">
+    <action
+      android:id="@+id/action_screenBookList_to_screenChapter"
+      app:destination="@id/screenChapter" />
+  </fragment>
 
   <fragment
     android:id="@+id/screenSearch"
@@ -39,7 +43,11 @@
     android:id="@+id/screenChapter"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenChapter"
     android:label="fragment_screen_chapter"
-    tools:layout="@layout/screen_chapter_fragment" />
+    tools:layout="@layout/screen_chapter_fragment">
+    <argument
+      android:name="ARG_BOOK"
+      app:argType="com.andrewchelladurai.simplebible.data.entity.Book" />
+  </fragment>
 
   <fragment
     android:id="@+id/screenError"

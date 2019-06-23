@@ -94,12 +94,22 @@ public class ScreenBookListAdapter
 
       ((TextView) rootView.findViewById(R.id.itemBookName))
           .setText(book.getName());
+      rootView.findViewById(R.id.itemBookName).setOnClickListener(v -> {
+        viewOps.handleBookClick(book);
+      });
 
       ((TextView) rootView.findViewById(R.id.itemBookDesc))
           .setText(book.getDescription());
+      rootView.findViewById(R.id.itemBookDesc).setOnClickListener(v -> {
+        viewOps.handleBookClick(book);
+      });
 
       ((Chip) rootView.findViewById(R.id.itemBookDetails))
           .setText(viewOps.getFormattedBookDetails(book.getChapters()));
+      rootView.findViewById(R.id.itemBookDetails).setOnClickListener(v -> {
+        viewOps.handleBookClick(book);
+      });
+
     }
 
   }
