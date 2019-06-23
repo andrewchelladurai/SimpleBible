@@ -31,14 +31,14 @@ public class ScreenChapter
       throw new RuntimeException(context.toString() + " must implement ScreenSimpleBibleOps");
     }
     mainOps = (ScreenSimpleBibleOps) context;
-    mainOps.hideNavigationView();
-    mainOps.hideKeyboard();
   }
 
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                            Bundle savedState) {
     rootView = inflater.inflate(R.layout.screen_chapter_fragment, container, false);
+    mainOps.hideNavigationView();
+    mainOps.hideKeyboard();
     final Bundle arguments = getArguments();
     if (arguments != null && arguments.containsKey(ARG_BOOK)) {
       bookArg = arguments.getParcelable(ARG_BOOK);
