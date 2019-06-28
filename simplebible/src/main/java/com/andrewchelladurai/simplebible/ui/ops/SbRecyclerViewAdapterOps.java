@@ -9,4 +9,6 @@ public interface SbRecyclerViewAdapterOps {
 
   void filterList(@NonNull String searchTerm);
 
+  void clearList();
+
 }

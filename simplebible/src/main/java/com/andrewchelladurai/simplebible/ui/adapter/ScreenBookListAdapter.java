@@ -76,6 +76,11 @@ public class ScreenBookListAdapter
     notifyDataSetChanged();
   }
 
+  @Override
+  public void clearList() {
+    // not implemented, since not needed for this purpose
+  }
+
   private class BookViewHolder
       extends RecyclerView.ViewHolder
       implements SbViewHolderOps {
