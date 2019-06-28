@@ -135,7 +135,7 @@
         android:layout_gravity="top|center_horizontal"
         android:layout_margin="@dimen/gapSmall"
         android:gravity="center_vertical"
-        android:padding="@dimen/gapSmall"
+        android:padding="@dimen/gapHuge"
         android:text="@string/scrSearchHelpText" />
     </ScrollView>
   </androidx.constraintlayout.widget.ConstraintLayout>

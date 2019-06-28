@@ -12,7 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.model.ScreenSearchModel;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
 
 public class ScreenSearch
@@ -22,6 +24,7 @@ public class ScreenSearch
 
   private ScreenSimpleBibleOps mainOps;
   private View rootView;
+  private ScreenSearchModel model;
 
   public ScreenSearch() {
   }
@@ -33,6 +36,7 @@ public class ScreenSearch
       throw new RuntimeException(context.toString() + " must implement ScreenSimpleBibleOps");
     }
     mainOps = (ScreenSimpleBibleOps) context;
+    model = ViewModelProviders.of(this).get(ScreenSearchModel.class);
   }
 
   @Override
@@ -72,9 +76,8 @@ public class ScreenSearch
     mainOps = null;
   }
 
-  private void handleSearchClick(@NonNull final String searchQuery) {
+  private void handleSearchClick(@NonNull final String searchText) {
     mainOps.hideKeyboard();
-    final String searchText = searchQuery.toLowerCase();
     if (searchText.equalsIgnoreCase("")
         || searchText.isEmpty()
         || searchText.length() < 4
@@ -84,6 +87,14 @@ public class ScreenSearch
       return;
     }
     Log.d(TAG, "handleSearchClick: searchQuery = [" + searchText + "]");
+    model.searchTextInVerses(searchText).observe(this, list -> {
+      if (list == null || list.isEmpty()) {
+        mainOps.showMessage(getString(R.string.scrSearchEmptyResults));
+        showHelpText();
+        return;
+      }
+      Log.d(TAG, "handleSearchClick: found [" + list.size() + "] verses");
+    });
   }
 
   private void showHelpText() {
