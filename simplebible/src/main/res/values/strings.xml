@@ -68,6 +68,7 @@
   <string name="scrSearchActionBookmark">Bookmark selected verses</string>
   <string name="scrSearchActionShare">Share selected verses</string>
   <string name="scrSearchActionClear">Clear selected verses</string>
+  <string name="scrSearchActionReset">Reset results</string>
   <string name="scrSearchInputHint">Search text</string>
   <string name="scrSearchInputErr">Invalid input, see tips.</string>
   <string name="scrSearchContainerHelpImage">Search Verse Tips</string>
@@ -79,5 +80,8 @@
   <p><u>To search for</u> text like <u>\'Eli\'</u><br/>
   include a space before or after<br/>
   like so <u>\'Eli \'</u></p>
+  ]]></string>
+  <string name="itemSearchResultContentTemplate"><![CDATA[
+  <b>%s %d:%d -</b> %s
   ]]></string>
 </resources>
