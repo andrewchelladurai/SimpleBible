@@ -63,4 +63,18 @@
     <item quantity="one">%d Chapter</item>
     <item quantity="other">%d Chapters</item>
   </plurals>
+
+  <!-- String used in the ScreenSearch -->
+  <string name="scrSearchActionBookmark">Bookmark selected verses</string>
+  <string name="scrSearchActionShare">Share selected verses</string>
+  <string name="scrSearchActionClear">Clear selected verses</string>
+  <string name="scrSearchInputHint">Search text</string>
+  <string name="scrSearchInputErr">Invalid input, see tips.</string>
+  <string name="scrSearchHelpText"><![CDATA[
+  <h1>Tips to find verses</h1>
+  - Text must be <b>more than 3 alphabets.</b><br/>
+  - Text must be <b>less than 13 alphabets.</b><br/>
+  </ul>
+  ]]></string>
+  <string name="scrSearchContainerHelpImage">Search Verse Tips</string>
 </resources>

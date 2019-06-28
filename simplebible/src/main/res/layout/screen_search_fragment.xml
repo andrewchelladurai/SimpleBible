@@ -1,13 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:animateLayoutChanges="true"
   tools:context=".ui.ScreenSearch">
 
-  <TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:text="Search" />
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/scrSearchContainerTop"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/gapSmall"
+    android:animateLayoutChanges="true"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
-</FrameLayout>
+    <SearchView
+      android:id="@+id/scrSearchInput"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:iconifiedByDefault="false"
+      android:imeOptions="actionSearch"
+      android:inputType="textAutoCorrect|textAutoComplete"
+      android:queryHint="@string/scrSearchInputHint"
+      android:searchIcon="@drawable/ic_search"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+      android:id="@+id/scrSearchActionBookmark"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:backgroundTint="@android:color/transparent"
+      android:contentDescription="@string/scrSearchActionBookmark"
+      android:src="@drawable/ic_bookmark"
+      app:layout_constraintEnd_toStartOf="@id/scrSearchActionShare"
+      app:layout_constraintHorizontal_chainStyle="spread"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+      android:id="@+id/scrSearchActionShare"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:backgroundTint="@android:color/transparent"
+      android:contentDescription="@string/scrSearchActionShare"
+      android:src="@drawable/ic_share"
+      app:layout_constraintEnd_toStartOf="@id/scrSearchActionClear"
+      app:layout_constraintHorizontal_chainStyle="spread"
+      app:layout_constraintStart_toEndOf="@id/scrSearchActionBookmark"
+      app:layout_constraintTop_toTopOf="@id/scrSearchActionBookmark" />
+
+    <ImageButton
+      android:id="@+id/scrSearchActionClear"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:backgroundTint="@android:color/transparent"
+      android:contentDescription="@string/scrSearchActionClear"
+      android:src="@drawable/ic_clear"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_chainStyle="spread"
+      app:layout_constraintStart_toEndOf="@id/scrSearchActionShare"
+      app:layout_constraintTop_toTopOf="@id/scrSearchActionShare" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/scrSearchContainer"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginTop="@dimen/gapSmall"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/scrSearchContainerTop">
+
+    <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/scrSearchContainerGH10"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/scrSearchContainerGH33"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.33" />
+
+    <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/scrSearchContainerGV20"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/scrSearchContainerGV80"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent="0.8" />
+
+    <ImageView
+      android:id="@+id/scrSearchContainerImage"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:contentDescription="@string/scrSearchContainerHelpImage"
+      app:layout_constraintBottom_toTopOf="@id/scrSearchContainerGH33"
+      app:layout_constraintDimensionRatio="1:1"
+      app:layout_constraintEnd_toEndOf="@id/scrSearchContainerGV80"
+      app:layout_constraintStart_toStartOf="@id/scrSearchContainerGV20"
+      app:layout_constraintTop_toTopOf="@id/scrSearchContainerGH10"
+      app:srcCompat="@drawable/ic_hero_search" />
+
+    <ScrollView
+      android:id="@+id/scrSearchContainerScrollView"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:fillViewport="true"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/scrSearchContainerImage">
+
+      <TextView
+        android:id="@+id/scrSearchHelpText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_margin="@dimen/gapSmall"
+        android:gravity="center_vertical"
+        android:padding="@dimen/gapSmall"
+        android:text="@string/scrSearchHelpText" />
+    </ScrollView>
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/scrSearchList"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginTop="@dimen/gapSmall"
+    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/scrSearchContainerTop"
+    app:spanCount="@integer/scrSearchListColumnCount"
+    tools:listitem="@layout/item_search_result" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

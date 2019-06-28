@@ -7,4 +7,5 @@
   <dimen name="gapBig">12dp</dimen>
   <dimen name="gapHuge">16dp</dimen>
   <integer name="scrBookListListColumnCount">1</integer>
+  <integer name="scrSearchListColumnCount">1</integer>
 </resources>
