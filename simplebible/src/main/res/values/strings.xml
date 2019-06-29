@@ -65,10 +65,10 @@
   </plurals>
 
   <!-- String used in the ScreenSearch -->
-  <string name="scrSearchActionBookmark">Bookmark selected verses</string>
-  <string name="scrSearchActionShare">Share selected verses</string>
-  <string name="scrSearchActionClear">Clear selected verses</string>
-  <string name="scrSearchActionReset">Reset results</string>
+  <string name="scrSearchActionBookmark">Bookmark</string>
+  <string name="scrSearchActionShare">Share</string>
+  <string name="scrSearchActionClear">Clear</string>
+  <string name="scrSearchActionReset">Reset</string>
   <string name="scrSearchInputHint">Search text</string>
   <string name="scrSearchInputErr">Invalid input, see tips.</string>
   <string name="scrSearchContainerHelpImage">Search Verse Tips</string>

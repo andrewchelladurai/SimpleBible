@@ -230,4 +230,13 @@ public class ScreenSearch
     });
   }
 
+  @Override
+  public void updateSelectionActionState() {
+    if (adapter.getSelectedItemCount() > 0) {
+      enableSelectionActions();
+    } else {
+      disableSelectionActions();
+    }
+  }
+
 }

@@ -97,7 +97,7 @@ public class ScreenSearchAdapter
           SELECTED_LIST.add(verse);
         }
         rootView.setSelected(SELECTED_LIST.contains(verse));
-        Log.d(TAG, "SearchResultViewHolder: selected [" + rootView.isSelected() + "]");
+        ops.updateSelectionActionState();
       });
     }
 
