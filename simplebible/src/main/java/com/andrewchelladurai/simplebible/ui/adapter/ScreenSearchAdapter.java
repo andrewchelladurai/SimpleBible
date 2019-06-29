@@ -23,7 +23,7 @@ public class ScreenSearchAdapter
   private static final String TAG = "ScreenSearchAdapter";
 
   private static ArrayList<Verse> LIST = new ArrayList<>();
-  private static ArraySet<Verse> SELECTED_LIST = new ArraySet<>();
+  private static ArraySet<Integer> SELECTED_LIST = new ArraySet<>();
 
   private final ScreenSearchOps ops;
 
@@ -43,6 +43,7 @@ public class ScreenSearchAdapter
   @Override
   public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
     ((SbViewHolderOps) holder).updateView(LIST.get(position));
+    ((SearchResultViewHolder) holder).updatePosition(position);
   }
 
   @Override
@@ -78,6 +79,16 @@ public class ScreenSearchAdapter
     notifyDataSetChanged();
   }
 
+  public void clearSelection() {
+    SELECTED_LIST.clear();
+    notifyDataSetChanged();
+  }
+
+  @NonNull
+  public ArraySet<Integer> getSelection() {
+    return SELECTED_LIST;
+  }
+
   private class SearchResultViewHolder
       extends RecyclerView.ViewHolder
       implements SbViewHolderOps {
@@ -85,18 +96,19 @@ public class ScreenSearchAdapter
     private final View rootView;
     private final TextView contentView;
     private Verse verse;
+    private int position;
 
     SearchResultViewHolder(@NonNull final View itemView) {
       super(itemView);
       rootView = itemView;
       contentView = itemView.findViewById(R.id.itemSearchResultContent);
       rootView.setOnClickListener(v -> {
-        if (SELECTED_LIST.contains(verse)) {
-          SELECTED_LIST.remove(verse);
+        if (SELECTED_LIST.contains(position)) {
+          SELECTED_LIST.remove(position);
         } else {
-          SELECTED_LIST.add(verse);
+          SELECTED_LIST.add(position);
         }
-        rootView.setSelected(SELECTED_LIST.contains(verse));
+        rootView.setSelected(SELECTED_LIST.contains(position));
         ops.updateSelectionActionState();
       });
     }
@@ -105,7 +117,11 @@ public class ScreenSearchAdapter
     public void updateView(final Object object) {
       verse = (Verse) object;
       ops.updateSearchResultView(verse, contentView);
-      rootView.setSelected(SELECTED_LIST.contains(verse));
+      rootView.setSelected(SELECTED_LIST.contains(position));
+    }
+
+    void updatePosition(final int position) {
+      this.position = position;
     }
 
   }

@@ -40,6 +40,21 @@ public class VerseUtils {
     throw new IllegalArgumentException("one of the reference arguments is invalid");
   }
 
+  public String createReference(@NonNull final Verse verse) {
+    final int bookNumber = verse.getBook();
+    final int chapterNumber = verse.getChapter();
+    final int verseNumber = verse.getVerse();
+
+    if (bookNumber > 0
+        && bookNumber <= BookUtils.EXPECTED_COUNT
+        && chapterNumber > 0
+        && verseNumber > 0) {
+
+      return bookNumber + SEPARATOR + chapterNumber + SEPARATOR + verseNumber;
+    }
+    throw new IllegalArgumentException("one of the reference arguments is invalid");
+  }
+
   public boolean validateReference(@NonNull final String reference) {
     if (reference.isEmpty()) {
       Log.e(TAG, "validateReference: empty reference");

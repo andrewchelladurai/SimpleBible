@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.collection.ArraySet;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -122,15 +123,24 @@ public class ScreenSearch
     adapter.clearList();
     showInputField();
     showHelpText();
-
   }
 
   private void handleClickActionClear() {
-    Log.d(TAG, "handleClickActionClear() called");
+    adapter.clearSelection();
+    disableSelectionActions();
   }
 
   private void handleClickActionShare() {
-    Log.d(TAG, "handleClickActionShare() called");
+    final RecyclerView recyclerView = rootView.findViewById(R.id.scrSearchList);
+    final ArraySet<Integer> selectedPositions = adapter.getSelection();
+    final StringBuilder builder = new StringBuilder();
+    TextView textView;
+    for (final Integer position : selectedPositions) {
+      textView = recyclerView.getChildAt(position).findViewById(R.id.itemSearchResultContent);
+      builder.append(textView.getText()).append("\n");
+    }
+
+    mainOps.shareText(String.format(getString(R.string.scrSearchShareTemplate), builder));
   }
 
   private void handleClickActionBookmark() {

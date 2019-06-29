@@ -81,6 +81,7 @@
   include a space before or after<br/>
   like so <u>\'Eli \'</u></p>
   ]]></string>
+  <string name="scrSearchShareTemplate">%s\nThe World English Bible\nShared from SimpleBible</string>
   <string name="itemSearchResultContentTemplate"><![CDATA[
   <b>%s %d:%d -</b> %s
   ]]></string>
