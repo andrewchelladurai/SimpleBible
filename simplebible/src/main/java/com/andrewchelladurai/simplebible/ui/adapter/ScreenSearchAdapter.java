@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.collection.ArraySet;
 import androidx.recyclerview.widget.RecyclerView;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entity.Verse;
@@ -22,7 +23,7 @@ public class ScreenSearchAdapter
   private static final String TAG = "ScreenSearchAdapter";
 
   private static ArrayList<Verse> LIST = new ArrayList<>();
-  private static ArrayList<Verse> SELECTED_LIST = new ArrayList<>();
+  private static ArraySet<Verse> SELECTED_LIST = new ArraySet<>();
 
   private final ScreenSearchOps ops;
 
@@ -85,16 +86,26 @@ public class ScreenSearchAdapter
     private final TextView contentView;
     private Verse verse;
 
-    public SearchResultViewHolder(@NonNull final View itemView) {
+    SearchResultViewHolder(@NonNull final View itemView) {
       super(itemView);
       rootView = itemView;
       contentView = itemView.findViewById(R.id.itemSearchResultContent);
+      rootView.setOnClickListener(v -> {
+        if (SELECTED_LIST.contains(verse)) {
+          SELECTED_LIST.remove(verse);
+        } else {
+          SELECTED_LIST.add(verse);
+        }
+        rootView.setSelected(SELECTED_LIST.contains(verse));
+        Log.d(TAG, "SearchResultViewHolder: selected [" + rootView.isSelected() + "]");
+      });
     }
 
     @Override
     public void updateView(final Object object) {
       verse = (Verse) object;
       ops.updateSearchResultView(verse, contentView);
+      rootView.setSelected(SELECTED_LIST.contains(verse));
     }
 
   }

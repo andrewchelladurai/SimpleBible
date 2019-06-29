@@ -11,12 +11,11 @@
     android:id="@+id/itemSearchResultContent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/gapNormal"
-    android:layout_marginTop="@dimen/gapSmall"
-    android:layout_marginEnd="@dimen/gapNormal"
-    android:layout_marginBottom="@dimen/gapSmall"
-    android:paddingStart="@dimen/gapSmall"
-    android:paddingEnd="@dimen/gapSmall"
+    android:background="@drawable/state_list_verse_background"
+    android:paddingStart="@dimen/gapNormal"
+    android:paddingTop="@dimen/gapSmall"
+    android:paddingEnd="@dimen/gapNormal"
+    android:paddingBottom="@dimen/gapSmall"
     tools:text="@string/defaultVerseReference" />
 
 </androidx.cardview.widget.CardView>
