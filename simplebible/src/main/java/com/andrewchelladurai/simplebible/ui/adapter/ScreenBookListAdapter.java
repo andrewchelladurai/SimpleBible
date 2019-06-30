@@ -40,7 +40,7 @@ public class ScreenBookListAdapter
 
   @Override
   public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
-    ((SbViewHolderOps) holder).updateView(BOOK_LIST.get(position));
+    ((SbViewHolderOps) holder).updateView(BOOK_LIST.get(position), position);
   }
 
   @Override
@@ -94,7 +94,7 @@ public class ScreenBookListAdapter
     }
 
     @Override
-    public void updateView(final Object object) {
+    public void updateView(final Object object, int position) {
       book = (Book) object;
 
       ((TextView) rootView.findViewById(R.id.itemBookName))

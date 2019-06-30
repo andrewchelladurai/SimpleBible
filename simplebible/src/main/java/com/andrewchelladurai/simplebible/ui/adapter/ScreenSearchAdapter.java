@@ -42,8 +42,7 @@ public class ScreenSearchAdapter
 
   @Override
   public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
-    ((SbViewHolderOps) holder).updateView(LIST.get(position));
-    ((SearchResultViewHolder) holder).updatePosition(position);
+    ((SbViewHolderOps) holder).updateView(LIST.get(position), position);
   }
 
   @Override
@@ -114,14 +113,12 @@ public class ScreenSearchAdapter
     }
 
     @Override
-    public void updateView(final Object object) {
+    public void updateView(final Object object, int position) {
       verse = (Verse) object;
+      this.position = position;
+
       ops.updateSearchResultView(verse, contentView);
       rootView.setSelected(SELECTED_LIST.contains(position));
-    }
-
-    void updatePosition(final int position) {
-      this.position = position;
     }
 
   }
