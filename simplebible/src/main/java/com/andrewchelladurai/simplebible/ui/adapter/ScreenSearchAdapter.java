@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.collection.ArraySet;
 import androidx.recyclerview.widget.RecyclerView;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entity.Verse;
@@ -14,6 +13,7 @@ import com.andrewchelladurai.simplebible.ui.ops.SbRecyclerViewAdapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.SbViewHolderOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSearchOps;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ScreenSearchAdapter
@@ -23,7 +23,7 @@ public class ScreenSearchAdapter
   private static final String TAG = "ScreenSearchAdapter";
 
   private static ArrayList<Verse> LIST = new ArrayList<>();
-  private static ArraySet<Integer> SELECTED_LIST = new ArraySet<>();
+  private static HashMap<Verse, String> SELECTED_LIST = new HashMap<>();
 
   private final ScreenSearchOps ops;
 
@@ -75,6 +75,7 @@ public class ScreenSearchAdapter
   public void clearList() {
     LIST.clear();
     SELECTED_LIST.clear();
+
     notifyDataSetChanged();
   }
 
@@ -84,7 +85,7 @@ public class ScreenSearchAdapter
   }
 
   @NonNull
-  public ArraySet<Integer> getSelection() {
+  public HashMap<Verse, String> getSelectedVerses() {
     return SELECTED_LIST;
   }
 
@@ -102,12 +103,12 @@ public class ScreenSearchAdapter
       rootView = itemView;
       contentView = itemView.findViewById(R.id.itemSearchResultContent);
       rootView.setOnClickListener(v -> {
-        if (SELECTED_LIST.contains(position)) {
-          SELECTED_LIST.remove(position);
+        if (SELECTED_LIST.containsKey(verse)) {
+          SELECTED_LIST.remove(verse);
         } else {
-          SELECTED_LIST.add(position);
+          SELECTED_LIST.put(verse, contentView.getText().toString());
         }
-        rootView.setSelected(SELECTED_LIST.contains(position));
+        rootView.setSelected(SELECTED_LIST.containsKey(verse));
         ops.updateSelectionActionState();
       });
     }
@@ -118,7 +119,7 @@ public class ScreenSearchAdapter
       this.position = position;
 
       ops.updateSearchResultView(verse, contentView);
-      rootView.setSelected(SELECTED_LIST.contains(position));
+      rootView.setSelected(SELECTED_LIST.containsKey(verse));
     }
 
   }

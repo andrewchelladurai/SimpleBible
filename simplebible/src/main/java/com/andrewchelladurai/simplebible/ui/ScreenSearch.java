@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.collection.ArraySet;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -21,6 +20,9 @@ import com.andrewchelladurai.simplebible.model.ScreenSearchModel;
 import com.andrewchelladurai.simplebible.ui.adapter.ScreenSearchAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSearchOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
 public class ScreenSearch
     extends Fragment
@@ -131,16 +133,16 @@ public class ScreenSearch
   }
 
   private void handleClickActionShare() {
-    final RecyclerView recyclerView = rootView.findViewById(R.id.scrSearchList);
-    final ArraySet<Integer> selectedPositions = adapter.getSelection();
-    final StringBuilder builder = new StringBuilder();
-    TextView textView;
-    for (final Integer position : selectedPositions) {
-      textView = recyclerView.getChildAt(position).findViewById(R.id.itemSearchResultContent);
-      builder.append(textView.getText()).append("\n");
+    final StringBuilder shareText = new StringBuilder();
+    final HashMap<Verse, String> versesMap = adapter.getSelectedVerses();
+    ArrayList<Verse> keySet = new ArrayList<>(versesMap.keySet());
+    Collections.sort(keySet);
+
+    for (final Verse verse : keySet) {
+      shareText.append(versesMap.get(verse)).append("\n");
     }
 
-    mainOps.shareText(String.format(getString(R.string.scrSearchShareTemplate), builder));
+    mainOps.shareText(String.format(getString(R.string.scrSearchShareTemplate), shareText));
   }
 
   private void handleClickActionBookmark() {
