@@ -23,7 +23,7 @@ public class ScreenBookListAdapter
 
   private static final String TAG = "ScreenBookListAdapter";
   private static ArrayList<Book> ALL_BOOKS = new ArrayList<>(BookUtils.EXPECTED_COUNT);
-  private static ArrayList<Book> BOOK_LIST = new ArrayList<>(BookUtils.EXPECTED_COUNT);
+  private static ArrayList<Book> FILTERED_BOOK_LIST = new ArrayList<>(BookUtils.EXPECTED_COUNT);
   private final ScreenBookListOps viewOps;
 
   public ScreenBookListAdapter(final ScreenBookListOps ops) {
@@ -40,36 +40,37 @@ public class ScreenBookListAdapter
 
   @Override
   public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
-    ((SbViewHolderOps) holder).updateView(BOOK_LIST.get(position), position);
+    ((SbViewHolderOps) holder).updateView(FILTERED_BOOK_LIST.get(position), position);
   }
 
   @Override
   public int getItemCount() {
-    return BOOK_LIST.size();
+    return FILTERED_BOOK_LIST.size();
   }
 
   @Override
   public void updateList(@NonNull final List<?> list) {
-    ALL_BOOKS.clear();
+    clearList();
+
     for (final Object o : list) {
       ALL_BOOKS.add((Book) o);
     }
 
-    BOOK_LIST.addAll(ALL_BOOKS);
+    FILTERED_BOOK_LIST.addAll(ALL_BOOKS);
     notifyDataSetChanged();
 
-    Log.d(TAG, "updateList: added [" + getItemCount() + "] books");
+    Log.d(TAG, "updateList: [" + getItemCount() + "] books now present");
   }
 
   @Override
   public void filterList(@NonNull final String searchTerm) {
-    BOOK_LIST.clear();
+    FILTERED_BOOK_LIST.clear();
     if (searchTerm.isEmpty()) {
-      BOOK_LIST.addAll(ALL_BOOKS);
+      FILTERED_BOOK_LIST.addAll(ALL_BOOKS);
     } else {
       for (final Book book : ALL_BOOKS) {
         if (book.getName().toLowerCase().contains(searchTerm.toLowerCase())) {
-          BOOK_LIST.add(book);
+          FILTERED_BOOK_LIST.add(book);
         }
       }
     }
@@ -78,7 +79,8 @@ public class ScreenBookListAdapter
 
   @Override
   public void clearList() {
-    // not implemented, since not needed for this purpose
+    ALL_BOOKS.clear();
+    FILTERED_BOOK_LIST.clear();
   }
 
   private class BookViewHolder
