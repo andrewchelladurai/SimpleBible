@@ -85,4 +85,8 @@
   <string name="itemSearchResultContentTemplate"><![CDATA[
   <b>%s %d:%d -</b> %s
   ]]></string>
+
+  <!-- String used in the ScreenBookmark -->
+  <string name="scrBookmarkErrNullVerseList">No parcelable verses arguments passed</string>
+  <string name="scrBookmarkErrEmptyVerseList">Empty verses list received</string>
 </resources>

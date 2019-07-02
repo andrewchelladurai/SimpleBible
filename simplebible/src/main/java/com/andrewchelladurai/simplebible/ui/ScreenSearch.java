@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entity.Verse;
@@ -134,10 +135,13 @@ public class ScreenSearch
 
   private void handleClickActionShare() {
     final StringBuilder shareText = new StringBuilder();
+
+    // get the list of all verses that are selected and sort it
     final HashMap<Verse, String> versesMap = adapter.getSelectedVerses();
-    ArrayList<Verse> keySet = new ArrayList<>(versesMap.keySet());
+    final ArrayList<Verse> keySet = new ArrayList<>(versesMap.keySet());
     Collections.sort(keySet);
 
+    // now get the text from the selected verses
     for (final Verse verse : keySet) {
       shareText.append(versesMap.get(verse)).append("\n");
     }
@@ -146,7 +150,25 @@ public class ScreenSearch
   }
 
   private void handleClickActionBookmark() {
-    Log.d(TAG, "handleClickActionBookmark() called");
+    // get the list of all verses that are selected and sort it
+    final ArrayList<Verse> list = new ArrayList<>(adapter.getSelectedVerses().keySet());
+    Collections.sort(list);
+
+    // now clear the selection, since our work is done.
+    handleClickActionClear();
+
+    // convert the list into an array
+    final Verse[] array = new Verse[list.size()];
+    for (int i = 0; i < array.length; i++) {
+      array[i] = list.get(i);
+    }
+
+    // now create a bundle of the verses to pass to the Bookmark Screen
+    final Bundle bundle = new Bundle();
+    bundle.putParcelableArray(ScreenBookmark.ARG_VERSE_LIST, array);
+
+    NavHostFragment.findNavController(this)
+                   .navigate(R.id.action_screenSearch_to_screenBookmark, bundle);
   }
 
   private void handleClickSearchInput(@NonNull final String searchText) {

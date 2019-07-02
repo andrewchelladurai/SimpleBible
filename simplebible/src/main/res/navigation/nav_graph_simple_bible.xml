@@ -25,7 +25,11 @@
     android:id="@+id/screenSearch"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenSearch"
     android:label="fragment_screen_search"
-    tools:layout="@layout/screen_search_fragment" />
+    tools:layout="@layout/screen_search_fragment">
+    <action
+      android:id="@+id/action_screenSearch_to_screenBookmark"
+      app:destination="@id/screenBookmark" />
+  </fragment>
 
   <fragment
     android:id="@+id/screenBookmarkList"
@@ -37,7 +41,11 @@
     android:id="@+id/screenBookmark"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenBookmark"
     android:label="fragment_screen_bookmark"
-    tools:layout="@layout/screen_bookmark_fragment" />
+    tools:layout="@layout/screen_bookmark_fragment">
+    <argument
+      android:name="ARG_VERSE_LIST"
+      app:argType="com.andrewchelladurai.simplebible.data.entity.Verse[]" />
+  </fragment>
 
   <fragment
     android:id="@+id/screenChapter"
