@@ -86,7 +86,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.4" />
+      app:layout_constraintGuide_percent="0.35" />
 
     <ImageView
       android:id="@+id/scrSearchContainerImage"
@@ -115,9 +115,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|center_horizontal"
-        android:layout_margin="@dimen/gapSmall"
+        android:layout_margin="@dimen/gapHuge"
         android:gravity="center_vertical"
-        android:padding="@dimen/gapHuge"
         android:text="@string/scrSearchHelpText" />
     </ScrollView>
   </androidx.constraintlayout.widget.ConstraintLayout>

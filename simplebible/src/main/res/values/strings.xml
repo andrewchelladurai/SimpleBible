@@ -74,10 +74,10 @@
   <string name="scrSearchContainerHelpImage">Search Verse Tips</string>
   <string name="scrSearchEmptyResults">No verse found</string>
   <string name="scrSearchHelpText"><![CDATA[
-  <h1>Tips to find verses</h1><br/>
-  <p>Text must be <u>more than 3 alphabets.</u></p>
-  <p>Text must be <u>less than 13 alphabets.</u></p>
-  <p><u>To search for</u> text like <u>\'Eli\'</u><br/>
+  <h1>Tips to find verses</h1>
+  - Text must be <u>more than 3 alphabets.</u><br/>
+  - Text must be <u>less than 13 alphabets.</u><br/>
+  - <u>To search for</u> text like <u>\'Eli\'</u><br/>
   include a space before or after<br/>
   like so <u>\'Eli \'</u></p>
   ]]></string>

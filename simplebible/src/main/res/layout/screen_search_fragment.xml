@@ -75,18 +75,18 @@
     app:layout_constraintTop_toBottomOf="@id/scrSearchContainerTop">
 
     <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/scrSearchContainerGV20"
+      android:id="@+id/scrSearchContainerGH10"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.2" />
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.1" />
 
     <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/scrSearchContainerGV80"
+      android:id="@+id/scrSearchContainerGH30"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.8" />
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.4" />
 
     <ImageView
       android:id="@+id/scrSearchContainerImage"
@@ -94,10 +94,11 @@
       android:layout_height="0dp"
       android:contentDescription="@string/scrSearchContainerHelpImage"
       app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintBottom_toTopOf="@id/scrSearchContainerGH30"
       app:layout_constraintDimensionRatio="1:1"
-      app:layout_constraintEnd_toEndOf="@id/scrSearchContainerGV80"
-      app:layout_constraintStart_toStartOf="@id/scrSearchContainerGV20"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/scrSearchContainerGH10"
       app:layout_constraintVertical_bias="0.1"
       app:srcCompat="@drawable/ic_hero_search" />
 
@@ -106,6 +107,7 @@
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:fillViewport="true"
+      android:padding="@dimen/gapHuge"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -116,9 +118,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|center_horizontal"
-        android:layout_margin="@dimen/gapSmall"
+        android:layout_margin="@dimen/gapHuge"
         android:gravity="center_vertical"
-        android:padding="@dimen/gapHuge"
         android:text="@string/scrSearchHelpText" />
     </ScrollView>
   </androidx.constraintlayout.widget.ConstraintLayout>
