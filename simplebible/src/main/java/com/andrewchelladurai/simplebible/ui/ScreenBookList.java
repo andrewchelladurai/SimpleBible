@@ -122,6 +122,7 @@ public class ScreenBookList
   public void handleBookClick(@NonNull final Book book) {
     final Bundle bundle = new Bundle();
     bundle.putParcelable(ScreenChapter.ARG_BOOK, book);
+    bundle.putInt(ScreenChapter.ARG_CHAPTER, 1);
     NavHostFragment.findNavController(this)
                    .navigate(R.id.action_screenBookList_to_screenChapter, bundle);
   }

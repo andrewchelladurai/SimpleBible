@@ -20,6 +20,8 @@ public class ScreenChapter
     extends Fragment {
 
   public static final String ARG_BOOK = "ARG_BOOK";
+  public static final String ARG_CHAPTER = "ARG_CHAPTER";
+
   private static final String TAG = "ScreenChapter";
   private ScreenSimpleBibleOps mainOps;
   private View rootView;
@@ -46,23 +48,43 @@ public class ScreenChapter
     mainOps.hideKeyboard();
 
     if (savedState == null) {
+
       final Bundle arguments = getArguments();
-      if (arguments != null && arguments.containsKey(ARG_BOOK)) {
-        final Book bookArg = arguments.getParcelable(ARG_BOOK);
-        if (bookArg == null) {
-          final String message = getString(R.string.scrChapterErrNoBookPassed);
-          Log.e(TAG, "onCreateView: " + message);
-          mainOps.showErrorScreen(message, true, true);
-          return rootView;
-        } else {
-          model.setBookArgument(bookArg);
-        }
+
+      if (arguments == null) {
+        final String message = getString(R.string.scrChapterNoArguments);
+        Log.e(TAG, "onCreateView: " + message);
+        mainOps.showErrorScreen(message, true, true);
+        return rootView;
+      }
+
+      final Book bookArg = arguments.getParcelable(ARG_BOOK);
+
+      if (bookArg == null) {
+        final String message = getString(R.string.scrChapterErrNoBook);
+        Log.e(TAG, "onCreateView: " + message);
+        mainOps.showErrorScreen(message, true, true);
+        return rootView;
+      }
+
+      model.setBook(bookArg);
+      final int chapter = arguments.getInt(ARG_CHAPTER);
+
+      if (chapter < 1 || chapter > bookArg.getChapters()) {
+        final String message = getString(R.string.scrChapterErrChapterInvalid);
+        Log.e(TAG, "onCreateView: " + message);
+        mainOps.showMessage(message);
+        model.setBookChapter(1);
+      } else {
+        model.setBookChapter(chapter);
       }
     }
 
     final Book book = model.getBook();
     final String htmlText = getString(R.string.scrChapterTitleTemplate,
-                                      book.getName(), book.getDescription());
+                                      model.getChapter(),
+                                      book.getName(),
+                                      book.getDescription());
     final TextView title = rootView.findViewById(R.id.scrChapterTitle);
     title.setText(HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_COMPACT));
 
