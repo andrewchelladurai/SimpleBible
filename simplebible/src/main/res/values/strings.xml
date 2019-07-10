@@ -89,4 +89,11 @@
   <!-- String used in the ScreenBookmark -->
   <string name="scrBookmarkErrNullVerseList">No parcelable verses arguments passed</string>
   <string name="scrBookmarkErrEmptyVerseList">Empty verses list received</string>
+
+  <!-- String used in the ScreenChapter -->
+  <string name="scrChapterErrNoBookPassed">No / Null Book passed from calling activity</string>
+  <string name="scrChapterActionChapters">Show Chapters</string>
+  <string name="scrChapterTitleTemplate"><![CDATA[
+  <b>%s</b> - %s
+  ]]></string>
 </resources>

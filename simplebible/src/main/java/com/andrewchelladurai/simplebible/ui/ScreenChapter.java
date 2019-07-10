@@ -6,10 +6,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entity.Book;
+import com.andrewchelladurai.simplebible.model.ScreenChapterModel;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
 
 public class ScreenChapter
@@ -19,7 +23,7 @@ public class ScreenChapter
   private static final String TAG = "ScreenChapter";
   private ScreenSimpleBibleOps mainOps;
   private View rootView;
-  private Book bookArg;
+  private ScreenChapterModel model;
 
   public ScreenChapter() {
   }
@@ -31,6 +35,7 @@ public class ScreenChapter
       throw new RuntimeException(context.toString() + " must implement ScreenSimpleBibleOps");
     }
     mainOps = (ScreenSimpleBibleOps) context;
+    model = ViewModelProviders.of(this).get(ScreenChapterModel.class);
   }
 
   @Override
@@ -39,11 +44,27 @@ public class ScreenChapter
     rootView = inflater.inflate(R.layout.screen_chapter_fragment, container, false);
     mainOps.hideNavigationView();
     mainOps.hideKeyboard();
-    final Bundle arguments = getArguments();
-    if (arguments != null && arguments.containsKey(ARG_BOOK)) {
-      bookArg = arguments.getParcelable(ARG_BOOK);
-      Log.d(TAG, "onCreateView: passed book [" + bookArg + "]");
+
+    if (savedState == null) {
+      final Bundle arguments = getArguments();
+      if (arguments != null && arguments.containsKey(ARG_BOOK)) {
+        final Book bookArg = arguments.getParcelable(ARG_BOOK);
+        if (bookArg == null) {
+          final String message = getString(R.string.scrChapterErrNoBookPassed);
+          Log.e(TAG, "onCreateView: " + message);
+          mainOps.showErrorScreen(message, true, true);
+          return rootView;
+        } else {
+          model.setBookArgument(bookArg);
+        }
+      }
     }
+
+    final Book book = model.getBook();
+    final String htmlText = getString(R.string.scrChapterTitleTemplate,
+                                      book.getName(), book.getDescription());
+    final TextView title = rootView.findViewById(R.id.scrChapterTitle);
+    title.setText(HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_COMPACT));
 
     return rootView;
   }
