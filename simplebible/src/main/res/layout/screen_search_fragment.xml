@@ -7,62 +7,19 @@
   android:animateLayoutChanges="true"
   tools:context=".ui.ScreenSearch">
 
-  <LinearLayout
-    android:id="@+id/scrSearchContainerTop"
+  <SearchView
+    android:id="@+id/scrSearchInput"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/gapSmall"
-    android:animateLayoutChanges="true"
-    android:orientation="horizontal"
+    android:iconifiedByDefault="false"
+    android:imeOptions="actionSearch"
+    android:inputType="textAutoCorrect|textAutoComplete"
+    android:queryHint="@string/scrSearchInputHint"
+    android:searchIcon="@drawable/ic_search"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
-
-    <SearchView
-      android:id="@+id/scrSearchInput"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:iconifiedByDefault="false"
-      android:imeOptions="actionSearch"
-      android:inputType="textAutoCorrect|textAutoComplete"
-      android:queryHint="@string/scrSearchInputHint"
-      android:searchIcon="@drawable/ic_search" />
-
-    <HorizontalScrollView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-
-      <com.google.android.material.chip.ChipGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
-
-        <com.google.android.material.chip.Chip
-          android:id="@+id/scrSearchActionBookmark"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/scrSearchActionBookmark" />
-
-        <com.google.android.material.chip.Chip
-          android:id="@+id/scrSearchActionShare"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/scrSearchActionShare" />
-
-        <com.google.android.material.chip.Chip
-          android:id="@+id/scrSearchActionClear"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/scrSearchActionClear" />
-
-        <com.google.android.material.chip.Chip
-          android:id="@+id/scrSearchActionReset"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/scrSearchActionReset" />
-      </com.google.android.material.chip.ChipGroup>
-    </HorizontalScrollView>
-  </LinearLayout>
+    app:layout_constraintTop_toTopOf="parent" />
 
   <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/scrSearchContainer"
@@ -72,7 +29,7 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/scrSearchContainerTop">
+    app:layout_constraintTop_toBottomOf="@id/scrSearchInput">
 
     <androidx.constraintlayout.widget.Guideline
       android:id="@+id/scrSearchContainerGH10"
@@ -130,11 +87,52 @@
     android:layout_height="0dp"
     android:layout_marginTop="@dimen/gapSmall"
     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+    app:layout_constraintBottom_toTopOf="@id/scrSearchActionsContainer"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/scrSearchInput"
+    app:spanCount="@integer/scrSearchListColumnCount"
+    tools:listitem="@layout/item_search_result" />
+
+  <HorizontalScrollView
+    android:id="@+id/scrSearchActionsContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/scrSearchContainerTop"
-    app:spanCount="@integer/scrSearchListColumnCount"
-    tools:listitem="@layout/item_search_result" />
+    app:layout_constraintTop_toBottomOf="@id/scrSearchList">
+
+    <com.google.android.material.chip.ChipGroup
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:animateLayoutChanges="true">
+
+      <com.google.android.material.chip.Chip
+        android:id="@+id/scrSearchActionBookmark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/scrSearchActionBookmark" />
+
+      <com.google.android.material.chip.Chip
+        android:id="@+id/scrSearchActionShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/scrSearchActionShare" />
+
+      <com.google.android.material.chip.Chip
+        android:id="@+id/scrSearchActionClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/scrSearchActionClear" />
+
+      <com.google.android.material.chip.Chip
+        android:id="@+id/scrSearchActionReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/scrSearchActionReset" />
+    </com.google.android.material.chip.ChipGroup>
+  </HorizontalScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

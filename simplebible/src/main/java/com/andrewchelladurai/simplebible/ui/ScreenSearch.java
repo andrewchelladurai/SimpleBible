@@ -200,33 +200,25 @@ public class ScreenSearch
 
   private void showActions() {
     rootView.findViewById(R.id.scrSearchInput).setVisibility(View.GONE);
-
-    rootView.findViewById(R.id.scrSearchActionBookmark).setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scrSearchActionShare).setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scrSearchActionClear).setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scrSearchActionReset).setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scrSearchActionsContainer).setVisibility(View.VISIBLE);
   }
 
   private void showInputField() {
     rootView.findViewById(R.id.scrSearchInput).setVisibility(View.VISIBLE);
-
-    rootView.findViewById(R.id.scrSearchActionBookmark).setVisibility(View.GONE);
-    rootView.findViewById(R.id.scrSearchActionShare).setVisibility(View.GONE);
-    rootView.findViewById(R.id.scrSearchActionClear).setVisibility(View.GONE);
-    rootView.findViewById(R.id.scrSearchActionReset).setVisibility(View.GONE);
+    rootView.findViewById(R.id.scrSearchActionsContainer).setVisibility(View.GONE);
   }
 
   private void enableSelectionActions() {
-    rootView.findViewById(R.id.scrSearchActionBookmark).setEnabled(true);
-    rootView.findViewById(R.id.scrSearchActionShare).setEnabled(true);
-    rootView.findViewById(R.id.scrSearchActionClear).setEnabled(true);
+    rootView.findViewById(R.id.scrSearchActionBookmark).setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scrSearchActionShare).setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scrSearchActionClear).setVisibility(View.VISIBLE);
     rootView.findViewById(R.id.scrSearchActionReset).setEnabled(true);
   }
 
   private void disableSelectionActions() {
-    rootView.findViewById(R.id.scrSearchActionBookmark).setEnabled(false);
-    rootView.findViewById(R.id.scrSearchActionShare).setEnabled(false);
-    rootView.findViewById(R.id.scrSearchActionClear).setEnabled(false);
+    rootView.findViewById(R.id.scrSearchActionBookmark).setVisibility(View.GONE);
+    rootView.findViewById(R.id.scrSearchActionShare).setVisibility(View.GONE);
+    rootView.findViewById(R.id.scrSearchActionClear).setVisibility(View.GONE);
     rootView.findViewById(R.id.scrSearchActionReset).setEnabled(true);
   }
 
