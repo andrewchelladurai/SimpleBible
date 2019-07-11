@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import com.andrewchelladurai.simplebible.R;
@@ -92,10 +93,10 @@ public class ScreenChapter
 
   private void updateScreenTitle() {
     final Book book = model.getBook();
+    final String htmlText = getString(R.string.scrChapterTitleTemplate,
+                                      book.getName(), model.getChapter(), book.getDescription());
     ((TextView) rootView.findViewById(R.id.scrChapterTitle))
-        .setText(getString(R.string.scrChapterTitleTemplate, book.getName(), model.getChapter()));
-    ((TextView) rootView.findViewById(R.id.scrChapterSubtitle))
-        .setText(getString(R.string.scrChapterSubtitleTemplate, book.getDescription()));
+        .setText(HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_COMPACT));
   }
 
 }
