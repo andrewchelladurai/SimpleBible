@@ -95,7 +95,6 @@
   <string name="scrChapterErrNoBook">No / Null Book passed, using default</string>
   <string name="scrChapterErrChapterInvalid">Incorrect Chapter passed, using default</string>
   <string name="scrChapterActionChapters">Show Chapters</string>
-  <string name="scrChapterTitleTemplate"><![CDATA[
-  <b>Chapter %d of %s</b> - %s
-  ]]></string>
+  <string name="scrChapterTitleTemplate">%s : Chapter %d</string>
+  <string name="scrChapterSubtitleTemplate">%s</string>
 </resources>

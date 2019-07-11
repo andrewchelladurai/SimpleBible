@@ -27,13 +27,23 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="@id/scrChapterActionChapters">
 
-    <TextView
-      android:id="@+id/scrChapterTitle"
+    <LinearLayout
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:fontFamily="sans-serif-condensed-light"
-      android:text="@string/appName"
-      android:textAlignment="center" />
+      android:orientation="vertical">
+
+      <TextView
+        android:id="@+id/scrChapterTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black" />
+
+      <TextView
+        android:id="@+id/scrChapterSubtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed-medium" />
+    </LinearLayout>
   </HorizontalScrollView>
 
   <androidx.recyclerview.widget.RecyclerView

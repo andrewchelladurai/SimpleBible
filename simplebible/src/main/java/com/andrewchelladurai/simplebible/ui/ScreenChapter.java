@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import com.andrewchelladurai.simplebible.R;
@@ -80,13 +79,7 @@ public class ScreenChapter
       }
     }
 
-    final Book book = model.getBook();
-    final String htmlText = getString(R.string.scrChapterTitleTemplate,
-                                      model.getChapter(),
-                                      book.getName(),
-                                      book.getDescription());
-    final TextView title = rootView.findViewById(R.id.scrChapterTitle);
-    title.setText(HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_COMPACT));
+    updateScreenTitle();
 
     return rootView;
   }
@@ -95,6 +88,14 @@ public class ScreenChapter
   public void onDetach() {
     super.onDetach();
     mainOps = null;
+  }
+
+  private void updateScreenTitle() {
+    final Book book = model.getBook();
+    ((TextView) rootView.findViewById(R.id.scrChapterTitle))
+        .setText(getString(R.string.scrChapterTitleTemplate, book.getName(), model.getChapter()));
+    ((TextView) rootView.findViewById(R.id.scrChapterSubtitle))
+        .setText(getString(R.string.scrChapterSubtitleTemplate, book.getDescription()));
   }
 
 }
