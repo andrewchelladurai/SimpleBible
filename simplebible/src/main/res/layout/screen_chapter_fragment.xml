@@ -11,6 +11,7 @@
     android:id="@+id/scrChapterContainerBottom"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
     android:baselineAligned="false"
     android:orientation="horizontal"
     app:layout_constraintBottom_toBottomOf="parent"
@@ -114,9 +115,13 @@
 
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/scrChapterVerseList"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+    app:layout_constraintBottom_toTopOf="@id/scrChapterContainerBottom"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
     app:spanCount="@integer/scrChapterListColumnCount"
     tools:listitem="@layout/item_chapter_verse" />
 

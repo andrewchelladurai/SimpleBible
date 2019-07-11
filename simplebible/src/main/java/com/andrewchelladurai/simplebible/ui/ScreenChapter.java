@@ -78,7 +78,21 @@ public class ScreenChapter
       } else {
         model.setBookChapter(chapter);
       }
+
+      showBottomContainerTitle();
+
     }
+
+    rootView.findViewById(R.id.scrChapterActionShowChapters)
+            .setOnClickListener(v -> showBottomContainerChapterSelector());
+    rootView.findViewById(R.id.scrChapterActionHideChapters)
+            .setOnClickListener(v -> showBottomContainerTitle());
+    rootView.findViewById(R.id.scrChapterActionSelectionBookmark)
+            .setOnClickListener(v -> handleActionClickBookmark());
+    rootView.findViewById(R.id.scrChapterActionSelectionShare)
+            .setOnClickListener(v -> handleActionClickShare());
+    rootView.findViewById(R.id.scrChapterActionSelectionClear)
+            .setOnClickListener(v -> handleActionClickClear());
 
     updateScreenTitle();
 
@@ -97,6 +111,45 @@ public class ScreenChapter
                                       book.getName(), model.getChapter(), book.getDescription());
     ((TextView) rootView.findViewById(R.id.scrChapterTitle))
         .setText(HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_COMPACT));
+  }
+
+  private void showBottomContainerTitle() {
+    rootView.findViewById(R.id.scrChapterContainerTitle)
+            .setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scrChapterContainerChapterSector)
+            .setVisibility(View.GONE);
+    rootView.findViewById(R.id.scrChapterContainerSelectionActions)
+            .setVisibility(View.GONE);
+  }
+
+  private void showBottomContainerChapterSelector() {
+    rootView.findViewById(R.id.scrChapterContainerTitle)
+            .setVisibility(View.GONE);
+    rootView.findViewById(R.id.scrChapterContainerChapterSector)
+            .setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scrChapterContainerSelectionActions)
+            .setVisibility(View.GONE);
+  }
+
+  private void showBottomContainerVerseSelectionActions() {
+    rootView.findViewById(R.id.scrChapterContainerTitle)
+            .setVisibility(View.GONE);
+    rootView.findViewById(R.id.scrChapterContainerChapterSector)
+            .setVisibility(View.GONE);
+    rootView.findViewById(R.id.scrChapterContainerSelectionActions)
+            .setVisibility(View.VISIBLE);
+  }
+
+  private void handleActionClickClear() {
+    Log.d(TAG, "handleActionClickClear() called");
+  }
+
+  private void handleActionClickShare() {
+    Log.d(TAG, "handleActionClickShare() called");
+  }
+
+  private void handleActionClickBookmark() {
+    Log.d(TAG, "handleActionClickBookmark() called");
   }
 
 }
