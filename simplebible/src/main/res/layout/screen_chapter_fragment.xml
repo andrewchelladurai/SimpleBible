@@ -62,7 +62,7 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_chapter_verse" />
+        tools:listitem="@layout/item_chapter_number" />
 
       <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/scrChapterActionHideChapters"
