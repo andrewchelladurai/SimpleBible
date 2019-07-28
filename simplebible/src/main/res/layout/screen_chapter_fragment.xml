@@ -54,22 +54,15 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
 
-      <HorizontalScrollView
+      <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/scrChapterChapterList"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:fillViewport="true">
-
-        <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/scrChapterChapterList"
-          android:layout_width="wrap_content"
-          android:layout_height="match_parent"
-          android:orientation="horizontal"
-          app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-          tools:listitem="@layout/item_chapter_verse" />
-
-      </HorizontalScrollView>
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_chapter_verse" />
 
       <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/scrChapterActionHideChapters"

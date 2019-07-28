@@ -4,7 +4,5 @@
   android:id="@+id/itemChapterVerseContent"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
-  android:layout_marginStart="@dimen/gapSmall"
-  android:layout_marginEnd="@dimen/gapSmall"
   android:textAlignment="center"
   tools:text="119" />
