@@ -77,9 +77,8 @@ public class ScreenChapter
 
       model.setBook(bookArg);
       final int chapter = arguments.getInt(ARG_CHAPTER);
-      final int maxChapters = bookArg.getChapters();
 
-      if (chapter < 1 || chapter > maxChapters) {
+      if (chapter < 1 || chapter > model.getBook().getChapters()) {
         final String message = getString(R.string.scrChapterErrChapterInvalid);
         Log.e(TAG, "onCreateView: " + message);
         mainOps.showMessage(message);
@@ -89,8 +88,6 @@ public class ScreenChapter
       }
 
       showBookTitleAndChapter();
-      updateChapterList(maxChapters);
-
     }
 
     rootView.findViewById(R.id.scrChapterActionShowChapters)
@@ -104,6 +101,7 @@ public class ScreenChapter
     rootView.findViewById(R.id.scrChapterActionSelectionClear)
             .setOnClickListener(v -> handleActionClickClear());
 
+    updateChapterList(model.getBook().getChapters());
     updateScreenTitle();
     updateVerseList();
 
