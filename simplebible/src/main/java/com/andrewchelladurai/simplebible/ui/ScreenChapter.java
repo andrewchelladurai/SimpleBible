@@ -105,6 +105,7 @@ public class ScreenChapter
             .setOnClickListener(v -> handleActionClickClear());
 
     updateScreenTitle();
+    updateVerseList();
 
     return rootView;
   }
@@ -113,6 +114,13 @@ public class ScreenChapter
   public void onDetach() {
     super.onDetach();
     mainOps = null;
+  }
+
+  private void updateVerseList() {
+    Log.d(TAG, "updateVerseList() called");
+    // TODO: 28/7/19 implement logic
+
+    final RecyclerView recyclerView = rootView.findViewById(R.id.scrChapterVerseList);
   }
 
   private void updateChapterList(final int maxChapters) {
@@ -181,6 +189,7 @@ public class ScreenChapter
     model.setBookChapter(chapterNumber);
     updateScreenTitle();
     showBookTitleAndChapter();
+    updateVerseList();
   }
 
 }
