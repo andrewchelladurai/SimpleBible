@@ -12,11 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entity.Book;
+import com.andrewchelladurai.simplebible.data.entity.Verse;
 import com.andrewchelladurai.simplebible.model.ScreenChapterModel;
+import com.andrewchelladurai.simplebible.ui.adapter.ScrChapterVerseAdapter;
 import com.andrewchelladurai.simplebible.ui.adapter.ScreenChapterNumberAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenChapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
@@ -115,10 +118,29 @@ public class ScreenChapter
   }
 
   private void updateVerseList() {
-    Log.d(TAG, "updateVerseList() called");
     // TODO: 28/7/19 implement logic
+    model.getChapterVerseList().observe(this, list -> {
+      if (list == null || list.isEmpty()) {
+        final Bundle bundle = new Bundle();
+        final String message = String.format(getString(R.string.scrChapterErrEmptyVerseList),
+                                             model.getChapter(),
+                                             model.getBook().getName());
+        bundle.putString(ScreenError.ARG_MESSAGE, message);
+        bundle.putBoolean(ScreenError.ARG_EXIT_APP, true);
+        bundle.putBoolean(ScreenError.ARG_INFORM_DEV, true);
 
-    final RecyclerView recyclerView = rootView.findViewById(R.id.scrChapterVerseList);
+        NavHostFragment.findNavController(this)
+                       .navigate(R.id.action_global_screenError, bundle);
+        return;
+      }
+
+      final String template = getString(R.string.itemChapterVerseContentTemplate);
+      final ScrChapterVerseAdapter adapter = new ScrChapterVerseAdapter(this, template);
+      adapter.updateList(list);
+
+      final RecyclerView recyclerView = rootView.findViewById(R.id.scrChapterVerseList);
+      recyclerView.setAdapter(adapter);
+    });
   }
 
   private void updateChapterList(final int maxChapters) {
@@ -182,12 +204,18 @@ public class ScreenChapter
     Log.d(TAG, "handleActionClickBookmark() called");
   }
 
-  @Override public void handleClickChapter(final int chapterNumber) {
+  @Override
+  public void handleClickChapter(final int chapterNumber) {
     Log.d(TAG, "handleClickChapter: chapterNumber = [" + chapterNumber + "]");
     model.setBookChapter(chapterNumber);
     updateScreenTitle();
     showBookTitleAndChapter();
     updateVerseList();
+  }
+
+  @Override
+  public void handleClickVerse(@NonNull final TextView textView, @NonNull final Verse verse) {
+    Log.d(TAG, "handleClickVerse: verse = [" + verse + "]");
   }
 
 }

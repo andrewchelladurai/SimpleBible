@@ -2,4 +2,5 @@
 <resources>
   <integer name="scrBookListListColumnCount">2</integer>
   <integer name="scrChapterListColumnCount">2</integer>
+  <integer name="scrChapterVerseListColumnCount">2</integer>
 </resources>
