@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entity.Book;
 import com.andrewchelladurai.simplebible.model.ScreenChapterModel;
-import com.andrewchelladurai.simplebible.ui.adapter.ChapterListAdapter;
+import com.andrewchelladurai.simplebible.ui.adapter.ScreenChapterNumberAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenChapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
 
@@ -127,7 +127,7 @@ public class ScreenChapter
       set.add(i);
     }
 
-    final ChapterListAdapter adapter = new ChapterListAdapter(this);
+    final ScreenChapterNumberAdapter adapter = new ScreenChapterNumberAdapter(this);
     adapter.updateList(set);
 
     final RecyclerView recyclerView = rootView.findViewById(R.id.scrChapterChapterList);
