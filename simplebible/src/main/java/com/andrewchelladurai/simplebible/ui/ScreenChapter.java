@@ -7,17 +7,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entity.Book;
 import com.andrewchelladurai.simplebible.model.ScreenChapterModel;
+import com.andrewchelladurai.simplebible.ui.adapter.ChapterListAdapter;
+import com.andrewchelladurai.simplebible.ui.ops.ScreenChapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
 
+import java.util.ArrayList;
+
 public class ScreenChapter
-    extends Fragment {
+    extends Fragment
+    implements ScreenChapterOps {
 
   public static final String ARG_BOOK = "ARG_BOOK";
   public static final String ARG_CHAPTER = "ARG_CHAPTER";
@@ -69,8 +77,9 @@ public class ScreenChapter
 
       model.setBook(bookArg);
       final int chapter = arguments.getInt(ARG_CHAPTER);
+      final int maxChapters = bookArg.getChapters();
 
-      if (chapter < 1 || chapter > bookArg.getChapters()) {
+      if (chapter < 1 || chapter > maxChapters) {
         final String message = getString(R.string.scrChapterErrChapterInvalid);
         Log.e(TAG, "onCreateView: " + message);
         mainOps.showMessage(message);
@@ -79,14 +88,15 @@ public class ScreenChapter
         model.setBookChapter(chapter);
       }
 
-      showBottomContainerTitle();
+      showBookTitleAndChapter();
+      updateChapterList(maxChapters);
 
     }
 
     rootView.findViewById(R.id.scrChapterActionShowChapters)
-            .setOnClickListener(v -> showBottomContainerChapterSelector());
+            .setOnClickListener(v -> showChapterSelector());
     rootView.findViewById(R.id.scrChapterActionHideChapters)
-            .setOnClickListener(v -> showBottomContainerTitle());
+            .setOnClickListener(v -> showBookTitleAndChapter());
     rootView.findViewById(R.id.scrChapterActionSelectionBookmark)
             .setOnClickListener(v -> handleActionClickBookmark());
     rootView.findViewById(R.id.scrChapterActionSelectionShare)
@@ -105,15 +115,29 @@ public class ScreenChapter
     mainOps = null;
   }
 
+  private void updateChapterList(final int maxChapters) {
+    final ArrayList<Integer> set = new ArrayList<>(maxChapters);
+    for (int i = 1; i <= maxChapters; i++) {
+      set.add(i);
+    }
+
+    final ChapterListAdapter adapter = new ChapterListAdapter(this);
+    adapter.updateList(set);
+
+    final RecyclerView recyclerView = rootView.findViewById(R.id.scrChapterChapterList);
+    recyclerView.setAdapter(adapter);
+  }
+
   private void updateScreenTitle() {
     final Book book = model.getBook();
     final String htmlText = getString(R.string.scrChapterTitleTemplate,
-                                      book.getName(), model.getChapter(), book.getDescription());
+                                      book.getName(), model.getChapter(),
+                                      book.getDescription());
     ((TextView) rootView.findViewById(R.id.scrChapterTitle))
         .setText(HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_COMPACT));
   }
 
-  private void showBottomContainerTitle() {
+  private void showBookTitleAndChapter() {
     rootView.findViewById(R.id.scrChapterContainerTitle)
             .setVisibility(View.VISIBLE);
     rootView.findViewById(R.id.scrChapterContainerChapterSector)
@@ -122,7 +146,7 @@ public class ScreenChapter
             .setVisibility(View.GONE);
   }
 
-  private void showBottomContainerChapterSelector() {
+  private void showChapterSelector() {
     rootView.findViewById(R.id.scrChapterContainerTitle)
             .setVisibility(View.GONE);
     rootView.findViewById(R.id.scrChapterContainerChapterSector)
@@ -131,7 +155,7 @@ public class ScreenChapter
             .setVisibility(View.GONE);
   }
 
-  private void showBottomContainerVerseSelectionActions() {
+  private void showVerseSelectionActions() {
     rootView.findViewById(R.id.scrChapterContainerTitle)
             .setVisibility(View.GONE);
     rootView.findViewById(R.id.scrChapterContainerChapterSector)
@@ -150,6 +174,13 @@ public class ScreenChapter
 
   private void handleActionClickBookmark() {
     Log.d(TAG, "handleActionClickBookmark() called");
+  }
+
+  @Override public void handleClickChapter(final int chapterNumber) {
+    Log.d(TAG, "handleClickChapter: chapterNumber = [" + chapterNumber + "]");
+    model.setBookChapter(chapterNumber);
+    updateScreenTitle();
+    showBookTitleAndChapter();
   }
 
 }
