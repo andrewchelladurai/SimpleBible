@@ -13,5 +13,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/gapSmall"
+    android:background="@drawable/state_list_verse_background"
     tools:text="@string/appName" />
 </com.google.android.material.card.MaterialCardView>
