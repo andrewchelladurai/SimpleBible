@@ -11,6 +11,8 @@ public interface ScreenChapterOps {
 
   void handleClickChapter(@IntRange(from = 1) int chapterNumber);
 
-  void handleClickVerse(@NonNull final TextView textView, @NonNull Verse verse);
+  void handleClickVerse();
+
+  void updateVerseView(@NonNull Verse verse, TextView verseView);
 
 }

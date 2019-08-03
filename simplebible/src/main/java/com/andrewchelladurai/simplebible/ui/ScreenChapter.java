@@ -25,18 +25,23 @@ import com.andrewchelladurai.simplebible.ui.ops.ScreenChapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
 public class ScreenChapter
     extends Fragment
     implements ScreenChapterOps {
 
-  public static final String ARG_BOOK = "ARG_BOOK";
-  public static final String ARG_CHAPTER = "ARG_CHAPTER";
+  static final String ARG_BOOK = "ARG_BOOK";
+  static final String ARG_CHAPTER = "ARG_CHAPTER";
+
+  private final StringBuilder verseContentTemplate = new StringBuilder();
 
   private static final String TAG = "ScreenChapter";
   private ScreenSimpleBibleOps mainOps;
   private View rootView;
   private ScreenChapterModel model;
+  private ScrChapterVerseAdapter adapter;
 
   public ScreenChapter() {
   }
@@ -47,8 +52,10 @@ public class ScreenChapter
     if (!(context instanceof ScreenSimpleBibleOps)) {
       throw new RuntimeException(context.toString() + " must implement ScreenSimpleBibleOps");
     }
+
     mainOps = (ScreenSimpleBibleOps) context;
     model = ViewModelProviders.of(this).get(ScreenChapterModel.class);
+    adapter = new ScrChapterVerseAdapter(this);
   }
 
   @Override
@@ -91,6 +98,15 @@ public class ScreenChapter
       }
 
       showBookTitleAndChapter();
+    } else {
+
+      if (adapter.getItemCount() > 0) {
+        showBookTitleAndChapter();
+        if (adapter.getSelectedItemCount() > 0) {
+          showVerseSelectionActions();
+        }
+      }
+
     }
 
     rootView.findViewById(R.id.scrChapterActionShowChapters)
@@ -103,6 +119,10 @@ public class ScreenChapter
             .setOnClickListener(v -> handleActionClickShare());
     rootView.findViewById(R.id.scrChapterActionSelectionClear)
             .setOnClickListener(v -> handleActionClickClear());
+
+    if (verseContentTemplate.length() < 1) {
+      verseContentTemplate.append(getString(R.string.itemChapterVerseContentTemplate));
+    }
 
     updateChapterList(model.getBook().getChapters());
     updateScreenTitle();
@@ -118,12 +138,14 @@ public class ScreenChapter
   }
 
   private void updateVerseList() {
-    // TODO: 28/7/19 implement logic
     model.getChapterVerseList().observe(this, list -> {
+      final int currentBookNumber = model.getBook().getNumber();
+      final int currentChapterNumber = model.getChapter();
+
       if (list == null || list.isEmpty()) {
         final Bundle bundle = new Bundle();
         final String message = String.format(getString(R.string.scrChapterErrEmptyVerseList),
-                                             model.getChapter(),
+                                             currentChapterNumber,
                                              model.getBook().getName());
         bundle.putString(ScreenError.ARG_MESSAGE, message);
         bundle.putBoolean(ScreenError.ARG_EXIT_APP, true);
@@ -134,9 +156,19 @@ public class ScreenChapter
         return;
       }
 
-      final String template = getString(R.string.itemChapterVerseContentTemplate);
-      final ScrChapterVerseAdapter adapter = new ScrChapterVerseAdapter(this, template);
-      adapter.updateList(list);
+      final int cachedBookNumber = adapter.getCachedBookNumber();
+      final int cachedChapterNumber = adapter.getCachedChapterNumber();
+
+      if (currentBookNumber != cachedBookNumber
+          || currentChapterNumber != cachedChapterNumber
+          || adapter.getItemCount() < 1) {
+        adapter.clearList();
+
+        adapter.setCachedBookNumber(currentBookNumber);
+        adapter.setCachedChapterNumber(currentChapterNumber);
+
+        adapter.updateList(list);
+      }
 
       final RecyclerView recyclerView = rootView.findViewById(R.id.scrChapterVerseList);
       recyclerView.setAdapter(adapter);
@@ -161,8 +193,9 @@ public class ScreenChapter
     final String htmlText = getString(R.string.scrChapterTitleTemplate,
                                       book.getName(), model.getChapter(),
                                       book.getDescription());
-    ((TextView) rootView.findViewById(R.id.scrChapterTitle))
-        .setText(HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_COMPACT));
+    TextView titleView = rootView.findViewById(R.id.scrChapterTitle);
+    titleView.setText(HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_COMPACT));
+    adapter.setBookDetails(titleView.getText().toString());
   }
 
   private void showBookTitleAndChapter() {
@@ -193,15 +226,49 @@ public class ScreenChapter
   }
 
   private void handleActionClickClear() {
-    Log.d(TAG, "handleActionClickClear() called");
+    adapter.clearSelection();
+    showBookTitleAndChapter();
   }
 
   private void handleActionClickShare() {
-    Log.d(TAG, "handleActionClickShare() called");
+    final StringBuilder shareText = new StringBuilder();
+    shareText.append(adapter.getBookDetails()).append("\n\n");
+
+    // get the list of all verses that are selected and sort it
+    final HashMap<Verse, String> versesMap = adapter.getSelectedVerses();
+    final ArrayList<Verse> keySet = new ArrayList<>(versesMap.keySet());
+    //noinspection unchecked
+    Collections.sort(keySet);
+
+    // now get the text from the selected verses
+    for (final Verse verse : keySet) {
+      shareText.append(versesMap.get(verse)).append("\n");
+    }
+
+    mainOps.shareText(String.format(getString(R.string.scrSearchShareTemplate), shareText));
   }
 
   private void handleActionClickBookmark() {
-    Log.d(TAG, "handleActionClickBookmark() called");
+    // get the list of all verses that are selected and sort it
+    final ArrayList<Verse> list = new ArrayList<>(adapter.getSelectedVerses().keySet());
+    //noinspection unchecked
+    Collections.sort(list);
+
+    // now clear the selection, since our work is done.
+    handleActionClickClear();
+
+    // convert the list into an array
+    final Verse[] array = new Verse[list.size()];
+    for (int i = 0; i < array.length; i++) {
+      array[i] = list.get(i);
+    }
+
+    // now create a bundle of the verses to pass to the Bookmark Screen
+    final Bundle bundle = new Bundle();
+    bundle.putParcelableArray(ScreenBookmark.ARG_VERSE_LIST, array);
+
+    NavHostFragment.findNavController(this)
+                   .navigate(R.id.action_screenSearch_to_screenBookmark, bundle);
   }
 
   @Override
@@ -214,8 +281,19 @@ public class ScreenChapter
   }
 
   @Override
-  public void handleClickVerse(@NonNull final TextView textView, @NonNull final Verse verse) {
-    Log.d(TAG, "handleClickVerse: verse = [" + verse + "]");
+  public void handleClickVerse() {
+    if (adapter.getSelectedItemCount() > 0) {
+      showVerseSelectionActions();
+    } else {
+      showBookTitleAndChapter();
+    }
+  }
+
+  @Override
+  public void updateVerseView(@NonNull final Verse verse, final TextView verseView) {
+    final String text = String.format(verseContentTemplate.toString(),
+                                      verse.getVerse(), verse.getText());
+    verseView.setText(HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_COMPACT));
   }
 
 }
