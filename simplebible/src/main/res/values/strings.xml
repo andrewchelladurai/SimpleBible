@@ -98,4 +98,7 @@
   <string name="scrChapterActionChapters">Show Chapters</string>
   <string name="scrChapterTitleTemplate"><![CDATA[<b>%s : Chapter %d</b><br/>%s]]></string>
   <string name="scrChapterErrEmptyVerseList">No Verses found for Chapter %d of Book %s</string>
+  <string name="scrChapterActionSelectionBookmark">Bookmark</string>
+  <string name="scrChapterActionSelectionShare">Share</string>
+  <string name="scrChapterActionSelectionClear">Clear</string>
 </resources>
