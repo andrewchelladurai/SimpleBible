@@ -1,5 +1,6 @@
 package com.andrewchelladurai.simplebible.ui.adapter;
 
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
+import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
@@ -27,8 +29,10 @@ public class ScrChapterVerseAdapter
     implements SbRecyclerViewAdapterOps {
 
   private static final String TAG = "ScrChapterVerseAdapter";
-  private static ArrayList<Verse> LIST = new ArrayList<>();
-  private static HashMap<Verse, String> SELECTED_LIST = new HashMap<>();
+
+  private static final ArrayList<Verse> LIST = new ArrayList<>();
+  private static final HashMap<Verse, String> SELECTED_LIST = new HashMap<>();
+  private static final StringBuilder CONTENT_TEMPLATE = new StringBuilder();
 
   @IntRange(from = 1, to = EXPECTED_COUNT)
   private static int cachedBookNumber = 1;
@@ -39,8 +43,11 @@ public class ScrChapterVerseAdapter
   private final ScreenChapterOps ops;
   private String bookDetails;
 
-  public ScrChapterVerseAdapter(final ScreenChapterOps ops) {
+  public ScrChapterVerseAdapter(final ScreenChapterOps ops, final String contentTemplate) {
     this.ops = ops;
+    if (CONTENT_TEMPLATE.toString().isEmpty()) {
+      CONTENT_TEMPLATE.append(contentTemplate);
+    }
   }
 
   @NonNull
@@ -153,7 +160,11 @@ public class ScrChapterVerseAdapter
     public void updateView(final Object object, final int position) {
       verse = (Verse) object;
 
-      ops.updateVerseView(verse, textView);
+      final String rawText = String.format(CONTENT_TEMPLATE.toString(),
+                                           verse.getVerse(), verse.getText());
+      final Spanned htmlText = HtmlCompat.fromHtml(rawText, HtmlCompat.FROM_HTML_MODE_COMPACT);
+
+      textView.setText(htmlText);
       textView.setSelected(SELECTED_LIST.containsKey(verse));
     }
 

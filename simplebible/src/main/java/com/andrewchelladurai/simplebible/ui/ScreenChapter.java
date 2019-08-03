@@ -35,8 +35,6 @@ public class ScreenChapter
   static final String ARG_BOOK = "ARG_BOOK";
   static final String ARG_CHAPTER = "ARG_CHAPTER";
 
-  private final StringBuilder verseContentTemplate = new StringBuilder();
-
   private static final String TAG = "ScreenChapter";
   private ScreenSimpleBibleOps mainOps;
   private View rootView;
@@ -55,7 +53,7 @@ public class ScreenChapter
 
     mainOps = (ScreenSimpleBibleOps) context;
     model = ViewModelProviders.of(this).get(ScreenChapterModel.class);
-    adapter = new ScrChapterVerseAdapter(this);
+    adapter = new ScrChapterVerseAdapter(this, getString(R.string.itemChapterVerseContentTemplate));
   }
 
   @Override
@@ -119,10 +117,6 @@ public class ScreenChapter
             .setOnClickListener(v -> handleActionClickShare());
     rootView.findViewById(R.id.scrChapterActionSelectionClear)
             .setOnClickListener(v -> handleActionClickClear());
-
-    if (verseContentTemplate.length() < 1) {
-      verseContentTemplate.append(getString(R.string.itemChapterVerseContentTemplate));
-    }
 
     updateChapterList(model.getBook().getChapters());
     updateScreenTitle();
@@ -287,13 +281,6 @@ public class ScreenChapter
     } else {
       showBookTitleAndChapter();
     }
-  }
-
-  @Override
-  public void updateVerseView(@NonNull final Verse verse, final TextView verseView) {
-    final String text = String.format(verseContentTemplate.toString(),
-                                      verse.getVerse(), verse.getText());
-    verseView.setText(HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_COMPACT));
   }
 
 }
