@@ -8,13 +8,13 @@
   tools:context=".ui.ScreenChapter">
 
   <!-- This linear layout holds the bottom section -->
-  <LinearLayout
+  <com.google.android.material.card.MaterialCardView
     android:id="@+id/scrChapterContainerBottom"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
-    android:baselineAligned="false"
-    android:orientation="horizontal"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent">
@@ -23,7 +23,8 @@
     <LinearLayout
       android:id="@+id/scrChapterContainerTitle"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+      android:layout_height="wrap_content"
+      android:padding="@dimen/gapSmall">
 
       <HorizontalScrollView
         android:layout_width="0dp"
@@ -53,7 +54,8 @@
     <LinearLayout
       android:id="@+id/scrChapterContainerChapterSector"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+      android:layout_height="wrap_content"
+      android:padding="@dimen/gapSmall">
 
       <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/scrChapterChapterList"
@@ -77,9 +79,9 @@
     <!-- holds the actions for selected verses -->
     <HorizontalScrollView
       android:id="@+id/scrChapterContainerSelectionActions"
-      android:layout_width="0dp"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_weight="1">
+      android:padding="@dimen/gapSmall">
 
       <com.google.android.material.chip.ChipGroup
         android:layout_width="wrap_content"
@@ -107,7 +109,7 @@
       </com.google.android.material.chip.ChipGroup>
     </HorizontalScrollView>
 
-  </LinearLayout>
+  </com.google.android.material.card.MaterialCardView>
 
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/scrChapterVerseList"
