@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/itemSearchResultContent"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  app:cardPreventCornerOverlap="true"
-  app:cardUseCompatPadding="true">
-
-  <TextView
-    android:id="@+id/itemSearchResultContent"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/state_list_verse_background"
-    android:paddingStart="@dimen/gapNormal"
-    android:paddingTop="@dimen/gapSmall"
-    android:paddingEnd="@dimen/gapNormal"
-    android:paddingBottom="@dimen/gapSmall"
-    tools:text="@string/defaultVerseReference" />
-
-</androidx.cardview.widget.CardView>
+  android:background="@drawable/state_list_verse_background"
+  android:paddingStart="@dimen/gapNormal"
+  android:paddingTop="@dimen/gapSmall"
+  android:paddingEnd="@dimen/gapNormal"
+  android:paddingBottom="@dimen/gapSmall"
+  tools:text="@string/defaultVerseReference" />
