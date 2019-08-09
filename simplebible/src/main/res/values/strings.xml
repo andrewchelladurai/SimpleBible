@@ -74,12 +74,12 @@
   <string name="scrSearchContainerHelpImage">Search Verse Tips</string>
   <string name="scrSearchEmptyResults">No verse found</string>
   <string name="scrSearchHelpText"><![CDATA[
-  <h1>Tips to find verses</h1>
-  - Text must be <u>more than 3 alphabets.</u><br/>
-  - Text must be <u>less than 13 alphabets.</u><br/>
-  - <u>To search for</u> text like <u>\'Eli\'</u><br/>
-  include a space before or after<br/>
-  like so <u>\'Eli \'</u></p>
+  <h5>Tto search for a text, it must be<br/>
+  More than 3 alphabets.<br/>
+  Less than 13 alphabets.<br/><br/>
+  <u>To search for</u> text like <u>\'Eli\'</u>include<br/>
+  a space before or after<br/>
+  like this <u>\' Eli \'</u></h5>
   ]]></string>
   <string name="scrSearchShareTemplate">%s\nThe World English Bible\nShared from SimpleBible</string>
   <string name="itemSearchResultContentTemplate"><![CDATA[
