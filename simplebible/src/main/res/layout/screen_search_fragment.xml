@@ -85,7 +85,7 @@
     android:id="@+id/scrSearchList"
     android:layout_width="0dp"
     android:layout_height="0dp"
-    android:layout_marginTop="@dimen/gapSmall"
+    android:layout_margin="@dimen/gapSmall"
     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
     app:layout_constraintBottom_toTopOf="@id/scrSearchActionsContainer"
     app:layout_constraintEnd_toEndOf="parent"
@@ -94,45 +94,52 @@
     app:spanCount="@integer/scrSearchListColumnCount"
     tools:listitem="@layout/item_search_result" />
 
-  <HorizontalScrollView
+  <com.google.android.material.card.MaterialCardView
     android:id="@+id/scrSearchActionsContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/scrSearchList">
 
-    <com.google.android.material.chip.ChipGroup
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:animateLayoutChanges="true">
+    <HorizontalScrollView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
 
-      <com.google.android.material.chip.Chip
-        android:id="@+id/scrSearchActionBookmark"
+      <com.google.android.material.chip.ChipGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/scrSearchActionBookmark" />
+        android:layout_gravity="center"
+        android:animateLayoutChanges="true">
 
-      <com.google.android.material.chip.Chip
-        android:id="@+id/scrSearchActionShare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/scrSearchActionShare" />
+        <com.google.android.material.chip.Chip
+          android:id="@+id/scrSearchActionBookmark"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/scrSearchActionBookmark" />
 
-      <com.google.android.material.chip.Chip
-        android:id="@+id/scrSearchActionClear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/scrSearchActionClear" />
+        <com.google.android.material.chip.Chip
+          android:id="@+id/scrSearchActionShare"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/scrSearchActionShare" />
 
-      <com.google.android.material.chip.Chip
-        android:id="@+id/scrSearchActionReset"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/scrSearchActionReset" />
-    </com.google.android.material.chip.ChipGroup>
-  </HorizontalScrollView>
+        <com.google.android.material.chip.Chip
+          android:id="@+id/scrSearchActionClear"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/scrSearchActionClear" />
+
+        <com.google.android.material.chip.Chip
+          android:id="@+id/scrSearchActionReset"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/scrSearchActionReset" />
+      </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
+  </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

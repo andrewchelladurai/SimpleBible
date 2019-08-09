@@ -9,18 +9,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entity.Verse;
 import com.andrewchelladurai.simplebible.model.ScreenSearchModel;
 import com.andrewchelladurai.simplebible.ui.adapter.ScreenSearchAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSearchOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -139,6 +142,7 @@ public class ScreenSearch
     // get the list of all verses that are selected and sort it
     final HashMap<Verse, String> versesMap = adapter.getSelectedVerses();
     final ArrayList<Verse> keySet = new ArrayList<>(versesMap.keySet());
+    //noinspection unchecked
     Collections.sort(keySet);
 
     // now get the text from the selected verses
@@ -152,6 +156,7 @@ public class ScreenSearch
   private void handleClickActionBookmark() {
     // get the list of all verses that are selected and sort it
     final ArrayList<Verse> list = new ArrayList<>(adapter.getSelectedVerses().keySet());
+    //noinspection unchecked
     Collections.sort(list);
 
     // now clear the selection, since our work is done.
