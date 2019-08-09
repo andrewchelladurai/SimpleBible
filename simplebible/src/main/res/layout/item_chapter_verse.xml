@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/itemChapterVerse"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content"
   android:paddingStart="@dimen/gapNormal"
   android:paddingEnd="@dimen/gapNormal"
-  app:cardPreventCornerOverlap="true">
-
-  <TextView
-    android:id="@+id/itemChapterVerse"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/gapSmall"
-    android:background="@drawable/state_list_verse_background"
-    tools:text="@string/appName" />
-</com.google.android.material.card.MaterialCardView>
+  android:layout_height="wrap_content"
+  android:background="@drawable/state_list_verse_background"
+  android:paddingTop="@dimen/gapSmall"
+  android:paddingBottom="@dimen/gapSmall"
+  tools:text="@string/appName" />
