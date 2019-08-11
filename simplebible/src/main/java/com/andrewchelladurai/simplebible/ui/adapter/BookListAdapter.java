@@ -19,16 +19,16 @@ import com.google.android.material.chip.Chip;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScreenBookListAdapter
+public class BookListAdapter
     extends RecyclerView.Adapter
     implements RecyclerViewAdapterOps {
 
-  private static final String TAG = "ScreenBookListAdapter";
+  private static final String TAG = "BookListAdapter";
   private static ArrayList<Book> ALL_BOOKS = new ArrayList<>(BookUtils.EXPECTED_COUNT);
   private static ArrayList<Book> FILTERED_BOOK_LIST = new ArrayList<>(BookUtils.EXPECTED_COUNT);
   private final ScreenBookListOps viewOps;
 
-  public ScreenBookListAdapter(final ScreenBookListOps ops) {
+  public BookListAdapter(final ScreenBookListOps ops) {
     viewOps = ops;
   }
 

@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entity.Book;
 import com.andrewchelladurai.simplebible.model.ScreenBookListModel;
-import com.andrewchelladurai.simplebible.ui.adapter.ScreenBookListAdapter;
+import com.andrewchelladurai.simplebible.ui.adapter.BookListAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.RecyclerViewAdapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenBookListOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
@@ -45,7 +45,7 @@ public class ScreenBookList
     }
     mainOps = (ScreenSimpleBibleOps) context;
     model = ViewModelProviders.of(this).get(ScreenBookListModel.class);
-    adapter = new ScreenBookListAdapter(this);
+    adapter = new BookListAdapter(this);
   }
 
   @Override
