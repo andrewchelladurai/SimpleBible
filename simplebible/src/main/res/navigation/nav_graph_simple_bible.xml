@@ -39,7 +39,7 @@
 
   <fragment
     android:id="@+id/screenBookmark"
-    android:name="com.andrewchelladurai.simplebible.ui.ScreenBookmark"
+    android:name="com.andrewchelladurai.simplebible.ui.ScreenBookmarkDetail"
     android:label="fragment_screen_bookmark"
     tools:layout="@layout/screen_bookmark_fragment">
     <argument

@@ -170,7 +170,7 @@ public class ScreenSearch
 
     // now create a bundle of the verses to pass to the Bookmark Screen
     final Bundle bundle = new Bundle();
-    bundle.putParcelableArray(ScreenBookmark.ARG_VERSE_LIST, array);
+    bundle.putParcelableArray(ScreenBookmarkDetail.ARG_VERSE_LIST, array);
 
     NavHostFragment.findNavController(this)
                    .navigate(R.id.action_screenSearch_to_screenBookmark, bundle);

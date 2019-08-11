@@ -86,7 +86,7 @@
   <b>%s %d:%d -</b> %s
   ]]></string>
 
-  <!-- String used in the ScreenBookmark -->
+  <!-- String used in the ScreenBookmarkDetail -->
   <string name="scrBookmarkErrNullVerseList">No parcelable verses arguments passed</string>
   <string name="scrBookmarkErrEmptyVerseList">Empty verses list received</string>
 
@@ -101,4 +101,10 @@
   <string name="scrChapterActionSelectionBookmark">Bookmark</string>
   <string name="scrChapterActionSelectionShare">Share</string>
   <string name="scrChapterActionSelectionClear">Clear</string>
+
+  <!-- String used in the ScreenBookmarkDetail -->
+  <string name="scrBookmarkActionDelete">Delete</string>
+  <string name="scrBookmarkActionSave">Save</string>
+  <string name="scrBookmarkActionEdit">Edit</string>
+  <string name="scrBookmarkNote">Notes</string>
 </resources>
