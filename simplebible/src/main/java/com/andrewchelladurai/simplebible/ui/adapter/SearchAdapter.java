@@ -18,18 +18,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ScreenSearchAdapter
+public class SearchAdapter
     extends RecyclerView.Adapter
     implements RecyclerViewAdapterOps {
 
-  private static final String TAG = "ScreenSearchAdapter";
+  private static final String TAG = "SearchAdapter";
 
   private static ArrayList<Verse> LIST = new ArrayList<>();
   private static HashMap<Verse, String> SELECTED_LIST = new HashMap<>();
 
   private final ScreenSearchOps ops;
 
-  public ScreenSearchAdapter(final ScreenSearchOps ops) {
+  public SearchAdapter(final ScreenSearchOps ops) {
     this.ops = ops;
   }
 

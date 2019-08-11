@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entity.Verse;
 import com.andrewchelladurai.simplebible.model.ScreenSearchModel;
-import com.andrewchelladurai.simplebible.ui.adapter.ScreenSearchAdapter;
+import com.andrewchelladurai.simplebible.ui.adapter.SearchAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSearchOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
 
@@ -37,7 +37,7 @@ public class ScreenSearch
   private ScreenSimpleBibleOps mainOps;
   private View rootView;
   private ScreenSearchModel model;
-  private ScreenSearchAdapter adapter;
+  private SearchAdapter adapter;
   private String searchResultContentTemplate;
 
   public ScreenSearch() {
@@ -51,7 +51,7 @@ public class ScreenSearch
     }
     mainOps = (ScreenSimpleBibleOps) context;
     model = ViewModelProviders.of(this).get(ScreenSearchModel.class);
-    adapter = new ScreenSearchAdapter(this);
+    adapter = new SearchAdapter(this);
   }
 
   @Override
