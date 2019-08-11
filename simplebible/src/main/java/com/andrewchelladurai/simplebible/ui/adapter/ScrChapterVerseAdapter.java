@@ -14,8 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entity.Verse;
-import com.andrewchelladurai.simplebible.ui.ops.SbRecyclerViewAdapterOps;
-import com.andrewchelladurai.simplebible.ui.ops.SbViewHolderOps;
+import com.andrewchelladurai.simplebible.ui.ops.RecyclerViewAdapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenChapterOps;
 
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ import static com.andrewchelladurai.simplebible.utils.BookUtils.EXPECTED_COUNT;
 
 public class ScrChapterVerseAdapter
     extends RecyclerView.Adapter
-    implements SbRecyclerViewAdapterOps {
+    implements RecyclerViewAdapterOps {
 
   private static final String TAG = "ScrChapterVerseAdapter";
 
@@ -137,7 +136,7 @@ public class ScrChapterVerseAdapter
 
   private class ChapterVerseView
       extends RecyclerView.ViewHolder
-      implements SbViewHolderOps {
+      implements ItemHolderOps {
 
     private final TextView textView;
     private Verse verse;

@@ -5,20 +5,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entity.Verse;
-import com.andrewchelladurai.simplebible.ui.ops.SbRecyclerViewAdapterOps;
-import com.andrewchelladurai.simplebible.ui.ops.SbViewHolderOps;
+import com.andrewchelladurai.simplebible.ui.ops.RecyclerViewAdapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSearchOps;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class ScreenSearchAdapter
     extends RecyclerView.Adapter
-    implements SbRecyclerViewAdapterOps {
+    implements RecyclerViewAdapterOps {
 
   private static final String TAG = "ScreenSearchAdapter";
 
@@ -42,7 +44,7 @@ public class ScreenSearchAdapter
 
   @Override
   public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
-    ((SbViewHolderOps) holder).updateView(LIST.get(position), position);
+    ((ItemHolderOps) holder).updateView(LIST.get(position), position);
   }
 
   @Override
@@ -91,7 +93,7 @@ public class ScreenSearchAdapter
 
   private class SearchResultViewHolder
       extends RecyclerView.ViewHolder
-      implements SbViewHolderOps {
+      implements ItemHolderOps {
 
     private final View rootView;
     private final TextView contentView;

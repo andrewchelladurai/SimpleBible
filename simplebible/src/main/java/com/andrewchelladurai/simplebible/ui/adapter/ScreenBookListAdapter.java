@@ -5,21 +5,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entity.Book;
-import com.andrewchelladurai.simplebible.ui.ops.SbRecyclerViewAdapterOps;
-import com.andrewchelladurai.simplebible.ui.ops.SbViewHolderOps;
+import com.andrewchelladurai.simplebible.ui.ops.RecyclerViewAdapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenBookListOps;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 import com.google.android.material.chip.Chip;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ScreenBookListAdapter
     extends RecyclerView.Adapter
-    implements SbRecyclerViewAdapterOps {
+    implements RecyclerViewAdapterOps {
 
   private static final String TAG = "ScreenBookListAdapter";
   private static ArrayList<Book> ALL_BOOKS = new ArrayList<>(BookUtils.EXPECTED_COUNT);
@@ -40,7 +42,7 @@ public class ScreenBookListAdapter
 
   @Override
   public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
-    ((SbViewHolderOps) holder).updateView(FILTERED_BOOK_LIST.get(position), position);
+    ((ItemHolderOps) holder).updateView(FILTERED_BOOK_LIST.get(position), position);
   }
 
   @Override
@@ -85,7 +87,7 @@ public class ScreenBookListAdapter
 
   private class BookViewHolder
       extends RecyclerView.ViewHolder
-      implements SbViewHolderOps {
+      implements ItemHolderOps {
 
     private final View rootView;
     private Book book;

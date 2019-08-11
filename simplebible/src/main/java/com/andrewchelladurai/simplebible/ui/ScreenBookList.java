@@ -7,16 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entity.Book;
 import com.andrewchelladurai.simplebible.model.ScreenBookListModel;
 import com.andrewchelladurai.simplebible.ui.adapter.ScreenBookListAdapter;
-import com.andrewchelladurai.simplebible.ui.ops.SbRecyclerViewAdapterOps;
+import com.andrewchelladurai.simplebible.ui.ops.RecyclerViewAdapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenBookListOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
@@ -29,7 +31,7 @@ public class ScreenBookList
 
   private ScreenSimpleBibleOps mainOps;
   private ScreenBookListModel model;
-  private SbRecyclerViewAdapterOps adapter;
+  private RecyclerViewAdapterOps adapter;
   private View rootView;
 
   public ScreenBookList() {

@@ -9,8 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.ui.ops.SbRecyclerViewAdapterOps;
-import com.andrewchelladurai.simplebible.ui.ops.SbViewHolderOps;
+import com.andrewchelladurai.simplebible.ui.ops.RecyclerViewAdapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenChapterOps;
 import com.google.android.material.chip.Chip;
 
@@ -19,7 +18,7 @@ import java.util.List;
 
 public class ScreenChapterNumberAdapter
     extends RecyclerView.Adapter
-    implements SbRecyclerViewAdapterOps {
+    implements RecyclerViewAdapterOps {
 
   private static final String TAG = "ScreenChapterNumberAdap";
   private static final ArrayList<Integer> LIST = new ArrayList<>();
@@ -73,7 +72,7 @@ public class ScreenChapterNumberAdapter
 
   private class ChapterNumberView
       extends RecyclerView.ViewHolder
-      implements SbViewHolderOps {
+      implements ItemHolderOps {
 
     private final Chip textView;
     private int chapterNumber;
