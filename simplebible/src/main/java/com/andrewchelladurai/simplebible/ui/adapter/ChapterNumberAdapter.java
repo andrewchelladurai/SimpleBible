@@ -16,7 +16,7 @@ import com.google.android.material.chip.Chip;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScreenChapterNumberAdapter
+public class ChapterNumberAdapter
     extends RecyclerView.Adapter
     implements RecyclerViewAdapterOps {
 
@@ -24,7 +24,7 @@ public class ScreenChapterNumberAdapter
   private static final ArrayList<Integer> LIST = new ArrayList<>();
   private final ScreenChapterOps ops;
 
-  public ScreenChapterNumberAdapter(final ScreenChapterOps ops) {
+  public ChapterNumberAdapter(final ScreenChapterOps ops) {
     this.ops = ops;
   }
 
