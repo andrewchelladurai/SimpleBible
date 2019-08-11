@@ -262,7 +262,7 @@ public class ScreenChapter
     bundle.putParcelableArray(ScreenBookmark.ARG_VERSE_LIST, array);
 
     NavHostFragment.findNavController(this)
-                   .navigate(R.id.action_screenSearch_to_screenBookmark, bundle);
+                   .navigate(R.id.action_screenChapter_to_screenBookmark, bundle);
   }
 
   @Override

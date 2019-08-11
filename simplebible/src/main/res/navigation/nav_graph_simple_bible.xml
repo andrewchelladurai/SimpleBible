@@ -55,6 +55,9 @@
     <argument
       android:name="ARG_BOOK"
       app:argType="com.andrewchelladurai.simplebible.data.entity.Book" />
+    <action
+      android:id="@+id/action_screenChapter_to_screenBookmark"
+      app:destination="@id/screenBookmark" />
   </fragment>
 
   <fragment
