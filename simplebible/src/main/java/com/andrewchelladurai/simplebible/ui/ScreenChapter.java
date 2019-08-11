@@ -19,7 +19,7 @@ import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entity.Book;
 import com.andrewchelladurai.simplebible.data.entity.Verse;
 import com.andrewchelladurai.simplebible.model.ScreenChapterModel;
-import com.andrewchelladurai.simplebible.ui.adapter.ScrChapterVerseAdapter;
+import com.andrewchelladurai.simplebible.ui.adapter.ChapterVerseAdapter;
 import com.andrewchelladurai.simplebible.ui.adapter.ScreenChapterNumberAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenChapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
@@ -39,7 +39,7 @@ public class ScreenChapter
   private ScreenSimpleBibleOps mainOps;
   private View rootView;
   private ScreenChapterModel model;
-  private ScrChapterVerseAdapter adapter;
+  private ChapterVerseAdapter adapter;
 
   public ScreenChapter() {
   }
@@ -53,7 +53,7 @@ public class ScreenChapter
 
     mainOps = (ScreenSimpleBibleOps) context;
     model = ViewModelProviders.of(this).get(ScreenChapterModel.class);
-    adapter = new ScrChapterVerseAdapter(this, getString(R.string.itemChapterVerseContentTemplate));
+    adapter = new ChapterVerseAdapter(this, getString(R.string.itemChapterVerseContentTemplate));
   }
 
   @Override

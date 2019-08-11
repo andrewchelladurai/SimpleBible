@@ -23,11 +23,11 @@ import java.util.List;
 
 import static com.andrewchelladurai.simplebible.utils.BookUtils.EXPECTED_COUNT;
 
-public class ScrChapterVerseAdapter
+public class ChapterVerseAdapter
     extends RecyclerView.Adapter
     implements RecyclerViewAdapterOps {
 
-  private static final String TAG = "ScrChapterVerseAdapter";
+  private static final String TAG = "ChapterVerseAdapter";
 
   private static final ArrayList<Verse> LIST = new ArrayList<>();
   private static final HashMap<Verse, String> SELECTED_LIST = new HashMap<>();
@@ -42,7 +42,7 @@ public class ScrChapterVerseAdapter
   private final ScreenChapterOps ops;
   private String bookDetails;
 
-  public ScrChapterVerseAdapter(final ScreenChapterOps ops, final String contentTemplate) {
+  public ChapterVerseAdapter(final ScreenChapterOps ops, final String contentTemplate) {
     this.ops = ops;
     if (CONTENT_TEMPLATE.toString().isEmpty()) {
       CONTENT_TEMPLATE.append(contentTemplate);
@@ -122,7 +122,7 @@ public class ScrChapterVerseAdapter
 
   public void setCachedBookNumber(@IntRange(from = 1,
                                             to = EXPECTED_COUNT) int cachedBookNumber) {
-    ScrChapterVerseAdapter.cachedBookNumber = cachedBookNumber;
+    ChapterVerseAdapter.cachedBookNumber = cachedBookNumber;
   }
 
   @IntRange(from = 1)
@@ -131,7 +131,7 @@ public class ScrChapterVerseAdapter
   }
 
   public void setCachedChapterNumber(@IntRange(from = 1) int cachedChapterNumber) {
-    ScrChapterVerseAdapter.cachedChapterNumber = cachedChapterNumber;
+    ChapterVerseAdapter.cachedChapterNumber = cachedChapterNumber;
   }
 
   private class ChapterVerseView
