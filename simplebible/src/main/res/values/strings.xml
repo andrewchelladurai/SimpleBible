@@ -107,4 +107,7 @@
   <string name="scrBookmarkActionSave">Save</string>
   <string name="scrBookmarkActionEdit">Edit</string>
   <string name="scrBookmarkNote">Notes</string>
+  <string name="itemBookmarkVerseContentTemplate"><![CDATA[
+  <b>%s %d:%d -</b> %s
+  ]]></string>
 </resources>

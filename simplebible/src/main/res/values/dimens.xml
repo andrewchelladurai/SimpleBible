@@ -10,4 +10,5 @@
   <integer name="scrSearchListColumnCount">1</integer>
   <integer name="scrChapterListColumnCount">1</integer>
   <integer name="scrChapterVerseListColumnCount">1</integer>
+  <integer name="scrBookmarkListColumnCount">1</integer>
 </resources>

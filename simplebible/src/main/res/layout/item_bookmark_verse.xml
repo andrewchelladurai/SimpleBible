@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/itemBookmarkVerse"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="@drawable/state_list_verse_background"
+  android:paddingStart="@dimen/gapNormal"
+  android:paddingTop="@dimen/gapSmall"
+  android:paddingEnd="@dimen/gapNormal"
+  android:paddingBottom="@dimen/gapSmall"
+  tools:text="@string/appName" />

@@ -1,7 +1,9 @@
 package com.andrewchelladurai.simplebible.utils;
 
 import androidx.annotation.NonNull;
+
 import com.andrewchelladurai.simplebible.data.entity.Verse;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,8 +29,9 @@ public class BookmarkUtils {
 
     StringBuilder builder = new StringBuilder();
 
+    final VerseUtils verseUtils = VerseUtils.getInstance();
     for (final Verse verse : tempList) {
-      builder.append(verse.toString())
+      builder.append(verseUtils.createReference(verse))
              .append(SEPARATOR);
     }
 
