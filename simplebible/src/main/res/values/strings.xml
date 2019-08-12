@@ -106,6 +106,7 @@
   <string name="scrBookmarkActionDelete">Delete</string>
   <string name="scrBookmarkActionSave">Save</string>
   <string name="scrBookmarkActionEdit">Edit</string>
+  <string name="scrBookmarkActionShare">Share</string>
   <string name="scrBookmarkNote">Notes</string>
   <string name="itemBookmarkVerseContentTemplate"><![CDATA[
   <b>%s %d:%d -</b> %s

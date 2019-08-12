@@ -90,17 +90,19 @@ public class ScreenBookmarkDetail
 
       model.cacheList(list);
 
-      rootView.findViewById(R.id.scrBookmarkActionDelete)
-              .setOnClickListener(view -> handleClickActionDelete());
-      rootView.findViewById(R.id.scrBookmarkActionEdit)
-              .setOnClickListener(view -> handleClickActionEdit());
-      rootView.findViewById(R.id.scrBookmarkActionSave)
-              .setOnClickListener(view -> handleClickActionSave());
-      itemBookmarkVerseContentTemplate = getString(R.string.itemBookmarkVerseContentTemplate);
-
-      updateContent();
-
     }
+
+    rootView.findViewById(R.id.scrBookmarkActionDelete)
+            .setOnClickListener(view -> handleClickActionDelete());
+    rootView.findViewById(R.id.scrBookmarkActionEdit)
+            .setOnClickListener(view -> handleClickActionEdit());
+    rootView.findViewById(R.id.scrBookmarkActionShare)
+            .setOnClickListener(view -> handleClickActionShare());
+    rootView.findViewById(R.id.scrBookmarkActionSave)
+            .setOnClickListener(view -> handleClickActionSave());
+    itemBookmarkVerseContentTemplate = getString(R.string.itemBookmarkVerseContentTemplate);
+
+    updateContent();
 
     return rootView;
   }
@@ -113,6 +115,10 @@ public class ScreenBookmarkDetail
 
   private void handleClickActionSave() {
     Log.d(TAG, "handleClickActionSave() called");
+  }
+
+  private void handleClickActionShare() {
+    Log.d(TAG, "handleClickActionShare() called");
   }
 
   private void handleClickActionDelete() {
@@ -153,9 +159,11 @@ public class ScreenBookmarkDetail
             .setVisibility((bookmarkExists) ? View.VISIBLE : View.GONE);
     rootView.findViewById(R.id.scrBookmarkActionEdit)
             .setVisibility((bookmarkExists) ? View.VISIBLE : View.GONE);
+    rootView.findViewById(R.id.scrBookmarkActionShare)
+            .setVisibility((bookmarkExists) ? View.VISIBLE : View.GONE);
 
     rootView.findViewById(R.id.scrBookmarkActionSave)
-            .setVisibility((bookmarkExists) ? View.GONE : View.VISIBLE);
+            .setVisibility((!bookmarkExists) ? View.VISIBLE : View.GONE);
   }
 
   private String getNoteText() {
