@@ -87,6 +87,7 @@
 
   <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/scrBookmarkContainerNote"
+    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
     android:layout_width="0dp"
     android:layout_height="0dp"
     app:layout_constraintBottom_toBottomOf="parent"
@@ -99,8 +100,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:gravity="start"
-      android:hint="@string/scrBookmarkNote"
-      android:text="@string/appName" />
+      android:hint="@string/scrBookmarkNote" />
   </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
