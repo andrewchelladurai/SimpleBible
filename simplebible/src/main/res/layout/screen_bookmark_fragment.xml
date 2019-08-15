@@ -36,13 +36,11 @@
 
   <com.google.android.material.button.MaterialButton
     android:id="@+id/scrBookmarkActionSave"
-    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/gapSmall"
+    android:layout_marginEnd="@dimen/gapSmall"
     android:text="@string/scrBookmarkActionSave"
-    app:icon="@drawable/ic_save"
-    app:iconGravity="textStart"
-    app:iconPadding="@dimen/gapBig"
     app:layout_constraintBottom_toTopOf="@id/scrBookmarkGH55"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -50,11 +48,11 @@
 
   <com.google.android.material.button.MaterialButton
     android:id="@+id/scrBookmarkActionDelete"
-    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-    android:layout_width="wrap_content"
+    android:layout_width="0dp"
     android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/gapSmall"
+    android:layout_marginEnd="@dimen/gapSmall"
     android:text="@string/scrBookmarkActionDelete"
-    app:icon="@drawable/ic_delete"
     app:layout_constraintBottom_toTopOf="@id/scrBookmarkGH55"
     app:layout_constraintEnd_toStartOf="@id/scrBookmarkActionEdit"
     app:layout_constraintHorizontal_chainStyle="spread"
@@ -63,11 +61,11 @@
 
   <com.google.android.material.button.MaterialButton
     android:id="@+id/scrBookmarkActionEdit"
-    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-    android:layout_width="wrap_content"
+    android:layout_width="0dp"
     android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/gapSmall"
+    android:layout_marginEnd="@dimen/gapSmall"
     android:text="@string/scrBookmarkActionEdit"
-    app:icon="@drawable/ic_edit"
     app:layout_constraintBottom_toTopOf="@id/scrBookmarkGH55"
     app:layout_constraintEnd_toStartOf="@+id/scrBookmarkActionShare"
     app:layout_constraintHorizontal_chainStyle="spread"
@@ -76,11 +74,11 @@
 
   <com.google.android.material.button.MaterialButton
     android:id="@+id/scrBookmarkActionShare"
-    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-    android:layout_width="wrap_content"
+    android:layout_width="0dp"
     android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/gapSmall"
+    android:layout_marginEnd="@dimen/gapSmall"
     android:text="@string/scrBookmarkActionShare"
-    app:icon="@drawable/ic_share"
     app:layout_constraintBottom_toTopOf="@id/scrBookmarkGH55"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_chainStyle="spread"
