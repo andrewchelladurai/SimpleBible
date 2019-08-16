@@ -45,4 +45,13 @@ public interface VerseDao {
       @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) int bookNumber,
       @IntRange(from = 1) int chapterNumber);
 
+  @Query("select * from sb_verses"
+         + " where book in (:bookNumbers)"
+         + " and chapter in (:chapterNumbers)"
+         + " and verse in (:verseNumbers)"
+         + " order by book, chapter, verse")
+  LiveData<List<Verse>> getLiveVerses(@NonNull List<String> bookNumbers,
+                                      @NonNull List<String> chapterNumbers,
+                                      @NonNull List<String> verseNumbers);
+
 }

@@ -15,6 +15,9 @@ import java.util.List;
 @Dao
 public interface BookmarkDao {
 
+  @Query("select * from sb_bookmarks")
+  LiveData<List<Bookmark>> getAllRecords();
+
   @Query("select * from sb_bookmarks where reference=:reference")
   LiveData<List<Bookmark>> findBookmarkUsingReference(@NonNull String reference);
 

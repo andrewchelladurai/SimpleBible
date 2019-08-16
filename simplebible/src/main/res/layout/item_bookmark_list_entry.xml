@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  app:cardPreventCornerOverlap="true"
+  app:cardUseCompatPadding="true">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/gapSmall">
+
+    <TextView
+      android:id="@+id/itemBookmarkEntryVerse"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="@string/appName" />
+
+    <com.google.android.material.chip.Chip
+      android:id="@+id/itemBookmarkEntryNote"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      app:layout_constraintEnd_toEndOf="@id/itemBookmarkEntryVerse"
+      app:layout_constraintStart_toStartOf="@id/itemBookmarkEntryVerse"
+      app:layout_constraintTop_toBottomOf="@id/itemBookmarkEntryVerse"
+      tools:text="@string/appName" />
+
+    <ImageButton
+      android:id="@+id/itemBookmarkEntryActionShare"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:backgroundTint="?colorSurface"
+      android:contentDescription="@string/itemBookmarkEntryActionShare"
+      android:src="@drawable/ic_share"
+      app:layout_constraintEnd_toEndOf="@id/itemBookmarkEntryNote"
+      app:layout_constraintTop_toBottomOf="@id/itemBookmarkEntryNote" />
+
+    <ImageButton
+      android:id="@+id/itemBookmarkEntryActionEdit"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/gapSmall"
+      android:layout_marginEnd="@dimen/gapSmall"
+      android:backgroundTint="?colorSurface"
+      android:contentDescription="@string/itemBookmarkEntryActionEdit"
+      android:src="@drawable/ic_edit"
+      app:layout_constraintBottom_toBottomOf="@id/itemBookmarkEntryActionShare"
+      app:layout_constraintEnd_toStartOf="@id/itemBookmarkEntryActionShare"
+      app:layout_constraintTop_toTopOf="@id/itemBookmarkEntryActionShare" />
+
+    <ImageButton
+      android:id="@+id/itemBookmarkEntryActionDelete"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/gapSmall"
+      android:backgroundTint="?colorSurface"
+      android:contentDescription="@string/itemBookmarkEntryActionDelete"
+      android:src="@drawable/ic_delete"
+      app:layout_constraintBottom_toBottomOf="@id/itemBookmarkEntryActionEdit"
+      app:layout_constraintEnd_toStartOf="@id/itemBookmarkEntryActionEdit"
+      app:layout_constraintTop_toTopOf="@id/itemBookmarkEntryActionEdit" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

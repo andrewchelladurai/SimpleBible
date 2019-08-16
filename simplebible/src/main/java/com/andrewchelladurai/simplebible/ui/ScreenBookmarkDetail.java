@@ -42,6 +42,7 @@ public class ScreenBookmarkDetail
   private String itemBookmarkVerseContentTemplate;
 
   public ScreenBookmarkDetail() {
+    // TODO: 17/8/19 Fix issues on config change, saw a NPE when editing a bookmark earlier
   }
 
   @Override
@@ -145,7 +146,7 @@ public class ScreenBookmarkDetail
     final StringBuilder verseText = new StringBuilder();
     final String noteText = getNoteText();
 
-    final RecyclerView recyclerView = rootView.findViewById(R.id.scrBookmarkList);
+    final RecyclerView recyclerView = rootView.findViewById(R.id.scrBookmarkListList);
     final int childCount = recyclerView.getChildCount();
 
     for (int i = 0; i < childCount; i++) {
@@ -188,7 +189,7 @@ public class ScreenBookmarkDetail
 
     adapter.updateList(list);
 
-    final RecyclerView recyclerView = rootView.findViewById(R.id.scrBookmarkList);
+    final RecyclerView recyclerView = rootView.findViewById(R.id.scrBookmarkListList);
     recyclerView.setAdapter(adapter);
 
     model.getBookmark(reference).observe(this, bookmarks -> {

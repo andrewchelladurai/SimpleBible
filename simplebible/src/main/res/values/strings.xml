@@ -74,7 +74,7 @@
   <string name="scrSearchContainerHelpImage">Search Verse Tips</string>
   <string name="scrSearchEmptyResults">No verse found</string>
   <string name="scrSearchHelpText"><![CDATA[
-  <h5>Tto search for a text, it must be<br/>
+  <h5>To search for a text, it must be<br/>
   More than 3 alphabets.<br/>
   Less than 13 alphabets.<br/><br/>
   <u>To search for</u> text like <u>\'Eli\'</u>include<br/>
@@ -116,4 +116,24 @@
   <string name="itemBookmarkVerseContentTemplate"><![CDATA[
   <b>%s %d:%d -</b> %s
   ]]></string>
+
+  <!-- String used in the ScreenBookmarkList -->
+  <string name="scrBookmarkListInfoHelpImage">Bookmarks</string>
+  <string name="scrBookmarkListInfoHelpText"><![CDATA[
+  <h5>No Bookmarks Found</h5>
+  To create a bookmark, long press<br/>
+  Either a Chapter\'s verse<br/>
+  OR<br/>
+  a Search result<br/>
+  and then select the Bookmark action.
+  ]]></string>
+  <string name="itemBookmarkEntryActionDelete">Delete</string>
+  <string name="itemBookmarkEntryActionEdit">Edit</string>
+  <string name="itemBookmarkEntryActionShare">Share</string>
+  <string name="scrBookmarkListTemplateEmptyNote">This Bookmark does not have any Notes</string>
+  <plurals name="scrBookmarkListTemplateVerse">
+    <item quantity="zero"><![CDATA[<b>No verses found for bookmarked references.</b>]]></item>
+    <item quantity="one"><![CDATA[<b>%s %d:%d -</b> %s]]></item>
+    <item quantity="other"><![CDATA[<b>%s %d:%d -</b> %s<br/>and %d more verses exist in this Bookmark entry]]></item>
+  </plurals>
 </resources>

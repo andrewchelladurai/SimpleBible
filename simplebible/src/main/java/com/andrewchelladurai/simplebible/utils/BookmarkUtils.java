@@ -16,7 +16,7 @@ import java.util.List;
 
 public class BookmarkUtils {
 
-  private static final String SEPARATOR = "~";
+  public static final String SEPARATOR = "~";
   private static final String TAG = "BookmarkUtils";
   private static final BookmarkUtils THIS_INSTANCE = new BookmarkUtils();
 
