@@ -114,6 +114,7 @@ public class ScreenBookmarkDetail
   }
 
   private void handleClickActionSave() {
+    Log.d(TAG, "handleClickActionSave() called");
     final BookmarkUtils bookmarkUtils = BookmarkUtils.getInstance();
 
     final ArrayList<Verse> verseList = model.getCachedList();
@@ -134,6 +135,21 @@ public class ScreenBookmarkDetail
 
   private void handleClickActionShare() {
     Log.d(TAG, "handleClickActionShare() called");
+    final StringBuilder verseText = new StringBuilder();
+    final String noteText = getNoteText();
+
+    final RecyclerView recyclerView = rootView.findViewById(R.id.scrBookmarkList);
+    final int childCount = recyclerView.getChildCount();
+
+    for (int i = 0; i < childCount; i++) {
+      final TextView view = (TextView) recyclerView.getChildAt(i);
+      verseText.append(view.getText()).append("\n");
+    }
+
+    final String shareTemplate = getString(R.string.scrBookmarkDetailShareTemplate);
+    final String formattedShareText = String.format(shareTemplate, verseText, noteText);
+
+    mainOps.shareText(formattedShareText);
   }
 
   private void handleClickActionDelete() {

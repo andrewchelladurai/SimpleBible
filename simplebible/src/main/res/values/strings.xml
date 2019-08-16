@@ -109,6 +109,7 @@
   <string name="scrBookmarkDetailActionShare">Share</string>
   <string name="scrBookmarkDetailNote">Notes</string>
   <string name="scrBookmarkDetailErrSaveFail">Failed to save new Bookmark</string>
+  <string name="scrBookmarkDetailShareTemplate">Bookmarked Verse(s):\n%s\n\nBookmarked Notes:\n%s\n\nThe World English Bible\nShared from SimpleBible</string>
   <string name="itemBookmarkVerseContentTemplate"><![CDATA[
   <b>%s %d:%d -</b> %s
   ]]></string>
