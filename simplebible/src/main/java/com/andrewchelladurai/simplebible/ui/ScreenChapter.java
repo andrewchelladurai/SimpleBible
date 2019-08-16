@@ -52,6 +52,7 @@ public class ScreenChapter
     }
 
     mainOps = (ScreenSimpleBibleOps) context;
+    mainOps.hideKeyboard();
     model = ViewModelProviders.of(this).get(ScreenChapterModel.class);
     adapter = new ChapterVerseAdapter(this, getString(R.string.itemChapterVerseContentTemplate));
   }

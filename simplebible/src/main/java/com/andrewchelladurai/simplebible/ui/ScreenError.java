@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
 
@@ -29,6 +31,7 @@ public class ScreenError
     if (!(context instanceof ScreenSimpleBibleOps)) {
       throw new RuntimeException(context.toString() + " must implement ScreenSimpleBibleOps");
     }
+    mainOps.hideKeyboard();
     mainOps = (ScreenSimpleBibleOps) context;
   }
 

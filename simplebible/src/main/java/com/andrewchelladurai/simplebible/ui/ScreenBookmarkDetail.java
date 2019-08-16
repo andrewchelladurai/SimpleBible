@@ -51,6 +51,9 @@ public class ScreenBookmarkDetail
       throw new RuntimeException(context.toString() + " must implement ScreenSimpleBibleOps");
     }
     mainOps = (ScreenSimpleBibleOps) context;
+    mainOps.hideKeyboard();
+    mainOps.hideNavigationView();
+
     model = ViewModelProviders.of(this).get(BookmarkDetailModel.class);
     adapter = new BookmarkDetailAdapter(this);
   }

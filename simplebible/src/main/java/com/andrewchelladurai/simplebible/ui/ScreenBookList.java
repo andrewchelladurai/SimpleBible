@@ -44,6 +44,7 @@ public class ScreenBookList
       throw new RuntimeException(context.toString() + " must implement InteractionListener");
     }
     mainOps = (ScreenSimpleBibleOps) context;
+    mainOps.hideKeyboard();
     model = ViewModelProviders.of(this).get(ScreenBookListModel.class);
     adapter = new BookListAdapter(this);
   }

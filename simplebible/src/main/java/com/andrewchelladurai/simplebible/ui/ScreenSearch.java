@@ -50,6 +50,7 @@ public class ScreenSearch
       throw new RuntimeException(context.toString() + " must implement ScreenSimpleBibleOps");
     }
     mainOps = (ScreenSimpleBibleOps) context;
+    mainOps.hideKeyboard();
     model = ViewModelProviders.of(this).get(ScreenSearchModel.class);
     adapter = new SearchAdapter(this);
   }

@@ -10,11 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.DbSetupJob;
 import com.andrewchelladurai.simplebible.model.ScreenHomeModel;
@@ -44,8 +46,8 @@ public class ScreenHome
       throw new RuntimeException(context.toString() + " must implement ScreenSimpleBibleOps");
     }
     mainOps = (ScreenSimpleBibleOps) context;
+    mainOps.hideKeyboard();
     model = ViewModelProviders.of(this).get(ScreenHomeModel.class);
-
   }
 
   @Override
