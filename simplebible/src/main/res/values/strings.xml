@@ -108,6 +108,7 @@
   <string name="scrBookmarkActionEdit">Edit</string>
   <string name="scrBookmarkActionShare">Share</string>
   <string name="scrBookmarkNote">Notes</string>
+  <string name="scrBookmarkDetailErrSaveFail">Failed to save new Bookmark</string>
   <string name="itemBookmarkVerseContentTemplate"><![CDATA[
   <b>%s %d:%d -</b> %s
   ]]></string>

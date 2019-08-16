@@ -7,6 +7,7 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.andrewchelladurai.simplebible.data.SbDatabase;
 import com.andrewchelladurai.simplebible.data.dao.BookDao;
@@ -16,6 +17,7 @@ import com.andrewchelladurai.simplebible.data.entity.Book;
 import com.andrewchelladurai.simplebible.data.entity.Bookmark;
 import com.andrewchelladurai.simplebible.data.entity.Verse;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
+import com.andrewchelladurai.simplebible.utils.BookmarkUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +30,7 @@ public class BookmarkDetailModel
   private final VerseDao verseDao;
   private final BookmarkDao bookmarkDao;
   private final BookDao bookDao;
-  private ArrayList<Verse> cachedList = new ArrayList<>();
+  private final ArrayList<Verse> cachedList = new ArrayList<>();
 
   public BookmarkDetailModel(@NonNull final Application application) {
     super(application);
@@ -40,7 +42,7 @@ public class BookmarkDetailModel
   public void cacheList(@NonNull final ArrayList<Verse> list) {
     cachedList.clear();
     cachedList.addAll(list);
-    Log.d(TAG, "cacheList: [] records cached");
+    Log.d(TAG, "cacheList: [" + cachedList.size() + "] records cached");
   }
 
   @NonNull
@@ -60,6 +62,29 @@ public class BookmarkDetailModel
   public LiveData<Book> getBook(
       @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int bookNumber) {
     return bookDao.getBookUsingPositionLive(bookNumber);
+  }
+
+  @NonNull
+  public MutableLiveData<Boolean> saveBookmark(@NonNull final String reference,
+                                               @NonNull final String note) {
+    final MutableLiveData<Boolean> taskResult = new MutableLiveData<>();
+
+    if (reference.isEmpty()) {
+      taskResult.postValue(false);
+      throw new IllegalArgumentException("empty bookmark reference passed");
+    }
+
+    final BookmarkUtils bookmarkUtils = BookmarkUtils.getInstance();
+
+    if (!bookmarkUtils.validateReference(reference)) {
+      taskResult.postValue(false);
+      throw new IllegalArgumentException("Invalid bookmark references");
+    }
+
+    final Bookmark bookmark = new Bookmark(reference, note);
+    bookmarkUtils.saveBookmark(taskResult, bookmarkDao, bookmark);
+
+    return taskResult;
   }
 
 }

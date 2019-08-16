@@ -114,7 +114,21 @@ public class ScreenBookmarkDetail
   }
 
   private void handleClickActionSave() {
-    Log.d(TAG, "handleClickActionSave() called");
+    final BookmarkUtils bookmarkUtils = BookmarkUtils.getInstance();
+
+    final ArrayList<Verse> verseList = model.getCachedList();
+    final String bookmarkReference = bookmarkUtils.createReference(verseList);
+    final String noteText = getNoteText();
+
+    model.saveBookmark(bookmarkReference, noteText).observe(this, saved -> {
+      if (saved) {
+        toggleAction(true);
+        toggleNoteFieldState(true);
+      } else {
+        final String message = getString(R.string.scrBookmarkDetailErrSaveFail);
+        mainOps.showMessage(message);
+      }
+    });
   }
 
   private void handleClickActionShare() {
@@ -126,8 +140,9 @@ public class ScreenBookmarkDetail
   }
 
   private void updateContent() {
+    final BookmarkUtils bookmarkUtils = BookmarkUtils.getInstance();
     final ArrayList<Verse> list = model.getCachedList();
-    final String reference = BookmarkUtils.createReference(list);
+    final String reference = bookmarkUtils.createReference(list);
 
     adapter.updateList(list);
 
@@ -169,10 +184,8 @@ public class ScreenBookmarkDetail
   private String getNoteText() {
     TextInputEditText editText = rootView.findViewById(R.id.scrBookmarkNote);
     final Editable text = editText.getText();
-    if (text != null) {
-      return text.toString();
-    }
-    return "";
+
+    return (text == null) ? "" : text.toString();
   }
 
   private void setNoteText(@NonNull final String note) {
