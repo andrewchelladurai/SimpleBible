@@ -81,30 +81,40 @@
       android:id="@+id/scrChapterContainerSelectionActions"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:background="?colorPrimary"
       android:orientation="horizontal">
 
-      <com.google.android.material.button.MaterialButton
+      <ImageButton
         android:id="@+id/scrChapterActionSelectionBookmark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="@string/scrChapterActionSelectionBookmark" />
+        android:backgroundTint="?colorPrimary"
+        android:contentDescription="@string/scrChapterActionSelectionBookmark"
+        android:src="@drawable/ic_bookmark"
+        android:tint="?colorOnPrimary" />
 
-      <com.google.android.material.button.MaterialButton
+      <ImageButton
         android:id="@+id/scrChapterActionSelectionShare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/gapNormal"
         android:layout_marginEnd="@dimen/gapNormal"
         android:layout_weight="1"
-        android:text="@string/scrChapterActionSelectionShare" />
+        android:backgroundTint="?colorPrimary"
+        android:contentDescription="@string/scrChapterActionSelectionShare"
+        android:src="@drawable/ic_share"
+        android:tint="?colorOnPrimary" />
 
-      <com.google.android.material.button.MaterialButton
+      <ImageButton
         android:id="@+id/scrChapterActionSelectionClear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="@string/scrChapterActionSelectionClear" />
+        android:backgroundTint="?colorPrimary"
+        android:contentDescription="@string/scrChapterActionSelectionClear"
+        android:src="@drawable/ic_reset"
+        android:tint="?colorOnPrimary" />
 
     </LinearLayout>
 
