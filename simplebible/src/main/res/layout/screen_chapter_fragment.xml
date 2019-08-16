@@ -77,37 +77,36 @@
     </LinearLayout>
 
     <!-- holds the actions for selected verses -->
-    <HorizontalScrollView
+    <LinearLayout
       android:id="@+id/scrChapterContainerSelectionActions"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:padding="@dimen/gapSmall">
+      android:orientation="horizontal">
 
-      <com.google.android.material.chip.ChipGroup
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/scrChapterActionSelectionBookmark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_weight="1"
+        android:text="@string/scrChapterActionSelectionBookmark" />
 
-        <com.google.android.material.chip.Chip
-          android:id="@+id/scrChapterActionSelectionBookmark"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/scrChapterActionSelectionBookmark" />
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/scrChapterActionSelectionShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/gapNormal"
+        android:layout_marginEnd="@dimen/gapNormal"
+        android:layout_weight="1"
+        android:text="@string/scrChapterActionSelectionShare" />
 
-        <com.google.android.material.chip.Chip
-          android:id="@+id/scrChapterActionSelectionShare"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/scrChapterActionSelectionShare" />
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/scrChapterActionSelectionClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/scrChapterActionSelectionClear" />
 
-        <com.google.android.material.chip.Chip
-          android:id="@+id/scrChapterActionSelectionClear"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/scrChapterActionSelectionClear" />
-
-      </com.google.android.material.chip.ChipGroup>
-    </HorizontalScrollView>
+    </LinearLayout>
 
   </com.google.android.material.card.MaterialCardView>
 
