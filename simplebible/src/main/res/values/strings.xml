@@ -108,7 +108,10 @@
   <string name="scrBookmarkDetailActionEdit">Edit</string>
   <string name="scrBookmarkDetailActionShare">Share</string>
   <string name="scrBookmarkDetailNote">Notes</string>
-  <string name="scrBookmarkDetailErrSaveFail">Failed to save new Bookmark</string>
+  <string name="scrBookmarkDetailSaveSuccess">Bookmark Saved</string>
+  <string name="scrBookmarkDetailSaveFail">Save Bookmark Failed</string>
+  <string name="scrBookmarkDetailDeleteSuccess">Bookmark Deleted</string>
+  <string name="scrBookmarkDetailDeleteFail">Delete Bookmark Failed</string>
   <string name="scrBookmarkDetailShareTemplate">Bookmarked Verse(s):\n%s\n\nBookmarked Notes:\n%s\n\nThe World English Bible\nShared from SimpleBible</string>
   <string name="itemBookmarkVerseContentTemplate"><![CDATA[
   <b>%s %d:%d -</b> %s

@@ -45,6 +45,10 @@
     <argument
       android:name="ARG_VERSE_LIST"
       app:argType="com.andrewchelladurai.simplebible.data.entity.Verse[]" />
+    <action
+      android:id="@+id/action_screenBookmark_pop"
+      app:popUpTo="@id/screenBookmark"
+      app:popUpToInclusive="true" />
   </fragment>
 
   <fragment

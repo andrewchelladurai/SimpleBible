@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
@@ -123,12 +124,15 @@ public class ScreenBookmarkDetail
 
     model.saveBookmark(bookmarkReference, noteText).observe(this, saved -> {
       if (saved) {
+        final String message = getString(R.string.scrBookmarkDetailSaveSuccess);
+        mainOps.showMessage(message);
+
         toggleAction(true);
         toggleNoteFieldState(true);
         return;
       }
 
-      final String message = getString(R.string.scrBookmarkDetailErrSaveFail);
+      final String message = getString(R.string.scrBookmarkDetailSaveFail);
       mainOps.showMessage(message);
     });
   }
@@ -154,6 +158,24 @@ public class ScreenBookmarkDetail
 
   private void handleClickActionDelete() {
     Log.d(TAG, "handleClickActionDelete() called");
+    final BookmarkUtils bookmarkUtils = BookmarkUtils.getInstance();
+
+    final ArrayList<Verse> verseList = model.getCachedList();
+    final String bookmarkReference = bookmarkUtils.createReference(verseList);
+    final String noteText = getNoteText();
+
+    model.deleteBookmark(bookmarkReference, noteText).observe(this, deleted -> {
+      if (deleted) {
+        NavHostFragment.findNavController(this)
+                       .navigate(R.id.action_screenBookmark_pop);
+        final String message = getString(R.string.scrBookmarkDetailDeleteSuccess);
+        mainOps.showMessage(message);
+        return;
+      }
+
+      final String message = getString(R.string.scrBookmarkDetailDeleteFail);
+      mainOps.showMessage(message);
+    });
   }
 
   private void updateContent() {

@@ -67,6 +67,7 @@ public class BookmarkDetailModel
   @NonNull
   public MutableLiveData<Boolean> saveBookmark(@NonNull final String reference,
                                                @NonNull final String note) {
+    Log.d(TAG, "saveBookmark: reference [" + reference + "], note [" + note + "]");
     final MutableLiveData<Boolean> taskResult = new MutableLiveData<>();
 
     if (reference.isEmpty()) {
@@ -83,6 +84,36 @@ public class BookmarkDetailModel
 
     final Bookmark bookmark = new Bookmark(reference, note);
     bookmarkUtils.saveBookmark(taskResult, bookmarkDao, bookmark);
+
+    return taskResult;
+  }
+
+  @NonNull
+  public MutableLiveData<Boolean> deleteBookmark(@NonNull final String reference,
+                                                 @NonNull final String note) {
+    Log.d(TAG, "deleteBookmark: reference [" + reference + "]");
+    final MutableLiveData<Boolean> taskResult = new MutableLiveData<>();
+
+    if (reference.isEmpty()) {
+      taskResult.postValue(false);
+
+      final String message = "deleteBookmark: empty bookmark reference passed";
+      Log.e(TAG, message);
+      throw new IllegalArgumentException(TAG + " - " + message);
+    }
+
+    final BookmarkUtils bookmarkUtils = BookmarkUtils.getInstance();
+
+    if (!bookmarkUtils.validateReference(reference)) {
+      taskResult.postValue(false);
+
+      final String message = "deleteBookmark: Invalid bookmark references";
+      Log.e(TAG, message);
+      throw new IllegalArgumentException(TAG + " - " + message);
+    }
+
+    final Bookmark bookmark = new Bookmark(reference, note);
+    bookmarkUtils.deleteBookmark(taskResult, bookmarkDao, bookmark);
 
     return taskResult;
   }

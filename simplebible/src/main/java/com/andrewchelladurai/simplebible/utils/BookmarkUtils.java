@@ -88,8 +88,15 @@ public class BookmarkUtils {
   public void saveBookmark(@NonNull final MutableLiveData<Boolean> taskResult,
                            @NonNull final BookmarkDao bookmarkDao,
                            @NonNull final Bookmark bookmark) {
-    Log.d(TAG, "saveBookmark: " + bookmark);
+    Log.d(TAG, "saveBookmark [" + bookmark + "]");
     new SaveBookmarkTask(bookmarkDao, taskResult).execute(bookmark);
+  }
+
+  public void deleteBookmark(@NonNull final MutableLiveData<Boolean> taskResult,
+                             @NonNull final BookmarkDao bookmarkDao,
+                             @NonNull final Bookmark bookmark) {
+    Log.d(TAG, "deleteBookmark [" + bookmark + "]");
+    new DeleteBookmarkTask(bookmarkDao, taskResult).execute(bookmark);
   }
 
   private static class SaveBookmarkTask
@@ -115,6 +122,34 @@ public class BookmarkUtils {
       final Bookmark bookmark = bookmarks[0];
       Log.d(TAG, "doInBackground: " + bookmark);
       dao.saveBookmark(bookmark);
+      return true;
+    }
+
+  }
+
+  private static class DeleteBookmarkTask
+      extends AsyncTask<Bookmark, Void, Boolean> {
+
+    private static final String TAG = "DeleteBookmarkTask";
+    private final BookmarkDao dao;
+    private final MutableLiveData<Boolean> taskResult;
+
+    DeleteBookmarkTask(final BookmarkDao bookmarkDao,
+                       final MutableLiveData<Boolean> taskResult) {
+      dao = bookmarkDao;
+      this.taskResult = taskResult;
+    }
+
+    @Override
+    protected void onPostExecute(final Boolean result) {
+      taskResult.postValue(result);
+    }
+
+    @Override
+    protected Boolean doInBackground(final Bookmark... bookmarks) {
+      final Bookmark bookmark = bookmarks[0];
+      Log.d(TAG, "doInBackground: " + bookmark);
+      dao.deleteBookmark(bookmark);
       return true;
     }
 
