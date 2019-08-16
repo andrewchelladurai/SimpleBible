@@ -103,11 +103,11 @@
   <string name="scrChapterActionSelectionClear">Clear</string>
 
   <!-- String used in the ScreenBookmarkDetail -->
-  <string name="scrBookmarkActionDelete">Delete</string>
-  <string name="scrBookmarkActionSave">Save</string>
-  <string name="scrBookmarkActionEdit">Edit</string>
-  <string name="scrBookmarkActionShare">Share</string>
-  <string name="scrBookmarkNote">Notes</string>
+  <string name="scrBookmarkDetailActionDelete">Delete</string>
+  <string name="scrBookmarkDetailActionSave">Save</string>
+  <string name="scrBookmarkDetailActionEdit">Edit</string>
+  <string name="scrBookmarkDetailActionShare">Share</string>
+  <string name="scrBookmarkDetailNote">Notes</string>
   <string name="scrBookmarkDetailErrSaveFail">Failed to save new Bookmark</string>
   <string name="itemBookmarkVerseContentTemplate"><![CDATA[
   <b>%s %d:%d -</b> %s

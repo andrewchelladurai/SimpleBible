@@ -40,7 +40,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/gapSmall"
     android:layout_marginEnd="@dimen/gapSmall"
-    android:text="@string/scrBookmarkActionSave"
+    android:text="@string/scrBookmarkDetailActionSave"
     app:layout_constraintBottom_toTopOf="@id/scrBookmarkGH55"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +52,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/gapSmall"
     android:layout_marginEnd="@dimen/gapSmall"
-    android:text="@string/scrBookmarkActionDelete"
+    android:text="@string/scrBookmarkDetailActionDelete"
     app:layout_constraintBottom_toTopOf="@id/scrBookmarkGH55"
     app:layout_constraintEnd_toStartOf="@id/scrBookmarkActionEdit"
     app:layout_constraintHorizontal_chainStyle="spread"
@@ -65,7 +65,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/gapSmall"
     android:layout_marginEnd="@dimen/gapSmall"
-    android:text="@string/scrBookmarkActionEdit"
+    android:text="@string/scrBookmarkDetailActionEdit"
     app:layout_constraintBottom_toTopOf="@id/scrBookmarkGH55"
     app:layout_constraintEnd_toStartOf="@+id/scrBookmarkActionShare"
     app:layout_constraintHorizontal_chainStyle="spread"
@@ -78,7 +78,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/gapSmall"
     android:layout_marginEnd="@dimen/gapSmall"
-    android:text="@string/scrBookmarkActionShare"
+    android:text="@string/scrBookmarkDetailActionShare"
     app:layout_constraintBottom_toTopOf="@id/scrBookmarkGH55"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_chainStyle="spread"
@@ -100,7 +100,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:gravity="start"
-      android:hint="@string/scrBookmarkNote" />
+      android:hint="@string/scrBookmarkDetailNote" />
   </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
