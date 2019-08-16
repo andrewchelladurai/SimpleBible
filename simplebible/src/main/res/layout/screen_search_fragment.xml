@@ -108,41 +108,54 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/scrSearchList">
 
-    <HorizontalScrollView
+    <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:animateLayoutChanges="true"
+      android:background="?colorPrimary"
+      android:orientation="horizontal">
 
-      <com.google.android.material.chip.ChipGroup
+      <ImageButton
+        android:id="@+id/scrSearchActionBookmark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:animateLayoutChanges="true">
+        android:layout_weight="1"
+        android:backgroundTint="?colorPrimary"
+        android:contentDescription="@string/scrSearchActionBookmark"
+        android:src="@drawable/ic_bookmark"
+        android:tint="?colorOnPrimary" />
 
-        <com.google.android.material.chip.Chip
-          android:id="@+id/scrSearchActionBookmark"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/scrSearchActionBookmark" />
+      <ImageButton
+        android:id="@+id/scrSearchActionShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:backgroundTint="?colorPrimary"
+        android:contentDescription="@string/scrSearchActionShare"
+        android:src="@drawable/ic_share"
+        android:tint="?colorOnPrimary" />
 
-        <com.google.android.material.chip.Chip
-          android:id="@+id/scrSearchActionShare"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/scrSearchActionShare" />
+      <ImageButton
+        android:id="@+id/scrSearchActionClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:backgroundTint="?colorPrimary"
+        android:contentDescription="@string/scrSearchActionClear"
+        android:src="@drawable/ic_clear"
+        android:tint="?colorOnPrimary" />
 
-        <com.google.android.material.chip.Chip
-          android:id="@+id/scrSearchActionClear"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/scrSearchActionClear" />
-
-        <com.google.android.material.chip.Chip
-          android:id="@+id/scrSearchActionReset"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/scrSearchActionReset" />
-      </com.google.android.material.chip.ChipGroup>
-    </HorizontalScrollView>
+      <ImageButton
+        android:id="@+id/scrSearchActionReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:backgroundTint="?colorPrimary"
+        android:contentDescription="@string/scrSearchActionReset"
+        android:src="@drawable/ic_reset"
+        android:tint="?colorOnPrimary" />
+    </LinearLayout>
   </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
