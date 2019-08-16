@@ -109,8 +109,8 @@ public class ScreenBookmarkDetail
 
   private void handleClickActionEdit() {
     Log.d(TAG, "handleClickActionEdit() called");
-    toggleAction(true);
-    toggleNoteFieldState(true);
+    toggleAction(false);
+    toggleNoteFieldState(false);
   }
 
   private void handleClickActionSave() {
@@ -124,10 +124,11 @@ public class ScreenBookmarkDetail
       if (saved) {
         toggleAction(true);
         toggleNoteFieldState(true);
-      } else {
-        final String message = getString(R.string.scrBookmarkDetailErrSaveFail);
-        mainOps.showMessage(message);
+        return;
       }
+
+      final String message = getString(R.string.scrBookmarkDetailErrSaveFail);
+      mainOps.showMessage(message);
     });
   }
 
@@ -165,6 +166,7 @@ public class ScreenBookmarkDetail
   }
 
   private void toggleNoteFieldState(final boolean bookmarkExists) {
+    Log.d(TAG, "toggleNoteFieldState: bookmarkExists = [" + bookmarkExists + "]");
     rootView.findViewById(R.id.scrBookmarkNote).setEnabled(!bookmarkExists);
   }
 
