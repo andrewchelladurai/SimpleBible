@@ -3,42 +3,42 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/nav_graph_simple_bible"
-  app:startDestination="@id/screenHome">
+  app:startDestination="@id/NavIdScreenHome">
 
   <fragment
-    android:id="@+id/screenHome"
+    android:id="@+id/NavIdScreenHome"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenHome"
-    android:label="screen_home_fragment"
+    android:label="fragment_screen_home"
     tools:layout="@layout/screen_home_fragment" />
 
   <fragment
-    android:id="@+id/screenBookList"
+    android:id="@+id/NavIdScreenBookList"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenBookList"
     android:label="fragment_screen_book_list"
     tools:layout="@layout/screen_book_list_fragment">
     <action
       android:id="@+id/action_screenBookList_to_screenChapter"
-      app:destination="@id/screenChapter" />
+      app:destination="@id/NavIdScreenChapter" />
   </fragment>
 
   <fragment
-    android:id="@+id/screenSearch"
+    android:id="@+id/NavIdScreenSearch"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenSearch"
     android:label="fragment_screen_search"
     tools:layout="@layout/screen_search_fragment">
     <action
       android:id="@+id/action_screenSearch_to_screenBookmark"
-      app:destination="@id/screenBookmark" />
+      app:destination="@id/NavIdScreenBookmarkDetail" />
   </fragment>
 
   <fragment
-    android:id="@+id/screenBookmarkList"
+    android:id="@+id/NavIdScreenBookmarkList"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenBookmarkList"
     android:label="fragment_screen_bookmark_list"
     tools:layout="@layout/screen_bookmark_list_fragment" />
 
   <fragment
-    android:id="@+id/screenBookmark"
+    android:id="@+id/NavIdScreenBookmarkDetail"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenBookmarkDetail"
     android:label="fragment_screen_bookmark"
     tools:layout="@layout/screen_bookmark_fragment">
@@ -47,12 +47,12 @@
       app:argType="com.andrewchelladurai.simplebible.data.entity.Verse[]" />
     <action
       android:id="@+id/action_screenBookmark_pop"
-      app:popUpTo="@id/screenBookmark"
+      app:popUpTo="@id/NavIdScreenBookmarkDetail"
       app:popUpToInclusive="true" />
   </fragment>
 
   <fragment
-    android:id="@+id/screenChapter"
+    android:id="@+id/NavIdScreenChapter"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenChapter"
     android:label="fragment_screen_chapter"
     tools:layout="@layout/screen_chapter_fragment">
@@ -61,11 +61,11 @@
       app:argType="com.andrewchelladurai.simplebible.data.entity.Book" />
     <action
       android:id="@+id/action_screenChapter_to_screenBookmark"
-      app:destination="@id/screenBookmark" />
+      app:destination="@id/NavIdScreenBookmarkDetail" />
   </fragment>
 
   <fragment
-    android:id="@+id/screenError"
+    android:id="@+id/NavIdScreenError"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenError"
     android:label="fragment_screen_error"
     tools:layout="@layout/screen_error_fragment">
@@ -85,14 +85,14 @@
   </fragment>
 
   <fragment
-    android:id="@+id/screenSettings"
+    android:id="@+id/NavIdScreenSettings"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenSettings"
-    android:label="screen_settings_fragment"
+    android:label="fragment_screen_settings"
     tools:layout="@layout/screen_settings_fragment" />
 
   <action
     android:id="@+id/action_global_screenError"
-    app:destination="@id/screenError"
+    app:destination="@id/NavIdScreenError"
     app:launchSingleTop="true"
     app:popUpTo="@id/nav_graph_simple_bible"
     app:popUpToInclusive="true" />
