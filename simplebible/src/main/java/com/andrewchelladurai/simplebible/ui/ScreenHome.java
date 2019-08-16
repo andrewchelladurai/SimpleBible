@@ -121,9 +121,14 @@ public class ScreenHome
         .setText(HtmlCompat.fromHtml(getString(stringResId), HtmlCompat.FROM_HTML_MODE_LEGACY));
   }
 
+  private String getVerseText() {
+    return ((TextView) rootView.findViewById(R.id.scrHomeVerse)).getText().toString();
+  }
+
   private void handleActionShare() {
     Log.d(TAG, "handleActionShare:");
-    // TODO: 10/6/19 share the text in the verse view
+    final String verseText = getVerseText();
+    mainOps.shareText(verseText);
   }
 
   private void showLoadingVerse() {
