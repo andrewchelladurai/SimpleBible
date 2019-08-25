@@ -132,8 +132,8 @@
   <string name="itemBookmarkEntryActionShare">Share</string>
   <string name="scrBookmarkListTemplateEmptyNote">This Bookmark does not have any Notes</string>
   <plurals name="scrBookmarkListTemplateVerseCount">
-    <item quantity="one">%d Verse</item>
-    <item quantity="other">%d Verses</item>
+    <item quantity="one">Bookmark contains %d Verse</item>
+    <item quantity="other">Bookmark contains %d Verses</item>
   </plurals>
   <string name="scrBookmarkListTemplateNote"><![CDATA[<b>Bookmarked Note :</b> %s]]></string>
   <string name="scrBookmarkListTemplateVerseErr"><![CDATA[<b>No verses found for this bookmarked entry]]></string>
