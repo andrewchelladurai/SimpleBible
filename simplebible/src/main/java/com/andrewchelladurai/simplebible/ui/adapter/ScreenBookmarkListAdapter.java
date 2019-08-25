@@ -1,11 +1,13 @@
 package com.andrewchelladurai.simplebible.ui.adapter;
 
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
@@ -93,11 +95,19 @@ public class ScreenBookmarkListAdapter
       final String noteText = (bookmark.getNote().isEmpty())
                               ? templateEmptyNoteContent : bookmark.getNote();
 
-      final Chip noteField = rootView.findViewById(R.id.itemBookmarkEntryNote);
-      noteField.setText(noteText);
+      final String noteTemplate = rootView.getContext().getString(
+          R.string.scrBookmarkListTemplateNote);
+      final String formattedText = String.format(noteTemplate, noteText);
+      final Spanned htmlText = HtmlCompat.fromHtml(formattedText,
+                                                   HtmlCompat.FROM_HTML_MODE_COMPACT);
+
+      final TextView noteField = rootView.findViewById(R.id.itemBookmarkEntryNote);
+      noteField.setText(htmlText);
 
       final TextView verseField = rootView.findViewById(R.id.itemBookmarkEntryVerse);
-      ops.updateVerseList(verseField, bookmark.getReference());
+      final Chip verseCountChip = rootView.findViewById(R.id.itemBookmarkEntryVerseCount);
+
+      ops.updateVerseList(verseCountChip, verseField, bookmark.getReference());
 
     }
 

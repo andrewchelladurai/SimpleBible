@@ -24,6 +24,7 @@ import com.andrewchelladurai.simplebible.model.ScreenBookmarkListModel;
 import com.andrewchelladurai.simplebible.ui.adapter.ScreenBookmarkListAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenBookmarkListOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
+import com.google.android.material.chip.Chip;
 
 public class ScreenBookmarkList
     extends Fragment
@@ -38,7 +39,6 @@ public class ScreenBookmarkList
   private ScreenBookListModel bookModel;
 
   public ScreenBookmarkList() {
-    // TODO: 17/8/19 Use a better view component to show multi-line notes
     // TODO: 17/8/19 Beautify the Help Info display
   }
 
@@ -112,13 +112,18 @@ public class ScreenBookmarkList
   }
 
   @Override
-  public void updateVerseList(@NonNull final TextView verseField,
+  public void updateVerseList(@NonNull final Chip verseCountChip,
+                              @NonNull final TextView verseField,
                               @NonNull final String bookmarkReference) {
     bookmarkListModel.getBookmarkedVerse(bookmarkReference).observe(this, verseList -> {
-      if (verseList == null || verseList.isEmpty()) {
-        final String template = getResources().getQuantityString(
-            R.plurals.scrBookmarkListTemplateVerse, 0);
-        verseField.setText(HtmlCompat.fromHtml(template, HtmlCompat.FROM_HTML_MODE_COMPACT));
+
+      final String verseCountTemplate = getResources()
+          .getQuantityString(R.plurals.scrBookmarkListTemplateVerseCount, verseList.size());
+      verseCountChip.setText(String.format(verseCountTemplate, verseList.size()));
+
+      if (verseList.isEmpty()) {
+        final String message = getString(R.string.scrBookmarkListTemplateVerseErr);
+        verseCountChip.setText(HtmlCompat.fromHtml(message, HtmlCompat.FROM_HTML_MODE_COMPACT));
         return;
       }
 
@@ -126,33 +131,21 @@ public class ScreenBookmarkList
 
       bookModel.getBookUsingNumber(verse.getBook()).observe(this, book -> {
         if (book == null) {
-          final String template = getResources().getQuantityString(
-              R.plurals.scrBookmarkListTemplateVerse, 0);
-          verseField.setText(HtmlCompat.fromHtml(template, HtmlCompat.FROM_HTML_MODE_COMPACT));
+          final String message = getString(R.string.scrBookmarkListTemplateVerseErr);
+          verseCountChip.setText(HtmlCompat.fromHtml(message, HtmlCompat.FROM_HTML_MODE_COMPACT));
           return;
         }
 
-        if (verseList.size() == 1) {
-          // <b>%s %d:%d -</b> %s
-          final String template = getResources().getQuantityString(
-              R.plurals.scrBookmarkListTemplateVerse, 1);
-          final String formattedString = String.format(template, book.getName(), verse.getChapter(),
-                                                       verse.getVerse(), verse.getText());
-          final Spanned htmlText = HtmlCompat.fromHtml(formattedString,
-                                                       HtmlCompat.FROM_HTML_MODE_COMPACT);
-          verseField.setText(htmlText);
-
-        } else {
-          // <b>%s %d:%d -</b> %s\nand %d more verses exist in this Bookmark entry
-          final String template = getResources().getQuantityString(
-              R.plurals.scrBookmarkListTemplateVerse, 2);
-          final String formattedString = String.format(template, book.getName(), verse.getChapter(),
-                                                       verse.getVerse(), verse.getText(),
-                                                       verseList.size() - 1);
-          final Spanned htmlText = HtmlCompat.fromHtml(formattedString,
-                                                       HtmlCompat.FROM_HTML_MODE_COMPACT);
-          verseField.setText(htmlText);
-        }
+        final String template = getString(R.string.scrBookmarkListTemplateVerse);
+        // <b>%s %d:%d -</b> %s
+        final String formattedString = String.format(template,
+                                                     book.getName(),
+                                                     verse.getChapter(),
+                                                     verse.getVerse(),
+                                                     verse.getText());
+        final Spanned htmlText = HtmlCompat.fromHtml(formattedString,
+                                                     HtmlCompat.FROM_HTML_MODE_COMPACT);
+        verseField.setText(htmlText);
       });
     });
   }
