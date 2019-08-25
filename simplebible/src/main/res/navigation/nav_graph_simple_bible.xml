@@ -35,7 +35,11 @@
     android:id="@+id/NavIdScreenBookmarkList"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenBookmarkList"
     android:label="fragment_screen_bookmark_list"
-    tools:layout="@layout/screen_bookmark_list_fragment" />
+    tools:layout="@layout/screen_bookmark_list_fragment">
+    <action
+      android:id="@+id/action_NavIdScreenBookmarkList_to_NavIdScreenBookmarkDetail"
+      app:destination="@id/NavIdScreenBookmarkDetail" />
+  </fragment>
 
   <fragment
     android:id="@+id/NavIdScreenBookmarkDetail"

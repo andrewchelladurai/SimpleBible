@@ -82,13 +82,7 @@ public class ScreenBookmarkListAdapter
     BookmarkEntry(final View view) {
       super(view);
       rootView = view;
-
-      rootView.findViewById(R.id.itemBookmarkEntryActionDelete)
-              .setOnClickListener(view1 -> ops.handleActionClickDelete(bookmark));
-      rootView.findViewById(R.id.itemBookmarkEntryActionEdit)
-              .setOnClickListener(view1 -> ops.handleActionClickEdit(bookmark));
-      rootView.findViewById(R.id.itemBookmarkEntryActionShare)
-              .setOnClickListener(view1 -> ops.handleActionClickShare(bookmark));
+      rootView.setOnClickListener(view1 -> ops.handleBookmarkClick(bookmark));
     }
 
     @Override

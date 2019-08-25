@@ -30,40 +30,5 @@
       app:layout_constraintTop_toBottomOf="@id/itemBookmarkEntryVerse"
       tools:text="@string/appName" />
 
-    <ImageButton
-      android:id="@+id/itemBookmarkEntryActionShare"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:backgroundTint="?colorSurface"
-      android:contentDescription="@string/itemBookmarkEntryActionShare"
-      android:src="@drawable/ic_share"
-      app:layout_constraintEnd_toEndOf="@id/itemBookmarkEntryNote"
-      app:layout_constraintTop_toBottomOf="@id/itemBookmarkEntryNote" />
-
-    <ImageButton
-      android:id="@+id/itemBookmarkEntryActionEdit"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/gapSmall"
-      android:layout_marginEnd="@dimen/gapSmall"
-      android:backgroundTint="?colorSurface"
-      android:contentDescription="@string/itemBookmarkEntryActionEdit"
-      android:src="@drawable/ic_edit"
-      app:layout_constraintBottom_toBottomOf="@id/itemBookmarkEntryActionShare"
-      app:layout_constraintEnd_toStartOf="@id/itemBookmarkEntryActionShare"
-      app:layout_constraintTop_toTopOf="@id/itemBookmarkEntryActionShare" />
-
-    <ImageButton
-      android:id="@+id/itemBookmarkEntryActionDelete"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="@dimen/gapSmall"
-      android:backgroundTint="?colorSurface"
-      android:contentDescription="@string/itemBookmarkEntryActionDelete"
-      android:src="@drawable/ic_delete"
-      app:layout_constraintBottom_toBottomOf="@id/itemBookmarkEntryActionEdit"
-      app:layout_constraintEnd_toStartOf="@id/itemBookmarkEntryActionEdit"
-      app:layout_constraintTop_toTopOf="@id/itemBookmarkEntryActionEdit" />
-
   </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

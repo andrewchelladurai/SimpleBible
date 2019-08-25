@@ -8,12 +8,8 @@ import com.andrewchelladurai.simplebible.data.entity.Bookmark;
 
 public interface ScreenBookmarkListOps {
 
-  void handleActionClickDelete(@NonNull Bookmark bookmark);
-
-  void handleActionClickEdit(@NonNull Bookmark bookmark);
-
-  void handleActionClickShare(@NonNull Bookmark bookmark);
-
   void updateVerseList(final TextView verseField, @NonNull String bookmarkReference);
+
+  void handleBookmarkClick(@NonNull Bookmark bookmark);
 
 }

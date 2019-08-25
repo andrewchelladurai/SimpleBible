@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
@@ -38,8 +39,6 @@ public class ScreenBookmarkList
 
   public ScreenBookmarkList() {
     // TODO: 17/8/19 Use a better view component to show multi-line notes
-    // TODO: 17/8/19 Clicking on a entry must load the ScreenBookmarkDetail
-    // TODO: 17/8/19 implement the action buttons
     // TODO: 17/8/19 Beautify the Help Info display
   }
 
@@ -113,24 +112,6 @@ public class ScreenBookmarkList
   }
 
   @Override
-  public void handleActionClickDelete(@NonNull final Bookmark bookmark) {
-    Log.d(TAG, "handleActionClickDelete: bookmark = [" + bookmark + "]");
-    throw new UnsupportedOperationException();
-  }
-
-  @Override
-  public void handleActionClickEdit(@NonNull final Bookmark bookmark) {
-    Log.d(TAG, "handleActionClickEdit: bookmark = [" + bookmark + "]");
-    throw new UnsupportedOperationException();
-  }
-
-  @Override
-  public void handleActionClickShare(@NonNull final Bookmark bookmark) {
-    Log.d(TAG, "handleActionClickShare: bookmark = [" + bookmark + "]");
-    throw new UnsupportedOperationException();
-  }
-
-  @Override
   public void updateVerseList(@NonNull final TextView verseField,
                               @NonNull final String bookmarkReference) {
     bookmarkListModel.getBookmarkedVerse(bookmarkReference).observe(this, verseList -> {
@@ -174,6 +155,36 @@ public class ScreenBookmarkList
         }
       });
     });
+  }
+
+  @Override
+  public void handleBookmarkClick(@NonNull final Bookmark bookmark) {
+    Log.d(TAG, "handleBookmarkClick: bookmark [" + bookmark + "]");
+
+    final String reference = bookmark.getReference();
+    bookmarkListModel.getBookmarkedVerse(reference).observe(this, verses -> {
+      if (verses == null || verses.isEmpty()) {
+        final String message = getString(R.string.scrBookmarkErrEmptyVerseList);
+        Log.e(TAG, "handleBookmarkClick: " + message);
+        return;
+      }
+
+      final Verse[] array = new Verse[verses.size()];
+      for (int i = 0; i < verses.size(); i++) {
+        array[i] = verses.get(i);
+      }
+
+      Log.d(TAG, "handleBookmarkClick: got [" + array.length + "] verses");
+
+      final Bundle bundle = new Bundle();
+      bundle.putParcelableArray(ScreenBookmarkDetail.ARG_VERSE_LIST, array);
+      Log.d(TAG, "handleBookmarkClick: created bundle to pass to fragment");
+
+      NavHostFragment.findNavController(this)
+                     .navigate(R.id.action_NavIdScreenBookmarkList_to_NavIdScreenBookmarkDetail,
+                               bundle);
+    });
+
   }
 
 }
