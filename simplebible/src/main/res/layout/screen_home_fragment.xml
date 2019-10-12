@@ -20,6 +20,7 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:fillViewport="true"
         android:padding="@dimen/gapNormal"
         app:layout_constraintBottom_toTopOf="@id/scrHomeGuide"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,6 +29,7 @@
 
         <TextView
             android:id="@+id/scrHomeVerse"
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
