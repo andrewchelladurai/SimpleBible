@@ -1,73 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:layout_margin="@dimen/activityMargin"
-  tools:context=".ui.ScreenBookmarkList">
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/activityMargin"
+    tools:context=".ui.ScreenBookmarkList">
 
-  <androidx.constraintlayout.widget.Guideline
-    android:id="@+id/scrBookmarkListInfoGH10"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintGuide_percent="0.1" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/scrBookmarkListInfoGH10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
 
-  <androidx.constraintlayout.widget.Guideline
-    android:id="@+id/scrBookmarkListInfoGH30"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintGuide_percent="0.4" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/scrBookmarkListInfoGH30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
 
-  <ImageView
-    android:id="@+id/scrBookmarkListInfoImage"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    android:contentDescription="@string/scrBookmarkListInfoHelpImage"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintBottom_toTopOf="@id/scrBookmarkListInfoGH30"
-    app:layout_constraintDimensionRatio="1:1"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/scrBookmarkListInfoGH10"
-    app:layout_constraintVertical_bias="0.1"
-    app:srcCompat="@drawable/ic_hero_bookmark" />
+    <ImageView
+        android:id="@+id/scrBookmarkListInfoImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/scrBookmarkListInfoHelpImage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/scrBookmarkListInfoGH30"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scrBookmarkListInfoGH10"
+        app:layout_constraintVertical_bias="0.1"
+        app:srcCompat="@drawable/ic_hero_bookmark" />
 
-  <ScrollView
-    android:id="@+id/scrBookmarkListInfoScrollView"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    android:fillViewport="true"
-    android:padding="@dimen/gapHuge"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/scrBookmarkListInfoImage">
+    <ScrollView
+        android:id="@+id/scrBookmarkListInfoScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:padding="@dimen/gapHuge"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scrBookmarkListInfoImage">
 
-    <TextView
-      android:id="@+id/scrBookmarkListInfoHelpText"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="top|center_horizontal"
-      android:layout_margin="@dimen/gapHuge"
-      android:gravity="center|top"
-      android:text="@string/scrBookmarkListInfoHelpText"
-      android:textAlignment="center" />
-  </ScrollView>
+        <TextView
+            android:id="@+id/scrBookmarkListInfoHelpText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_margin="@dimen/gapHuge"
+            android:gravity="center|top"
+            android:text="@string/scrBookmarkListInfoHelpText"
+            android:textAlignment="center" />
+    </ScrollView>
 
-  <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/scrBookmarkListList"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:spanCount="@integer/scrBookmarkListListColumnCount"
-    tools:listitem="@layout/item_bookmark_list_entry" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/scrBookmarkListList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:spanCount="@integer/scrBookmarkListListColumnCount"
+        tools:listitem="@layout/item_bookmark_list_entry" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

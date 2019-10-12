@@ -11,7 +11,7 @@
     for the love he had for her.</h3><br/><br/>
     <b>The World English Bible</b>]]>
   </string>
-  <string name="scrHomeVerseTemplate">
+    <string name="scrHomeVerseTemplate">
     <![CDATA[
     <h1>Simple Bible</h1>
     <h5>%s<br/>

@@ -1,14 +1,14 @@
 <resources>
 
-  <!-- Show a brand color screen with a mono logo icon -->
-  <style name="SbLoadSplash" parent="Theme.MaterialComponents.Light.NoActionBar">
-    <item name="android:windowBackground">@drawable/launcher_splash_background</item>
-  </style>
+    <!-- Show a brand color screen with a mono logo icon -->
+    <style name="SbLoadSplash" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/launcher_splash_background</item>
+    </style>
 
-  <style name="SbTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-    <!--
-    todo customize this theme
-    -->
-  </style>
+    <style name="SbTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!--
+        todo customize this theme
+        -->
+    </style>
 
 </resources>

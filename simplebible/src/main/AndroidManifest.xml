@@ -1,36 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  package="com.andrewchelladurai.simplebible">
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.andrewchelladurai.simplebible">
 
-  <uses-permission android:name="android.permission.WAKE_LOCK" />
-  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
-  <application
-    android:allowBackup="true"
-    android:fullBackupContent="true"
-    android:icon="@mipmap/ic_launcher"
-    android:label="@string/appName"
-    android:roundIcon="@mipmap/ic_launcher_round"
-    android:supportsRtl="true"
-    android:theme="@style/SbLoadSplash"
-    tools:ignore="GoogleAppIndexingWarning">
+    <application
+        android:allowBackup="true"
+        android:fullBackupContent="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/appName"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/SbLoadSplash"
+        tools:ignore="GoogleAppIndexingWarning">
 
-    <service
-      android:name=".data.DbSetupJob"
-      android:exported="false"
-      android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name=".data.DbSetupJob"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
-    <activity
-      android:name=".ui.ScreenSimpleBible"
-      android:label="@string/appName"
-      android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
+        <activity
+            android:name=".ui.ScreenSimpleBible"
+            android:label="@string/appName"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
-    </activity>
-  </application>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
 
 </manifest>

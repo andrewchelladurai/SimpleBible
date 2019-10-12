@@ -1,26 +1,26 @@
 <resources>
-  <string name="appName">Simple Bible</string>
-  <string name="defaultVerseReference">43:3:16</string>
-  <string name="bookNameFirst">Genesis</string>
-  <string name="bookNameLast">Revelation</string>
+    <string name="appName">Simple Bible</string>
+    <string name="defaultVerseReference">43:3:16</string>
+    <string name="bookNameFirst">Genesis</string>
+    <string name="bookNameLast">Revelation</string>
 
-  <string name="dbSetupNotificationTitle">Database Loading</string>
-  <string name="dbSetupNotificationMessage">Setup is in progress</string>
+    <string name="dbSetupNotificationTitle">Database Loading</string>
+    <string name="dbSetupNotificationMessage">Setup is in progress</string>
 
-  <string name="dbSetupFailureMessage">Database Setup failed, please use the below button to inform the developer.</string>
+    <string name="dbSetupFailureMessage">Database Setup failed, please use the below button to inform the developer.</string>
 
-  <!-- Strings used in the Main Screen -->
-  <string name="scrMainBottomNavViewHome">home</string>
-  <string name="scrMainBottomNavViewBookList">books</string>
-  <string name="scrMainBottomNavViewSearch">search</string>
-  <string name="scrMainBottomNavViewBookmarkList">bookmarks</string>
-  <string name="scrMainBottomNavViewSettings">settings</string>
-  <string name="notificationChannelName">Simple Bible Notifications</string>
-  <string name="notificationChannelDescription">Will show the Daily Verse notifications and others</string>
+    <!-- Strings used in the Main Screen -->
+    <string name="scrMainBottomNavViewHome">home</string>
+    <string name="scrMainBottomNavViewBookList">books</string>
+    <string name="scrMainBottomNavViewSearch">search</string>
+    <string name="scrMainBottomNavViewBookmarkList">bookmarks</string>
+    <string name="scrMainBottomNavViewSettings">settings</string>
+    <string name="notificationChannelName">Simple Bible Notifications</string>
+    <string name="notificationChannelDescription">Will show the Daily Verse notifications and others</string>
 
-  <!-- String used in the HomeScreen -->
-  <string name="scrHomeProgressTextTemplate">%d</string>
-  <string name="scrHomeVerseLoading">
+    <!-- String used in the HomeScreen -->
+    <string name="scrHomeProgressTextTemplate">%d</string>
+    <string name="scrHomeVerseLoading">
     <![CDATA[
     <h1>Simple Bible</h1>
     <h5>CREATING DATABASE</h5>
@@ -33,7 +33,7 @@
     for the love he had for her.</h3><br/><br/>
     <b>The World English Bible</b>]]>
   </string>
-  <string name="scrHomeVerseTemplate">
+    <string name="scrHomeVerseTemplate">
     <![CDATA[
     <h1>Simple Bible</h1><br/>
     <h5>%s</h5>
@@ -41,7 +41,7 @@
     <h3>%s</h3><br/>
     The World English Bible]]>
   </string>
-  <string name="scrHomeVerseDefault">
+    <string name="scrHomeVerseDefault">
     <![CDATA[
     <h1>Simple Bible</h1><br/>
     <h5>The Gospel of John<br/>
@@ -54,26 +54,26 @@
     <b>The World English Bible</b>]]>
   </string>
 
-  <!-- String used in the ScreenBookList -->
-  <string name="scrBookListErrNullList">No books found in the database. Please clear the application data or reinstall the application again. if the issue persists, please inform the developer.</string>
-  <string name="scrBookListErrCount">Number of books in the database is not the Expected count. Please clear the application data or reinstall the application again. if the issue persists, please inform the developer.</string>
-  <string name="scrBookListSearchHint">Book name</string>
+    <!-- String used in the ScreenBookList -->
+    <string name="scrBookListErrNullList">No books found in the database. Please clear the application data or reinstall the application again. if the issue persists, please inform the developer.</string>
+    <string name="scrBookListErrCount">Number of books in the database is not the Expected count. Please clear the application data or reinstall the application again. if the issue persists, please inform the developer.</string>
+    <string name="scrBookListSearchHint">Book name</string>
 
-  <plurals name="itemBookChapterTemplate">
-    <item quantity="one">%d Chapter</item>
-    <item quantity="other">%d Chapters</item>
-  </plurals>
+    <plurals name="itemBookChapterTemplate">
+        <item quantity="one">%d Chapter</item>
+        <item quantity="other">%d Chapters</item>
+    </plurals>
 
-  <!-- String used in the ScreenSearch -->
-  <string name="scrSearchActionBookmark">Bookmark</string>
-  <string name="scrSearchActionShare">Share</string>
-  <string name="scrSearchActionClear">Clear</string>
-  <string name="scrSearchActionReset">Reset</string>
-  <string name="scrSearchInputHint">Search text</string>
-  <string name="scrSearchInputErr">Invalid input, see tips.</string>
-  <string name="scrSearchContainerHelpImage">Search Verse Tips</string>
-  <string name="scrSearchEmptyResults">No verse found</string>
-  <string name="scrSearchHelpText"><![CDATA[
+    <!-- String used in the ScreenSearch -->
+    <string name="scrSearchActionBookmark">Bookmark</string>
+    <string name="scrSearchActionShare">Share</string>
+    <string name="scrSearchActionClear">Clear</string>
+    <string name="scrSearchActionReset">Reset</string>
+    <string name="scrSearchInputHint">Search text</string>
+    <string name="scrSearchInputErr">Invalid input, see tips.</string>
+    <string name="scrSearchContainerHelpImage">Search Verse Tips</string>
+    <string name="scrSearchEmptyResults">No verse found</string>
+    <string name="scrSearchHelpText"><![CDATA[
   <h5>To search for a text, it must be<br/>
   More than 3 alphabets.<br/>
   Less than 13 alphabets.<br/><br/>
@@ -81,45 +81,45 @@
   a space before or after<br/>
   like this <u>\' Eli \'</u></h5>
   ]]></string>
-  <string name="scrSearchShareTemplate">%s\nThe World English Bible\nShared from SimpleBible</string>
-  <string name="itemSearchResultContentTemplate"><![CDATA[
+    <string name="scrSearchShareTemplate">%s\nThe World English Bible\nShared from SimpleBible</string>
+    <string name="itemSearchResultContentTemplate"><![CDATA[
   <b>%s %d:%d -</b> %s
   ]]></string>
 
-  <!-- String used in the ScreenBookmarkDetail -->
-  <string name="scrBookmarkErrNullVerseList">No parcelable verses arguments passed</string>
-  <string name="scrBookmarkErrEmptyVerseList">Empty verses list received</string>
+    <!-- String used in the ScreenBookmarkDetail -->
+    <string name="scrBookmarkErrNullVerseList">No parcelable verses arguments passed</string>
+    <string name="scrBookmarkErrEmptyVerseList">Empty verses list received</string>
 
-  <!-- String used in the ScreenChapter -->
-  <string name="itemChapterVerseContentTemplate"><![CDATA[<b>%d : </b>%s]]></string>
-  <string name="scrChapterNoArguments">No arguments passed from calling activity</string>
-  <string name="scrChapterErrNoBook">No / Null Book passed, using default</string>
-  <string name="scrChapterErrChapterInvalid">Incorrect Chapter passed, using default</string>
-  <string name="scrChapterActionChapters">Show Chapters</string>
-  <string name="scrChapterTitleTemplate"><![CDATA[<b>%s : Chapter %d</b><br/>%s]]></string>
-  <string name="scrChapterErrEmptyVerseList">No Verses found for Chapter %d of Book %s</string>
-  <string name="scrChapterActionSelectionBookmark">Bookmark</string>
-  <string name="scrChapterActionSelectionShare">Share</string>
-  <string name="scrChapterActionSelectionClear">Clear</string>
+    <!-- String used in the ScreenChapter -->
+    <string name="itemChapterVerseContentTemplate"><![CDATA[<b>%d : </b>%s]]></string>
+    <string name="scrChapterNoArguments">No arguments passed from calling activity</string>
+    <string name="scrChapterErrNoBook">No / Null Book passed, using default</string>
+    <string name="scrChapterErrChapterInvalid">Incorrect Chapter passed, using default</string>
+    <string name="scrChapterActionChapters">Show Chapters</string>
+    <string name="scrChapterTitleTemplate"><![CDATA[<b>%s : Chapter %d</b><br/>%s]]></string>
+    <string name="scrChapterErrEmptyVerseList">No Verses found for Chapter %d of Book %s</string>
+    <string name="scrChapterActionSelectionBookmark">Bookmark</string>
+    <string name="scrChapterActionSelectionShare">Share</string>
+    <string name="scrChapterActionSelectionClear">Clear</string>
 
-  <!-- String used in the ScreenBookmarkDetail -->
-  <string name="scrBookmarkDetailActionDelete">Delete</string>
-  <string name="scrBookmarkDetailActionSave">Save</string>
-  <string name="scrBookmarkDetailActionEdit">Edit</string>
-  <string name="scrBookmarkDetailActionShare">Share</string>
-  <string name="scrBookmarkDetailNote">Notes</string>
-  <string name="scrBookmarkDetailSaveSuccess">Bookmark Saved</string>
-  <string name="scrBookmarkDetailSaveFail">Save Bookmark Failed</string>
-  <string name="scrBookmarkDetailDeleteSuccess">Bookmark Deleted</string>
-  <string name="scrBookmarkDetailDeleteFail">Delete Bookmark Failed</string>
-  <string name="scrBookmarkDetailShareTemplate">Bookmarked Verse(s):\n%s\n\nBookmarked Notes:\n%s\n\nThe World English Bible\nShared from SimpleBible</string>
-  <string name="itemBookmarkVerseContentTemplate"><![CDATA[
+    <!-- String used in the ScreenBookmarkDetail -->
+    <string name="scrBookmarkDetailActionDelete">Delete</string>
+    <string name="scrBookmarkDetailActionSave">Save</string>
+    <string name="scrBookmarkDetailActionEdit">Edit</string>
+    <string name="scrBookmarkDetailActionShare">Share</string>
+    <string name="scrBookmarkDetailNote">Notes</string>
+    <string name="scrBookmarkDetailSaveSuccess">Bookmark Saved</string>
+    <string name="scrBookmarkDetailSaveFail">Save Bookmark Failed</string>
+    <string name="scrBookmarkDetailDeleteSuccess">Bookmark Deleted</string>
+    <string name="scrBookmarkDetailDeleteFail">Delete Bookmark Failed</string>
+    <string name="scrBookmarkDetailShareTemplate">Bookmarked Verse(s):\n%s\n\nBookmarked Notes:\n%s\n\nThe World English Bible\nShared from SimpleBible</string>
+    <string name="itemBookmarkVerseContentTemplate"><![CDATA[
   <b>%s %d:%d -</b> %s
   ]]></string>
 
-  <!-- String used in the ScreenBookmarkList -->
-  <string name="scrBookmarkListInfoHelpImage">Bookmarks</string>
-  <string name="scrBookmarkListInfoHelpText"><![CDATA[
+    <!-- String used in the ScreenBookmarkList -->
+    <string name="scrBookmarkListInfoHelpImage">Bookmarks</string>
+    <string name="scrBookmarkListInfoHelpText"><![CDATA[
   <h5>No Bookmarks Found</h5>
   To create a bookmark, long press<br/>
   Either a Chapter\'s verse<br/>
@@ -127,15 +127,15 @@
   a Search result<br/>
   and then select the Bookmark action.
   ]]></string>
-  <string name="itemBookmarkEntryActionDelete">Delete</string>
-  <string name="itemBookmarkEntryActionEdit">Edit</string>
-  <string name="itemBookmarkEntryActionShare">Share</string>
-  <string name="scrBookmarkListTemplateEmptyNote">This Bookmark does not have any Notes</string>
-  <plurals name="scrBookmarkListTemplateVerseCount">
-    <item quantity="one">Bookmark contains %d Verse</item>
-    <item quantity="other">Bookmark contains %d Verses</item>
-  </plurals>
-  <string name="scrBookmarkListTemplateNote"><![CDATA[<b>Bookmarked Note :</b> %s]]></string>
-  <string name="scrBookmarkListTemplateVerseErr"><![CDATA[<b>No verses found for this bookmarked entry]]></string>
-  <string name="scrBookmarkListTemplateVerse"><![CDATA[<b>%s %d:%d -</b> %s]]></string>
+    <string name="itemBookmarkEntryActionDelete">Delete</string>
+    <string name="itemBookmarkEntryActionEdit">Edit</string>
+    <string name="itemBookmarkEntryActionShare">Share</string>
+    <string name="scrBookmarkListTemplateEmptyNote">This Bookmark does not have any Notes</string>
+    <plurals name="scrBookmarkListTemplateVerseCount">
+        <item quantity="one">Bookmark contains %d Verse</item>
+        <item quantity="other">Bookmark contains %d Verses</item>
+    </plurals>
+    <string name="scrBookmarkListTemplateNote"><![CDATA[<b>Bookmarked Note :</b> %s]]></string>
+    <string name="scrBookmarkListTemplateVerseErr"><![CDATA[<b>No verses found for this bookmarked entry]]></string>
+    <string name="scrBookmarkListTemplateVerse"><![CDATA[<b>%s %d:%d -</b> %s]]></string>
 </resources>

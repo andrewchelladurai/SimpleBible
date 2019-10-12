@@ -1,15 +1,15 @@
 <resources>
-  <dimen name="activityMargin">16dp</dimen>
+    <dimen name="activityMargin">16dp</dimen>
 
-  <dimen name="gapNone">0dp</dimen>
-  <dimen name="gapSmall">4dp</dimen>
-  <dimen name="gapNormal">8dp</dimen>
-  <dimen name="gapBig">12dp</dimen>
-  <dimen name="gapHuge">16dp</dimen>
-  <integer name="scrBookListListColumnCount">1</integer>
-  <integer name="scrSearchListColumnCount">1</integer>
-  <integer name="scrChapterListColumnCount">1</integer>
-  <integer name="scrChapterVerseListColumnCount">1</integer>
-  <integer name="scrBookmarkListColumnCount">1</integer>
-  <integer name="scrBookmarkListListColumnCount">1</integer>
+    <dimen name="gapNone">0dp</dimen>
+    <dimen name="gapSmall">4dp</dimen>
+    <dimen name="gapNormal">8dp</dimen>
+    <dimen name="gapBig">12dp</dimen>
+    <dimen name="gapHuge">16dp</dimen>
+    <integer name="scrBookListListColumnCount">1</integer>
+    <integer name="scrSearchListColumnCount">1</integer>
+    <integer name="scrChapterListColumnCount">1</integer>
+    <integer name="scrChapterVerseListColumnCount">1</integer>
+    <integer name="scrBookmarkListColumnCount">1</integer>
+    <integer name="scrBookmarkListListColumnCount">1</integer>
 </resources>
