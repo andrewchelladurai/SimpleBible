@@ -9,11 +9,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
+
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

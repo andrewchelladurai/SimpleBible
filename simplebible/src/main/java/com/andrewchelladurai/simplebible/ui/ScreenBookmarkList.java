@@ -118,7 +118,9 @@ public class ScreenBookmarkList
     bookmarkListModel.getBookmarkedVerse(bookmarkReference).observe(this, verseList -> {
 
       final String verseCountTemplate = getResources()
-          .getQuantityString(R.plurals.scrBookmarkListTemplateVerseCount, verseList.size());
+                                            .getQuantityString(
+                                                R.plurals.scrBookmarkListTemplateVerseCount,
+                                                verseList.size());
       verseCountChip.setText(String.format(verseCountTemplate, verseList.size()));
 
       if (verseList.isEmpty()) {

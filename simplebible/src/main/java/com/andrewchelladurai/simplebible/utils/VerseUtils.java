@@ -2,8 +2,10 @@ package com.andrewchelladurai.simplebible.utils;
 
 import android.os.AsyncTask;
 import android.util.Log;
+
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
+
 import com.andrewchelladurai.simplebible.data.dao.VerseDao;
 import com.andrewchelladurai.simplebible.data.entity.Verse;
 
@@ -28,8 +30,7 @@ public class VerseUtils {
   @NonNull
   public String createReference(
       @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int bookNumber,
-      @IntRange(from = 1) final int chapterNumber,
-      @IntRange(from = 1) final int verseNumber) {
+      @IntRange(from = 1) final int chapterNumber, @IntRange(from = 1) final int verseNumber) {
     if (bookNumber > 0
         && bookNumber <= BookUtils.EXPECTED_COUNT
         && chapterNumber > 0
@@ -118,8 +119,7 @@ public class VerseUtils {
     return parts;
   }
 
-  public void createVerse(@NonNull final VerseDao verseDao,
-                          @NonNull final Verse verse) {
+  public void createVerse(@NonNull final VerseDao verseDao, @NonNull final Verse verse) {
     new CreateVerseTask(verseDao).execute(verse);
   }
 

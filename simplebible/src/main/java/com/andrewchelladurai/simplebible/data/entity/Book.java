@@ -2,11 +2,14 @@ package com.andrewchelladurai.simplebible.data.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+
 import com.andrewchelladurai.simplebible.utils.BookUtils;
+
 import java.util.Objects;
 
 @Entity(tableName = "sb_books", primaryKeys = {"number", "name", "chapters", "verses"})

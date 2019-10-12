@@ -2,9 +2,11 @@ package com.andrewchelladurai.simplebible.data;
 
 import android.content.Context;
 import android.util.Log;
+
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+
 import com.andrewchelladurai.simplebible.data.dao.BookDao;
 import com.andrewchelladurai.simplebible.data.dao.BookmarkDao;
 import com.andrewchelladurai.simplebible.data.dao.VerseDao;

@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible.utils;
 
 import android.os.AsyncTask;
+
 import com.andrewchelladurai.simplebible.data.dao.BookDao;
 import com.andrewchelladurai.simplebible.data.entity.Book;
 

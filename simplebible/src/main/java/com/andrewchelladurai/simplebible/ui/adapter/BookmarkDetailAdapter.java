@@ -21,8 +21,8 @@ public class BookmarkDetailAdapter
     implements RecyclerViewAdapterOps {
 
   private static final String TAG = "BookmarkDetailAdapter";
-  private ScreenBookmarkDetailOps ops;
   final ArrayList<Verse> list = new ArrayList<>();
+  private ScreenBookmarkDetailOps ops;
 
   public BookmarkDetailAdapter(final ScreenBookmarkDetailOps ops) {
     this.ops = ops;
