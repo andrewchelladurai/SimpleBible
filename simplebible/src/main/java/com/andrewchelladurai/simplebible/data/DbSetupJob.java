@@ -27,12 +27,14 @@ import java.io.InputStreamReader;
 public class DbSetupJob
     extends JobIntentService {
 
+  private static final String TAG = "DbSetupJob";
+
   public static final int STARTED = 0;
   public static final int RUNNING = STARTED + 1;
   public static final int FAILED = RUNNING + 1;
   public static final int FINISHED = FAILED + 1;
   public static final String LINE_PROGRESS = "LINE_PROGRESS";
-  private static final String TAG = "DbSetupJob";
+
   private static final int JOB_ID = 131416;
   private static ResultReceiver RESULT_RECEIVER;
   private int lineProgressValue = 0;
@@ -47,7 +49,8 @@ public class DbSetupJob
   protected void onHandleWork(@NonNull final Intent intent) {
     Log.d(TAG, "onHandleWork");
     RESULT_RECEIVER.send(STARTED, Bundle.EMPTY);
-    startForegroundNotification();/* check if contents of books table is valid* /*/
+    startForegroundNotification();
+    // check if contents of books table is valid
     if (!validateBooksTable()) {
       // if not then populate the table
       if (!populateBooksTable()) {
