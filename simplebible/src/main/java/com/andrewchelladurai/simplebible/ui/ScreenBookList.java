@@ -128,6 +128,11 @@ public class ScreenBookList
     bundle.putInt(ScreenChapter.ARG_CHAPTER, 1);
     NavHostFragment.findNavController(this)
                    .navigate(R.id.action_screenBookList_to_screenChapter, bundle);
+
+    final SearchView searchView = rootView.findViewById(R.id.scrBookListSearch);
+    if (searchView.getQuery().length() > 0) {
+      searchView.setQuery("", true);
+    }
   }
 
 }
