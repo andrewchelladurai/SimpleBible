@@ -10,19 +10,27 @@
     android:layout_marginEnd="@dimen/activityMargin"
     tools:context=".ui.ScreenBookList">
 
-    <SearchView
-        android:id="@+id/scrBookListSearch"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/scrBookListSearchHolder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/gapSmall"
-        android:iconifiedByDefault="false"
-        android:imeOptions="actionSearch"
-        android:inputType="textNoSuggestions"
-        android:queryHint="@string/scrBookListSearchHint"
-        android:searchIcon="@drawable/ic_search"
+        android:layout_margin="@dimen/gapSmall"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <SearchView
+            android:id="@+id/scrBookListSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:iconifiedByDefault="true"
+            android:imeOptions="actionSearch"
+            android:importantForAutofill="no"
+            android:inputType="textNoSuggestions"
+            android:layoutDirection="rtl"
+            android:queryHint="@string/scrBookListSearchHint"
+            android:searchIcon="@drawable/ic_search" />
+    </com.google.android.material.card.MaterialCardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/scrBookListList"
@@ -33,7 +41,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scrBookListSearch"
+        app:layout_constraintTop_toBottomOf="@id/scrBookListSearchHolder"
         app:spanCount="@integer/scrBookListListColumnCount"
         tools:listitem="@layout/item_book" />
 
