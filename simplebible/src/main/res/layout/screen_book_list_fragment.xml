@@ -17,6 +17,7 @@
         android:layout_marginBottom="@dimen/gapSmall"
         android:iconifiedByDefault="false"
         android:imeOptions="actionSearch"
+        android:inputType="textNoSuggestions"
         android:queryHint="@string/scrBookListSearchHint"
         android:searchIcon="@drawable/ic_search"
         app:layout_constraintEnd_toEndOf="parent"
