@@ -76,13 +76,12 @@ public class ScreenSearch
             .setOnClickListener(v -> handleClickActionReset());
 
     final SearchView searchView = rootView.findViewById(R.id.scrSearchInput);
-    searchView.setQuery("rachel", false);
     searchView.setSubmitButtonEnabled(true);
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
       @Override
       public boolean onQueryTextSubmit(final String searchQuery) {
-        handleClickSearchInput(searchQuery);
+        handleClickActionSearch(searchQuery);
         return true;
       }
 
@@ -97,23 +96,20 @@ public class ScreenSearch
 
     // first run - since we do not have a previously saved instance
     if (savedState == null) {
-      showHelpText();
-      showInputField();
+      showSearchDefaultUi();
     } else {
-      if (adapter.getItemCount() > 0) {
-        if (adapter.getSelectedItemCount() > 0) {
-          enableSelectionActions();
-        } else {
-          disableSelectionActions();
-        }
-        showSearchResultsList();
-        showActions();
+      if (adapter.getItemCount() < 1) {
+        showSearchDefaultUi();
       } else {
-        showHelpText();
-        showInputField();
+        showSearchResultsUi();
+        showActionsContainer();
+        if (adapter.getSelectedItemCount() > 0) {
+          showVerseSelectionActions();
+        } else {
+          hideVerseSelectionActions();
+        }
       }
     }
-
     return rootView;
   }
 
@@ -125,16 +121,41 @@ public class ScreenSearch
     mainOps = null;
   }
 
+  private void handleClickActionSearch(@NonNull final String searchText) {
+    mainOps.hideKeyboard();
+    if (searchText.equalsIgnoreCase("")
+        || searchText.isEmpty()
+        || searchText.length() < 4
+        || searchText.length() > 50) {
+      mainOps.showMessage(getString(R.string.scrSearchInputErr));
+      showSearchDefaultUi();
+      return;
+    }
+
+    Log.d(TAG, "handleClickActionSearch: searchQuery = [" + searchText + "]");
+    model.searchTextInVerses(searchText).observe(this, list -> {
+      if (list == null || list.isEmpty()) {
+        mainOps.showMessage(getString(R.string.scrSearchEmptyResults));
+        showSearchDefaultUi();
+        return;
+      }
+
+      Log.d(TAG, "handleClickActionSearch: found [" + list.size() + "] verses");
+      adapter.updateList(list);
+      showSearchResultsUi();
+      hideVerseSelectionActions();
+      showActionsContainer();
+    });
+  }
+
   private void handleClickActionReset() {
     ((SearchView) rootView.findViewById(R.id.scrSearchInput)).setQuery("", false);
-    adapter.clearList();
-    showInputField();
-    showHelpText();
+    showSearchDefaultUi();
   }
 
   private void handleClickActionClear() {
     adapter.clearSelection();
-    disableSelectionActions();
+    hideVerseSelectionActions();
   }
 
   private void handleClickActionShare() {
@@ -177,71 +198,24 @@ public class ScreenSearch
                    .navigate(R.id.action_screenSearch_to_screenBookmark, bundle);
   }
 
-  private void handleClickSearchInput(@NonNull final String searchText) {
-    mainOps.hideKeyboard();
-    if (searchText.equalsIgnoreCase("")
-        || searchText.isEmpty()
-        || searchText.length() < 4
-        || searchText.length() > 50) {
-      mainOps.showMessage(getString(R.string.scrSearchInputErr));
-      showHelpText();
-      return;
-    }
-
-    Log.d(TAG, "handleClickSearchInput: searchQuery = [" + searchText + "]");
-    model.searchTextInVerses(searchText).observe(this, list -> {
-      if (list == null || list.isEmpty()) {
-        mainOps.showMessage(getString(R.string.scrSearchEmptyResults));
-        showHelpText();
-        return;
-      }
-
-      Log.d(TAG, "handleClickSearchInput: found [" + list.size() + "] verses");
-      adapter.updateList(list);
-      showSearchResultsList();
-      disableSelectionActions();
-      showActions();
-    });
-  }
-
-  private void showActions() {
-    rootView.findViewById(R.id.scrSearchInput).setVisibility(View.GONE);
+  private void showActionsContainer() {
     rootView.findViewById(R.id.scrSearchActionsContainer).setVisibility(View.VISIBLE);
   }
 
-  private void showInputField() {
-    rootView.findViewById(R.id.scrSearchInput).setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scrSearchActionsContainer).setVisibility(View.GONE);
-  }
-
-  private void enableSelectionActions() {
-    rootView.findViewById(R.id.scrSearchActionBookmark).setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scrSearchActionShare).setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scrSearchActionClear).setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scrSearchActionReset).setEnabled(true);
-  }
-
-  private void disableSelectionActions() {
-    rootView.findViewById(R.id.scrSearchActionBookmark).setVisibility(View.GONE);
-    rootView.findViewById(R.id.scrSearchActionShare).setVisibility(View.GONE);
-    rootView.findViewById(R.id.scrSearchActionClear).setVisibility(View.GONE);
-    rootView.findViewById(R.id.scrSearchActionReset).setEnabled(true);
-  }
-
-  private void showHelpText() {
+  private void showSearchDefaultUi() {
     adapter.clearList();
 
     final Spanned htmlText = HtmlCompat.fromHtml(getString(R.string.scrSearchHelpText),
                                                  HtmlCompat.FROM_HTML_MODE_LEGACY);
     final TextView textView = rootView.findViewById(R.id.scrSearchHelpText);
     textView.setText(htmlText);
-    rootView.findViewById(R.id.scrSearchList).setVisibility(View.GONE);
-    rootView.findViewById(R.id.scrSearchContainer).setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scrSearchDefaultUiLayout).setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scrSearchResultsUiLayout).setVisibility(View.GONE);
   }
 
-  private void showSearchResultsList() {
-    rootView.findViewById(R.id.scrSearchList).setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scrSearchContainer).setVisibility(View.GONE);
+  private void showSearchResultsUi() {
+    rootView.findViewById(R.id.scrSearchDefaultUiLayout).setVisibility(View.GONE);
+    rootView.findViewById(R.id.scrSearchResultsUiLayout).setVisibility(View.VISIBLE);
   }
 
   @Override
@@ -263,12 +237,26 @@ public class ScreenSearch
   }
 
   @Override
-  public void updateSelectionActionState() {
+  public void toggleVerseSelectionActionsState() {
     if (adapter.getSelectedItemCount() > 0) {
-      enableSelectionActions();
+      showVerseSelectionActions();
     } else {
-      disableSelectionActions();
+      hideVerseSelectionActions();
     }
+  }
+
+  private void showVerseSelectionActions() {
+    rootView.findViewById(R.id.scrSearchActionBookmark).setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scrSearchActionShare).setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scrSearchActionClear).setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scrSearchActionReset).setEnabled(true);
+  }
+
+  private void hideVerseSelectionActions() {
+    rootView.findViewById(R.id.scrSearchActionBookmark).setVisibility(View.GONE);
+    rootView.findViewById(R.id.scrSearchActionShare).setVisibility(View.GONE);
+    rootView.findViewById(R.id.scrSearchActionClear).setVisibility(View.GONE);
+    rootView.findViewById(R.id.scrSearchActionReset).setEnabled(true);
   }
 
 }
