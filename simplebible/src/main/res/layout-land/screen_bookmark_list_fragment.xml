@@ -12,14 +12,14 @@
         android:id="@+id/scrBookmarkListInfoGV10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         app:layout_constraintGuide_percent="0.1" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/scrBookmarkListInfoGV40"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         app:layout_constraintGuide_percent="0.4" />
 
     <ImageView
@@ -28,12 +28,10 @@
         android:layout_height="0dp"
         android:contentDescription="@string/scrBookmarkListInfoHelpImage"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/scrBookmarkListInfoGV40"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scrBookmarkListInfoGV10"
-        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintEnd_toStartOf="@id/scrBookmarkListInfoGV40"
+        app:layout_constraintStart_toEndOf="@id/scrBookmarkListInfoGV10"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_hero_bookmark" />
 
     <ScrollView
@@ -44,8 +42,8 @@
         android:padding="@dimen/gapHuge"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scrBookmarkListInfoImage">
+        app:layout_constraintStart_toEndOf="@id/scrBookmarkListInfoImage"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/scrBookmarkListInfoHelpText"
