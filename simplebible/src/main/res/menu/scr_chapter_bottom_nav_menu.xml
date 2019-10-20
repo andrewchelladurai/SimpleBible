@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="AlwaysShowAction">
+    <group
+        android:id="@+id/scrChapterVerseSelectionActions"
+        android:visible="false">
+        <item
+            android:id="@+id/scrChapterActionSelectionBookmark"
+            android:icon="@drawable/ic_bookmark"
+            android:title="@string/scrChapterActionSelectionBookmark"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/scrChapterActionSelectionShare"
+            android:icon="@drawable/ic_share"
+            android:title="@string/scrChapterActionSelectionShare"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/scrChapterActionSelectionClear"
+            android:icon="@drawable/ic_reset"
+            android:title="@string/scrChapterActionSelectionClear"
+            app:showAsAction="always" />
+        <!--
+            <item
+                android:id="@+id/scrChapterActionChapters"
+                android:icon="@drawable/ic_list"
+                android:title="@string/scrChapterActionChapters"
+                app:showAsAction="always" />
+        -->
+    </group>
+</menu>

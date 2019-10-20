@@ -1,138 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.ScreenChapter">
-
-    <!-- This linear layout holds the bottom section -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/scrChapterContainerBottom"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        app:cardPreventCornerOverlap="true"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <!-- holds the title + the show chapter fab -->
-        <LinearLayout
-            android:id="@+id/scrChapterContainerTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/gapSmall">
-
-            <HorizontalScrollView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/gapBig"
-                android:layout_marginEnd="@dimen/gapBig"
-                android:layout_weight="1"
-                android:fillViewport="true">
-
-                <TextView
-                    android:id="@+id/scrChapterTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif" />
-
-            </HorizontalScrollView>
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/scrChapterActionShowChapters"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/gapSmall"
-                android:src="@drawable/ic_list"
-                app:fabSize="mini" />
-        </LinearLayout>
-
-        <!-- holds the chapter list + hide chapter fab -->
-        <LinearLayout
-            android:id="@+id/scrChapterContainerChapterSector"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/gapSmall">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/scrChapterChapterList"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_chapter_number" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/scrChapterActionHideChapters"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/gapSmall"
-                android:src="@drawable/ic_clear"
-                app:fabSize="mini" />
-        </LinearLayout>
-
-        <!-- holds the actions for selected verses -->
-        <LinearLayout
-            android:id="@+id/scrChapterContainerSelectionActions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?colorPrimary"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/scrChapterActionSelectionBookmark"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="?colorPrimary"
-                android:contentDescription="@string/scrChapterActionSelectionBookmark"
-                android:src="@drawable/ic_bookmark"
-                android:tint="?colorOnPrimary" />
-
-            <ImageButton
-                android:id="@+id/scrChapterActionSelectionShare"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/gapNormal"
-                android:layout_marginEnd="@dimen/gapNormal"
-                android:layout_weight="1"
-                android:backgroundTint="?colorPrimary"
-                android:contentDescription="@string/scrChapterActionSelectionShare"
-                android:src="@drawable/ic_share"
-                android:tint="?colorOnPrimary" />
-
-            <ImageButton
-                android:id="@+id/scrChapterActionSelectionClear"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="?colorPrimary"
-                android:contentDescription="@string/scrChapterActionSelectionClear"
-                android:src="@drawable/ic_reset"
-                android:tint="?colorOnPrimary" />
-
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/scrChapterVerseList"
         android:layout_width="0dp"
-        android:layout_margin="@dimen/gapNormal"
         android:layout_height="0dp"
+        android:layout_margin="@dimen/gapNormal"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/scrChapterContainerBottom"
+        app:layout_constraintBottom_toTopOf="@id/scrChapterBottomAppBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:spanCount="@integer/scrChapterVerseListColumnCount"
         tools:listitem="@layout/item_chapter_verse" />
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/scrChapterBottomAppBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:hideOnScroll="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1"
+        app:menu="@menu/scr_chapter_bottom_nav_menu"
+        app:navigationIcon="@drawable/ic_list"
+        tools:ignore="BottomAppBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

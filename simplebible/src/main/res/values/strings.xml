@@ -104,6 +104,7 @@
     <string name="scrChapterActionSelectionBookmark">Bookmark</string>
     <string name="scrChapterActionSelectionShare">Share</string>
     <string name="scrChapterActionSelectionClear">Clear</string>
+    <string name="scrChapterSelectionDialogTitle">Select A Chapter</string>
 
     <!-- String used in the ScreenBookmarkDetail -->
     <string name="scrBookmarkDetailActionDelete">Delete</string>
