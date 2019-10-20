@@ -27,14 +27,12 @@ import java.io.InputStreamReader;
 public class DbSetupJob
     extends JobIntentService {
 
-  private static final String TAG = "DbSetupJob";
-
   public static final int STARTED = 0;
   public static final int RUNNING = STARTED + 1;
   public static final int FAILED = RUNNING + 1;
   public static final int FINISHED = FAILED + 1;
   public static final String LINE_PROGRESS = "LINE_PROGRESS";
-
+  private static final String TAG = "DbSetupJob";
   private static final int JOB_ID = 131416;
   private static ResultReceiver RESULT_RECEIVER;
   private int lineProgressValue = 0;
@@ -75,14 +73,14 @@ public class DbSetupJob
     final Intent intent = new Intent(this, DbSetupJob.class);
     final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
     startForeground(JOB_ID, new NotificationCompat.Builder(this, getPackageName())
-                                .setContentTitle(getString(R.string.dbSetupNotificationTitle))
-                                .setContentText(getString(R.string.dbSetupNotificationMessage))
-                                .setContentIntent(pendingIntent)
-                                .setOngoing(true)
-                                .setSmallIcon(R.drawable.ic_logo)
-                                .setOnlyAlertOnce(true)
-                                .setPriority(NotificationCompat.PRIORITY_MAX)
-                                .build());
+        .setContentTitle(getString(R.string.dbSetupNotificationTitle))
+        .setContentText(getString(R.string.dbSetupNotificationMessage))
+        .setContentIntent(pendingIntent)
+        .setOngoing(true)
+        .setSmallIcon(R.drawable.ic_logo)
+        .setOnlyAlertOnce(true)
+        .setPriority(NotificationCompat.PRIORITY_MAX)
+        .build());
   }
 
   /**
