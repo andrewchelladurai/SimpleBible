@@ -5,9 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="@dimen/activityMargin"
-    android:layout_marginTop="@dimen/activityMargin"
-    android:layout_marginEnd="@dimen/activityMargin"
     android:animateLayoutChanges="true"
     android:orientation="vertical"
     tools:context=".ui.ScreenSearch">
@@ -18,10 +15,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/scrSearchContainerGV10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/scrSearchContainerGV40"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.4" />
+
         <SearchView
             android:id="@+id/scrSearchInput"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/gapNormal"
             android:iconifiedByDefault="false"
             android:imeOptions="actionSearch"
             android:inputType="textAutoCorrect|textAutoComplete"
@@ -31,23 +43,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/scrSearchContainerGV40"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.4" />
-
         <ImageView
             android:id="@+id/scrSearchContainerImage"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="@dimen/gapHuge"
             android:contentDescription="@string/scrSearchContainerHelpImage"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toStartOf="@id/scrSearchContainerGV40"
-            app:layout_constraintStart_toStartOf="@id/scrSearchInput"
+            app:layout_constraintStart_toEndOf="@id/scrSearchContainerGV10"
             app:layout_constraintTop_toBottomOf="@id/scrSearchInput"
             app:srcCompat="@drawable/ic_hero_search" />
 
@@ -55,8 +59,8 @@
             android:id="@+id/scrSearchContainerScrollView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:fillViewport="true"
             android:padding="@dimen/gapHuge"
+            android:fillViewport="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/scrSearchInput"
             app:layout_constraintStart_toEndOf="@id/scrSearchContainerGV40"
@@ -64,14 +68,12 @@
 
             <TextView
                 android:id="@+id/scrSearchHelpText"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="top|center_horizontal"
-                android:layout_margin="@dimen/gapHuge"
-                android:gravity="center_vertical"
+                android:gravity="center"
+                android:padding="@dimen/gapHuge"
                 android:text="@string/scrSearchHelpText" />
         </ScrollView>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!--  Block for displaying results with actions  -->
@@ -84,10 +86,6 @@
             android:id="@+id/scrSearchActionsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:itemBackground="?colorPrimary"
-            app:itemIconTint="?colorOnPrimary"
-            app:itemRippleColor="?colorOnPrimary"
-            app:itemTextColor="?colorOnPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +97,7 @@
             android:id="@+id/scrSearchList"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="@dimen/gapSmall"
+            android:layout_margin="@dimen/gapBig"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toTopOf="@id/scrSearchActionsContainer"
             app:layout_constraintEnd_toEndOf="parent"

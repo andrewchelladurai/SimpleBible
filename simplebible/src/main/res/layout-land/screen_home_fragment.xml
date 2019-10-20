@@ -5,9 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="@dimen/activityMargin"
-    android:layout_marginTop="@dimen/activityMargin"
-    android:layout_marginEnd="@dimen/activityMargin"
     tools:context=".ui.ScreenHome">
 
     <androidx.constraintlayout.widget.Guideline
@@ -20,6 +17,7 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:fillViewport="true"
         android:padding="@dimen/gapNormal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/scrHomeGuide"
@@ -30,8 +28,8 @@
             android:id="@+id/scrHomeVerse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="@dimen/gapNormal"
+            android:gravity="center"
+            android:padding="@dimen/gapHuge"
             android:textAlignment="center"
             tools:text="@string/appName" />
     </ScrollView>

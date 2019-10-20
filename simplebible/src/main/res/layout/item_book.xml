@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/gapSmall"
+    android:layout_marginStart="@dimen/gapHuge"
+    android:layout_marginEnd="@dimen/gapHuge"
     android:padding="@dimen/gapSmall">
 
     <com.google.android.material.chip.Chip

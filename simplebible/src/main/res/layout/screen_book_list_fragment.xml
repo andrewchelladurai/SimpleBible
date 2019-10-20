@@ -5,16 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="@dimen/activityMargin"
-    android:layout_marginTop="@dimen/activityMargin"
-    android:layout_marginEnd="@dimen/activityMargin"
     tools:context=".ui.ScreenBookList">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/scrBookListSearchHolder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/gapSmall"
+        android:layout_marginStart="@dimen/gapHuge"
+        android:layout_marginTop="@dimen/gapNormal"
+        android:layout_marginEnd="@dimen/gapHuge"
+        android:layout_marginBottom="@dimen/gapNormal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -36,7 +36,8 @@
         android:id="@+id/scrBookListList"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/gapSmall"
+        android:layout_marginTop="@dimen/gapBig"
+        android:layout_marginBottom="@dimen/gapBig"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

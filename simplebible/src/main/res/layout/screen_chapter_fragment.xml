@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/activityMargin"
     tools:context=".ui.ScreenChapter">
 
     <!-- This linear layout holds the bottom section -->
@@ -126,6 +125,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/scrChapterVerseList"
         android:layout_width="0dp"
+        android:layout_margin="@dimen/gapNormal"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/scrChapterContainerBottom"

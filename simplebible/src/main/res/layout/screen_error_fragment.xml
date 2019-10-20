@@ -4,14 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="@dimen/activityMargin"
-    android:layout_marginTop="@dimen/activityMargin"
-    android:layout_marginEnd="@dimen/activityMargin"
     tools:context=".ui.ScreenError">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="error" />
+        tools:text="error" />
 
 </FrameLayout>
