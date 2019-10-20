@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/scrSearchActionReset"
+        android:icon="@drawable/ic_reset"
+        android:title="@string/scrSearchActionReset" />
+    <item
+        android:id="@+id/scrSearchActionClear"
+        android:icon="@drawable/ic_clear"
+        android:title="@string/scrSearchActionClear" />
+    <item
+        android:id="@+id/scrSearchActionShare"
+        android:icon="@drawable/ic_share"
+        android:title="@string/scrSearchActionShare" />
+    <item
+        android:id="@+id/scrSearchActionBookmark"
+        android:icon="@drawable/ic_bookmark"
+        android:title="@string/scrSearchActionBookmark" />
+</menu>

@@ -23,6 +23,7 @@ import com.andrewchelladurai.simplebible.model.ScreenSearchModel;
 import com.andrewchelladurai.simplebible.ui.adapter.SearchAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSearchOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -63,17 +64,27 @@ public class ScreenSearch
     mainOps.hideKeyboard();
     searchResultContentTemplate = getString(R.string.itemSearchResultContentTemplate);
 
-    rootView.findViewById(R.id.scrSearchActionBookmark)
-            .setOnClickListener(v -> handleClickActionBookmark());
-
-    rootView.findViewById(R.id.scrSearchActionShare)
-            .setOnClickListener(v -> handleClickActionShare());
-
-    rootView.findViewById(R.id.scrSearchActionClear)
-            .setOnClickListener(v -> handleClickActionClear());
-
-    rootView.findViewById(R.id.scrSearchActionReset)
-            .setOnClickListener(v -> handleClickActionReset());
+    ((BottomNavigationView) rootView.findViewById(R.id.scrSearchActionsContainer))
+        .setOnNavigationItemSelectedListener(item -> {
+          switch (item.getItemId()) {
+            case R.id.scrSearchActionBookmark:
+              handleClickActionBookmark();
+              return true;
+            case R.id.scrSearchActionShare:
+              handleClickActionShare();
+              return true;
+            case R.id.scrSearchActionClear:
+              handleClickActionClear();
+              return true;
+            case R.id.scrSearchActionReset:
+              handleClickActionReset();
+              return true;
+            default:
+              Log.d(TAG, "onNavigationItemSelected: [" + item.getTitle() + "] "
+                         + "Unknown Item in screen search verse selection actions menu");
+              return false;
+          }
+        });
 
     final SearchView searchView = rootView.findViewById(R.id.scrSearchInput);
     searchView.setSubmitButtonEnabled(true);
@@ -103,11 +114,6 @@ public class ScreenSearch
       } else {
         showSearchResultsUi();
         showActionsContainer();
-        if (adapter.getSelectedItemCount() > 0) {
-          showVerseSelectionActions();
-        } else {
-          hideVerseSelectionActions();
-        }
       }
     }
     return rootView;
@@ -127,7 +133,7 @@ public class ScreenSearch
         || searchText.isEmpty()
         || searchText.length() < 4
         || searchText.length() > 50) {
-      mainOps.showMessage(getString(R.string.scrSearchInputErr));
+      mainOps.showMessage(getString(R.string.scrSearchErrInput));
       showSearchDefaultUi();
       return;
     }
@@ -143,7 +149,6 @@ public class ScreenSearch
       Log.d(TAG, "handleClickActionSearch: found [" + list.size() + "] verses");
       adapter.updateList(list);
       showSearchResultsUi();
-      hideVerseSelectionActions();
       showActionsContainer();
     });
   }
@@ -154,11 +159,19 @@ public class ScreenSearch
   }
 
   private void handleClickActionClear() {
+    if (adapter.getSelectedItemCount() < 1) {
+      mainOps.showMessage(getString(R.string.scrSearchErrEmptyListClear));
+      return;
+    }
     adapter.clearSelection();
-    hideVerseSelectionActions();
   }
 
   private void handleClickActionShare() {
+    if (adapter.getSelectedItemCount() < 1) {
+      mainOps.showMessage(getString(R.string.scrSearchErrEmptyListShare));
+      return;
+    }
+
     final StringBuilder shareText = new StringBuilder();
 
     // get the list of all verses that are selected and sort it
@@ -176,6 +189,11 @@ public class ScreenSearch
   }
 
   private void handleClickActionBookmark() {
+    if (adapter.getSelectedItemCount() < 1) {
+      mainOps.showMessage(getString(R.string.scrSearchErrEmptyListBookmark));
+      return;
+    }
+
     // get the list of all verses that are selected and sort it
     final ArrayList<Verse> list = new ArrayList<>(adapter.getSelectedVerses().keySet());
     //noinspection unchecked
@@ -211,11 +229,13 @@ public class ScreenSearch
     textView.setText(htmlText);
     rootView.findViewById(R.id.scrSearchDefaultUiLayout).setVisibility(View.VISIBLE);
     rootView.findViewById(R.id.scrSearchResultsUiLayout).setVisibility(View.GONE);
+    mainOps.showNavigationView();
   }
 
   private void showSearchResultsUi() {
     rootView.findViewById(R.id.scrSearchDefaultUiLayout).setVisibility(View.GONE);
     rootView.findViewById(R.id.scrSearchResultsUiLayout).setVisibility(View.VISIBLE);
+    mainOps.hideNavigationView();
   }
 
   @Override
@@ -234,29 +254,6 @@ public class ScreenSearch
                         verse.getText()),
           HtmlCompat.FROM_HTML_MODE_LEGACY));
     });
-  }
-
-  @Override
-  public void toggleVerseSelectionActionsState() {
-    if (adapter.getSelectedItemCount() > 0) {
-      showVerseSelectionActions();
-    } else {
-      hideVerseSelectionActions();
-    }
-  }
-
-  private void showVerseSelectionActions() {
-    rootView.findViewById(R.id.scrSearchActionBookmark).setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scrSearchActionShare).setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scrSearchActionClear).setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scrSearchActionReset).setEnabled(true);
-  }
-
-  private void hideVerseSelectionActions() {
-    rootView.findViewById(R.id.scrSearchActionBookmark).setVisibility(View.GONE);
-    rootView.findViewById(R.id.scrSearchActionShare).setVisibility(View.GONE);
-    rootView.findViewById(R.id.scrSearchActionClear).setVisibility(View.GONE);
-    rootView.findViewById(R.id.scrSearchActionReset).setEnabled(true);
   }
 
 }

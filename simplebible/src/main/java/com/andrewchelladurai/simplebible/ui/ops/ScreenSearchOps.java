@@ -10,6 +10,4 @@ public interface ScreenSearchOps {
 
   void updateSearchResultView(@NonNull Verse verse, @NonNull TextView textView);
 
-  void toggleVerseSelectionActionsState();
-
 }

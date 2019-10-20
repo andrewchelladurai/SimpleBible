@@ -9,7 +9,7 @@
     android:layout_marginTop="@dimen/activityMargin"
     android:layout_marginEnd="@dimen/activityMargin"
     android:animateLayoutChanges="true"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     tools:context=".ui.ScreenSearch">
 
     <!--  Block for search input with tips  -->
@@ -80,67 +80,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.card.MaterialCardView
+        <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/scrSearchActionsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true"
+            app:itemBackground="?colorPrimary"
+            app:itemIconTint="?colorOnPrimary"
+            app:itemRippleColor="?colorOnPrimary"
+            app:itemTextColor="?colorOnPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:animateLayoutChanges="true"
-                android:background="?colorPrimary"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/scrSearchActionBookmark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="?colorPrimary"
-                    android:contentDescription="@string/scrSearchActionBookmark"
-                    android:src="@drawable/ic_bookmark"
-                    android:tint="?colorOnPrimary" />
-
-                <ImageButton
-                    android:id="@+id/scrSearchActionShare"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="?colorPrimary"
-                    android:contentDescription="@string/scrSearchActionShare"
-                    android:src="@drawable/ic_share"
-                    android:tint="?colorOnPrimary" />
-
-                <ImageButton
-                    android:id="@+id/scrSearchActionClear"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="?colorPrimary"
-                    android:contentDescription="@string/scrSearchActionClear"
-                    android:src="@drawable/ic_clear"
-                    android:tint="?colorOnPrimary" />
-
-                <ImageButton
-                    android:id="@+id/scrSearchActionReset"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="?colorPrimary"
-                    android:contentDescription="@string/scrSearchActionReset"
-                    android:src="@drawable/ic_reset"
-                    android:tint="?colorOnPrimary" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+            app:layout_constraintVertical_bias="1"
+            app:menu="@menu/scr_search_bottom_nav_menu" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/scrSearchList"

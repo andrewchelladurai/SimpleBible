@@ -70,7 +70,10 @@
     <string name="scrSearchActionClear">Clear</string>
     <string name="scrSearchActionReset">Reset</string>
     <string name="scrSearchInputHint">Search text</string>
-    <string name="scrSearchInputErr">Invalid input, see tips.</string>
+    <string name="scrSearchErrEmptyListClear">Clear : No verses selected</string>
+    <string name="scrSearchErrEmptyListBookmark">Bookmark : No Verses Selected</string>
+    <string name="scrSearchErrEmptyListShare">Share : No verse selected</string>
+    <string name="scrSearchErrInput">Invalid input, see tips.</string>
     <string name="scrSearchContainerHelpImage">Search Verse Tips</string>
     <string name="scrSearchEmptyResults">No verse found</string>
     <string name="scrSearchHelpText"><![CDATA[
@@ -95,9 +98,9 @@
     <string name="scrChapterNoArguments">No arguments passed from calling activity</string>
     <string name="scrChapterErrNoBook">No / Null Book passed, using default</string>
     <string name="scrChapterErrChapterInvalid">Incorrect Chapter passed, using default</string>
+    <string name="scrChapterErrEmptyVerseList">No Verses found for Chapter %d of Book %s</string>
     <string name="scrChapterActionChapters">Show Chapters</string>
     <string name="scrChapterTitleTemplate"><![CDATA[<b>%s : Chapter %d</b><br/>%s]]></string>
-    <string name="scrChapterErrEmptyVerseList">No Verses found for Chapter %d of Book %s</string>
     <string name="scrChapterActionSelectionBookmark">Bookmark</string>
     <string name="scrChapterActionSelectionShare">Share</string>
     <string name="scrChapterActionSelectionClear">Clear</string>
