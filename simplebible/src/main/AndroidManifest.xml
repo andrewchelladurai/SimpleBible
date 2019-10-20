@@ -25,7 +25,7 @@
         <activity
             android:name=".ui.ScreenSimpleBible"
             android:label="@string/appName"
-            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden">
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
