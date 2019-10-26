@@ -104,7 +104,6 @@ public class ScreenChapter
     }
 
     final BottomAppBar bottomAppBar = rootView.findViewById(R.id.scrChapterBottomAppBar);
-    bottomAppBar.setNavigationOnClickListener(v -> showChapterSelector());
     bottomAppBar.setOnMenuItemClickListener(item -> {
       switch (item.getItemId()) {
         case R.id.scrChapterActionSelectionBookmark:
@@ -115,6 +114,9 @@ public class ScreenChapter
           return true;
         case R.id.scrChapterActionSelectionClear:
           handleActionClickClear();
+          return true;
+        case R.id.scrChapterActionChapters:
+          showChapterSelector();
           return true;
         default:
           Log.e(TAG, "onCreateView: Unknown Menu Item in BottomAppBar ["

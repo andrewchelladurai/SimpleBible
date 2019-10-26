@@ -21,12 +21,10 @@
             android:icon="@drawable/ic_reset"
             android:title="@string/scrChapterActionSelectionClear"
             app:showAsAction="always" />
-        <!--
-            <item
-                android:id="@+id/scrChapterActionChapters"
-                android:icon="@drawable/ic_list"
-                android:title="@string/scrChapterActionChapters"
-                app:showAsAction="always" />
-        -->
     </group>
+    <item
+        android:id="@+id/scrChapterActionChapters"
+        android:icon="@drawable/ic_list"
+        android:title="@string/scrChapterActionChapters"
+        app:showAsAction="always" />
 </menu>

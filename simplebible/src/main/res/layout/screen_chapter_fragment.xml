@@ -31,7 +31,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1"
         app:menu="@menu/scr_chapter_bottom_nav_menu"
-        app:navigationIcon="@drawable/ic_list"
         tools:ignore="BottomAppBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
