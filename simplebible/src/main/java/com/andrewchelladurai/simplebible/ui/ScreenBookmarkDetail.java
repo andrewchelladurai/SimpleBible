@@ -33,7 +33,7 @@ public class ScreenBookmarkDetail
     extends Fragment
     implements ScreenBookmarkDetailOps {
 
-  public static final String ARG_VERSE_LIST = "ARG_VERSE_LIST";
+  static final String ARG_VERSE_LIST = "ARG_VERSE_LIST";
   private static final String TAG = "ScreenBookmarkDetail";
   private ScreenSimpleBibleOps mainOps;
   private View rootView;
@@ -240,6 +240,7 @@ public class ScreenBookmarkDetail
   @Override
   public void onDetach() {
     super.onDetach();
+    mainOps.showNavigationView();
     mainOps = null;
   }
 
