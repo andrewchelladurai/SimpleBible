@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -179,8 +180,12 @@ public class ScreenChapter
     final String htmlText = getString(R.string.scrChapterTitleTemplate,
                                       book.getName(), model.getChapter(),
                                       book.getDescription());
-    adapter.setBookDetails(HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_COMPACT)
-                                     .toString());
+    final String titleText = HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_COMPACT)
+                                       .toString();
+    adapter.setBookDetails(titleText);
+
+    final TextView title = rootView.findViewById(R.id.scrChapterTitle);
+    title.setText(titleText);
   }
 
   private void showChapterSelector() {
@@ -194,6 +199,8 @@ public class ScreenChapter
     final BottomAppBar bottomAppBar = rootView.findViewById(R.id.scrChapterBottomAppBar);
     final Menu menu = bottomAppBar.getMenu();
     menu.setGroupVisible(R.id.scrChapterVerseSelectionActions, isVerseSelected);
+    rootView.findViewById(R.id.scrChapterTitleHolder)
+            .setVisibility((isVerseSelected) ? View.GONE : View.VISIBLE);
   }
 
   private void handleActionClickClear() {

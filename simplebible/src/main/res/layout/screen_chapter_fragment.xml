@@ -24,6 +24,7 @@
         android:id="@+id/scrChapterBottomAppBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
         app:hideOnScroll="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,6 +32,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1"
         app:menu="@menu/scr_chapter_bottom_nav_menu"
-        tools:ignore="BottomAppBar" />
+        tools:ignore="BottomAppBar">
+
+        <HorizontalScrollView
+            android:id="@+id/scrChapterTitleHolder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true">
+
+            <TextView
+                android:id="@+id/scrChapterTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </HorizontalScrollView>
+    </com.google.android.material.bottomappbar.BottomAppBar>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
