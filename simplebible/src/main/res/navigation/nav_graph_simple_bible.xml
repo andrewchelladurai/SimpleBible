@@ -45,7 +45,7 @@
         android:id="@+id/NavIdScreenBookmarkDetail"
         android:name="com.andrewchelladurai.simplebible.ui.ScreenBookmarkDetail"
         android:label="fragment_screen_bookmark"
-        tools:layout="@layout/screen_bookmark_fragment">
+        tools:layout="@layout/screen_bookmark_detail_fragment">
         <argument
             android:name="ARG_VERSE_LIST"
             app:argType="com.andrewchelladurai.simplebible.data.entity.Verse[]" />
