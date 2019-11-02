@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:animateLayoutChanges="true"
+    tools:ignore="AlwaysShowAction">
+    <item
+        android:id="@+id/scrBookmarkActionToggleView"
+        android:icon="@drawable/ic_toggle"
+        android:orderInCategory="1"
+        android:title="@string/scrBookmarkDetailActionToggleView"
+        app:showAsAction="always" />
+    <group android:id="@+id/scrBookmarkDetailActionGroupEdit">
+        <item
+            android:id="@+id/scrBookmarkActionDelete"
+            android:icon="@drawable/ic_delete"
+            android:title="@string/scrBookmarkDetailActionDelete"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/scrBookmarkActionEdit"
+            android:icon="@drawable/ic_edit"
+            android:title="@string/scrBookmarkDetailActionEdit"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/scrBookmarkActionShare"
+            android:icon="@drawable/ic_share"
+            android:title="@string/scrBookmarkDetailActionShare"
+            app:showAsAction="always" />
+    </group>
+    <group android:id="@+id/scrBookmarkDetailActionGroupSave">
+        <item
+            android:id="@+id/scrBookmarkActionSave"
+            android:icon="@drawable/ic_save"
+            android:title="@string/scrBookmarkDetailActionSave"
+            app:showAsAction="always" />
+    </group>
+</menu>

@@ -107,6 +107,15 @@
     <string name="scrChapterSelectionDialogTitle">Select A Chapter</string>
 
     <!-- String used in the ScreenBookmarkDetail -->
+    <string name="scrBookmarkDetailTitleBookmarkSaved">Saved Bookmark</string>
+    <string name="scrBookmarkDetailTitleBookmarkUnsaved">Bookmark Not Saved</string>
+    <plurals name="scrBookmarkDetailTitlePluralBookmarkCount">
+        <item quantity="one">Contains %d Verse</item>
+        <item quantity="other">Contains %d Verses</item>
+    </plurals>
+
+    <string name="scrBookmarkDetailTitleTemplate"><![CDATA[<b>%s</b><br/>%s]]></string>
+    <string name="scrBookmarkDetailActionToggleView">Toggle</string>
     <string name="scrBookmarkDetailActionDelete">Delete</string>
     <string name="scrBookmarkDetailActionSave">Save</string>
     <string name="scrBookmarkDetailActionEdit">Edit</string>

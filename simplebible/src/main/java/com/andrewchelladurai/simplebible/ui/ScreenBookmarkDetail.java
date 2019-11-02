@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import com.andrewchelladurai.simplebible.ui.adapter.BookmarkDetailAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenBookmarkDetailOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
 import com.andrewchelladurai.simplebible.utils.BookmarkUtils;
+import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -40,6 +42,7 @@ public class ScreenBookmarkDetail
   private BookmarkDetailModel model;
   private BookmarkDetailAdapter adapter;
   private String itemBookmarkVerseContentTemplate;
+  private boolean showVerseList = true;
 
   public ScreenBookmarkDetail() {
     // TODO: 17/8/19 Fix issues on config change, saw a NPE when editing a bookmark earlier
@@ -97,14 +100,36 @@ public class ScreenBookmarkDetail
 
     }
 
-    rootView.findViewById(R.id.scrBookmarkActionDelete)
-            .setOnClickListener(view -> handleClickActionDelete());
-    rootView.findViewById(R.id.scrBookmarkActionEdit)
-            .setOnClickListener(view -> handleClickActionEdit());
-    rootView.findViewById(R.id.scrBookmarkActionShare)
-            .setOnClickListener(view -> handleClickActionShare());
-    rootView.findViewById(R.id.scrBookmarkActionSave)
-            .setOnClickListener(view -> handleClickActionSave());
+    final BottomAppBar bAppBar = rootView.findViewById(R.id.scrBookmarkDetailBottomAppBar);
+    bAppBar.setOnMenuItemClickListener(item -> {
+      switch (item.getItemId()) {
+        case R.id.scrBookmarkActionToggleView:
+          showVerseList = !showVerseList;
+          rootView.findViewById(R.id.scrBookmarkDetailVerseList)
+                  .setVisibility((showVerseList ? View.VISIBLE : View.GONE));
+          rootView.findViewById(R.id.scrBookmarkDetailNote)
+                  .setVisibility((showVerseList ? View.GONE : View.VISIBLE));
+          return true;
+        case R.id.scrBookmarkActionDelete:
+          handleClickActionDelete();
+          return true;
+        case R.id.scrBookmarkActionEdit:
+          handleClickActionEdit();
+          return true;
+        case R.id.scrBookmarkActionShare:
+          handleClickActionShare();
+          return true;
+        case R.id.scrBookmarkActionSave:
+          handleClickActionSave();
+          return true;
+        default:
+          Log.e(TAG, "onMenuItemClick: Unknown Menu ["
+                     + item.getItemId() + " - " + item.getTitle() + "]");
+          return false;
+
+      }
+    });
+
     itemBookmarkVerseContentTemplate = getString(R.string.itemBookmarkVerseContentTemplate);
 
     updateContent();
@@ -146,7 +171,7 @@ public class ScreenBookmarkDetail
     final StringBuilder verseText = new StringBuilder();
     final String noteText = getNoteText();
 
-    final RecyclerView recyclerView = rootView.findViewById(R.id.scrBookmarkListList);
+    final RecyclerView recyclerView = rootView.findViewById(R.id.scrBookmarkDetailVerseList);
     final int childCount = recyclerView.getChildCount();
 
     for (int i = 0; i < childCount; i++) {
@@ -189,7 +214,7 @@ public class ScreenBookmarkDetail
 
     adapter.updateList(list);
 
-    final RecyclerView recyclerView = rootView.findViewById(R.id.scrBookmarkListList);
+    final RecyclerView recyclerView = rootView.findViewById(R.id.scrBookmarkDetailVerseList);
     recyclerView.setAdapter(adapter);
 
     model.getBookmark(reference).observe(this, bookmarks -> {
@@ -203,37 +228,52 @@ public class ScreenBookmarkDetail
       } else {
         setNoteText("");
       }
-    });
 
+      final int recordCount = list.size();
+      final String titleTemplate = getString(R.string.scrBookmarkDetailTitleTemplate);
+
+      final String headerTxt = getString(bookmarkExists
+                                         ? R.string.scrBookmarkDetailTitleBookmarkSaved
+                                         : R.string.scrBookmarkDetailTitleBookmarkUnsaved);
+
+      final String footerTemplate = getResources().getQuantityString(
+          R.plurals.scrBookmarkDetailTitlePluralBookmarkCount, recordCount);
+      final String footerTxt = String.format(footerTemplate, recordCount);
+
+      final String titleTxt = String.format(titleTemplate, headerTxt, footerTxt);
+      ((TextView) rootView.findViewById(R.id.scrBookmarkDetailTitle))
+          .setText(HtmlCompat.fromHtml(titleTxt, HtmlCompat.FROM_HTML_MODE_COMPACT));
+    });
   }
 
   private void toggleNoteFieldState(final boolean bookmarkExists) {
     Log.d(TAG, "toggleNoteFieldState: bookmarkExists = [" + bookmarkExists + "]");
-    rootView.findViewById(R.id.scrBookmarkNote).setEnabled(!bookmarkExists);
+    rootView.findViewById(R.id.scrBookmarkDetailNote).setEnabled(!bookmarkExists);
   }
 
   private void toggleAction(final boolean bookmarkExists) {
     Log.d(TAG, "toggleAction: bookmarkExists = [" + bookmarkExists + "]");
-    rootView.findViewById(R.id.scrBookmarkActionDelete)
-            .setVisibility((bookmarkExists) ? View.VISIBLE : View.GONE);
-    rootView.findViewById(R.id.scrBookmarkActionEdit)
-            .setVisibility((bookmarkExists) ? View.VISIBLE : View.GONE);
-    rootView.findViewById(R.id.scrBookmarkActionShare)
-            .setVisibility((bookmarkExists) ? View.VISIBLE : View.GONE);
-
-    rootView.findViewById(R.id.scrBookmarkActionSave)
-            .setVisibility((!bookmarkExists) ? View.VISIBLE : View.GONE);
+    final BottomAppBar bAppBar = rootView.findViewById(R.id.scrBookmarkDetailBottomAppBar);
+    final Menu menu = bAppBar.getMenu();
+    if (bookmarkExists) {
+      menu.setGroupVisible(R.id.scrBookmarkDetailActionGroupEdit, true);
+      menu.setGroupVisible(R.id.scrBookmarkDetailActionGroupSave, false);
+    } else {
+      menu.setGroupVisible(R.id.scrBookmarkDetailActionGroupEdit, false);
+      menu.setGroupVisible(R.id.scrBookmarkDetailActionGroupSave, true);
+    }
   }
 
+  @NonNull
   private String getNoteText() {
-    TextInputEditText editText = rootView.findViewById(R.id.scrBookmarkNote);
+    TextInputEditText editText = rootView.findViewById(R.id.scrBookmarkDetailNote);
     final Editable text = editText.getText();
 
     return (text == null) ? "" : text.toString();
   }
 
   private void setNoteText(@NonNull final String note) {
-    TextInputEditText editText = rootView.findViewById(R.id.scrBookmarkNote);
+    TextInputEditText editText = rootView.findViewById(R.id.scrBookmarkDetailNote);
     editText.setText(note);
   }
 

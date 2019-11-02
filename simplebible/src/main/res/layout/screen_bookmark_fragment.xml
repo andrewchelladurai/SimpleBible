@@ -4,105 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/activityMargin"
     android:animateLayoutChanges="true"
     tools:context=".ui.ScreenBookmarkDetail">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/scrBookmarkGH45"
-        android:layout_width="wrap_content"
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/scrBookmarkDetailBottomAppBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.45" />
+        android:layout_gravity="bottom"
+        android:animateLayoutChanges="true"
+        app:fabAlignmentMode="end"
+        app:fabAnimationMode="slide"
+        app:hideOnScroll="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/scr_bookmark_detail_bottom_nav_menu"
+        tools:ignore="BottomAppBar">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/scrBookmarkGH55"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.55" />
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:fillViewport="true">
+
+            <TextView
+                android:id="@+id/scrBookmarkDetailTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </HorizontalScrollView>
+    </com.google.android.material.bottomappbar.BottomAppBar>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/scrBookmarkListList"
+        android:id="@+id/scrBookmarkDetailVerseList"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/gapNormal"
+        android:padding="@dimen/gapHuge"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/scrBookmarkGH45"
+        app:layout_constraintBottom_toTopOf="@id/scrBookmarkDetailBottomAppBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:spanCount="@integer/scrBookmarkListColumnCount"
         tools:listitem="@layout/item_bookmark_verse" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/scrBookmarkActionSave"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/gapSmall"
-        android:layout_marginEnd="@dimen/gapSmall"
-        android:text="@string/scrBookmarkDetailActionSave"
-        app:layout_constraintBottom_toTopOf="@id/scrBookmarkGH55"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scrBookmarkGH45" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/scrBookmarkActionDelete"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/gapSmall"
-        android:layout_marginEnd="@dimen/gapSmall"
-        android:text="@string/scrBookmarkDetailActionDelete"
-        app:layout_constraintBottom_toTopOf="@id/scrBookmarkGH55"
-        app:layout_constraintEnd_toStartOf="@id/scrBookmarkActionEdit"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scrBookmarkGH45" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/scrBookmarkActionEdit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/gapSmall"
-        android:layout_marginEnd="@dimen/gapSmall"
-        android:text="@string/scrBookmarkDetailActionEdit"
-        app:layout_constraintBottom_toTopOf="@id/scrBookmarkGH55"
-        app:layout_constraintEnd_toStartOf="@+id/scrBookmarkActionShare"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@id/scrBookmarkActionDelete"
-        app:layout_constraintTop_toBottomOf="@id/scrBookmarkGH45" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/scrBookmarkActionShare"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/gapSmall"
-        android:layout_marginEnd="@dimen/gapSmall"
-        android:text="@string/scrBookmarkDetailActionShare"
-        app:layout_constraintBottom_toTopOf="@id/scrBookmarkGH55"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@id/scrBookmarkActionEdit"
-        app:layout_constraintTop_toBottomOf="@id/scrBookmarkGH45" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/scrBookmarkContainerNote"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/scrBookmarkDetailNote"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/gapNormal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="start"
+        android:hint="@string/scrBookmarkDetailNote"
+        android:padding="@dimen/gapHuge"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/scrBookmarkDetailBottomAppBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scrBookmarkGH55">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/scrBookmarkNote"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="start"
-            android:hint="@string/scrBookmarkDetailNote" />
-    </com.google.android.material.textfield.TextInputLayout>
-
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
