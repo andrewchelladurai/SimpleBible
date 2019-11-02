@@ -101,21 +101,21 @@ public class BookListAdapter
     public void updateView(final Object object, int position) {
       book = (Book) object;
 
-      ((TextView) rootView.findViewById(R.id.itemBookName))
+      ((TextView) rootView.findViewById(R.id.itm_book_name))
           .setText(book.getName());
-      rootView.findViewById(R.id.itemBookName).setOnClickListener(v -> {
+      rootView.findViewById(R.id.itm_book_name).setOnClickListener(v -> {
         viewOps.handleBookClick(book);
       });
 
-      ((TextView) rootView.findViewById(R.id.itemBookDesc))
+      ((TextView) rootView.findViewById(R.id.itm_book_desc))
           .setText(book.getDescription());
-      rootView.findViewById(R.id.itemBookDesc).setOnClickListener(v -> {
+      rootView.findViewById(R.id.itm_book_desc).setOnClickListener(v -> {
         viewOps.handleBookClick(book);
       });
 
-      ((Chip) rootView.findViewById(R.id.itemBookDetails))
+      ((Chip) rootView.findViewById(R.id.itm_book_details))
           .setText(viewOps.getFormattedBookDetails(book.getChapters()));
-      rootView.findViewById(R.id.itemBookDetails).setOnClickListener(v -> {
+      rootView.findViewById(R.id.itm_book_details).setOnClickListener(v -> {
         viewOps.handleBookClick(book);
       });
 

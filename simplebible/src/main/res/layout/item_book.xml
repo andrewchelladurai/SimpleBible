@@ -9,30 +9,30 @@
     android:padding="@dimen/gapSmall">
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/itemBookDetails"
+        android:id="@+id/itm_book_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/gapSmall"
         android:clickable="false"
-        app:layout_constraintBottom_toBottomOf="@id/itemBookDescContainer"
+        app:layout_constraintBottom_toBottomOf="@id/itm_book_container_desc"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/itemBookNameContainer"
+        app:layout_constraintTop_toTopOf="@id/itm_book_container_name"
         tools:text="119 Chapters" />
 
     <HorizontalScrollView
-        android:id="@+id/itemBookNameContainer"
+        android:id="@+id/itm_book_container_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/gapSmall"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/itemBookDetails"
+        app:layout_constraintEnd_toStartOf="@id/itm_book_details"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0">
 
         <TextView
-            android:id="@+id/itemBookName"
+            android:id="@+id/itm_book_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
@@ -43,18 +43,18 @@
     </HorizontalScrollView>
 
     <HorizontalScrollView
-        android:id="@+id/itemBookDescContainer"
+        android:id="@+id/itm_book_container_desc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/itemBookNameContainer"
-        app:layout_constraintStart_toStartOf="@id/itemBookNameContainer"
-        app:layout_constraintTop_toBottomOf="@id/itemBookNameContainer"
+        app:layout_constraintEnd_toEndOf="@id/itm_book_container_name"
+        app:layout_constraintStart_toStartOf="@id/itm_book_container_name"
+        app:layout_constraintTop_toBottomOf="@id/itm_book_container_name"
         app:layout_constraintVertical_bias="0">
 
         <TextView
-            android:id="@+id/itemBookDesc"
+            android:id="@+id/itm_book_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
