@@ -13,17 +13,17 @@
         android:padding="@dimen/gapNormal">
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/itemBookmarkEntryVerseCount"
+            android:id="@+id/itm_bookmark_list_record_content_verse_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/itemBookmarkEntryVerse"
+            android:id="@+id/itm_bookmark_list_record_content_first_verse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/itemBookmarkEntryNote"
+            android:id="@+id/itm_bookmark_list_record_content_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/gapNormal" />

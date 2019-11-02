@@ -101,11 +101,13 @@ public class ScreenBookmarkListAdapter
       final Spanned htmlText = HtmlCompat.fromHtml(formattedText,
                                                    HtmlCompat.FROM_HTML_MODE_COMPACT);
 
-      final TextView noteField = rootView.findViewById(R.id.itemBookmarkEntryNote);
+      final TextView noteField = rootView.findViewById(R.id.itm_bookmark_list_record_content_note);
       noteField.setText(htmlText);
 
-      final TextView verseField = rootView.findViewById(R.id.itemBookmarkEntryVerse);
-      final Chip verseCountChip = rootView.findViewById(R.id.itemBookmarkEntryVerseCount);
+      final TextView verseField = rootView
+          .findViewById(R.id.itm_bookmark_list_record_content_first_verse);
+      final Chip verseCountChip = rootView
+          .findViewById(R.id.itm_bookmark_list_record_content_verse_count);
 
       ops.updateVerseList(verseCountChip, verseField, bookmark.getReference());
 
