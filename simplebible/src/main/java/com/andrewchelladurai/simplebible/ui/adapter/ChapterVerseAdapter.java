@@ -143,7 +143,7 @@ public class ChapterVerseAdapter
 
     ChapterVerseView(@NonNull final View view) {
       super(view);
-      textView = view.findViewById(R.id.itemChapterVerse);
+      textView = view.findViewById(R.id.itm_chapter_verse_content);
       textView.setOnClickListener(view1 -> {
         if (SELECTED_LIST.containsKey(verse)) {
           SELECTED_LIST.remove(verse);
