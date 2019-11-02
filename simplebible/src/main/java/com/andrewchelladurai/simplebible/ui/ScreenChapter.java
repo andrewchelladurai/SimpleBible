@@ -101,7 +101,7 @@ public class ScreenChapter
       updateVerseSelectionActionsVisibility();
     }
 
-    final BottomAppBar bottomAppBar = rootView.findViewById(R.id.scrChapterBottomAppBar);
+    final BottomAppBar bottomAppBar = rootView.findViewById(R.id.scr_chapter_bottom_app_bar);
     bottomAppBar.setOnMenuItemClickListener(item -> {
       switch (item.getItemId()) {
         case R.id.scrChapterActionSelectionBookmark:
@@ -170,7 +170,7 @@ public class ScreenChapter
         adapter.updateList(list);
       }
 
-      final RecyclerView recyclerView = rootView.findViewById(R.id.scrChapterVerseList);
+      final RecyclerView recyclerView = rootView.findViewById(R.id.scr_chapter_list);
       recyclerView.setAdapter(adapter);
     });
   }
@@ -184,7 +184,7 @@ public class ScreenChapter
                                        .toString();
     adapter.setBookDetails(titleText);
 
-    final TextView title = rootView.findViewById(R.id.scrChapterTitle);
+    final TextView title = rootView.findViewById(R.id.scr_chapter_title);
     title.setText(titleText);
   }
 
@@ -196,10 +196,10 @@ public class ScreenChapter
 
   private void updateVerseSelectionActionsVisibility() {
     final boolean isVerseSelected = adapter.getSelectedItemCount() > 0;
-    final BottomAppBar bottomAppBar = rootView.findViewById(R.id.scrChapterBottomAppBar);
+    final BottomAppBar bottomAppBar = rootView.findViewById(R.id.scr_chapter_bottom_app_bar);
     final Menu menu = bottomAppBar.getMenu();
     menu.setGroupVisible(R.id.scrChapterVerseSelectionActions, isVerseSelected);
-    rootView.findViewById(R.id.scrChapterTitleHolder)
+    rootView.findViewById(R.id.scr_chapter_container_title)
             .setVisibility((isVerseSelected) ? View.GONE : View.VISIBLE);
   }
 
