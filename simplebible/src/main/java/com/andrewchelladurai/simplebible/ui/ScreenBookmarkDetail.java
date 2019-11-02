@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.text.HtmlCompat;
@@ -57,6 +58,7 @@ public class ScreenBookmarkDetail
     mainOps = (ScreenSimpleBibleOps) context;
     model = ViewModelProviders.of(this).get(BookmarkDetailModel.class);
     adapter = new BookmarkDetailAdapter(this);
+    Toast.makeText(context, getString(R.string.scrBookmarkDetailHelp), Toast.LENGTH_LONG).show();
   }
 
   @Override
@@ -104,7 +106,7 @@ public class ScreenBookmarkDetail
           showVerseList = !showVerseList;
           rootView.findViewById(R.id.scrBookmarkDetailVerseList)
                   .setVisibility((showVerseList ? View.VISIBLE : View.GONE));
-          rootView.findViewById(R.id.scrBookmarkDetailNote)
+          rootView.findViewById(R.id.scrBookmarkDetailContainerNote)
                   .setVisibility((showVerseList ? View.GONE : View.VISIBLE));
           return true;
         case R.id.scrBookmarkActionDelete:

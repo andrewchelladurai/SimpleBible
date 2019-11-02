@@ -39,7 +39,7 @@
         android:id="@+id/scrBookmarkDetailVerseList"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:padding="@dimen/gapHuge"
+        android:layout_margin="@dimen/gapHuge"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/scrBookmarkDetailBottomAppBar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,16 +48,23 @@
         app:spanCount="@integer/scrBookmarkListColumnCount"
         tools:listitem="@layout/item_bookmark_verse" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/scrBookmarkDetailNote"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/scrBookmarkDetailContainerNote"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:gravity="start"
-        android:hint="@string/scrBookmarkDetailNote"
-        android:padding="@dimen/gapHuge"
+        android:layout_margin="@dimen/gapHuge"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/scrBookmarkDetailBottomAppBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/scrBookmarkDetailNote"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="start"
+            android:hint="@string/scrBookmarkDetailNote" />
+    </com.google.android.material.textfield.TextInputLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

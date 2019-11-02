@@ -107,6 +107,7 @@
     <string name="scrChapterSelectionDialogTitle">Select A Chapter</string>
 
     <!-- String used in the ScreenBookmarkDetail -->
+    <string name="scrBookmarkDetailHelp">Toggle view using first button</string>
     <string name="scrBookmarkDetailTitleBookmarkSaved">Saved Bookmark</string>
     <string name="scrBookmarkDetailTitleBookmarkUnsaved">Bookmark Not Saved</string>
     <plurals name="scrBookmarkDetailTitlePluralBookmarkCount">
