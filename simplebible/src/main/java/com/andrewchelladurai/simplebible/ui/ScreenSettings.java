@@ -24,12 +24,13 @@ public class ScreenSettings
       throw new RuntimeException(context.toString() + " must implement ScreenSimpleBibleOps");
     }
     mainOps = (ScreenSimpleBibleOps) context;
-    mainOps.hideKeyboard();
   }
 
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                            Bundle savedState) {
+    mainOps.hideKeyboard();
+    mainOps.showNavigationView();
     return inflater.inflate(R.layout.screen_settings_fragment, container, false);
   }
 

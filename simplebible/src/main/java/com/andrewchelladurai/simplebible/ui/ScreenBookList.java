@@ -44,7 +44,6 @@ public class ScreenBookList
       throw new RuntimeException(context.toString() + " must implement InteractionListener");
     }
     mainOps = (ScreenSimpleBibleOps) context;
-    mainOps.hideKeyboard();
     model = ViewModelProviders.of(this).get(ScreenBookListModel.class);
     adapter = new BookListAdapter(this);
   }
@@ -53,7 +52,6 @@ public class ScreenBookList
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                            Bundle savedState) {
     rootView = inflater.inflate(R.layout.screen_book_list_fragment, container, false);
-    mainOps.showNavigationView();
 
     final SearchView searchView = rootView.findViewById(R.id.scrBookListSearch);
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -102,6 +100,9 @@ public class ScreenBookList
         adapter.updateList(list);
       });
     }
+
+    mainOps.hideKeyboard();
+    mainOps.showNavigationView();
 
     return rootView;
   }

@@ -48,10 +48,9 @@ public class ScreenBookmarkList
     if (!(context instanceof ScreenSimpleBibleOps)) {
       throw new RuntimeException(context.toString() + " must implement InteractionListener");
     }
-    mainOps = (ScreenSimpleBibleOps) context;
-    mainOps.hideKeyboard();
-
     final String templateEmptyNoteContent = getString(R.string.scrBookmarkListTemplateEmptyNote);
+
+    mainOps = (ScreenSimpleBibleOps) context;
 
     adapter = new ScreenBookmarkListAdapter(this, templateEmptyNoteContent);
     bookmarkListModel = ViewModelProviders.of(this).get(ScreenBookmarkListModel.class);
@@ -74,6 +73,9 @@ public class ScreenBookmarkList
         showList();
       }
     });
+
+    mainOps.hideKeyboard();
+    mainOps.showNavigationView();
 
     return rootView;
   }

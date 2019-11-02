@@ -46,7 +46,6 @@ public class ScreenHome
       throw new RuntimeException(context.toString() + " must implement ScreenSimpleBibleOps");
     }
     mainOps = (ScreenSimpleBibleOps) context;
-    mainOps.hideKeyboard();
     model = ViewModelProviders.of(this).get(ScreenHomeModel.class);
   }
 
@@ -86,6 +85,9 @@ public class ScreenHome
       Log.d(TAG, "onCreateView: first run since [savedState == null]");
       startDbSetupService();
     }
+
+    mainOps.hideKeyboard();
+    mainOps.showNavigationView();
 
     return rootView;
   }

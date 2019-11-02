@@ -31,7 +31,6 @@ public class ScreenError
     if (!(context instanceof ScreenSimpleBibleOps)) {
       throw new RuntimeException(context.toString() + " must implement ScreenSimpleBibleOps");
     }
-    mainOps.hideKeyboard();
     mainOps = (ScreenSimpleBibleOps) context;
   }
 
@@ -39,6 +38,10 @@ public class ScreenError
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                            Bundle savedState) {
     rootView = inflater.inflate(R.layout.screen_error_fragment, container, false);
+
+    mainOps.hideKeyboard();
+    mainOps.hideNavigationView();
+
     return rootView;
   }
 

@@ -55,9 +55,6 @@ public class ScreenBookmarkDetail
       throw new RuntimeException(context.toString() + " must implement ScreenSimpleBibleOps");
     }
     mainOps = (ScreenSimpleBibleOps) context;
-    mainOps.hideKeyboard();
-    mainOps.hideNavigationView();
-
     model = ViewModelProviders.of(this).get(BookmarkDetailModel.class);
     adapter = new BookmarkDetailAdapter(this);
   }
@@ -133,6 +130,9 @@ public class ScreenBookmarkDetail
     itemBookmarkVerseContentTemplate = getString(R.string.itemBookmarkVerseContentTemplate);
 
     updateContent();
+
+    mainOps.hideKeyboard();
+    mainOps.hideNavigationView();
 
     return rootView;
   }
@@ -280,7 +280,6 @@ public class ScreenBookmarkDetail
   @Override
   public void onDetach() {
     super.onDetach();
-    mainOps.showNavigationView();
     mainOps = null;
   }
 

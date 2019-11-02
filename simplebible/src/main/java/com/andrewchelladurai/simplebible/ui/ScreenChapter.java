@@ -57,7 +57,6 @@ public class ScreenChapter
     }
 
     mainOps = (ScreenSimpleBibleOps) context;
-    mainOps.hideKeyboard();
     model = ViewModelProviders.of(this).get(ScreenChapterModel.class);
     adapter = new ChapterVerseAdapter(this, getString(R.string.itemChapterVerseContentTemplate));
   }
@@ -66,8 +65,6 @@ public class ScreenChapter
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                            Bundle savedState) {
     rootView = inflater.inflate(R.layout.screen_chapter_fragment, container, false);
-    mainOps.hideNavigationView();
-    mainOps.hideKeyboard();
 
     if (savedState == null) {
 
@@ -128,6 +125,9 @@ public class ScreenChapter
 
     updateScreenTitle();
     updateVerseList();
+
+    mainOps.hideNavigationView();
+    mainOps.hideKeyboard();
 
     return rootView;
   }
