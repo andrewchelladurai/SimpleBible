@@ -99,14 +99,14 @@ public class ScreenBookmarkDetail
 
     }
 
-    final BottomAppBar bAppBar = rootView.findViewById(R.id.scrBookmarkDetailBottomAppBar);
+    final BottomAppBar bAppBar = rootView.findViewById(R.id.scr_bmark_detail_app_bar);
     bAppBar.setOnMenuItemClickListener(item -> {
       switch (item.getItemId()) {
         case R.id.scrBookmarkActionToggleView:
           showVerseList = !showVerseList;
-          rootView.findViewById(R.id.scrBookmarkDetailVerseList)
+          rootView.findViewById(R.id.scr_bmark_detail_list)
                   .setVisibility((showVerseList ? View.VISIBLE : View.GONE));
-          rootView.findViewById(R.id.scrBookmarkDetailContainerNote)
+          rootView.findViewById(R.id.scr_bmark_detail_container_note)
                   .setVisibility((showVerseList ? View.GONE : View.VISIBLE));
           return true;
         case R.id.scrBookmarkActionDelete:
@@ -173,7 +173,7 @@ public class ScreenBookmarkDetail
     final StringBuilder verseText = new StringBuilder();
     final String noteText = getNoteText();
 
-    final RecyclerView recyclerView = rootView.findViewById(R.id.scrBookmarkDetailVerseList);
+    final RecyclerView recyclerView = rootView.findViewById(R.id.scr_bmark_detail_list);
     final int childCount = recyclerView.getChildCount();
 
     for (int i = 0; i < childCount; i++) {
@@ -216,7 +216,7 @@ public class ScreenBookmarkDetail
 
     adapter.updateList(list);
 
-    final RecyclerView recyclerView = rootView.findViewById(R.id.scrBookmarkDetailVerseList);
+    final RecyclerView recyclerView = rootView.findViewById(R.id.scr_bmark_detail_list);
     recyclerView.setAdapter(adapter);
 
     model.getBookmark(reference).observe(this, bookmarks -> {
@@ -243,19 +243,19 @@ public class ScreenBookmarkDetail
       final String footerTxt = String.format(footerTemplate, recordCount);
 
       final String titleTxt = String.format(titleTemplate, headerTxt, footerTxt);
-      ((TextView) rootView.findViewById(R.id.scrBookmarkDetailTitle))
+      ((TextView) rootView.findViewById(R.id.scr_bmark_detail_title))
           .setText(HtmlCompat.fromHtml(titleTxt, HtmlCompat.FROM_HTML_MODE_COMPACT));
     });
   }
 
   private void toggleNoteFieldState(final boolean bookmarkExists) {
     Log.d(TAG, "toggleNoteFieldState: bookmarkExists = [" + bookmarkExists + "]");
-    rootView.findViewById(R.id.scrBookmarkDetailNote).setEnabled(!bookmarkExists);
+    rootView.findViewById(R.id.scr_bmark_detail_note).setEnabled(!bookmarkExists);
   }
 
   private void toggleAction(final boolean bookmarkExists) {
     Log.d(TAG, "toggleAction: bookmarkExists = [" + bookmarkExists + "]");
-    final BottomAppBar bAppBar = rootView.findViewById(R.id.scrBookmarkDetailBottomAppBar);
+    final BottomAppBar bAppBar = rootView.findViewById(R.id.scr_bmark_detail_app_bar);
     final Menu menu = bAppBar.getMenu();
     if (bookmarkExists) {
       menu.setGroupVisible(R.id.scrBookmarkDetailActionGroupEdit, true);
@@ -268,14 +268,14 @@ public class ScreenBookmarkDetail
 
   @NonNull
   private String getNoteText() {
-    TextInputEditText editText = rootView.findViewById(R.id.scrBookmarkDetailNote);
+    TextInputEditText editText = rootView.findViewById(R.id.scr_bmark_detail_note);
     final Editable text = editText.getText();
 
     return (text == null) ? "" : text.toString();
   }
 
   private void setNoteText(@NonNull final String note) {
-    TextInputEditText editText = rootView.findViewById(R.id.scrBookmarkDetailNote);
+    TextInputEditText editText = rootView.findViewById(R.id.scr_bmark_detail_note);
     editText.setText(note);
   }
 
