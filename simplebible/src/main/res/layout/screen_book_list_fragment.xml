@@ -7,7 +7,7 @@
     tools:context=".ui.ScreenBookList">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/scrBookListSearchHolder"
+        android:id="@+id/scr_book_list_container_search"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/gapHuge"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <SearchView
-            android:id="@+id/scrBookListSearch"
+            android:id="@+id/scr_book_list_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:iconifiedByDefault="true"
@@ -32,7 +32,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/scrBookListList"
+        android:id="@+id/scr_book_list_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/gapBig"
@@ -41,7 +41,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scrBookListSearchHolder"
+        app:layout_constraintTop_toBottomOf="@id/scr_book_list_container_search"
         app:spanCount="@integer/scrBookListListColumnCount"
         tools:listitem="@layout/item_book" />
 

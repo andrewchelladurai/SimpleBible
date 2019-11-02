@@ -53,7 +53,7 @@ public class ScreenBookList
                            Bundle savedState) {
     rootView = inflater.inflate(R.layout.screen_book_list_fragment, container, false);
 
-    final SearchView searchView = rootView.findViewById(R.id.scrBookListSearch);
+    final SearchView searchView = rootView.findViewById(R.id.scr_book_list_search);
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
       @Override
       public boolean onQueryTextSubmit(final String query) {
@@ -80,7 +80,7 @@ public class ScreenBookList
       }
     });
 
-    final RecyclerView recyclerView = rootView.findViewById(R.id.scrBookListList);
+    final RecyclerView recyclerView = rootView.findViewById(R.id.scr_book_list_list);
     recyclerView.setAdapter((RecyclerView.Adapter) adapter);
 
     if (savedState == null) {
@@ -130,7 +130,7 @@ public class ScreenBookList
     NavHostFragment.findNavController(this)
                    .navigate(R.id.action_screenBookList_to_screenChapter, bundle);
 
-    final SearchView searchView = rootView.findViewById(R.id.scrBookListSearch);
+    final SearchView searchView = rootView.findViewById(R.id.scr_book_list_search);
     if (searchView.getQuery().length() > 0) {
       searchView.setQuery("", true);
     }
