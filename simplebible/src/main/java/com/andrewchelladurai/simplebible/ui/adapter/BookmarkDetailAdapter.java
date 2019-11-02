@@ -83,7 +83,7 @@ public class BookmarkDetailAdapter
       verse = (Verse) object;
       this.position = position;
 
-      ops.updateBookmarkVerseView(verse, rootView.findViewById(R.id.itemBookmarkVerse));
+      ops.updateBookmarkVerseView(verse, rootView.findViewById(R.id.itm_bookmark_verse_content));
     }
 
   }
