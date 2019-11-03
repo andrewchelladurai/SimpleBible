@@ -73,8 +73,8 @@ public class DbSetupJob
     final Intent intent = new Intent(this, DbSetupJob.class);
     final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
     startForeground(JOB_ID, new NotificationCompat.Builder(this, getPackageName())
-        .setContentTitle(getString(R.string.dbSetupNotificationTitle))
-        .setContentText(getString(R.string.dbSetupNotificationMessage))
+        .setContentTitle(getString(R.string.db_setup_notification_title))
+        .setContentText(getString(R.string.db_setup_notification_message))
         .setContentIntent(pendingIntent)
         .setOngoing(true)
         .setSmallIcon(R.drawable.ic_logo)
@@ -283,7 +283,7 @@ public class DbSetupJob
     }
     Log.d(TAG, "validateBooksTable: [" + expectedCount + "] books exist");
 
-    String expectedValue = getString(R.string.bookNameFirst);
+    String expectedValue = getString(R.string.book_name_first);
     final Book firstBook = dao.getBookUsingPosition(1);
     if (firstBook != null && !firstBook.getName().equalsIgnoreCase(expectedValue)) {
       Log.e(TAG, "validateBooksTable: incorrect first book in db");
@@ -291,7 +291,7 @@ public class DbSetupJob
     }
     Log.d(TAG, "validateBooksTable: book[" + 1 + "] name is [" + expectedValue + "]");
 
-    expectedValue = getString(R.string.bookNameLast);
+    expectedValue = getString(R.string.book_name_last);
     final Book lastBook = dao.getBookUsingPosition(expectedCount);
     if (lastBook != null && !lastBook.getName().equalsIgnoreCase(expectedValue)) {
       Log.e(TAG, "validateBooksTable: incorrect last book in db");

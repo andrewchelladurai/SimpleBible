@@ -72,7 +72,7 @@ public class ScreenHome
         showLoadingVerse();
       } else if (newJobState == DbSetupJob.FAILED) {
         Log.d(TAG, "onCreateView: DbSetupJob state = FAILED");
-        mainOps.showErrorScreen(getString(R.string.dbSetupFailureMessage), true, true);
+        mainOps.showErrorScreen(getString(R.string.db_setup_failure_message), true, true);
       } else if (newJobState == DbSetupJob.FINISHED) {
         Log.d(TAG, "onCreateView: DbSetupJob state = FINISHED");
         updateContent();
@@ -199,7 +199,7 @@ public class ScreenHome
     final String[] array = getResources().getStringArray(R.array.daily_verse_references);
     final String reference = (array.length >= dayNumber)
                              ? array[dayNumber]
-                             : getString(R.string.defaultVerseReference);
+                             : getString(R.string.default_verse_reference);
     if (!VerseUtils.getInstance().validateReference(reference)) {
       Log.e(TAG, "showDailyVerse: invalid reference [" + reference + "]");
       showVerseText(R.string.scrHomeVerseDefault);

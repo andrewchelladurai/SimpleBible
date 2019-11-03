@@ -1,13 +1,14 @@
 <resources>
-    <string name="appName">Simple Bible</string>
-    <string name="defaultVerseReference">43:3:16</string>
-    <string name="bookNameFirst">Genesis</string>
-    <string name="bookNameLast">Revelation</string>
+    <!--  These are common strings used throughout the application  -->
+    <string name="app_name">Simple Bible</string>
+    <string name="default_verse_reference">43:3:16</string>
 
-    <string name="dbSetupNotificationTitle">Database Loading</string>
-    <string name="dbSetupNotificationMessage">Setup is in progress</string>
-
-    <string name="dbSetupFailureMessage">Database Setup failed, please use the below button to inform the developer.</string>
+    <!--  These strings are used during the DBSetup Job on application start  -->
+    <string name="book_name_first">Genesis</string>
+    <string name="book_name_last">Revelation</string>
+    <string name="db_setup_notification_title">Database Loading</string>
+    <string name="db_setup_notification_message">Setup is in progress</string>
+    <string name="db_setup_failure_message">Database Setup failed, please use the below button to inform the developer.</string>
 
     <!-- Strings used in the Main Screen -->
     <string name="scrMainBottomNavViewHome">home</string>

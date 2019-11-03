@@ -78,7 +78,7 @@ public class ScreenSimpleBible
       Log.e(TAG, "shareText: why do you want to share empty text?");
       return;
     }
-    final String appName = getString(R.string.appName);
+    final String appName = getString(R.string.app_name);
     Intent intent = new Intent(android.content.Intent.ACTION_SEND);
     intent.setType("text/plain");
     intent.putExtra(android.content.Intent.EXTRA_SUBJECT, appName);
