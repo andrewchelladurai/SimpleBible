@@ -96,10 +96,10 @@
     <string name="scr_chapter_msg_chapter_invalid">Incorrect Chapter passed, using default</string>
     <string name="scr_chapter_msg_no_verse_found">No Verses found for Chapter %d of Book %s</string>
     <string name="scr_chapter_title_template"><![CDATA[<b>%s : Chapter %d</b><br/>%s]]></string>
-    <string name="scr_chapter_action_chapters">Show Chapters</string>
-    <string name="scr_chapter_action_bookmark">Bookmark</string>
-    <string name="scr_chapter_action_share">Share</string>
-    <string name="scr_chapter_action_clear">Clear</string>
+    <string name="scr_chapter_menu_list_dialog">Show Chapters</string>
+    <string name="scr_chapter_menu_bookmark">Bookmark</string>
+    <string name="scr_chapter_menu_share">Share</string>
+    <string name="scr_chapter_menu_clear">Clear</string>
     <string name="scr_chapter_selection_dialog_title">Select A Chapter</string>
 
     <!-- String used in the ScreenBookmarkDetail -->

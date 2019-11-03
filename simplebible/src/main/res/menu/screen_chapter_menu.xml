@@ -4,27 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="AlwaysShowAction">
     <group
-        android:id="@+id/scr_chapter_action_container_selected"
+        android:id="@+id/scr_chapter_menu_container_selected"
         android:visible="false">
         <item
-            android:id="@+id/scr_chapter_action_bookmark"
+            android:id="@+id/scr_chapter_menu_bookmark"
             android:icon="@drawable/ic_bookmark"
-            android:title="@string/scr_chapter_action_bookmark"
+            android:title="@string/scr_chapter_menu_bookmark"
             app:showAsAction="always" />
         <item
-            android:id="@+id/scr_chapter_action_share"
+            android:id="@+id/scr_chapter_menu_share"
             android:icon="@drawable/ic_share"
-            android:title="@string/scr_chapter_action_share"
+            android:title="@string/scr_chapter_menu_share"
             app:showAsAction="always" />
         <item
-            android:id="@+id/scr_chapter_action_clear"
+            android:id="@+id/scr_chapter_menu_clear"
             android:icon="@drawable/ic_reset"
-            android:title="@string/scr_chapter_action_clear"
+            android:title="@string/scr_chapter_menu_clear"
             app:showAsAction="always" />
     </group>
     <item
-        android:id="@+id/scr_chapter_action_chapters"
+        android:id="@+id/scr_chapter_menu_list_dialog"
         android:icon="@drawable/ic_list"
-        android:title="@string/scr_chapter_action_chapters"
+        android:title="@string/scr_chapter_menu_list_dialog"
         app:showAsAction="always" />
 </menu>
