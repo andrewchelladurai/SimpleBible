@@ -8,7 +8,7 @@
     tools:context=".ui.ScreenBookmarkDetail">
 
     <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/scr_bmark_app_bar"
+        android:id="@+id/scr_bmark_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -42,7 +42,7 @@
         android:layout_height="0dp"
         android:layout_margin="@dimen/gap_huge"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/scr_bmark_app_bar"
+        app:layout_constraintBottom_toTopOf="@id/scr_bmark_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -56,7 +56,7 @@
         android:layout_height="0dp"
         android:layout_margin="@dimen/gap_huge"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/scr_bmark_app_bar"
+        app:layout_constraintBottom_toTopOf="@id/scr_bmark_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

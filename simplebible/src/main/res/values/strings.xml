@@ -111,12 +111,12 @@
         <item quantity="other">Contains %d Verses</item>
     </plurals>
 
-    <string name="scr_bmark_action_toggle_view">Toggle</string>
-    <string name="scr_bmark_action_toggle_view_hint">Toggle view using first button</string>
-    <string name="scr_bmark_action_delete">Delete</string>
-    <string name="scr_bmark_action_save">Save</string>
-    <string name="scr_bmark_action_edit">Edit</string>
-    <string name="scr_bmark_action_share">Share</string>
+    <string name="scr_bmark_menu_toggle_view">Toggle</string>
+    <string name="scr_bmark_menu_toggle_view_hint">Toggle view using first button</string>
+    <string name="scr_bmark_menu_delete">Delete</string>
+    <string name="scr_bmark_menu_save">Save</string>
+    <string name="scr_bmark_menu_edit">Edit</string>
+    <string name="scr_bmark_menu_share">Share</string>
     <string name="scr_bmark_hint_note">Notes</string>
     <string name="scr_bmark_msg_save_success">Bookmark Saved</string>
     <string name="scr_bmark_msg_save_fail">Save Bookmark Failed</string>

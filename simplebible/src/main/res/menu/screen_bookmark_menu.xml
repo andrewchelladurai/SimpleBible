@@ -6,35 +6,35 @@
     tools:ignore="AlwaysShowAction">
 
     <item
-        android:id="@+id/scr_bmark_action_toggle_view"
+        android:id="@+id/scr_bmark_menu_toggle_view"
         android:icon="@drawable/ic_toggle"
         android:orderInCategory="1"
-        android:title="@string/scr_bmark_action_toggle_view"
+        android:title="@string/scr_bmark_menu_toggle_view"
         app:showAsAction="always" />
 
-    <group android:id="@+id/scr_bmark_action_container_saved">
+    <group android:id="@+id/scr_bmark_menu_container_saved">
         <item
-            android:id="@+id/scr_bmark_action_delete"
+            android:id="@+id/scr_bmark_menu_delete"
             android:icon="@drawable/ic_delete"
-            android:title="@string/scr_bmark_action_delete"
+            android:title="@string/scr_bmark_menu_delete"
             app:showAsAction="always" />
         <item
-            android:id="@+id/scr_bmark_action_edit"
+            android:id="@+id/scr_bmark_menu_edit"
             android:icon="@drawable/ic_edit"
-            android:title="@string/scr_bmark_action_edit"
+            android:title="@string/scr_bmark_menu_edit"
             app:showAsAction="always" />
         <item
-            android:id="@+id/scr_bmark_action_share"
+            android:id="@+id/scr_bmark_menu_share"
             android:icon="@drawable/ic_share"
-            android:title="@string/scr_bmark_action_share"
+            android:title="@string/scr_bmark_menu_share"
             app:showAsAction="always" />
     </group>
 
-    <group android:id="@+id/scr_bmark_action_container_unsaved">
+    <group android:id="@+id/scr_bmark_menu_container_unsaved">
         <item
-            android:id="@+id/scr_bmark_action_save"
+            android:id="@+id/scr_bmark_menu_save"
             android:icon="@drawable/ic_save"
-            android:title="@string/scr_bmark_action_save"
+            android:title="@string/scr_bmark_menu_save"
             app:showAsAction="always" />
     </group>
 </menu>

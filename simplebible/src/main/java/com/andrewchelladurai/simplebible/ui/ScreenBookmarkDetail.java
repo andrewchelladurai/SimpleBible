@@ -59,7 +59,7 @@ public class ScreenBookmarkDetail
     model = ViewModelProviders.of(this).get(BookmarkDetailModel.class);
     adapter = new BookmarkDetailAdapter(this);
     Toast
-        .makeText(context, getString(R.string.scr_bmark_action_toggle_view_hint), Toast.LENGTH_LONG)
+        .makeText(context, getString(R.string.scr_bmark_menu_toggle_view_hint), Toast.LENGTH_LONG)
         .show();
   }
 
@@ -101,26 +101,26 @@ public class ScreenBookmarkDetail
 
     }
 
-    final BottomAppBar bAppBar = rootView.findViewById(R.id.scr_bmark_app_bar);
+    final BottomAppBar bAppBar = rootView.findViewById(R.id.scr_bmark_menu);
     bAppBar.setOnMenuItemClickListener(item -> {
       switch (item.getItemId()) {
-        case R.id.scr_bmark_action_toggle_view:
+        case R.id.scr_bmark_menu_toggle_view:
           showVerseList = !showVerseList;
           rootView.findViewById(R.id.scr_bmark_list)
                   .setVisibility((showVerseList ? View.VISIBLE : View.GONE));
           rootView.findViewById(R.id.scr_bmark_container_note)
                   .setVisibility((showVerseList ? View.GONE : View.VISIBLE));
           return true;
-        case R.id.scr_bmark_action_delete:
+        case R.id.scr_bmark_menu_delete:
           handleClickActionDelete();
           return true;
-        case R.id.scr_bmark_action_edit:
+        case R.id.scr_bmark_menu_edit:
           handleClickActionEdit();
           return true;
-        case R.id.scr_bmark_action_share:
+        case R.id.scr_bmark_menu_share:
           handleClickActionShare();
           return true;
-        case R.id.scr_bmark_action_save:
+        case R.id.scr_bmark_menu_save:
           handleClickActionSave();
           return true;
         default:
@@ -257,14 +257,14 @@ public class ScreenBookmarkDetail
 
   private void toggleAction(final boolean bookmarkExists) {
     Log.d(TAG, "toggleAction: bookmarkExists = [" + bookmarkExists + "]");
-    final BottomAppBar bAppBar = rootView.findViewById(R.id.scr_bmark_app_bar);
+    final BottomAppBar bAppBar = rootView.findViewById(R.id.scr_bmark_menu);
     final Menu menu = bAppBar.getMenu();
     if (bookmarkExists) {
-      menu.setGroupVisible(R.id.scr_bmark_action_container_saved, true);
-      menu.setGroupVisible(R.id.scr_bmark_action_container_unsaved, false);
+      menu.setGroupVisible(R.id.scr_bmark_menu_container_saved, true);
+      menu.setGroupVisible(R.id.scr_bmark_menu_container_unsaved, false);
     } else {
-      menu.setGroupVisible(R.id.scr_bmark_action_container_saved, false);
-      menu.setGroupVisible(R.id.scr_bmark_action_container_unsaved, true);
+      menu.setGroupVisible(R.id.scr_bmark_menu_container_saved, false);
+      menu.setGroupVisible(R.id.scr_bmark_menu_container_unsaved, true);
     }
   }
 
