@@ -85,7 +85,7 @@
     <string name="scr_search_template_share">%s\nThe World English Bible\nShared from SimpleBible</string>
     <string name="itm_search_result_content_template"><![CDATA[<b>%s %d:%d -</b> %s]]></string>
 
-    <!-- String used in the ScreenBookmarkDetail -->
+    <!-- String used in the ScreenBookmarkDetail & ScreenBookmarkList -->
     <string name="scr_bmark_err_no_args">No verses passed as arguments</string>
     <string name="scr_bmark_err_no_verse">Empty verses list received</string>
 
