@@ -48,7 +48,7 @@ public class ScreenBookmarkList
     if (!(context instanceof ScreenSimpleBibleOps)) {
       throw new RuntimeException(context.toString() + " must implement InteractionListener");
     }
-    final String templateEmptyNoteContent = getString(R.string.scrBookmarkListTemplateEmptyNote);
+    final String templateEmptyNoteContent = getString(R.string.scr_bmark_list_msg_empty_note);
 
     mainOps = (ScreenSimpleBibleOps) context;
 
@@ -90,7 +90,7 @@ public class ScreenBookmarkList
   }
 
   private void showHelpInfo() {
-    final String rawText = getString(R.string.scrBookmarkListInfoHelpText);
+    final String rawText = getString(R.string.scr_bmark_list_help_txt);
     final Spanned htmlText = HtmlCompat.fromHtml(rawText, HtmlCompat.FROM_HTML_MODE_COMPACT);
 
     final TextView textView = rootView.findViewById(R.id.scr_bmark_list_help);
@@ -121,12 +121,12 @@ public class ScreenBookmarkList
 
       final String verseCountTemplate = getResources()
           .getQuantityString(
-              R.plurals.scrBookmarkListTemplateVerseCount,
+              R.plurals.itm_bmark_list_verse_count_template,
               verseList.size());
       verseCountChip.setText(String.format(verseCountTemplate, verseList.size()));
 
       if (verseList.isEmpty()) {
-        final String message = getString(R.string.scrBookmarkListTemplateVerseErr);
+        final String message = getString(R.string.itm_bmark_list_verse_count_msg_no_verse);
         verseCountChip.setText(HtmlCompat.fromHtml(message, HtmlCompat.FROM_HTML_MODE_COMPACT));
         return;
       }
@@ -135,13 +135,12 @@ public class ScreenBookmarkList
 
       bookModel.getBookUsingNumber(verse.getBook()).observe(this, book -> {
         if (book == null) {
-          final String message = getString(R.string.scrBookmarkListTemplateVerseErr);
+          final String message = getString(R.string.itm_bmark_list_verse_count_msg_no_verse);
           verseCountChip.setText(HtmlCompat.fromHtml(message, HtmlCompat.FROM_HTML_MODE_COMPACT));
           return;
         }
 
-        final String template = getString(R.string.scrBookmarkListTemplateVerse);
-        // <b>%s %d:%d -</b> %s
+        final String template = getString(R.string.itm_bmark_list_first_verse_template);
         final String formattedString = String.format(template,
                                                      book.getName(),
                                                      verse.getChapter(),

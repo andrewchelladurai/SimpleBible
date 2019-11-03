@@ -24,7 +24,7 @@
         android:id="@+id/scr_bmark_list_image"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:contentDescription="@string/scrBookmarkListInfoHelpImage"
+        android:contentDescription="@string/scr_bmark_list_image_desc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintBottom_toTopOf="@id/scr_bmark_list_gh40"
         app:layout_constraintDimensionRatio="1:1"
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="@dimen/gap_huge"
-            android:text="@string/scrBookmarkListInfoHelpText"
+            android:text="@string/scr_bmark_list_help_txt"
             android:textAlignment="center" />
     </ScrollView>
 

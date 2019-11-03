@@ -96,18 +96,18 @@ public class ScreenBookmarkListAdapter
                               ? templateEmptyNoteContent : bookmark.getNote();
 
       final String noteTemplate = rootView.getContext().getString(
-          R.string.scrBookmarkListTemplateNote);
+          R.string.itm_bmark_list_note_template);
       final String formattedText = String.format(noteTemplate, noteText);
       final Spanned htmlText = HtmlCompat.fromHtml(formattedText,
                                                    HtmlCompat.FROM_HTML_MODE_COMPACT);
 
-      final TextView noteField = rootView.findViewById(R.id.itm_bookmark_list_note);
+      final TextView noteField = rootView.findViewById(R.id.itm_bmark_list_note);
       noteField.setText(htmlText);
 
       final TextView verseField = rootView
-          .findViewById(R.id.itm_bookmark_list_first_verse);
+          .findViewById(R.id.itm_bmark_list_first_verse);
       final Chip verseCountChip = rootView
-          .findViewById(R.id.itm_bookmark_list_verse_count);
+          .findViewById(R.id.itm_bmark_list_verse_count);
 
       ops.updateVerseList(verseCountChip, verseField, bookmark.getReference());
 

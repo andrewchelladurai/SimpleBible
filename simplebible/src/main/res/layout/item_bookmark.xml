@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardPreventCornerOverlap="true"
@@ -13,20 +14,23 @@
         android:padding="@dimen/gap_normal">
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/itm_bookmark_list_verse_count"
+            android:id="@+id/itm_bmark_list_verse_count"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:text="@string/itm_bmark_list_verse_count_msg_no_verse" />
 
         <TextView
-            android:id="@+id/itm_bookmark_list_first_verse"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/itm_bookmark_list_note"
+            android:id="@+id/itm_bmark_list_first_verse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/gap_normal" />
+            tools:text="@string/itm_bmark_list_first_verse_template" />
+
+        <TextView
+            android:id="@+id/itm_bmark_list_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_normal"
+            tools:text="@string/itm_bmark_list_note_template" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
