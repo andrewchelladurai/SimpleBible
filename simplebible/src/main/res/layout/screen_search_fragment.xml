@@ -10,26 +10,26 @@
 
     <!--  Block for search input with tips  -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/scrSearchDefaultUiLayout"
+        android:id="@+id/scr_search_container_help"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/scrSearchContainerGV10"
+            android:id="@+id/scr_search_gv10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.1" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/scrSearchContainerGV40"
+            android:id="@+id/scr_search_gv40"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.4" />
 
         <SearchView
-            android:id="@+id/scrSearchInput"
+            android:id="@+id/scr_search_input"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/gapNormal"
@@ -38,25 +38,25 @@
             android:inputType="textAutoCorrect|textAutoComplete"
             android:queryHint="@string/scrSearchInputHint"
             android:searchIcon="@drawable/ic_search"
-            app:layout_constraintBottom_toBottomOf="@id/scrSearchContainerGV10"
+            app:layout_constraintBottom_toBottomOf="@id/scr_search_gv10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/scrSearchContainerImage"
+            android:id="@+id/scr_search_image"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:contentDescription="@string/scrSearchContainerHelpImage"
-            app:layout_constraintBottom_toTopOf="@id/scrSearchContainerGV40"
+            app:layout_constraintBottom_toTopOf="@id/scr_search_gv40"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/scrSearchContainerGV10"
+            app:layout_constraintTop_toBottomOf="@id/scr_search_gv10"
             app:srcCompat="@drawable/ic_hero_search" />
 
         <ScrollView
-            android:id="@+id/scrSearchContainerScrollView"
+            android:id="@+id/scr_search_container_tips_text"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:fillViewport="true"
@@ -64,10 +64,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/scrSearchContainerImage">
+            app:layout_constraintTop_toBottomOf="@id/scr_search_image">
 
             <TextView
-                android:id="@+id/scrSearchHelpText"
+                android:id="@+id/scr_search_tips_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -79,12 +79,12 @@
 
     <!--  Block for displaying results with actions  -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/scrSearchResultsUiLayout"
+        android:id="@+id/scr_search_container_result"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/scrSearchActionsContainer"
+            android:id="@+id/scr_search_result_actions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -95,12 +95,12 @@
             app:menu="@menu/scr_search_bottom_nav_menu" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/scrSearchList"
+            android:id="@+id/scr_search_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="@dimen/gapBig"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintBottom_toTopOf="@id/scrSearchActionsContainer"
+            app:layout_constraintBottom_toTopOf="@id/scr_search_result_actions"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

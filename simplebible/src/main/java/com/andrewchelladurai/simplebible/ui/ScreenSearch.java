@@ -63,7 +63,7 @@ public class ScreenSearch
     mainOps.hideKeyboard();
     searchResultContentTemplate = getString(R.string.itemSearchResultContentTemplate);
 
-    ((BottomNavigationView) rootView.findViewById(R.id.scrSearchActionsContainer))
+    ((BottomNavigationView) rootView.findViewById(R.id.scr_search_result_actions))
         .setOnNavigationItemSelectedListener(item -> {
           switch (item.getItemId()) {
             case R.id.scrSearchActionBookmark:
@@ -85,7 +85,7 @@ public class ScreenSearch
           }
         });
 
-    final SearchView searchView = rootView.findViewById(R.id.scrSearchInput);
+    final SearchView searchView = rootView.findViewById(R.id.scr_search_input);
     searchView.setSubmitButtonEnabled(true);
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
@@ -101,7 +101,7 @@ public class ScreenSearch
       }
     });
 
-    ((RecyclerView) rootView.findViewById(R.id.scrSearchList))
+    ((RecyclerView) rootView.findViewById(R.id.scr_search_list))
         .setAdapter(adapter);
 
     // first run - since we do not have a previously saved instance
@@ -157,7 +157,7 @@ public class ScreenSearch
   }
 
   private void handleClickActionReset() {
-    ((SearchView) rootView.findViewById(R.id.scrSearchInput)).setQuery("", false);
+    ((SearchView) rootView.findViewById(R.id.scr_search_input)).setQuery("", false);
     showSearchDefaultUi();
   }
 
@@ -220,7 +220,7 @@ public class ScreenSearch
   }
 
   private void showActionsContainer() {
-    rootView.findViewById(R.id.scrSearchActionsContainer).setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scr_search_result_actions).setVisibility(View.VISIBLE);
   }
 
   private void showSearchDefaultUi() {
@@ -228,16 +228,16 @@ public class ScreenSearch
 
     final Spanned htmlText = HtmlCompat.fromHtml(getString(R.string.scrSearchHelpText),
                                                  HtmlCompat.FROM_HTML_MODE_LEGACY);
-    final TextView textView = rootView.findViewById(R.id.scrSearchHelpText);
+    final TextView textView = rootView.findViewById(R.id.scr_search_tips_text);
     textView.setText(htmlText);
-    rootView.findViewById(R.id.scrSearchDefaultUiLayout).setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scrSearchResultsUiLayout).setVisibility(View.GONE);
+    rootView.findViewById(R.id.scr_search_container_help).setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scr_search_container_result).setVisibility(View.GONE);
     mainOps.showNavigationView();
   }
 
   private void showSearchResultsUi() {
-    rootView.findViewById(R.id.scrSearchDefaultUiLayout).setVisibility(View.GONE);
-    rootView.findViewById(R.id.scrSearchResultsUiLayout).setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scr_search_container_help).setVisibility(View.GONE);
+    rootView.findViewById(R.id.scr_search_container_result).setVisibility(View.VISIBLE);
     mainOps.hideNavigationView();
   }
 
