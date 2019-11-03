@@ -3,75 +3,75 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_simple_bible"
-    app:startDestination="@id/NavIdScreenHome">
+    app:startDestination="@id/nav_id_screen_home">
 
     <fragment
-        android:id="@+id/NavIdScreenHome"
+        android:id="@+id/nav_id_screen_home"
         android:name="com.andrewchelladurai.simplebible.ui.ScreenHome"
-        android:label="fragment_screen_home"
+        android:label="screen_home"
         tools:layout="@layout/screen_home" />
 
     <fragment
-        android:id="@+id/NavIdScreenBookList"
+        android:id="@+id/nav_id_screen_book_list"
         android:name="com.andrewchelladurai.simplebible.ui.ScreenBookList"
-        android:label="fragment_screen_book_list"
+        android:label="screen_book_list"
         tools:layout="@layout/screen_book_list">
         <action
             android:id="@+id/action_screenBookList_to_screenChapter"
-            app:destination="@id/NavIdScreenChapter" />
+            app:destination="@id/nav_id_screen_chapter" />
     </fragment>
 
     <fragment
-        android:id="@+id/NavIdScreenSearch"
+        android:id="@+id/nav_id_screen_search"
         android:name="com.andrewchelladurai.simplebible.ui.ScreenSearch"
-        android:label="fragment_screen_search"
+        android:label="screen_search"
         tools:layout="@layout/screen_search">
         <action
             android:id="@+id/action_screenSearch_to_screenBookmark"
-            app:destination="@id/NavIdScreenBookmarkDetail" />
+            app:destination="@id/nav_id_screen_bookmark_detail" />
     </fragment>
 
     <fragment
-        android:id="@+id/NavIdScreenBookmarkList"
+        android:id="@+id/nav_id_screen_bookmark_list"
         android:name="com.andrewchelladurai.simplebible.ui.ScreenBookmarkList"
-        android:label="fragment_screen_bookmark_list"
+        android:label="screen_bookmark_list"
         tools:layout="@layout/screen_bookmark_list">
         <action
             android:id="@+id/action_NavIdScreenBookmarkList_to_NavIdScreenBookmarkDetail"
-            app:destination="@id/NavIdScreenBookmarkDetail" />
+            app:destination="@id/nav_id_screen_bookmark_detail" />
     </fragment>
 
     <fragment
-        android:id="@+id/NavIdScreenBookmarkDetail"
+        android:id="@+id/nav_id_screen_bookmark_detail"
         android:name="com.andrewchelladurai.simplebible.ui.ScreenBookmarkDetail"
-        android:label="fragment_screen_bookmark"
+        android:label="screen_bookmark_detail"
         tools:layout="@layout/screen_bookmark_detail">
         <argument
             android:name="ARG_VERSE_LIST"
             app:argType="com.andrewchelladurai.simplebible.data.entity.Verse[]" />
         <action
             android:id="@+id/action_screenBookmark_pop"
-            app:popUpTo="@id/NavIdScreenBookmarkDetail"
+            app:popUpTo="@id/nav_id_screen_bookmark_detail"
             app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
-        android:id="@+id/NavIdScreenChapter"
+        android:id="@+id/nav_id_screen_chapter"
         android:name="com.andrewchelladurai.simplebible.ui.ScreenChapter"
-        android:label="fragment_screen_chapter"
+        android:label="screen_chapter"
         tools:layout="@layout/screen_chapter">
         <argument
             android:name="ARG_BOOK"
             app:argType="com.andrewchelladurai.simplebible.data.entity.Book" />
         <action
             android:id="@+id/action_screenChapter_to_screenBookmark"
-            app:destination="@id/NavIdScreenBookmarkDetail" />
+            app:destination="@id/nav_id_screen_bookmark_detail" />
     </fragment>
 
     <fragment
-        android:id="@+id/NavIdScreenError"
+        android:id="@+id/nav_id_screen_error"
         android:name="com.andrewchelladurai.simplebible.ui.ScreenError"
-        android:label="fragment_screen_error"
+        android:label="screen_error"
         tools:layout="@layout/screen_error">
         <argument
             android:name="ARG_MESSAGE"
@@ -89,14 +89,14 @@
     </fragment>
 
     <fragment
-        android:id="@+id/NavIdScreenSettings"
+        android:id="@+id/nav_id_screen_settings"
         android:name="com.andrewchelladurai.simplebible.ui.ScreenSettings"
-        android:label="fragment_screen_settings"
+        android:label="screen_settings"
         tools:layout="@layout/screen_settings" />
 
     <action
         android:id="@+id/action_global_screenError"
-        app:destination="@id/NavIdScreenError"
+        app:destination="@id/nav_id_screen_error"
         app:launchSingleTop="true"
         app:popUpTo="@id/nav_graph_simple_bible"
         app:popUpToInclusive="true" />
