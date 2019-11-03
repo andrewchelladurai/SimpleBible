@@ -20,7 +20,7 @@
     <string name="scr_simple_bible_notif_channel_desc">Will show the Daily Verse notifications and others</string>
 
     <!-- String used in the HomeScreen -->
-    <string name="scrHomeProgressTextTemplate">%d</string>
+    <string name="scr_home_template_progress_txt">%d</string>
     <string name="scr_home_verse_content_loading">
     <![CDATA[
     <h1>Simple Bible</h1>
@@ -42,7 +42,7 @@
     <h3>%s</h3><br/>
     The World English Bible]]>
   </string>
-    <string name="scrHomeVerseDefault">
+    <string name="scr_home_verse_content_default">
     <![CDATA[
     <h1>Simple Bible</h1><br/>
     <h5>The Gospel of John<br/>

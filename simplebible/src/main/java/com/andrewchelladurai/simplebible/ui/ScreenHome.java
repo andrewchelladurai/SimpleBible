@@ -62,7 +62,7 @@ public class ScreenHome
     // let's avoid the extra calls and save some time.
     progressTextView = rootView.findViewById(R.id.scr_home_progress_text);
     maxProgressValue = VerseUtils.EXPECTED_COUNT + BookUtils.EXPECTED_COUNT;
-    progressTextTemplate = getString(R.string.scrHomeProgressTextTemplate);
+    progressTextTemplate = getString(R.string.scr_home_template_progress_txt);
 
     // start observing the DbSetupJobState in the model even before we start it
     // this is so that we do nto miss any changes in the state
@@ -168,7 +168,7 @@ public class ScreenHome
         mainOps.showNavigationView();
 
         // show the verse text for a loading progress
-        showVerseText(R.string.scrHomeVerseDefault);
+        showVerseText(R.string.scr_home_verse_content_default);
 
         // hide the progress bar
         View view = rootView.findViewById(R.id.scr_home_progress_bar);
@@ -202,19 +202,19 @@ public class ScreenHome
                              : getString(R.string.default_verse_reference);
     if (!VerseUtils.getInstance().validateReference(reference)) {
       Log.e(TAG, "showDailyVerse: invalid reference [" + reference + "]");
-      showVerseText(R.string.scrHomeVerseDefault);
+      showVerseText(R.string.scr_home_verse_content_default);
       return;
     }
     model.getVerse(reference).observe(this, verse -> {
       if (verse == null) {
         Log.e(TAG, "showDailyVerse: no verse found for reference [" + reference + "]");
-        showVerseText(R.string.scrHomeVerseDefault);
+        showVerseText(R.string.scr_home_verse_content_default);
         return;
       }
       model.getBook(verse.getBook()).observe(this, book -> {
         if (book == null) {
           Log.e(TAG, "showDailyVerse: no book found for position [" + verse.getBook() + "]");
-          showVerseText(R.string.scrHomeVerseDefault);
+          showVerseText(R.string.scr_home_verse_content_default);
           return;
         }
 
