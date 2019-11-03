@@ -32,16 +32,14 @@
     <h3>Jacob served seven years for Rachel.<br/>
     They seemed to him but a few days,<br/>
     for the love he had for her.</h3><br/><br/>
-    <b>The World English Bible</b>]]>
-  </string>
+    <b>The World English Bible</b>]]></string>
     <string name="scr_home_verse_content_template">
     <![CDATA[
     <h1>Simple Bible</h1><br/>
     <h5>%s</h5>
     <h5>Chapter %d Verse %d</h5><br/>
     <h3>%s</h3><br/>
-    The World English Bible]]>
-  </string>
+    The World English Bible]]></string>
     <string name="scr_home_verse_content_default">
     <![CDATA[
     <h1>Simple Bible</h1><br/>
@@ -52,8 +50,7 @@
     that whoever believes in him<br/>
     should not perish,<br/>
     but have eternal life.</h3><br/>
-    <b>The World English Bible</b>]]>
-  </string>
+    <b>The World English Bible</b>]]></string>
 
     <!-- String used in the ScreenBookList -->
     <string name="scr_book_list_err_no_books_in_db">No books found in the database. Please clear the application data or reinstall the application again. if the issue persists, please inform the developer.</string>
@@ -78,17 +75,15 @@
     <string name="scrSearchContainerHelpImage">Search Verse Tips</string>
     <string name="scrSearchEmptyResults">No verse found</string>
     <string name="scrSearchHelpText"><![CDATA[
-  <h5>To search for a text, it must be<br/>
-  More than 3 alphabets.<br/>
-  Less than 13 alphabets.<br/><br/>
-  <u>To search for</u> text like <u>\'Eli\'</u>include<br/>
-  a space before or after<br/>
-  like this <u>\' Eli \'</u></h5>
-  ]]></string>
+    <h5>To search for a text, it must be<br/>
+    More than 3 alphabets.<br/>
+    Less than 13 alphabets.<br/><br/>
+    <u>To search for</u> text like <u>\'Eli\'</u>include<br/>
+    a space before or after<br/>
+    like this <u>\' Eli \'</u></h5>
+    ]]></string>
     <string name="scrSearchShareTemplate">%s\nThe World English Bible\nShared from SimpleBible</string>
-    <string name="itemSearchResultContentTemplate"><![CDATA[
-  <b>%s %d:%d -</b> %s
-  ]]></string>
+    <string name="itemSearchResultContentTemplate"><![CDATA[<b>%s %d:%d -</b> %s]]></string>
 
     <!-- String used in the ScreenBookmarkDetail -->
     <string name="scrBookmarkErrNullVerseList">No parcelable verses arguments passed</string>
@@ -128,20 +123,17 @@
     <string name="scrBookmarkDetailDeleteSuccess">Bookmark Deleted</string>
     <string name="scrBookmarkDetailDeleteFail">Delete Bookmark Failed</string>
     <string name="scrBookmarkDetailShareTemplate">Bookmarked Verse(s):\n%s\n\nBookmarked Notes:\n%s\n\nThe World English Bible\nShared from SimpleBible</string>
-    <string name="itemBookmarkVerseContentTemplate"><![CDATA[
-  <b>%s %d:%d -</b> %s
-  ]]></string>
+    <string name="itemBookmarkVerseContentTemplate"><![CDATA[<b>%s %d:%d -</b> %s]]></string>
 
     <!-- String used in the ScreenBookmarkList -->
     <string name="scrBookmarkListInfoHelpImage">Bookmarks</string>
     <string name="scrBookmarkListInfoHelpText"><![CDATA[
-  <h5>No Bookmarks Found</h5>
-  To create a bookmark, long press<br/>
-  Either a Chapter\'s verse<br/>
-  OR<br/>
-  a Search result<br/>
-  and then select the Bookmark action.
-  ]]></string>
+    <h5>No Bookmarks Found</h5>
+    To create a bookmark, long press<br/>
+    Either a Chapter\'s verse<br/>
+    OR<br/>
+    a Search result<br/>
+    and then select the Bookmark action.]]></string>
     <string name="itemBookmarkEntryActionDelete">Delete</string>
     <string name="itemBookmarkEntryActionEdit">Edit</string>
     <string name="itemBookmarkEntryActionShare">Share</string>
