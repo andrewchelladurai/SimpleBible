@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="daily_verse">
+    <string-array name="array_daily_verse">
         <item>1:1:1</item>
         <item>1:1:26</item>
         <item>1:1:26</item>

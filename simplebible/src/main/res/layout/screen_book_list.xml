@@ -10,10 +10,10 @@
         android:id="@+id/scr_book_list_container_search"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/gapHuge"
-        android:layout_marginTop="@dimen/gapNormal"
-        android:layout_marginEnd="@dimen/gapHuge"
-        android:layout_marginBottom="@dimen/gapNormal"
+        android:layout_marginStart="@dimen/dim_gap_huge"
+        android:layout_marginTop="@dimen/dim_gap_normal"
+        android:layout_marginEnd="@dimen/dim_gap_huge"
+        android:layout_marginBottom="@dimen/dim_gap_normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -35,14 +35,14 @@
         android:id="@+id/scr_book_list_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/gapBig"
-        android:layout_marginBottom="@dimen/gapBig"
+        android:layout_marginTop="@dimen/dim_gap_big"
+        android:layout_marginBottom="@dimen/dim_gap_big"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/scr_book_list_container_search"
-        app:spanCount="@integer/scrBookListListColumnCount"
+        app:spanCount="@integer/int_scr_book_list_list_columns"
         tools:listitem="@layout/item_book" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

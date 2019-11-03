@@ -32,7 +32,7 @@
             android:id="@+id/scr_search_input"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/gapNormal"
+            android:layout_margin="@dimen/dim_gap_normal"
             android:iconifiedByDefault="false"
             android:imeOptions="actionSearch"
             android:inputType="textAutoCorrect|textAutoComplete"
@@ -59,7 +59,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:fillViewport="true"
-            android:padding="@dimen/gapHuge"
+            android:padding="@dimen/dim_gap_huge"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/scr_search_input"
             app:layout_constraintStart_toEndOf="@id/scr_search_gv40"
@@ -70,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:padding="@dimen/gapHuge"
+                android:padding="@dimen/dim_gap_huge"
                 android:text="@string/scrSearchHelpText" />
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -96,13 +96,13 @@
             android:id="@+id/scr_search_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="@dimen/gapBig"
+            android:layout_margin="@dimen/dim_gap_big"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toTopOf="@id/scr_search_result_actions"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:spanCount="@integer/scrSearchListColumnCount"
+            app:spanCount="@integer/int_scr_search_list_columns"
             tools:listitem="@layout/item_search_result" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

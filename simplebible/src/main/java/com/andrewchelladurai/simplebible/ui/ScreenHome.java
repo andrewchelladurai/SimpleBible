@@ -196,7 +196,7 @@ public class ScreenHome
   private void showDailyVerse() {
     Log.d(TAG, "showDailyVerse:");
     final int dayNumber = model.getDayNumber();
-    final String[] array = getResources().getStringArray(R.array.daily_verse);
+    final String[] array = getResources().getStringArray(R.array.array_daily_verse);
     final String reference = (array.length >= dayNumber)
                              ? array[dayNumber]
                              : getString(R.string.defaultVerseReference);

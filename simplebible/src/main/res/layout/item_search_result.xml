@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/state_list_verse_background"
-    android:paddingStart="@dimen/gapNormal"
-    android:paddingTop="@dimen/gapSmall"
-    android:paddingEnd="@dimen/gapNormal"
-    android:paddingBottom="@dimen/gapSmall"
+    android:paddingStart="@dimen/dim_gap_normal"
+    android:paddingTop="@dimen/dim_gap_small"
+    android:paddingEnd="@dimen/dim_gap_normal"
+    android:paddingBottom="@dimen/dim_gap_small"
     tools:text="@string/defaultVerseReference" />
