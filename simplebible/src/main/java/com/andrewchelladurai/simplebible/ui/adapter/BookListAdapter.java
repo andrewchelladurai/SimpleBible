@@ -113,9 +113,9 @@ public class BookListAdapter
         viewOps.handleBookClick(book);
       });
 
-      ((Chip) rootView.findViewById(R.id.itm_book_details))
+      ((Chip) rootView.findViewById(R.id.itm_book_chapter_count))
           .setText(viewOps.getFormattedBookDetails(book.getChapters()));
-      rootView.findViewById(R.id.itm_book_details).setOnClickListener(v -> {
+      rootView.findViewById(R.id.itm_book_chapter_count).setOnClickListener(v -> {
         viewOps.handleBookClick(book);
       });
 

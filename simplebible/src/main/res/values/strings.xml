@@ -56,11 +56,11 @@
   </string>
 
     <!-- String used in the ScreenBookList -->
-    <string name="scrBookListErrNullList">No books found in the database. Please clear the application data or reinstall the application again. if the issue persists, please inform the developer.</string>
-    <string name="scrBookListErrCount">Number of books in the database is not the Expected count. Please clear the application data or reinstall the application again. if the issue persists, please inform the developer.</string>
-    <string name="scrBookListSearchHint">Book name</string>
+    <string name="scr_book_list_err_no_books_in_db">No books found in the database. Please clear the application data or reinstall the application again. if the issue persists, please inform the developer.</string>
+    <string name="scr_book_list_err_book_count_incorrect">Number of books in the database is not the Expected count. Please clear the application data or reinstall the application again. if the issue persists, please inform the developer.</string>
+    <string name="scr_book_list_hint_search">Book name</string>
 
-    <plurals name="itemBookChapterTemplate">
+    <plurals name="itm_book_chapter_count_template">
         <item quantity="one">%d Chapter</item>
         <item quantity="other">%d Chapters</item>
     </plurals>

@@ -9,7 +9,7 @@
     android:padding="@dimen/gap_small">
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/itm_book_details"
+        android:id="@+id/itm_book_chapter_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/gap_small"
@@ -26,7 +26,7 @@
         android:layout_marginEnd="@dimen/gap_small"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/itm_book_details"
+        app:layout_constraintEnd_toStartOf="@id/itm_book_chapter_count"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0">
