@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/state_list_verse_background"
-    android:paddingStart="@dimen/dim_gap_normal"
-    android:paddingTop="@dimen/dim_gap_small"
-    android:paddingEnd="@dimen/dim_gap_normal"
-    android:paddingBottom="@dimen/dim_gap_small"
+    android:paddingStart="@dimen/gap_normal"
+    android:paddingTop="@dimen/gap_small"
+    android:paddingEnd="@dimen/gap_normal"
+    android:paddingBottom="@dimen/gap_small"
     tools:text="@string/appName" />

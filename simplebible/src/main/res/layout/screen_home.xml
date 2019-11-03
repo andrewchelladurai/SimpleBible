@@ -17,7 +17,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-        android:padding="@dimen/dim_gap_normal"
+        android:padding="@dimen/gap_normal"
         app:layout_constraintBottom_toTopOf="@id/scrHomeGuide"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="@dimen/dim_gap_huge"
+            android:padding="@dimen/gap_huge"
             android:textAlignment="center"
             tools:text="@string/appName" />
     </ScrollView>

@@ -11,13 +11,13 @@
         android:id="@+id/scr_chapter_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/dim_gap_normal"
+        android:layout_margin="@dimen/gap_normal"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/scr_chapter_bottom_app_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:spanCount="@integer/int_scr_chapter_verse_list_columns"
+        app:spanCount="@integer/scr_chapter_verse_list_columns"
         tools:listitem="@layout/item_chapter_verse" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
