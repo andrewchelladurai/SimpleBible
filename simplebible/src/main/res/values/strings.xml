@@ -103,27 +103,27 @@
     <string name="scr_chapter_selection_dialog_title">Select A Chapter</string>
 
     <!-- String used in the ScreenBookmarkDetail -->
-    <string name="scrBookmarkDetailHelp">Toggle view using first button</string>
-    <string name="scrBookmarkDetailTitleBookmarkSaved">Saved Bookmark</string>
-    <string name="scrBookmarkDetailTitleBookmarkUnsaved">Bookmark Not Saved</string>
-    <plurals name="scrBookmarkDetailTitlePluralBookmarkCount">
+    <string name="scr_bmark_title_template"><![CDATA[<b>%s</b><br/>%s]]></string>
+    <string name="scr_bmark_title_template_saved">Saved Bookmark</string>
+    <string name="scr_bmark_title_template_unsaved">Bookmark Not Saved</string>
+    <plurals name="scr_bmark_title_template_verse_count">
         <item quantity="one">Contains %d Verse</item>
         <item quantity="other">Contains %d Verses</item>
     </plurals>
 
-    <string name="scrBookmarkDetailTitleTemplate"><![CDATA[<b>%s</b><br/>%s]]></string>
-    <string name="scr_bookmark_action_toggle_view">Toggle</string>
-    <string name="scr_bookmark_action_delete">Delete</string>
-    <string name="scr_bookmark_action_save">Save</string>
-    <string name="scr_bookmark_action_edit">Edit</string>
-    <string name="scr_bookmark_action_share">Share</string>
-    <string name="scrBookmarkDetailNote">Notes</string>
-    <string name="scrBookmarkDetailSaveSuccess">Bookmark Saved</string>
-    <string name="scrBookmarkDetailSaveFail">Save Bookmark Failed</string>
-    <string name="scrBookmarkDetailDeleteSuccess">Bookmark Deleted</string>
-    <string name="scrBookmarkDetailDeleteFail">Delete Bookmark Failed</string>
-    <string name="scrBookmarkDetailShareTemplate">Bookmarked Verse(s):\n%s\n\nBookmarked Notes:\n%s\n\nThe World English Bible\nShared from SimpleBible</string>
-    <string name="itemBookmarkVerseContentTemplate"><![CDATA[<b>%s %d:%d -</b> %s]]></string>
+    <string name="scr_bmark_action_toggle_view">Toggle</string>
+    <string name="scr_bmark_action_toggle_view_hint">Toggle view using first button</string>
+    <string name="scr_bmark_action_delete">Delete</string>
+    <string name="scr_bmark_action_save">Save</string>
+    <string name="scr_bmark_action_edit">Edit</string>
+    <string name="scr_bmark_action_share">Share</string>
+    <string name="scr_bmark_detail_hint_note">Notes</string>
+    <string name="scr_bmark_detail_msg_save_success">Bookmark Saved</string>
+    <string name="scr_bmark_detail_msg_save_fail">Save Bookmark Failed</string>
+    <string name="scr_bmark_detail_msg_delete_success">Bookmark Deleted</string>
+    <string name="scr_bmark_detail_msg_delete_fail">Delete Bookmark Failed</string>
+    <string name="itm_bmark_template_share">Bookmarked Verse(s):\n%s\n\nBookmarked Notes:\n%s\n\nThe World English Bible\nShared from SimpleBible</string>
+    <string name="itm_bmark_verse_content_template"><![CDATA[<b>%s %d:%d -</b> %s]]></string>
 
     <!-- String used in the ScreenBookmarkList -->
     <string name="scrBookmarkListInfoHelpImage">Bookmarks</string>

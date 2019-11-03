@@ -58,7 +58,9 @@ public class ScreenBookmarkDetail
     mainOps = (ScreenSimpleBibleOps) context;
     model = ViewModelProviders.of(this).get(BookmarkDetailModel.class);
     adapter = new BookmarkDetailAdapter(this);
-    Toast.makeText(context, getString(R.string.scrBookmarkDetailHelp), Toast.LENGTH_LONG).show();
+    Toast
+        .makeText(context, getString(R.string.scr_bmark_action_toggle_view_hint), Toast.LENGTH_LONG)
+        .show();
   }
 
   @Override
@@ -99,26 +101,26 @@ public class ScreenBookmarkDetail
 
     }
 
-    final BottomAppBar bAppBar = rootView.findViewById(R.id.scr_bmark_detail_app_bar);
+    final BottomAppBar bAppBar = rootView.findViewById(R.id.scr_bmark_app_bar);
     bAppBar.setOnMenuItemClickListener(item -> {
       switch (item.getItemId()) {
-        case R.id.scr_bookmark_action_toggle_view:
+        case R.id.scr_bmark_action_toggle_view:
           showVerseList = !showVerseList;
-          rootView.findViewById(R.id.scr_bmark_detail_list)
+          rootView.findViewById(R.id.scr_bmark_list)
                   .setVisibility((showVerseList ? View.VISIBLE : View.GONE));
-          rootView.findViewById(R.id.scr_bmark_detail_container_note)
+          rootView.findViewById(R.id.scr_bmark_container_note)
                   .setVisibility((showVerseList ? View.GONE : View.VISIBLE));
           return true;
-        case R.id.scr_bookmark_action_delete:
+        case R.id.scr_bmark_action_delete:
           handleClickActionDelete();
           return true;
-        case R.id.scr_bookmark_action_edit:
+        case R.id.scr_bmark_action_edit:
           handleClickActionEdit();
           return true;
-        case R.id.scr_bookmark_action_share:
+        case R.id.scr_bmark_action_share:
           handleClickActionShare();
           return true;
-        case R.id.scr_bookmark_action_save:
+        case R.id.scr_bmark_action_save:
           handleClickActionSave();
           return true;
         default:
@@ -129,7 +131,7 @@ public class ScreenBookmarkDetail
       }
     });
 
-    itemBookmarkVerseContentTemplate = getString(R.string.itemBookmarkVerseContentTemplate);
+    itemBookmarkVerseContentTemplate = getString(R.string.itm_bmark_verse_content_template);
 
     updateContent();
 
@@ -155,7 +157,7 @@ public class ScreenBookmarkDetail
 
     model.saveBookmark(bookmarkReference, noteText).observe(this, saved -> {
       if (saved) {
-        final String message = getString(R.string.scrBookmarkDetailSaveSuccess);
+        final String message = getString(R.string.scr_bmark_detail_msg_save_success);
         mainOps.showMessage(message);
 
         toggleAction(true);
@@ -163,7 +165,7 @@ public class ScreenBookmarkDetail
         return;
       }
 
-      final String message = getString(R.string.scrBookmarkDetailSaveFail);
+      final String message = getString(R.string.scr_bmark_detail_msg_save_fail);
       mainOps.showMessage(message);
     });
   }
@@ -173,7 +175,7 @@ public class ScreenBookmarkDetail
     final StringBuilder verseText = new StringBuilder();
     final String noteText = getNoteText();
 
-    final RecyclerView recyclerView = rootView.findViewById(R.id.scr_bmark_detail_list);
+    final RecyclerView recyclerView = rootView.findViewById(R.id.scr_bmark_list);
     final int childCount = recyclerView.getChildCount();
 
     for (int i = 0; i < childCount; i++) {
@@ -181,7 +183,7 @@ public class ScreenBookmarkDetail
       verseText.append(view.getText()).append("\n");
     }
 
-    final String shareTemplate = getString(R.string.scrBookmarkDetailShareTemplate);
+    final String shareTemplate = getString(R.string.itm_bmark_template_share);
     final String formattedShareText = String.format(shareTemplate, verseText, noteText);
 
     mainOps.shareText(formattedShareText);
@@ -199,12 +201,12 @@ public class ScreenBookmarkDetail
       if (deleted) {
         NavHostFragment.findNavController(this)
                        .navigate(R.id.action_screenBookmark_pop);
-        final String message = getString(R.string.scrBookmarkDetailDeleteSuccess);
+        final String message = getString(R.string.scr_bmark_detail_msg_delete_success);
         mainOps.showMessage(message);
         return;
       }
 
-      final String message = getString(R.string.scrBookmarkDetailDeleteFail);
+      final String message = getString(R.string.scr_bmark_detail_msg_delete_fail);
       mainOps.showMessage(message);
     });
   }
@@ -216,7 +218,7 @@ public class ScreenBookmarkDetail
 
     adapter.updateList(list);
 
-    final RecyclerView recyclerView = rootView.findViewById(R.id.scr_bmark_detail_list);
+    final RecyclerView recyclerView = rootView.findViewById(R.id.scr_bmark_list);
     recyclerView.setAdapter(adapter);
 
     model.getBookmark(reference).observe(this, bookmarks -> {
@@ -232,50 +234,50 @@ public class ScreenBookmarkDetail
       }
 
       final int recordCount = list.size();
-      final String titleTemplate = getString(R.string.scrBookmarkDetailTitleTemplate);
+      final String titleTemplate = getString(R.string.scr_bmark_title_template);
 
       final String headerTxt = getString(bookmarkExists
-                                         ? R.string.scrBookmarkDetailTitleBookmarkSaved
-                                         : R.string.scrBookmarkDetailTitleBookmarkUnsaved);
+                                         ? R.string.scr_bmark_title_template_saved
+                                         : R.string.scr_bmark_title_template_unsaved);
 
       final String footerTemplate = getResources().getQuantityString(
-          R.plurals.scrBookmarkDetailTitlePluralBookmarkCount, recordCount);
+          R.plurals.scr_bmark_title_template_verse_count, recordCount);
       final String footerTxt = String.format(footerTemplate, recordCount);
 
       final String titleTxt = String.format(titleTemplate, headerTxt, footerTxt);
-      ((TextView) rootView.findViewById(R.id.scr_bmark_detail_title))
+      ((TextView) rootView.findViewById(R.id.scr_bmark_title))
           .setText(HtmlCompat.fromHtml(titleTxt, HtmlCompat.FROM_HTML_MODE_COMPACT));
     });
   }
 
   private void toggleNoteFieldState(final boolean bookmarkExists) {
     Log.d(TAG, "toggleNoteFieldState: bookmarkExists = [" + bookmarkExists + "]");
-    rootView.findViewById(R.id.scr_bmark_detail_note).setEnabled(!bookmarkExists);
+    rootView.findViewById(R.id.scr_bmark_note).setEnabled(!bookmarkExists);
   }
 
   private void toggleAction(final boolean bookmarkExists) {
     Log.d(TAG, "toggleAction: bookmarkExists = [" + bookmarkExists + "]");
-    final BottomAppBar bAppBar = rootView.findViewById(R.id.scr_bmark_detail_app_bar);
+    final BottomAppBar bAppBar = rootView.findViewById(R.id.scr_bmark_app_bar);
     final Menu menu = bAppBar.getMenu();
     if (bookmarkExists) {
-      menu.setGroupVisible(R.id.scr_bookmark_action_container_saved, true);
-      menu.setGroupVisible(R.id.scr_bookmark_action_container_unsaved, false);
+      menu.setGroupVisible(R.id.scr_bmark_action_container_saved, true);
+      menu.setGroupVisible(R.id.scr_bmark_action_container_unsaved, false);
     } else {
-      menu.setGroupVisible(R.id.scr_bookmark_action_container_saved, false);
-      menu.setGroupVisible(R.id.scr_bookmark_action_container_unsaved, true);
+      menu.setGroupVisible(R.id.scr_bmark_action_container_saved, false);
+      menu.setGroupVisible(R.id.scr_bmark_action_container_unsaved, true);
     }
   }
 
   @NonNull
   private String getNoteText() {
-    TextInputEditText editText = rootView.findViewById(R.id.scr_bmark_detail_note);
+    TextInputEditText editText = rootView.findViewById(R.id.scr_bmark_note);
     final Editable text = editText.getText();
 
     return (text == null) ? "" : text.toString();
   }
 
   private void setNoteText(@NonNull final String note) {
-    TextInputEditText editText = rootView.findViewById(R.id.scr_bmark_detail_note);
+    TextInputEditText editText = rootView.findViewById(R.id.scr_bmark_note);
     editText.setText(note);
   }
 
