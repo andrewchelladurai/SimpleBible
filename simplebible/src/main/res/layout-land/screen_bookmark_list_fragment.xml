@@ -7,44 +7,44 @@
     tools:context=".ui.ScreenBookmarkList">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/scrBookmarkListInfoGV10"
+        android:id="@+id/scr_bmark_list_gv10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.1" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/scrBookmarkListInfoGV40"
+        android:id="@+id/scr_bmark_list_gv40"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.4" />
 
     <ImageView
-        android:id="@+id/scrBookmarkListInfoImage"
+        android:id="@+id/scr_bmark_list_image"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:contentDescription="@string/scrBookmarkListInfoHelpImage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toStartOf="@id/scrBookmarkListInfoGV40"
-        app:layout_constraintStart_toEndOf="@id/scrBookmarkListInfoGV10"
+        app:layout_constraintEnd_toStartOf="@id/scr_bmark_list_gv40"
+        app:layout_constraintStart_toEndOf="@id/scr_bmark_list_gv10"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_hero_bookmark" />
 
     <ScrollView
-        android:id="@+id/scrBookmarkListInfoScrollView"
+        android:id="@+id/scr_bmark_list_container_help"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
         android:padding="@dimen/gapHuge"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/scrBookmarkListInfoImage"
+        app:layout_constraintStart_toEndOf="@id/scr_bmark_list_image"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/scrBookmarkListInfoHelpText"
+            android:id="@+id/scr_bmark_list_help"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -54,7 +54,7 @@
     </ScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/scrBookmarkListList"
+        android:id="@+id/scr_bmark_list_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="@dimen/gapBig"

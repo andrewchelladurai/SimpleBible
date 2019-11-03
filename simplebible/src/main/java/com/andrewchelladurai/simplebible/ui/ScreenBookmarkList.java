@@ -81,30 +81,30 @@ public class ScreenBookmarkList
   }
 
   private void showList() {
-    final RecyclerView recyclerView = rootView.findViewById(R.id.scrBookmarkListList);
+    final RecyclerView recyclerView = rootView.findViewById(R.id.scr_bmark_list_list);
     recyclerView.setAdapter(adapter);
   }
 
   private void hideList() {
-    rootView.findViewById(R.id.scrBookmarkListList).setVisibility(View.GONE);
+    rootView.findViewById(R.id.scr_bmark_list_list).setVisibility(View.GONE);
   }
 
   private void showHelpInfo() {
     final String rawText = getString(R.string.scrBookmarkListInfoHelpText);
     final Spanned htmlText = HtmlCompat.fromHtml(rawText, HtmlCompat.FROM_HTML_MODE_COMPACT);
 
-    final TextView textView = rootView.findViewById(R.id.scrBookmarkListInfoHelpText);
+    final TextView textView = rootView.findViewById(R.id.scr_bmark_list_help);
     textView.setText(htmlText);
 
     textView.setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scrBookmarkListInfoScrollView).setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scrBookmarkListInfoImage).setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scr_bmark_list_container_help).setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scr_bmark_list_image).setVisibility(View.VISIBLE);
   }
 
   private void hideHelpInfo() {
-    rootView.findViewById(R.id.scrBookmarkListInfoImage).setVisibility(View.GONE);
-    rootView.findViewById(R.id.scrBookmarkListInfoHelpText).setVisibility(View.GONE);
-    rootView.findViewById(R.id.scrBookmarkListInfoScrollView).setVisibility(View.GONE);
+    rootView.findViewById(R.id.scr_bmark_list_image).setVisibility(View.GONE);
+    rootView.findViewById(R.id.scr_bmark_list_help).setVisibility(View.GONE);
+    rootView.findViewById(R.id.scr_bmark_list_container_help).setVisibility(View.GONE);
   }
 
   @Override
