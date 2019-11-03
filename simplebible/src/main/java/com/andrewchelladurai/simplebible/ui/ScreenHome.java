@@ -137,7 +137,7 @@ public class ScreenHome
     mainOps.hideNavigationView();
 
     // show the verse text for a loading progress
-    showVerseText(R.string.scrHomeVerseLoading);
+    showVerseText(R.string.scr_home_verse_content_loading);
 
     // show the progress bar
     View view = rootView.findViewById(R.id.scr_home_progress_bar);
@@ -219,7 +219,7 @@ public class ScreenHome
         }
 
         Log.d(TAG, "showDailyVerse: dayNumber[" + dayNumber + "] has reference[" + reference + "]");
-        final String template = getString(R.string.scrHomeVerseTemplate);
+        final String template = getString(R.string.scr_home_verse_content_template);
         final String bookName = book.getName();
         final int chapterNum = verse.getChapter();
         final int verseNum = verse.getVerse();
