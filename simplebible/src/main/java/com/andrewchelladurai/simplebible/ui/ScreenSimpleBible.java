@@ -37,8 +37,8 @@ public class ScreenSimpleBible
 
     // setup bottom navigation bar with the navigation host fragment
     NavigationUI.setupWithNavController(
-        (BottomNavigationView) findViewById(R.id.scrMainBottomNavView),
-        Navigation.findNavController(this, R.id.scrMainNavHostFragment));
+        (BottomNavigationView) findViewById(R.id.scr_main_navigation_view),
+        Navigation.findNavController(this, R.id.scr_main_nav_host_fragment));
 
     if (savedState == null) {
       // Need this only once when the application launches
@@ -63,12 +63,12 @@ public class ScreenSimpleBible
 
   @Override
   public void hideNavigationView() {
-    findViewById(R.id.scrMainBottomNavView).setVisibility(View.GONE);
+    findViewById(R.id.scr_main_navigation_view).setVisibility(View.GONE);
   }
 
   @Override
   public void showNavigationView() {
-    findViewById(R.id.scrMainBottomNavView).setVisibility(View.VISIBLE);
+    findViewById(R.id.scr_main_navigation_view).setVisibility(View.VISIBLE);
   }
 
   @Override
@@ -89,8 +89,8 @@ public class ScreenSimpleBible
   @Override
   public void showMessage(@NonNull final String message) {
     hideKeyboard();
-    Snackbar.make(findViewById(R.id.scrMainNavHostFragment), message, Snackbar.LENGTH_LONG)
-            .setAnchorView(R.id.scrMainBottomNavView)
+    Snackbar.make(findViewById(R.id.scr_main_nav_host_fragment), message, Snackbar.LENGTH_LONG)
+            .setAnchorView(R.id.scr_main_navigation_view)
             .show();
   }
 
@@ -116,7 +116,7 @@ public class ScreenSimpleBible
     bundle.putBoolean(ScreenError.ARG_INFORM_DEV, informDev);
     bundle.putBoolean(ScreenError.ARG_EXIT_APP, exitApp);
 
-    Navigation.findNavController(this, R.id.scrMainNavHostFragment)
+    Navigation.findNavController(this, R.id.scr_main_nav_host_fragment)
               .navigate(R.id.action_global_screenError, bundle);
   }
 
