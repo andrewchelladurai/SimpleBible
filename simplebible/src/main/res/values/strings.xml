@@ -86,8 +86,8 @@
     <string name="itm_search_result_content_template"><![CDATA[<b>%s %d:%d -</b> %s]]></string>
 
     <!-- String used in the ScreenBookmarkDetail -->
-    <string name="scrBookmarkErrNullVerseList">No parcelable verses arguments passed</string>
-    <string name="scrBookmarkErrEmptyVerseList">Empty verses list received</string>
+    <string name="scr_bmark_err_no_args">No verses passed as arguments</string>
+    <string name="scr_bmark_err_no_verse">Empty verses list received</string>
 
     <!-- String used in the ScreenChapter -->
     <string name="itemChapterVerseContentTemplate"><![CDATA[<b>%d : </b>%s]]></string>

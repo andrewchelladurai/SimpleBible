@@ -161,7 +161,7 @@ public class ScreenBookmarkList
     final String reference = bookmark.getReference();
     bookmarkListModel.getBookmarkedVerse(reference).observe(this, verses -> {
       if (verses == null || verses.isEmpty()) {
-        final String message = getString(R.string.scrBookmarkErrEmptyVerseList);
+        final String message = getString(R.string.scr_bmark_err_no_verse);
         Log.e(TAG, "handleBookmarkClick: " + message);
         return;
       }
