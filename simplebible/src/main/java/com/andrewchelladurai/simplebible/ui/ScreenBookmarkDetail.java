@@ -72,20 +72,20 @@ public class ScreenBookmarkDetail
       // have we got arguments
       final Bundle arguments = getArguments();
       if (arguments == null) {
-        mainOps.showErrorScreen(getString(R.string.scr_bmark_err_no_args), true, true);
+        mainOps.showErrorScreen(getString(R.string.scr_bmark_msg_no_args), true, true);
         return rootView;
       }
 
       // does the arguments contain the key we need
       if (!arguments.containsKey(ARG_VERSE_LIST)) {
-        mainOps.showErrorScreen(getString(R.string.scr_bmark_err_no_verse), true, true);
+        mainOps.showErrorScreen(getString(R.string.scr_bmark_msg_no_verse), true, true);
         return rootView;
       }
 
       // does the passed value actually hold data for our use
       final Parcelable[] parcelableArray = arguments.getParcelableArray(ARG_VERSE_LIST);
       if (parcelableArray == null || parcelableArray.length == 0) {
-        mainOps.showErrorScreen(getString(R.string.scr_bmark_err_no_verse), true, true);
+        mainOps.showErrorScreen(getString(R.string.scr_bmark_msg_no_verse), true, true);
         return rootView;
       }
 

@@ -9,4 +9,4 @@
     android:paddingTop="@dimen/gap_small"
     android:paddingEnd="@dimen/gap_normal"
     android:paddingBottom="@dimen/gap_small"
-    tools:text="@string/app_name" />
+    tools:text="@string/itm_chapter_verse_content_template" />

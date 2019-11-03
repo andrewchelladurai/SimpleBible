@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/gap_normal"
-        android:text="@string/scrChapterSelectionDialogTitle"
+        android:text="@string/scr_chapter_selection_dialog_title"
         android:textAlignment="center" />
 
     <androidx.recyclerview.widget.RecyclerView

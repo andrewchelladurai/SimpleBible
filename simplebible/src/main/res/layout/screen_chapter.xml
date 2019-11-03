@@ -43,7 +43,8 @@
             <TextView
                 android:id="@+id/scr_chapter_title"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                tools:text="@string/scr_chapter_title_template" />
         </HorizontalScrollView>
     </com.google.android.material.bottomappbar.BottomAppBar>
 

@@ -58,7 +58,7 @@ public class ScreenChapter
 
     mainOps = (ScreenSimpleBibleOps) context;
     model = ViewModelProviders.of(this).get(ScreenChapterModel.class);
-    adapter = new ChapterVerseAdapter(this, getString(R.string.itemChapterVerseContentTemplate));
+    adapter = new ChapterVerseAdapter(this, getString(R.string.itm_chapter_verse_content_template));
   }
 
   @Override
@@ -71,7 +71,7 @@ public class ScreenChapter
       final Bundle arguments = getArguments();
 
       if (arguments == null) {
-        final String message = getString(R.string.scrChapterNoArguments);
+        final String message = getString(R.string.scr_chapter_msg_no_args);
         Log.e(TAG, "onCreateView: " + message);
         mainOps.showErrorScreen(message, true, true);
         return rootView;
@@ -80,7 +80,7 @@ public class ScreenChapter
       final Book bookArg = arguments.getParcelable(ARG_BOOK);
 
       if (bookArg == null) {
-        final String message = getString(R.string.scrChapterErrNoBook);
+        final String message = getString(R.string.scr_chapter_msg_no_book);
         Log.e(TAG, "onCreateView: " + message);
         mainOps.showErrorScreen(message, true, true);
         return rootView;
@@ -90,7 +90,7 @@ public class ScreenChapter
       final int chapter = arguments.getInt(ARG_CHAPTER);
 
       if (chapter < 1 || chapter > model.getBook().getChapters()) {
-        final String message = getString(R.string.scrChapterErrChapterInvalid);
+        final String message = getString(R.string.scr_chapter_msg_chapter_invalid);
         Log.e(TAG, "onCreateView: " + message);
         mainOps.showMessage(message);
         model.setBookChapter(1);
@@ -145,7 +145,7 @@ public class ScreenChapter
 
       if (list == null || list.isEmpty()) {
         final Bundle bundle = new Bundle();
-        final String message = String.format(getString(R.string.scrChapterErrEmptyVerseList),
+        final String message = String.format(getString(R.string.scr_chapter_msg_no_verse_found),
                                              currentChapterNumber, model.getBook().getName());
         bundle.putString(ScreenError.ARG_MESSAGE, message);
         bundle.putBoolean(ScreenError.ARG_EXIT_APP, true);
@@ -177,7 +177,7 @@ public class ScreenChapter
 
   private void updateScreenTitle() {
     final Book book = model.getBook();
-    final String htmlText = getString(R.string.scrChapterTitleTemplate,
+    final String htmlText = getString(R.string.scr_chapter_title_template,
                                       book.getName(), model.getChapter(),
                                       book.getDescription());
     final String titleText = HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_COMPACT)
