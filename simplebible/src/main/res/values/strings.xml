@@ -63,10 +63,10 @@
     </plurals>
 
     <!-- String used in the ScreenSearch -->
-    <string name="scr_search_action_bookmark">Bookmark</string>
-    <string name="scr_search_action_share">Share</string>
-    <string name="scr_search_action_clear">Clear</string>
-    <string name="scr_search_action_reset">Reset</string>
+    <string name="scr_search_menu_bookmark">Bookmark</string>
+    <string name="scr_search_menu_share">Share</string>
+    <string name="scr_search_menu_clear">Clear</string>
+    <string name="scr_search_menu_reset">Reset</string>
     <string name="scr_search_input_hint">Search text</string>
     <string name="scr_search_msg_no_selection_clear">Clear : No verses selected</string>
     <string name="scr_search_msg_no_selection_bookmark">Bookmark : No Verses Selected</string>

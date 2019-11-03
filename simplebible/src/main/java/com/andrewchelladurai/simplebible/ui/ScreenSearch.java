@@ -63,19 +63,19 @@ public class ScreenSearch
     mainOps.hideKeyboard();
     searchResultContentTemplate = getString(R.string.itm_search_result_content_template);
 
-    ((BottomNavigationView) rootView.findViewById(R.id.scr_search_result_actions))
+    ((BottomNavigationView) rootView.findViewById(R.id.scr_search_menu))
         .setOnNavigationItemSelectedListener(item -> {
           switch (item.getItemId()) {
-            case R.id.scr_search_action_bookmark:
+            case R.id.scr_search_menu_bookmark:
               handleClickActionBookmark();
               return true;
-            case R.id.scr_search_action_share:
+            case R.id.scr_search_menu_share:
               handleClickActionShare();
               return true;
-            case R.id.scr_search_action_clear:
+            case R.id.scr_search_menu_clear:
               handleClickActionClear();
               return true;
-            case R.id.scr_search_action_reset:
+            case R.id.scr_search_menu_reset:
               handleClickActionReset();
               return true;
             default:
@@ -220,7 +220,7 @@ public class ScreenSearch
   }
 
   private void showActionsContainer() {
-    rootView.findViewById(R.id.scr_search_result_actions).setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scr_search_menu).setVisibility(View.VISIBLE);
   }
 
   private void showSearchDefaultUi() {
