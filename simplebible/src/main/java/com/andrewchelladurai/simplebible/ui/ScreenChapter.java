@@ -294,9 +294,9 @@ public class ScreenChapter
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
       final View view = inflater
-          .inflate(R.layout.screen_search_chapter_dialog_fragment, container, false);
+          .inflate(R.layout.screen_chapter_dialog, container, false);
 
-      ((RecyclerView) view.findViewById(R.id.scrChapterChapterList))
+      ((RecyclerView) view.findViewById(R.id.scr_chapter_bottom_sheet_list))
           .setAdapter(chapterNumberAdapter);
 
       return view;
