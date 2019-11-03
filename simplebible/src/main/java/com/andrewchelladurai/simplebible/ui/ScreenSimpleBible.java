@@ -51,9 +51,9 @@ public class ScreenSimpleBible
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
       notificationChannel = new NotificationChannel(
           getPackageName(),
-          getString(R.string.notificationChannelName),
+          getString(R.string.scr_simple_bible_notif_channel_name),
           NotificationManager.IMPORTANCE_HIGH);
-      notificationChannel.setDescription(getString(R.string.notificationChannelDescription));
+      notificationChannel.setDescription(getString(R.string.scr_simple_bible_notif_channel_desc));
 
       getSystemService(NotificationManager.class).createNotificationChannel(notificationChannel);
       Log.d(TAG, "createNotificationChannel: created");

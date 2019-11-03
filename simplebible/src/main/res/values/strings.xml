@@ -11,13 +11,13 @@
     <string name="db_setup_failure_message">Database Setup failed, please use the below button to inform the developer.</string>
 
     <!-- Strings used in the Main Screen -->
-    <string name="scrMainBottomNavViewHome">home</string>
-    <string name="scrMainBottomNavViewBookList">books</string>
-    <string name="scrMainBottomNavViewSearch">search</string>
-    <string name="scrMainBottomNavViewBookmarkList">bookmarks</string>
-    <string name="scrMainBottomNavViewSettings">settings</string>
-    <string name="notificationChannelName">Simple Bible Notifications</string>
-    <string name="notificationChannelDescription">Will show the Daily Verse notifications and others</string>
+    <string name="scr_simple_bible_menu_title_home">home</string>
+    <string name="scr_simple_bible_menu_title_book_list">books</string>
+    <string name="scr_simple_bible_menu_title_search">search</string>
+    <string name="scr_simple_bible_menu_title_bookmark_list">bookmarks</string>
+    <string name="scr_simple_bible_menu_title_settings">settings</string>
+    <string name="scr_simple_bible_notif_channel_name">Simple Bible Notifications</string>
+    <string name="scr_simple_bible_notif_channel_desc">Will show the Daily Verse notifications and others</string>
 
     <!-- String used in the HomeScreen -->
     <string name="scrHomeProgressTextTemplate">%d</string>

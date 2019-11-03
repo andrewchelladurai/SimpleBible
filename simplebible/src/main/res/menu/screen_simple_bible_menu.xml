@@ -4,26 +4,26 @@
     <item
         android:id="@+id/nav_id_screen_home"
         android:icon="@drawable/ic_home"
-        android:title="@string/scrMainBottomNavViewHome" />
+        android:title="@string/scr_simple_bible_menu_title_home" />
 
     <item
         android:id="@+id/nav_id_screen_book_list"
         android:icon="@drawable/ic_list"
-        android:title="@string/scrMainBottomNavViewBookList" />
+        android:title="@string/scr_simple_bible_menu_title_book_list" />
 
     <item
         android:id="@+id/nav_id_screen_search"
         android:icon="@drawable/ic_search"
-        android:title="@string/scrMainBottomNavViewSearch" />
+        android:title="@string/scr_simple_bible_menu_title_search" />
 
     <item
         android:id="@+id/nav_id_screen_bookmark_list"
         android:icon="@drawable/ic_bookmarks"
-        android:title="@string/scrMainBottomNavViewBookmarkList" />
+        android:title="@string/scr_simple_bible_menu_title_bookmark_list" />
 
     <item
         android:id="@+id/nav_id_screen_settings"
         android:icon="@drawable/ic_settings"
-        android:title="@string/scrMainBottomNavViewSettings" />
+        android:title="@string/scr_simple_bible_menu_title_settings" />
 
 </menu>
