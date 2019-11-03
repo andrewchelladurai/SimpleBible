@@ -36,6 +36,7 @@
             android:iconifiedByDefault="false"
             android:imeOptions="actionSearch"
             android:inputType="textAutoCorrect|textAutoComplete"
+            android:orientation="horizontal"
             android:queryHint="@string/scr_search_input_hint"
             android:searchIcon="@drawable/ic_search"
             app:layout_constraintBottom_toBottomOf="@id/scr_search_gv10"
@@ -81,18 +82,37 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/scr_search_container_result"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
+        <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/scr_search_menu"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            app:hideOnScroll="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1"
-            app:menu="@menu/screen_search_menu" />
+            app:menu="@menu/screen_search_menu"
+            tools:ignore="BottomAppBar">
+
+            <HorizontalScrollView
+                android:id="@+id/scr_search_container_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:fillViewport="true">
+
+                <TextView
+                    android:id="@+id/scr_search_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="true" />
+            </HorizontalScrollView>
+        </com.google.android.material.bottomappbar.BottomAppBar>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/scr_search_list"

@@ -68,6 +68,10 @@
     <string name="scr_search_menu_clear">Clear</string>
     <string name="scr_search_menu_reset">Reset</string>
     <string name="scr_search_input_hint">Search text</string>
+    <plurals name="scr_search_title_template">
+        <item quantity="one"><![CDATA[<b>%d Result Found</b><br/>Tap a verse for actions]]></item>
+        <item quantity="other"><![CDATA[<b>%d Results Found</b><br/>Tap a verse for actions]]></item>
+    </plurals>
     <string name="scr_search_msg_no_selection_clear">Clear : No verses selected</string>
     <string name="scr_search_msg_no_selection_bookmark">Bookmark : No Verses Selected</string>
     <string name="scr_search_msg_no_selection_share">Share : No verse selected</string>

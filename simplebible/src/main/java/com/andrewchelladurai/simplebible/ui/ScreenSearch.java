@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
@@ -23,7 +24,7 @@ import com.andrewchelladurai.simplebible.model.ScreenSearchModel;
 import com.andrewchelladurai.simplebible.ui.adapter.SearchAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSearchOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomappbar.BottomAppBar;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -63,8 +64,8 @@ public class ScreenSearch
     mainOps.hideKeyboard();
     searchResultContentTemplate = getString(R.string.itm_search_result_content_template);
 
-    ((BottomNavigationView) rootView.findViewById(R.id.scr_search_menu))
-        .setOnNavigationItemSelectedListener(item -> {
+    ((BottomAppBar) rootView.findViewById(R.id.scr_search_menu))
+        .setOnMenuItemClickListener(item -> {
           switch (item.getItemId()) {
             case R.id.scr_search_menu_bookmark:
               handleClickActionBookmark();
@@ -112,7 +113,6 @@ public class ScreenSearch
         showSearchDefaultUi();
       } else {
         showSearchResultsUi();
-        showActionsContainer();
       }
     }
 
@@ -152,7 +152,6 @@ public class ScreenSearch
       Log.d(TAG, "handleClickActionSearch: found [" + list.size() + "] verses");
       adapter.updateList(list);
       showSearchResultsUi();
-      showActionsContainer();
     });
   }
 
@@ -219,15 +218,12 @@ public class ScreenSearch
                    .navigate(R.id.action_screenSearch_to_screenBookmark, bundle);
   }
 
-  private void showActionsContainer() {
-    rootView.findViewById(R.id.scr_search_menu).setVisibility(View.VISIBLE);
-  }
-
   private void showSearchDefaultUi() {
     adapter.clearList();
 
-    final Spanned htmlText = HtmlCompat.fromHtml(getString(R.string.scr_search_tips_text),
-                                                 HtmlCompat.FROM_HTML_MODE_LEGACY);
+    final Spanned htmlText =
+        HtmlCompat.fromHtml(getString(R.string.scr_search_tips_text),
+                            HtmlCompat.FROM_HTML_MODE_LEGACY);
     final TextView textView = rootView.findViewById(R.id.scr_search_tips_text);
     textView.setText(htmlText);
     rootView.findViewById(R.id.scr_search_container_help).setVisibility(View.VISIBLE);
@@ -238,6 +234,16 @@ public class ScreenSearch
   private void showSearchResultsUi() {
     rootView.findViewById(R.id.scr_search_container_help).setVisibility(View.GONE);
     rootView.findViewById(R.id.scr_search_container_result).setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scr_search_menu).setVisibility(View.VISIBLE);
+
+    final int resultCount = adapter.getItemCount();
+    final String titleTemplate = getResources()
+        .getQuantityString(R.plurals.scr_search_title_template, resultCount);
+    final String formattedText = String.format(titleTemplate, resultCount);
+    final Spanned htmlText = HtmlCompat.fromHtml(formattedText, HtmlCompat.FROM_HTML_MODE_COMPACT);
+    final TextView titleView = rootView.findViewById(R.id.scr_search_title);
+    titleView.setText(htmlText);
+
     mainOps.hideNavigationView();
   }
 
@@ -257,6 +263,18 @@ public class ScreenSearch
                         verse.getText()),
           HtmlCompat.FROM_HTML_MODE_LEGACY));
     });
+  }
+
+  @Override
+  public void updateTitleAndActionsView() {
+    final BottomAppBar bAppBar = rootView.findViewById(R.id.scr_search_menu);
+    final Menu menu = bAppBar.getMenu();
+
+    final int selectedCount = adapter.getSelectedItemCount();
+
+    rootView.findViewById(R.id.scr_search_title)
+            .setVisibility(selectedCount > 0 ? View.GONE : View.VISIBLE);
+    menu.setGroupVisible(R.id.scr_search_menu_container_selected, selectedCount > 0);
   }
 
 }
