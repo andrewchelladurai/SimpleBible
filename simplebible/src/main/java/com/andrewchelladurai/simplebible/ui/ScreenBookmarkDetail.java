@@ -102,23 +102,23 @@ public class ScreenBookmarkDetail
     final BottomAppBar bAppBar = rootView.findViewById(R.id.scr_bmark_detail_app_bar);
     bAppBar.setOnMenuItemClickListener(item -> {
       switch (item.getItemId()) {
-        case R.id.scrBookmarkActionToggleView:
+        case R.id.scr_bookmark_action_toggle_view:
           showVerseList = !showVerseList;
           rootView.findViewById(R.id.scr_bmark_detail_list)
                   .setVisibility((showVerseList ? View.VISIBLE : View.GONE));
           rootView.findViewById(R.id.scr_bmark_detail_container_note)
                   .setVisibility((showVerseList ? View.GONE : View.VISIBLE));
           return true;
-        case R.id.scrBookmarkActionDelete:
+        case R.id.scr_bookmark_action_delete:
           handleClickActionDelete();
           return true;
-        case R.id.scrBookmarkActionEdit:
+        case R.id.scr_bookmark_action_edit:
           handleClickActionEdit();
           return true;
-        case R.id.scrBookmarkActionShare:
+        case R.id.scr_bookmark_action_share:
           handleClickActionShare();
           return true;
-        case R.id.scrBookmarkActionSave:
+        case R.id.scr_bookmark_action_save:
           handleClickActionSave();
           return true;
         default:
@@ -258,11 +258,11 @@ public class ScreenBookmarkDetail
     final BottomAppBar bAppBar = rootView.findViewById(R.id.scr_bmark_detail_app_bar);
     final Menu menu = bAppBar.getMenu();
     if (bookmarkExists) {
-      menu.setGroupVisible(R.id.scrBookmarkDetailActionGroupEdit, true);
-      menu.setGroupVisible(R.id.scrBookmarkDetailActionGroupSave, false);
+      menu.setGroupVisible(R.id.scr_bookmark_action_container_saved, true);
+      menu.setGroupVisible(R.id.scr_bookmark_action_container_unsaved, false);
     } else {
-      menu.setGroupVisible(R.id.scrBookmarkDetailActionGroupEdit, false);
-      menu.setGroupVisible(R.id.scrBookmarkDetailActionGroupSave, true);
+      menu.setGroupVisible(R.id.scr_bookmark_action_container_saved, false);
+      menu.setGroupVisible(R.id.scr_bookmark_action_container_unsaved, true);
     }
   }
 

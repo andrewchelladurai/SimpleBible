@@ -104,16 +104,16 @@ public class ScreenChapter
     final BottomAppBar bottomAppBar = rootView.findViewById(R.id.scr_chapter_bottom_app_bar);
     bottomAppBar.setOnMenuItemClickListener(item -> {
       switch (item.getItemId()) {
-        case R.id.scrChapterActionSelectionBookmark:
+        case R.id.scr_chapter_action_bookmark:
           handleActionClickBookmark();
           return true;
-        case R.id.scrChapterActionSelectionShare:
+        case R.id.scr_chapter_action_share:
           handleActionClickShare();
           return true;
-        case R.id.scrChapterActionSelectionClear:
+        case R.id.scr_chapter_action_clear:
           handleActionClickClear();
           return true;
-        case R.id.scrChapterActionChapters:
+        case R.id.scr_chapter_action_chapters:
           showChapterSelector();
           return true;
         default:
@@ -198,7 +198,7 @@ public class ScreenChapter
     final boolean isVerseSelected = adapter.getSelectedItemCount() > 0;
     final BottomAppBar bottomAppBar = rootView.findViewById(R.id.scr_chapter_bottom_app_bar);
     final Menu menu = bottomAppBar.getMenu();
-    menu.setGroupVisible(R.id.scrChapterVerseSelectionActions, isVerseSelected);
+    menu.setGroupVisible(R.id.scr_chapter_action_container_selected, isVerseSelected);
     rootView.findViewById(R.id.scr_chapter_container_title)
             .setVisibility((isVerseSelected) ? View.GONE : View.VISIBLE);
   }

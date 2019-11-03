@@ -65,10 +65,10 @@
     </plurals>
 
     <!-- String used in the ScreenSearch -->
-    <string name="scrSearchActionBookmark">Bookmark</string>
-    <string name="scrSearchActionShare">Share</string>
-    <string name="scrSearchActionClear">Clear</string>
-    <string name="scrSearchActionReset">Reset</string>
+    <string name="scr_search_action_bookmark">Bookmark</string>
+    <string name="scr_search_action_share">Share</string>
+    <string name="scr_search_action_clear">Clear</string>
+    <string name="scr_search_action_reset">Reset</string>
     <string name="scrSearchInputHint">Search text</string>
     <string name="scrSearchErrEmptyListClear">Clear : No verses selected</string>
     <string name="scrSearchErrEmptyListBookmark">Bookmark : No Verses Selected</string>
@@ -99,11 +99,11 @@
     <string name="scrChapterErrNoBook">No / Null Book passed, using default</string>
     <string name="scrChapterErrChapterInvalid">Incorrect Chapter passed, using default</string>
     <string name="scrChapterErrEmptyVerseList">No Verses found for Chapter %d of Book %s</string>
-    <string name="scrChapterActionChapters">Show Chapters</string>
+    <string name="scr_chapter_action_chapters">Show Chapters</string>
     <string name="scrChapterTitleTemplate"><![CDATA[<b>%s : Chapter %d</b><br/>%s]]></string>
-    <string name="scrChapterActionSelectionBookmark">Bookmark</string>
-    <string name="scrChapterActionSelectionShare">Share</string>
-    <string name="scrChapterActionSelectionClear">Clear</string>
+    <string name="scr_chapter_action_bookmark">Bookmark</string>
+    <string name="scr_chapter_action_share">Share</string>
+    <string name="scr_chapter_action_clear">Clear</string>
     <string name="scrChapterSelectionDialogTitle">Select A Chapter</string>
 
     <!-- String used in the ScreenBookmarkDetail -->
@@ -116,11 +116,11 @@
     </plurals>
 
     <string name="scrBookmarkDetailTitleTemplate"><![CDATA[<b>%s</b><br/>%s]]></string>
-    <string name="scrBookmarkDetailActionToggleView">Toggle</string>
-    <string name="scrBookmarkDetailActionDelete">Delete</string>
-    <string name="scrBookmarkDetailActionSave">Save</string>
-    <string name="scrBookmarkDetailActionEdit">Edit</string>
-    <string name="scrBookmarkDetailActionShare">Share</string>
+    <string name="scr_bookmark_action_toggle_view">Toggle</string>
+    <string name="scr_bookmark_action_delete">Delete</string>
+    <string name="scr_bookmark_action_save">Save</string>
+    <string name="scr_bookmark_action_edit">Edit</string>
+    <string name="scr_bookmark_action_share">Share</string>
     <string name="scrBookmarkDetailNote">Notes</string>
     <string name="scrBookmarkDetailSaveSuccess">Bookmark Saved</string>
     <string name="scrBookmarkDetailSaveFail">Save Bookmark Failed</string>

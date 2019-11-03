@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/scrSearchActionReset"
+        android:id="@+id/scr_search_action_reset"
         android:icon="@drawable/ic_reset"
-        android:title="@string/scrSearchActionReset" />
+        android:title="@string/scr_search_action_reset" />
     <item
-        android:id="@+id/scrSearchActionClear"
+        android:id="@+id/scr_search_action_clear"
         android:icon="@drawable/ic_clear"
-        android:title="@string/scrSearchActionClear" />
+        android:title="@string/scr_search_action_clear" />
     <item
-        android:id="@+id/scrSearchActionShare"
+        android:id="@+id/scr_search_action_share"
         android:icon="@drawable/ic_share"
-        android:title="@string/scrSearchActionShare" />
+        android:title="@string/scr_search_action_share" />
     <item
-        android:id="@+id/scrSearchActionBookmark"
+        android:id="@+id/scr_search_action_bookmark"
         android:icon="@drawable/ic_bookmark"
-        android:title="@string/scrSearchActionBookmark" />
+        android:title="@string/scr_search_action_bookmark" />
 </menu>

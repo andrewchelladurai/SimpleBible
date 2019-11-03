@@ -4,34 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:animateLayoutChanges="true"
     tools:ignore="AlwaysShowAction">
+
     <item
-        android:id="@+id/scrBookmarkActionToggleView"
+        android:id="@+id/scr_bookmark_action_toggle_view"
         android:icon="@drawable/ic_toggle"
         android:orderInCategory="1"
-        android:title="@string/scrBookmarkDetailActionToggleView"
+        android:title="@string/scr_bookmark_action_toggle_view"
         app:showAsAction="always" />
-    <group android:id="@+id/scrBookmarkDetailActionGroupEdit">
+
+    <group android:id="@+id/scr_bookmark_action_container_saved">
         <item
-            android:id="@+id/scrBookmarkActionDelete"
+            android:id="@+id/scr_bookmark_action_delete"
             android:icon="@drawable/ic_delete"
-            android:title="@string/scrBookmarkDetailActionDelete"
+            android:title="@string/scr_bookmark_action_delete"
             app:showAsAction="always" />
         <item
-            android:id="@+id/scrBookmarkActionEdit"
+            android:id="@+id/scr_bookmark_action_edit"
             android:icon="@drawable/ic_edit"
-            android:title="@string/scrBookmarkDetailActionEdit"
+            android:title="@string/scr_bookmark_action_edit"
             app:showAsAction="always" />
         <item
-            android:id="@+id/scrBookmarkActionShare"
+            android:id="@+id/scr_bookmark_action_share"
             android:icon="@drawable/ic_share"
-            android:title="@string/scrBookmarkDetailActionShare"
+            android:title="@string/scr_bookmark_action_share"
             app:showAsAction="always" />
     </group>
-    <group android:id="@+id/scrBookmarkDetailActionGroupSave">
+
+    <group android:id="@+id/scr_bookmark_action_container_unsaved">
         <item
-            android:id="@+id/scrBookmarkActionSave"
+            android:id="@+id/scr_bookmark_action_save"
             android:icon="@drawable/ic_save"
-            android:title="@string/scrBookmarkDetailActionSave"
+            android:title="@string/scr_bookmark_action_save"
             app:showAsAction="always" />
     </group>
 </menu>

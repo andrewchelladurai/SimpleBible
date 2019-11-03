@@ -66,16 +66,16 @@ public class ScreenSearch
     ((BottomNavigationView) rootView.findViewById(R.id.scr_search_result_actions))
         .setOnNavigationItemSelectedListener(item -> {
           switch (item.getItemId()) {
-            case R.id.scrSearchActionBookmark:
+            case R.id.scr_search_action_bookmark:
               handleClickActionBookmark();
               return true;
-            case R.id.scrSearchActionShare:
+            case R.id.scr_search_action_share:
               handleClickActionShare();
               return true;
-            case R.id.scrSearchActionClear:
+            case R.id.scr_search_action_clear:
               handleClickActionClear();
               return true;
-            case R.id.scrSearchActionReset:
+            case R.id.scr_search_action_reset:
               handleClickActionReset();
               return true;
             default:

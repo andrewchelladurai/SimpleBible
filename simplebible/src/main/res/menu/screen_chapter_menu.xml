@@ -4,27 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="AlwaysShowAction">
     <group
-        android:id="@+id/scrChapterVerseSelectionActions"
+        android:id="@+id/scr_chapter_action_container_selected"
         android:visible="false">
         <item
-            android:id="@+id/scrChapterActionSelectionBookmark"
+            android:id="@+id/scr_chapter_action_bookmark"
             android:icon="@drawable/ic_bookmark"
-            android:title="@string/scrChapterActionSelectionBookmark"
+            android:title="@string/scr_chapter_action_bookmark"
             app:showAsAction="always" />
         <item
-            android:id="@+id/scrChapterActionSelectionShare"
+            android:id="@+id/scr_chapter_action_share"
             android:icon="@drawable/ic_share"
-            android:title="@string/scrChapterActionSelectionShare"
+            android:title="@string/scr_chapter_action_share"
             app:showAsAction="always" />
         <item
-            android:id="@+id/scrChapterActionSelectionClear"
+            android:id="@+id/scr_chapter_action_clear"
             android:icon="@drawable/ic_reset"
-            android:title="@string/scrChapterActionSelectionClear"
+            android:title="@string/scr_chapter_action_clear"
             app:showAsAction="always" />
     </group>
     <item
-        android:id="@+id/scrChapterActionChapters"
+        android:id="@+id/scr_chapter_action_chapters"
         android:icon="@drawable/ic_list"
-        android:title="@string/scrChapterActionChapters"
+        android:title="@string/scr_chapter_action_chapters"
         app:showAsAction="always" />
 </menu>
