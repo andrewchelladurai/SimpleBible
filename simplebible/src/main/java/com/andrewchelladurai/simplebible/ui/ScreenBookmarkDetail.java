@@ -157,7 +157,7 @@ public class ScreenBookmarkDetail
 
     model.saveBookmark(bookmarkReference, noteText).observe(this, saved -> {
       if (saved) {
-        final String message = getString(R.string.scr_bmark_detail_msg_save_success);
+        final String message = getString(R.string.scr_bmark_msg_save_success);
         mainOps.showMessage(message);
 
         toggleAction(true);
@@ -165,7 +165,7 @@ public class ScreenBookmarkDetail
         return;
       }
 
-      final String message = getString(R.string.scr_bmark_detail_msg_save_fail);
+      final String message = getString(R.string.scr_bmark_msg_save_fail);
       mainOps.showMessage(message);
     });
   }
@@ -201,12 +201,12 @@ public class ScreenBookmarkDetail
       if (deleted) {
         NavHostFragment.findNavController(this)
                        .navigate(R.id.action_screenBookmark_pop);
-        final String message = getString(R.string.scr_bmark_detail_msg_delete_success);
+        final String message = getString(R.string.scr_bmark_msg_delete_success);
         mainOps.showMessage(message);
         return;
       }
 
-      final String message = getString(R.string.scr_bmark_detail_msg_delete_fail);
+      final String message = getString(R.string.scr_bmark_msg_delete_fail);
       mainOps.showMessage(message);
     });
   }
