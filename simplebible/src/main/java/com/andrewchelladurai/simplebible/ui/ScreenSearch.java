@@ -61,7 +61,7 @@ public class ScreenSearch
     rootView = inflater.inflate(R.layout.screen_search, container, false);
     mainOps.showNavigationView();
     mainOps.hideKeyboard();
-    searchResultContentTemplate = getString(R.string.itemSearchResultContentTemplate);
+    searchResultContentTemplate = getString(R.string.itm_search_result_content_template);
 
     ((BottomNavigationView) rootView.findViewById(R.id.scr_search_result_actions))
         .setOnNavigationItemSelectedListener(item -> {
@@ -136,7 +136,7 @@ public class ScreenSearch
         || searchText.isEmpty()
         || searchText.length() < 4
         || searchText.length() > 50) {
-      mainOps.showMessage(getString(R.string.scrSearchErrInput));
+      mainOps.showMessage(getString(R.string.scr_search_msg_input_invalid));
       showSearchDefaultUi();
       return;
     }
@@ -144,7 +144,7 @@ public class ScreenSearch
     Log.d(TAG, "handleClickActionSearch: searchQuery = [" + searchText + "]");
     model.searchTextInVerses(searchText).observe(this, list -> {
       if (list == null || list.isEmpty()) {
-        mainOps.showMessage(getString(R.string.scrSearchEmptyResults));
+        mainOps.showMessage(getString(R.string.scr_search_msg_no_results));
         showSearchDefaultUi();
         return;
       }
@@ -163,7 +163,7 @@ public class ScreenSearch
 
   private void handleClickActionClear() {
     if (adapter.getSelectedItemCount() < 1) {
-      mainOps.showMessage(getString(R.string.scrSearchErrEmptyListClear));
+      mainOps.showMessage(getString(R.string.scr_search_msg_no_selection_clear));
       return;
     }
     adapter.clearSelection();
@@ -171,7 +171,7 @@ public class ScreenSearch
 
   private void handleClickActionShare() {
     if (adapter.getSelectedItemCount() < 1) {
-      mainOps.showMessage(getString(R.string.scrSearchErrEmptyListShare));
+      mainOps.showMessage(getString(R.string.scr_search_msg_no_selection_share));
       return;
     }
 
@@ -188,12 +188,12 @@ public class ScreenSearch
       shareText.append(versesMap.get(verse)).append("\n");
     }
 
-    mainOps.shareText(String.format(getString(R.string.scrSearchShareTemplate), shareText));
+    mainOps.shareText(String.format(getString(R.string.scr_search_template_share), shareText));
   }
 
   private void handleClickActionBookmark() {
     if (adapter.getSelectedItemCount() < 1) {
-      mainOps.showMessage(getString(R.string.scrSearchErrEmptyListBookmark));
+      mainOps.showMessage(getString(R.string.scr_search_msg_no_selection_bookmark));
       return;
     }
 
@@ -226,7 +226,7 @@ public class ScreenSearch
   private void showSearchDefaultUi() {
     adapter.clearList();
 
-    final Spanned htmlText = HtmlCompat.fromHtml(getString(R.string.scrSearchHelpText),
+    final Spanned htmlText = HtmlCompat.fromHtml(getString(R.string.scr_search_tips_text),
                                                  HtmlCompat.FROM_HTML_MODE_LEGACY);
     final TextView textView = rootView.findViewById(R.id.scr_search_tips_text);
     textView.setText(htmlText);

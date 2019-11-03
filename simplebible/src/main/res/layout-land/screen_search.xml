@@ -36,7 +36,7 @@
             android:iconifiedByDefault="false"
             android:imeOptions="actionSearch"
             android:inputType="textAutoCorrect|textAutoComplete"
-            android:queryHint="@string/scrSearchInputHint"
+            android:queryHint="@string/scr_search_input_hint"
             android:searchIcon="@drawable/ic_search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +46,7 @@
             android:id="@+id/scr_search_image"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:contentDescription="@string/scrSearchContainerHelpImage"
+            android:contentDescription="@string/scr_search_image_desc"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toStartOf="@id/scr_search_gv40"
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="@dimen/gap_huge"
-                android:text="@string/scrSearchHelpText" />
+                android:text="@string/scr_search_tips_text" />
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

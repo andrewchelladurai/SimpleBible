@@ -223,7 +223,7 @@ public class ScreenChapter
       shareText.append(versesMap.get(verse)).append("\n");
     }
 
-    mainOps.shareText(String.format(getString(R.string.scrSearchShareTemplate), shareText));
+    mainOps.shareText(String.format(getString(R.string.scr_search_template_share), shareText));
   }
 
   private void handleActionClickBookmark() {

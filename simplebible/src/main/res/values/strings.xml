@@ -67,14 +67,14 @@
     <string name="scr_search_action_share">Share</string>
     <string name="scr_search_action_clear">Clear</string>
     <string name="scr_search_action_reset">Reset</string>
-    <string name="scrSearchInputHint">Search text</string>
-    <string name="scrSearchErrEmptyListClear">Clear : No verses selected</string>
-    <string name="scrSearchErrEmptyListBookmark">Bookmark : No Verses Selected</string>
-    <string name="scrSearchErrEmptyListShare">Share : No verse selected</string>
-    <string name="scrSearchErrInput">Invalid input, see tips.</string>
-    <string name="scrSearchContainerHelpImage">Search Verse Tips</string>
-    <string name="scrSearchEmptyResults">No verse found</string>
-    <string name="scrSearchHelpText"><![CDATA[
+    <string name="scr_search_input_hint">Search text</string>
+    <string name="scr_search_msg_no_selection_clear">Clear : No verses selected</string>
+    <string name="scr_search_msg_no_selection_bookmark">Bookmark : No Verses Selected</string>
+    <string name="scr_search_msg_no_selection_share">Share : No verse selected</string>
+    <string name="scr_search_msg_input_invalid">Invalid input, see tips.</string>
+    <string name="scr_search_msg_no_results">No verse found</string>
+    <string name="scr_search_image_desc">Search Verse Tips</string>
+    <string name="scr_search_tips_text"><![CDATA[
     <h5>To search for a text, it must be<br/>
     More than 3 alphabets.<br/>
     Less than 13 alphabets.<br/><br/>
@@ -82,8 +82,8 @@
     a space before or after<br/>
     like this <u>\' Eli \'</u></h5>
     ]]></string>
-    <string name="scrSearchShareTemplate">%s\nThe World English Bible\nShared from SimpleBible</string>
-    <string name="itemSearchResultContentTemplate"><![CDATA[<b>%s %d:%d -</b> %s]]></string>
+    <string name="scr_search_template_share">%s\nThe World English Bible\nShared from SimpleBible</string>
+    <string name="itm_search_result_content_template"><![CDATA[<b>%s %d:%d -</b> %s]]></string>
 
     <!-- String used in the ScreenBookmarkDetail -->
     <string name="scrBookmarkErrNullVerseList">No parcelable verses arguments passed</string>
