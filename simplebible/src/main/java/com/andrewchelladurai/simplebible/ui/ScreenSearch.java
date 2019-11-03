@@ -58,7 +58,7 @@ public class ScreenSearch
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                            Bundle savedState) {
-    rootView = inflater.inflate(R.layout.screen_search_fragment, container, false);
+    rootView = inflater.inflate(R.layout.screen_search, container, false);
     mainOps.showNavigationView();
     mainOps.hideKeyboard();
     searchResultContentTemplate = getString(R.string.itemSearchResultContentTemplate);

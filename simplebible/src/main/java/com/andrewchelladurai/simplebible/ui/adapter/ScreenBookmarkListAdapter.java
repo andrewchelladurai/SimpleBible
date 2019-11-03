@@ -42,7 +42,7 @@ public class ScreenBookmarkListAdapter
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent,
                                                     final int viewType) {
     return new BookmarkEntry(LayoutInflater.from(parent.getContext())
-                                           .inflate(R.layout.item_bookmark_list_entry, parent,
+                                           .inflate(R.layout.item_bookmark, parent,
                                                     false));
   }
 

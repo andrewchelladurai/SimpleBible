@@ -31,7 +31,7 @@ public class ScreenSettings
                            Bundle savedState) {
     mainOps.hideKeyboard();
     mainOps.showNavigationView();
-    return inflater.inflate(R.layout.screen_settings_fragment, container, false);
+    return inflater.inflate(R.layout.screen_settings, container, false);
   }
 
   @Override

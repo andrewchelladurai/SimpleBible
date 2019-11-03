@@ -64,7 +64,7 @@ public class ScreenBookmarkDetail
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                            Bundle savedState) {
-    rootView = inflater.inflate(R.layout.screen_bookmark_detail_fragment, container, false);
+    rootView = inflater.inflate(R.layout.screen_bookmark_detail, container, false);
 
     // on first load, get all the passed verses, show an error if it's empty
     if (savedState == null) {

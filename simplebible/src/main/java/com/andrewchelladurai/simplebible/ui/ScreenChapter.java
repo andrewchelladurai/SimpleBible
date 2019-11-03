@@ -64,7 +64,7 @@ public class ScreenChapter
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                            Bundle savedState) {
-    rootView = inflater.inflate(R.layout.screen_chapter_fragment, container, false);
+    rootView = inflater.inflate(R.layout.screen_chapter, container, false);
 
     if (savedState == null) {
 

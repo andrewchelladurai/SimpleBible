@@ -9,13 +9,13 @@
         android:id="@+id/NavIdScreenHome"
         android:name="com.andrewchelladurai.simplebible.ui.ScreenHome"
         android:label="fragment_screen_home"
-        tools:layout="@layout/screen_home_fragment" />
+        tools:layout="@layout/screen_home" />
 
     <fragment
         android:id="@+id/NavIdScreenBookList"
         android:name="com.andrewchelladurai.simplebible.ui.ScreenBookList"
         android:label="fragment_screen_book_list"
-        tools:layout="@layout/screen_book_list_fragment">
+        tools:layout="@layout/screen_book_list">
         <action
             android:id="@+id/action_screenBookList_to_screenChapter"
             app:destination="@id/NavIdScreenChapter" />
@@ -25,7 +25,7 @@
         android:id="@+id/NavIdScreenSearch"
         android:name="com.andrewchelladurai.simplebible.ui.ScreenSearch"
         android:label="fragment_screen_search"
-        tools:layout="@layout/screen_search_fragment">
+        tools:layout="@layout/screen_search">
         <action
             android:id="@+id/action_screenSearch_to_screenBookmark"
             app:destination="@id/NavIdScreenBookmarkDetail" />
@@ -35,7 +35,7 @@
         android:id="@+id/NavIdScreenBookmarkList"
         android:name="com.andrewchelladurai.simplebible.ui.ScreenBookmarkList"
         android:label="fragment_screen_bookmark_list"
-        tools:layout="@layout/screen_bookmark_list_fragment">
+        tools:layout="@layout/screen_bookmark_list">
         <action
             android:id="@+id/action_NavIdScreenBookmarkList_to_NavIdScreenBookmarkDetail"
             app:destination="@id/NavIdScreenBookmarkDetail" />
@@ -45,7 +45,7 @@
         android:id="@+id/NavIdScreenBookmarkDetail"
         android:name="com.andrewchelladurai.simplebible.ui.ScreenBookmarkDetail"
         android:label="fragment_screen_bookmark"
-        tools:layout="@layout/screen_bookmark_detail_fragment">
+        tools:layout="@layout/screen_bookmark_detail">
         <argument
             android:name="ARG_VERSE_LIST"
             app:argType="com.andrewchelladurai.simplebible.data.entity.Verse[]" />
@@ -59,7 +59,7 @@
         android:id="@+id/NavIdScreenChapter"
         android:name="com.andrewchelladurai.simplebible.ui.ScreenChapter"
         android:label="fragment_screen_chapter"
-        tools:layout="@layout/screen_chapter_fragment">
+        tools:layout="@layout/screen_chapter">
         <argument
             android:name="ARG_BOOK"
             app:argType="com.andrewchelladurai.simplebible.data.entity.Book" />
@@ -72,7 +72,7 @@
         android:id="@+id/NavIdScreenError"
         android:name="com.andrewchelladurai.simplebible.ui.ScreenError"
         android:label="fragment_screen_error"
-        tools:layout="@layout/screen_error_fragment">
+        tools:layout="@layout/screen_error">
         <argument
             android:name="ARG_MESSAGE"
             android:defaultValue="Something unexpected happened and we do not know how. Help us find out by sharing details. Press the below button to send the developer an email."
@@ -92,7 +92,7 @@
         android:id="@+id/NavIdScreenSettings"
         android:name="com.andrewchelladurai.simplebible.ui.ScreenSettings"
         android:label="fragment_screen_settings"
-        tools:layout="@layout/screen_settings_fragment" />
+        tools:layout="@layout/screen_settings" />
 
     <action
         android:id="@+id/action_global_screenError"

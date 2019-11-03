@@ -52,7 +52,7 @@ public class ScreenHome
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                            Bundle savedState) {
-    rootView = inflater.inflate(R.layout.screen_home_fragment, container, false);
+    rootView = inflater.inflate(R.layout.screen_home, container, false);
 
     // setup listener for the share fab
     rootView.findViewById(R.id.scr_home_fab_share)

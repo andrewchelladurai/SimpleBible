@@ -60,7 +60,7 @@ public class ScreenBookmarkList
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                            Bundle savedState) {
-    rootView = inflater.inflate(R.layout.screen_bookmark_list_fragment, container, false);
+    rootView = inflater.inflate(R.layout.screen_bookmark_list, container, false);
 
     bookmarkListModel.getBookmarkList().observe(this, bookmarkList -> {
       if (bookmarkList == null || bookmarkList.isEmpty()) {

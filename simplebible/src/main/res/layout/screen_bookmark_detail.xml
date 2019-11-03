@@ -19,7 +19,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/scr_bookmark_detail_bottom_nav_menu"
+        app:menu="@menu/screen_bookmark_detail_menu"
         tools:ignore="BottomAppBar">
 
         <HorizontalScrollView

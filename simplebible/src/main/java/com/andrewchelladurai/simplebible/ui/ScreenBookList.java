@@ -51,7 +51,7 @@ public class ScreenBookList
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                            Bundle savedState) {
-    rootView = inflater.inflate(R.layout.screen_book_list_fragment, container, false);
+    rootView = inflater.inflate(R.layout.screen_book_list, container, false);
 
     final SearchView searchView = rootView.findViewById(R.id.scr_book_list_search);
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

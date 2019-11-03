@@ -37,7 +37,7 @@ public class ScreenError
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                            Bundle savedState) {
-    rootView = inflater.inflate(R.layout.screen_error_fragment, container, false);
+    rootView = inflater.inflate(R.layout.screen_error, container, false);
 
     mainOps.hideKeyboard();
     mainOps.hideNavigationView();
