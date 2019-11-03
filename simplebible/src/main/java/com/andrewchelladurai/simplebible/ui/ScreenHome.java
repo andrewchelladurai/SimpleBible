@@ -55,12 +55,12 @@ public class ScreenHome
     rootView = inflater.inflate(R.layout.screen_home_fragment, container, false);
 
     // setup listener for the share fab
-    rootView.findViewById(R.id.scrHomeFabShare)
+    rootView.findViewById(R.id.scr_home_fab_share)
             .setOnClickListener(v -> handleActionShare());
 
     // We will be referencing items in the next block more than 30K times
     // let's avoid the extra calls and save some time.
-    progressTextView = rootView.findViewById(R.id.scrHomeProgressText);
+    progressTextView = rootView.findViewById(R.id.scr_home_progress_text);
     maxProgressValue = VerseUtils.EXPECTED_COUNT + BookUtils.EXPECTED_COUNT;
     progressTextTemplate = getString(R.string.scrHomeProgressTextTemplate);
 
@@ -119,12 +119,12 @@ public class ScreenHome
   }
 
   private void showVerseText(@StringRes int stringResId) {
-    ((TextView) rootView.findViewById(R.id.scrHomeVerse))
+    ((TextView) rootView.findViewById(R.id.scr_home_verse))
         .setText(HtmlCompat.fromHtml(getString(stringResId), HtmlCompat.FROM_HTML_MODE_LEGACY));
   }
 
   private String getVerseText() {
-    return ((TextView) rootView.findViewById(R.id.scrHomeVerse)).getText().toString();
+    return ((TextView) rootView.findViewById(R.id.scr_home_verse)).getText().toString();
   }
 
   private void handleActionShare() {
@@ -140,7 +140,7 @@ public class ScreenHome
     showVerseText(R.string.scrHomeVerseLoading);
 
     // show the progress bar
-    View view = rootView.findViewById(R.id.scrHomeProgressBar);
+    View view = rootView.findViewById(R.id.scr_home_progress_bar);
     if (view.getVisibility() != View.VISIBLE) {
       view.setVisibility(View.VISIBLE);
     }
@@ -153,7 +153,7 @@ public class ScreenHome
                                            (PROGRESS_VALUE * 100) / maxProgressValue));
 
     // hide the share fab
-    view = rootView.findViewById(R.id.scrHomeFabShare);
+    view = rootView.findViewById(R.id.scr_home_fab_share);
     if (view.getVisibility() != View.GONE) {
       view.setVisibility(View.GONE);
     }
@@ -171,7 +171,7 @@ public class ScreenHome
         showVerseText(R.string.scrHomeVerseDefault);
 
         // hide the progress bar
-        View view = rootView.findViewById(R.id.scrHomeProgressBar);
+        View view = rootView.findViewById(R.id.scr_home_progress_bar);
         if (view.getVisibility() != View.GONE) {
           view.setVisibility(View.GONE);
         }
@@ -182,7 +182,7 @@ public class ScreenHome
         }
 
         // show the share fab
-        view = rootView.findViewById(R.id.scrHomeFabShare);
+        view = rootView.findViewById(R.id.scr_home_fab_share);
         if (view.getVisibility() != View.VISIBLE) {
           view.setVisibility(View.VISIBLE);
         }
@@ -227,7 +227,7 @@ public class ScreenHome
         final String formattedText = String.format(
             template, bookName, chapterNum, verseNum, verseText);
 
-        final TextView textView = rootView.findViewById(R.id.scrHomeVerse);
+        final TextView textView = rootView.findViewById(R.id.scr_home_verse);
         textView.setText(HtmlCompat.fromHtml(formattedText, HtmlCompat.FROM_HTML_MODE_LEGACY));
 
       });
