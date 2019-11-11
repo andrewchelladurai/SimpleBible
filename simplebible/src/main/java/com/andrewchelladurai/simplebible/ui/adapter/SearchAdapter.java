@@ -111,7 +111,7 @@ public class SearchAdapter
           SELECTED_LIST.put(verse, contentView.getText().toString());
         }
         rootView.setSelected(SELECTED_LIST.containsKey(verse));
-        ops.updateTitleAndActionsView();
+        ops.toggleSelectedActionsView();
       });
     }
 
