@@ -62,6 +62,7 @@ public class ScreenSearch
     rootView = inflater.inflate(R.layout.screen_search, container, false);
     mainOps.showNavigationView();
     mainOps.hideKeyboard();
+
     searchResultContentTemplate = getString(R.string.itm_search_result_content_template);
 
     ((BottomAppBar) rootView.findViewById(R.id.scr_search_menu))
@@ -107,17 +108,18 @@ public class ScreenSearch
 
     // first run - since we do not have a previously saved instance
     if (savedState == null) {
+      Log.d(TAG, "onCreateView: empty state");
       showSearchDefaultUi();
     } else {
-      if (adapter.getItemCount() < 1) {
+      if (adapter.getItemCount() == 0) {
+        Log.d(TAG, "onCreateView: empty cached results");
         showSearchDefaultUi();
       } else {
+        Log.d(TAG, "onCreateView: cached results exist");
         showSearchResultsUi();
+        toggleSelectedActionsView();
       }
     }
-
-    mainOps.hideKeyboard();
-    mainOps.showNavigationView();
 
     return rootView;
   }
@@ -219,6 +221,7 @@ public class ScreenSearch
   }
 
   private void showSearchDefaultUi() {
+    Log.d(TAG, "showSearchDefaultUi:");
     adapter.clearList();
 
     final Spanned htmlText =
@@ -232,10 +235,17 @@ public class ScreenSearch
   }
 
   private void showSearchResultsUi() {
+    Log.d(TAG, "showSearchResultsUi:");
     rootView.findViewById(R.id.scr_search_container_help).setVisibility(View.GONE);
     rootView.findViewById(R.id.scr_search_container_result).setVisibility(View.VISIBLE);
     rootView.findViewById(R.id.scr_search_menu).setVisibility(View.VISIBLE);
 
+    updateTitle();
+    mainOps.hideNavigationView();
+  }
+
+  private void updateTitle() {
+    Log.d(TAG, "updateTitle:");
     final int resultCount = adapter.getItemCount();
     final String titleTemplate = getResources()
         .getQuantityString(R.plurals.scr_search_title_template, resultCount);
@@ -243,8 +253,6 @@ public class ScreenSearch
     final Spanned htmlText = HtmlCompat.fromHtml(formattedText, HtmlCompat.FROM_HTML_MODE_COMPACT);
     final TextView titleView = rootView.findViewById(R.id.scr_search_title);
     titleView.setText(htmlText);
-
-    mainOps.hideNavigationView();
   }
 
   @Override
@@ -266,7 +274,7 @@ public class ScreenSearch
   }
 
   @Override
-  public void updateTitleAndActionsView() {
+  public void toggleSelectedActionsView() {
     final BottomAppBar bAppBar = rootView.findViewById(R.id.scr_search_menu);
     final Menu menu = bAppBar.getMenu();
 
