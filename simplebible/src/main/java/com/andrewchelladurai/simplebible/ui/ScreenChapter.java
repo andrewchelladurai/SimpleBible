@@ -199,6 +199,7 @@ public class ScreenChapter
     final BottomAppBar bottomAppBar = rootView.findViewById(R.id.scr_chapter_menu);
     final Menu menu = bottomAppBar.getMenu();
     menu.setGroupVisible(R.id.scr_chapter_menu_container_selected, isVerseSelected);
+    menu.setGroupVisible(R.id.scr_chapter_menu_container_not_selected, !isVerseSelected);
     rootView.findViewById(R.id.scr_chapter_container_title)
             .setVisibility((isVerseSelected) ? View.GONE : View.VISIBLE);
   }
