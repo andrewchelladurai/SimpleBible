@@ -86,7 +86,7 @@ public class ScreenBookList
 
     if (savedState == null) {
       model.getAllBooks()
-           .observe(this, list -> {
+           .observe(getViewLifecycleOwner(), list -> {
              if (list == null) {
                final String message = getString(R.string.scr_book_list_err_no_books_in_db);
                Log.e(TAG, "onCreateView: " + message);
