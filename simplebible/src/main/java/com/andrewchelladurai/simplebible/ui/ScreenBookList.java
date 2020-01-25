@@ -24,8 +24,8 @@ import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 
 public class ScreenBookList
-    extends Fragment
-    implements ScreenBookListOps {
+  extends Fragment
+  implements ScreenBookListOps {
 
   private static final String TAG = "ScreenBookList";
 
@@ -44,7 +44,8 @@ public class ScreenBookList
       throw new RuntimeException(context.toString() + " must implement InteractionListener");
     }
     mainOps = (ScreenSimpleBibleOps) context;
-    model = ViewModelProviders.of(this).get(ScreenBookListModel.class);
+    model = ViewModelProviders.of(this)
+                              .get(ScreenBookListModel.class);
     adapter = new BookListAdapter(this);
   }
 
@@ -84,21 +85,22 @@ public class ScreenBookList
     recyclerView.setAdapter((RecyclerView.Adapter) adapter);
 
     if (savedState == null) {
-      model.getAllBooks().observe(this, list -> {
-        if (list == null) {
-          final String message = getString(R.string.scr_book_list_err_no_books_in_db);
-          Log.e(TAG, "onCreateView: " + message);
-          mainOps.showErrorScreen(message, true, true);
-          return;
-        }
-        if (list.isEmpty() || list.size() != BookUtils.EXPECTED_COUNT) {
-          final String message = getString(R.string.scr_book_list_err_book_count_incorrect);
-          Log.e(TAG, "onCreateView: " + message);
-          mainOps.showErrorScreen(message, true, true);
-          return;
-        }
-        adapter.updateList(list);
-      });
+      model.getAllBooks()
+           .observe(this, list -> {
+             if (list == null) {
+               final String message = getString(R.string.scr_book_list_err_no_books_in_db);
+               Log.e(TAG, "onCreateView: " + message);
+               mainOps.showErrorScreen(message, true, true);
+               return;
+             }
+             if (list.isEmpty() || list.size() != BookUtils.EXPECTED_COUNT) {
+               final String message = getString(R.string.scr_book_list_err_book_count_incorrect);
+               Log.e(TAG, "onCreateView: " + message);
+               mainOps.showErrorScreen(message, true, true);
+               return;
+             }
+             adapter.updateList(list);
+           });
     }
 
     mainOps.hideKeyboard();
@@ -119,7 +121,7 @@ public class ScreenBookList
   @Override
   public String getFormattedBookDetails(final int chapterCount) {
     return getResources().getQuantityString(
-        R.plurals.itm_book_chapter_count_template, chapterCount, chapterCount);
+      R.plurals.itm_book_chapter_count_template, chapterCount, chapterCount);
   }
 
   @Override
@@ -131,7 +133,8 @@ public class ScreenBookList
                    .navigate(R.id.action_screenBookList_to_screenChapter, bundle);
 
     final SearchView searchView = rootView.findViewById(R.id.scr_book_list_search);
-    if (searchView.getQuery().length() > 0) {
+    if (searchView.getQuery()
+                  .length() > 0) {
       searchView.setQuery("", true);
     }
   }

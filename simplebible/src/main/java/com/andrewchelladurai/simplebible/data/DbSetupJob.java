@@ -25,7 +25,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class DbSetupJob
-    extends JobIntentService {
+  extends JobIntentService {
 
   public static final int STARTED = 0;
   public static final int RUNNING = STARTED + 1;
@@ -73,111 +73,51 @@ public class DbSetupJob
     final Intent intent = new Intent(this, DbSetupJob.class);
     final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
     startForeground(JOB_ID, new NotificationCompat.Builder(this, getPackageName())
-        .setContentTitle(getString(R.string.db_setup_notification_title))
-        .setContentText(getString(R.string.db_setup_notification_message))
-        .setContentIntent(pendingIntent)
-        .setOngoing(true)
-        .setSmallIcon(R.drawable.ic_logo)
-        .setOnlyAlertOnce(true)
-        .setPriority(NotificationCompat.PRIORITY_MAX)
-        .build());
+                              .setContentTitle(getString(R.string.db_setup_notification_title))
+                              .setContentText(getString(R.string.db_setup_notification_message))
+                              .setContentIntent(pendingIntent)
+                              .setOngoing(true)
+                              .setSmallIcon(R.drawable.ic_logo)
+                              .setOnlyAlertOnce(true)
+                              .setPriority(NotificationCompat.PRIORITY_MAX)
+                              .build());
   }
 
   /**
-   * Fill the verses table in the database by reading contents of an asset file.
+   * Check the books table to check if it's contents are valid.
    *
-   * @return true if record is successfully created, false otherwise.
+   * @return true if table meets expectations, false otherwise
    */
-  private boolean populateVersesTable() {
-    final VerseDao verseDao = SbDatabase.getDatabase(getApplication()).getVerseDao();
-    final String fileName = VerseUtils.SETUP_FILE;
-    final String separator = VerseUtils.SETUP_FILE_RECORD_SEPARATOR;
-    final int separatorCount = VerseUtils.SETUP_FILE_RECORD_SEPARATOR_COUNT;
-    Log.d(TAG, "populateVersesTable: processing [" + fileName + "]");
-
-    String[] parts;
-    String translation;
-    String text;
-    int book;
-    int chapter;
-    int verse;
-    try {
-      final InputStream stream = getResources().getAssets().open(fileName);
-      final BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-      String line;
-      while (null != (line = reader.readLine())) {
-        if (!line.contains(separator)) {
-          Log.e(TAG, "populateVersesTable: skipping [" + line + "], no [" + separator + "] found");
-          continue;
-        }
-        parts = line.split(separator);
-        if (parts.length != separatorCount + 1) {
-          Log.e(TAG, "populateVersesTable: skipping [" + line + "] " + "it does't have ["
-                     + separatorCount + "] [" + separator + "]");
-          continue;
-        }
-        translation = parts[0];
-        text = parts[4];
-        try {
-          book = Integer.parseInt(parts[1]);
-          chapter = Integer.parseInt(parts[2]);
-          verse = Integer.parseInt(parts[3]);
-        } catch (NumberFormatException nfe) {
-          Log.e(TAG, "populateVersesTable: part of line [" + line + "]  is NAN", nfe);
-          continue;
-        }
-        if (translation.isEmpty()) {
-          Log.e(TAG, "populateVersesTable: empty translation in line [" + line + "]");
-          continue;
-        }
-        if (text.isEmpty()) {
-          Log.e(TAG, "populateVersesTable: empty text in line [" + line + "]");
-          continue;
-        }
-        if (book < 1 || book > 66) {
-          Log.e(TAG, "populateVersesTable: invalid book number in line [" + line + "]");
-          continue;
-        }
-        if (chapter < 1) {
-          Log.e(TAG, "populateVersesTable: invalid chapters count in line [" + line + "]");
-          continue;
-        }
-        if (verse < 1) {
-          Log.e(TAG, "populateVersesTable: invalid  verses count in line [" + line + "]");
-          continue;
-        }
-        // using the values, create a new verse in the database.
-        verseDao.createVerse(new Verse(translation, book, chapter, verse, text));
-        lineProgressValue = lineProgressValue + 1;
-        final Bundle bundle = new Bundle();
-        bundle.putInt(LINE_PROGRESS, lineProgressValue);
-        RESULT_RECEIVER.send(RUNNING, bundle);
-      }
-    } catch (IOException e) {
-      Log.e(TAG, "populateVersesTable: exception processing [" + fileName + "]", e);
-      return false;
-    }
-    Log.d(TAG, "populateVersesTable: now verseCount[" + verseDao.getVerseCount()
-               + "] && expectedCount[" + VerseUtils.EXPECTED_COUNT + "]");
-    return true;
-  }
-
-  /**
-   * Check the verses table to check if it's contents are valid.
-   *
-   * @return true if table meets expectations, false otherwise.
-   */
-  private boolean validateVersesTable() {
-    final VerseDao verseDao = SbDatabase.getDatabase(getApplication()).getVerseDao();
-    final int expectedCount = VerseUtils.EXPECTED_COUNT;
-    int count = verseDao.getVerseCount();
+  private boolean validateBooksTable() {
+    final BookDao dao = SbDatabase.getDatabase(getApplication())
+                                  .getBookDao();
+    final int expectedCount = BookUtils.EXPECTED_COUNT;
+    int count = dao.getBookCount();
 
     if (count != expectedCount) {
-      Log.e(TAG, "validateVersesTable: count[" + count
-                 + "] != " + "expectedCount[" + expectedCount + "]");
+      Log.e(TAG, "validateBooksTable: bookCount[" + count
+                 + "] != expectedCount[" + expectedCount + "]");
       return false;
     }
-    Log.d(TAG, "validateVersesTable: [" + expectedCount + "] verses exist");
+    Log.d(TAG, "validateBooksTable: [" + expectedCount + "] books exist");
+
+    String expectedValue = getString(R.string.book_name_first);
+    final Book firstBook = dao.getBookUsingPosition(1);
+    if (firstBook != null && !firstBook.getName()
+                                       .equalsIgnoreCase(expectedValue)) {
+      Log.e(TAG, "validateBooksTable: incorrect first book in db");
+      return false;
+    }
+    Log.d(TAG, "validateBooksTable: book[" + 1 + "] name is [" + expectedValue + "]");
+
+    expectedValue = getString(R.string.book_name_last);
+    final Book lastBook = dao.getBookUsingPosition(expectedCount);
+    if (lastBook != null && !lastBook.getName()
+                                     .equalsIgnoreCase(expectedValue)) {
+      Log.e(TAG, "validateBooksTable: incorrect last book in db");
+      return false;
+    }
+    Log.d(TAG, "validateBooksTable: book[" + expectedCount + "] name is [" + expectedValue + "]");
     return true;
   }
 
@@ -187,7 +127,8 @@ public class DbSetupJob
    * @return true if a record is successfully created, false otherwise.
    */
   private boolean populateBooksTable() {
-    final BookDao bookDao = SbDatabase.getDatabase(getApplication()).getBookDao();
+    final BookDao bookDao = SbDatabase.getDatabase(getApplication())
+                                      .getBookDao();
     final String fileName = BookUtils.SETUP_FILE;
     final String separator = BookUtils.SETUP_FILE_RECORD_SEPARATOR;
     final int separatorCount = BookUtils.SETUP_FILE_RECORD_SEPARATOR_COUNT;
@@ -201,7 +142,8 @@ public class DbSetupJob
     int chapters;
     int verses;
     try {
-      final InputStream stream = getResources().getAssets().open(fileName);
+      final InputStream stream = getResources().getAssets()
+                                               .open(fileName);
       final BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
       String line;
       while (null != (line = reader.readLine())) {
@@ -267,37 +209,103 @@ public class DbSetupJob
   }
 
   /**
-   * Check the books table to check if it's contents are valid.
+   * Check the verses table to check if it's contents are valid.
    *
-   * @return true if table meets expectations, false otherwise
+   * @return true if table meets expectations, false otherwise.
    */
-  private boolean validateBooksTable() {
-    final BookDao dao = SbDatabase.getDatabase(getApplication()).getBookDao();
-    final int expectedCount = BookUtils.EXPECTED_COUNT;
-    int count = dao.getBookCount();
+  private boolean validateVersesTable() {
+    final VerseDao verseDao = SbDatabase.getDatabase(getApplication())
+                                        .getVerseDao();
+    final int expectedCount = VerseUtils.EXPECTED_COUNT;
+    int count = verseDao.getVerseCount();
 
     if (count != expectedCount) {
-      Log.e(TAG, "validateBooksTable: bookCount[" + count
-                 + "] != expectedCount[" + expectedCount + "]");
+      Log.e(TAG, "validateVersesTable: count[" + count
+                 + "] != " + "expectedCount[" + expectedCount + "]");
       return false;
     }
-    Log.d(TAG, "validateBooksTable: [" + expectedCount + "] books exist");
+    Log.d(TAG, "validateVersesTable: [" + expectedCount + "] verses exist");
+    return true;
+  }
 
-    String expectedValue = getString(R.string.book_name_first);
-    final Book firstBook = dao.getBookUsingPosition(1);
-    if (firstBook != null && !firstBook.getName().equalsIgnoreCase(expectedValue)) {
-      Log.e(TAG, "validateBooksTable: incorrect first book in db");
-      return false;
-    }
-    Log.d(TAG, "validateBooksTable: book[" + 1 + "] name is [" + expectedValue + "]");
+  /**
+   * Fill the verses table in the database by reading contents of an asset file.
+   *
+   * @return true if record is successfully created, false otherwise.
+   */
+  private boolean populateVersesTable() {
+    final VerseDao verseDao = SbDatabase.getDatabase(getApplication())
+                                        .getVerseDao();
+    final String fileName = VerseUtils.SETUP_FILE;
+    final String separator = VerseUtils.SETUP_FILE_RECORD_SEPARATOR;
+    final int separatorCount = VerseUtils.SETUP_FILE_RECORD_SEPARATOR_COUNT;
+    Log.d(TAG, "populateVersesTable: processing [" + fileName + "]");
 
-    expectedValue = getString(R.string.book_name_last);
-    final Book lastBook = dao.getBookUsingPosition(expectedCount);
-    if (lastBook != null && !lastBook.getName().equalsIgnoreCase(expectedValue)) {
-      Log.e(TAG, "validateBooksTable: incorrect last book in db");
+    String[] parts;
+    String translation;
+    String text;
+    int book;
+    int chapter;
+    int verse;
+    try {
+      final InputStream stream = getResources().getAssets()
+                                               .open(fileName);
+      final BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+      String line;
+      while (null != (line = reader.readLine())) {
+        if (!line.contains(separator)) {
+          Log.e(TAG, "populateVersesTable: skipping [" + line + "], no [" + separator + "] found");
+          continue;
+        }
+        parts = line.split(separator);
+        if (parts.length != separatorCount + 1) {
+          Log.e(TAG, "populateVersesTable: skipping [" + line + "] " + "it does't have ["
+                     + separatorCount + "] [" + separator + "]");
+          continue;
+        }
+        translation = parts[0];
+        text = parts[4];
+        try {
+          book = Integer.parseInt(parts[1]);
+          chapter = Integer.parseInt(parts[2]);
+          verse = Integer.parseInt(parts[3]);
+        } catch (NumberFormatException nfe) {
+          Log.e(TAG, "populateVersesTable: part of line [" + line + "]  is NAN", nfe);
+          continue;
+        }
+        if (translation.isEmpty()) {
+          Log.e(TAG, "populateVersesTable: empty translation in line [" + line + "]");
+          continue;
+        }
+        if (text.isEmpty()) {
+          Log.e(TAG, "populateVersesTable: empty text in line [" + line + "]");
+          continue;
+        }
+        if (book < 1 || book > 66) {
+          Log.e(TAG, "populateVersesTable: invalid book number in line [" + line + "]");
+          continue;
+        }
+        if (chapter < 1) {
+          Log.e(TAG, "populateVersesTable: invalid chapters count in line [" + line + "]");
+          continue;
+        }
+        if (verse < 1) {
+          Log.e(TAG, "populateVersesTable: invalid  verses count in line [" + line + "]");
+          continue;
+        }
+        // using the values, create a new verse in the database.
+        verseDao.createVerse(new Verse(translation, book, chapter, verse, text));
+        lineProgressValue = lineProgressValue + 1;
+        final Bundle bundle = new Bundle();
+        bundle.putInt(LINE_PROGRESS, lineProgressValue);
+        RESULT_RECEIVER.send(RUNNING, bundle);
+      }
+    } catch (IOException e) {
+      Log.e(TAG, "populateVersesTable: exception processing [" + fileName + "]", e);
       return false;
     }
-    Log.d(TAG, "validateBooksTable: book[" + expectedCount + "] name is [" + expectedValue + "]");
+    Log.d(TAG, "populateVersesTable: now verseCount[" + verseDao.getVerseCount()
+               + "] && expectedCount[" + VerseUtils.EXPECTED_COUNT + "]");
     return true;
   }
 

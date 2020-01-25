@@ -17,15 +17,17 @@ import com.andrewchelladurai.simplebible.utils.BookUtils;
 import java.util.List;
 
 public class ScreenSearchModel
-    extends AndroidViewModel {
+  extends AndroidViewModel {
 
   private final VerseDao verseDao;
   private final BookDao bookDao;
 
   public ScreenSearchModel(@NonNull final Application application) {
     super(application);
-    verseDao = SbDatabase.getDatabase(getApplication()).getVerseDao();
-    bookDao = SbDatabase.getDatabase(getApplication()).getBookDao();
+    verseDao = SbDatabase.getDatabase(getApplication())
+                         .getVerseDao();
+    bookDao = SbDatabase.getDatabase(getApplication())
+                        .getBookDao();
   }
 
   public LiveData<List<Verse>> searchTextInVerses(@NonNull final String searchText) {
@@ -34,7 +36,7 @@ public class ScreenSearchModel
   }
 
   public LiveData<Book> getBook(
-      @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int bookNumber) {
+    @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int bookNumber) {
     return bookDao.getBookUsingPositionLive(bookNumber);
   }
 

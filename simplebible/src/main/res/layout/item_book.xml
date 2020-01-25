@@ -1,67 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_marginStart="@dimen/gap_huge"
+  android:layout_marginEnd="@dimen/gap_huge"
+  android:padding="@dimen/gap_small">
+
+  <com.google.android.material.chip.Chip
+    android:id="@+id/itm_book_chapter_count"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/gap_huge"
-    android:layout_marginEnd="@dimen/gap_huge"
-    android:padding="@dimen/gap_small">
+    android:layout_marginStart="@dimen/gap_small"
+    android:clickable="false"
+    app:layout_constraintBottom_toBottomOf="@id/itm_book_container_desc"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="@id/itm_book_container_name"
+    tools:text="119 Chapters" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/itm_book_chapter_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/gap_small"
-        android:clickable="false"
-        app:layout_constraintBottom_toBottomOf="@id/itm_book_container_desc"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/itm_book_container_name"
-        tools:text="119 Chapters" />
+  <HorizontalScrollView
+    android:id="@+id/itm_book_container_name"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/gap_small"
+    android:fillViewport="true"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toStartOf="@id/itm_book_chapter_count"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0">
 
-    <HorizontalScrollView
-        android:id="@+id/itm_book_container_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/gap_small"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/itm_book_chapter_count"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0">
+    <TextView
+      android:id="@+id/itm_book_name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="sans-serif-black"
+      android:paddingStart="@dimen/gap_small"
+      android:paddingEnd="@dimen/gap_small"
+      android:textAppearance="@style/TextAppearance.AppCompat.Title"
+      tools:text="Song of Solomon" />
+  </HorizontalScrollView>
 
-        <TextView
-            android:id="@+id/itm_book_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:paddingStart="@dimen/gap_small"
-            android:paddingEnd="@dimen/gap_small"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            tools:text="Song of Solomon" />
-    </HorizontalScrollView>
+  <HorizontalScrollView
+    android:id="@+id/itm_book_container_desc"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="@id/itm_book_container_name"
+    app:layout_constraintStart_toStartOf="@id/itm_book_container_name"
+    app:layout_constraintTop_toBottomOf="@id/itm_book_container_name"
+    app:layout_constraintVertical_bias="0">
 
-    <HorizontalScrollView
-        android:id="@+id/itm_book_container_desc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/itm_book_container_name"
-        app:layout_constraintStart_toStartOf="@id/itm_book_container_name"
-        app:layout_constraintTop_toBottomOf="@id/itm_book_container_name"
-        app:layout_constraintVertical_bias="0">
-
-        <TextView
-            android:id="@+id/itm_book_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed"
-            android:paddingStart="@dimen/gap_small"
-            android:paddingEnd="@dimen/gap_small"
-            android:textStyle="bold"
-            tools:text="Description for Song of Solomon" />
-    </HorizontalScrollView>
+    <TextView
+      android:id="@+id/itm_book_desc"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="sans-serif-condensed"
+      android:paddingStart="@dimen/gap_small"
+      android:paddingEnd="@dimen/gap_small"
+      android:textStyle="bold"
+      tools:text="Description for Song of Solomon" />
+  </HorizontalScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

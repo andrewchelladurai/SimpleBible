@@ -22,8 +22,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 public class ScreenSimpleBible
-    extends AppCompatActivity
-    implements ScreenSimpleBibleOps {
+  extends AppCompatActivity
+  implements ScreenSimpleBibleOps {
 
   private static final String TAG = "ScreenSimpleBible";
 
@@ -35,8 +35,8 @@ public class ScreenSimpleBible
 
     // setup bottom navigation bar with the navigation host fragment
     NavigationUI.setupWithNavController(
-        (BottomNavigationView) findViewById(R.id.scr_main_navigation_view),
-        Navigation.findNavController(this, R.id.scr_main_nav_host_fragment));
+      (BottomNavigationView) findViewById(R.id.scr_main_navigation_view),
+      Navigation.findNavController(this, R.id.scr_main_nav_host_fragment));
 
     if (savedState == null) {
       // Need this only once when the application launches
@@ -48,9 +48,9 @@ public class ScreenSimpleBible
   private void createNotificationChannel() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
       final NotificationChannel notificationChannel = new NotificationChannel(
-          getPackageName(),
-          getString(R.string.scr_simple_bible_notif_channel_name),
-          NotificationManager.IMPORTANCE_HIGH);
+        getPackageName(),
+        getString(R.string.scr_simple_bible_notif_channel_name),
+        NotificationManager.IMPORTANCE_HIGH);
       notificationChannel.setDescription(getString(R.string.scr_simple_bible_notif_channel_desc));
 
       final NotificationManager notificationManager = getSystemService(NotificationManager.class);

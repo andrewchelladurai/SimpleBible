@@ -1,91 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:animateLayoutChanges="true"
+  android:orientation="vertical"
+  tools:context=".ui.ScreenSearch">
+
+  <!--  Block for search input with tips  -->
+  <LinearLayout
+    android:id="@+id/scr_search_container_help"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
-    android:orientation="vertical"
-    tools:context=".ui.ScreenSearch">
+    android:orientation="vertical">
 
-    <!--  Block for search input with tips  -->
-    <LinearLayout
-        android:id="@+id/scr_search_container_help"
+    <SearchView
+      android:id="@+id/scr_search_input"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/gap_normal"
+      android:iconifiedByDefault="false"
+      android:imeOptions="actionSearch"
+      android:inputType="textAutoCorrect|textAutoComplete"
+      android:orientation="horizontal"
+      android:queryHint="@string/scr_search_input_hint"
+      android:searchIcon="@drawable/ic_search" />
+
+    <ScrollView
+      android:id="@+id/scr_search_container_tips_text"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:fillViewport="true"
+      android:padding="@dimen/gap_huge">
+
+      <TextView
+        android:id="@+id/scr_search_tips_text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/gap_huge"
+        android:text="@string/scr_search_tips_text" />
+    </ScrollView>
 
-        <SearchView
-            android:id="@+id/scr_search_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/gap_normal"
-            android:iconifiedByDefault="false"
-            android:imeOptions="actionSearch"
-            android:inputType="textAutoCorrect|textAutoComplete"
-            android:orientation="horizontal"
-            android:queryHint="@string/scr_search_input_hint"
-            android:searchIcon="@drawable/ic_search" />
+  </LinearLayout>
 
-        <ScrollView
-            android:id="@+id/scr_search_container_tips_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true"
-            android:padding="@dimen/gap_huge">
+  <!--  Block for displaying results with actions  -->
+  <LinearLayout
+    android:id="@+id/scr_search_container_result"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/scr_search_tips_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="@dimen/gap_huge"
-                android:text="@string/scr_search_tips_text" />
-        </ScrollView>
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/scr_search_list"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_margin="@dimen/gap_big"
+      android:layout_weight="1"
+      app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+      app:spanCount="@integer/scr_search_list_columns"
+      tools:listitem="@layout/item_search_result" />
 
-    </LinearLayout>
+    <com.google.android.material.bottomappbar.BottomAppBar
+      android:id="@+id/scr_search_menu"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      app:hideOnScroll="false"
+      app:menu="@menu/screen_search_menu"
+      tools:ignore="BottomAppBar">
 
-    <!--  Block for displaying results with actions  -->
-    <LinearLayout
-        android:id="@+id/scr_search_container_result"
+      <HorizontalScrollView
+        android:id="@+id/scr_search_container_title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:fillViewport="true">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/scr_search_list"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="@dimen/gap_big"
-            android:layout_weight="1"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="@integer/scr_search_list_columns"
-            tools:listitem="@layout/item_search_result" />
+        <TextView
+          android:id="@+id/scr_search_title"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:animateLayoutChanges="true" />
+      </HorizontalScrollView>
+    </com.google.android.material.bottomappbar.BottomAppBar>
 
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/scr_search_menu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            app:hideOnScroll="false"
-            app:menu="@menu/screen_search_menu"
-            tools:ignore="BottomAppBar">
-
-            <HorizontalScrollView
-                android:id="@+id/scr_search_container_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:animateLayoutChanges="true"
-                android:fillViewport="true">
-
-                <TextView
-                    android:id="@+id/scr_search_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:animateLayoutChanges="true" />
-            </HorizontalScrollView>
-        </com.google.android.material.bottomappbar.BottomAppBar>
-
-    </LinearLayout>
+  </LinearLayout>
 
 </LinearLayout>

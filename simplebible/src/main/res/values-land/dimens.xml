@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="scr_book_list_list_columns">2</integer>
-    <integer name="scr_chapter_list_columns">2</integer>
-    <integer name="scr_chapter_verse_list_columns">2</integer>
+  <integer name="scr_book_list_list_columns">2</integer>
+  <integer name="scr_chapter_list_columns">2</integer>
+  <integer name="scr_chapter_verse_list_columns">2</integer>
 </resources>

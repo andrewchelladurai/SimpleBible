@@ -1,48 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.ScreenBookList">
+<androidx.constraintlayout.widget.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".ui.ScreenBookList">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/scr_book_list_container_search"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/gap_huge"
-        android:layout_marginTop="@dimen/gap_normal"
-        android:layout_marginEnd="@dimen/gap_huge"
-        android:layout_marginBottom="@dimen/gap_normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+  <com.google.android.material.card.MaterialCardView
+    android:id="@+id/scr_book_list_container_search"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/gap_huge"
+    android:layout_marginTop="@dimen/gap_normal"
+    android:layout_marginEnd="@dimen/gap_huge"
+    android:layout_marginBottom="@dimen/gap_normal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
-        <SearchView
-            android:id="@+id/scr_book_list_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:iconifiedByDefault="true"
-            android:imeOptions="actionSearch"
-            android:importantForAutofill="no"
-            android:inputType="textNoSuggestions"
-            android:layoutDirection="rtl"
-            android:queryHint="@string/scr_book_list_hint_search"
-            android:searchIcon="@drawable/ic_search" />
-    </com.google.android.material.card.MaterialCardView>
+    <SearchView
+      android:id="@+id/scr_book_list_search"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:iconifiedByDefault="true"
+      android:imeOptions="actionSearch"
+      android:importantForAutofill="no"
+      android:inputType="textNoSuggestions"
+      android:layoutDirection="rtl"
+      android:queryHint="@string/scr_book_list_hint_search"
+      android:searchIcon="@drawable/ic_search" />
+  </com.google.android.material.card.MaterialCardView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/scr_book_list_list"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/gap_big"
-        android:layout_marginBottom="@dimen/gap_big"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scr_book_list_container_search"
-        app:spanCount="@integer/scr_book_list_list_columns"
-        tools:listitem="@layout/item_book" />
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/scr_book_list_list"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginTop="@dimen/gap_big"
+    android:layout_marginBottom="@dimen/gap_big"
+    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/scr_book_list_container_search"
+    app:spanCount="@integer/scr_book_list_list_columns"
+    tools:listitem="@layout/item_book" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

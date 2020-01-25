@@ -100,7 +100,7 @@ public class BookmarkUtils {
   }
 
   private static class SaveBookmarkTask
-      extends AsyncTask<Bookmark, Void, Boolean> {
+    extends AsyncTask<Bookmark, Void, Boolean> {
 
     private static final String TAG = "SaveBookmarkTask";
     private final BookmarkDao dao;
@@ -113,11 +113,6 @@ public class BookmarkUtils {
     }
 
     @Override
-    protected void onPostExecute(final Boolean result) {
-      taskResult.postValue(result);
-    }
-
-    @Override
     protected Boolean doInBackground(final Bookmark... bookmarks) {
       final Bookmark bookmark = bookmarks[0];
       Log.d(TAG, "doInBackground: " + bookmark);
@@ -125,10 +120,15 @@ public class BookmarkUtils {
       return true;
     }
 
+    @Override
+    protected void onPostExecute(final Boolean result) {
+      taskResult.postValue(result);
+    }
+
   }
 
   private static class DeleteBookmarkTask
-      extends AsyncTask<Bookmark, Void, Boolean> {
+    extends AsyncTask<Bookmark, Void, Boolean> {
 
     private static final String TAG = "DeleteBookmarkTask";
     private final BookmarkDao dao;
@@ -141,16 +141,16 @@ public class BookmarkUtils {
     }
 
     @Override
-    protected void onPostExecute(final Boolean result) {
-      taskResult.postValue(result);
-    }
-
-    @Override
     protected Boolean doInBackground(final Bookmark... bookmarks) {
       final Bookmark bookmark = bookmarks[0];
       Log.d(TAG, "doInBackground: " + bookmark);
       dao.deleteBookmark(bookmark);
       return true;
+    }
+
+    @Override
+    protected void onPostExecute(final Boolean result) {
+      taskResult.postValue(result);
     }
 
   }

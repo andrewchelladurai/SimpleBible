@@ -13,7 +13,7 @@ import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
 
 public class ScreenError
-    extends Fragment {
+  extends Fragment {
 
   public static final String ARG_MESSAGE = "ARG_MESSAGE";
   public static final String ARG_INFORM_DEV = "ARG_INFORM_DEV";

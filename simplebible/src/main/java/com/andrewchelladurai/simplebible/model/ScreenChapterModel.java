@@ -16,7 +16,7 @@ import com.andrewchelladurai.simplebible.data.entity.Verse;
 import java.util.List;
 
 public class ScreenChapterModel
-    extends AndroidViewModel {
+  extends AndroidViewModel {
 
   private static final String TAG = "ScreenChapterModel";
   private final VerseDao verseDao;
@@ -28,7 +28,8 @@ public class ScreenChapterModel
 
   public ScreenChapterModel(@NonNull final Application application) {
     super(application);
-    verseDao = SbDatabase.getDatabase(getApplication()).getVerseDao();
+    verseDao = SbDatabase.getDatabase(getApplication())
+                         .getVerseDao();
   }
 
   @NonNull
@@ -46,14 +47,14 @@ public class ScreenChapterModel
     Log.d(TAG, "setBookChapter: [" + chapter + "]");
   }
 
-  @IntRange(from = 1)
-  public int getChapter() {
-    return chapter;
-  }
-
   @NonNull
   public LiveData<List<Verse>> getChapterVerseList() {
     return verseDao.getLiveChapterVerses(book.getNumber(), getChapter());
+  }
+
+  @IntRange(from = 1)
+  public int getChapter() {
+    return chapter;
   }
 
 }

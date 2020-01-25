@@ -20,7 +20,7 @@ import com.andrewchelladurai.simplebible.utils.VerseUtils;
 import java.util.Calendar;
 
 public class ScreenHomeModel
-    extends AndroidViewModel {
+  extends AndroidViewModel {
 
   private static final String TAG = "ScreenHomeModel";
   private final VerseDao verseDao;
@@ -29,8 +29,10 @@ public class ScreenHomeModel
 
   public ScreenHomeModel(@NonNull final Application application) {
     super(application);
-    verseDao = SbDatabase.getDatabase(getApplication()).getVerseDao();
-    bookDao = SbDatabase.getDatabase(getApplication()).getBookDao();
+    verseDao = SbDatabase.getDatabase(getApplication())
+                         .getVerseDao();
+    bookDao = SbDatabase.getDatabase(getApplication())
+                        .getBookDao();
   }
 
   @NonNull
@@ -39,7 +41,7 @@ public class ScreenHomeModel
   }
 
   public void setDbSetupJobState(
-      @IntRange(from = DbSetupJob.STARTED, to = DbSetupJob.FINISHED) final int state) {
+    @IntRange(from = DbSetupJob.STARTED, to = DbSetupJob.FINISHED) final int state) {
     dbSetupJobState.postValue(state);
   }
 
@@ -48,11 +50,13 @@ public class ScreenHomeModel
   }
 
   public int getDayNumber() {
-    return Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+    return Calendar.getInstance()
+                   .get(Calendar.DAY_OF_YEAR);
   }
 
   public LiveData<Verse> getVerse(final String reference) {
-    final int[] parts = VerseUtils.getInstance().splitReference(reference);
+    final int[] parts = VerseUtils.getInstance()
+                                  .splitReference(reference);
     return verseDao.getLiveVerse(parts[0], parts[1], parts[2]);
   }
 

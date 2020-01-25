@@ -31,8 +31,8 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public class ScreenSearch
-    extends Fragment
-    implements ScreenSearchOps {
+  extends Fragment
+  implements ScreenSearchOps {
 
   private static final String TAG = "ScreenSearch";
 
@@ -52,7 +52,8 @@ public class ScreenSearch
       throw new RuntimeException(context.toString() + " must implement ScreenSimpleBibleOps");
     }
     mainOps = (ScreenSimpleBibleOps) context;
-    model = ViewModelProviders.of(this).get(ScreenSearchModel.class);
+    model = ViewModelProviders.of(this)
+                              .get(ScreenSearchModel.class);
     adapter = new SearchAdapter(this);
   }
 
@@ -66,26 +67,26 @@ public class ScreenSearch
     searchResultContentTemplate = getString(R.string.itm_search_result_content_template);
 
     ((BottomAppBar) rootView.findViewById(R.id.scr_search_menu))
-        .setOnMenuItemClickListener(item -> {
-          switch (item.getItemId()) {
-            case R.id.scr_search_menu_bookmark:
-              handleClickActionBookmark();
-              return true;
-            case R.id.scr_search_menu_share:
-              handleClickActionShare();
-              return true;
-            case R.id.scr_search_menu_clear:
-              handleClickActionClear();
-              return true;
-            case R.id.scr_search_menu_reset:
-              handleClickActionReset();
-              return true;
-            default:
-              Log.d(TAG, "onNavigationItemSelected: [" + item.getTitle() + "] "
-                         + "Unknown Item in screen search verse selection actions menu");
-              return false;
-          }
-        });
+      .setOnMenuItemClickListener(item -> {
+        switch (item.getItemId()) {
+          case R.id.scr_search_menu_bookmark:
+            handleClickActionBookmark();
+            return true;
+          case R.id.scr_search_menu_share:
+            handleClickActionShare();
+            return true;
+          case R.id.scr_search_menu_clear:
+            handleClickActionClear();
+            return true;
+          case R.id.scr_search_menu_reset:
+            handleClickActionReset();
+            return true;
+          default:
+            Log.d(TAG, "onNavigationItemSelected: [" + item.getTitle() + "] "
+                       + "Unknown Item in screen search verse selection actions menu");
+            return false;
+        }
+      });
 
     final SearchView searchView = rootView.findViewById(R.id.scr_search_input);
     searchView.setSubmitButtonEnabled(true);
@@ -104,7 +105,7 @@ public class ScreenSearch
     });
 
     ((RecyclerView) rootView.findViewById(R.id.scr_search_list))
-        .setAdapter(adapter);
+      .setAdapter(adapter);
 
     // first run - since we do not have a previously saved instance
     if (savedState == null) {
@@ -144,17 +145,18 @@ public class ScreenSearch
     }
 
     Log.d(TAG, "handleClickActionSearch: searchQuery = [" + searchText + "]");
-    model.searchTextInVerses(searchText).observe(this, list -> {
-      if (list == null || list.isEmpty()) {
-        mainOps.showMessage(getString(R.string.scr_search_msg_no_results));
-        showSearchDefaultUi();
-        return;
-      }
+    model.searchTextInVerses(searchText)
+         .observe(this, list -> {
+           if (list == null || list.isEmpty()) {
+             mainOps.showMessage(getString(R.string.scr_search_msg_no_results));
+             showSearchDefaultUi();
+             return;
+           }
 
-      Log.d(TAG, "handleClickActionSearch: found [" + list.size() + "] verses");
-      adapter.updateList(list);
-      showSearchResultsUi();
-    });
+           Log.d(TAG, "handleClickActionSearch: found [" + list.size() + "] verses");
+           adapter.updateList(list);
+           showSearchResultsUi();
+         });
   }
 
   private void handleClickActionReset() {
@@ -186,7 +188,8 @@ public class ScreenSearch
 
     // now get the text from the selected verses
     for (final Verse verse : keySet) {
-      shareText.append(versesMap.get(verse)).append("\n");
+      shareText.append(versesMap.get(verse))
+               .append("\n");
     }
 
     mainOps.shareText(String.format(getString(R.string.scr_search_template_share), shareText));
@@ -199,7 +202,8 @@ public class ScreenSearch
     }
 
     // get the list of all verses that are selected and sort it
-    final ArrayList<Verse> list = new ArrayList<>(adapter.getSelectedVerses().keySet());
+    final ArrayList<Verse> list = new ArrayList<>(adapter.getSelectedVerses()
+                                                         .keySet());
     //noinspection unchecked
     Collections.sort(list);
 
@@ -225,20 +229,25 @@ public class ScreenSearch
     adapter.clearList();
 
     final Spanned htmlText =
-        HtmlCompat.fromHtml(getString(R.string.scr_search_tips_text),
-                            HtmlCompat.FROM_HTML_MODE_LEGACY);
+      HtmlCompat.fromHtml(getString(R.string.scr_search_tips_text),
+                          HtmlCompat.FROM_HTML_MODE_LEGACY);
     final TextView textView = rootView.findViewById(R.id.scr_search_tips_text);
     textView.setText(htmlText);
-    rootView.findViewById(R.id.scr_search_container_help).setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scr_search_container_result).setVisibility(View.GONE);
+    rootView.findViewById(R.id.scr_search_container_help)
+            .setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scr_search_container_result)
+            .setVisibility(View.GONE);
     mainOps.showNavigationView();
   }
 
   private void showSearchResultsUi() {
     Log.d(TAG, "showSearchResultsUi:");
-    rootView.findViewById(R.id.scr_search_container_help).setVisibility(View.GONE);
-    rootView.findViewById(R.id.scr_search_container_result).setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scr_search_menu).setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scr_search_container_help)
+            .setVisibility(View.GONE);
+    rootView.findViewById(R.id.scr_search_container_result)
+            .setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scr_search_menu)
+            .setVisibility(View.VISIBLE);
 
     updateTitle();
     mainOps.hideNavigationView();
@@ -248,7 +257,8 @@ public class ScreenSearch
     Log.d(TAG, "updateTitle:");
     final int resultCount = adapter.getItemCount();
     final String titleTemplate = getResources()
-        .getQuantityString(R.plurals.scr_search_title_template, resultCount);
+                                   .getQuantityString(R.plurals.scr_search_title_template,
+                                                      resultCount);
     final String formattedText = String.format(titleTemplate, resultCount);
     final Spanned htmlText = HtmlCompat.fromHtml(formattedText, HtmlCompat.FROM_HTML_MODE_COMPACT);
     final TextView titleView = rootView.findViewById(R.id.scr_search_title);
@@ -257,20 +267,21 @@ public class ScreenSearch
 
   @Override
   public void updateSearchResultView(@NonNull Verse verse, @NonNull TextView textView) {
-    model.getBook(verse.getBook()).observe(this, book -> {
-      if (book == null) {
-        Log.e(TAG, "updateSearchResultView: book not found for verse [" + verse + "]");
-        return;
-      }
+    model.getBook(verse.getBook())
+         .observe(this, book -> {
+           if (book == null) {
+             Log.e(TAG, "updateSearchResultView: book not found for verse [" + verse + "]");
+             return;
+           }
 
-      textView.setText(HtmlCompat.fromHtml(
-          String.format(searchResultContentTemplate,
-                        book.getName(),
-                        verse.getChapter(),
-                        verse.getVerse(),
-                        verse.getText()),
-          HtmlCompat.FROM_HTML_MODE_LEGACY));
-    });
+           textView.setText(HtmlCompat.fromHtml(
+             String.format(searchResultContentTemplate,
+                           book.getName(),
+                           verse.getChapter(),
+                           verse.getVerse(),
+                           verse.getText()),
+             HtmlCompat.FROM_HTML_MODE_LEGACY));
+         });
   }
 
   @Override

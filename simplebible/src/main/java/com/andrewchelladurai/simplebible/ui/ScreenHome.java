@@ -25,7 +25,7 @@ import com.andrewchelladurai.simplebible.utils.BookUtils;
 import com.andrewchelladurai.simplebible.utils.VerseUtils;
 
 public class ScreenHome
-    extends Fragment {
+  extends Fragment {
 
   private static final String TAG = "ScreenHome";
   private static int PROGRESS_VALUE;
@@ -46,7 +46,8 @@ public class ScreenHome
       throw new RuntimeException(context.toString() + " must implement ScreenSimpleBibleOps");
     }
     mainOps = (ScreenSimpleBibleOps) context;
-    model = ViewModelProviders.of(this).get(ScreenHomeModel.class);
+    model = ViewModelProviders.of(this)
+                              .get(ScreenHomeModel.class);
   }
 
   @Override
@@ -66,19 +67,20 @@ public class ScreenHome
 
     // start observing the DbSetupJobState in the model even before we start it
     // this is so that we do nto miss any changes in the state
-    model.getDbSetupJobState().observe(this, newJobState -> {
-      if (newJobState == DbSetupJob.STARTED
-          || newJobState == DbSetupJob.RUNNING) {
-        showLoadingVerse();
-      } else if (newJobState == DbSetupJob.FAILED) {
-        Log.d(TAG, "onCreateView: DbSetupJob state = FAILED");
-        mainOps.showErrorScreen(getString(R.string.db_setup_failure_message), true, true);
-      } else if (newJobState == DbSetupJob.FINISHED) {
-        Log.d(TAG, "onCreateView: DbSetupJob state = FINISHED");
-        updateContent();
-      }
+    model.getDbSetupJobState()
+         .observe(this, newJobState -> {
+           if (newJobState == DbSetupJob.STARTED
+               || newJobState == DbSetupJob.RUNNING) {
+             showLoadingVerse();
+           } else if (newJobState == DbSetupJob.FAILED) {
+             Log.d(TAG, "onCreateView: DbSetupJob state = FAILED");
+             mainOps.showErrorScreen(getString(R.string.db_setup_failure_message), true, true);
+           } else if (newJobState == DbSetupJob.FINISHED) {
+             Log.d(TAG, "onCreateView: DbSetupJob state = FINISHED");
+             updateContent();
+           }
 
-    });
+         });
 
     // Activity / Fragment launched for the first time
     if (savedState == null) {
@@ -96,35 +98,6 @@ public class ScreenHome
   public void onDetach() {
     super.onDetach();
     mainOps = null;
-  }
-
-  private void startDbSetupService() {
-    Log.d(TAG, "startDbSetupService() called");
-
-    final Context context = requireContext();
-    final Intent intent = new Intent(context, DbSetupJob.class);
-
-    // start the database setup service & tie it with a ResultReceiver
-    // to update the model with the job's status when it changes
-    DbSetupJob.startWork(context, intent, new ResultReceiver(new Handler()) {
-
-      @Override
-      protected void onReceiveResult(final int newJobState, final Bundle resultData) {
-        if (newJobState == DbSetupJob.RUNNING) {
-          PROGRESS_VALUE = resultData.getInt(DbSetupJob.LINE_PROGRESS);
-        }
-        model.setDbSetupJobState(newJobState);
-      }
-    });
-  }
-
-  private void showVerseText(@StringRes int stringResId) {
-    ((TextView) rootView.findViewById(R.id.scr_home_verse))
-        .setText(HtmlCompat.fromHtml(getString(stringResId), HtmlCompat.FROM_HTML_MODE_LEGACY));
-  }
-
-  private String getVerseText() {
-    return ((TextView) rootView.findViewById(R.id.scr_home_verse)).getText().toString();
   }
 
   private void handleActionShare() {
@@ -162,35 +135,61 @@ public class ScreenHome
   private void updateContent() {
     Log.d(TAG, "updateContent: ");
 
-    model.getVerseCount().observe(this, verseCount -> {
-      if (verseCount == VerseUtils.EXPECTED_COUNT) {
+    model.getVerseCount()
+         .observe(this, verseCount -> {
+           if (verseCount == VerseUtils.EXPECTED_COUNT) {
 
-        mainOps.showNavigationView();
+             mainOps.showNavigationView();
 
-        // show the verse text for a loading progress
-        showVerseText(R.string.scr_home_verse_content_default);
+             // show the verse text for a loading progress
+             showVerseText(R.string.scr_home_verse_content_default);
 
-        // hide the progress bar
-        View view = rootView.findViewById(R.id.scr_home_progress_bar);
-        if (view.getVisibility() != View.GONE) {
-          view.setVisibility(View.GONE);
+             // hide the progress bar
+             View view = rootView.findViewById(R.id.scr_home_progress_bar);
+             if (view.getVisibility() != View.GONE) {
+               view.setVisibility(View.GONE);
+             }
+
+             // hide the progress text
+             if (progressTextView.getVisibility() != View.GONE) {
+               progressTextView.setVisibility(View.GONE);
+             }
+
+             // show the share fab
+             view = rootView.findViewById(R.id.scr_home_fab_share);
+             if (view.getVisibility() != View.VISIBLE) {
+               view.setVisibility(View.VISIBLE);
+             }
+
+             showDailyVerse();
+           }
+         });
+
+  }
+
+  private void startDbSetupService() {
+    Log.d(TAG, "startDbSetupService() called");
+
+    final Context context = requireContext();
+    final Intent intent = new Intent(context, DbSetupJob.class);
+
+    // start the database setup service & tie it with a ResultReceiver
+    // to update the model with the job's status when it changes
+    DbSetupJob.startWork(context, intent, new ResultReceiver(new Handler()) {
+
+      @Override
+      protected void onReceiveResult(final int newJobState, final Bundle resultData) {
+        if (newJobState == DbSetupJob.RUNNING) {
+          PROGRESS_VALUE = resultData.getInt(DbSetupJob.LINE_PROGRESS);
         }
-
-        // hide the progress text
-        if (progressTextView.getVisibility() != View.GONE) {
-          progressTextView.setVisibility(View.GONE);
-        }
-
-        // show the share fab
-        view = rootView.findViewById(R.id.scr_home_fab_share);
-        if (view.getVisibility() != View.VISIBLE) {
-          view.setVisibility(View.VISIBLE);
-        }
-
-        showDailyVerse();
+        model.setDbSetupJobState(newJobState);
       }
     });
+  }
 
+  private void showVerseText(@StringRes int stringResId) {
+    ((TextView) rootView.findViewById(R.id.scr_home_verse))
+      .setText(HtmlCompat.fromHtml(getString(stringResId), HtmlCompat.FROM_HTML_MODE_LEGACY));
   }
 
   private void showDailyVerse() {
@@ -200,38 +199,50 @@ public class ScreenHome
     final String reference = (array.length >= dayNumber)
                              ? array[dayNumber]
                              : getString(R.string.default_verse_reference);
-    if (!VerseUtils.getInstance().validateReference(reference)) {
+    if (!VerseUtils.getInstance()
+                   .validateReference(reference)) {
       Log.e(TAG, "showDailyVerse: invalid reference [" + reference + "]");
       showVerseText(R.string.scr_home_verse_content_default);
       return;
     }
-    model.getVerse(reference).observe(this, verse -> {
-      if (verse == null) {
-        Log.e(TAG, "showDailyVerse: no verse found for reference [" + reference + "]");
-        showVerseText(R.string.scr_home_verse_content_default);
-        return;
-      }
-      model.getBook(verse.getBook()).observe(this, book -> {
-        if (book == null) {
-          Log.e(TAG, "showDailyVerse: no book found for position [" + verse.getBook() + "]");
-          showVerseText(R.string.scr_home_verse_content_default);
-          return;
-        }
+    model.getVerse(reference)
+         .observe(this, verse -> {
+           if (verse == null) {
+             Log.e(TAG, "showDailyVerse: no verse found for reference [" + reference + "]");
+             showVerseText(R.string.scr_home_verse_content_default);
+             return;
+           }
+           model.getBook(verse.getBook())
+                .observe(this, book -> {
+                  if (book == null) {
+                    Log.e(TAG,
+                          "showDailyVerse: no book found for position [" + verse.getBook() + "]");
+                    showVerseText(R.string.scr_home_verse_content_default);
+                    return;
+                  }
 
-        Log.d(TAG, "showDailyVerse: dayNumber[" + dayNumber + "] has reference[" + reference + "]");
-        final String template = getString(R.string.scr_home_verse_content_template);
-        final String bookName = book.getName();
-        final int chapterNum = verse.getChapter();
-        final int verseNum = verse.getVerse();
-        final String verseText = verse.getText();
-        final String formattedText = String.format(
-            template, bookName, chapterNum, verseNum, verseText);
+                  Log.d(TAG,
+                        "showDailyVerse: dayNumber[" + dayNumber + "] has reference[" + reference +
+                        "]");
+                  final String template = getString(R.string.scr_home_verse_content_template);
+                  final String bookName = book.getName();
+                  final int chapterNum = verse.getChapter();
+                  final int verseNum = verse.getVerse();
+                  final String verseText = verse.getText();
+                  final String formattedText = String.format(
+                    template, bookName, chapterNum, verseNum, verseText);
 
-        final TextView textView = rootView.findViewById(R.id.scr_home_verse);
-        textView.setText(HtmlCompat.fromHtml(formattedText, HtmlCompat.FROM_HTML_MODE_LEGACY));
+                  final TextView textView = rootView.findViewById(R.id.scr_home_verse);
+                  textView.setText(
+                    HtmlCompat.fromHtml(formattedText, HtmlCompat.FROM_HTML_MODE_LEGACY));
 
-      });
-    });
+                });
+         });
+  }
+
+  private String getVerseText() {
+    return ((TextView) rootView.findViewById(R.id.scr_home_verse)).getText()
+                                                                  .toString();
   }
 
 }

@@ -1,51 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.ScreenChapter">
+<androidx.constraintlayout.widget.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  tools:context=".ui.ScreenChapter">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/scr_chapter_list"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/gap_normal"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/scr_chapter_menu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:spanCount="@integer/scr_chapter_verse_list_columns"
-        tools:listitem="@layout/item_chapter_verse" />
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/scr_chapter_list"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_margin="@dimen/gap_normal"
+    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+    app:layout_constraintBottom_toTopOf="@id/scr_chapter_menu"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:spanCount="@integer/scr_chapter_verse_list_columns"
+    tools:listitem="@layout/item_chapter_verse" />
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/scr_chapter_menu"
-        android:layout_width="0dp"
+  <com.google.android.material.bottomappbar.BottomAppBar
+    android:id="@+id/scr_chapter_menu"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    app:hideOnScroll="false"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="1"
+    app:menu="@menu/screen_chapter_menu"
+    tools:ignore="BottomAppBar">
+
+    <HorizontalScrollView
+      android:id="@+id/scr_chapter_container_title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:animateLayoutChanges="true">
+
+      <TextView
+        android:id="@+id/scr_chapter_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        app:hideOnScroll="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1"
-        app:menu="@menu/screen_chapter_menu"
-        tools:ignore="BottomAppBar">
-
-        <HorizontalScrollView
-            android:id="@+id/scr_chapter_container_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true">
-
-            <TextView
-                android:id="@+id/scr_chapter_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="@string/scr_chapter_title_template" />
-        </HorizontalScrollView>
-    </com.google.android.material.bottomappbar.BottomAppBar>
+        tools:text="@string/scr_chapter_title_template" />
+    </HorizontalScrollView>
+  </com.google.android.material.bottomappbar.BottomAppBar>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookListAdapter
-    extends RecyclerView.Adapter
-    implements RecyclerViewAdapterOps {
+  extends RecyclerView.Adapter
+  implements RecyclerViewAdapterOps {
 
   private static final String TAG = "BookListAdapter";
   private static ArrayList<Book> ALL_BOOKS = new ArrayList<>(BookUtils.EXPECTED_COUNT);
@@ -71,7 +71,9 @@ public class BookListAdapter
       FILTERED_BOOK_LIST.addAll(ALL_BOOKS);
     } else {
       for (final Book book : ALL_BOOKS) {
-        if (book.getName().toLowerCase().contains(searchTerm.toLowerCase())) {
+        if (book.getName()
+                .toLowerCase()
+                .contains(searchTerm.toLowerCase())) {
           FILTERED_BOOK_LIST.add(book);
         }
       }
@@ -86,8 +88,8 @@ public class BookListAdapter
   }
 
   private class BookViewHolder
-      extends RecyclerView.ViewHolder
-      implements ItemHolderOps {
+    extends RecyclerView.ViewHolder
+    implements ItemHolderOps {
 
     private final View rootView;
     private Book book;
@@ -102,22 +104,25 @@ public class BookListAdapter
       book = (Book) object;
 
       ((TextView) rootView.findViewById(R.id.itm_book_name))
-          .setText(book.getName());
-      rootView.findViewById(R.id.itm_book_name).setOnClickListener(v -> {
-        viewOps.handleBookClick(book);
-      });
+        .setText(book.getName());
+      rootView.findViewById(R.id.itm_book_name)
+              .setOnClickListener(v -> {
+                viewOps.handleBookClick(book);
+              });
 
       ((TextView) rootView.findViewById(R.id.itm_book_desc))
-          .setText(book.getDescription());
-      rootView.findViewById(R.id.itm_book_desc).setOnClickListener(v -> {
-        viewOps.handleBookClick(book);
-      });
+        .setText(book.getDescription());
+      rootView.findViewById(R.id.itm_book_desc)
+              .setOnClickListener(v -> {
+                viewOps.handleBookClick(book);
+              });
 
       ((Chip) rootView.findViewById(R.id.itm_book_chapter_count))
-          .setText(viewOps.getFormattedBookDetails(book.getChapters()));
-      rootView.findViewById(R.id.itm_book_chapter_count).setOnClickListener(v -> {
-        viewOps.handleBookClick(book);
-      });
+        .setText(viewOps.getFormattedBookDetails(book.getChapters()));
+      rootView.findViewById(R.id.itm_book_chapter_count)
+              .setOnClickListener(v -> {
+                viewOps.handleBookClick(book);
+              });
 
     }
 

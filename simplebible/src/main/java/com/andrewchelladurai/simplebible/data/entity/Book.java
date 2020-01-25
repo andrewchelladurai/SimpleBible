@@ -14,8 +14,8 @@ import java.util.Objects;
 
 @Entity(tableName = "sb_books", primaryKeys = {"number", "name", "chapters", "verses"})
 public class Book
-    implements Comparable,
-               Parcelable {
+  implements Comparable,
+             Parcelable {
 
   public static final Creator<Book> CREATOR = new Creator<Book>() {
     @Override

@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="AlwaysShowAction">
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:ignore="AlwaysShowAction">
 
-    <group
-        android:id="@+id/scr_search_menu_container_selected"
-        android:visible="false">
-        <item
-            android:id="@+id/scr_search_menu_share"
-            android:icon="@drawable/ic_share"
-            android:title="@string/scr_search_menu_share"
-            app:showAsAction="always" />
-        <item
-            android:id="@+id/scr_search_menu_bookmark"
-            android:icon="@drawable/ic_bookmark"
-            android:title="@string/scr_search_menu_bookmark"
-            app:showAsAction="always" />
-        <item
-            android:id="@+id/scr_search_menu_clear"
-            android:icon="@drawable/ic_clear"
-            android:title="@string/scr_search_menu_clear"
-            app:showAsAction="always" />
-    </group>
-
+  <group
+    android:id="@+id/scr_search_menu_container_selected"
+    android:visible="false">
     <item
-        android:id="@+id/scr_search_menu_reset"
-        android:icon="@drawable/ic_reset"
-        android:title="@string/scr_search_menu_reset"
-        app:showAsAction="always" />
+      android:id="@+id/scr_search_menu_share"
+      android:icon="@drawable/ic_share"
+      android:title="@string/scr_search_menu_share"
+      app:showAsAction="always" />
+    <item
+      android:id="@+id/scr_search_menu_bookmark"
+      android:icon="@drawable/ic_bookmark"
+      android:title="@string/scr_search_menu_bookmark"
+      app:showAsAction="always" />
+    <item
+      android:id="@+id/scr_search_menu_clear"
+      android:icon="@drawable/ic_clear"
+      android:title="@string/scr_search_menu_clear"
+      app:showAsAction="always" />
+  </group>
+
+  <item
+    android:id="@+id/scr_search_menu_reset"
+    android:icon="@drawable/ic_reset"
+    android:title="@string/scr_search_menu_reset"
+    app:showAsAction="always" />
 </menu>

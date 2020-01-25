@@ -24,8 +24,8 @@ import java.util.List;
 import static com.andrewchelladurai.simplebible.utils.BookUtils.EXPECTED_COUNT;
 
 public class ChapterVerseAdapter
-    extends RecyclerView.Adapter
-    implements RecyclerViewAdapterOps {
+  extends RecyclerView.Adapter
+  implements RecyclerViewAdapterOps {
 
   private static final String TAG = "ChapterVerseAdapter";
 
@@ -44,7 +44,8 @@ public class ChapterVerseAdapter
 
   public ChapterVerseAdapter(final ScreenChapterOps ops, final String contentTemplate) {
     this.ops = ops;
-    if (CONTENT_TEMPLATE.toString().isEmpty()) {
+    if (CONTENT_TEMPLATE.toString()
+                        .isEmpty()) {
       CONTENT_TEMPLATE.append(contentTemplate);
     }
   }
@@ -62,13 +63,13 @@ public class ChapterVerseAdapter
     ((ChapterVerseView) holder).updateView(LIST.get(position), position);
   }
 
-  public int getSelectedItemCount() {
-    return SELECTED_LIST.size();
-  }
-
   @Override
   public int getItemCount() {
     return LIST.size();
+  }
+
+  public int getSelectedItemCount() {
+    return SELECTED_LIST.size();
   }
 
   @Override
@@ -135,8 +136,8 @@ public class ChapterVerseAdapter
   }
 
   private class ChapterVerseView
-      extends RecyclerView.ViewHolder
-      implements ItemHolderOps {
+    extends RecyclerView.ViewHolder
+    implements ItemHolderOps {
 
     private final TextView textView;
     private Verse verse;
@@ -148,7 +149,8 @@ public class ChapterVerseAdapter
         if (SELECTED_LIST.containsKey(verse)) {
           SELECTED_LIST.remove(verse);
         } else {
-          SELECTED_LIST.put(verse, textView.getText().toString());
+          SELECTED_LIST.put(verse, textView.getText()
+                                           .toString());
         }
         textView.setSelected(SELECTED_LIST.containsKey(verse));
         ops.handleClickVerse();

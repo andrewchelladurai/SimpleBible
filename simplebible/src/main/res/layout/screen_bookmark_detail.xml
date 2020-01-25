@@ -1,71 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:animateLayoutChanges="true"
+  tools:context=".ui.ScreenBookmarkDetail">
+
+  <com.google.android.material.bottomappbar.BottomAppBar
+    android:id="@+id/scr_bmark_menu"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
     android:animateLayoutChanges="true"
-    tools:context=".ui.ScreenBookmarkDetail">
+    app:fabAlignmentMode="end"
+    app:fabAnimationMode="slide"
+    app:hideOnScroll="true"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:menu="@menu/screen_bookmark_menu"
+    tools:ignore="BottomAppBar">
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/scr_bmark_menu"
-        android:layout_width="match_parent"
+    <HorizontalScrollView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      android:fillViewport="true">
+
+      <TextView
+        android:id="@+id/scr_bmark_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:animateLayoutChanges="true"
-        app:fabAlignmentMode="end"
-        app:fabAnimationMode="slide"
-        app:hideOnScroll="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/screen_bookmark_menu"
-        tools:ignore="BottomAppBar">
+        tools:text="@string/scr_bmark_title_template" />
+    </HorizontalScrollView>
+  </com.google.android.material.bottomappbar.BottomAppBar>
 
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            android:fillViewport="true">
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/scr_bmark_list"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_margin="@dimen/gap_huge"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    app:layout_constraintBottom_toTopOf="@id/scr_bmark_menu"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:spanCount="@integer/scr_bookmark_list_columns"
+    tools:listitem="@layout/item_bookmark_verse" />
 
-            <TextView
-                android:id="@+id/scr_bmark_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="@string/scr_bmark_title_template" />
-        </HorizontalScrollView>
-    </com.google.android.material.bottomappbar.BottomAppBar>
+  <com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/scr_bmark_container_note"
+    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_margin="@dimen/gap_huge"
+    android:visibility="gone"
+    app:layout_constraintBottom_toTopOf="@id/scr_bmark_menu"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/scr_bmark_list"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/gap_huge"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/scr_bmark_menu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:spanCount="@integer/scr_bookmark_list_columns"
-        tools:listitem="@layout/item_bookmark_verse" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/scr_bmark_container_note"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/gap_huge"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/scr_bmark_menu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/scr_bmark_note"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="start"
-            android:hint="@string/scr_bmark_hint_note" />
-    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputEditText
+      android:id="@+id/scr_bmark_note"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:gravity="start"
+      android:hint="@string/scr_bmark_hint_note" />
+  </com.google.android.material.textfield.TextInputLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

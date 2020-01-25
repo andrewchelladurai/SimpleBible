@@ -1,72 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.ScreenBookmarkList">
+<androidx.constraintlayout.widget.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".ui.ScreenBookmarkList">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/scr_bmark_list_gh10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
+  <androidx.constraintlayout.widget.Guideline
+    android:id="@+id/scr_bmark_list_gh10"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintGuide_percent="0.1" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/scr_bmark_list_gh40"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.4" />
+  <androidx.constraintlayout.widget.Guideline
+    android:id="@+id/scr_bmark_list_gh40"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintGuide_percent="0.4" />
 
-    <ImageView
-        android:id="@+id/scr_bmark_list_image"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:contentDescription="@string/scr_bmark_list_image_desc"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/scr_bmark_list_gh40"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scr_bmark_list_gh10"
-        app:layout_constraintVertical_bias="0.1"
-        app:srcCompat="@drawable/ic_hero_bookmark" />
+  <ImageView
+    android:id="@+id/scr_bmark_list_image"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:contentDescription="@string/scr_bmark_list_image_desc"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintBottom_toTopOf="@id/scr_bmark_list_gh40"
+    app:layout_constraintDimensionRatio="1:1"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/scr_bmark_list_gh10"
+    app:layout_constraintVertical_bias="0.1"
+    app:srcCompat="@drawable/ic_hero_bookmark" />
 
-    <ScrollView
-        android:id="@+id/scr_bmark_list_container_help"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:fillViewport="true"
-        android:padding="@dimen/gap_huge"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scr_bmark_list_image">
+  <ScrollView
+    android:id="@+id/scr_bmark_list_container_help"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:fillViewport="true"
+    android:padding="@dimen/gap_huge"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/scr_bmark_list_image">
 
-        <TextView
-            android:id="@+id/scr_bmark_list_help"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="@dimen/gap_huge"
-            android:text="@string/scr_bmark_list_help_txt"
-            android:textAlignment="center" />
-    </ScrollView>
+    <TextView
+      android:id="@+id/scr_bmark_list_help"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:padding="@dimen/gap_huge"
+      android:text="@string/scr_bmark_list_help_txt"
+      android:textAlignment="center" />
+  </ScrollView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/scr_bmark_list_list"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/gap_big"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:spanCount="@integer/scr_bookmark_list_list_columns"
-        tools:listitem="@layout/item_bookmark" />
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/scr_bmark_list_list"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_margin="@dimen/gap_big"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:spanCount="@integer/scr_bookmark_list_list_columns"
+    tools:listitem="@layout/item_bookmark" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

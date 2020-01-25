@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScreenBookmarkListModel
-    extends AndroidViewModel {
+  extends AndroidViewModel {
 
   private static final String TAG = "ScreenBookmarkListModel";
   private final BookmarkDao bookmarkDao;
@@ -26,8 +26,10 @@ public class ScreenBookmarkListModel
 
   public ScreenBookmarkListModel(@NonNull final Application application) {
     super(application);
-    bookmarkDao = SbDatabase.getDatabase(getApplication()).getBookmarkDao();
-    verseDao = SbDatabase.getDatabase(getApplication()).getVerseDao();
+    bookmarkDao = SbDatabase.getDatabase(getApplication())
+                            .getBookmarkDao();
+    verseDao = SbDatabase.getDatabase(getApplication())
+                         .getVerseDao();
   }
 
   @NonNull
