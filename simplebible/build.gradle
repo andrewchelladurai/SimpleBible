@@ -33,22 +33,22 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
 
     // ConstraintLayout Dependency
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
     // Material UI Components Dependency
-    implementation 'com.google.android.material:material:1.1.0-beta01'
+    implementation 'com.google.android.material:material:1.2.0-alpha04'
 
     // NavigationComponent Dependencies
-    implementation "androidx.navigation:navigation-fragment:2.2.0-beta01"
-    implementation "androidx.navigation:navigation-ui:2.2.0-beta01"
+    implementation "androidx.navigation:navigation-fragment:2.2.0"
+    implementation "androidx.navigation:navigation-ui:2.2.0"
 
     // Room Persistence Storage Dependencies
-    implementation "androidx.room:room-runtime:2.2.0"
-    annotationProcessor "androidx.room:room-compiler:2.2.0"
+    implementation "androidx.room:room-runtime:2.2.3"
+    annotationProcessor "androidx.room:room-compiler:2.2.3"
 
     // ViewModel + LiveData Dependencies
-    implementation "androidx.lifecycle:lifecycle-extensions:2.1.0"
-    implementation "androidx.lifecycle:lifecycle-common-java8:2.1.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0"
 
     testImplementation 'junit:junit:4.13-beta-3'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
