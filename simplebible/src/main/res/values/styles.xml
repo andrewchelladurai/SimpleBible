@@ -8,9 +8,7 @@
 
   <style name="SbTheme"
          parent="Theme.MaterialComponents.DayNight.NoActionBar">
-    <!--
-    todo customize this theme
-    -->
+    <item name="android:textColor">@color/text_color</item>
   </style>
 
 </resources>

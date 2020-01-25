@@ -10,5 +10,4 @@
   android:paddingTop="@dimen/gap_small"
   android:paddingEnd="@dimen/gap_normal"
   android:paddingBottom="@dimen/gap_small"
-  android:textColor="@android:color/black"
   tools:text="@string/itm_chapter_verse_content_template" />
