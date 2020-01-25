@@ -27,8 +27,6 @@ public class ScreenSimpleBible
 
   private static final String TAG = "ScreenSimpleBible";
 
-  private NotificationChannel notificationChannel;
-
   @Override
   protected void onCreate(Bundle savedState) {
     setTheme(R.style.SbTheme);
@@ -49,13 +47,16 @@ public class ScreenSimpleBible
 
   private void createNotificationChannel() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      notificationChannel = new NotificationChannel(
+      final NotificationChannel notificationChannel = new NotificationChannel(
           getPackageName(),
           getString(R.string.scr_simple_bible_notif_channel_name),
           NotificationManager.IMPORTANCE_HIGH);
       notificationChannel.setDescription(getString(R.string.scr_simple_bible_notif_channel_desc));
 
-      getSystemService(NotificationManager.class).createNotificationChannel(notificationChannel);
+      final NotificationManager notificationManager = getSystemService(NotificationManager.class);
+      if (notificationManager != null) {
+        notificationManager.createNotificationChannel(notificationChannel);
+      }
       Log.d(TAG, "createNotificationChannel: created");
     }
     Log.d(TAG, "createNotificationChannel: skipped");
@@ -103,7 +104,9 @@ public class ScreenSimpleBible
     if (view == null) {
       view = new View(this);
     }
-    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    if (imm != null) {
+      imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
   }
 
   @Override
