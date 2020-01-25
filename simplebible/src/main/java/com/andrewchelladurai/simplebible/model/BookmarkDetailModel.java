@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookmarkDetailModel
-  extends AndroidViewModel {
+    extends AndroidViewModel {
 
   private static final String TAG = "BookmarkDetailModel";
 
@@ -63,7 +63,7 @@ public class BookmarkDetailModel
   }
 
   public LiveData<Book> getBook(
-    @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int bookNumber) {
+      @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int bookNumber) {
     return bookDao.getBookUsingPositionLive(bookNumber);
   }
 

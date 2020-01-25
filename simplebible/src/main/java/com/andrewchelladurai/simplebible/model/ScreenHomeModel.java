@@ -20,7 +20,7 @@ import com.andrewchelladurai.simplebible.utils.VerseUtils;
 import java.util.Calendar;
 
 public class ScreenHomeModel
-  extends AndroidViewModel {
+    extends AndroidViewModel {
 
   private static final String TAG = "ScreenHomeModel";
   private final VerseDao verseDao;
@@ -41,7 +41,7 @@ public class ScreenHomeModel
   }
 
   public void setDbSetupJobState(
-    @IntRange(from = DbSetupJob.STARTED, to = DbSetupJob.FINISHED) final int state) {
+      @IntRange(from = DbSetupJob.STARTED, to = DbSetupJob.FINISHED) final int state) {
     dbSetupJobState.postValue(state);
   }
 

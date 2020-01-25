@@ -13,7 +13,7 @@ import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
 
 public class ScreenSettings
-  extends Fragment {
+    extends Fragment {
 
   private ScreenSimpleBibleOps mainOps;
 

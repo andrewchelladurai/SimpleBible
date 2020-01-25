@@ -25,7 +25,7 @@ import com.andrewchelladurai.simplebible.utils.BookUtils;
 import com.andrewchelladurai.simplebible.utils.VerseUtils;
 
 public class ScreenHome
-  extends Fragment {
+    extends Fragment {
 
   private static final String TAG = "ScreenHome";
   private static int PROGRESS_VALUE;
@@ -187,9 +187,9 @@ public class ScreenHome
     });
   }
 
-  private void showVerseText(@StringRes int stringResId) {
-    ((TextView) rootView.findViewById(R.id.scr_home_verse))
-      .setText(HtmlCompat.fromHtml(getString(stringResId), HtmlCompat.FROM_HTML_MODE_LEGACY));
+  private String getVerseText() {
+    return ((TextView) rootView.findViewById(R.id.scr_home_verse)).getText()
+                                                                  .toString();
   }
 
   private void showDailyVerse() {
@@ -230,19 +230,19 @@ public class ScreenHome
                   final int verseNum = verse.getVerse();
                   final String verseText = verse.getText();
                   final String formattedText = String.format(
-                    template, bookName, chapterNum, verseNum, verseText);
+                      template, bookName, chapterNum, verseNum, verseText);
 
                   final TextView textView = rootView.findViewById(R.id.scr_home_verse);
                   textView.setText(
-                    HtmlCompat.fromHtml(formattedText, HtmlCompat.FROM_HTML_MODE_LEGACY));
+                      HtmlCompat.fromHtml(formattedText, HtmlCompat.FROM_HTML_MODE_LEGACY));
 
                 });
          });
   }
 
-  private String getVerseText() {
-    return ((TextView) rootView.findViewById(R.id.scr_home_verse)).getText()
-                                                                  .toString();
+  private void showVerseText(@StringRes int stringResId) {
+    ((TextView) rootView.findViewById(R.id.scr_home_verse))
+        .setText(HtmlCompat.fromHtml(getString(stringResId), HtmlCompat.FROM_HTML_MODE_LEGACY));
   }
 
 }

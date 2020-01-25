@@ -20,7 +20,7 @@ import com.andrewchelladurai.simplebible.data.entity.Verse;
           // March 13, 2018 7:36:46 PM
           exportSchema = false)
 public abstract class SbDatabase
-  extends RoomDatabase {
+    extends RoomDatabase {
 
   // TODO: implement a migration strategy for both an upgrade and a downgrade
   // https://medium.com/androiddevelopers/understanding-migrations-with-room-f01e04b07929

@@ -17,7 +17,7 @@ import com.andrewchelladurai.simplebible.utils.BookUtils;
 import java.util.List;
 
 public class ScreenSearchModel
-  extends AndroidViewModel {
+    extends AndroidViewModel {
 
   private final VerseDao verseDao;
   private final BookDao bookDao;
@@ -36,7 +36,7 @@ public class ScreenSearchModel
   }
 
   public LiveData<Book> getBook(
-    @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int bookNumber) {
+      @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int bookNumber) {
     return bookDao.getBookUsingPositionLive(bookNumber);
   }
 

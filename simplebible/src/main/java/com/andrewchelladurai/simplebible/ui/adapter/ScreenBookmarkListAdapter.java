@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScreenBookmarkListAdapter
-  extends RecyclerView.Adapter
-  implements RecyclerViewAdapterOps {
+    extends RecyclerView.Adapter
+    implements RecyclerViewAdapterOps {
 
   private static final String TAG = "ScreenBookmarkListAdapt";
 
@@ -74,8 +74,8 @@ public class ScreenBookmarkListAdapter
   }
 
   private class BookmarkEntry
-    extends RecyclerView.ViewHolder
-    implements ItemHolderOps {
+      extends RecyclerView.ViewHolder
+      implements ItemHolderOps {
 
     private final View rootView;
     private Bookmark bookmark;
@@ -98,7 +98,7 @@ public class ScreenBookmarkListAdapter
 
       final String noteTemplate = rootView.getContext()
                                           .getString(
-                                            R.string.itm_bmark_list_note_template);
+                                              R.string.itm_bmark_list_note_template);
       final String formattedText = String.format(noteTemplate, noteText);
       final Spanned htmlText = HtmlCompat.fromHtml(formattedText,
                                                    HtmlCompat.FROM_HTML_MODE_COMPACT);
@@ -107,9 +107,9 @@ public class ScreenBookmarkListAdapter
       noteField.setText(htmlText);
 
       final TextView verseField = rootView
-                                    .findViewById(R.id.itm_bmark_list_first_verse);
+                                      .findViewById(R.id.itm_bmark_list_first_verse);
       final Chip verseCountChip = rootView
-                                    .findViewById(R.id.itm_bmark_list_verse_count);
+                                      .findViewById(R.id.itm_bmark_list_verse_count);
 
       ops.updateVerseList(verseCountChip, verseField, bookmark.getReference());
 

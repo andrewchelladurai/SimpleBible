@@ -33,8 +33,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
 
 public class ScreenBookmarkDetail
-  extends Fragment
-  implements ScreenBookmarkDetailOps {
+    extends Fragment
+    implements ScreenBookmarkDetailOps {
 
   static final String ARG_VERSE_LIST = "ARG_VERSE_LIST";
   private static final String TAG = "ScreenBookmarkDetail";
@@ -60,8 +60,8 @@ public class ScreenBookmarkDetail
                               .get(BookmarkDetailModel.class);
     adapter = new BookmarkDetailAdapter(this);
     Toast
-      .makeText(context, getString(R.string.scr_bmark_menu_toggle_view_hint), Toast.LENGTH_LONG)
-      .show();
+        .makeText(context, getString(R.string.scr_bmark_menu_toggle_view_hint), Toast.LENGTH_LONG)
+        .show();
   }
 
   @Override
@@ -165,24 +165,10 @@ public class ScreenBookmarkDetail
          });
   }
 
-  @NonNull
-  private String getNoteText() {
-    TextInputEditText editText = rootView.findViewById(R.id.scr_bmark_note);
-    final Editable text = editText.getText();
-
-    return (text == null) ? "" : text.toString();
-  }
-
   private void handleClickActionEdit() {
     Log.d(TAG, "handleClickActionEdit() called");
     toggleAction(false);
     toggleNoteFieldState(false);
-  }
-
-  private void toggleNoteFieldState(final boolean bookmarkExists) {
-    Log.d(TAG, "toggleNoteFieldState: bookmarkExists = [" + bookmarkExists + "]");
-    rootView.findViewById(R.id.scr_bmark_note)
-            .setEnabled(!bookmarkExists);
   }
 
   private void handleClickActionShare() {
@@ -229,19 +215,6 @@ public class ScreenBookmarkDetail
          });
   }
 
-  private void toggleAction(final boolean bookmarkExists) {
-    Log.d(TAG, "toggleAction: bookmarkExists = [" + bookmarkExists + "]");
-    final BottomAppBar bAppBar = rootView.findViewById(R.id.scr_bmark_menu);
-    final Menu menu = bAppBar.getMenu();
-    if (bookmarkExists) {
-      menu.setGroupVisible(R.id.scr_bmark_menu_container_saved, true);
-      menu.setGroupVisible(R.id.scr_bmark_menu_container_unsaved, false);
-    } else {
-      menu.setGroupVisible(R.id.scr_bmark_menu_container_saved, false);
-      menu.setGroupVisible(R.id.scr_bmark_menu_container_unsaved, true);
-    }
-  }
-
   private void updateContent() {
     final BookmarkUtils bookmarkUtils = BookmarkUtils.getInstance();
     final ArrayList<Verse> list = model.getCachedList();
@@ -273,13 +246,40 @@ public class ScreenBookmarkDetail
                                               : R.string.scr_bmark_title_template_unsaved);
 
            final String footerTemplate = getResources().getQuantityString(
-             R.plurals.scr_bmark_title_template_verse_count, recordCount);
+               R.plurals.scr_bmark_title_template_verse_count, recordCount);
            final String footerTxt = String.format(footerTemplate, recordCount);
 
            final String titleTxt = String.format(titleTemplate, headerTxt, footerTxt);
            ((TextView) rootView.findViewById(R.id.scr_bmark_title))
-             .setText(HtmlCompat.fromHtml(titleTxt, HtmlCompat.FROM_HTML_MODE_COMPACT));
+               .setText(HtmlCompat.fromHtml(titleTxt, HtmlCompat.FROM_HTML_MODE_COMPACT));
          });
+  }
+
+  private void toggleAction(final boolean bookmarkExists) {
+    Log.d(TAG, "toggleAction: bookmarkExists = [" + bookmarkExists + "]");
+    final BottomAppBar bAppBar = rootView.findViewById(R.id.scr_bmark_menu);
+    final Menu menu = bAppBar.getMenu();
+    if (bookmarkExists) {
+      menu.setGroupVisible(R.id.scr_bmark_menu_container_saved, true);
+      menu.setGroupVisible(R.id.scr_bmark_menu_container_unsaved, false);
+    } else {
+      menu.setGroupVisible(R.id.scr_bmark_menu_container_saved, false);
+      menu.setGroupVisible(R.id.scr_bmark_menu_container_unsaved, true);
+    }
+  }
+
+  private void toggleNoteFieldState(final boolean bookmarkExists) {
+    Log.d(TAG, "toggleNoteFieldState: bookmarkExists = [" + bookmarkExists + "]");
+    rootView.findViewById(R.id.scr_bmark_note)
+            .setEnabled(!bookmarkExists);
+  }
+
+  @NonNull
+  private String getNoteText() {
+    TextInputEditText editText = rootView.findViewById(R.id.scr_bmark_note);
+    final Editable text = editText.getText();
+
+    return (text == null) ? "" : text.toString();
   }
 
   private void setNoteText(@NonNull final String note) {
@@ -304,12 +304,12 @@ public class ScreenBookmarkDetail
            }
 
            textView.setText(HtmlCompat.fromHtml(
-             String.format(itemBookmarkVerseContentTemplate,
-                           book.getName(),
-                           verse.getChapter(),
-                           verse.getVerse(),
-                           verse.getText()),
-             HtmlCompat.FROM_HTML_MODE_LEGACY));
+               String.format(itemBookmarkVerseContentTemplate,
+                             book.getName(),
+                             verse.getChapter(),
+                             verse.getVerse(),
+                             verse.getText()),
+               HtmlCompat.FROM_HTML_MODE_LEGACY));
          });
 
   }

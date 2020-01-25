@@ -27,7 +27,7 @@ public class BookUtils {
   }
 
   private static class CreateBookTask
-    extends AsyncTask<Book, Void, Void> {
+      extends AsyncTask<Book, Void, Void> {
 
     private final BookDao dao;
 

@@ -29,8 +29,8 @@ public class VerseUtils {
 
   @NonNull
   public String createReference(
-    @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int bookNumber,
-    @IntRange(from = 1) final int chapterNumber, @IntRange(from = 1) final int verseNumber) {
+      @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int bookNumber,
+      @IntRange(from = 1) final int chapterNumber, @IntRange(from = 1) final int verseNumber) {
     if (bookNumber > 0
         && bookNumber <= BookUtils.EXPECTED_COUNT
         && chapterNumber > 0
@@ -60,7 +60,7 @@ public class VerseUtils {
   public int[] splitReference(@NonNull final String reference) {
     if (!validateReference(reference)) {
       throw new UnsupportedOperationException(
-        TAG + " splitReference: invalid reference [" + reference + "]");
+          TAG + " splitReference: invalid reference [" + reference + "]");
     }
 
     final String[] splits = reference.split(SEPARATOR);
@@ -124,7 +124,7 @@ public class VerseUtils {
   }
 
   static class CreateVerseTask
-    extends AsyncTask<Verse, Void, Void> {
+      extends AsyncTask<Verse, Void, Void> {
 
     @NonNull
     private final VerseDao verseDao;

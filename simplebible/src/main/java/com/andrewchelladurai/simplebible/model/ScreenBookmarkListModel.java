@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScreenBookmarkListModel
-  extends AndroidViewModel {
+    extends AndroidViewModel {
 
   private static final String TAG = "ScreenBookmarkListModel";
   private final BookmarkDao bookmarkDao;

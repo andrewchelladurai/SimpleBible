@@ -33,8 +33,8 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public class ScreenChapter
-  extends Fragment
-  implements ScreenChapterOps {
+    extends Fragment
+    implements ScreenChapterOps {
 
   static final String ARG_BOOK = "ARG_BOOK";
   static final String ARG_CHAPTER = "ARG_CHAPTER";
@@ -140,16 +140,6 @@ public class ScreenChapter
     mainOps = null;
   }
 
-  private void updateVerseSelectionActionsVisibility() {
-    final boolean isVerseSelected = adapter.getSelectedItemCount() > 0;
-    final BottomAppBar bottomAppBar = rootView.findViewById(R.id.scr_chapter_menu);
-    final Menu menu = bottomAppBar.getMenu();
-    menu.setGroupVisible(R.id.scr_chapter_menu_container_selected, isVerseSelected);
-    menu.setGroupVisible(R.id.scr_chapter_menu_container_not_selected, !isVerseSelected);
-    rootView.findViewById(R.id.scr_chapter_container_title)
-            .setVisibility((isVerseSelected) ? View.GONE : View.VISIBLE);
-  }
-
   private void handleActionClickClear() {
     adapter.clearSelection();
     updateVerseSelectionActionsVisibility();
@@ -210,13 +200,6 @@ public class ScreenChapter
     }
   }
 
-  private void showChapterSelector() {
-    chapterSelectionDialog = ChapterSelectionFragment
-                               .createInstance(this, model.getBook()
-                                                          .getChapters());
-    chapterSelectionDialog.show(getParentFragmentManager(), "ChapterSelectionFragment");
-  }
-
   private void updateScreenTitle() {
     final Book book = model.getBook();
     final String htmlText = getString(R.string.scr_chapter_title_template,
@@ -230,11 +213,6 @@ public class ScreenChapter
     title.setText(titleText);
   }
 
-  @Override
-  public void handleClickVerse() {
-    updateVerseSelectionActionsVisibility();
-  }
-
   private void updateVerseList() {
     model.getChapterVerseList()
          .observe(this, list -> {
@@ -245,9 +223,9 @@ public class ScreenChapter
            if (list == null || list.isEmpty()) {
              final Bundle bundle = new Bundle();
              final String message =
-               String.format(getString(R.string.scr_chapter_msg_no_verse_found),
-                             currentChapterNumber, model.getBook()
-                                                        .getName());
+                 String.format(getString(R.string.scr_chapter_msg_no_verse_found),
+                               currentChapterNumber, model.getBook()
+                                                          .getName());
              bundle.putString(ScreenError.ARG_MESSAGE, message);
              bundle.putBoolean(ScreenError.ARG_EXIT_APP, true);
              bundle.putBoolean(ScreenError.ARG_INFORM_DEV, true);
@@ -276,8 +254,30 @@ public class ScreenChapter
          });
   }
 
+  @Override
+  public void handleClickVerse() {
+    updateVerseSelectionActionsVisibility();
+  }
+
+  private void updateVerseSelectionActionsVisibility() {
+    final boolean isVerseSelected = adapter.getSelectedItemCount() > 0;
+    final BottomAppBar bottomAppBar = rootView.findViewById(R.id.scr_chapter_menu);
+    final Menu menu = bottomAppBar.getMenu();
+    menu.setGroupVisible(R.id.scr_chapter_menu_container_selected, isVerseSelected);
+    menu.setGroupVisible(R.id.scr_chapter_menu_container_not_selected, !isVerseSelected);
+    rootView.findViewById(R.id.scr_chapter_container_title)
+            .setVisibility((isVerseSelected) ? View.GONE : View.VISIBLE);
+  }
+
+  private void showChapterSelector() {
+    chapterSelectionDialog = ChapterSelectionFragment
+                                 .createInstance(this, model.getBook()
+                                                            .getChapters());
+    chapterSelectionDialog.show(getParentFragmentManager(), "ChapterSelectionFragment");
+  }
+
   public static class ChapterSelectionFragment
-    extends BottomSheetDialogFragment {
+      extends BottomSheetDialogFragment {
 
     private static ChapterNumberAdapter chapterNumberAdapter;
 
@@ -286,8 +286,8 @@ public class ScreenChapter
 
     @NonNull
     private static ChapterSelectionFragment createInstance(
-      @NonNull final ScreenChapterOps screenChapterOps,
-      final int maxChapters) {
+        @NonNull final ScreenChapterOps screenChapterOps,
+        final int maxChapters) {
       final ArrayList<Integer> set = new ArrayList<>(maxChapters);
       for (int i = 1; i <= maxChapters; i++) {
         set.add(i);
@@ -305,10 +305,10 @@ public class ScreenChapter
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
       final View view = inflater
-                          .inflate(R.layout.screen_chapter_dialog, container, false);
+                            .inflate(R.layout.screen_chapter_dialog, container, false);
 
       ((RecyclerView) view.findViewById(R.id.scr_chapter_bottom_sheet_list))
-        .setAdapter(chapterNumberAdapter);
+          .setAdapter(chapterNumberAdapter);
 
       return view;
     }

@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookmarkDetailAdapter
-  extends RecyclerView.Adapter
-  implements RecyclerViewAdapterOps {
+    extends RecyclerView.Adapter
+    implements RecyclerViewAdapterOps {
 
   private static final String TAG = "BookmarkDetailAdapter";
   final ArrayList<Verse> list = new ArrayList<>();
@@ -66,8 +66,8 @@ public class BookmarkDetailAdapter
   }
 
   private class BookmarkVerse
-    extends RecyclerView.ViewHolder
-    implements ItemHolderOps {
+      extends RecyclerView.ViewHolder
+      implements ItemHolderOps {
 
     private final View rootView;
     private Verse verse;

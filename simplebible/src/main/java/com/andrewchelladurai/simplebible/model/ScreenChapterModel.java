@@ -16,7 +16,7 @@ import com.andrewchelladurai.simplebible.data.entity.Verse;
 import java.util.List;
 
 public class ScreenChapterModel
-  extends AndroidViewModel {
+    extends AndroidViewModel {
 
   private static final String TAG = "ScreenChapterModel";
   private final VerseDao verseDao;

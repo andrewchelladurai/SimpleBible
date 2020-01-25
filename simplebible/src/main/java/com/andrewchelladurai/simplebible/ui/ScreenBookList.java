@@ -24,8 +24,8 @@ import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 
 public class ScreenBookList
-  extends Fragment
-  implements ScreenBookListOps {
+    extends Fragment
+    implements ScreenBookListOps {
 
   private static final String TAG = "ScreenBookList";
 
@@ -121,7 +121,7 @@ public class ScreenBookList
   @Override
   public String getFormattedBookDetails(final int chapterCount) {
     return getResources().getQuantityString(
-      R.plurals.itm_book_chapter_count_template, chapterCount, chapterCount);
+        R.plurals.itm_book_chapter_count_template, chapterCount, chapterCount);
   }
 
   @Override

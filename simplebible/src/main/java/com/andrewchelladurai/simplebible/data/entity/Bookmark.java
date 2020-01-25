@@ -12,8 +12,8 @@ import java.util.Objects;
 
 @Entity(tableName = "sb_bookmarks")
 public class Bookmark
-  implements Comparable,
-             Parcelable {
+    implements Comparable,
+               Parcelable {
 
   public static final Creator<Bookmark> CREATOR = new Creator<Bookmark>() {
     @Override

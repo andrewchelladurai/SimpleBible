@@ -31,8 +31,8 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public class ScreenSearch
-  extends Fragment
-  implements ScreenSearchOps {
+    extends Fragment
+    implements ScreenSearchOps {
 
   private static final String TAG = "ScreenSearch";
 
@@ -67,26 +67,26 @@ public class ScreenSearch
     searchResultContentTemplate = getString(R.string.itm_search_result_content_template);
 
     ((BottomAppBar) rootView.findViewById(R.id.scr_search_menu))
-      .setOnMenuItemClickListener(item -> {
-        switch (item.getItemId()) {
-          case R.id.scr_search_menu_bookmark:
-            handleClickActionBookmark();
-            return true;
-          case R.id.scr_search_menu_share:
-            handleClickActionShare();
-            return true;
-          case R.id.scr_search_menu_clear:
-            handleClickActionClear();
-            return true;
-          case R.id.scr_search_menu_reset:
-            handleClickActionReset();
-            return true;
-          default:
-            Log.d(TAG, "onNavigationItemSelected: [" + item.getTitle() + "] "
-                       + "Unknown Item in screen search verse selection actions menu");
-            return false;
-        }
-      });
+        .setOnMenuItemClickListener(item -> {
+          switch (item.getItemId()) {
+            case R.id.scr_search_menu_bookmark:
+              handleClickActionBookmark();
+              return true;
+            case R.id.scr_search_menu_share:
+              handleClickActionShare();
+              return true;
+            case R.id.scr_search_menu_clear:
+              handleClickActionClear();
+              return true;
+            case R.id.scr_search_menu_reset:
+              handleClickActionReset();
+              return true;
+            default:
+              Log.d(TAG, "onNavigationItemSelected: [" + item.getTitle() + "] "
+                         + "Unknown Item in screen search verse selection actions menu");
+              return false;
+          }
+        });
 
     final SearchView searchView = rootView.findViewById(R.id.scr_search_input);
     searchView.setSubmitButtonEnabled(true);
@@ -105,7 +105,7 @@ public class ScreenSearch
     });
 
     ((RecyclerView) rootView.findViewById(R.id.scr_search_list))
-      .setAdapter(adapter);
+        .setAdapter(adapter);
 
     // first run - since we do not have a previously saved instance
     if (savedState == null) {
@@ -229,8 +229,8 @@ public class ScreenSearch
     adapter.clearList();
 
     final Spanned htmlText =
-      HtmlCompat.fromHtml(getString(R.string.scr_search_tips_text),
-                          HtmlCompat.FROM_HTML_MODE_LEGACY);
+        HtmlCompat.fromHtml(getString(R.string.scr_search_tips_text),
+                            HtmlCompat.FROM_HTML_MODE_LEGACY);
     final TextView textView = rootView.findViewById(R.id.scr_search_tips_text);
     textView.setText(htmlText);
     rootView.findViewById(R.id.scr_search_container_help)
@@ -257,8 +257,8 @@ public class ScreenSearch
     Log.d(TAG, "updateTitle:");
     final int resultCount = adapter.getItemCount();
     final String titleTemplate = getResources()
-                                   .getQuantityString(R.plurals.scr_search_title_template,
-                                                      resultCount);
+                                     .getQuantityString(R.plurals.scr_search_title_template,
+                                                        resultCount);
     final String formattedText = String.format(titleTemplate, resultCount);
     final Spanned htmlText = HtmlCompat.fromHtml(formattedText, HtmlCompat.FROM_HTML_MODE_COMPACT);
     final TextView titleView = rootView.findViewById(R.id.scr_search_title);
@@ -275,12 +275,12 @@ public class ScreenSearch
            }
 
            textView.setText(HtmlCompat.fromHtml(
-             String.format(searchResultContentTemplate,
-                           book.getName(),
-                           verse.getChapter(),
-                           verse.getVerse(),
-                           verse.getText()),
-             HtmlCompat.FROM_HTML_MODE_LEGACY));
+               String.format(searchResultContentTemplate,
+                             book.getName(),
+                             verse.getChapter(),
+                             verse.getVerse(),
+                             verse.getText()),
+               HtmlCompat.FROM_HTML_MODE_LEGACY));
          });
   }
 

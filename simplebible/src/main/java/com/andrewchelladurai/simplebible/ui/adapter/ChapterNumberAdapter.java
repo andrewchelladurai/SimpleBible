@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChapterNumberAdapter
-  extends RecyclerView.Adapter
-  implements RecyclerViewAdapterOps {
+    extends RecyclerView.Adapter
+    implements RecyclerViewAdapterOps {
 
   private static final String TAG = "ScreenChapterNumberAdap";
   private static final ArrayList<Integer> LIST = new ArrayList<>();
@@ -71,8 +71,8 @@ public class ChapterNumberAdapter
   }
 
   private class ChapterNumberView
-    extends RecyclerView.ViewHolder
-    implements ItemHolderOps {
+      extends RecyclerView.ViewHolder
+      implements ItemHolderOps {
 
     private final Chip textView;
     private int chapterNumber;

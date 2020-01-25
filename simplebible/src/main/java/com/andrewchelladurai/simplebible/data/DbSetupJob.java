@@ -25,7 +25,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class DbSetupJob
-  extends JobIntentService {
+    extends JobIntentService {
 
   public static final int STARTED = 0;
   public static final int RUNNING = STARTED + 1;
@@ -73,14 +73,14 @@ public class DbSetupJob
     final Intent intent = new Intent(this, DbSetupJob.class);
     final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
     startForeground(JOB_ID, new NotificationCompat.Builder(this, getPackageName())
-                              .setContentTitle(getString(R.string.db_setup_notification_title))
-                              .setContentText(getString(R.string.db_setup_notification_message))
-                              .setContentIntent(pendingIntent)
-                              .setOngoing(true)
-                              .setSmallIcon(R.drawable.ic_logo)
-                              .setOnlyAlertOnce(true)
-                              .setPriority(NotificationCompat.PRIORITY_MAX)
-                              .build());
+                                .setContentTitle(getString(R.string.db_setup_notification_title))
+                                .setContentText(getString(R.string.db_setup_notification_message))
+                                .setContentIntent(pendingIntent)
+                                .setOngoing(true)
+                                .setSmallIcon(R.drawable.ic_logo)
+                                .setOnlyAlertOnce(true)
+                                .setPriority(NotificationCompat.PRIORITY_MAX)
+                                .build());
   }
 
   /**

@@ -24,8 +24,8 @@ import java.util.List;
 import static com.andrewchelladurai.simplebible.utils.BookUtils.EXPECTED_COUNT;
 
 public class ChapterVerseAdapter
-  extends RecyclerView.Adapter
-  implements RecyclerViewAdapterOps {
+    extends RecyclerView.Adapter
+    implements RecyclerViewAdapterOps {
 
   private static final String TAG = "ChapterVerseAdapter";
 
@@ -136,8 +136,8 @@ public class ChapterVerseAdapter
   }
 
   private class ChapterVerseView
-    extends RecyclerView.ViewHolder
-    implements ItemHolderOps {
+      extends RecyclerView.ViewHolder
+      implements ItemHolderOps {
 
     private final TextView textView;
     private Verse verse;

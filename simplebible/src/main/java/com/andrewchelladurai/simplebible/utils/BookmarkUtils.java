@@ -100,7 +100,7 @@ public class BookmarkUtils {
   }
 
   private static class SaveBookmarkTask
-    extends AsyncTask<Bookmark, Void, Boolean> {
+      extends AsyncTask<Bookmark, Void, Boolean> {
 
     private static final String TAG = "SaveBookmarkTask";
     private final BookmarkDao dao;
@@ -128,7 +128,7 @@ public class BookmarkUtils {
   }
 
   private static class DeleteBookmarkTask
-    extends AsyncTask<Bookmark, Void, Boolean> {
+      extends AsyncTask<Bookmark, Void, Boolean> {
 
     private static final String TAG = "DeleteBookmarkTask";
     private final BookmarkDao dao;

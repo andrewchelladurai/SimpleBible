@@ -19,8 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class SearchAdapter
-  extends RecyclerView.Adapter
-  implements RecyclerViewAdapterOps {
+    extends RecyclerView.Adapter
+    implements RecyclerViewAdapterOps {
 
   private static final String TAG = "SearchAdapter";
 
@@ -38,8 +38,8 @@ public class SearchAdapter
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent,
                                                     final int viewType) {
     return new SearchResultViewHolder(
-      LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_search_result, parent, false));
+        LayoutInflater.from(parent.getContext())
+                      .inflate(R.layout.item_search_result, parent, false));
   }
 
   @Override
@@ -92,8 +92,8 @@ public class SearchAdapter
   }
 
   private class SearchResultViewHolder
-    extends RecyclerView.ViewHolder
-    implements ItemHolderOps {
+      extends RecyclerView.ViewHolder
+      implements ItemHolderOps {
 
     private final View rootView;
     private final TextView contentView;
