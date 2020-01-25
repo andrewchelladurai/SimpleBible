@@ -15,7 +15,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -56,8 +55,7 @@ public class ScreenBookmarkDetail
       throw new RuntimeException(context.toString() + " must implement ScreenSimpleBibleOps");
     }
     mainOps = (ScreenSimpleBibleOps) context;
-    model = ViewModelProviders.of(this)
-                              .get(BookmarkDetailModel.class);
+    model = new BookmarkDetailModel(requireActivity().getApplication());
     adapter = new BookmarkDetailAdapter(this);
     Toast
         .makeText(context, getString(R.string.scr_bmark_menu_toggle_view_hint), Toast.LENGTH_LONG)
@@ -151,7 +149,7 @@ public class ScreenBookmarkDetail
     final String noteText = getNoteText();
 
     model.deleteBookmark(bookmarkReference, noteText)
-         .observe(this, deleted -> {
+         .observe(getViewLifecycleOwner(), deleted -> {
            if (deleted) {
              NavHostFragment.findNavController(this)
                             .navigate(R.id.action_screenBookmark_pop);

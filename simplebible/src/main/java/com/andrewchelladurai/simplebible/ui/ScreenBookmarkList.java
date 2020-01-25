@@ -12,7 +12,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -53,10 +52,8 @@ public class ScreenBookmarkList
     mainOps = (ScreenSimpleBibleOps) context;
 
     adapter = new ScreenBookmarkListAdapter(this, templateEmptyNoteContent);
-    bookmarkListModel = ViewModelProviders.of(this)
-                                          .get(ScreenBookmarkListModel.class);
-    bookModel = ViewModelProviders.of(this)
-                                  .get(ScreenBookListModel.class);
+    bookmarkListModel = new ScreenBookmarkListModel(requireActivity().getApplication());
+    bookModel = new ScreenBookListModel(requireActivity().getApplication());
   }
 
   @Override
@@ -65,7 +62,7 @@ public class ScreenBookmarkList
     rootView = inflater.inflate(R.layout.screen_bookmark_list, container, false);
 
     bookmarkListModel.getBookmarkList()
-                     .observe(this, bookmarkList -> {
+                     .observe(getViewLifecycleOwner(), bookmarkList -> {
                        if (bookmarkList == null || bookmarkList.isEmpty()) {
                          hideList();
                          showHelpInfo();

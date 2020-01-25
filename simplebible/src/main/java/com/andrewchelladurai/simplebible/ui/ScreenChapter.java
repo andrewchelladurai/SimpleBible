@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -57,8 +56,7 @@ public class ScreenChapter
     }
 
     mainOps = (ScreenSimpleBibleOps) context;
-    model = ViewModelProviders.of(this)
-                              .get(ScreenChapterModel.class);
+    model = new ScreenChapterModel(requireActivity().getApplication());
     adapter = new ChapterVerseAdapter(this, getString(R.string.itm_chapter_verse_content_template));
   }
 
@@ -215,7 +213,7 @@ public class ScreenChapter
 
   private void updateVerseList() {
     model.getChapterVerseList()
-         .observe(this, list -> {
+         .observe(getViewLifecycleOwner(), list -> {
            final int currentBookNumber = model.getBook()
                                               .getNumber();
            final int currentChapterNumber = model.getChapter();

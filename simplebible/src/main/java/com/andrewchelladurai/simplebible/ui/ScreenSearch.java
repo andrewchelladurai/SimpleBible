@@ -14,7 +14,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -52,8 +51,7 @@ public class ScreenSearch
       throw new RuntimeException(context.toString() + " must implement ScreenSimpleBibleOps");
     }
     mainOps = (ScreenSimpleBibleOps) context;
-    model = ViewModelProviders.of(this)
-                              .get(ScreenSearchModel.class);
+    model = new ScreenSearchModel(requireActivity().getApplication());
     adapter = new SearchAdapter(this);
   }
 

@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.DbSetupJob;
@@ -46,8 +45,7 @@ public class ScreenHome
       throw new RuntimeException(context.toString() + " must implement ScreenSimpleBibleOps");
     }
     mainOps = (ScreenSimpleBibleOps) context;
-    model = ViewModelProviders.of(this)
-                              .get(ScreenHomeModel.class);
+    model = new ScreenHomeModel(requireActivity().getApplication());
   }
 
   @Override
@@ -68,7 +66,7 @@ public class ScreenHome
     // start observing the DbSetupJobState in the model even before we start it
     // this is so that we do nto miss any changes in the state
     model.getDbSetupJobState()
-         .observe(this, newJobState -> {
+         .observe(getViewLifecycleOwner(), newJobState -> {
            if (newJobState == DbSetupJob.STARTED
                || newJobState == DbSetupJob.RUNNING) {
              showLoadingVerse();
@@ -136,7 +134,7 @@ public class ScreenHome
     Log.d(TAG, "updateContent: ");
 
     model.getVerseCount()
-         .observe(this, verseCount -> {
+         .observe(getViewLifecycleOwner(), verseCount -> {
            if (verseCount == VerseUtils.EXPECTED_COUNT) {
 
              mainOps.showNavigationView();
@@ -206,14 +204,14 @@ public class ScreenHome
       return;
     }
     model.getVerse(reference)
-         .observe(this, verse -> {
+         .observe(getViewLifecycleOwner(), verse -> {
            if (verse == null) {
              Log.e(TAG, "showDailyVerse: no verse found for reference [" + reference + "]");
              showVerseText(R.string.scr_home_verse_content_default);
              return;
            }
            model.getBook(verse.getBook())
-                .observe(this, book -> {
+                .observe(getViewLifecycleOwner(), book -> {
                   if (book == null) {
                     Log.e(TAG,
                           "showDailyVerse: no book found for position [" + verse.getBook() + "]");
@@ -222,8 +220,8 @@ public class ScreenHome
                   }
 
                   Log.d(TAG,
-                        "showDailyVerse: dayNumber[" + dayNumber + "] has reference[" + reference +
-                        "]");
+                        "showDailyVerse: dayNumber[" + dayNumber + "] has reference["
+                        + reference + "]");
                   final String template = getString(R.string.scr_home_verse_content_template);
                   final String bookName = book.getName();
                   final int chapterNum = verse.getChapter();
