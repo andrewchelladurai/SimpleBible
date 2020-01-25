@@ -58,10 +58,9 @@
       android:id="@+id/itm_book_desc"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:fontFamily="sans-serif-condensed"
+      android:fontFamily="sans-serif-light"
       android:paddingStart="@dimen/gap_small"
       android:paddingEnd="@dimen/gap_small"
-      android:textStyle="bold"
       tools:text="Description for Song of Solomon" />
   </HorizontalScrollView>
 
