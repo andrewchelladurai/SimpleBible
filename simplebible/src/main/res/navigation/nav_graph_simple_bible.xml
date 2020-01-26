@@ -76,7 +76,7 @@
     tools:layout="@layout/screen_error">
     <argument
       android:name="ARG_MESSAGE"
-      android:defaultValue="@string/scr_error_default_text"
+      android:defaultValue=" "
       app:argType="string"
       app:nullable="true" />
     <argument

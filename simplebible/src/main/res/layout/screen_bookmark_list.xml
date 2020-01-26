@@ -7,50 +7,22 @@
   android:layout_height="match_parent"
   tools:context=".ui.ScreenBookmarkList">
 
-  <androidx.constraintlayout.widget.Guideline
-    android:id="@+id/scr_bmark_list_gh10"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintGuide_percent="0.1" />
-
-  <androidx.constraintlayout.widget.Guideline
-    android:id="@+id/scr_bmark_list_gh40"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintGuide_percent="0.4" />
-
-  <ImageView
-    android:id="@+id/scr_bmark_list_image"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    android:contentDescription="@string/scr_bmark_list_image_desc"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintBottom_toTopOf="@id/scr_bmark_list_gh40"
-    app:layout_constraintDimensionRatio="1:1"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/scr_bmark_list_gh10"
-    app:layout_constraintVertical_bias="0.1"
-    app:srcCompat="@drawable/ic_hero_bookmark" />
-
   <ScrollView
     android:id="@+id/scr_bmark_list_container_help"
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:fillViewport="true"
     android:padding="@dimen/gap_huge"
-    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintBottom_toBottomOf="@+id/scr_bmark_list_list"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/scr_bmark_list_image">
+    app:layout_constraintTop_toTopOf="parent">
 
     <TextView
       android:id="@+id/scr_bmark_list_help"
-      android:layout_width="match_parent"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:gravity="center"
+      android:layout_gravity="center"
       android:padding="@dimen/gap_huge"
       android:text="@string/scr_bmark_list_help_txt"
       android:textAlignment="center" />
