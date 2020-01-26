@@ -231,23 +231,34 @@ public class ScreenSearch
                             HtmlCompat.FROM_HTML_MODE_LEGACY);
     final TextView textView = rootView.findViewById(R.id.scr_search_tips_text);
     textView.setText(htmlText);
-    rootView.findViewById(R.id.scr_search_container_help)
+
+    rootView.findViewById(R.id.scr_search_container_search)
             .setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scr_search_container_result)
+    rootView.findViewById(R.id.scr_search_container_tips_text)
+            .setVisibility(View.VISIBLE);
+
+    rootView.findViewById(R.id.scr_search_list)
             .setVisibility(View.GONE);
+    rootView.findViewById(R.id.scr_search_menu)
+            .setVisibility(View.GONE);
+
     mainOps.showNavigationView();
   }
 
   private void showSearchResultsUi() {
     Log.d(TAG, "showSearchResultsUi:");
-    rootView.findViewById(R.id.scr_search_container_help)
+    rootView.findViewById(R.id.scr_search_container_search)
             .setVisibility(View.GONE);
-    rootView.findViewById(R.id.scr_search_container_result)
+    rootView.findViewById(R.id.scr_search_container_tips_text)
+            .setVisibility(View.GONE);
+
+    rootView.findViewById(R.id.scr_search_list)
             .setVisibility(View.VISIBLE);
     rootView.findViewById(R.id.scr_search_menu)
             .setVisibility(View.VISIBLE);
 
     updateTitle();
+
     mainOps.hideNavigationView();
   }
 

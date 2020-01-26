@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
@@ -9,84 +8,92 @@
   android:orientation="vertical"
   tools:context=".ui.ScreenSearch">
 
-  <!--  Block for search input with tips  -->
-  <LinearLayout
-    android:id="@+id/scr_search_container_help"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+  <com.google.android.material.card.MaterialCardView
+    android:id="@+id/scr_search_container_search"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/gap_huge"
+    android:layout_marginTop="@dimen/gap_normal"
+    android:layout_marginEnd="@dimen/gap_huge"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.0">
 
     <SearchView
       android:id="@+id/scr_search_input"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_margin="@dimen/gap_normal"
       android:iconifiedByDefault="false"
       android:imeOptions="actionSearch"
-      android:inputType="textAutoCorrect|textAutoComplete"
-      android:orientation="horizontal"
+      android:importantForAutofill="no"
+      android:inputType="textNoSuggestions"
+      android:layoutDirection="rtl"
       android:queryHint="@string/scr_search_input_hint"
       android:searchIcon="@drawable/ic_search" />
+  </com.google.android.material.card.MaterialCardView>
 
-    <ScrollView
-      android:id="@+id/scr_search_container_tips_text"
+  <ScrollView
+    android:id="@+id/scr_search_container_tips_text"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:fillViewport="true"
+    android:padding="@dimen/gap_huge"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/scr_search_container_search">
+
+    <TextView
+      android:id="@+id/scr_search_tips_text"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:fillViewport="true"
-      android:padding="@dimen/gap_huge">
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:padding="@dimen/gap_huge"
+      android:text="@string/scr_search_tips_text" />
+  </ScrollView>
 
-      <TextView
-        android:id="@+id/scr_search_tips_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="@dimen/gap_huge"
-        android:text="@string/scr_search_tips_text" />
-    </ScrollView>
-
-  </LinearLayout>
-
-  <!--  Block for displaying results with actions  -->
-  <LinearLayout
-    android:id="@+id/scr_search_container_result"
+  <com.google.android.material.bottomappbar.BottomAppBar
+    android:id="@+id/scr_search_menu"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    app:hideOnScroll="false"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="1.0"
+    app:menu="@menu/screen_search_menu"
+    tools:ignore="BottomAppBar">
 
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/scr_search_list"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_margin="@dimen/gap_big"
-      android:layout_weight="1"
-      app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-      app:spanCount="@integer/scr_search_list_columns"
-      tools:listitem="@layout/item_search_result" />
-
-    <com.google.android.material.bottomappbar.BottomAppBar
-      android:id="@+id/scr_search_menu"
+    <HorizontalScrollView
+      android:id="@+id/scr_search_container_title"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:animateLayoutChanges="true"
-      app:hideOnScroll="false"
-      app:menu="@menu/screen_search_menu"
-      tools:ignore="BottomAppBar">
+      android:fillViewport="true">
 
-      <HorizontalScrollView
-        android:id="@+id/scr_search_container_title"
-        android:layout_width="match_parent"
+      <TextView
+        android:id="@+id/scr_search_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        android:fillViewport="true">
+        android:animateLayoutChanges="true" />
+    </HorizontalScrollView>
+  </com.google.android.material.bottomappbar.BottomAppBar>
 
-        <TextView
-          android:id="@+id/scr_search_title"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:animateLayoutChanges="true" />
-      </HorizontalScrollView>
-    </com.google.android.material.bottomappbar.BottomAppBar>
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/scr_search_list"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:padding="@dimen/gap_huge"
+    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+    app:layout_constraintBottom_toTopOf="@+id/scr_search_menu"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:spanCount="@integer/scr_search_list_columns"
+    tools:listitem="@layout/item_search_result" />
 
-  </LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
