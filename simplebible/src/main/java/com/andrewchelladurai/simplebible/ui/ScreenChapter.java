@@ -164,7 +164,7 @@ public class ScreenChapter
     bundle.putParcelableArray(ScreenBookmarkDetail.ARG_VERSE_LIST, array);
 
     NavHostFragment.findNavController(this)
-                   .navigate(R.id.action_screenChapter_to_screenBookmark, bundle);
+                   .navigate(R.id.nav_act_scr_chapter_to_scr_bookmark, bundle);
   }
 
   private void handleActionClickShare() {
@@ -229,7 +229,7 @@ public class ScreenChapter
              bundle.putBoolean(ScreenError.ARG_INFORM_DEV, true);
 
              NavHostFragment.findNavController(this)
-                            .navigate(R.id.action_global_screenError, bundle);
+                            .navigate(R.id.nav_act_global_scr_error, bundle);
              return;
            }
 

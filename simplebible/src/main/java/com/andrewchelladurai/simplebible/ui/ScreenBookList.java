@@ -128,7 +128,7 @@ public class ScreenBookList
     bundle.putParcelable(ScreenChapter.ARG_BOOK, book);
     bundle.putInt(ScreenChapter.ARG_CHAPTER, 1);
     NavHostFragment.findNavController(this)
-                   .navigate(R.id.action_screenBookList_to_screenChapter, bundle);
+                   .navigate(R.id.nav_act_scr_book_list_to_scr_chapter, bundle);
 
     final SearchView searchView = rootView.findViewById(R.id.scr_book_list_search);
     if (searchView.getQuery()
