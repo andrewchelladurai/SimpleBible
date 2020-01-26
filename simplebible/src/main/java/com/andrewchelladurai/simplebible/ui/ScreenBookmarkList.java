@@ -126,17 +126,18 @@ public class ScreenBookmarkList
     bookmarkListModel.getBookmarkedVerse(bookmarkReference)
                      .observe(this, verseList -> {
 
-                       final String verseCountTemplate = getResources()
-                                                             .getQuantityString(
-                                                                 R.plurals.itm_bmark_list_verse_count_template,
-                                                                 verseList.size());
+                       final String verseCountTemplate = getResources().getQuantityString(
+                           R.plurals.itm_bmark_list_verse_count_template,
+                           verseList.size());
                        verseCountChip.setText(String.format(verseCountTemplate, verseList.size()));
+
+                       final int htmlFlag = HtmlCompat.FROM_HTML_MODE_COMPACT;
 
                        if (verseList.isEmpty()) {
                          final String message =
                              getString(R.string.itm_bmark_list_verse_count_msg_no_verse);
                          verseCountChip.setText(
-                             HtmlCompat.fromHtml(message, HtmlCompat.FROM_HTML_MODE_COMPACT));
+                             HtmlCompat.fromHtml(message, htmlFlag));
                          return;
                        }
 
@@ -147,8 +148,7 @@ public class ScreenBookmarkList
                                   if (book == null) {
                                     final String message =
                                         getString(R.string.itm_bmark_list_verse_count_msg_no_verse);
-                                    verseCountChip.setText(HtmlCompat.fromHtml(message,
-                                                                               HtmlCompat.FROM_HTML_MODE_COMPACT));
+                                    verseCountChip.setText(HtmlCompat.fromHtml(message, htmlFlag));
                                     return;
                                   }
 
@@ -160,7 +160,7 @@ public class ScreenBookmarkList
                                                                                verse.getVerse(),
                                                                                verse.getText());
                                   final Spanned htmlText = HtmlCompat.fromHtml(formattedString,
-                                                                               HtmlCompat.FROM_HTML_MODE_COMPACT);
+                                                                               htmlFlag);
                                   verseField.setText(htmlText);
                                 });
                      });
@@ -190,10 +190,10 @@ public class ScreenBookmarkList
                        bundle.putParcelableArray(ScreenBookmarkDetail.ARG_VERSE_LIST, array);
                        Log.d(TAG, "handleBookmarkClick: created bundle to pass to fragment");
 
+                       final int destination =
+                           R.id.action_NavIdScreenBookmarkList_to_NavIdScreenBookmarkDetail;
                        NavHostFragment.findNavController(this)
-                                      .navigate(
-                                          R.id.action_NavIdScreenBookmarkList_to_NavIdScreenBookmarkDetail,
-                                          bundle);
+                                      .navigate(destination, bundle);
                      });
 
   }
