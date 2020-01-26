@@ -79,12 +79,14 @@
   <string name="scr_search_msg_no_results">No verse found</string>
   <string name="scr_search_image_desc">Search Verse Tips</string>
   <string name="scr_search_tips_text"><![CDATA[
-    <h5>To search for a text, it must be<br/>
-    More than 3 alphabets.<br/>
-    Less than 13 alphabets.<br/><br/>
-    <u>To search for</u> text like <u>\'Eli\'</u>include<br/>
-    a space before or after<br/>
-    like this <u>\' Eli \'</u></h5>
+    <h1><u>TIPS</u> for relevant results</h1>
+    <p><h5>The length of the input text must be<br/>
+    - More than 3 alphabets.<br/>
+    - Less than 13 alphabets.<br/><br/>
+    </h5></p>
+    <p><h5>To search for 3 alphabet words like <u>\'Eli\'</u><br/>
+    include a space before or after the text<br/>
+    like this <u>\' Eli \'</u></h5></p>
     ]]></string>
   <string name="scr_search_template_share">%s\nThe World English Bible\nShared from SimpleBible</string>
   <string name="itm_search_result_content_template"><![CDATA[<b>%s %d:%d -</b> %s]]></string>
