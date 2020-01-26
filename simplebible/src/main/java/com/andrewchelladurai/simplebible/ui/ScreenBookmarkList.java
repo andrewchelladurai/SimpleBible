@@ -38,7 +38,6 @@ public class ScreenBookmarkList
   private ScreenBookListModel bookModel;
 
   public ScreenBookmarkList() {
-    // TODO: 17/8/19 Beautify the Help Info display
   }
 
   @Override
@@ -95,15 +94,12 @@ public class ScreenBookmarkList
     textView.setVisibility(View.VISIBLE);
     rootView.findViewById(R.id.scr_bmark_list_container_help)
             .setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scr_bmark_list_image)
-            .setVisibility(View.VISIBLE);
   }
 
   private void hideHelpInfo() {
-    rootView.findViewById(R.id.scr_bmark_list_image)
-            .setVisibility(View.GONE);
     rootView.findViewById(R.id.scr_bmark_list_help)
             .setVisibility(View.GONE);
+
     rootView.findViewById(R.id.scr_bmark_list_container_help)
             .setVisibility(View.GONE);
   }

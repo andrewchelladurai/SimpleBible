@@ -134,12 +134,12 @@
   <!-- String used in the ScreenBookmarkList -->
   <string name="scr_bmark_list_image_desc">Bookmarks</string>
   <string name="scr_bmark_list_help_txt"><![CDATA[
-    <h5>No Bookmarks Found</h5>
-    To create a bookmark, long press<br/>
-    Either a Chapter\'s verse<br/>
-    OR<br/>
-    a Search result<br/>
-    and then select the Bookmark action.]]></string>
+    <h1>No Bookmarked Verses Found</h1>
+    <h5>To bookmark a verse<br/><br/>
+    Long press on a Verse in either<br/>
+    - a Chapter<br/>
+    - or a Search Result<br/>
+    and then select the Bookmark action.</h5>]]></string>
   <string name="scr_bmark_list_msg_empty_note">This Bookmark does not have any Notes</string>
 
   <plurals name="itm_bmark_list_verse_count_template">

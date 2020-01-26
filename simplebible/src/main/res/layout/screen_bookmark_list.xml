@@ -11,9 +11,8 @@
     android:id="@+id/scr_bmark_list_container_help"
     android:layout_width="0dp"
     android:layout_height="0dp"
-    android:fillViewport="true"
     android:padding="@dimen/gap_huge"
-    app:layout_constraintBottom_toBottomOf="@+id/scr_bmark_list_list"
+    app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
@@ -24,8 +23,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:padding="@dimen/gap_huge"
-      android:text="@string/scr_bmark_list_help_txt"
-      android:textAlignment="center" />
+      android:text="@string/scr_bmark_list_help_txt" />
   </ScrollView>
 
   <androidx.recyclerview.widget.RecyclerView
