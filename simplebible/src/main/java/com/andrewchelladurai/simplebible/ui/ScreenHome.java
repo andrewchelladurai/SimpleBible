@@ -27,13 +27,12 @@ public class ScreenHome
     extends Fragment {
 
   private static final String TAG = "ScreenHome";
-  private static int PROGRESS_VALUE;
   private ScreenHomeModel model;
   private ScreenSimpleBibleOps mainOps;
   private View rootView;
   private TextView progressTextView;
-  private int maxProgressValue;
   private String progressTextTemplate;
+  private int maxProgressValue;
 
   public ScreenHome() {
   }
@@ -52,6 +51,7 @@ public class ScreenHome
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                            Bundle savedState) {
     rootView = inflater.inflate(R.layout.screen_home, container, false);
+    mainOps.hideKeyboard();
 
     // setup listener for the share fab
     rootView.findViewById(R.id.scr_home_fab_share)
@@ -63,33 +63,38 @@ public class ScreenHome
     maxProgressValue = VerseUtils.EXPECTED_COUNT + BookUtils.EXPECTED_COUNT;
     progressTextTemplate = getString(R.string.scr_home_template_progress_txt);
 
+    startDbSetupJobMonitoring();
+    startDbSetupJob();
+
+    return rootView;
+  }
+
+  private void startDbSetupJobMonitoring() {
+    Log.d(TAG, "startDbSetupJobMonitoring:");
+
     // start observing the DbSetupJobState in the model even before we start it
     // this is so that we do nto miss any changes in the state
     model.getDbSetupJobState()
-         .observe(getViewLifecycleOwner(), newJobState -> {
-           if (newJobState == DbSetupJob.STARTED
-               || newJobState == DbSetupJob.RUNNING) {
-             showLoadingVerse();
-           } else if (newJobState == DbSetupJob.FAILED) {
-             Log.d(TAG, "onCreateView: DbSetupJob state = FAILED");
-             mainOps.showErrorScreen(getString(R.string.db_setup_failure_message), true, true);
-           } else if (newJobState == DbSetupJob.FINISHED) {
-             Log.d(TAG, "onCreateView: DbSetupJob state = FINISHED");
-             updateContent();
+         .observe(getViewLifecycleOwner(), jobState -> {
+           switch (jobState) {
+             case DbSetupJob.STARTED:
+               Log.d(TAG, "startDbSetupJobMonitoring: DbSetupJob.STARTED");
+               break;
+             case DbSetupJob.RUNNING:
+               showLoadingVerse();
+               break;
+             case DbSetupJob.FAILED:
+               Log.d(TAG, "startDbSetupJobMonitoring: DbSetupJob.FAILED");
+               mainOps.showErrorScreen(getString(R.string.db_setup_failure_message), true, true);
+               break;
+             case DbSetupJob.FINISHED:
+               Log.d(TAG, "startDbSetupJobMonitoring: DbSetupJob.FINISHED");
+               validateSetupJobCompletion();
+               break;
+             default:
+
            }
-
          });
-
-    // Activity / Fragment launched for the first time
-    if (savedState == null) {
-      Log.d(TAG, "onCreateView: first run since [savedState == null]");
-      startDbSetupService();
-    }
-
-    mainOps.hideKeyboard();
-    mainOps.showNavigationView();
-
-    return rootView;
   }
 
   @Override
@@ -120,8 +125,6 @@ public class ScreenHome
     if (progressTextView.getVisibility() != View.VISIBLE) {
       progressTextView.setVisibility(View.VISIBLE);
     }
-    progressTextView.setText(String.format(progressTextTemplate,
-                                           (PROGRESS_VALUE * 100) / maxProgressValue));
 
     // hide the share fab
     view = rootView.findViewById(R.id.scr_home_fab_share);
@@ -130,15 +133,36 @@ public class ScreenHome
     }
   }
 
-  private void updateContent() {
-    Log.d(TAG, "updateContent: ");
+  private void startDbSetupJob() {
+    Log.d(TAG, "startDbSetupJob:");
+
+    final Context context = requireContext();
+    final Intent intent = new Intent(context, DbSetupJob.class);
+
+    // start the database setup service & tie it with a ResultReceiver
+    // to update the model with the job's status when it changes
+    DbSetupJob.startWork(context, intent, new ResultReceiver(new Handler()) {
+
+      @Override
+      protected void onReceiveResult(final int newJobState, final Bundle resultData) {
+        if (newJobState == DbSetupJob.RUNNING) {
+          final int currentProgressValue = resultData.getInt(DbSetupJob.LINE_PROGRESS);
+          final String formattedString = String.format(
+              progressTextTemplate, (currentProgressValue * 100) / maxProgressValue);
+          progressTextView.setText(formattedString);
+        }
+        model.setDbSetupJobState(newJobState);
+      }
+    });
+
+  }
+
+  private void validateSetupJobCompletion() {
+    Log.d(TAG, "validateSetupJobCompletion: ");
 
     model.getVerseCount()
          .observe(getViewLifecycleOwner(), verseCount -> {
            if (verseCount == VerseUtils.EXPECTED_COUNT) {
-
-             mainOps.showNavigationView();
-
              // show the verse text for a loading progress
              showVerseText(R.string.scr_home_verse_content_default);
 
@@ -165,29 +189,15 @@ public class ScreenHome
 
   }
 
-  private void startDbSetupService() {
-    Log.d(TAG, "startDbSetupService() called");
-
-    final Context context = requireContext();
-    final Intent intent = new Intent(context, DbSetupJob.class);
-
-    // start the database setup service & tie it with a ResultReceiver
-    // to update the model with the job's status when it changes
-    DbSetupJob.startWork(context, intent, new ResultReceiver(new Handler()) {
-
-      @Override
-      protected void onReceiveResult(final int newJobState, final Bundle resultData) {
-        if (newJobState == DbSetupJob.RUNNING) {
-          PROGRESS_VALUE = resultData.getInt(DbSetupJob.LINE_PROGRESS);
-        }
-        model.setDbSetupJobState(newJobState);
-      }
-    });
-  }
-
   private String getVerseText() {
     return ((TextView) rootView.findViewById(R.id.scr_home_verse)).getText()
                                                                   .toString();
+  }
+
+  private void showVerseText(@StringRes int stringResId) {
+    ((TextView) rootView.findViewById(R.id.scr_home_verse))
+        .setText(HtmlCompat.fromHtml(getString(stringResId),
+                                     HtmlCompat.FROM_HTML_MODE_LEGACY));
   }
 
   private void showDailyVerse() {
@@ -210,18 +220,17 @@ public class ScreenHome
              showVerseText(R.string.scr_home_verse_content_default);
              return;
            }
-           model.getBook(verse.getBook())
+           final int bookNum = verse.getBook();
+           model.getBook(bookNum)
                 .observe(getViewLifecycleOwner(), book -> {
                   if (book == null) {
-                    Log.e(TAG,
-                          "showDailyVerse: no book found for position [" + verse.getBook() + "]");
+                    Log.e(TAG, "showDailyVerse: no book found for position [" + bookNum + "]");
                     showVerseText(R.string.scr_home_verse_content_default);
                     return;
                   }
 
-                  Log.d(TAG,
-                        "showDailyVerse: dayNumber[" + dayNumber + "] has reference["
-                        + reference + "]");
+                  Log.d(TAG, "showDailyVerse: dayNumber[" + dayNumber
+                             + "] has reference[" + reference + "]");
                   final String template = getString(R.string.scr_home_verse_content_template);
                   final String bookName = book.getName();
                   final int chapterNum = verse.getChapter();
@@ -231,16 +240,11 @@ public class ScreenHome
                       template, bookName, chapterNum, verseNum, verseText);
 
                   final TextView textView = rootView.findViewById(R.id.scr_home_verse);
-                  textView.setText(
-                      HtmlCompat.fromHtml(formattedText, HtmlCompat.FROM_HTML_MODE_LEGACY));
-
+                  textView.setText(HtmlCompat.fromHtml(formattedText,
+                                                       HtmlCompat.FROM_HTML_MODE_LEGACY));
                 });
          });
-  }
-
-  private void showVerseText(@StringRes int stringResId) {
-    ((TextView) rootView.findViewById(R.id.scr_home_verse))
-        .setText(HtmlCompat.fromHtml(getString(stringResId), HtmlCompat.FROM_HTML_MODE_LEGACY));
+    mainOps.showNavigationView();
   }
 
 }
