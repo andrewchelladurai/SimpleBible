@@ -198,7 +198,7 @@ public class ScreenBookmarkDetail
     final String noteText = getNoteText();
 
     model.saveBookmark(bookmarkReference, noteText)
-         .observe(this, saved -> {
+         .observe(getViewLifecycleOwner(), saved -> {
            if (saved) {
              final String message = getString(R.string.scr_bmark_msg_save_success);
              mainOps.showMessage(message);
@@ -224,7 +224,7 @@ public class ScreenBookmarkDetail
     recyclerView.setAdapter(adapter);
 
     model.getBookmark(reference)
-         .observe(this, bookmarks -> {
+         .observe(getViewLifecycleOwner(), bookmarks -> {
            final boolean bookmarkExists = (bookmarks != null && !bookmarks.isEmpty());
            toggleAction(bookmarkExists);
            toggleNoteFieldState(bookmarkExists);
