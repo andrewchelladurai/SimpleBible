@@ -47,24 +47,36 @@ public class DbSetupJob
   protected void onHandleWork(@NonNull final Intent intent) {
     Log.d(TAG, "onHandleWork");
     RESULT_RECEIVER.send(STARTED, Bundle.EMPTY);
-    startForegroundNotification();
-    // check if contents of books table is valid
-    if (!validateBooksTable()) {
-      // if not then populate the table
-      if (!populateBooksTable()) {
-        // if population of table fails, broadcast failure
-        RESULT_RECEIVER.send(FAILED, Bundle.EMPTY);
-        return;
+
+    final boolean isBookTableValid = validateBooksTable();
+    final boolean isVerseTableValid = validateVersesTable();
+
+    if (!isBookTableValid || !isVerseTableValid) {
+
+      startForegroundNotification();
+
+      // check if contents of books table is valid
+      if (!isBookTableValid) {
+        // if not then populate the table
+        if (!populateBooksTable()) {
+          // if population of table fails, broadcast failure
+          Log.e(TAG, "onHandleWork: populateBooksTable() failed");
+          RESULT_RECEIVER.send(FAILED, Bundle.EMPTY);
+          return;
+        }
+      }
+
+      // check if contents of verses table is valid
+      if (!isVerseTableValid) {
+        // if not then populate the table
+        if (!populateVersesTable()) {
+          //if population of table fails, broadcast failure
+          Log.e(TAG, "onHandleWork: populateVersesTable() failed");
+          RESULT_RECEIVER.send(FAILED, Bundle.EMPTY);
+        }
       }
     }
-    // check if contents of verses table is valid
-    if (!validateVersesTable()) {
-      // if not then populate the table
-      if (!populateVersesTable()) {
-        //if population of table fails, broadcast failure
-        RESULT_RECEIVER.send(FAILED, Bundle.EMPTY);
-      }
-    }
+
     RESULT_RECEIVER.send(FINISHED, Bundle.EMPTY);
   }
 
@@ -89,6 +101,7 @@ public class DbSetupJob
    * @return true if table meets expectations, false otherwise
    */
   private boolean validateBooksTable() {
+    Log.d(TAG, "validateBooksTable:");
     final BookDao dao = SbDatabase.getDatabase(getApplication())
                                   .getBookDao();
     final int expectedCount = BookUtils.EXPECTED_COUNT;
@@ -122,11 +135,33 @@ public class DbSetupJob
   }
 
   /**
+   * Check the verses table to check if it's contents are valid.
+   *
+   * @return true if table meets expectations, false otherwise.
+   */
+  private boolean validateVersesTable() {
+    Log.d(TAG, "validateVersesTable:");
+    final VerseDao verseDao = SbDatabase.getDatabase(getApplication())
+                                        .getVerseDao();
+    final int expectedCount = VerseUtils.EXPECTED_COUNT;
+    int count = verseDao.getVerseCount();
+
+    if (count != expectedCount) {
+      Log.e(TAG, "validateVersesTable: count[" + count
+                 + "] != " + "expectedCount[" + expectedCount + "]");
+      return false;
+    }
+    Log.d(TAG, "validateVersesTable: [" + expectedCount + "] verses exist");
+    return true;
+  }
+
+  /**
    * Fill the books table in the database by reading contents of an asset file.
    *
    * @return true if a record is successfully created, false otherwise.
    */
   private boolean populateBooksTable() {
+    Log.d(TAG, "populateBooksTable:");
     final BookDao bookDao = SbDatabase.getDatabase(getApplication())
                                       .getBookDao();
     final String fileName = BookUtils.SETUP_FILE;
@@ -209,31 +244,12 @@ public class DbSetupJob
   }
 
   /**
-   * Check the verses table to check if it's contents are valid.
-   *
-   * @return true if table meets expectations, false otherwise.
-   */
-  private boolean validateVersesTable() {
-    final VerseDao verseDao = SbDatabase.getDatabase(getApplication())
-                                        .getVerseDao();
-    final int expectedCount = VerseUtils.EXPECTED_COUNT;
-    int count = verseDao.getVerseCount();
-
-    if (count != expectedCount) {
-      Log.e(TAG, "validateVersesTable: count[" + count
-                 + "] != " + "expectedCount[" + expectedCount + "]");
-      return false;
-    }
-    Log.d(TAG, "validateVersesTable: [" + expectedCount + "] verses exist");
-    return true;
-  }
-
-  /**
    * Fill the verses table in the database by reading contents of an asset file.
    *
    * @return true if record is successfully created, false otherwise.
    */
   private boolean populateVersesTable() {
+    Log.d(TAG, "populateVersesTable:");
     final VerseDao verseDao = SbDatabase.getDatabase(getApplication())
                                         .getVerseDao();
     final String fileName = VerseUtils.SETUP_FILE;
