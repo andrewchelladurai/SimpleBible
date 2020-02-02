@@ -116,21 +116,17 @@ public class ScreenHome
     showVerseText(R.string.scr_home_verse_content_loading);
 
     // show the progress bar
-    View view = rootView.findViewById(R.id.scr_home_progress_bar);
-    if (view.getVisibility() != View.VISIBLE) {
-      view.setVisibility(View.VISIBLE);
-    }
+    rootView.findViewById(R.id.scr_home_progress_bar)
+            .setVisibility(View.VISIBLE);
 
     // show the progress text
-    if (progressTextView.getVisibility() != View.VISIBLE) {
-      progressTextView.setVisibility(View.VISIBLE);
-    }
+    progressTextView.setVisibility(View.VISIBLE);
 
     // hide the share fab
-    view = rootView.findViewById(R.id.scr_home_fab_share);
-    if (view.getVisibility() != View.GONE) {
-      view.setVisibility(View.GONE);
-    }
+    rootView.findViewById(R.id.scr_home_fab_share)
+            .setVisibility(View.GONE);
+    rootView.findViewById(R.id.scr_home_fab_bmark)
+            .setVisibility(View.GONE);
   }
 
   private void startDbSetupJob() {
@@ -167,21 +163,17 @@ public class ScreenHome
              showVerseText(R.string.scr_home_verse_content_default);
 
              // hide the progress bar
-             View view = rootView.findViewById(R.id.scr_home_progress_bar);
-             if (view.getVisibility() != View.GONE) {
-               view.setVisibility(View.GONE);
-             }
+             rootView.findViewById(R.id.scr_home_progress_bar)
+                     .setVisibility(View.GONE);
 
              // hide the progress text
-             if (progressTextView.getVisibility() != View.GONE) {
-               progressTextView.setVisibility(View.GONE);
-             }
+             progressTextView.setVisibility(View.GONE);
 
-             // show the share fab
-             view = rootView.findViewById(R.id.scr_home_fab_share);
-             if (view.getVisibility() != View.VISIBLE) {
-               view.setVisibility(View.VISIBLE);
-             }
+             // show the share & bookmark fab
+             rootView.findViewById(R.id.scr_home_fab_share)
+                     .setVisibility(View.VISIBLE);
+             rootView.findViewById(R.id.scr_home_fab_bmark)
+                     .setVisibility(View.VISIBLE);
 
              showDailyVerse();
            }
@@ -207,22 +199,27 @@ public class ScreenHome
     final String reference = (array.length >= dayNumber)
                              ? array[dayNumber]
                              : getString(R.string.default_verse_reference);
-    if (!VerseUtils.getInstance()
-                   .validateReference(reference)) {
+    final boolean isReferenceValid = VerseUtils.getInstance()
+                                               .validateReference(reference);
+    if (!isReferenceValid) {
       Log.e(TAG, "showDailyVerse: invalid reference [" + reference + "]");
       showVerseText(R.string.scr_home_verse_content_default);
       return;
     }
+
     model.getVerse(reference)
          .observe(getViewLifecycleOwner(), verse -> {
+
            if (verse == null) {
              Log.e(TAG, "showDailyVerse: no verse found for reference [" + reference + "]");
              showVerseText(R.string.scr_home_verse_content_default);
              return;
            }
+
            final int bookNum = verse.getBook();
            model.getBook(bookNum)
                 .observe(getViewLifecycleOwner(), book -> {
+
                   if (book == null) {
                     Log.e(TAG, "showDailyVerse: no book found for position [" + bookNum + "]");
                     showVerseText(R.string.scr_home_verse_content_default);
