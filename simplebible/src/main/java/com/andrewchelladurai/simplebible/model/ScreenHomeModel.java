@@ -36,7 +36,8 @@ public class ScreenHomeModel
   @NonNull
   private final BookDao bookDao;
   @NonNull
-  private MutableLiveData<Integer> dbSetupJobState = new MutableLiveData<>();
+  private static MutableLiveData<Integer> DB_SETUP_JOB_STATE =
+      new MutableLiveData<>(DbSetupJob.NOT_STARTED);
 
   public ScreenHomeModel(@NonNull final Application application) {
     super(application);
@@ -49,12 +50,12 @@ public class ScreenHomeModel
 
   @NonNull
   public MutableLiveData<Integer> getDbSetupJobState() {
-    return dbSetupJobState;
+    return DB_SETUP_JOB_STATE;
   }
 
   public void setDbSetupJobState(
-      @IntRange(from = DbSetupJob.STARTED, to = DbSetupJob.FINISHED) final int state) {
-    dbSetupJobState.postValue(state);
+      @IntRange(from = DbSetupJob.NOT_STARTED, to = DbSetupJob.FINISHED) final int state) {
+    DB_SETUP_JOB_STATE.postValue(state);
   }
 
   public LiveData<Integer> getVerseCount() {

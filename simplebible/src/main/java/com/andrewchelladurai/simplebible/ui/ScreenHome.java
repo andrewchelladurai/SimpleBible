@@ -44,7 +44,9 @@ public class ScreenHome
       throw new RuntimeException(context.toString() + " must implement ScreenSimpleBibleOps");
     }
     mainOps = (ScreenSimpleBibleOps) context;
-    model = new ScreenHomeModel(requireActivity().getApplication());
+    if (model == null) {
+      model = new ScreenHomeModel(requireActivity().getApplication());
+    }
   }
 
   @Override
@@ -66,7 +68,6 @@ public class ScreenHome
     progressTextTemplate = getString(R.string.scr_home_template_progress_txt);
 
     startDbSetupJobMonitoring();
-    startDbSetupJob();
 
     return rootView;
   }
@@ -79,10 +80,11 @@ public class ScreenHome
     model.getDbSetupJobState()
          .observe(getViewLifecycleOwner(), jobState -> {
            switch (jobState) {
-             case DbSetupJob.STARTED:
-               Log.d(TAG, "startDbSetupJobMonitoring: DbSetupJob.STARTED");
+             case DbSetupJob.NOT_STARTED:
+               Log.d(TAG, "startDbSetupJobMonitoring: DbSetupJob.NOT_STARTED");
+               startDbSetupJob();
                break;
-             case DbSetupJob.RUNNING:
+             case DbSetupJob.STARTED:
                showLoadingVerse();
                break;
              case DbSetupJob.FAILED:
@@ -148,7 +150,7 @@ public class ScreenHome
 
       @Override
       protected void onReceiveResult(final int newJobState, final Bundle resultData) {
-        if (newJobState == DbSetupJob.RUNNING) {
+        if (newJobState == DbSetupJob.STARTED) {
           final int currentProgressValue = resultData.getInt(DbSetupJob.LINE_PROGRESS);
           final String formattedString = String.format(
               progressTextTemplate, (currentProgressValue * 100) / maxProgressValue);

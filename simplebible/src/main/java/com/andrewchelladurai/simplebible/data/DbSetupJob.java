@@ -27,9 +27,9 @@ import java.io.InputStreamReader;
 public class DbSetupJob
     extends JobIntentService {
 
-  public static final int STARTED = 0;
-  public static final int RUNNING = STARTED + 1;
-  public static final int FAILED = RUNNING + 1;
+  public static final int NOT_STARTED = 0;
+  public static final int STARTED = NOT_STARTED + 1;
+  public static final int FAILED = STARTED + 1;
   public static final int FINISHED = FAILED + 1;
   public static final String LINE_PROGRESS = "LINE_PROGRESS";
   private static final String TAG = "DbSetupJob";
@@ -232,7 +232,7 @@ public class DbSetupJob
         lineProgressValue = lineProgressValue + 1;
         final Bundle bundle = new Bundle();
         bundle.putInt(LINE_PROGRESS, lineProgressValue);
-        RESULT_RECEIVER.send(RUNNING, bundle);
+        RESULT_RECEIVER.send(STARTED, bundle);
       }
     } catch (IOException e) {
       Log.e(TAG, "populateBooksTable: exception processing [" + fileName + "]", e);
@@ -314,7 +314,7 @@ public class DbSetupJob
         lineProgressValue = lineProgressValue + 1;
         final Bundle bundle = new Bundle();
         bundle.putInt(LINE_PROGRESS, lineProgressValue);
-        RESULT_RECEIVER.send(RUNNING, bundle);
+        RESULT_RECEIVER.send(STARTED, bundle);
       }
     } catch (IOException e) {
       Log.e(TAG, "populateVersesTable: exception processing [" + fileName + "]", e);
