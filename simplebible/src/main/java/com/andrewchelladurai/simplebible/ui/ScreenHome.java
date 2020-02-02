@@ -56,6 +56,8 @@ public class ScreenHome
     // setup listener for the share fab
     rootView.findViewById(R.id.scr_home_fab_share)
             .setOnClickListener(v -> handleActionShare());
+    rootView.findViewById(R.id.scr_home_fab_share)
+            .setOnClickListener(v -> handleActionBookmark());
 
     // We will be referencing items in the next block more than 30K times
     // let's avoid the extra calls and save some time.
@@ -107,6 +109,11 @@ public class ScreenHome
     Log.d(TAG, "handleActionShare:");
     final String verseText = getVerseText();
     mainOps.shareText(verseText);
+  }
+
+  private void handleActionBookmark() {
+    Log.d(TAG, "handleActionBookmark:");
+    // TODO: 3/2/20 implement method
   }
 
   private void showLoadingVerse() {
@@ -194,11 +201,24 @@ public class ScreenHome
 
   private void showDailyVerse() {
     Log.d(TAG, "showDailyVerse:");
+
     final int dayNumber = model.getDayNumber();
     final String[] array = getResources().getStringArray(R.array.daily_verse_references);
     final String reference = (array.length >= dayNumber)
                              ? array[dayNumber]
                              : getString(R.string.default_verse_reference);
+
+    if (dayNumber == model.getCachedDayOfYear()
+        && reference.equalsIgnoreCase(model.getCachedReference())) {
+      Log.d(TAG, "showDailyVerse: Same day & reference, using cached text");
+
+      final String rawText = model.getCachedRawVerseText();
+
+      final TextView textView = rootView.findViewById(R.id.scr_home_verse);
+      textView.setText(HtmlCompat.fromHtml(rawText, HtmlCompat.FROM_HTML_MODE_LEGACY));
+      return;
+    }
+
     final boolean isReferenceValid = VerseUtils.getInstance()
                                                .validateReference(reference);
     if (!isReferenceValid) {
@@ -233,12 +253,16 @@ public class ScreenHome
                   final int chapterNum = verse.getChapter();
                   final int verseNum = verse.getVerse();
                   final String verseText = verse.getText();
-                  final String formattedText = String.format(
+                  final String rawText = String.format(
                       template, bookName, chapterNum, verseNum, verseText);
 
                   final TextView textView = rootView.findViewById(R.id.scr_home_verse);
-                  textView.setText(HtmlCompat.fromHtml(formattedText,
-                                                       HtmlCompat.FROM_HTML_MODE_LEGACY));
+                  textView.setText(HtmlCompat.fromHtml(rawText, HtmlCompat.FROM_HTML_MODE_LEGACY));
+
+                  model.setCachedDayOfYear(dayNumber);
+                  model.setCachedReference(reference);
+                  model.setCachedRawVerseText(rawText);
+
                 });
          });
     mainOps.showNavigationView();
