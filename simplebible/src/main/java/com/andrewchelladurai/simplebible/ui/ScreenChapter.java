@@ -24,6 +24,7 @@ import com.andrewchelladurai.simplebible.ui.adapter.ChapterNumberAdapter;
 import com.andrewchelladurai.simplebible.ui.adapter.ChapterVerseAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenChapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
+import com.andrewchelladurai.simplebible.utils.BookUtils;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
@@ -37,6 +38,7 @@ public class ScreenChapter
 
   static final String ARG_BOOK = "ARG_BOOK";
   static final String ARG_CHAPTER = "ARG_CHAPTER";
+  static final String ARG_VERSE = "ARG_VERSE";
 
   private static final String TAG = "ScreenChapter";
   private ScreenSimpleBibleOps mainOps;
@@ -65,42 +67,6 @@ public class ScreenChapter
                            Bundle savedState) {
     rootView = inflater.inflate(R.layout.screen_chapter, container, false);
 
-    if (savedState == null) {
-
-      final Bundle arguments = getArguments();
-
-      if (arguments == null) {
-        final String message = getString(R.string.scr_chapter_msg_no_args);
-        Log.e(TAG, "onCreateView: " + message);
-        mainOps.showErrorScreen(message, true, true);
-        return rootView;
-      }
-
-      final Book bookArg = arguments.getParcelable(ARG_BOOK);
-
-      if (bookArg == null) {
-        final String message = getString(R.string.scr_chapter_msg_no_book);
-        Log.e(TAG, "onCreateView: " + message);
-        mainOps.showErrorScreen(message, true, true);
-        return rootView;
-      }
-
-      model.setBook(bookArg);
-      final int chapter = arguments.getInt(ARG_CHAPTER);
-
-      if (chapter < 1 || chapter > model.getBook()
-                                        .getChapters()) {
-        final String message = getString(R.string.scr_chapter_msg_chapter_invalid);
-        Log.e(TAG, "onCreateView: " + message);
-        mainOps.showMessage(message);
-        model.setBookChapter(1);
-      } else {
-        model.setBookChapter(chapter);
-      }
-    } else {
-      updateVerseSelectionActionsVisibility();
-    }
-
     final BottomAppBar bottomAppBar = rootView.findViewById(R.id.scr_chapter_menu);
     bottomAppBar.setOnMenuItemClickListener(item -> {
       switch (item.getItemId()) {
@@ -123,8 +89,73 @@ public class ScreenChapter
       }
     });
 
-    updateScreenTitle();
-    updateVerseList();
+    if (savedState == null) {
+
+      final Bundle arguments = getArguments();
+
+      if (arguments == null) {
+        final String message = getString(R.string.scr_chapter_msg_no_args);
+        Log.e(TAG, "onCreateView: " + message);
+        mainOps.showErrorScreen(message, true, true);
+        return rootView;
+      }
+
+      final int bookNumber = arguments.getInt(ARG_BOOK);
+      final int chapterNumber = arguments.getInt(ARG_CHAPTER);
+      final int verseNumber = arguments.getInt(ARG_VERSE);
+
+      if (bookNumber < 1 || bookNumber > BookUtils.EXPECTED_COUNT) {
+        final String message = getString(R.string.scr_chapter_msg_book_invalid);
+        Log.e(TAG, "onCreateView: " + message);
+        mainOps.showErrorScreen(message, true, true);
+        return rootView;
+      }
+
+      model.getBook(bookNumber)
+           .observe(getViewLifecycleOwner(), book -> {
+
+             if (book != null) {
+
+               // book is good, cache it and use it
+               model.setCachedBook(book);
+
+               if (chapterNumber < 1 || chapterNumber > book.getChapters()) {
+                 // chapter is not good, show first chapter from the book
+                 final String message = getString(R.string.scr_chapter_msg_chapter_invalid);
+                 Log.e(TAG, "onCreateView: " + message);
+                 mainOps.showMessage(message);
+                 model.setCachedChapterNumber(1);
+               } else {
+                 // chapter is good, cache & use it
+                 model.setCachedChapterNumber(chapterNumber);
+               }
+
+               if (verseNumber < 1) {
+                 // verse is not good, show first verse from the chapter
+                 final String message = getString(R.string.scr_chapter_msg_verse_invalid);
+                 Log.e(TAG, "onCreateView: " + message);
+                 mainOps.showMessage(message);
+                 model.setCachedVerseNumber(1);
+               } else {
+                 // verse is good, cache & use it
+                 model.setCachedVerseNumber(verseNumber);
+               }
+
+               updateScreenTitle();
+               updateVerseList();
+
+             } else {
+               final String message = getString(R.string.scr_chapter_msg_book_invalid);
+               Log.e(TAG, "onCreateView: " + message);
+               mainOps.showErrorScreen(message, true, true);
+             }
+           });
+    } else {
+      updateScreenTitle();
+      updateVerseList();
+
+      updateVerseSelectionActionsVisibility();
+    }
 
     mainOps.hideNavigationView();
     mainOps.hideKeyboard();
@@ -187,21 +218,17 @@ public class ScreenChapter
     mainOps.shareText(String.format(getString(R.string.scr_search_template_share), shareText));
   }
 
-  @Override
-  public void handleClickChapter(final int chapterNumber) {
-    Log.d(TAG, "handleClickChapter: chapterNumber = [" + chapterNumber + "]");
-    model.setBookChapter(chapterNumber);
-    updateScreenTitle();
-    updateVerseList();
-    if (chapterSelectionDialog != null) {
-      chapterSelectionDialog.dismiss();
-    }
+  private void showChapterSelector() {
+    final int chapterCount = model.getCachedBook()
+                                  .getChapters();
+    chapterSelectionDialog = ChapterSelectionFragment.createInstance(this, chapterCount);
+    chapterSelectionDialog.show(getParentFragmentManager(), "ChapterSelectionFragment");
   }
 
   private void updateScreenTitle() {
-    final Book book = model.getBook();
+    final Book book = model.getCachedBook();
     final String htmlText = getString(R.string.scr_chapter_title_template,
-                                      book.getName(), model.getChapter(),
+                                      book.getName(), model.getCachedChapterNumber(),
                                       book.getDescription());
     final String titleText = HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_COMPACT)
                                        .toString();
@@ -214,16 +241,16 @@ public class ScreenChapter
   private void updateVerseList() {
     model.getChapterVerseList()
          .observe(getViewLifecycleOwner(), list -> {
-           final int currentBookNumber = model.getBook()
-                                              .getNumber();
-           final int currentChapterNumber = model.getChapter();
+           final int bookNumber = model.getCachedBook()
+                                       .getNumber();
+           final int chapterNumber = model.getCachedChapterNumber();
 
            if (list == null || list.isEmpty()) {
              final Bundle bundle = new Bundle();
              final String message =
                  String.format(getString(R.string.scr_chapter_msg_no_verse_found),
-                               currentChapterNumber, model.getBook()
-                                                          .getName());
+                               chapterNumber, model.getCachedBook()
+                                                   .getName());
              bundle.putString(ScreenError.ARG_MESSAGE, message);
              bundle.putBoolean(ScreenError.ARG_EXIT_APP, true);
              bundle.putBoolean(ScreenError.ARG_INFORM_DEV, true);
@@ -236,13 +263,16 @@ public class ScreenChapter
            final int cachedBookNumber = adapter.getCachedBookNumber();
            final int cachedChapterNumber = adapter.getCachedChapterNumber();
 
-           if (currentBookNumber != cachedBookNumber
-               || currentChapterNumber != cachedChapterNumber
+           if (bookNumber != cachedBookNumber
+               || chapterNumber != cachedChapterNumber
                || adapter.getItemCount() < 1) {
              adapter.clearList();
 
-             adapter.setCachedBookNumber(currentBookNumber);
-             adapter.setCachedChapterNumber(currentChapterNumber);
+             adapter.setCachedBookNumber(bookNumber);
+             adapter.setCachedChapterNumber(chapterNumber);
+
+             Log.d(TAG, "updateVerseList: bookNumber[" + bookNumber
+                        + "], chapterNumber[" + chapterNumber + "]");
 
              adapter.updateList(list);
            }
@@ -267,11 +297,15 @@ public class ScreenChapter
             .setVisibility((isVerseSelected) ? View.GONE : View.VISIBLE);
   }
 
-  private void showChapterSelector() {
-    chapterSelectionDialog = ChapterSelectionFragment
-                                 .createInstance(this, model.getBook()
-                                                            .getChapters());
-    chapterSelectionDialog.show(getParentFragmentManager(), "ChapterSelectionFragment");
+  @Override
+  public void handleClickChapter(final int chapterNumber) {
+    Log.d(TAG, "handleClickChapter: chapterNumber = [" + chapterNumber + "]");
+    model.setCachedChapterNumber(chapterNumber);
+    updateScreenTitle();
+    updateVerseList();
+    if (chapterSelectionDialog != null) {
+      chapterSelectionDialog.dismiss();
+    }
   }
 
   public static class ChapterSelectionFragment

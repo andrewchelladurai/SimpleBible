@@ -14,13 +14,6 @@
     android:orientation="vertical"
     app:layout_constraintGuide_percent="0.8" />
 
-  <androidx.constraintlayout.widget.Guideline
-    android:id="@+id/src_home_gv5"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintGuide_percent="0.5" />
-
   <ScrollView
     android:layout_width="0dp"
     android:layout_height="0dp"
@@ -71,8 +64,7 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toEndOf="@+id/src_home_gh8"
-    app:layout_constraintTop_toBottomOf="@+id/src_home_gv5"
-    app:layout_constraintVertical_bias="0.1" />
+    app:layout_constraintTop_toTopOf="parent" />
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/scr_home_fab_share"
@@ -80,10 +72,22 @@
     android:layout_height="wrap_content"
     android:src="@drawable/ic_bookmark"
     android:visibility="gone"
-    app:layout_constraintBottom_toTopOf="@+id/src_home_gv5"
+    app:layout_constraintBottom_toTopOf="@id/scr_home_fab_bmark"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toEndOf="@+id/src_home_gh8"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_bias="0.9" />
+
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/scr_home_fab_chapter"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_list"
+    android:visibility="gone"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/src_home_gh8"
+    app:layout_constraintTop_toBottomOf="@id/scr_home_fab_bmark"
+    app:layout_constraintVertical_bias="0.1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

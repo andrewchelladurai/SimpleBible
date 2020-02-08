@@ -97,9 +97,11 @@
 
   <!-- String used in the ScreenChapter -->
   <string name="itm_chapter_verse_content_template"><![CDATA[<b>%d : </b>%s]]></string>
+  <string name="scr_chapter_msg_unexpected_error">No arguments passed</string>
   <string name="scr_chapter_msg_no_args">No arguments passed</string>
-  <string name="scr_chapter_msg_no_book">No / Null Book passed, using default</string>
+  <string name="scr_chapter_msg_book_invalid">Incorrect Book Reference Passed, using default</string>
   <string name="scr_chapter_msg_chapter_invalid">Incorrect Chapter passed, using default</string>
+  <string name="scr_chapter_msg_verse_invalid">Incorrect Chapter passed, using default</string>
   <string name="scr_chapter_msg_no_verse_found">No Verses found for Chapter %d of Book %s</string>
   <string name="scr_chapter_title_template"><![CDATA[<b>%s : Chapter %d</b><br/>%s]]></string>
   <string name="scr_chapter_menu_list_dialog">Show Chapters</string>

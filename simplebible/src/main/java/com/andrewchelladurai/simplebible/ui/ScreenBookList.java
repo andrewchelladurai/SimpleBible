@@ -125,8 +125,10 @@ public class ScreenBookList
   @Override
   public void handleBookClick(@NonNull final Book book) {
     final Bundle bundle = new Bundle();
-    bundle.putParcelable(ScreenChapter.ARG_BOOK, book);
+    bundle.putInt(ScreenChapter.ARG_BOOK, book.getNumber());
     bundle.putInt(ScreenChapter.ARG_CHAPTER, 1);
+    bundle.putInt(ScreenChapter.ARG_VERSE, 1);
+
     NavHostFragment.findNavController(this)
                    .navigate(R.id.nav_act_scr_book_list_to_scr_chapter, bundle);
 

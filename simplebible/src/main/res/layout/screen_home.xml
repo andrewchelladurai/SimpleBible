@@ -63,18 +63,6 @@
     app:layout_constraintTop_toBottomOf="@id/src_home_gh8" />
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/scr_home_fab_share"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/ic_share"
-    android:visibility="gone"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toStartOf="@+id/src_home_gv5"
-    app:layout_constraintHorizontal_bias="0.9"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/src_home_gh8" />
-
-  <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/scr_home_fab_bmark"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -82,8 +70,31 @@
     android:visibility="gone"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.1"
-    app:layout_constraintStart_toEndOf="@+id/src_home_gv5"
+    app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/src_home_gh8" />
+
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/scr_home_fab_chapter"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_list"
+    android:visibility="gone"
+    app:layout_constraintBottom_toBottomOf="@id/scr_home_fab_bmark"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.1"
+    app:layout_constraintStart_toEndOf="@id/scr_home_fab_bmark"
+    app:layout_constraintTop_toTopOf="@id/scr_home_fab_bmark" />
+
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/scr_home_fab_share"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_share"
+    android:visibility="gone"
+    app:layout_constraintBottom_toBottomOf="@id/scr_home_fab_bmark"
+    app:layout_constraintEnd_toStartOf="@id/scr_home_fab_bmark"
+    app:layout_constraintHorizontal_bias="0.9"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="@id/scr_home_fab_bmark" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

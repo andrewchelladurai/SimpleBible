@@ -9,9 +9,11 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.andrewchelladurai.simplebible.data.SbDatabase;
+import com.andrewchelladurai.simplebible.data.dao.BookDao;
 import com.andrewchelladurai.simplebible.data.dao.VerseDao;
 import com.andrewchelladurai.simplebible.data.entity.Book;
 import com.andrewchelladurai.simplebible.data.entity.Verse;
+import com.andrewchelladurai.simplebible.utils.BookUtils;
 
 import java.util.List;
 
@@ -19,42 +21,58 @@ public class ScreenChapterModel
     extends AndroidViewModel {
 
   private static final String TAG = "ScreenChapterModel";
-  private final VerseDao verseDao;
-
-  @NonNull
-  private Book book;
+  private static Book CACHED_BOOK;
   @IntRange(from = 1)
-  private int chapter;
+  private static int CACHED_CHAPTER_NUMBER;
+  @IntRange(from = 1)
+  private static int CACHED_VERSE_NUMBER;
+
+  private final VerseDao verseDao;
+  private final BookDao bookDao;
 
   public ScreenChapterModel(@NonNull final Application application) {
     super(application);
     verseDao = SbDatabase.getDatabase(getApplication())
                          .getVerseDao();
+    bookDao = SbDatabase.getDatabase(getApplication())
+                        .getBookDao();
+    Log.d(TAG, "ScreenChapterModel:");
+  }
+
+  public LiveData<Book> getBook(
+      @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int bookNumber) {
+    return bookDao.getBookUsingPositionLive(bookNumber);
+  }
+
+  public void setCachedVerseNumber(@IntRange(from = 1) final int verseNumber) {
+    CACHED_VERSE_NUMBER = verseNumber;
+  }
+
+  @IntRange(from = 1)
+  public int getCachedVerse() {
+    return CACHED_VERSE_NUMBER;
   }
 
   @NonNull
-  public Book getBook() {
-    return book;
+  public Book getCachedBook() {
+    return CACHED_BOOK;
   }
 
-  public void setBook(@NonNull final Book book) {
-    this.book = book;
-    Log.d(TAG, "setBook: [" + this.book + "]");
-  }
-
-  public void setBookChapter(@IntRange(from = 1) final int chapter) {
-    this.chapter = chapter;
-    Log.d(TAG, "setBookChapter: [" + chapter + "]");
+  public void setCachedBook(@NonNull final Book book) {
+    CACHED_BOOK = book;
   }
 
   @NonNull
   public LiveData<List<Verse>> getChapterVerseList() {
-    return verseDao.getLiveChapterVerses(book.getNumber(), getChapter());
+    return verseDao.getLiveChapterVerses(CACHED_BOOK.getNumber(), getCachedChapterNumber());
   }
 
-  @IntRange(from = 1)
-  public int getChapter() {
-    return chapter;
+  public int getCachedChapterNumber() {
+    return CACHED_CHAPTER_NUMBER;
+  }
+
+  public void setCachedChapterNumber(@IntRange(from = 1) final int chapter) {
+    CACHED_CHAPTER_NUMBER = chapter;
   }
 
 }

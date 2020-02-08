@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.DbSetupJob;
@@ -62,6 +62,8 @@ public class ScreenHome
             .setOnClickListener(v -> handleActionShare());
     rootView.findViewById(R.id.scr_home_fab_bmark)
             .setOnClickListener(v -> handleActionBookmark());
+    rootView.findViewById(R.id.scr_home_fab_chapter)
+            .setOnClickListener(v -> handleActionChapter());
 
     // We will be referencing items in the next block more than 30K times
     // let's avoid the extra calls and save some time.
@@ -71,6 +73,7 @@ public class ScreenHome
 
     startDbSetupJobMonitoring();
 
+    mainOps.showNavigationView();
     return rootView;
   }
 
@@ -122,8 +125,21 @@ public class ScreenHome
     bundle.putParcelableArray(ScreenBookmarkDetail.ARG_VERSE_LIST,
                               new Verse[]{model.getCachedVerse()});
 
-    Navigation.findNavController(requireActivity(), R.id.scr_main_nav_host_fragment)
-              .navigate(R.id.action_nav_scr_home_to_nav_scr_bookmark_detail, bundle);
+    NavHostFragment.findNavController(this)
+                   .navigate(R.id.action_nav_scr_home_to_nav_scr_bookmark_detail, bundle);
+  }
+
+  private void handleActionChapter() {
+    Log.d(TAG, "handleActionChapter:");
+    final Verse cachedVerse = model.getCachedVerse();
+
+    final Bundle bundle = new Bundle();
+    bundle.putInt(ScreenChapter.ARG_BOOK, cachedVerse.getBook());
+    bundle.putInt(ScreenChapter.ARG_CHAPTER, cachedVerse.getChapter());
+    bundle.putInt(ScreenChapter.ARG_VERSE, cachedVerse.getVerse());
+
+    NavHostFragment.findNavController(this)
+                   .navigate(R.id.action_nav_scr_home_to_nav_scr_chapter, bundle);
   }
 
   private void showLoadingVerse() {
@@ -143,6 +159,8 @@ public class ScreenHome
     rootView.findViewById(R.id.scr_home_fab_share)
             .setVisibility(View.GONE);
     rootView.findViewById(R.id.scr_home_fab_bmark)
+            .setVisibility(View.GONE);
+    rootView.findViewById(R.id.scr_home_fab_chapter)
             .setVisibility(View.GONE);
   }
 
@@ -190,6 +208,8 @@ public class ScreenHome
              rootView.findViewById(R.id.scr_home_fab_share)
                      .setVisibility(View.VISIBLE);
              rootView.findViewById(R.id.scr_home_fab_bmark)
+                     .setVisibility(View.VISIBLE);
+             rootView.findViewById(R.id.scr_home_fab_chapter)
                      .setVisibility(View.VISIBLE);
 
              showDailyVerse();

@@ -16,6 +16,10 @@
       app:destination="@id/nav_scr_bookmark_detail"
       app:launchSingleTop="true"
       app:popUpToInclusive="false" />
+    <action
+      android:id="@+id/action_nav_scr_home_to_nav_scr_chapter"
+      app:destination="@id/nav_scr_chapter"
+      app:launchSingleTop="true" />
   </fragment>
 
   <fragment
@@ -69,10 +73,19 @@
     tools:layout="@layout/screen_chapter">
     <argument
       android:name="ARG_BOOK"
-      app:argType="com.andrewchelladurai.simplebible.data.entity.Book" />
+      android:defaultValue="0"
+      app:argType="integer" />
     <action
       android:id="@+id/nav_act_scr_chapter_to_scr_bookmark"
       app:destination="@id/nav_scr_bookmark_detail" />
+    <argument
+      android:name="ARG_CHAPTER"
+      android:defaultValue="0"
+      app:argType="integer" />
+    <argument
+      android:name="ARG_VERSE"
+      android:defaultValue="0"
+      app:argType="integer" />
   </fragment>
 
   <fragment
