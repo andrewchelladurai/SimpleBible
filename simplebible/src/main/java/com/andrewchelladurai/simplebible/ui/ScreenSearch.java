@@ -87,7 +87,6 @@ public class ScreenSearch
         });
 
     final SearchView searchView = rootView.findViewById(R.id.scr_search_input);
-    searchView.setSubmitButtonEnabled(true);
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
       @Override
