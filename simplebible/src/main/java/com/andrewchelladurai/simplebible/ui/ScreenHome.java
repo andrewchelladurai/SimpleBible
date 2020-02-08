@@ -58,7 +58,7 @@ public class ScreenHome
     // setup listener for the share fab
     rootView.findViewById(R.id.scr_home_fab_share)
             .setOnClickListener(v -> handleActionShare());
-    rootView.findViewById(R.id.scr_home_fab_share)
+    rootView.findViewById(R.id.scr_home_fab_bmark)
             .setOnClickListener(v -> handleActionBookmark());
 
     // We will be referencing items in the next block more than 30K times
