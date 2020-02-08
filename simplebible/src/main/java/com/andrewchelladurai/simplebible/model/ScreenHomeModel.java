@@ -32,6 +32,8 @@ public class ScreenHomeModel
   @NonNull
   private static String CACHED_RAW_TEXT = "";
   @NonNull
+  private static Verse CACHED_VERSE = new Verse("", 1, 1, 1, "");
+  @NonNull
   private final VerseDao verseDao;
   @NonNull
   private final BookDao bookDao;
@@ -104,6 +106,15 @@ public class ScreenHomeModel
 
   public void setCachedRawVerseText(@NonNull final String rawVerseText) {
     CACHED_RAW_TEXT = rawVerseText;
+  }
+
+  @NonNull
+  public Verse getCachedVerse() {
+    return CACHED_VERSE;
+  }
+
+  public void setCachedVerse(@NonNull final Verse verse) {
+    CACHED_VERSE = verse;
   }
 
 }

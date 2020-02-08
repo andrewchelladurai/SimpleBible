@@ -15,9 +15,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.DbSetupJob;
+import com.andrewchelladurai.simplebible.data.entity.Verse;
 import com.andrewchelladurai.simplebible.model.ScreenHomeModel;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
@@ -115,7 +117,13 @@ public class ScreenHome
 
   private void handleActionBookmark() {
     Log.d(TAG, "handleActionBookmark:");
-    // TODO: 3/2/20 implement method
+
+    final Bundle bundle = new Bundle();
+    bundle.putParcelableArray(ScreenBookmarkDetail.ARG_VERSE_LIST,
+                              new Verse[]{model.getCachedVerse()});
+
+    Navigation.findNavController(requireActivity(), R.id.scr_main_nav_host_fragment)
+              .navigate(R.id.action_nav_scr_home_to_nav_scr_bookmark_detail, bundle);
   }
 
   private void showLoadingVerse() {
@@ -263,6 +271,7 @@ public class ScreenHome
 
                   model.setCachedDayOfYear(dayNumber);
                   model.setCachedReference(reference);
+                  model.setCachedVerse(verse);
                   model.setCachedRawVerseText(rawText);
 
                 });
