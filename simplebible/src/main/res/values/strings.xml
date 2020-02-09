@@ -142,7 +142,8 @@
     Long press on a Verse in either<br/>
     - a Chapter<br/>
     - or a Search Result<br/>
-    and then select the Bookmark action.</h5>]]></string>
+    and then select the Bookmark action.<br/><br/>
+    You can also Bookmark Today\'s Verse displayed on the Home Screen</h5>]]></string>
   <string name="scr_bmark_list_msg_empty_note">This Bookmark does not have any Notes</string>
 
   <plurals name="itm_bmark_list_verse_count_template">
