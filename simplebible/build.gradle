@@ -30,6 +30,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // App Compat Library
     implementation 'androidx.appcompat:appcompat:1.1.0'
 
     // ConstraintLayout Dependency
@@ -39,8 +41,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.0-alpha04'
 
     // NavigationComponent Dependencies
-    implementation "androidx.navigation:navigation-fragment:2.2.0"
-    implementation "androidx.navigation:navigation-ui:2.2.0"
+    implementation "androidx.navigation:navigation-fragment:2.2.1"
+    implementation "androidx.navigation:navigation-ui:2.2.1"
 
     // Room Persistence Storage Dependencies
     implementation "androidx.room:room-runtime:2.2.3"
@@ -49,6 +51,9 @@ dependencies {
     // ViewModel + LiveData Dependencies
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0"
+
+    // Preferences API
+    implementation 'androidx.preference:preference:1.1.0'
 
     testImplementation 'junit:junit:4.13-beta-3'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
