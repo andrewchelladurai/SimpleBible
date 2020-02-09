@@ -13,8 +13,10 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
+import androidx.preference.PreferenceManager;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
@@ -125,6 +127,37 @@ public class ScreenSimpleBible
 
     Navigation.findNavController(this, R.id.scr_main_nav_host_fragment)
               .navigate(R.id.nav_act_global_scr_error, bundle);
+  }
+
+  @Override
+  public void handleThemeToggle() {
+    final String keyName = getString(R.string.sb_pref_key_theme);
+
+    final String keyValueAuto = getString(R.string.sb_pref_key_theme_values_system);
+    final String keyValueYes = getString(R.string.sb_pref_key_theme_values_yes);
+    final String keyValueNo = getString(R.string.sb_pref_key_theme_values_no);
+
+    final String darkThemeMode = PreferenceManager.getDefaultSharedPreferences(this)
+                                                  .getString(keyName, keyValueAuto);
+    Log.d(TAG, "handleThemeToggle: darkThemeMode[" + darkThemeMode + "]");
+
+    int nightModeValue = AppCompatDelegate.MODE_NIGHT_YES;
+    if (darkThemeMode.equalsIgnoreCase(keyValueAuto)) {
+      nightModeValue = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+                       ? AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                       : AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY;
+    } else if (darkThemeMode.equalsIgnoreCase(keyValueYes)) {
+      //noinspection ConstantConditions
+      nightModeValue = AppCompatDelegate.MODE_NIGHT_YES;
+    } else if (darkThemeMode.equalsIgnoreCase(keyValueNo)) {
+      nightModeValue = AppCompatDelegate.MODE_NIGHT_NO;
+    } else {
+      Log.d(TAG, "handleThemeToggle: unknown match");
+    }
+
+    AppCompatDelegate.setDefaultNightMode(nightModeValue);
+    recreate();
+
   }
 
 }

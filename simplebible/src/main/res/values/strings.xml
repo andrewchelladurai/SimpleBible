@@ -156,4 +156,23 @@
 
   <!-- String used in the ScreenError -->
   <string name="scr_error_default_text">Something unexpected happened and we do not know how. Help us find out by sharing details. Press the below button to send the developer an email.</string>
+
+  <!-- String used in the ScreenSettings -->
+  <string name="sb_pref_key_theme">sb_pref_key_theme</string>
+  <string name="sb_pref_key_export">sb_pref_key_export</string>
+  <string name="sb_pref_key_about">sb_pref_key_about</string>
+
+  <string name="scr_pref_title">Preferences</string>
+  <string name="scr_pref_about_title">About</string>
+  <string name="scr_pref_about_summary"><![CDATA[Why was this application made along & the application\'s history]]></string>
+  <string name="scr_pref_export_title">Export saved bookmarks</string>
+  <string name="scr_pref_export_summary">Save the exported file on Phone</string>
+  <string name="scr_pref_theme_title">Dark Theme</string>
+  <string name="scr_pref_theme_summary">Use a black background</string>
+  <string name="sb_pref_key_theme_entries_system">System Default Behavior</string>
+  <string name="sb_pref_key_theme_entries_yes">Yes</string>
+  <string name="sb_pref_key_theme_entries_no">No</string>
+  <string name="sb_pref_key_theme_values_system">AUTO</string>
+  <string name="sb_pref_key_theme_values_yes">YES</string>
+  <string name="sb_pref_key_theme_values_no">NO</string>
 </resources>

@@ -17,4 +17,6 @@ public interface ScreenSimpleBibleOps {
 
   void showErrorScreen(@Nullable String message, boolean informDev, boolean exitApp);
 
+  void handleThemeToggle();
+
 }

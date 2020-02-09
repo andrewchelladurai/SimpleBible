@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <ListPreference
+    app:defaultValue="@string/sb_pref_key_theme_values_system"
+    app:entries="@array/sb_pref_key_theme_entries"
+    app:entryValues="@array/sb_pref_key_theme_values"
+    app:icon="@drawable/ic_theme"
+    app:key="@string/sb_pref_key_theme"
+    app:summary="@string/scr_pref_theme_summary"
+    app:title="@string/scr_pref_theme_title" />
+
+  <Preference
+    app:icon="@drawable/ic_export"
+    app:key="@string/sb_pref_key_export"
+    app:summary="@string/scr_pref_export_summary"
+    app:title="@string/scr_pref_export_title" />
+
+  <Preference
+    app:allowDividerAbove="true"
+    app:icon="@drawable/ic_about"
+    app:key="@string/sb_pref_key_about"
+    app:summary="@string/scr_pref_about_summary"
+    app:title="@string/scr_pref_about_title" />
+</PreferenceScreen>
