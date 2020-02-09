@@ -125,7 +125,8 @@
   <string name="scr_bmark_menu_save">Save</string>
   <string name="scr_bmark_menu_edit">Edit</string>
   <string name="scr_bmark_menu_share">Share</string>
-  <string name="scr_bmark_hint_note">Notes</string>
+  <string name="scr_bmark_note_hint">Notes</string>
+  <string name="scr_bmark_note_empty">This bookmark does not have any note saved.</string>
   <string name="scr_bmark_msg_save_success">Bookmark Saved</string>
   <string name="scr_bmark_msg_save_fail">Save Bookmark Failed</string>
   <string name="scr_bmark_msg_delete_success">Bookmark Deleted</string>

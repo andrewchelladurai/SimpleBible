@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.text.HtmlCompat;
@@ -57,9 +56,6 @@ public class ScreenBookmarkDetail
     mainOps = (ScreenSimpleBibleOps) context;
     model = new BookmarkDetailModel(requireActivity().getApplication());
     adapter = new BookmarkDetailAdapter(this);
-    Toast
-        .makeText(context, getString(R.string.scr_bmark_menu_toggle_view_hint), Toast.LENGTH_LONG)
-        .show();
   }
 
   @Override
@@ -103,13 +99,6 @@ public class ScreenBookmarkDetail
     final BottomAppBar bAppBar = rootView.findViewById(R.id.scr_bmark_menu);
     bAppBar.setOnMenuItemClickListener(item -> {
       switch (item.getItemId()) {
-        case R.id.scr_bmark_menu_toggle_view:
-          showVerseList = !showVerseList;
-          rootView.findViewById(R.id.scr_bmark_list)
-                  .setVisibility((showVerseList ? View.VISIBLE : View.GONE));
-          rootView.findViewById(R.id.scr_bmark_container_note)
-                  .setVisibility((showVerseList ? View.GONE : View.VISIBLE));
-          return true;
         case R.id.scr_bmark_menu_delete:
           handleClickActionDelete();
           return true;
@@ -276,13 +265,18 @@ public class ScreenBookmarkDetail
   private String getNoteText() {
     TextInputEditText editText = rootView.findViewById(R.id.scr_bmark_note);
     final Editable text = editText.getText();
+    final String note = (text == null) ? "" : text.toString();
 
-    return (text == null) ? "" : text.toString();
+    return (note.equalsIgnoreCase(getString(R.string.scr_bmark_note_empty)) ? "" : note);
   }
 
   private void setNoteText(@NonNull final String note) {
     TextInputEditText editText = rootView.findViewById(R.id.scr_bmark_note);
-    editText.setText(note);
+    if (note.isEmpty()) {
+      editText.setText(R.string.scr_bmark_note_empty);
+    } else {
+      editText.setText(note);
+    }
   }
 
   @Override

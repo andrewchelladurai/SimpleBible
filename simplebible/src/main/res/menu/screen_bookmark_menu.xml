@@ -6,13 +6,6 @@
   android:animateLayoutChanges="true"
   tools:ignore="AlwaysShowAction">
 
-  <item
-    android:id="@+id/scr_bmark_menu_toggle_view"
-    android:icon="@drawable/ic_toggle"
-    android:orderInCategory="1"
-    android:title="@string/scr_bmark_menu_toggle_view"
-    app:showAsAction="always" />
-
   <group android:id="@+id/scr_bmark_menu_container_saved">
     <item
       android:id="@+id/scr_bmark_menu_delete"
