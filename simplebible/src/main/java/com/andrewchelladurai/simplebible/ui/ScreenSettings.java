@@ -79,6 +79,7 @@ public class ScreenSettings
                                           final String key) {
       if (getString(R.string.sb_pref_key_theme).equalsIgnoreCase(key)) {
         mainOps.handleThemeToggle();
+        mainOps.restartApp();
       } else {
         Log.e(TAG, "onSharedPreferenceChanged: unhandled pref key [" + key + "]");
       }

@@ -19,4 +19,6 @@ public interface ScreenSimpleBibleOps {
 
   void handleThemeToggle();
 
+  void restartApp();
+
 }

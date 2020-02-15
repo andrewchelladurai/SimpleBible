@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
   <item android:state_selected="true">
-    <color android:color="@color/design_default_color_secondary" />
+    <color android:color="?colorSecondary" />
   </item>
   <item>
-    <color android:color="@color/design_default_color_surface" />
+    <color android:color="?colorSurface" />
   </item>
 </selector>

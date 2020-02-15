@@ -31,8 +31,12 @@ public class ScreenSimpleBible
 
   @Override
   protected void onCreate(Bundle savedState) {
-    setTheme(R.style.SbTheme);
+
+    handleThemeToggle();
+    setTheme(R.style.SbThemeBase);
+
     super.onCreate(savedState);
+
     setContentView(R.layout.screen_simple_bible);
 
     // setup bottom navigation bar with the navigation host fragment
@@ -156,8 +160,11 @@ public class ScreenSimpleBible
     }
 
     AppCompatDelegate.setDefaultNightMode(nightModeValue);
-    recreate();
+  }
 
+  @Override
+  public void restartApp() {
+    recreate();
   }
 
 }
