@@ -12,6 +12,7 @@
     app:title="@string/scr_pref_theme_title" />
 
   <Preference
+    app:allowDividerAbove="true"
     app:icon="@drawable/ic_save"
     app:key="@string/sb_pref_key_export"
     app:summary="@string/scr_pref_export_summary"

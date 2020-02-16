@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceManager;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
@@ -22,6 +24,7 @@ public class ScreenSettings
 
   private ScreenSimpleBibleOps mainOps;
   private PreferenceChangeHandler preferenceChangeHandler;
+  private PreferenceClickListener preferenceClickListener;
 
   @Override
   public void onAttach(@NonNull Context context) {
@@ -55,20 +58,41 @@ public class ScreenSettings
   @Override
   public void onResume() {
     super.onResume();
+
     if (preferenceChangeHandler == null) {
       preferenceChangeHandler = new PreferenceChangeHandler();
       getPreferenceManager().getSharedPreferences()
                             .registerOnSharedPreferenceChangeListener(preferenceChangeHandler);
     }
+
+    if (preferenceClickListener == null) {
+      preferenceClickListener = new PreferenceClickListener();
+      getPreferenceManager().setOnPreferenceTreeClickListener(preferenceClickListener);
+    }
+
   }
 
   @Override
   public void onPause() {
     super.onPause();
+
     if (preferenceChangeHandler != null) {
       getPreferenceManager().getSharedPreferences()
                             .unregisterOnSharedPreferenceChangeListener(preferenceChangeHandler);
     }
+
+    if (preferenceClickListener != null) {
+      getPreferenceManager().setOnPreferenceTreeClickListener(null);
+    }
+
+  }
+
+  private void handlePreferenceClickExport() {
+    Log.d(TAG, "handlePreferenceClickExport:");
+  }
+
+  private void handlePreferenceClickAbout() {
+    Log.d(TAG, "handlePreferenceClickAbout:");
   }
 
   private class PreferenceChangeHandler
@@ -82,6 +106,29 @@ public class ScreenSettings
         mainOps.restartApp();
       } else {
         Log.e(TAG, "onSharedPreferenceChanged: unhandled pref key [" + key + "]");
+      }
+    }
+
+  }
+
+  private class PreferenceClickListener
+      implements PreferenceManager.OnPreferenceTreeClickListener {
+
+    @Override
+    public boolean onPreferenceTreeClick(final Preference preference) {
+      final String preferenceKey = preference.getKey();
+      final String keyAbout = getString(R.string.sb_pref_key_about);
+      final String keyExport = getString(R.string.sb_pref_key_export);
+
+      if (preferenceKey.equalsIgnoreCase(keyAbout)) {
+        handlePreferenceClickAbout();
+        return true;
+      } else if (preferenceKey.equalsIgnoreCase(keyExport)) {
+        handlePreferenceClickExport();
+        return true;
+      } else {
+        Log.e(TAG, "onPreferenceTreeClick: unknown key[" + preferenceKey + "]");
+        return false;
       }
     }
 
