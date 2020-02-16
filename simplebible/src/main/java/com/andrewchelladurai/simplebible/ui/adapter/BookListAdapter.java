@@ -109,9 +109,9 @@ public class BookListAdapter
       rootView.findViewById(R.id.screen_books_list_item_name)
               .setOnClickListener(v -> viewOps.handleBookClick(book));
 
-      ((TextView) rootView.findViewById(R.id.screen_books_list_desc))
+      ((TextView) rootView.findViewById(R.id.screen_books_list_item_desc))
           .setText(book.getDescription());
-      rootView.findViewById(R.id.screen_books_list_desc)
+      rootView.findViewById(R.id.screen_books_list_item_desc)
               .setOnClickListener(v -> viewOps.handleBookClick(book));
 
       ((Chip) rootView.findViewById(R.id.screen_books_list_item_chapter_count))

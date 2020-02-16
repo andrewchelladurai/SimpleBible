@@ -17,7 +17,7 @@
     android:clickable="false"
     android:textColor="?colorOnPrimary"
     app:chipBackgroundColor="?colorPrimary"
-    app:layout_constraintBottom_toBottomOf="@id/screen_books_list_desc_container"
+    app:layout_constraintBottom_toBottomOf="@id/screen_books_list_item_desc_container"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toTopOf="@id/screen_books_list_item_name_container"
     tools:text="119 Chapters" />
@@ -46,7 +46,7 @@
   </HorizontalScrollView>
 
   <HorizontalScrollView
-    android:id="@+id/screen_books_list_desc_container"
+    android:id="@+id/screen_books_list_item_desc_container"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:fillViewport="true"
@@ -57,7 +57,7 @@
     app:layout_constraintVertical_bias="0">
 
     <TextView
-      android:id="@+id/screen_books_list_desc"
+      android:id="@+id/screen_books_list_item_desc"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:fontFamily="sans-serif-light"
