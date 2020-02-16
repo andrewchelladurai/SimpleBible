@@ -151,7 +151,7 @@
     <item quantity="other">Bookmark contains %d Verses</item>
   </plurals>
   <string name="screen_bookmarks_list_item_note_template"><![CDATA[<b>Bookmarked Note :</b> %s]]></string>
-  <string name="screen_bookmarks_list_item_verse_msg_none_found"><![CDATA[<b>No verses found for this bookmarked entry]]></string>
+  <string name="screen_bookmarks_list_verse_count_msg_none_found"><![CDATA[<b>No verses found for this bookmarked entry]]></string>
   <string name="screen_bookmarks_list_item_first_verse_template"><![CDATA[<b>%s %d:%d -</b> %s]]></string>
 
   <!-- String used in the ScreenError -->

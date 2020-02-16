@@ -109,7 +109,7 @@ public class ScreenBookmarkListAdapter
       final TextView verseField = rootView
                                       .findViewById(R.id.screen_bookmarks_list_item_first_verse);
       final Chip verseCountChip = rootView
-                                      .findViewById(R.id.screen_bookmarks_list_item_verse_count);
+                                      .findViewById(R.id.screen_bookmarks_list_verse_count);
 
       ops.updateVerseList(verseCountChip, verseField, bookmark.getReference());
 

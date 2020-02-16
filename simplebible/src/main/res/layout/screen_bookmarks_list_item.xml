@@ -15,10 +15,10 @@
     android:padding="@dimen/gap_normal">
 
     <com.google.android.material.chip.Chip
-      android:id="@+id/screen_bookmarks_list_item_verse_count"
+      android:id="@+id/screen_bookmarks_list_verse_count"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      tools:text="@string/screen_bookmarks_list_item_verse_msg_none_found" />
+      tools:text="@string/screen_bookmarks_list_verse_count_msg_none_found" />
 
     <TextView
       android:id="@+id/screen_bookmarks_list_item_first_verse"

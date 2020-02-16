@@ -46,7 +46,7 @@
     android:id="@+id/nav_scr_bookmark_list"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenBookmarkList"
     android:label="screen_bookmark_list"
-    tools:layout="@layout/screen_bookmark_list">
+    tools:layout="@layout/screen_bookmarks">
     <action
       android:id="@+id/nav_act_scr_bookmark_list_to_scr_bookmark_detail"
       app:destination="@id/nav_scr_bookmark_detail" />

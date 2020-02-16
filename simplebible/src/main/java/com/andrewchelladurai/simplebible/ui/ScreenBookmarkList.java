@@ -59,7 +59,7 @@ public class ScreenBookmarkList
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                            Bundle savedState) {
-    rootView = inflater.inflate(R.layout.screen_bookmark_list, container, false);
+    rootView = inflater.inflate(R.layout.screen_bookmarks, container, false);
 
     bookmarkListModel.getBookmarkList()
                      .observe(getViewLifecycleOwner(), bookmarkList -> {
@@ -123,7 +123,7 @@ public class ScreenBookmarkList
 
     final int templateFirstVerse = R.string.screen_bookmarks_list_item_first_verse_template;
     final Spanned htmlVerseNoneFound = HtmlCompat.fromHtml(
-        getString(R.string.screen_bookmarks_list_item_verse_msg_none_found),
+        getString(R.string.screen_bookmarks_list_verse_count_msg_none_found),
         HtmlCompat.FROM_HTML_MODE_COMPACT);
 
     bookmarkListModel.getBookmarkedVerse(bookmarkReference)
