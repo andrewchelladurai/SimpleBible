@@ -29,7 +29,7 @@
       android:inputType="textNoSuggestions"
       android:layoutDirection="rtl"
       android:queryHint="@string/scr_book_list_hint_search"
-      android:searchIcon="@drawable/ic_search" />
+      android:searchIcon="@drawable/ic_magnifier" />
   </com.google.android.material.card.MaterialCardView>
 
   <androidx.recyclerview.widget.RecyclerView
