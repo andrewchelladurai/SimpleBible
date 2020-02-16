@@ -26,7 +26,7 @@
     android:id="@+id/nav_scr_book_list"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenBookList"
     android:label="screen_book_list"
-    tools:layout="@layout/screen_book_list">
+    tools:layout="@layout/screen_books">
     <action
       android:id="@+id/nav_act_scr_book_list_to_scr_chapter"
       app:destination="@id/nav_scr_chapter" />

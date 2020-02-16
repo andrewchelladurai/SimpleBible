@@ -37,7 +37,8 @@ public class BookListAdapter
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent,
                                                     final int viewType) {
     return new BookViewHolder(LayoutInflater.from(parent.getContext())
-                                            .inflate(R.layout.item_book, parent, false));
+                                            .inflate(R.layout.screen_books_list_item, parent,
+                                                     false));
   }
 
   @Override
@@ -103,26 +104,20 @@ public class BookListAdapter
     public void updateView(final Object object, int position) {
       book = (Book) object;
 
-      ((TextView) rootView.findViewById(R.id.itm_book_name))
+      ((TextView) rootView.findViewById(R.id.screen_books_list_item_name))
           .setText(book.getName());
-      rootView.findViewById(R.id.itm_book_name)
-              .setOnClickListener(v -> {
-                viewOps.handleBookClick(book);
-              });
+      rootView.findViewById(R.id.screen_books_list_item_name)
+              .setOnClickListener(v -> viewOps.handleBookClick(book));
 
-      ((TextView) rootView.findViewById(R.id.itm_book_desc))
+      ((TextView) rootView.findViewById(R.id.screen_books_list_desc))
           .setText(book.getDescription());
-      rootView.findViewById(R.id.itm_book_desc)
-              .setOnClickListener(v -> {
-                viewOps.handleBookClick(book);
-              });
+      rootView.findViewById(R.id.screen_books_list_desc)
+              .setOnClickListener(v -> viewOps.handleBookClick(book));
 
-      ((Chip) rootView.findViewById(R.id.itm_book_chapter_count))
+      ((Chip) rootView.findViewById(R.id.screen_books_list_item_chapter_count))
           .setText(viewOps.getFormattedBookDetails(book.getChapters()));
-      rootView.findViewById(R.id.itm_book_chapter_count)
-              .setOnClickListener(v -> {
-                viewOps.handleBookClick(book);
-              });
+      rootView.findViewById(R.id.screen_books_list_item_chapter_count)
+              .setOnClickListener(v -> viewOps.handleBookClick(book));
 
     }
 

@@ -8,7 +8,7 @@
   tools:context=".ui.ScreenBookList">
 
   <com.google.android.material.card.MaterialCardView
-    android:id="@+id/scr_book_list_container_search"
+    android:id="@+id/screen_books_search_container"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/gap_huge"
@@ -20,7 +20,7 @@
     app:layout_constraintTop_toTopOf="parent">
 
     <SearchView
-      android:id="@+id/scr_book_list_search"
+      android:id="@+id/screen_books_search"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:iconifiedByDefault="false"
@@ -33,7 +33,7 @@
   </com.google.android.material.card.MaterialCardView>
 
   <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/scr_book_list_list"
+    android:id="@+id/screen_books_list"
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:layout_marginTop="@dimen/gap_big"
@@ -42,8 +42,8 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/scr_book_list_container_search"
+    app:layout_constraintTop_toBottomOf="@id/screen_books_search_container"
     app:spanCount="@integer/scr_book_list_list_columns"
-    tools:listitem="@layout/item_book" />
+    tools:listitem="@layout/screen_books_list_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
