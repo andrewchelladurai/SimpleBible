@@ -111,7 +111,7 @@
   <string name="scr_chapter_selection_dialog_title">Select A Chapter</string>
 
   <!-- String used in the ScreenBookmarkDetail -->
-  <string name="scr_bmark_title_template"><![CDATA[<b>%s</b><br/>%s]]></string>
+  <string name="screen_bookmark_detail_title_template"><![CDATA[<b>%s</b><br/>%s]]></string>
   <string name="scr_bmark_title_template_saved">Saved Bookmark</string>
   <string name="scr_bmark_title_template_unsaved">Bookmark Not Saved</string>
   <plurals name="scr_bmark_title_template_verse_count">
@@ -125,14 +125,14 @@
   <string name="scr_bmark_menu_save">Save</string>
   <string name="scr_bmark_menu_edit">Edit</string>
   <string name="scr_bmark_menu_share">Share</string>
-  <string name="scr_bmark_note_hint">Notes</string>
+  <string name="screen_bookmark_detail_note_hint">Notes</string>
   <string name="scr_bmark_note_empty">This bookmark does not have any note saved.</string>
   <string name="scr_bmark_msg_save_success">Bookmark Saved</string>
   <string name="scr_bmark_msg_save_fail">Save Bookmark Failed</string>
   <string name="scr_bmark_msg_delete_success">Bookmark Deleted</string>
   <string name="scr_bmark_msg_delete_fail">Delete Bookmark Failed</string>
   <string name="itm_bmark_template_share">Bookmarked Verse(s):\n%s\n\nBookmarked Notes:\n%s\n\nThe World English Bible\nShared from SimpleBible</string>
-  <string name="itm_bmark_verse_content_template"><![CDATA[<b>%s %d:%d -</b> %s]]></string>
+  <string name="screen_bookmark_detail_list_item_content_template"><![CDATA[<b>%s %d:%d -</b> %s]]></string>
 
   <!-- String used in the ScreenBookmarkList -->
   <string name="scr_bmark_list_image_desc">Bookmarks</string>

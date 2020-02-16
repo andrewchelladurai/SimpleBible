@@ -96,7 +96,7 @@ public class ScreenBookmarkDetail
 
     }
 
-    final BottomAppBar bAppBar = rootView.findViewById(R.id.scr_bmark_menu);
+    final BottomAppBar bAppBar = rootView.findViewById(R.id.screen_bookmark_detail_bottom_appbar);
     bAppBar.setOnMenuItemClickListener(item -> {
       switch (item.getItemId()) {
         case R.id.scr_bmark_menu_delete:
@@ -119,7 +119,8 @@ public class ScreenBookmarkDetail
       }
     });
 
-    itemBookmarkVerseContentTemplate = getString(R.string.itm_bmark_verse_content_template);
+    itemBookmarkVerseContentTemplate =
+        getString(R.string.screen_bookmark_detail_list_item_content_template);
 
     updateContent();
 
@@ -163,7 +164,7 @@ public class ScreenBookmarkDetail
     final StringBuilder verseText = new StringBuilder();
     final String noteText = getNoteText();
 
-    final RecyclerView recyclerView = rootView.findViewById(R.id.scr_bmark_list);
+    final RecyclerView recyclerView = rootView.findViewById(R.id.screen_bookmark_detail_list);
     final int childCount = recyclerView.getChildCount();
 
     for (int i = 0; i < childCount; i++) {
@@ -209,7 +210,7 @@ public class ScreenBookmarkDetail
 
     adapter.updateList(list);
 
-    final RecyclerView recyclerView = rootView.findViewById(R.id.scr_bmark_list);
+    final RecyclerView recyclerView = rootView.findViewById(R.id.screen_bookmark_detail_list);
     recyclerView.setAdapter(adapter);
 
     model.getBookmark(reference)
@@ -226,7 +227,7 @@ public class ScreenBookmarkDetail
            }
 
            final int recordCount = list.size();
-           final String titleTemplate = getString(R.string.scr_bmark_title_template);
+           final String titleTemplate = getString(R.string.screen_bookmark_detail_title_template);
 
            final String headerTxt = getString(bookmarkExists
                                               ? R.string.scr_bmark_title_template_saved
@@ -237,14 +238,23 @@ public class ScreenBookmarkDetail
            final String footerTxt = String.format(footerTemplate, recordCount);
 
            final String titleTxt = String.format(titleTemplate, headerTxt, footerTxt);
-           ((TextView) rootView.findViewById(R.id.scr_bmark_title))
+           ((TextView) rootView.findViewById(R.id.screen_bookmark_detail_title))
                .setText(HtmlCompat.fromHtml(titleTxt, HtmlCompat.FROM_HTML_MODE_COMPACT));
          });
   }
 
+  @NonNull
+  private String getNoteText() {
+    TextInputEditText editText = rootView.findViewById(R.id.screen_bookmark_detail_note);
+    final Editable text = editText.getText();
+    final String note = (text == null) ? "" : text.toString();
+
+    return (note.equalsIgnoreCase(getString(R.string.scr_bmark_note_empty)) ? "" : note);
+  }
+
   private void toggleAction(final boolean bookmarkExists) {
     Log.d(TAG, "toggleAction: bookmarkExists = [" + bookmarkExists + "]");
-    final BottomAppBar bAppBar = rootView.findViewById(R.id.scr_bmark_menu);
+    final BottomAppBar bAppBar = rootView.findViewById(R.id.screen_bookmark_detail_bottom_appbar);
     final Menu menu = bAppBar.getMenu();
     if (bookmarkExists) {
       menu.setGroupVisible(R.id.scr_bmark_menu_container_saved, true);
@@ -257,21 +267,12 @@ public class ScreenBookmarkDetail
 
   private void toggleNoteFieldState(final boolean bookmarkExists) {
     Log.d(TAG, "toggleNoteFieldState: bookmarkExists = [" + bookmarkExists + "]");
-    rootView.findViewById(R.id.scr_bmark_note)
+    rootView.findViewById(R.id.screen_bookmark_detail_note)
             .setEnabled(!bookmarkExists);
   }
 
-  @NonNull
-  private String getNoteText() {
-    TextInputEditText editText = rootView.findViewById(R.id.scr_bmark_note);
-    final Editable text = editText.getText();
-    final String note = (text == null) ? "" : text.toString();
-
-    return (note.equalsIgnoreCase(getString(R.string.scr_bmark_note_empty)) ? "" : note);
-  }
-
   private void setNoteText(@NonNull final String note) {
-    TextInputEditText editText = rootView.findViewById(R.id.scr_bmark_note);
+    TextInputEditText editText = rootView.findViewById(R.id.screen_bookmark_detail_note);
     if (note.isEmpty()) {
       editText.setText(R.string.scr_bmark_note_empty);
     } else {

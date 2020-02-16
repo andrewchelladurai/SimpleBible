@@ -52,7 +52,8 @@ public class BookmarkDetailAdapter
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent,
                                                     final int viewType) {
     return new BookmarkVerse(LayoutInflater.from(parent.getContext())
-                                           .inflate(R.layout.item_bookmark_verse, parent, false));
+                                           .inflate(R.layout.screen_bookmark_detail_list_item,
+                                                    parent, false));
   }
 
   @Override
@@ -83,7 +84,8 @@ public class BookmarkDetailAdapter
       verse = (Verse) object;
       this.position = position;
 
-      ops.updateBookmarkVerseView(verse, rootView.findViewById(R.id.item_bookmark_verse_content));
+      ops.updateBookmarkVerseView(verse, rootView.findViewById(
+          R.id.screen_bookmark_detail_list_item_content));
     }
 
   }
