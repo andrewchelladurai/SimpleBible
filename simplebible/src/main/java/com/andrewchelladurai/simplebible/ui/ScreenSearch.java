@@ -62,9 +62,9 @@ public class ScreenSearch
     mainOps.showNavigationView();
     mainOps.hideKeyboard();
 
-    searchResultContentTemplate = getString(R.string.itm_search_result_content_template);
+    searchResultContentTemplate = getString(R.string.screen_search_list_item_content_template);
 
-    ((BottomAppBar) rootView.findViewById(R.id.scr_search_menu))
+    ((BottomAppBar) rootView.findViewById(R.id.screen_search_bottom_appbar))
         .setOnMenuItemClickListener(item -> {
           switch (item.getItemId()) {
             case R.id.scr_search_menu_bookmark:
@@ -86,7 +86,7 @@ public class ScreenSearch
           }
         });
 
-    final SearchView searchView = rootView.findViewById(R.id.scr_search_input);
+    final SearchView searchView = rootView.findViewById(R.id.screen_search_text);
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
       @Override
@@ -101,7 +101,7 @@ public class ScreenSearch
       }
     });
 
-    ((RecyclerView) rootView.findViewById(R.id.scr_search_list))
+    ((RecyclerView) rootView.findViewById(R.id.screen_search_list))
         .setAdapter(adapter);
 
     // first run - since we do not have a previously saved instance
@@ -157,7 +157,7 @@ public class ScreenSearch
   }
 
   private void handleClickActionReset() {
-    ((SearchView) rootView.findViewById(R.id.scr_search_input)).setQuery("", false);
+    ((SearchView) rootView.findViewById(R.id.screen_search_text)).setQuery("", false);
     showSearchDefaultUi();
   }
 
@@ -227,19 +227,19 @@ public class ScreenSearch
     adapter.clearList();
 
     final Spanned htmlText =
-        HtmlCompat.fromHtml(getString(R.string.scr_search_tips_text),
+        HtmlCompat.fromHtml(getString(R.string.screen_search_tips_text),
                             HtmlCompat.FROM_HTML_MODE_LEGACY);
-    final TextView textView = rootView.findViewById(R.id.scr_search_tips_text);
+    final TextView textView = rootView.findViewById(R.id.screen_search_tips_text);
     textView.setText(htmlText);
 
-    rootView.findViewById(R.id.scr_search_container_search)
+    rootView.findViewById(R.id.screen_search_text_container)
             .setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scr_search_container_tips_text)
+    rootView.findViewById(R.id.screen_search_tips_text_container)
             .setVisibility(View.VISIBLE);
 
-    rootView.findViewById(R.id.scr_search_list)
+    rootView.findViewById(R.id.screen_search_list)
             .setVisibility(View.GONE);
-    rootView.findViewById(R.id.scr_search_menu)
+    rootView.findViewById(R.id.screen_search_bottom_appbar)
             .setVisibility(View.GONE);
 
     mainOps.showNavigationView();
@@ -247,14 +247,14 @@ public class ScreenSearch
 
   private void showSearchResultsUi() {
     Log.d(TAG, "showSearchResultsUi:");
-    rootView.findViewById(R.id.scr_search_container_search)
+    rootView.findViewById(R.id.screen_search_text_container)
             .setVisibility(View.GONE);
-    rootView.findViewById(R.id.scr_search_container_tips_text)
+    rootView.findViewById(R.id.screen_search_tips_text_container)
             .setVisibility(View.GONE);
 
-    rootView.findViewById(R.id.scr_search_list)
+    rootView.findViewById(R.id.screen_search_list)
             .setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scr_search_menu)
+    rootView.findViewById(R.id.screen_search_bottom_appbar)
             .setVisibility(View.VISIBLE);
 
     updateTitle();
@@ -262,16 +262,16 @@ public class ScreenSearch
     mainOps.hideNavigationView();
   }
 
-  private void updateTitle() {
-    Log.d(TAG, "updateTitle:");
-    final int resultCount = adapter.getItemCount();
-    final String titleTemplate = getResources()
-                                     .getQuantityString(R.plurals.scr_search_title_template,
-                                                        resultCount);
-    final String formattedText = String.format(titleTemplate, resultCount);
-    final Spanned htmlText = HtmlCompat.fromHtml(formattedText, HtmlCompat.FROM_HTML_MODE_COMPACT);
-    final TextView titleView = rootView.findViewById(R.id.scr_search_title);
-    titleView.setText(htmlText);
+  @Override
+  public void toggleSelectedActionsView() {
+    final BottomAppBar bAppBar = rootView.findViewById(R.id.screen_search_bottom_appbar);
+    final Menu menu = bAppBar.getMenu();
+
+    final int selectedCount = adapter.getSelectedItemCount();
+
+    rootView.findViewById(R.id.screen_search_title)
+            .setVisibility(selectedCount > 0 ? View.GONE : View.VISIBLE);
+    menu.setGroupVisible(R.id.scr_search_menu_container_selected, selectedCount > 0);
   }
 
   @Override
@@ -293,16 +293,16 @@ public class ScreenSearch
          });
   }
 
-  @Override
-  public void toggleSelectedActionsView() {
-    final BottomAppBar bAppBar = rootView.findViewById(R.id.scr_search_menu);
-    final Menu menu = bAppBar.getMenu();
-
-    final int selectedCount = adapter.getSelectedItemCount();
-
-    rootView.findViewById(R.id.scr_search_title)
-            .setVisibility(selectedCount > 0 ? View.GONE : View.VISIBLE);
-    menu.setGroupVisible(R.id.scr_search_menu_container_selected, selectedCount > 0);
+  private void updateTitle() {
+    Log.d(TAG, "updateTitle:");
+    final int resultCount = adapter.getItemCount();
+    final String titleTemplate = getResources()
+                                     .getQuantityString(R.plurals.scr_search_title_template,
+                                                        resultCount);
+    final String formattedText = String.format(titleTemplate, resultCount);
+    final Spanned htmlText = HtmlCompat.fromHtml(formattedText, HtmlCompat.FROM_HTML_MODE_COMPACT);
+    final TextView titleView = rootView.findViewById(R.id.screen_search_title);
+    titleView.setText(htmlText);
   }
 
 }

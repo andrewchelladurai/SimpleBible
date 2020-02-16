@@ -67,7 +67,7 @@
   <string name="scr_search_menu_share">Share</string>
   <string name="scr_search_menu_clear">Clear</string>
   <string name="scr_search_menu_reset">Reset</string>
-  <string name="scr_search_input_hint">Search text</string>
+  <string name="screen_search_text_hint">Search text</string>
   <plurals name="scr_search_title_template">
     <item quantity="one"><![CDATA[<b>%d Result Found</b><br/>Tap a verse for actions]]></item>
     <item quantity="other"><![CDATA[<b>%d Results Found</b><br/>Tap a verse for actions]]></item>
@@ -78,7 +78,7 @@
   <string name="scr_search_msg_input_invalid">Invalid input, see tips.</string>
   <string name="scr_search_msg_no_results">No verse found</string>
   <string name="scr_search_image_desc">Search Verse Tips</string>
-  <string name="scr_search_tips_text"><![CDATA[
+  <string name="screen_search_tips_text"><![CDATA[
     <h1><u>TIPS</u> for relevant results</h1>
     <p><h5>The length of the input text must be<br/>
     - More than 3 alphabets.<br/>
@@ -89,7 +89,7 @@
     like this <u>\' Eli \'</u></h5></p>
     ]]></string>
   <string name="scr_search_template_share">%s\nThe World English Bible\nShared from SimpleBible</string>
-  <string name="itm_search_result_content_template"><![CDATA[<b>%s %d:%d -</b> %s]]></string>
+  <string name="screen_search_list_item_content_template"><![CDATA[<b>%s %d:%d -</b> %s]]></string>
 
   <!-- String used in the ScreenBookmarkDetail & ScreenBookmarkList -->
   <string name="scr_bmark_msg_no_args">No verses passed as arguments</string>

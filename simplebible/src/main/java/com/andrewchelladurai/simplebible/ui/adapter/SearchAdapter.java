@@ -39,7 +39,7 @@ public class SearchAdapter
                                                     final int viewType) {
     return new SearchResultViewHolder(
         LayoutInflater.from(parent.getContext())
-                      .inflate(R.layout.item_search_result, parent, false));
+                      .inflate(R.layout.screen_search_list_item, parent, false));
   }
 
   @Override
@@ -103,7 +103,7 @@ public class SearchAdapter
     SearchResultViewHolder(@NonNull final View itemView) {
       super(itemView);
       rootView = itemView;
-      contentView = itemView.findViewById(R.id.item_search_result_content);
+      contentView = itemView.findViewById(R.id.screen_search_list_item_content);
       rootView.setOnClickListener(v -> {
         if (SELECTED_LIST.containsKey(verse)) {
           SELECTED_LIST.remove(verse);
