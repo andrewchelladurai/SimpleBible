@@ -6,29 +6,29 @@
   android:animateLayoutChanges="true"
   tools:ignore="AlwaysShowAction">
 
-  <group android:id="@+id/scr_bmark_menu_container_saved">
+  <group android:id="@+id/screen_bookmark_menu_container_saved">
     <item
-      android:id="@+id/scr_bmark_menu_delete"
+      android:id="@+id/screen_bookmark_menu_delete"
       android:icon="@drawable/ic_delete"
-      android:title="@string/scr_bmark_menu_delete"
+      android:title="@string/screen_bookmark_menu_delete"
       app:showAsAction="always" />
     <item
-      android:id="@+id/scr_bmark_menu_edit"
+      android:id="@+id/screen_bookmark_menu_edit"
       android:icon="@drawable/ic_edit"
-      android:title="@string/scr_bmark_menu_edit"
+      android:title="@string/screen_bookmark_menu_edit"
       app:showAsAction="always" />
     <item
-      android:id="@+id/scr_bmark_menu_share"
+      android:id="@+id/screen_bookmark_menu_share"
       android:icon="@drawable/ic_share"
-      android:title="@string/scr_bmark_menu_share"
+      android:title="@string/screen_bookmark_menu_share"
       app:showAsAction="always" />
   </group>
 
-  <group android:id="@+id/scr_bmark_menu_container_unsaved">
+  <group android:id="@+id/screen_bookmark_menu_container_unsaved">
     <item
-      android:id="@+id/scr_bmark_menu_save"
+      android:id="@+id/screen_bookmark_menu_save"
       android:icon="@drawable/ic_save"
-      android:title="@string/scr_bmark_menu_save"
+      android:title="@string/screen_bookmark_menu_save"
       app:showAsAction="always" />
   </group>
 </menu>

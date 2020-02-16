@@ -121,10 +121,10 @@
 
   <string name="scr_bmark_menu_toggle_view">Toggle</string>
   <string name="scr_bmark_menu_toggle_view_hint">Toggle view using first button</string>
-  <string name="scr_bmark_menu_delete">Delete</string>
-  <string name="scr_bmark_menu_save">Save</string>
-  <string name="scr_bmark_menu_edit">Edit</string>
-  <string name="scr_bmark_menu_share">Share</string>
+  <string name="screen_bookmark_menu_delete">Delete</string>
+  <string name="screen_bookmark_menu_save">Save</string>
+  <string name="screen_bookmark_menu_edit">Edit</string>
+  <string name="screen_bookmark_menu_share">Share</string>
   <string name="screen_bookmark_detail_note_hint">Notes</string>
   <string name="scr_bmark_note_empty">This bookmark does not have any note saved.</string>
   <string name="scr_bmark_msg_save_success">Bookmark Saved</string>

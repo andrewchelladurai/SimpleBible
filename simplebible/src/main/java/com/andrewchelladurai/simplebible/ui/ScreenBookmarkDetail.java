@@ -99,16 +99,16 @@ public class ScreenBookmarkDetail
     final BottomAppBar bAppBar = rootView.findViewById(R.id.screen_bookmark_detail_bottom_appbar);
     bAppBar.setOnMenuItemClickListener(item -> {
       switch (item.getItemId()) {
-        case R.id.scr_bmark_menu_delete:
+        case R.id.screen_bookmark_menu_delete:
           handleClickActionDelete();
           return true;
-        case R.id.scr_bmark_menu_edit:
+        case R.id.screen_bookmark_menu_edit:
           handleClickActionEdit();
           return true;
-        case R.id.scr_bmark_menu_share:
+        case R.id.screen_bookmark_menu_share:
           handleClickActionShare();
           return true;
-        case R.id.scr_bmark_menu_save:
+        case R.id.screen_bookmark_menu_save:
           handleClickActionSave();
           return true;
         default:
@@ -257,11 +257,11 @@ public class ScreenBookmarkDetail
     final BottomAppBar bAppBar = rootView.findViewById(R.id.screen_bookmark_detail_bottom_appbar);
     final Menu menu = bAppBar.getMenu();
     if (bookmarkExists) {
-      menu.setGroupVisible(R.id.scr_bmark_menu_container_saved, true);
-      menu.setGroupVisible(R.id.scr_bmark_menu_container_unsaved, false);
+      menu.setGroupVisible(R.id.screen_bookmark_menu_container_saved, true);
+      menu.setGroupVisible(R.id.screen_bookmark_menu_container_unsaved, false);
     } else {
-      menu.setGroupVisible(R.id.scr_bmark_menu_container_saved, false);
-      menu.setGroupVisible(R.id.scr_bmark_menu_container_unsaved, true);
+      menu.setGroupVisible(R.id.screen_bookmark_menu_container_saved, false);
+      menu.setGroupVisible(R.id.screen_bookmark_menu_container_unsaved, true);
     }
   }
 
