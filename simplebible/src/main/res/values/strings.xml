@@ -175,4 +175,8 @@
   <string name="sb_pref_key_theme_values_system">AUTO</string>
   <string name="sb_pref_key_theme_values_yes">YES</string>
   <string name="sb_pref_key_theme_values_no">NO</string>
+
+  <!-- String used in the ScreenError -->
+  <string name="screen_error_button">Inform Developer</string>
+  <string name="screen_error_icon_description">Something went wrong</string>
 </resources>
