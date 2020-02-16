@@ -2,13 +2,13 @@
 <TextView
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/itm_chapter_verse_content"
+  android:id="@+id/item_chapter_verse_content"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:background="@drawable/state_list_verse_background"
-  android:textColor="@color/state_list_verse_foreground"
   android:paddingStart="@dimen/gap_normal"
   android:paddingTop="@dimen/gap_small"
   android:paddingEnd="@dimen/gap_normal"
   android:paddingBottom="@dimen/gap_small"
+  android:textColor="@color/state_list_verse_foreground"
   tools:text="@string/itm_chapter_verse_content_template" />

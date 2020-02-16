@@ -131,7 +131,7 @@ public class ScreenBookmarkList
 
                        if (verseList.isEmpty()) {
                          final String message =
-                             getString(R.string.itm_bmark_list_verse_count_msg_no_verse);
+                             getString(R.string.item_bookmark_list_verse_count_msg_no_verse);
                          verseCountChip.setText(
                              HtmlCompat.fromHtml(message, htmlFlag));
                          return;
@@ -143,13 +143,14 @@ public class ScreenBookmarkList
                                 .observe(this, book -> {
                                   if (book == null) {
                                     final String message =
-                                        getString(R.string.itm_bmark_list_verse_count_msg_no_verse);
+                                        getString(
+                                            R.string.item_bookmark_list_verse_count_msg_no_verse);
                                     verseCountChip.setText(HtmlCompat.fromHtml(message, htmlFlag));
                                     return;
                                   }
 
                                   final String template =
-                                      getString(R.string.itm_bmark_list_first_verse_template);
+                                      getString(R.string.item_bookmark_list_first_verse_template);
                                   final String formattedString = String.format(template,
                                                                                book.getName(),
                                                                                verse.getChapter(),

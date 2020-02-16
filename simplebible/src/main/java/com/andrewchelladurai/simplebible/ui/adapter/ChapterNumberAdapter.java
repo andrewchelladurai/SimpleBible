@@ -79,7 +79,7 @@ public class ChapterNumberAdapter
 
     ChapterNumberView(final View itemView) {
       super(itemView);
-      textView = itemView.findViewById(R.id.itm_chapter_number_content);
+      textView = itemView.findViewById(R.id.item_chapter_number_content);
       textView.setOnClickListener(view -> ops.handleClickChapter(chapterNumber));
     }
 

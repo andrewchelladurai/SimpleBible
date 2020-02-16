@@ -150,9 +150,9 @@
     <item quantity="one">Bookmark contains %d Verse</item>
     <item quantity="other">Bookmark contains %d Verses</item>
   </plurals>
-  <string name="itm_bmark_list_note_template"><![CDATA[<b>Bookmarked Note :</b> %s]]></string>
-  <string name="itm_bmark_list_verse_count_msg_no_verse"><![CDATA[<b>No verses found for this bookmarked entry]]></string>
-  <string name="itm_bmark_list_first_verse_template"><![CDATA[<b>%s %d:%d -</b> %s]]></string>
+  <string name="item_bookmark_list_note_template"><![CDATA[<b>Bookmarked Note :</b> %s]]></string>
+  <string name="item_bookmark_list_verse_count_msg_no_verse"><![CDATA[<b>No verses found for this bookmarked entry]]></string>
+  <string name="item_bookmark_list_first_verse_template"><![CDATA[<b>%s %d:%d -</b> %s]]></string>
 
   <!-- String used in the ScreenError -->
   <string name="scr_error_default_text">Something unexpected happened and we do not know how. Help us find out by sharing details. Press the below button to send the developer an email.</string>

@@ -16,12 +16,11 @@ import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entity.Verse;
 import com.andrewchelladurai.simplebible.ui.ops.RecyclerViewAdapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenChapterOps;
+import com.andrewchelladurai.simplebible.utils.BookUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import static com.andrewchelladurai.simplebible.utils.BookUtils.EXPECTED_COUNT;
 
 public class ChapterVerseAdapter
     extends RecyclerView.Adapter
@@ -33,7 +32,7 @@ public class ChapterVerseAdapter
   private static final HashMap<Verse, String> SELECTED_LIST = new HashMap<>();
   private static final StringBuilder CONTENT_TEMPLATE = new StringBuilder();
 
-  @IntRange(from = 1, to = EXPECTED_COUNT)
+  @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT)
   private static int cachedBookNumber = 1;
 
   @IntRange(from = 1)
@@ -122,7 +121,7 @@ public class ChapterVerseAdapter
   }
 
   public void setCachedBookNumber(@IntRange(from = 1,
-                                            to = EXPECTED_COUNT) int cachedBookNumber) {
+                                            to = BookUtils.EXPECTED_COUNT) int cachedBookNumber) {
     ChapterVerseAdapter.cachedBookNumber = cachedBookNumber;
   }
 
@@ -144,7 +143,7 @@ public class ChapterVerseAdapter
 
     ChapterVerseView(@NonNull final View view) {
       super(view);
-      textView = view.findViewById(R.id.itm_chapter_verse_content);
+      textView = view.findViewById(R.id.item_chapter_verse_content);
       textView.setOnClickListener(view1 -> {
         if (SELECTED_LIST.containsKey(verse)) {
           SELECTED_LIST.remove(verse);

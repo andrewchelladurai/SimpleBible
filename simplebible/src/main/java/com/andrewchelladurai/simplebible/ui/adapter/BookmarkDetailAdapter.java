@@ -21,7 +21,7 @@ public class BookmarkDetailAdapter
     implements RecyclerViewAdapterOps {
 
   private static final String TAG = "BookmarkDetailAdapter";
-  final ArrayList<Verse> list = new ArrayList<>();
+  private final ArrayList<Verse> list = new ArrayList<>();
   private ScreenBookmarkDetailOps ops;
 
   public BookmarkDetailAdapter(final ScreenBookmarkDetailOps ops) {
@@ -83,7 +83,7 @@ public class BookmarkDetailAdapter
       verse = (Verse) object;
       this.position = position;
 
-      ops.updateBookmarkVerseView(verse, rootView.findViewById(R.id.itm_bmark_verse_content));
+      ops.updateBookmarkVerseView(verse, rootView.findViewById(R.id.item_bookmark_verse_content));
     }
 
   }

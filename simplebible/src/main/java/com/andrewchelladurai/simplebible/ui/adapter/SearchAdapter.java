@@ -103,7 +103,7 @@ public class SearchAdapter
     SearchResultViewHolder(@NonNull final View itemView) {
       super(itemView);
       rootView = itemView;
-      contentView = itemView.findViewById(R.id.itm_search_result_content);
+      contentView = itemView.findViewById(R.id.item_search_result_content);
       rootView.setOnClickListener(v -> {
         if (SELECTED_LIST.containsKey(verse)) {
           SELECTED_LIST.remove(verse);
