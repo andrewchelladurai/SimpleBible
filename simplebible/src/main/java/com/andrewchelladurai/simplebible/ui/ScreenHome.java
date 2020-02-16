@@ -125,7 +125,7 @@ public class ScreenHome
                               new Verse[]{model.getCachedVerse()});
 
     NavHostFragment.findNavController(this)
-                   .navigate(R.id.action_nav_scr_home_to_nav_scr_bookmark_detail, bundle);
+                   .navigate(R.id.screen_home_to_screen_bookmark_detail, bundle);
   }
 
   private void handleActionChapter() {
@@ -138,7 +138,7 @@ public class ScreenHome
     bundle.putInt(ScreenChapter.ARG_VERSE, cachedVerse.getVerse());
 
     NavHostFragment.findNavController(this)
-                   .navigate(R.id.action_nav_scr_home_to_nav_scr_chapter, bundle);
+                   .navigate(R.id.screen_home_to_screen_chapter, bundle);
   }
 
   private void showLoadingVerse() {

@@ -130,7 +130,7 @@ public class ScreenBookList
     bundle.putInt(ScreenChapter.ARG_VERSE, 1);
 
     NavHostFragment.findNavController(this)
-                   .navigate(R.id.nav_act_scr_book_list_to_scr_chapter, bundle);
+                   .navigate(R.id.screen_books_to_screen_chapter, bundle);
 
     final SearchView searchView = rootView.findViewById(R.id.screen_books_search);
     if (searchView.getQuery()

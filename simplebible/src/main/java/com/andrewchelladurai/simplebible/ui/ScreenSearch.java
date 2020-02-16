@@ -219,7 +219,7 @@ public class ScreenSearch
     bundle.putParcelableArray(ScreenBookmarkDetail.ARG_VERSE_LIST, array);
 
     NavHostFragment.findNavController(this)
-                   .navigate(R.id.nav_act_scr_search_to_scr_bookmark, bundle);
+                   .navigate(R.id.screen_search_to_screen_bookmark_detail, bundle);
   }
 
   private void showSearchDefaultUi() {

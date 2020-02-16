@@ -21,7 +21,7 @@
     app:layout_constraintVertical_bias="1"
     app:menu="@menu/screen_main_bottom_nav_bar_menu" />
 
-  <androidx.fragment.app.FragmentContainerView
+  <fragment
     android:id="@+id/screen_main_nav_host_fragment"
     android:name="androidx.navigation.fragment.NavHostFragment"
     android:layout_width="0dp"

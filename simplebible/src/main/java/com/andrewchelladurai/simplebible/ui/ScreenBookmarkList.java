@@ -185,7 +185,7 @@ public class ScreenBookmarkList
                        Log.d(TAG, "handleBookmarkClick: created bundle to pass to fragment");
 
                        final int destination =
-                           R.id.nav_act_scr_bookmark_list_to_scr_bookmark_detail;
+                           R.id.screen_bookmark_list_to_screen_bookmark_detail;
                        NavHostFragment.findNavController(this)
                                       .navigate(destination, bundle);
                      });

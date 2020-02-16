@@ -4,56 +4,56 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/nav_graph_simple_bible"
-  app:startDestination="@id/screen_main_bottom_nav_bar_menu_home">
+  app:startDestination="@id/screen_home">
 
   <fragment
-    android:id="@+id/screen_main_bottom_nav_bar_menu_home"
+    android:id="@+id/screen_home"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenHome"
     android:label="screen_home"
     tools:layout="@layout/screen_home">
     <action
-      android:id="@+id/action_nav_scr_home_to_nav_scr_bookmark_detail"
-      app:destination="@id/nav_scr_bookmark_detail"
+      android:id="@+id/screen_home_to_screen_bookmark_detail"
+      app:destination="@id/screen_bookmark_detail"
       app:launchSingleTop="true"
       app:popUpToInclusive="false" />
     <action
-      android:id="@+id/action_nav_scr_home_to_nav_scr_chapter"
-      app:destination="@id/nav_scr_chapter"
+      android:id="@+id/screen_home_to_screen_chapter"
+      app:destination="@id/screen_chapter"
       app:launchSingleTop="true" />
   </fragment>
 
   <fragment
-    android:id="@+id/screen_main_bottom_nav_bar_menu_books"
+    android:id="@+id/screen_books"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenBookList"
-    android:label="screen_book_list"
+    android:label="screen_books"
     tools:layout="@layout/screen_books">
     <action
-      android:id="@+id/nav_act_scr_book_list_to_scr_chapter"
-      app:destination="@id/nav_scr_chapter" />
+      android:id="@+id/screen_books_to_screen_chapter"
+      app:destination="@id/screen_chapter" />
   </fragment>
 
   <fragment
-    android:id="@+id/screen_main_bottom_nav_bar_menu_search"
+    android:id="@+id/screen_search"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenSearch"
     android:label="screen_search"
     tools:layout="@layout/screen_search">
     <action
-      android:id="@+id/nav_act_scr_search_to_scr_bookmark"
-      app:destination="@id/nav_scr_bookmark_detail" />
+      android:id="@+id/screen_search_to_screen_bookmark_detail"
+      app:destination="@id/screen_bookmark_detail" />
   </fragment>
 
   <fragment
-    android:id="@+id/screen_main_bottom_nav_bar_menu_bookmarks"
+    android:id="@+id/screen_bookmark_list"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenBookmarkList"
     android:label="screen_bookmark_list"
     tools:layout="@layout/screen_bookmarks">
     <action
-      android:id="@+id/nav_act_scr_bookmark_list_to_scr_bookmark_detail"
-      app:destination="@id/nav_scr_bookmark_detail" />
+      android:id="@+id/screen_bookmark_list_to_screen_bookmark_detail"
+      app:destination="@id/screen_bookmark_detail" />
   </fragment>
 
   <fragment
-    android:id="@+id/nav_scr_bookmark_detail"
+    android:id="@+id/screen_bookmark_detail"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenBookmarkDetail"
     android:label="screen_bookmark_detail"
     tools:layout="@layout/screen_bookmark_detail">
@@ -61,13 +61,13 @@
       android:name="ARG_VERSE_LIST"
       app:argType="com.andrewchelladurai.simplebible.data.entity.Verse[]" />
     <action
-      android:id="@+id/action_screenBookmark_pop"
-      app:popUpTo="@id/nav_scr_bookmark_detail"
+      android:id="@+id/screen_bookmark_detail_pop"
+      app:popUpTo="@id/screen_bookmark_detail"
       app:popUpToInclusive="true" />
   </fragment>
 
   <fragment
-    android:id="@+id/nav_scr_chapter"
+    android:id="@+id/screen_chapter"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenChapter"
     android:label="screen_chapter"
     tools:layout="@layout/screen_chapter">
@@ -76,8 +76,8 @@
       android:defaultValue="0"
       app:argType="integer" />
     <action
-      android:id="@+id/nav_act_scr_chapter_to_scr_bookmark"
-      app:destination="@id/nav_scr_bookmark_detail" />
+      android:id="@+id/screen_chapter_to_screen_bookmark_detail"
+      app:destination="@+id/screen_bookmark_detail" />
     <argument
       android:name="ARG_CHAPTER"
       android:defaultValue="0"
@@ -89,7 +89,7 @@
   </fragment>
 
   <fragment
-    android:id="@+id/nav_scr_error"
+    android:id="@+id/screen_error"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenError"
     android:label="screen_error"
     tools:layout="@layout/screen_error">
@@ -109,14 +109,14 @@
   </fragment>
 
   <fragment
-    android:id="@+id/screen_main_bottom_nav_bar_menu_settings"
+    android:id="@+id/screen_settings"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenSettings"
     android:label="screen_settings"
     tools:layout="@layout/screen_settings" />
 
   <action
-    android:id="@+id/nav_act_global_scr_error"
-    app:destination="@id/nav_scr_error"
+    android:id="@+id/global_screen_error"
+    app:destination="@+id/screen_error"
     app:launchSingleTop="true"
     app:popUpTo="@id/nav_graph_simple_bible"
     app:popUpToInclusive="true" />

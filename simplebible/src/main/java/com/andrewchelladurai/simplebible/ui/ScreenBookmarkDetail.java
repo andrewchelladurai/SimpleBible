@@ -142,7 +142,7 @@ public class ScreenBookmarkDetail
          .observe(getViewLifecycleOwner(), deleted -> {
            if (deleted) {
              NavHostFragment.findNavController(this)
-                            .navigate(R.id.action_screenBookmark_pop);
+                            .navigate(R.id.screen_bookmark_detail_pop);
              final String message = getString(R.string.scr_bmark_msg_delete_success);
              mainOps.showMessage(message);
              return;
