@@ -15,6 +15,8 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/gap_small"
     android:clickable="false"
+    android:textColor="?colorOnPrimary"
+    app:chipBackgroundColor="?colorPrimary"
     app:layout_constraintBottom_toBottomOf="@id/itm_book_container_desc"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toTopOf="@id/itm_book_container_name"

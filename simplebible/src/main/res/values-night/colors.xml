@@ -5,10 +5,10 @@
   <color name="color_surface">#212121</color>
   <color name="color_on_surface">#BDBDBD</color>
 
-  <color name="color_primary">#BDBDBD</color>
+  <color name="color_primary">#ffb74d</color>
   <color name="color_on_primary">@android:color/black</color>
 
-  <color name="color_secondary">#BDBDBD</color>
+  <color name="color_secondary">#ffb74d</color>
   <color name="color_on_secondary">@android:color/black</color>
 
 </resources>
