@@ -67,16 +67,16 @@ public class ScreenSearch
     ((BottomAppBar) rootView.findViewById(R.id.screen_search_bottom_appbar))
         .setOnMenuItemClickListener(item -> {
           switch (item.getItemId()) {
-            case R.id.scr_search_menu_bookmark:
+            case R.id.screen_search_menu_bookmark:
               handleClickActionBookmark();
               return true;
-            case R.id.scr_search_menu_share:
+            case R.id.screen_search_menu_share:
               handleClickActionShare();
               return true;
-            case R.id.scr_search_menu_clear:
+            case R.id.screen_search_menu_clear:
               handleClickActionClear();
               return true;
-            case R.id.scr_search_menu_reset:
+            case R.id.screen_search_menu_reset:
               handleClickActionReset();
               return true;
             default:
@@ -271,7 +271,7 @@ public class ScreenSearch
 
     rootView.findViewById(R.id.screen_search_title)
             .setVisibility(selectedCount > 0 ? View.GONE : View.VISIBLE);
-    menu.setGroupVisible(R.id.scr_search_menu_container_selected, selectedCount > 0);
+    menu.setGroupVisible(R.id.screen_search_menu_selected_container, selectedCount > 0);
   }
 
   @Override

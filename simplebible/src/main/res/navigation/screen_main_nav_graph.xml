@@ -4,10 +4,10 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/nav_graph_simple_bible"
-  app:startDestination="@id/nav_scr_home">
+  app:startDestination="@id/screen_main_bottom_nav_bar_menu_home">
 
   <fragment
-    android:id="@+id/nav_scr_home"
+    android:id="@+id/screen_main_bottom_nav_bar_menu_home"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenHome"
     android:label="screen_home"
     tools:layout="@layout/screen_home">
@@ -23,7 +23,7 @@
   </fragment>
 
   <fragment
-    android:id="@+id/nav_scr_book_list"
+    android:id="@+id/screen_main_bottom_nav_bar_menu_books"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenBookList"
     android:label="screen_book_list"
     tools:layout="@layout/screen_books">
@@ -33,7 +33,7 @@
   </fragment>
 
   <fragment
-    android:id="@+id/nav_scr_search"
+    android:id="@+id/screen_main_bottom_nav_bar_menu_search"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenSearch"
     android:label="screen_search"
     tools:layout="@layout/screen_search">
@@ -43,7 +43,7 @@
   </fragment>
 
   <fragment
-    android:id="@+id/nav_scr_bookmark_list"
+    android:id="@+id/screen_main_bottom_nav_bar_menu_bookmarks"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenBookmarkList"
     android:label="screen_bookmark_list"
     tools:layout="@layout/screen_bookmarks">
@@ -109,7 +109,7 @@
   </fragment>
 
   <fragment
-    android:id="@+id/nav_scr_settings"
+    android:id="@+id/screen_main_bottom_nav_bar_menu_settings"
     android:name="com.andrewchelladurai.simplebible.ui.ScreenSettings"
     android:label="screen_settings"
     tools:layout="@layout/screen_settings" />

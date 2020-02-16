@@ -9,7 +9,7 @@
   tools:context=".ui.ScreenSimpleBible">
 
   <com.google.android.material.bottomnavigation.BottomNavigationView
-    android:id="@+id/screen_main_navigation_view"
+    android:id="@+id/screen_main_bottom_nav_bar"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:background="?android:attr/windowBackground"
@@ -19,7 +19,7 @@
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_bias="1"
-    app:menu="@menu/screen_simple_bible_menu" />
+    app:menu="@menu/screen_main_bottom_nav_bar_menu" />
 
   <androidx.fragment.app.FragmentContainerView
     android:id="@+id/screen_main_nav_host_fragment"
@@ -27,7 +27,7 @@
     android:layout_width="0dp"
     android:layout_height="0dp"
     app:defaultNavHost="true"
-    app:layout_constraintBottom_toTopOf="@id/screen_main_navigation_view"
+    app:layout_constraintBottom_toTopOf="@id/screen_main_bottom_nav_bar"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
