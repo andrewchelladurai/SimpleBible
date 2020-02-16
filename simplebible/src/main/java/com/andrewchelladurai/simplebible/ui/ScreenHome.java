@@ -114,8 +114,7 @@ public class ScreenHome
 
   private void handleActionShare() {
     Log.d(TAG, "handleActionShare:");
-    final String verseText = getVerseText();
-    mainOps.shareText(verseText);
+    mainOps.shareText(getVerseText());
   }
 
   private void handleActionBookmark() {
@@ -232,14 +231,17 @@ public class ScreenHome
   private void showDailyVerse() {
     Log.d(TAG, "showDailyVerse:");
 
+    final String defaultReference = getString(R.string.default_verse_reference);
+    final String cachedReference = model.getCachedReference();
     final int dayNumber = model.getDayNumber();
     final String[] array = getResources().getStringArray(R.array.daily_verse_references);
     final String reference = (array.length >= dayNumber)
                              ? array[dayNumber]
-                             : getString(R.string.default_verse_reference);
+                             : defaultReference;
 
     if (dayNumber == model.getCachedDayOfYear()
-        && reference.equalsIgnoreCase(model.getCachedReference())) {
+        && (reference.equalsIgnoreCase(cachedReference)
+            || defaultReference.equalsIgnoreCase(cachedReference))) {
       Log.d(TAG, "showDailyVerse: Same day & reference, using cached text");
 
       final String rawText = model.getCachedRawVerseText();
@@ -249,11 +251,10 @@ public class ScreenHome
       return;
     }
 
-    final boolean isReferenceValid = VerseUtils.getInstance()
-                                               .validateReference(reference);
-    if (!isReferenceValid) {
+    if (!VerseUtils.getInstance()
+                   .validateReference(reference)) {
       Log.e(TAG, "showDailyVerse: invalid reference [" + reference + "]");
-      showVerseText(R.string.scr_home_verse_content_default);
+      showDefaultDailyVerse(defaultReference);
       return;
     }
 
@@ -262,7 +263,7 @@ public class ScreenHome
 
            if (verse == null) {
              Log.e(TAG, "showDailyVerse: no verse found for reference [" + reference + "]");
-             showVerseText(R.string.scr_home_verse_content_default);
+             showDefaultDailyVerse(defaultReference);
              return;
            }
 
@@ -272,12 +273,12 @@ public class ScreenHome
 
                   if (book == null) {
                     Log.e(TAG, "showDailyVerse: no book found for position [" + bookNum + "]");
-                    showVerseText(R.string.scr_home_verse_content_default);
+                    showDefaultDailyVerse(defaultReference);
                     return;
                   }
 
-                  Log.d(TAG, "showDailyVerse: dayNumber[" + dayNumber
-                             + "] has reference[" + reference + "]");
+                  Log.d(TAG, "showDailyVerse: using reference[" + reference
+                             + "] for day[" + dayNumber + "]");
                   final String template = getString(R.string.scr_home_verse_content_template);
                   final String bookName = book.getName();
                   final int chapterNum = verse.getChapter();
@@ -296,7 +297,60 @@ public class ScreenHome
 
                 });
          });
+
     mainOps.showNavigationView();
+
+  }
+
+  private void showDefaultDailyVerse(@NonNull final String reference) {
+    Log.d(TAG, "showDefaultDailyVerse: reference = [" + reference + "]");
+
+    final int defaultVerseRawText = R.string.scr_home_verse_content_default;
+
+    if (!VerseUtils.getInstance()
+                   .validateReference(reference)) {
+      Log.e(TAG, "showDefaultDailyVerse: invalid reference [" + reference + "]");
+      showVerseText(defaultVerseRawText);
+      return;
+    }
+
+    model.getVerse(reference)
+         .observe(getViewLifecycleOwner(), verse -> {
+
+           if (verse == null) {
+             Log.e(TAG, "showDefaultDailyVerse: no verse found for reference [" + reference + "]");
+             showVerseText(defaultVerseRawText);
+             return;
+           }
+
+           final int bookNum = verse.getBook();
+           model.getBook(bookNum)
+                .observe(getViewLifecycleOwner(), book -> {
+
+                  if (book == null) {
+                    Log.e(TAG,
+                          "showDefaultDailyVerse: no book found for position [" + bookNum + "]");
+                    showVerseText(defaultVerseRawText);
+                    return;
+                  }
+
+                  final int dayNumber = model.getDayNumber();
+
+                  Log.d(TAG, "showDefaultDailyVerse: using reference["
+                             + reference + "] for day [" + dayNumber + "]");
+
+                  showVerseText(defaultVerseRawText);
+
+                  model.setCachedDayOfYear(dayNumber);
+                  model.setCachedReference(reference);
+                  model.setCachedVerse(verse);
+                  model.setCachedRawVerseText(getString(defaultVerseRawText));
+
+                });
+         });
+
+    mainOps.showNavigationView();
+
   }
 
 }
