@@ -8,6 +8,8 @@
 
   <style name="SbThemeBase"
          parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <item name="android:navigationBarColor">?colorPrimarySurface</item>
+    <item name="android:statusBarColor">?colorPrimarySurface</item>
   </style>
 
 </resources>

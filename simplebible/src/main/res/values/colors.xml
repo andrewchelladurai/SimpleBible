@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <color name="splash_launcher_background">@android:color/white</color>
-  <color name="color_on_secondary">@android:color/black</color>
 </resources>
