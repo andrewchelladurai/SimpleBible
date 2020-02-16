@@ -58,16 +58,16 @@ public class ScreenHome
     mainOps.hideKeyboard();
 
     // setup listener for the share fab
-    rootView.findViewById(R.id.scr_home_fab_share)
+    rootView.findViewById(R.id.screen_home_fab_share)
             .setOnClickListener(v -> handleActionShare());
-    rootView.findViewById(R.id.scr_home_fab_bmark)
+    rootView.findViewById(R.id.screen_home_fab_bookmark)
             .setOnClickListener(v -> handleActionBookmark());
-    rootView.findViewById(R.id.scr_home_fab_chapter)
+    rootView.findViewById(R.id.screen_home_fab_chapter)
             .setOnClickListener(v -> handleActionChapter());
 
     // We will be referencing items in the next block more than 30K times
     // let's avoid the extra calls and save some time.
-    progressTextView = rootView.findViewById(R.id.scr_home_progress_text);
+    progressTextView = rootView.findViewById(R.id.screen_home_progress_text);
     maxProgressValue = VerseUtils.EXPECTED_COUNT + BookUtils.EXPECTED_COUNT;
     progressTextTemplate = getString(R.string.scr_home_template_progress_txt);
 
@@ -148,18 +148,18 @@ public class ScreenHome
     showVerseText(R.string.scr_home_verse_content_loading);
 
     // show the progress bar
-    rootView.findViewById(R.id.scr_home_progress_bar)
+    rootView.findViewById(R.id.screen_home_progress_bar)
             .setVisibility(View.VISIBLE);
 
     // show the progress text
     progressTextView.setVisibility(View.VISIBLE);
 
     // hide the share fab
-    rootView.findViewById(R.id.scr_home_fab_share)
+    rootView.findViewById(R.id.screen_home_fab_share)
             .setVisibility(View.GONE);
-    rootView.findViewById(R.id.scr_home_fab_bmark)
+    rootView.findViewById(R.id.screen_home_fab_bookmark)
             .setVisibility(View.GONE);
-    rootView.findViewById(R.id.scr_home_fab_chapter)
+    rootView.findViewById(R.id.screen_home_fab_chapter)
             .setVisibility(View.GONE);
   }
 
@@ -187,6 +187,12 @@ public class ScreenHome
 
   }
 
+  private void showVerseText(@StringRes int stringResId) {
+    ((TextView) rootView.findViewById(R.id.screen_home_verse))
+        .setText(HtmlCompat.fromHtml(getString(stringResId),
+                                     HtmlCompat.FROM_HTML_MODE_LEGACY));
+  }
+
   private void validateSetupJobCompletion() {
     Log.d(TAG, "validateSetupJobCompletion: ");
 
@@ -197,35 +203,24 @@ public class ScreenHome
              showVerseText(R.string.scr_home_verse_content_default);
 
              // hide the progress bar
-             rootView.findViewById(R.id.scr_home_progress_bar)
+             rootView.findViewById(R.id.screen_home_progress_bar)
                      .setVisibility(View.GONE);
 
              // hide the progress text
              progressTextView.setVisibility(View.GONE);
 
              // show the share & bookmark fab
-             rootView.findViewById(R.id.scr_home_fab_share)
+             rootView.findViewById(R.id.screen_home_fab_share)
                      .setVisibility(View.VISIBLE);
-             rootView.findViewById(R.id.scr_home_fab_bmark)
+             rootView.findViewById(R.id.screen_home_fab_bookmark)
                      .setVisibility(View.VISIBLE);
-             rootView.findViewById(R.id.scr_home_fab_chapter)
+             rootView.findViewById(R.id.screen_home_fab_chapter)
                      .setVisibility(View.VISIBLE);
 
              showDailyVerse();
            }
          });
 
-  }
-
-  private String getVerseText() {
-    return ((TextView) rootView.findViewById(R.id.scr_home_verse)).getText()
-                                                                  .toString();
-  }
-
-  private void showVerseText(@StringRes int stringResId) {
-    ((TextView) rootView.findViewById(R.id.scr_home_verse))
-        .setText(HtmlCompat.fromHtml(getString(stringResId),
-                                     HtmlCompat.FROM_HTML_MODE_LEGACY));
   }
 
   private void showDailyVerse() {
@@ -246,7 +241,7 @@ public class ScreenHome
 
       final String rawText = model.getCachedRawVerseText();
 
-      final TextView textView = rootView.findViewById(R.id.scr_home_verse);
+      final TextView textView = rootView.findViewById(R.id.screen_home_verse);
       textView.setText(HtmlCompat.fromHtml(rawText, HtmlCompat.FROM_HTML_MODE_LEGACY));
       return;
     }
@@ -287,7 +282,7 @@ public class ScreenHome
                   final String rawText = String.format(
                       template, bookName, chapterNum, verseNum, verseText);
 
-                  final TextView textView = rootView.findViewById(R.id.scr_home_verse);
+                  final TextView textView = rootView.findViewById(R.id.screen_home_verse);
                   textView.setText(HtmlCompat.fromHtml(rawText, HtmlCompat.FROM_HTML_MODE_LEGACY));
 
                   model.setCachedDayOfYear(dayNumber);
@@ -300,6 +295,11 @@ public class ScreenHome
 
     mainOps.showNavigationView();
 
+  }
+
+  private String getVerseText() {
+    return ((TextView) rootView.findViewById(R.id.screen_home_verse)).getText()
+                                                                     .toString();
   }
 
   private void showDefaultDailyVerse(@NonNull final String reference) {
