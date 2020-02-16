@@ -167,6 +167,7 @@ public class ScreenSearch
       return;
     }
     adapter.clearSelection();
+    toggleSelectedActionsView();
   }
 
   private void handleClickActionShare() {
