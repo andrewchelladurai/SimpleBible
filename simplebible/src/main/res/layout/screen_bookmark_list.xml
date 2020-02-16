@@ -8,7 +8,7 @@
   tools:context=".ui.ScreenBookmarkList">
 
   <ScrollView
-    android:id="@+id/scr_bmark_list_container_help"
+    android:id="@+id/screen_bookmarks_help_text_container"
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:padding="@dimen/gap_huge"
@@ -18,7 +18,7 @@
     app:layout_constraintTop_toTopOf="parent">
 
     <TextView
-      android:id="@+id/scr_bmark_list_help"
+      android:id="@+id/screen_bookmarks_help_text"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
@@ -27,7 +27,7 @@
   </ScrollView>
 
   <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/scr_bmark_list_list"
+    android:id="@+id/screen_bookmarks_list"
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:layout_margin="@dimen/gap_big"
@@ -37,7 +37,7 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:spanCount="@integer/scr_bookmark_list_list_columns"
-    tools:listitem="@layout/item_bookmark" />
+    tools:listitem="@layout/screen_bookmarks_list_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

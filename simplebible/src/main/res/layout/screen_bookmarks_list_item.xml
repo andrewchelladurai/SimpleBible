@@ -15,23 +15,23 @@
     android:padding="@dimen/gap_normal">
 
     <com.google.android.material.chip.Chip
-      android:id="@+id/item_bookmark_list_verse_count"
+      android:id="@+id/screen_bookmarks_list_item_verse_count"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      tools:text="@string/item_bookmark_list_verse_count_msg_no_verse" />
+      tools:text="@string/screen_bookmarks_list_item_verse_msg_none_found" />
 
     <TextView
-      android:id="@+id/item_bookmark_list_first_verse"
+      android:id="@+id/screen_bookmarks_list_item_first_verse"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      tools:text="@string/item_bookmark_list_first_verse_template" />
+      tools:text="@string/screen_bookmarks_list_item_first_verse_template" />
 
     <TextView
-      android:id="@+id/item_bookmark_list_note"
+      android:id="@+id/screen_bookmarks_list_item_note"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/gap_normal"
-      tools:text="@string/item_bookmark_list_note_template" />
+      tools:text="@string/screen_bookmarks_list_item_note_template" />
 
   </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -42,7 +42,7 @@ public class ScreenBookmarkListAdapter
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent,
                                                     final int viewType) {
     return new BookmarkEntry(LayoutInflater.from(parent.getContext())
-                                           .inflate(R.layout.item_bookmark, parent,
+                                           .inflate(R.layout.screen_bookmarks_list_item, parent,
                                                     false));
   }
 
@@ -98,18 +98,18 @@ public class ScreenBookmarkListAdapter
 
       final String noteTemplate = rootView.getContext()
                                           .getString(
-                                              R.string.item_bookmark_list_note_template);
+                                              R.string.screen_bookmarks_list_item_note_template);
       final String formattedText = String.format(noteTemplate, noteText);
       final Spanned htmlText = HtmlCompat.fromHtml(formattedText,
                                                    HtmlCompat.FROM_HTML_MODE_COMPACT);
 
-      final TextView noteField = rootView.findViewById(R.id.item_bookmark_list_note);
+      final TextView noteField = rootView.findViewById(R.id.screen_bookmarks_list_item_note);
       noteField.setText(htmlText);
 
       final TextView verseField = rootView
-                                      .findViewById(R.id.item_bookmark_list_first_verse);
+                                      .findViewById(R.id.screen_bookmarks_list_item_first_verse);
       final Chip verseCountChip = rootView
-                                      .findViewById(R.id.item_bookmark_list_verse_count);
+                                      .findViewById(R.id.screen_bookmarks_list_item_verse_count);
 
       ops.updateVerseList(verseCountChip, verseField, bookmark.getReference());
 

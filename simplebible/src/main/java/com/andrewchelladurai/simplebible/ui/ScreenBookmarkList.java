@@ -46,6 +46,7 @@ public class ScreenBookmarkList
     if (!(context instanceof ScreenSimpleBibleOps)) {
       throw new RuntimeException(context.toString() + " must implement InteractionListener");
     }
+
     final String templateEmptyNoteContent = getString(R.string.scr_bmark_list_msg_empty_note);
 
     mainOps = (ScreenSimpleBibleOps) context;
@@ -80,7 +81,7 @@ public class ScreenBookmarkList
   }
 
   private void hideList() {
-    rootView.findViewById(R.id.scr_bmark_list_list)
+    rootView.findViewById(R.id.screen_bookmarks_list)
             .setVisibility(View.GONE);
   }
 
@@ -88,24 +89,24 @@ public class ScreenBookmarkList
     final String rawText = getString(R.string.scr_bmark_list_help_txt);
     final Spanned htmlText = HtmlCompat.fromHtml(rawText, HtmlCompat.FROM_HTML_MODE_COMPACT);
 
-    final TextView textView = rootView.findViewById(R.id.scr_bmark_list_help);
+    final TextView textView = rootView.findViewById(R.id.screen_bookmarks_help_text);
     textView.setText(htmlText);
 
     textView.setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scr_bmark_list_container_help)
+    rootView.findViewById(R.id.screen_bookmarks_help_text_container)
             .setVisibility(View.VISIBLE);
   }
 
   private void hideHelpInfo() {
-    rootView.findViewById(R.id.scr_bmark_list_help)
+    rootView.findViewById(R.id.screen_bookmarks_help_text)
             .setVisibility(View.GONE);
 
-    rootView.findViewById(R.id.scr_bmark_list_container_help)
+    rootView.findViewById(R.id.screen_bookmarks_help_text_container)
             .setVisibility(View.GONE);
   }
 
   private void showList() {
-    final RecyclerView recyclerView = rootView.findViewById(R.id.scr_bmark_list_list);
+    final RecyclerView recyclerView = rootView.findViewById(R.id.screen_bookmarks_list);
     recyclerView.setAdapter(adapter);
   }
 
@@ -119,21 +120,23 @@ public class ScreenBookmarkList
   public void updateVerseList(@NonNull final Chip verseCountChip,
                               @NonNull final TextView verseField,
                               @NonNull final String bookmarkReference) {
+
+    final int templateFirstVerse = R.string.screen_bookmarks_list_item_first_verse_template;
+    final Spanned htmlVerseNoneFound = HtmlCompat.fromHtml(
+        getString(R.string.screen_bookmarks_list_item_verse_msg_none_found),
+        HtmlCompat.FROM_HTML_MODE_COMPACT);
+
     bookmarkListModel.getBookmarkedVerse(bookmarkReference)
                      .observe(this, verseList -> {
 
-                       final String verseCountTemplate = getResources().getQuantityString(
-                           R.plurals.itm_bmark_list_verse_count_template,
-                           verseList.size());
-                       verseCountChip.setText(String.format(verseCountTemplate, verseList.size()));
+                       final int verseCount = verseList.size();
+                       final String templateVerseCount = getResources().getQuantityString(
+                           R.plurals.itm_bmark_list_verse_count_template, verseCount);
 
-                       final int htmlFlag = HtmlCompat.FROM_HTML_MODE_COMPACT;
+                       verseCountChip.setText(String.format(templateVerseCount, verseCount));
 
                        if (verseList.isEmpty()) {
-                         final String message =
-                             getString(R.string.item_bookmark_list_verse_count_msg_no_verse);
-                         verseCountChip.setText(
-                             HtmlCompat.fromHtml(message, htmlFlag));
+                         verseCountChip.setText(htmlVerseNoneFound);
                          return;
                        }
 
@@ -142,23 +145,17 @@ public class ScreenBookmarkList
                        bookModel.getBookUsingNumber(verse.getBook())
                                 .observe(this, book -> {
                                   if (book == null) {
-                                    final String message =
-                                        getString(
-                                            R.string.item_bookmark_list_verse_count_msg_no_verse);
-                                    verseCountChip.setText(HtmlCompat.fromHtml(message, htmlFlag));
+                                    verseCountChip.setText(htmlVerseNoneFound);
                                     return;
                                   }
 
-                                  final String template =
-                                      getString(R.string.item_bookmark_list_first_verse_template);
-                                  final String formattedString = String.format(template,
-                                                                               book.getName(),
-                                                                               verse.getChapter(),
-                                                                               verse.getVerse(),
-                                                                               verse.getText());
-                                  final Spanned htmlText = HtmlCompat.fromHtml(formattedString,
-                                                                               htmlFlag);
-                                  verseField.setText(htmlText);
+                                  verseField.setText(HtmlCompat.fromHtml(
+                                      String.format(getString(templateFirstVerse),
+                                                    book.getName(),
+                                                    verse.getChapter(),
+                                                    verse.getVerse(),
+                                                    verse.getText()),
+                                      HtmlCompat.FROM_HTML_MODE_COMPACT));
                                 });
                      });
   }
