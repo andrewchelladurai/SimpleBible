@@ -59,7 +59,8 @@ public class ScreenChapter
 
     mainOps = (ScreenSimpleBibleOps) context;
     model = new ScreenChapterModel(requireActivity().getApplication());
-    adapter = new ChapterVerseAdapter(this, getString(R.string.itm_chapter_verse_content_template));
+    adapter = new ChapterVerseAdapter(this, getString(
+        R.string.screen_chapter_list_item_content_template));
   }
 
   @Override
@@ -67,7 +68,7 @@ public class ScreenChapter
                            Bundle savedState) {
     rootView = inflater.inflate(R.layout.screen_chapter, container, false);
 
-    final BottomAppBar bottomAppBar = rootView.findViewById(R.id.scr_chapter_menu);
+    final BottomAppBar bottomAppBar = rootView.findViewById(R.id.screen_chapter_bottom_appbar);
     bottomAppBar.setOnMenuItemClickListener(item -> {
       switch (item.getItemId()) {
         case R.id.scr_chapter_menu_bookmark:
@@ -227,14 +228,14 @@ public class ScreenChapter
 
   private void updateScreenTitle() {
     final Book book = model.getCachedBook();
-    final String htmlText = getString(R.string.scr_chapter_title_template,
+    final String htmlText = getString(R.string.screen_chapter_title_template,
                                       book.getName(), model.getCachedChapterNumber(),
                                       book.getDescription());
     final String titleText = HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_COMPACT)
                                        .toString();
     adapter.setBookDetails(titleText);
 
-    final TextView title = rootView.findViewById(R.id.scr_chapter_title);
+    final TextView title = rootView.findViewById(R.id.screen_chapter_title);
     title.setText(titleText);
   }
 
@@ -277,7 +278,7 @@ public class ScreenChapter
              adapter.updateList(list);
            }
 
-           final RecyclerView recyclerView = rootView.findViewById(R.id.scr_chapter_list);
+           final RecyclerView recyclerView = rootView.findViewById(R.id.screen_chapter_list);
            recyclerView.setAdapter(adapter);
          });
   }
@@ -289,11 +290,11 @@ public class ScreenChapter
 
   private void updateVerseSelectionActionsVisibility() {
     final boolean isVerseSelected = adapter.getSelectedItemCount() > 0;
-    final BottomAppBar bottomAppBar = rootView.findViewById(R.id.scr_chapter_menu);
+    final BottomAppBar bottomAppBar = rootView.findViewById(R.id.screen_chapter_bottom_appbar);
     final Menu menu = bottomAppBar.getMenu();
     menu.setGroupVisible(R.id.scr_chapter_menu_container_selected, isVerseSelected);
     menu.setGroupVisible(R.id.scr_chapter_menu_container_not_selected, !isVerseSelected);
-    rootView.findViewById(R.id.scr_chapter_container_title)
+    rootView.findViewById(R.id.screen_chapter_title_container)
             .setVisibility((isVerseSelected) ? View.GONE : View.VISIBLE);
   }
 
@@ -339,7 +340,7 @@ public class ScreenChapter
       final View view = inflater
                             .inflate(R.layout.screen_chapter_dialog, container, false);
 
-      ((RecyclerView) view.findViewById(R.id.scr_chapter_bottom_sheet_list))
+      ((RecyclerView) view.findViewById(R.id.screen_chapter_dialog_list))
           .setAdapter(chapterNumberAdapter);
 
       return view;

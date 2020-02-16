@@ -33,7 +33,8 @@ public class ChapterNumberAdapter
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent,
                                                     final int viewType) {
     return new ChapterNumberView(LayoutInflater.from(parent.getContext())
-                                               .inflate(R.layout.item_chapter_number, parent,
+                                               .inflate(R.layout.screen_chapter_dialog_list_item,
+                                                        parent,
                                                         false));
   }
 
@@ -79,7 +80,7 @@ public class ChapterNumberAdapter
 
     ChapterNumberView(final View itemView) {
       super(itemView);
-      textView = itemView.findViewById(R.id.item_chapter_number_content);
+      textView = itemView.findViewById(R.id.screen_chapter_dialog_list_item_content);
       textView.setOnClickListener(view -> ops.handleClickChapter(chapterNumber));
     }
 

@@ -10,20 +10,21 @@
   android:padding="@dimen/gap_normal">
 
   <TextView
+    android:id="@+id/screen_chapter_dialog_title"
     style="@style/TextAppearance.AppCompat.Title"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/gap_normal"
-    android:text="@string/scr_chapter_selection_dialog_title"
+    android:text="@string/screen_chapter_dialog_title"
     android:textAlignment="center" />
 
   <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/scr_chapter_bottom_sheet_list"
+    android:id="@+id/screen_chapter_dialog_list"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/gap_normal"
     android:orientation="horizontal"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    tools:listitem="@layout/item_chapter_number" />
+    tools:listitem="@layout/screen_chapter_dialog_list_item" />
 
 </LinearLayout>
