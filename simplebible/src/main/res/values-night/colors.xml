@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="splash_launcher_background">@android:color/white</color>
+
+  <color name="color_surface">#212121</color>
+  <color name="color_on_surface">#BDBDBD</color>
+
+  <color name="color_primary">#BDBDBD</color>
+  <color name="color_on_primary">@android:color/black</color>
+
+  <color name="color_secondary">#BDBDBD</color>
+  <color name="color_on_secondary">@android:color/black</color>
+
+</resources>
