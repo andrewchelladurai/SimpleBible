@@ -6,10 +6,10 @@
   <dimen name="gap_normal">8dp</dimen>
   <dimen name="gap_big">12dp</dimen>
   <dimen name="gap_huge">16dp</dimen>
-  <integer name="scr_book_list_list_columns">1</integer>
+  <integer name="screen_books_list_columns">1</integer>
   <integer name="screen_search_list_columns">1</integer>
   <integer name="scr_chapter_list_columns">1</integer>
-  <integer name="scr_chapter_verse_list_columns">1</integer>
+  <integer name="screen_chapter_list_columns">1</integer>
   <integer name="scr_bookmark_list_columns">1</integer>
-  <integer name="scr_bookmark_list_list_columns">1</integer>
+  <integer name="screen_bookmarks_list_columns">1</integer>
 </resources>
