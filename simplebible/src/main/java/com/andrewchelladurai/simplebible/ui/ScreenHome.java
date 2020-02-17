@@ -19,6 +19,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.DbSetupJob;
+import com.andrewchelladurai.simplebible.data.entity.Book;
 import com.andrewchelladurai.simplebible.data.entity.Verse;
 import com.andrewchelladurai.simplebible.model.ScreenHomeModel;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
@@ -239,10 +240,8 @@ public class ScreenHome
             || defaultReference.equalsIgnoreCase(cachedReference))) {
       Log.d(TAG, "showDailyVerse: Same day & reference, using cached text");
 
-      final String rawText = model.getCachedRawVerseText();
+      formatAndDisplayDailyVerse(model.getCachedVerse(), model.getCachedBook());
 
-      final TextView textView = rootView.findViewById(R.id.screen_home_verse);
-      textView.setText(HtmlCompat.fromHtml(rawText, HtmlCompat.FROM_HTML_MODE_LEGACY));
       return;
     }
 
@@ -274,21 +273,12 @@ public class ScreenHome
 
                   Log.d(TAG, "showDailyVerse: using reference[" + reference
                              + "] for day[" + dayNumber + "]");
-                  final String template = getString(R.string.scr_home_verse_content_template);
-                  final String bookName = book.getName();
-                  final int chapterNum = verse.getChapter();
-                  final int verseNum = verse.getVerse();
-                  final String verseText = verse.getText();
-                  final String rawText = String.format(
-                      template, bookName, chapterNum, verseNum, verseText);
-
-                  final TextView textView = rootView.findViewById(R.id.screen_home_verse);
-                  textView.setText(HtmlCompat.fromHtml(rawText, HtmlCompat.FROM_HTML_MODE_LEGACY));
+                  formatAndDisplayDailyVerse(verse, book);
 
                   model.setCachedDayOfYear(dayNumber);
                   model.setCachedReference(reference);
                   model.setCachedVerse(verse);
-                  model.setCachedRawVerseText(rawText);
+                  model.setCachedBook(book);
 
                 });
          });
@@ -297,9 +287,18 @@ public class ScreenHome
 
   }
 
-  private String getVerseText() {
-    return ((TextView) rootView.findViewById(R.id.screen_home_verse)).getText()
-                                                                     .toString();
+  private void formatAndDisplayDailyVerse(@NonNull final Verse verse, @NonNull Book book) {
+    Log.d(TAG, "formatAndDisplayDailyVerse:");
+    final String template = getString(R.string.scr_home_verse_content_template);
+    final String bookName = book.getName();
+    final int chapterNum = verse.getChapter();
+    final int verseNum = verse.getVerse();
+    final String verseText = verse.getText();
+    final String rawText = String.format(
+        template, bookName, chapterNum, verseNum, verseText);
+
+    final TextView textView = rootView.findViewById(R.id.screen_home_verse);
+    textView.setText(HtmlCompat.fromHtml(rawText, HtmlCompat.FROM_HTML_MODE_LEGACY));
   }
 
   private void showDefaultDailyVerse(@NonNull final String reference) {
@@ -344,13 +343,18 @@ public class ScreenHome
                   model.setCachedDayOfYear(dayNumber);
                   model.setCachedReference(reference);
                   model.setCachedVerse(verse);
-                  model.setCachedRawVerseText(getString(defaultVerseRawText));
+                  model.setCachedBook(book);
 
                 });
          });
 
     mainOps.showNavigationView();
 
+  }
+
+  private String getVerseText() {
+    return ((TextView) rootView.findViewById(R.id.screen_home_verse)).getText()
+                                                                     .toString();
   }
 
 }

@@ -30,9 +30,9 @@ public class ScreenHomeModel
   @NonNull
   private static String CACHED_REFERENCE = "";
   @NonNull
-  private static String CACHED_RAW_TEXT = "";
-  @NonNull
   private static Verse CACHED_VERSE = new Verse("", 1, 1, 1, "");
+  @NonNull
+  private static Book CACHED_BOOK = new Book("", "", 1, "", 1, 1);
   @NonNull
   private final VerseDao verseDao;
   @NonNull
@@ -100,21 +100,21 @@ public class ScreenHomeModel
   }
 
   @NonNull
-  public String getCachedRawVerseText() {
-    return CACHED_RAW_TEXT;
-  }
-
-  public void setCachedRawVerseText(@NonNull final String rawVerseText) {
-    CACHED_RAW_TEXT = rawVerseText;
-  }
-
-  @NonNull
   public Verse getCachedVerse() {
     return CACHED_VERSE;
   }
 
   public void setCachedVerse(@NonNull final Verse verse) {
     CACHED_VERSE = verse;
+  }
+
+  @NonNull
+  public Book getCachedBook() {
+    return CACHED_BOOK;
+  }
+
+  public void setCachedBook(@NonNull final Book book) {
+    CACHED_BOOK = book;
   }
 
 }
