@@ -70,7 +70,7 @@ public class ScreenHome
     // let's avoid the extra calls and save some time.
     progressTextView = rootView.findViewById(R.id.screen_home_progress_text);
     maxProgressValue = VerseUtils.EXPECTED_COUNT + BookUtils.EXPECTED_COUNT;
-    progressTextTemplate = getString(R.string.scr_home_template_progress_txt);
+    progressTextTemplate = getString(R.string.screen_home_template_progress);
 
     startDbSetupJobMonitoring();
 
@@ -146,7 +146,7 @@ public class ScreenHome
     mainOps.hideNavigationView();
 
     // show the verse text for a loading progress
-    showVerseText(R.string.scr_home_verse_content_loading);
+    showVerseText(R.string.screen_home_template_progress_verse);
 
     // show the progress bar
     rootView.findViewById(R.id.screen_home_progress_bar)
@@ -201,7 +201,7 @@ public class ScreenHome
          .observe(getViewLifecycleOwner(), verseCount -> {
            if (verseCount == VerseUtils.EXPECTED_COUNT) {
              // show the verse text for a loading progress
-             showVerseText(R.string.scr_home_verse_content_default);
+             showVerseText(R.string.screen_home_template_default_verse);
 
              // hide the progress bar
              rootView.findViewById(R.id.screen_home_progress_bar)
@@ -293,7 +293,7 @@ public class ScreenHome
 
   private void formatAndDisplayDailyVerse(@NonNull final Verse verse, @NonNull Book book) {
     Log.d(TAG, "formatAndDisplayDailyVerse:");
-    final String template = getString(R.string.scr_home_verse_content_template);
+    final String template = getString(R.string.screen_home_template_verse);
     final String bookName = book.getName();
     final int chapterNum = verse.getChapter();
     final int verseNum = verse.getVerse();
@@ -308,7 +308,7 @@ public class ScreenHome
   private void showDefaultDailyVerse(@NonNull final String reference) {
     Log.d(TAG, "showDefaultDailyVerse: reference = [" + reference + "]");
 
-    final int defaultVerseRawText = R.string.scr_home_verse_content_default;
+    final int defaultVerseRawText = R.string.screen_home_template_default_verse;
 
     if (!VerseUtils.getInstance()
                    .validateReference(reference)) {
