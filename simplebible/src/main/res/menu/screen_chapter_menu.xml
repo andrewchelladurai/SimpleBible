@@ -5,31 +5,31 @@
   xmlns:tools="http://schemas.android.com/tools"
   tools:ignore="AlwaysShowAction">
   <group
-    android:id="@+id/screen_chapter_menu_selected_container"
+    android:id="@+id/screen_chapter_menu_container_selected"
     android:visible="false">
     <item
       android:id="@+id/screen_chapter_menu_bookmark"
       android:icon="@drawable/ic_bookmark"
-      android:title="@string/screen_chapter_menu_bookmark"
+      android:title="@string/screen_chapter_menu_title_bookmark"
       app:showAsAction="always" />
     <item
       android:id="@+id/screen_chapter_menu_share"
       android:icon="@drawable/ic_share"
-      android:title="@string/screen_chapter_menu_share"
+      android:title="@string/screen_chapter_menu_title_share"
       app:showAsAction="always" />
     <item
       android:id="@+id/screen_chapter_menu_clear"
       android:icon="@drawable/ic_reset"
-      android:title="@string/screen_chapter_menu_clear"
+      android:title="@string/screen_chapter_menu_title_clear"
       app:showAsAction="always" />
   </group>
   <group
-    android:id="@+id/screen_chapter_menu_unselected_container"
+    android:id="@+id/screen_chapter_menu_container_unselected"
     android:visible="true">
     <item
-      android:id="@+id/screen_chapter_menu_list_dialog"
+      android:id="@+id/screen_chapter_menu_list"
       android:icon="@drawable/ic_list"
-      android:title="@string/screen_chapter_menu_list_dialog_title"
+      android:title="@string/screen_chapter_menu_title_list"
       app:showAsAction="always" />
   </group>
 </menu>

@@ -32,7 +32,7 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_bias="1"
-    app:menu="@menu/screen_chapter_bottom_appbar_menu"
+    app:menu="@menu/screen_chapter_menu"
     tools:ignore="BottomAppBar">
 
     <HorizontalScrollView
@@ -45,7 +45,7 @@
         android:id="@+id/screen_chapter_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="@string/screen_chapter_title_template" />
+        tools:text="@string/screen_chapter_template_title" />
     </HorizontalScrollView>
   </com.google.android.material.bottomappbar.BottomAppBar>
 

@@ -99,17 +99,16 @@
 
   <!-- String used in the ScreenChapter -->
   <string name="screen_chapter_list_item_content_template"><![CDATA[<font color="#bf360c"><b>%d : </b></font>%s]]></string>
-  <string name="scr_chapter_msg_unexpected_error">No arguments passed</string>
-  <string name="scr_chapter_msg_no_args">No arguments passed</string>
-  <string name="scr_chapter_msg_book_invalid">Incorrect Book Reference Passed, using default</string>
-  <string name="scr_chapter_msg_chapter_invalid">Incorrect Chapter passed, using default</string>
-  <string name="scr_chapter_msg_verse_invalid">Incorrect Chapter passed, using default</string>
-  <string name="scr_chapter_msg_no_verse_found">No Verses found for Chapter %d of Book %s</string>
-  <string name="screen_chapter_title_template"><![CDATA[<b>%s : Chapter %d</b><br/>%s]]></string>
-  <string name="screen_chapter_menu_list_dialog_title">Chapter List</string>
-  <string name="screen_chapter_menu_bookmark">Bookmark</string>
-  <string name="screen_chapter_menu_share">Share</string>
-  <string name="screen_chapter_menu_clear">Clear</string>
+  <string name="screen_chapter_msg_no_args">No arguments passed</string>
+  <string name="screen_chapter_msg_invalid_book">Incorrect Book Reference Passed, using default</string>
+  <string name="screen_chapter_msg_invalid_chapter">Incorrect Chapter passed, using default</string>
+  <string name="screen_chapter_msg_invalid_verse">Incorrect Chapter passed, using default</string>
+  <string name="screen_chapter_msg_empty_chapter">No Verses found for Chapter %d of Book %s</string>
+  <string name="screen_chapter_template_title"><![CDATA[<b>%s : Chapter %d</b><br/>%s]]></string>
+  <string name="screen_chapter_menu_title_list">Chapter List</string>
+  <string name="screen_chapter_menu_title_bookmark">Bookmark</string>
+  <string name="screen_chapter_menu_title_share">Share</string>
+  <string name="screen_chapter_menu_title_clear">Clear</string>
   <string name="screen_chapter_dialog_title">Swipe and Select a Chapter</string>
 
   <!-- String used in the ScreenBookmarkDetail -->

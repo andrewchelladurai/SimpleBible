@@ -80,7 +80,7 @@ public class ScreenChapter
         case R.id.screen_chapter_menu_clear:
           handleActionClickClear();
           return true;
-        case R.id.screen_chapter_menu_list_dialog:
+        case R.id.screen_chapter_menu_list:
           showChapterSelector();
           return true;
         default:
@@ -95,7 +95,7 @@ public class ScreenChapter
       final Bundle arguments = getArguments();
 
       if (arguments == null) {
-        final String message = getString(R.string.scr_chapter_msg_no_args);
+        final String message = getString(R.string.screen_chapter_msg_no_args);
         Log.e(TAG, "onCreateView: " + message);
         mainOps.showErrorScreen(message, true, true);
         return rootView;
@@ -106,7 +106,7 @@ public class ScreenChapter
       final int verseNumber = arguments.getInt(ARG_VERSE);
 
       if (bookNumber < 1 || bookNumber > BookUtils.EXPECTED_COUNT) {
-        final String message = getString(R.string.scr_chapter_msg_book_invalid);
+        final String message = getString(R.string.screen_chapter_msg_invalid_book);
         Log.e(TAG, "onCreateView: " + message);
         mainOps.showErrorScreen(message, true, true);
         return rootView;
@@ -122,7 +122,7 @@ public class ScreenChapter
 
                if (chapterNumber < 1 || chapterNumber > book.getChapters()) {
                  // chapter is not good, show first chapter from the book
-                 final String message = getString(R.string.scr_chapter_msg_chapter_invalid);
+                 final String message = getString(R.string.screen_chapter_msg_invalid_chapter);
                  Log.e(TAG, "onCreateView: " + message);
                  mainOps.showMessage(message);
                  model.setCachedChapterNumber(1);
@@ -133,7 +133,7 @@ public class ScreenChapter
 
                if (verseNumber < 1) {
                  // verse is not good, show first verse from the chapter
-                 final String message = getString(R.string.scr_chapter_msg_verse_invalid);
+                 final String message = getString(R.string.screen_chapter_msg_invalid_verse);
                  Log.e(TAG, "onCreateView: " + message);
                  mainOps.showMessage(message);
                  model.setCachedVerseNumber(1);
@@ -146,7 +146,7 @@ public class ScreenChapter
                updateVerseList();
 
              } else {
-               final String message = getString(R.string.scr_chapter_msg_book_invalid);
+               final String message = getString(R.string.screen_chapter_msg_invalid_book);
                Log.e(TAG, "onCreateView: " + message);
                mainOps.showErrorScreen(message, true, true);
              }
@@ -228,7 +228,7 @@ public class ScreenChapter
 
   private void updateScreenTitle() {
     final Book book = model.getCachedBook();
-    final String htmlText = getString(R.string.screen_chapter_title_template,
+    final String htmlText = getString(R.string.screen_chapter_template_title,
                                       book.getName(), model.getCachedChapterNumber(),
                                       book.getDescription());
     final String titleText = HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_COMPACT)
@@ -249,7 +249,7 @@ public class ScreenChapter
            if (list == null || list.isEmpty()) {
              final Bundle bundle = new Bundle();
              final String message =
-                 String.format(getString(R.string.scr_chapter_msg_no_verse_found),
+                 String.format(getString(R.string.screen_chapter_msg_empty_chapter),
                                chapterNumber, model.getCachedBook()
                                                    .getName());
              bundle.putString(ScreenError.ARG_MESSAGE, message);
@@ -292,8 +292,8 @@ public class ScreenChapter
     final boolean isVerseSelected = adapter.getSelectedItemCount() > 0;
     final BottomAppBar bottomAppBar = rootView.findViewById(R.id.screen_chapter_bottom_appbar);
     final Menu menu = bottomAppBar.getMenu();
-    menu.setGroupVisible(R.id.screen_chapter_menu_selected_container, isVerseSelected);
-    menu.setGroupVisible(R.id.screen_chapter_menu_unselected_container, !isVerseSelected);
+    menu.setGroupVisible(R.id.screen_chapter_menu_container_selected, isVerseSelected);
+    menu.setGroupVisible(R.id.screen_chapter_menu_container_unselected, !isVerseSelected);
     rootView.findViewById(R.id.screen_chapter_title_container)
             .setVisibility((isVerseSelected) ? View.GONE : View.VISIBLE);
   }

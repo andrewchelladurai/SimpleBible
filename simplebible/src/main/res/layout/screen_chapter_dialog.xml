@@ -10,7 +10,7 @@
   android:padding="@dimen/gap_normal">
 
   <TextView
-    android:id="@+id/screen_chapter_dialog_title"
+    android:id="@+id/screen_chapter_dialog"
     style="@style/TextAppearance.AppCompat.Title"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
