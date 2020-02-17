@@ -236,11 +236,15 @@ public class ScreenHome
                              : defaultReference;
 
     if (dayNumber == model.getCachedDayOfYear()
-        && (reference.equalsIgnoreCase(cachedReference)
-            || defaultReference.equalsIgnoreCase(cachedReference))) {
-      Log.d(TAG, "showDailyVerse: Same day & reference, using cached text");
-
+        && reference.equalsIgnoreCase(cachedReference)) {
+      Log.d(TAG, "showDailyVerse: Same day & reference, using cached data");
       formatAndDisplayDailyVerse(model.getCachedVerse(), model.getCachedBook());
+      return;
+    } else if (dayNumber == model.getCachedDayOfYear()
+               && defaultReference.equalsIgnoreCase(cachedReference)) {
+      Log.d(TAG, "showDailyVerse: Same day & default reference, using default text");
+
+      showDefaultDailyVerse(defaultReference);
 
       return;
     }
