@@ -24,8 +24,8 @@
   <string name="screen_home_template_progress">%d</string>
   <string name="screen_home_template_progress_verse">
     <![CDATA[
-    <h1><font color="#bf360c">Simple Bible</h1>
-    <h5>CREATING DATABASE</font></h5>
+    <h1>Simple Bible</h1>
+    <h5>CREATING DATABASE</h5>
     <h5>Please be patient like Jacob<br/>
     for it is said in<br/><br/>
     <b>The Book of Genesis<br/>
@@ -33,19 +33,19 @@
     <h3>Jacob served seven years for Rachel.<br/>
     They seemed to him but a few days,<br/>
     for the love he had for her.</h3><br/><br/>
-    <font color="#bf360c"><b>The World English Bible</b></font>]]>
+    <b>The World English Bible</b>]]>
   </string>
   <string name="screen_home_template_verse">
     <![CDATA[
-    <h1><font color="#bf360c">Simple Bible</font></h1><br/>
+    <h1>Simple Bible</h1><br/>
     <h5>%s</h5>
     <h5>Chapter %d Verse %d</h5><br/>
     <h3>%s</h3><br/>
-    <font color="#bf360c"><b>The World English Bible</b></font>]]>
+    <b>The World English Bible</b>]]>
   </string>
   <string name="screen_home_template_default_verse">
     <![CDATA[
-    <h1><font color="#bf360c">Simple Bible</h1></font><br/>
+    <h1>Simple Bible</h1><br/>
     <h5>The Gospel of John<br/>
     Chapter 03 Verse 16</h5><br/>
     <h3>For God so loved the world,<br/>
@@ -53,7 +53,7 @@
     that whoever believes in him<br/>
     should not perish,<br/>
     but have eternal life.</h3><br/>
-    <font color="#bf360c"><b>The World English Bible</b></font>]]>
+    <b>The World English Bible</b>]]>
   </string>
 
   <!-- String used in the ScreenBookList -->
@@ -80,7 +80,7 @@
   <string name="screen_search_msg_input_invalid">Invalid input, see tips.</string>
   <string name="screen_search_msg_no_results">No verse found</string>
   <string name="screen_search_template_tips"><![CDATA[
-    <h1><font color="#bf360c"><u>TIPS</u> to find relevant results</font></h1>
+    <h1>TIPS to find relevant results</h1>
     <p><h5>The length of the input text must be<br/>
     - More than 3 alphabets.<br/>
     - Less than 13 alphabets.<br/><br/>
@@ -91,14 +91,14 @@
     ]]>
   </string>
   <string name="screen_search_template_share">%s\nThe World English Bible\nShared from SimpleBible</string>
-  <string name="screen_search_list_item_template_content"><![CDATA[<font color="#bf360c"><b>%s %d:%d -</b></font> %s]]></string>
+  <string name="screen_search_list_item_template_content"><![CDATA[<b>%s %d:%d -</b> %s]]></string>
 
   <!-- String used in the ScreenBookmarkDetail & ScreenBookmarkList -->
   <string name="screen_bookmark_detail_msg_no_args">No verses passed as arguments</string>
   <string name="screen_bookmark_detail_msg_no_verse">Empty verses list received</string>
 
   <!-- String used in the ScreenChapter -->
-  <string name="screen_chapter_list_item_content_template"><![CDATA[<font color="#bf360c"><b>%d : </b></font>%s]]></string>
+  <string name="screen_chapter_list_item_content_template"><![CDATA[<b>%d : </b>%s]]></string>
   <string name="screen_chapter_msg_no_args">No arguments passed</string>
   <string name="screen_chapter_msg_invalid_book">Incorrect Book Reference Passed, using default</string>
   <string name="screen_chapter_msg_invalid_chapter">Incorrect Chapter passed, using default</string>
@@ -115,7 +115,7 @@
   <string name="screen_bookmark_detail_template_title"><![CDATA[<b>%s</b><br/>%s]]></string>
   <string name="screen_bookmark_detail_title_saved">Saved Bookmark</string>
   <string name="screen_bookmark_detail_title_unsaved">Bookmark Not Saved</string>
-  <string name="screen_bookmark_detail_list_item_content_template"><![CDATA[<font color="#bf360c"><b>%s %d:%d -</b></font> %s]]></string>
+  <string name="screen_bookmark_detail_list_item_content_template"><![CDATA[<b>%s %d:%d -</b> %s]]></string>
   <plurals name="screen_bookmark_detail_title_template_verse_count">
     <item quantity="one">Contains %d Verse</item>
     <item quantity="other">Contains %d Verses</item>
@@ -134,8 +134,8 @@
 
   <!-- String used in the ScreenBookmarkList -->
   <string name="screen_bookmarks_help_text"><![CDATA[
-    <h1><font color="#bf360c">No Bookmarked Verses Found</font></h1>
-    <h5><font color="#bf360c">To bookmark a verse</font><br/><br/>
+    <h1>No Bookmarked Verses Found</h1>
+    <h5>To bookmark a verse<br/><br/>
     Long press on a Verse in either<br/>
     - a Chapter<br/>
     - or a Search Result<br/>
@@ -157,39 +157,39 @@
   <string name="screen_error_icon_description">Something went wrong</string>
 
   <!-- String used in the ScreenSettings -->
-  <string name="pref_cat_app_title">Settings for Simple Bible</string>
+  <string name="pref_category_title_application">Settings for Simple Bible</string>
 
-  <string name="sb_pref_key_theme">sb_pref_key_theme</string>
-  <string name="scr_pref_theme_title">Dark Theme</string>
-  <string name="scr_pref_theme_summary">use a dark background.</string>
-  <string name="sb_pref_key_theme_entries_system">System Default Behavior</string>
-  <string name="sb_pref_key_theme_entries_yes">Yes</string>
-  <string name="sb_pref_key_theme_entries_no">No</string>
-  <string name="sb_pref_key_theme_values_system">AUTO</string>
-  <string name="sb_pref_key_theme_values_yes">YES</string>
-  <string name="sb_pref_key_theme_values_no">NO</string>
+  <string name="pref_theme_key">sb_pref_key_theme</string>
+  <string name="pref_theme_title">Dark Theme</string>
+  <string name="pref_theme_summary">use a dark background.</string>
+  <string name="pref_theme_entry_system">System Default Behavior</string>
+  <string name="pref_theme_entry_yes">Yes</string>
+  <string name="pref_theme_entry_no">No</string>
+  <string name="pref_theme_value_system">AUTO</string>
+  <string name="pref_theme_value_yes">YES</string>
+  <string name="pref_theme_value_no">NO</string>
 
-  <string name="sb_pref_key_export">sb_pref_key_export</string>
-  <string name="scr_pref_export_title">Export Bookmarks</string>
-  <string name="scr_pref_export_summary">into a file.</string>
+  <string name="pref_export_key">sb_pref_key_export</string>
+  <string name="pref_export_title">Export Bookmarks</string>
+  <string name="pref_export_summary">into a file.</string>
 
-  <string name="pref_notification_time_key">pref_notification_time</string>
-  <string name="pref_notification_time_title">Daily Notification</string>
-  <string name="pref_notification_time_summary">remind me at </string>
+  <string name="pref_reminder_key">pref_notification_time</string>
+  <string name="pref_reminder_title">Daily Notification</string>
+  <string name="pref_reminder_summary">remind me at </string>
 
-  <string name="pref_cat_user_title">Your thoughts about Simple Bible</string>
+  <string name="pref_category_title_user">Your thoughts about Simple Bible</string>
 
-  <string name="sb_pref_key_about">sb_pref_key_about</string>
-  <string name="scr_pref_about_title">About Simple Bible</string>
-  <string name="scr_pref_about_summary"><![CDATA[and it\'s change history.]]></string>
+  <string name="pref_about_key">sb_pref_key_about</string>
+  <string name="pref_about_title">About Simple Bible</string>
+  <string name="pref_about_summary"><![CDATA[and it\'s change history.]]></string>
 
-  <string name="sb_pref_key_rate">sb_pref_key_rate</string>
-  <string name="sb_pref_key_rate_title">Rate Application</string>
-  <string name="sb_pref_key_rate_summary">also provide feedback.</string>
+  <string name="pref_rate_key">sb_pref_key_rate</string>
+  <string name="pref_rate_title">Rate Application</string>
+  <string name="pref_rate_summary">also provide feedback.</string>
 
-  <string name="sb_pref_key_email">sb_pref_key_email</string>
-  <string name="sb_pref_key_email_title">Email Developer</string>
-  <string name="sb_pref_key_email_summary">for Feature requests or issues.</string>
+  <string name="pref_email_key">sb_pref_key_email</string>
+  <string name="pref_email_title">Email Developer</string>
+  <string name="pref_email_summary">for Feature requests or issues.</string>
 
   <string name="pref_license_key">pref_license_key</string>
   <string name="pref_license_title">Licenses of components</string>

@@ -393,16 +393,16 @@
     <item>9:5:40</item>
   </string-array>
 
-  <string-array name="sb_pref_key_theme_entries">
-    <item>@string/sb_pref_key_theme_entries_system</item>
-    <item>@string/sb_pref_key_theme_entries_yes</item>
-    <item>@string/sb_pref_key_theme_entries_no</item>
+  <string-array name="pref_theme_entries">
+    <item>@string/pref_theme_entry_system</item>
+    <item>@string/pref_theme_entry_yes</item>
+    <item>@string/pref_theme_entry_no</item>
   </string-array>
 
-  <string-array name="sb_pref_key_theme_values">
-    <item>@string/sb_pref_key_theme_values_system</item>
-    <item>@string/sb_pref_key_theme_values_yes</item>
-    <item>@string/sb_pref_key_theme_values_no</item>
+  <string-array name="pref_theme_values">
+    <item>@string/pref_theme_value_system</item>
+    <item>@string/pref_theme_value_yes</item>
+    <item>@string/pref_theme_value_no</item>
   </string-array>
 
 </resources>

@@ -135,11 +135,11 @@ public class ScreenSimpleBible
 
   @Override
   public void handleThemeToggle() {
-    final String keyName = getString(R.string.sb_pref_key_theme);
+    final String keyName = getString(R.string.pref_theme_key);
 
-    final String keyValueAuto = getString(R.string.sb_pref_key_theme_values_system);
-    final String keyValueYes = getString(R.string.sb_pref_key_theme_values_yes);
-    final String keyValueNo = getString(R.string.sb_pref_key_theme_values_no);
+    final String keyValueAuto = getString(R.string.pref_theme_value_system);
+    final String keyValueYes = getString(R.string.pref_theme_value_yes);
+    final String keyValueNo = getString(R.string.pref_theme_value_no);
 
     final String darkThemeMode = PreferenceManager.getDefaultSharedPreferences(this)
                                                   .getString(keyName, keyValueAuto);

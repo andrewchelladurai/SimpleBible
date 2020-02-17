@@ -2,50 +2,50 @@
 <PreferenceScreen
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
-  <PreferenceCategory app:title="@string/pref_cat_app_title">
+  <PreferenceCategory app:title="@string/pref_category_title_application">
 
     <ListPreference
-      app:defaultValue="@string/sb_pref_key_theme_values_system"
-      app:entries="@array/sb_pref_key_theme_entries"
-      app:entryValues="@array/sb_pref_key_theme_values"
+      app:defaultValue="@string/pref_theme_value_system"
+      app:entries="@array/pref_theme_entries"
+      app:entryValues="@array/pref_theme_values"
       app:icon="@drawable/ic_theme_toggle"
-      app:key="@string/sb_pref_key_theme"
-      app:summary="@string/scr_pref_theme_summary"
-      app:title="@string/scr_pref_theme_title" />
+      app:key="@string/pref_theme_key"
+      app:summary="@string/pref_theme_summary"
+      app:title="@string/pref_theme_title" />
 
     <Preference
       app:icon="@drawable/ic_save"
-      app:key="@string/sb_pref_key_export"
-      app:summary="@string/scr_pref_export_summary"
-      app:title="@string/scr_pref_export_title" />
+      app:key="@string/pref_export_key"
+      app:summary="@string/pref_export_summary"
+      app:title="@string/pref_export_title" />
 
     <Preference
       app:icon="@drawable/ic_alarm"
-      app:key="@string/pref_notification_time_key"
-      app:summary="@string/pref_notification_time_summary"
-      app:title="@string/pref_notification_time_title" />
+      app:key="@string/pref_reminder_key"
+      app:summary="@string/pref_reminder_summary"
+      app:title="@string/pref_reminder_title" />
 
   </PreferenceCategory>
 
-  <PreferenceCategory app:title="@string/pref_cat_user_title">
+  <PreferenceCategory app:title="@string/pref_category_title_user">
 
     <Preference
       app:icon="@drawable/ic_star"
-      app:key="@string/sb_pref_key_rate"
-      app:summary="@string/sb_pref_key_rate_summary"
-      app:title="@string/sb_pref_key_rate_title" />
+      app:key="@string/pref_rate_key"
+      app:summary="@string/pref_rate_summary"
+      app:title="@string/pref_rate_title" />
 
     <Preference
       app:icon="@drawable/ic_email"
-      app:key="@string/sb_pref_key_email"
-      app:summary="@string/sb_pref_key_email_summary"
-      app:title="@string/sb_pref_key_email_title" />
+      app:key="@string/pref_email_key"
+      app:summary="@string/pref_email_summary"
+      app:title="@string/pref_email_title" />
 
     <Preference
       app:icon="@drawable/ic_info"
-      app:key="@string/sb_pref_key_about"
-      app:summary="@string/scr_pref_about_summary"
-      app:title="@string/scr_pref_about_title" />
+      app:key="@string/pref_about_key"
+      app:summary="@string/pref_about_summary"
+      app:title="@string/pref_about_title" />
 
     <Preference
       app:icon="@drawable/ic_info"

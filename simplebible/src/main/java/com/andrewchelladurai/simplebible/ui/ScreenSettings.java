@@ -101,7 +101,7 @@ public class ScreenSettings
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences preferences,
                                           final String key) {
-      if (getString(R.string.sb_pref_key_theme).equalsIgnoreCase(key)) {
+      if (getString(R.string.pref_theme_key).equalsIgnoreCase(key)) {
         mainOps.handleThemeToggle();
         mainOps.restartApp();
       } else {
@@ -117,8 +117,8 @@ public class ScreenSettings
     @Override
     public boolean onPreferenceTreeClick(final Preference preference) {
       final String preferenceKey = preference.getKey();
-      final String keyAbout = getString(R.string.sb_pref_key_about);
-      final String keyExport = getString(R.string.sb_pref_key_export);
+      final String keyAbout = getString(R.string.pref_about_key);
+      final String keyExport = getString(R.string.pref_export_key);
 
       if (preferenceKey.equalsIgnoreCase(keyAbout)) {
         handlePreferenceClickAbout();
