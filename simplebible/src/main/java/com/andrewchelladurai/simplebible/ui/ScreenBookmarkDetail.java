@@ -72,7 +72,7 @@ public class ScreenBookmarkDetail
       final Bundle arguments = getArguments();
       if (arguments == null) {
         message[0] = getString(R.string.screen_bookmark_detail_msg_no_args);
-        mainOps.showErrorScreen(message[1], true, true);
+        mainOps.showErrorScreen(message[0], true, true);
         return rootView;
       }
 
@@ -104,16 +104,16 @@ public class ScreenBookmarkDetail
     final BottomAppBar bAppBar = rootView.findViewById(R.id.screen_bookmark_detail_bottom_appbar);
     bAppBar.setOnMenuItemClickListener(item -> {
       switch (item.getItemId()) {
-        case R.id.screen_bookmark_menu_delete:
+        case R.id.screen_bookmark_detail_menu_delete:
           handleClickActionDelete();
           return true;
-        case R.id.screen_bookmark_menu_edit:
+        case R.id.screen_bookmark_detail_menu_edit:
           handleClickActionEdit();
           return true;
-        case R.id.screen_bookmark_menu_share:
+        case R.id.screen_bookmark_detail_menu_share:
           handleClickActionShare();
           return true;
-        case R.id.screen_bookmark_menu_save:
+        case R.id.screen_bookmark_detail_menu_save:
           handleClickActionSave();
           return true;
         default:
@@ -147,12 +147,12 @@ public class ScreenBookmarkDetail
            if (deleted) {
              NavHostFragment.findNavController(this)
                             .navigate(R.id.screen_bookmark_detail_pop);
-             final String message = getString(R.string.scr_bmark_msg_delete_success);
+             final String message = getString(R.string.screen_bookmark_detail_msg_deleted);
              mainOps.showMessage(message);
              return;
            }
 
-           final String message = getString(R.string.scr_bmark_msg_delete_fail);
+           final String message = getString(R.string.screen_bookmark_detail_msg_delete_fail);
            mainOps.showMessage(message);
          });
   }
@@ -177,7 +177,7 @@ public class ScreenBookmarkDetail
                .append("\n");
     }
 
-    final String shareTemplate = getString(R.string.itm_bmark_template_share);
+    final String shareTemplate = getString(R.string.screen_bookmark_detail_template_share);
     final String formattedShareText = String.format(shareTemplate, verseText, noteText);
 
     mainOps.shareText(formattedShareText);
@@ -194,7 +194,7 @@ public class ScreenBookmarkDetail
     model.saveBookmark(bookmarkReference, noteText)
          .observe(getViewLifecycleOwner(), saved -> {
            if (saved) {
-             final String message = getString(R.string.scr_bmark_msg_save_success);
+             final String message = getString(R.string.screen_bookmark_detail_msg_saved);
              mainOps.showMessage(message);
 
              toggleAction(true);
@@ -202,7 +202,7 @@ public class ScreenBookmarkDetail
              return;
            }
 
-           final String message = getString(R.string.scr_bmark_msg_save_fail);
+           final String message = getString(R.string.screen_bookmark_detail_msg_save_fail);
            mainOps.showMessage(message);
          });
   }
@@ -231,14 +231,14 @@ public class ScreenBookmarkDetail
            }
 
            final int recordCount = list.size();
-           final String titleTemplate = getString(R.string.screen_bookmark_detail_title_template);
+           final String titleTemplate = getString(R.string.screen_bookmark_detail_template_title);
 
            final String headerTxt = getString(bookmarkExists
-                                              ? R.string.scr_bmark_title_template_saved
-                                              : R.string.scr_bmark_title_template_unsaved);
+                                              ? R.string.screen_bookmark_detail_title_saved
+                                              : R.string.screen_bookmark_detail_title_unsaved);
 
            final String footerTemplate = getResources().getQuantityString(
-               R.plurals.scr_bmark_title_template_verse_count, recordCount);
+               R.plurals.screen_bookmark_detail_title_template_verse_count, recordCount);
            final String footerTxt = String.format(footerTemplate, recordCount);
 
            final String titleTxt = String.format(titleTemplate, headerTxt, footerTxt);
@@ -253,7 +253,8 @@ public class ScreenBookmarkDetail
     final Editable text = editText.getText();
     final String note = (text == null) ? "" : text.toString();
 
-    return (note.equalsIgnoreCase(getString(R.string.scr_bmark_note_empty)) ? "" : note);
+    return (note.equalsIgnoreCase(getString(
+        R.string.screen_bookmark_detail_msg_note_empty)) ? "" : note);
   }
 
   private void toggleAction(final boolean bookmarkExists) {
@@ -261,11 +262,11 @@ public class ScreenBookmarkDetail
     final BottomAppBar bAppBar = rootView.findViewById(R.id.screen_bookmark_detail_bottom_appbar);
     final Menu menu = bAppBar.getMenu();
     if (bookmarkExists) {
-      menu.setGroupVisible(R.id.screen_bookmark_menu_container_saved, true);
-      menu.setGroupVisible(R.id.screen_bookmark_menu_container_unsaved, false);
+      menu.setGroupVisible(R.id.screen_bookmark_detail_menu_container_saved, true);
+      menu.setGroupVisible(R.id.screen_bookmark_detail_menu_container_unsaved, false);
     } else {
-      menu.setGroupVisible(R.id.screen_bookmark_menu_container_saved, false);
-      menu.setGroupVisible(R.id.screen_bookmark_menu_container_unsaved, true);
+      menu.setGroupVisible(R.id.screen_bookmark_detail_menu_container_saved, false);
+      menu.setGroupVisible(R.id.screen_bookmark_detail_menu_container_unsaved, true);
     }
   }
 
@@ -278,7 +279,7 @@ public class ScreenBookmarkDetail
   private void setNoteText(@NonNull final String note) {
     TextInputEditText editText = rootView.findViewById(R.id.screen_bookmark_detail_note);
     if (note.isEmpty()) {
-      editText.setText(R.string.scr_bmark_note_empty);
+      editText.setText(R.string.screen_bookmark_detail_msg_note_empty);
     } else {
       editText.setText(note);
     }

@@ -112,28 +112,25 @@
   <string name="screen_chapter_dialog_title">Swipe and Select a Chapter</string>
 
   <!-- String used in the ScreenBookmarkDetail -->
-  <string name="screen_bookmark_detail_title_template"><![CDATA[<b>%s</b><br/>%s]]></string>
-  <string name="scr_bmark_title_template_saved">Saved Bookmark</string>
-  <string name="scr_bmark_title_template_unsaved">Bookmark Not Saved</string>
-  <plurals name="scr_bmark_title_template_verse_count">
+  <string name="screen_bookmark_detail_template_title"><![CDATA[<b>%s</b><br/>%s]]></string>
+  <string name="screen_bookmark_detail_title_saved">Saved Bookmark</string>
+  <string name="screen_bookmark_detail_title_unsaved">Bookmark Not Saved</string>
+  <string name="screen_bookmark_detail_list_item_content_template"><![CDATA[<font color="#bf360c"><b>%s %d:%d -</b></font> %s]]></string>
+  <plurals name="screen_bookmark_detail_title_template_verse_count">
     <item quantity="one">Contains %d Verse</item>
     <item quantity="other">Contains %d Verses</item>
   </plurals>
-
-  <string name="scr_bmark_menu_toggle_view">Toggle</string>
-  <string name="scr_bmark_menu_toggle_view_hint">Toggle view using first button</string>
-  <string name="screen_bookmark_menu_delete">Delete</string>
-  <string name="screen_bookmark_menu_save">Save</string>
-  <string name="screen_bookmark_menu_edit">Edit</string>
-  <string name="screen_bookmark_menu_share">Share</string>
+  <string name="screen_bookmark_detail_menu_title_delete">Delete</string>
+  <string name="screen_bookmark_detail_menu_title_save">Save</string>
+  <string name="screen_bookmark_detail_menu_title_edit">Edit</string>
+  <string name="screen_bookmark_detail_menu_title_share">Share</string>
   <string name="screen_bookmark_detail_note_hint">Notes</string>
-  <string name="scr_bmark_note_empty">This bookmark does not have any note saved.</string>
-  <string name="scr_bmark_msg_save_success">Bookmark Saved</string>
-  <string name="scr_bmark_msg_save_fail">Save Bookmark Failed</string>
-  <string name="scr_bmark_msg_delete_success">Bookmark Deleted</string>
-  <string name="scr_bmark_msg_delete_fail">Delete Bookmark Failed</string>
-  <string name="itm_bmark_template_share">Bookmarked Verse(s):\n%s\n\nBookmarked Notes:\n%s\n\nThe World English Bible\nShared from SimpleBible</string>
-  <string name="screen_bookmark_detail_list_item_content_template"><![CDATA[<font color="#bf360c"><b>%s %d:%d -</b></font> %s]]></string>
+  <string name="screen_bookmark_detail_msg_note_empty">This bookmark does not have any saved notes.</string>
+  <string name="screen_bookmark_detail_msg_saved">Bookmark Saved</string>
+  <string name="screen_bookmark_detail_msg_save_fail">Save Bookmark Failed</string>
+  <string name="screen_bookmark_detail_msg_deleted">Bookmark Deleted</string>
+  <string name="screen_bookmark_detail_msg_delete_fail">Delete Bookmark Failed</string>
+  <string name="screen_bookmark_detail_template_share">Bookmarked Verse(s):\n%s\n\nBookmarked Notes:\n%s\n\nThe World English Bible\nShared from SimpleBible</string>
 
   <!-- String used in the ScreenBookmarkList -->
   <string name="scr_bmark_list_image_desc">Bookmarks</string>

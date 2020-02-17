@@ -27,7 +27,7 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:menu="@menu/screen_bookmark_detail_bottom_appbar_menu"
+    app:menu="@menu/screen_bookmark_detail_menu"
     tools:ignore="BottomAppBar">
 
     <HorizontalScrollView
@@ -41,7 +41,7 @@
         android:id="@+id/screen_bookmark_detail_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="@string/screen_bookmark_detail_title_template" />
+        tools:text="@string/screen_bookmark_detail_template_title" />
     </HorizontalScrollView>
   </com.google.android.material.bottomappbar.BottomAppBar>
 
