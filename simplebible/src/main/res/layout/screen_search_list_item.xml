@@ -11,4 +11,4 @@
   android:paddingEnd="@dimen/gap_normal"
   android:paddingBottom="@dimen/gap_small"
   android:textColor="@color/state_list_verse_foreground"
-  tools:text="@string/screen_search_list_item_content_template" />
+  tools:text="@string/screen_search_list_item_template_content" />

@@ -35,7 +35,7 @@
   </com.google.android.material.card.MaterialCardView>
 
   <ScrollView
-    android:id="@+id/screen_search_tips_text_container"
+    android:id="@+id/screen_search_tips_container"
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:padding="@dimen/gap_huge"
@@ -45,12 +45,12 @@
     app:layout_constraintTop_toBottomOf="@+id/screen_search_text_container">
 
     <TextView
-      android:id="@+id/screen_search_tips_text"
+      android:id="@+id/screen_search_tips"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:padding="@dimen/gap_huge"
-      android:text="@string/screen_search_tips_text" />
+      android:text="@string/screen_search_template_tips" />
   </ScrollView>
 
   <com.google.android.material.bottomappbar.BottomAppBar
@@ -64,7 +64,7 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_bias="1.0"
-    app:menu="@menu/screen_search_bottom_appbar_menu"
+    app:menu="@menu/screen_search_menu"
     tools:ignore="BottomAppBar">
 
     <HorizontalScrollView

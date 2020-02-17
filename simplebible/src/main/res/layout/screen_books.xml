@@ -28,7 +28,7 @@
       android:importantForAutofill="no"
       android:inputType="textNoSuggestions"
       android:layoutDirection="rtl"
-      android:queryHint="@string/scr_book_list_hint_search"
+      android:queryHint="@string/screen_books_search_hint"
       android:searchIcon="@drawable/ic_magnifier" />
   </com.google.android.material.card.MaterialCardView>
 

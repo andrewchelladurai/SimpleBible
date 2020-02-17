@@ -62,7 +62,7 @@ public class ScreenSearch
     mainOps.showNavigationView();
     mainOps.hideKeyboard();
 
-    searchResultContentTemplate = getString(R.string.screen_search_list_item_content_template);
+    searchResultContentTemplate = getString(R.string.screen_search_list_item_template_content);
 
     ((BottomAppBar) rootView.findViewById(R.id.screen_search_bottom_appbar))
         .setOnMenuItemClickListener(item -> {
@@ -136,7 +136,7 @@ public class ScreenSearch
         || searchText.isEmpty()
         || searchText.length() < 4
         || searchText.length() > 50) {
-      mainOps.showMessage(getString(R.string.scr_search_msg_input_invalid));
+      mainOps.showMessage(getString(R.string.screen_search_msg_input_invalid));
       showSearchDefaultUi();
       return;
     }
@@ -145,7 +145,7 @@ public class ScreenSearch
     model.searchTextInVerses(searchText)
          .observe(this, list -> {
            if (list == null || list.isEmpty()) {
-             mainOps.showMessage(getString(R.string.scr_search_msg_no_results));
+             mainOps.showMessage(getString(R.string.screen_search_msg_no_results));
              showSearchDefaultUi();
              return;
            }
@@ -163,7 +163,7 @@ public class ScreenSearch
 
   private void handleClickActionClear() {
     if (adapter.getSelectedItemCount() < 1) {
-      mainOps.showMessage(getString(R.string.scr_search_msg_no_selection_clear));
+      mainOps.showMessage(getString(R.string.screen_search_msg_none_selected));
       return;
     }
     adapter.clearSelection();
@@ -172,7 +172,7 @@ public class ScreenSearch
 
   private void handleClickActionShare() {
     if (adapter.getSelectedItemCount() < 1) {
-      mainOps.showMessage(getString(R.string.scr_search_msg_no_selection_share));
+      mainOps.showMessage(getString(R.string.screen_search_msg_none_selected));
       return;
     }
 
@@ -190,12 +190,12 @@ public class ScreenSearch
                .append("\n");
     }
 
-    mainOps.shareText(String.format(getString(R.string.scr_search_template_share), shareText));
+    mainOps.shareText(String.format(getString(R.string.screen_search_template_share), shareText));
   }
 
   private void handleClickActionBookmark() {
     if (adapter.getSelectedItemCount() < 1) {
-      mainOps.showMessage(getString(R.string.scr_search_msg_no_selection_bookmark));
+      mainOps.showMessage(getString(R.string.screen_search_msg_none_selected));
       return;
     }
 
@@ -227,14 +227,14 @@ public class ScreenSearch
     adapter.clearList();
 
     final Spanned htmlText =
-        HtmlCompat.fromHtml(getString(R.string.screen_search_tips_text),
+        HtmlCompat.fromHtml(getString(R.string.screen_search_template_tips),
                             HtmlCompat.FROM_HTML_MODE_LEGACY);
-    final TextView textView = rootView.findViewById(R.id.screen_search_tips_text);
+    final TextView textView = rootView.findViewById(R.id.screen_search_tips);
     textView.setText(htmlText);
 
     rootView.findViewById(R.id.screen_search_text_container)
             .setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.screen_search_tips_text_container)
+    rootView.findViewById(R.id.screen_search_tips_container)
             .setVisibility(View.VISIBLE);
 
     rootView.findViewById(R.id.screen_search_list)
@@ -249,7 +249,7 @@ public class ScreenSearch
     Log.d(TAG, "showSearchResultsUi:");
     rootView.findViewById(R.id.screen_search_text_container)
             .setVisibility(View.GONE);
-    rootView.findViewById(R.id.screen_search_tips_text_container)
+    rootView.findViewById(R.id.screen_search_tips_container)
             .setVisibility(View.GONE);
 
     rootView.findViewById(R.id.screen_search_list)
@@ -271,7 +271,7 @@ public class ScreenSearch
 
     rootView.findViewById(R.id.screen_search_title)
             .setVisibility(selectedCount > 0 ? View.GONE : View.VISIBLE);
-    menu.setGroupVisible(R.id.screen_search_menu_selected_container, selectedCount > 0);
+    menu.setGroupVisible(R.id.screen_search_menu_container_selected, selectedCount > 0);
   }
 
   @Override
@@ -297,7 +297,7 @@ public class ScreenSearch
     Log.d(TAG, "updateTitle:");
     final int resultCount = adapter.getItemCount();
     final String titleTemplate = getResources()
-                                     .getQuantityString(R.plurals.scr_search_title_template,
+                                     .getQuantityString(R.plurals.screen_search_template_title,
                                                         resultCount);
     final String formattedText = String.format(titleTemplate, resultCount);
     final Spanned htmlText = HtmlCompat.fromHtml(formattedText, HtmlCompat.FROM_HTML_MODE_COMPACT);

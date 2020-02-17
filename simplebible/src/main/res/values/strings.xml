@@ -57,32 +57,29 @@
   </string>
 
   <!-- String used in the ScreenBookList -->
-  <string name="scr_book_list_err_no_books_in_db">No books found in the database. Please clear the application data or reinstall the application again. if the issue persists, please inform the developer.</string>
-  <string name="scr_book_list_err_book_count_incorrect">Number of books in the database is not the Expected count. Please clear the application data or reinstall the application again. if the issue persists, please inform the developer.</string>
-  <string name="scr_book_list_hint_search">Book name</string>
+  <string name="screen_bookmarks_msg_no_books">No books found in the database. Please clear the application data or reinstall the application again. if the issue persists, please inform the developer.</string>
+  <string name="screen_bookmarks_msg_book_count_incorrect">Number of books in the database is not the Expected count. Please clear the application data or reinstall the application again. if the issue persists, please inform the developer.</string>
+  <string name="screen_books_search_hint">Book Name</string>
 
-  <plurals name="itm_book_chapter_count_template">
+  <plurals name="screen_bookmarks_list_item_template_chapter_count">
     <item quantity="one">%d Chapter</item>
     <item quantity="other">%d Chapters</item>
   </plurals>
 
   <!-- String used in the ScreenSearch -->
-  <string name="screen_search_menu_bookmark">Bookmark</string>
-  <string name="screen_search_menu_share">Share</string>
-  <string name="screen_search_menu_clear">Clear</string>
-  <string name="screen_search_menu_reset">Reset</string>
+  <string name="screen_search_menu_title_bookmark">Bookmark</string>
+  <string name="screen_search_menu_title_share">Share</string>
+  <string name="screen_search_menu_title_clear">Clear</string>
+  <string name="screen_search_menu_title_reset">Reset</string>
   <string name="screen_search_text_hint">Search text</string>
-  <plurals name="scr_search_title_template">
+  <plurals name="screen_search_template_title">
     <item quantity="one"><![CDATA[<b>%d Result Found</b><br/>Tap a verse for actions]]></item>
     <item quantity="other"><![CDATA[<b>%d Results Found</b><br/>Tap a verse for actions]]></item>
   </plurals>
-  <string name="scr_search_msg_no_selection_clear">Clear : No verses selected</string>
-  <string name="scr_search_msg_no_selection_bookmark">Bookmark : No Verses Selected</string>
-  <string name="scr_search_msg_no_selection_share">Share : No verse selected</string>
-  <string name="scr_search_msg_input_invalid">Invalid input, see tips.</string>
-  <string name="scr_search_msg_no_results">No verse found</string>
-  <string name="scr_search_image_desc">Search Verse Tips</string>
-  <string name="screen_search_tips_text"><![CDATA[
+  <string name="screen_search_msg_none_selected">Clear : No verses selected</string>
+  <string name="screen_search_msg_input_invalid">Invalid input, see tips.</string>
+  <string name="screen_search_msg_no_results">No verse found</string>
+  <string name="screen_search_template_tips"><![CDATA[
     <h1><font color="#bf360c"><u>TIPS</u> to find relevant results</font></h1>
     <p><h5>The length of the input text must be<br/>
     - More than 3 alphabets.<br/>
@@ -91,9 +88,10 @@
     <p><h5>To search for 3 alphabet words like <u>\'Eli\'</u><br/>
     include a space before or after the text<br/>
     like this <u>\' Eli \'</u></h5></p>
-    ]]></string>
-  <string name="scr_search_template_share">%s\nThe World English Bible\nShared from SimpleBible</string>
-  <string name="screen_search_list_item_content_template"><![CDATA[<font color="#bf360c"><b>%s %d:%d -</b></font> %s]]></string>
+    ]]>
+  </string>
+  <string name="screen_search_template_share">%s\nThe World English Bible\nShared from SimpleBible</string>
+  <string name="screen_search_list_item_template_content"><![CDATA[<font color="#bf360c"><b>%s %d:%d -</b></font> %s]]></string>
 
   <!-- String used in the ScreenBookmarkDetail & ScreenBookmarkList -->
   <string name="scr_bmark_msg_no_args">No verses passed as arguments</string>

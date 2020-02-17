@@ -216,7 +216,7 @@ public class ScreenChapter
                .append("\n");
     }
 
-    mainOps.shareText(String.format(getString(R.string.scr_search_template_share), shareText));
+    mainOps.shareText(String.format(getString(R.string.screen_search_template_share), shareText));
   }
 
   private void showChapterSelector() {

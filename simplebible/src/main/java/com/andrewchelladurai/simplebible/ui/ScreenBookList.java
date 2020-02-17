@@ -86,13 +86,13 @@ public class ScreenBookList
       model.getAllBooks()
            .observe(getViewLifecycleOwner(), list -> {
              if (list == null) {
-               final String message = getString(R.string.scr_book_list_err_no_books_in_db);
+               final String message = getString(R.string.screen_bookmarks_msg_no_books);
                Log.e(TAG, "onCreateView: " + message);
                mainOps.showErrorScreen(message, true, true);
                return;
              }
              if (list.isEmpty() || list.size() != BookUtils.EXPECTED_COUNT) {
-               final String message = getString(R.string.scr_book_list_err_book_count_incorrect);
+               final String message = getString(R.string.screen_bookmarks_msg_book_count_incorrect);
                Log.e(TAG, "onCreateView: " + message);
                mainOps.showErrorScreen(message, true, true);
                return;
@@ -119,7 +119,7 @@ public class ScreenBookList
   @Override
   public String getFormattedBookDetails(final int chapterCount) {
     return getResources().getQuantityString(
-        R.plurals.itm_book_chapter_count_template, chapterCount, chapterCount);
+        R.plurals.screen_bookmarks_list_item_template_chapter_count, chapterCount, chapterCount);
   }
 
   @Override
