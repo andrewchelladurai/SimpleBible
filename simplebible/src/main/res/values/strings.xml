@@ -94,8 +94,8 @@
   <string name="screen_search_list_item_template_content"><![CDATA[<font color="#bf360c"><b>%s %d:%d -</b></font> %s]]></string>
 
   <!-- String used in the ScreenBookmarkDetail & ScreenBookmarkList -->
-  <string name="scr_bmark_msg_no_args">No verses passed as arguments</string>
-  <string name="scr_bmark_msg_no_verse">Empty verses list received</string>
+  <string name="screen_bookmark_detail_msg_no_args">No verses passed as arguments</string>
+  <string name="screen_bookmark_detail_msg_no_verse">Empty verses list received</string>
 
   <!-- String used in the ScreenChapter -->
   <string name="screen_chapter_list_item_content_template"><![CDATA[<font color="#bf360c"><b>%d : </b></font>%s]]></string>

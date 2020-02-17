@@ -40,7 +40,7 @@ public class ScreenBookmarkDetail
   private View rootView;
   private BookmarkDetailModel model;
   private BookmarkDetailAdapter adapter;
-  private String itemBookmarkVerseContentTemplate;
+  private String contentTemplate;
   private boolean showVerseList = true;
 
   public ScreenBookmarkDetail() {
@@ -63,26 +63,31 @@ public class ScreenBookmarkDetail
                            Bundle savedState) {
     rootView = inflater.inflate(R.layout.screen_bookmark_detail, container, false);
 
+    final String[] message = new String[1];
+
     // on first load, get all the passed verses, show an error if it's empty
     if (savedState == null) {
 
       // have we got arguments
       final Bundle arguments = getArguments();
       if (arguments == null) {
-        mainOps.showErrorScreen(getString(R.string.scr_bmark_msg_no_args), true, true);
+        message[0] = getString(R.string.screen_bookmark_detail_msg_no_args);
+        mainOps.showErrorScreen(message[1], true, true);
         return rootView;
       }
 
       // does the arguments contain the key we need
       if (!arguments.containsKey(ARG_VERSE_LIST)) {
-        mainOps.showErrorScreen(getString(R.string.scr_bmark_msg_no_verse), true, true);
+        message[0] = getString(R.string.screen_bookmark_detail_msg_no_verse);
+        mainOps.showErrorScreen(message[0], true, true);
         return rootView;
       }
 
       // does the passed value actually hold data for our use
       final Parcelable[] parcelableArray = arguments.getParcelableArray(ARG_VERSE_LIST);
       if (parcelableArray == null || parcelableArray.length == 0) {
-        mainOps.showErrorScreen(getString(R.string.scr_bmark_msg_no_verse), true, true);
+        message[0] = getString(R.string.screen_bookmark_detail_msg_no_verse);
+        mainOps.showErrorScreen(message[0], true, true);
         return rootView;
       }
 
@@ -119,8 +124,7 @@ public class ScreenBookmarkDetail
       }
     });
 
-    itemBookmarkVerseContentTemplate =
-        getString(R.string.screen_bookmark_detail_list_item_content_template);
+    contentTemplate = getString(R.string.screen_bookmark_detail_list_item_content_template);
 
     updateContent();
 
@@ -297,7 +301,7 @@ public class ScreenBookmarkDetail
            }
 
            textView.setText(HtmlCompat.fromHtml(
-               String.format(itemBookmarkVerseContentTemplate,
+               String.format(contentTemplate,
                              book.getName(),
                              verse.getChapter(),
                              verse.getVerse(),
