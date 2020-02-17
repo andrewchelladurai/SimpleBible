@@ -136,10 +136,9 @@ public class ScreenBookmarkDetail
 
   private void handleClickActionDelete() {
     Log.d(TAG, "handleClickActionDelete() called");
-    final BookmarkUtils bookmarkUtils = BookmarkUtils.getInstance();
 
     final ArrayList<Verse> verseList = model.getCachedList();
-    final String bookmarkReference = bookmarkUtils.createReference(verseList);
+    final String bookmarkReference = BookmarkUtils.createReference(verseList);
     final String noteText = getNoteText();
 
     model.deleteBookmark(bookmarkReference, noteText)
@@ -185,10 +184,9 @@ public class ScreenBookmarkDetail
 
   private void handleClickActionSave() {
     Log.d(TAG, "handleClickActionSave() called");
-    final BookmarkUtils bookmarkUtils = BookmarkUtils.getInstance();
 
     final ArrayList<Verse> verseList = model.getCachedList();
-    final String bookmarkReference = bookmarkUtils.createReference(verseList);
+    final String bookmarkReference = BookmarkUtils.createReference(verseList);
     final String noteText = getNoteText();
 
     model.saveBookmark(bookmarkReference, noteText)
@@ -208,9 +206,8 @@ public class ScreenBookmarkDetail
   }
 
   private void updateContent() {
-    final BookmarkUtils bookmarkUtils = BookmarkUtils.getInstance();
     final ArrayList<Verse> list = model.getCachedList();
-    final String reference = bookmarkUtils.createReference(list);
+    final String reference = BookmarkUtils.createReference(list);
 
     adapter.updateList(list);
 

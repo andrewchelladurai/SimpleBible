@@ -18,16 +18,11 @@ public class BookmarkUtils {
 
   public static final String SEPARATOR = "~";
   private static final String TAG = "BookmarkUtils";
-  private static final BookmarkUtils THIS_INSTANCE = new BookmarkUtils();
 
   private BookmarkUtils() {
   }
 
-  public static BookmarkUtils getInstance() {
-    return THIS_INSTANCE;
-  }
-
-  public boolean validateReference(@NonNull final String reference) {
+  public static boolean validateReference(@NonNull final String reference) {
     Log.d(TAG, "validateReference [" + reference + "]");
 
     // if there are more than one verse references in the bookmark reference
@@ -57,7 +52,7 @@ public class BookmarkUtils {
   }
 
   @NonNull
-  public String createReference(@NonNull final List<?> list) {
+  public static String createReference(@NonNull final List<?> list) {
     if (list.isEmpty()) {
       throw new IllegalArgumentException(TAG + " createReference: Empty list passed");
     }
@@ -82,16 +77,16 @@ public class BookmarkUtils {
     return builder.substring(0, builder.length() - SEPARATOR.length());
   }
 
-  public void saveBookmark(@NonNull final MutableLiveData<Boolean> taskResult,
-                           @NonNull final BookmarkDao bookmarkDao,
-                           @NonNull final Bookmark bookmark) {
+  public static void saveBookmark(@NonNull final MutableLiveData<Boolean> taskResult,
+                                  @NonNull final BookmarkDao bookmarkDao,
+                                  @NonNull final Bookmark bookmark) {
     Log.d(TAG, "saveBookmark [" + bookmark + "]");
     new SaveBookmarkTask(bookmarkDao, taskResult).execute(bookmark);
   }
 
-  public void deleteBookmark(@NonNull final MutableLiveData<Boolean> taskResult,
-                             @NonNull final BookmarkDao bookmarkDao,
-                             @NonNull final Bookmark bookmark) {
+  public static void deleteBookmark(@NonNull final MutableLiveData<Boolean> taskResult,
+                                    @NonNull final BookmarkDao bookmarkDao,
+                                    @NonNull final Bookmark bookmark) {
     Log.d(TAG, "deleteBookmark [" + bookmark + "]");
     new DeleteBookmarkTask(bookmarkDao, taskResult).execute(bookmark);
   }

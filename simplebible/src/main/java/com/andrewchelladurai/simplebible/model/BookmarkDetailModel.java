@@ -78,15 +78,13 @@ public class BookmarkDetailModel
       throw new IllegalArgumentException("empty bookmark reference passed");
     }
 
-    final BookmarkUtils bookmarkUtils = BookmarkUtils.getInstance();
-
-    if (!bookmarkUtils.validateReference(reference)) {
+    if (!BookmarkUtils.validateReference(reference)) {
       taskResult.postValue(false);
       throw new IllegalArgumentException("Invalid bookmark references");
     }
 
     final Bookmark bookmark = new Bookmark(reference, note);
-    bookmarkUtils.saveBookmark(taskResult, bookmarkDao, bookmark);
+    BookmarkUtils.saveBookmark(taskResult, bookmarkDao, bookmark);
 
     return taskResult;
   }
@@ -105,9 +103,7 @@ public class BookmarkDetailModel
       throw new IllegalArgumentException(TAG + " - " + message);
     }
 
-    final BookmarkUtils bookmarkUtils = BookmarkUtils.getInstance();
-
-    if (!bookmarkUtils.validateReference(reference)) {
+    if (!BookmarkUtils.validateReference(reference)) {
       taskResult.postValue(false);
 
       final String message = "deleteBookmark: Invalid bookmark references";
@@ -116,7 +112,7 @@ public class BookmarkDetailModel
     }
 
     final Bookmark bookmark = new Bookmark(reference, note);
-    bookmarkUtils.deleteBookmark(taskResult, bookmarkDao, bookmark);
+    BookmarkUtils.deleteBookmark(taskResult, bookmarkDao, bookmark);
 
     return taskResult;
   }
