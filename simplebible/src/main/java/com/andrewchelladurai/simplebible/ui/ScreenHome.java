@@ -95,7 +95,7 @@ public class ScreenHome
                break;
              case DbSetupJob.FAILED:
                Log.d(TAG, "startDbSetupJobMonitoring: DbSetupJob.FAILED");
-               mainOps.showErrorScreen(getString(R.string.db_setup_failure_message), true, true);
+               mainOps.showErrorScreen(getString(R.string.db_setup_msg_failure), true, true);
                break;
              case DbSetupJob.FINISHED:
                Log.d(TAG, "startDbSetupJobMonitoring: DbSetupJob.FINISHED");

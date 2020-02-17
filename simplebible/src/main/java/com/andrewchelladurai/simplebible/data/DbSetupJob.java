@@ -48,8 +48,13 @@ public class DbSetupJob
     Log.d(TAG, "onHandleWork");
     RESULT_RECEIVER.send(STARTED, Bundle.EMPTY);
 
-    final boolean isBookTableValid = validateBooksTable();
-    final boolean isVerseTableValid = validateVersesTable();
+    final BookDao bookDao = SbDatabase.getDatabase(getApplication())
+                                      .getBookDao();
+    final VerseDao verseDao = SbDatabase.getDatabase(getApplication())
+                                        .getVerseDao();
+
+    final boolean isBookTableValid = validateTableBooks(bookDao);
+    final boolean isVerseTableValid = validateTableVerses(verseDao);
 
     if (!isBookTableValid || !isVerseTableValid) {
 
@@ -58,9 +63,9 @@ public class DbSetupJob
       // check if contents of books table is valid
       if (!isBookTableValid) {
         // if not then populate the table
-        if (!populateBooksTable()) {
+        if (!populateTableBooks(bookDao)) {
           // if population of table fails, broadcast failure
-          Log.e(TAG, "onHandleWork: populateBooksTable() failed");
+          Log.e(TAG, "onHandleWork: populateTableBooks() failed");
           RESULT_RECEIVER.send(FAILED, Bundle.EMPTY);
           return;
         }
@@ -69,9 +74,9 @@ public class DbSetupJob
       // check if contents of verses table is valid
       if (!isVerseTableValid) {
         // if not then populate the table
-        if (!populateVersesTable()) {
+        if (!populateTableVerses(verseDao)) {
           //if population of table fails, broadcast failure
-          Log.e(TAG, "onHandleWork: populateVersesTable() failed");
+          Log.e(TAG, "onHandleWork: populateTableVerses() failed");
           RESULT_RECEIVER.send(FAILED, Bundle.EMPTY);
         }
       }
@@ -98,76 +103,79 @@ public class DbSetupJob
   /**
    * Check the books table to check if it's contents are valid.
    *
+   * @param bookDao
+   *
    * @return true if table meets expectations, false otherwise
    */
-  private boolean validateBooksTable() {
-    Log.d(TAG, "validateBooksTable:");
-    final BookDao dao = SbDatabase.getDatabase(getApplication())
-                                  .getBookDao();
+  private boolean validateTableBooks(@NonNull final BookDao bookDao) {
+    Log.d(TAG, "validateTableBooks:");
     final int expectedCount = BookUtils.EXPECTED_COUNT;
-    int count = dao.getBookCount();
+    int count = bookDao.getBookCount();
 
     if (count != expectedCount) {
-      Log.e(TAG, "validateBooksTable: bookCount[" + count
-                 + "] != expectedCount[" + expectedCount + "]");
+      Log.e(TAG, "validateTableBooks: count[" + count
+                 + "] != expectedCount[" + expectedCount + "], returning false");
       return false;
     }
-    Log.d(TAG, "validateBooksTable: [" + expectedCount + "] books exist");
+    Log.d(TAG, "validateTableBooks: expected count of books [" + expectedCount + "] exist");
 
-    String expectedValue = getString(R.string.book_name_first);
-    final Book firstBook = dao.getBookUsingPosition(1);
+    final String[] expectedValue = new String[]{getString(R.string.db_setup_1st_book_name)};
+    final Book firstBook = bookDao.getBookUsingPosition(1);
     if (firstBook != null && !firstBook.getName()
-                                       .equalsIgnoreCase(expectedValue)) {
-      Log.e(TAG, "validateBooksTable: incorrect first book in db");
+                                       .equalsIgnoreCase(expectedValue[0])) {
+      Log.e(TAG, "validateTableBooks: first book's name didn't match, returning false");
       return false;
     }
-    Log.d(TAG, "validateBooksTable: book[" + 1 + "] name is [" + expectedValue + "]");
+    Log.d(TAG, "validateTableBooks: first book's name matches [" + expectedValue[0] + "]");
 
-    expectedValue = getString(R.string.book_name_last);
-    final Book lastBook = dao.getBookUsingPosition(expectedCount);
+    expectedValue[0] = getString(R.string.db_setup_nth_book_name);
+    final Book lastBook = bookDao.getBookUsingPosition(expectedCount);
     if (lastBook != null && !lastBook.getName()
-                                     .equalsIgnoreCase(expectedValue)) {
-      Log.e(TAG, "validateBooksTable: incorrect last book in db");
+                                     .equalsIgnoreCase(expectedValue[0])) {
+      Log.e(TAG, "validateTableBooks: last book's name didn't match, returning false");
       return false;
     }
-    Log.d(TAG, "validateBooksTable: book[" + expectedCount + "] name is [" + expectedValue + "]");
+    Log.d(TAG, "validateTableBooks: last book's name matches [" + expectedValue[0] + "]");
     return true;
   }
 
   /**
    * Check the verses table to check if it's contents are valid.
    *
+   * @param verseDao
+   *
    * @return true if table meets expectations, false otherwise.
    */
-  private boolean validateVersesTable() {
-    Log.d(TAG, "validateVersesTable:");
-    final VerseDao verseDao = SbDatabase.getDatabase(getApplication())
-                                        .getVerseDao();
+  private boolean validateTableVerses(@NonNull final VerseDao verseDao) {
+    Log.d(TAG, "validateTableVerses:");
+
     final int expectedCount = VerseUtils.EXPECTED_COUNT;
     int count = verseDao.getVerseCount();
 
     if (count != expectedCount) {
-      Log.e(TAG, "validateVersesTable: count[" + count
-                 + "] != " + "expectedCount[" + expectedCount + "]");
+      Log.e(TAG, "validateTableVerses: count[" + count
+                 + "] != expectedCount[" + expectedCount + "], returning false");
       return false;
     }
-    Log.d(TAG, "validateVersesTable: [" + expectedCount + "] verses exist");
+    Log.d(TAG, "validateTableVerses: expected count of verses [" + expectedCount + "] exist");
+
     return true;
   }
 
   /**
    * Fill the books table in the database by reading contents of an asset file.
    *
+   * @param bookDao
+   *
    * @return true if a record is successfully created, false otherwise.
    */
-  private boolean populateBooksTable() {
-    Log.d(TAG, "populateBooksTable:");
-    final BookDao bookDao = SbDatabase.getDatabase(getApplication())
-                                      .getBookDao();
+  private boolean populateTableBooks(@NonNull final BookDao bookDao) {
+    Log.d(TAG, "populateTableBooks:");
+
     final String fileName = BookUtils.SETUP_FILE;
     final String separator = BookUtils.SETUP_FILE_RECORD_SEPARATOR;
     final int separatorCount = BookUtils.SETUP_FILE_RECORD_SEPARATOR_COUNT;
-    Log.d(TAG, "populateBooksTable: processing [" + fileName + "]");
+    Log.d(TAG, "populateTableBooks: processing [" + fileName + "]");
 
     String[] parts;
     String testament;
@@ -183,12 +191,12 @@ public class DbSetupJob
       String line;
       while (null != (line = reader.readLine())) {
         if (!line.contains(separator)) {
-          Log.e(TAG, "populateBooksTable: skipping [" + line + "], no [" + separator + "] found");
+          Log.e(TAG, "populateTableBooks: skipping [" + line + "], no [" + separator + "] found");
           continue;
         }
         parts = line.split(separator);
         if (parts.length != separatorCount + 1) {
-          Log.e(TAG, "populateBooksTable: skipping [" + line + "] " + "it does't have ["
+          Log.e(TAG, "populateTableBooks: skipping [" + line + "] " + "it does't have ["
                      + separatorCount + "] [" + separator + "]");
           continue;
         }
@@ -200,31 +208,31 @@ public class DbSetupJob
           chapters = Integer.parseInt(parts[4]);
           verses = Integer.parseInt(parts[5]);
         } catch (NumberFormatException nfe) {
-          Log.e(TAG, "populateBooksTable: part of line [" + line + "] is NAN", nfe);
+          Log.e(TAG, "populateTableBooks: part of line [" + line + "] is NAN", nfe);
           continue;
         }
         if (testament.isEmpty()) {
-          Log.e(TAG, "populateBooksTable: empty testament in line [" + line + "]");
+          Log.e(TAG, "populateTableBooks: empty testament in line [" + line + "]");
           continue;
         }
         if (description.isEmpty()) {
-          Log.e(TAG, "populateBooksTable: empty description in line [" + line + "]");
+          Log.e(TAG, "populateTableBooks: empty description in line [" + line + "]");
           continue;
         }
         if (name.isEmpty()) {
-          Log.e(TAG, "populateBooksTable: empty name in line [" + line + "]");
+          Log.e(TAG, "populateTableBooks: empty name in line [" + line + "]");
           continue;
         }
         if (position < 1 || position > 66) {
-          Log.e(TAG, "populateBooksTable: invalid book position in line [" + line + "]");
+          Log.e(TAG, "populateTableBooks: invalid book position in line [" + line + "]");
           continue;
         }
         if (chapters < 1) {
-          Log.e(TAG, "populateBooksTable: invalid chapters count in line [" + line + "]");
+          Log.e(TAG, "populateTableBooks: invalid chapters count in line [" + line + "]");
           continue;
         }
         if (verses < 1) {
-          Log.e(TAG, "populateBooksTable: invalid  verses count in line [" + line + "]");
+          Log.e(TAG, "populateTableBooks: invalid  verses count in line [" + line + "]");
           continue;
         }
         // using the data values, create a new book record in the database
@@ -235,11 +243,11 @@ public class DbSetupJob
         RESULT_RECEIVER.send(STARTED, bundle);
       }
     } catch (IOException e) {
-      Log.e(TAG, "populateBooksTable: exception processing [" + fileName + "]", e);
+      Log.e(TAG, "populateTableBooks: exception processing [" + fileName + "]", e);
       return false;
     }
-    Log.d(TAG, "populateBooksTable: now bookCount[" + bookDao.getBookCount()
-               + "] && expectedCount[" + BookUtils.EXPECTED_COUNT + "]");
+    Log.d(TAG, "populateTableBooks: now currentBookCount[" + bookDao.getBookCount()
+               + "] == expectedCount[" + BookUtils.EXPECTED_COUNT + "]");
     return true;
   }
 
@@ -248,14 +256,13 @@ public class DbSetupJob
    *
    * @return true if record is successfully created, false otherwise.
    */
-  private boolean populateVersesTable() {
-    Log.d(TAG, "populateVersesTable:");
-    final VerseDao verseDao = SbDatabase.getDatabase(getApplication())
-                                        .getVerseDao();
+  private boolean populateTableVerses(@NonNull VerseDao verseDao) {
+    Log.d(TAG, "populateTableVerses:");
+
     final String fileName = VerseUtils.SETUP_FILE;
     final String separator = VerseUtils.SETUP_FILE_RECORD_SEPARATOR;
     final int separatorCount = VerseUtils.SETUP_FILE_RECORD_SEPARATOR_COUNT;
-    Log.d(TAG, "populateVersesTable: processing [" + fileName + "]");
+    Log.d(TAG, "populateTableVerses: processing [" + fileName + "]");
 
     String[] parts;
     String translation;
@@ -270,12 +277,12 @@ public class DbSetupJob
       String line;
       while (null != (line = reader.readLine())) {
         if (!line.contains(separator)) {
-          Log.e(TAG, "populateVersesTable: skipping [" + line + "], no [" + separator + "] found");
+          Log.e(TAG, "populateTableVerses: skipping [" + line + "], no [" + separator + "] found");
           continue;
         }
         parts = line.split(separator);
         if (parts.length != separatorCount + 1) {
-          Log.e(TAG, "populateVersesTable: skipping [" + line + "] " + "it does't have ["
+          Log.e(TAG, "populateTableVerses: skipping [" + line + "] " + "it does't have ["
                      + separatorCount + "] [" + separator + "]");
           continue;
         }
@@ -286,27 +293,27 @@ public class DbSetupJob
           chapter = Integer.parseInt(parts[2]);
           verse = Integer.parseInt(parts[3]);
         } catch (NumberFormatException nfe) {
-          Log.e(TAG, "populateVersesTable: part of line [" + line + "]  is NAN", nfe);
+          Log.e(TAG, "populateTableVerses: part of line [" + line + "]  is NAN", nfe);
           continue;
         }
         if (translation.isEmpty()) {
-          Log.e(TAG, "populateVersesTable: empty translation in line [" + line + "]");
+          Log.e(TAG, "populateTableVerses: empty translation in line [" + line + "]");
           continue;
         }
         if (text.isEmpty()) {
-          Log.e(TAG, "populateVersesTable: empty text in line [" + line + "]");
+          Log.e(TAG, "populateTableVerses: empty text in line [" + line + "]");
           continue;
         }
         if (book < 1 || book > 66) {
-          Log.e(TAG, "populateVersesTable: invalid book number in line [" + line + "]");
+          Log.e(TAG, "populateTableVerses: invalid book number in line [" + line + "]");
           continue;
         }
         if (chapter < 1) {
-          Log.e(TAG, "populateVersesTable: invalid chapters count in line [" + line + "]");
+          Log.e(TAG, "populateTableVerses: invalid chapters count in line [" + line + "]");
           continue;
         }
         if (verse < 1) {
-          Log.e(TAG, "populateVersesTable: invalid  verses count in line [" + line + "]");
+          Log.e(TAG, "populateTableVerses: invalid  verses count in line [" + line + "]");
           continue;
         }
         // using the values, create a new verse in the database.
@@ -317,11 +324,11 @@ public class DbSetupJob
         RESULT_RECEIVER.send(STARTED, bundle);
       }
     } catch (IOException e) {
-      Log.e(TAG, "populateVersesTable: exception processing [" + fileName + "]", e);
+      Log.e(TAG, "populateTableVerses: exception processing [" + fileName + "]", e);
       return false;
     }
-    Log.d(TAG, "populateVersesTable: now verseCount[" + verseDao.getVerseCount()
-               + "] && expectedCount[" + VerseUtils.EXPECTED_COUNT + "]");
+    Log.d(TAG, "populateTableVerses: now currentVerseCount[" + verseDao.getVerseCount()
+               + "] == expectedCount[" + VerseUtils.EXPECTED_COUNT + "]");
     return true;
   }
 
