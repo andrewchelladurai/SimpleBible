@@ -2,26 +2,57 @@
 <PreferenceScreen
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
-  <ListPreference
-    app:defaultValue="@string/sb_pref_key_theme_values_system"
-    app:entries="@array/sb_pref_key_theme_entries"
-    app:entryValues="@array/sb_pref_key_theme_values"
-    app:icon="@drawable/ic_theme_toggle"
-    app:key="@string/sb_pref_key_theme"
-    app:summary="@string/scr_pref_theme_summary"
-    app:title="@string/scr_pref_theme_title" />
+  <PreferenceCategory app:title="@string/pref_cat_app_title">
 
-  <Preference
-    app:allowDividerAbove="true"
-    app:icon="@drawable/ic_save"
-    app:key="@string/sb_pref_key_export"
-    app:summary="@string/scr_pref_export_summary"
-    app:title="@string/scr_pref_export_title" />
+    <ListPreference
+      app:defaultValue="@string/sb_pref_key_theme_values_system"
+      app:entries="@array/sb_pref_key_theme_entries"
+      app:entryValues="@array/sb_pref_key_theme_values"
+      app:icon="@drawable/ic_theme_toggle"
+      app:key="@string/sb_pref_key_theme"
+      app:summary="@string/scr_pref_theme_summary"
+      app:title="@string/scr_pref_theme_title" />
 
-  <Preference
-    app:allowDividerAbove="true"
-    app:icon="@drawable/ic_info"
-    app:key="@string/sb_pref_key_about"
-    app:summary="@string/scr_pref_about_summary"
-    app:title="@string/scr_pref_about_title" />
+    <Preference
+      app:icon="@drawable/ic_save"
+      app:key="@string/sb_pref_key_export"
+      app:summary="@string/scr_pref_export_summary"
+      app:title="@string/scr_pref_export_title" />
+
+    <Preference
+      app:icon="@drawable/ic_alarm"
+      app:key="@string/pref_notification_time_key"
+      app:summary="@string/pref_notification_time_summary"
+      app:title="@string/pref_notification_time_title" />
+
+  </PreferenceCategory>
+
+  <PreferenceCategory app:title="@string/pref_cat_user_title">
+
+    <Preference
+      app:icon="@drawable/ic_star"
+      app:key="@string/sb_pref_key_rate"
+      app:summary="@string/sb_pref_key_rate_summary"
+      app:title="@string/sb_pref_key_rate_title" />
+
+    <Preference
+      app:icon="@drawable/ic_email"
+      app:key="@string/sb_pref_key_email"
+      app:summary="@string/sb_pref_key_email_summary"
+      app:title="@string/sb_pref_key_email_title" />
+
+    <Preference
+      app:icon="@drawable/ic_info"
+      app:key="@string/sb_pref_key_about"
+      app:summary="@string/scr_pref_about_summary"
+      app:title="@string/scr_pref_about_title" />
+
+    <Preference
+      app:icon="@drawable/ic_info"
+      app:key="@string/pref_license_key"
+      app:summary="@string/pref_license_summary"
+      app:title="@string/pref_license_title" />
+
+  </PreferenceCategory>
+
 </PreferenceScreen>

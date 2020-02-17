@@ -158,23 +158,43 @@
   <string name="scr_error_default_text">Something unexpected happened and we do not know how. Help us find out by sharing details. Press the below button to send the developer an email.</string>
 
   <!-- String used in the ScreenSettings -->
-  <string name="sb_pref_key_theme">sb_pref_key_theme</string>
-  <string name="sb_pref_key_export">sb_pref_key_export</string>
-  <string name="sb_pref_key_about">sb_pref_key_about</string>
+  <string name="pref_cat_app_title">Settings for Simple Bible</string>
 
-  <string name="scr_pref_title">Preferences</string>
-  <string name="scr_pref_about_title">About</string>
-  <string name="scr_pref_about_summary"><![CDATA[Why was this application made along & the application\'s history]]></string>
-  <string name="scr_pref_export_title">Export saved bookmarks</string>
-  <string name="scr_pref_export_summary">Save the exported file on Phone</string>
+  <string name="sb_pref_key_theme">sb_pref_key_theme</string>
   <string name="scr_pref_theme_title">Dark Theme</string>
-  <string name="scr_pref_theme_summary">Use a black background</string>
+  <string name="scr_pref_theme_summary">use a dark background.</string>
   <string name="sb_pref_key_theme_entries_system">System Default Behavior</string>
   <string name="sb_pref_key_theme_entries_yes">Yes</string>
   <string name="sb_pref_key_theme_entries_no">No</string>
   <string name="sb_pref_key_theme_values_system">AUTO</string>
   <string name="sb_pref_key_theme_values_yes">YES</string>
   <string name="sb_pref_key_theme_values_no">NO</string>
+
+  <string name="sb_pref_key_export">sb_pref_key_export</string>
+  <string name="scr_pref_export_title">Export Bookmarks</string>
+  <string name="scr_pref_export_summary">into a file.</string>
+
+  <string name="pref_notification_time_key">pref_notification_time</string>
+  <string name="pref_notification_time_title">Daily Notification</string>
+  <string name="pref_notification_time_summary">remind me at </string>
+
+  <string name="pref_cat_user_title">Your thoughts about Simple Bible</string>
+
+  <string name="sb_pref_key_about">sb_pref_key_about</string>
+  <string name="scr_pref_about_title">About Simple Bible</string>
+  <string name="scr_pref_about_summary"><![CDATA[and it\'s change history.]]></string>
+
+  <string name="sb_pref_key_rate">sb_pref_key_rate</string>
+  <string name="sb_pref_key_rate_title">Rate Application</string>
+  <string name="sb_pref_key_rate_summary">also provide feedback.</string>
+
+  <string name="sb_pref_key_email">sb_pref_key_email</string>
+  <string name="sb_pref_key_email_title">Email Developer</string>
+  <string name="sb_pref_key_email_summary">for Feature requests or issues.</string>
+
+  <string name="pref_license_key">pref_license_key</string>
+  <string name="pref_license_title">Licenses of components</string>
+  <string name="pref_license_summary">used to make this application.</string>
 
   <!-- String used in the ScreenError -->
   <string name="screen_error_button">Inform Developer</string>
