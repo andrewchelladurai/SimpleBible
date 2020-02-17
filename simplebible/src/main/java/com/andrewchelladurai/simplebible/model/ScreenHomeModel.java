@@ -71,8 +71,7 @@ public class ScreenHomeModel
 
   @NonNull
   public LiveData<Verse> getVerse(@NonNull final String reference) {
-    final int[] parts = VerseUtils.getInstance()
-                                  .splitReference(reference);
+    final int[] parts = VerseUtils.splitReference(reference);
     return verseDao.getLiveVerse(parts[0], parts[1], parts[2]);
   }
 

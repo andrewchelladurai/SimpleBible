@@ -30,15 +30,13 @@ public class BookmarkUtils {
   public boolean validateReference(@NonNull final String reference) {
     Log.d(TAG, "validateReference [" + reference + "]");
 
-    final VerseUtils verseUtils = VerseUtils.getInstance();
-
     // if there are more than one verse references in the bookmark reference
     if (reference.contains(SEPARATOR)) {
       final String[] verseReferences = reference.split(SEPARATOR);
       // check if each of the verse reference is valid
       for (final String vReference : verseReferences) {
         // if any one of the verse reference is invalid, fail the validation
-        if (!verseUtils.validateReference(vReference)) {
+        if (!VerseUtils.validateReference(vReference)) {
           Log.d(TAG, "validateReference: verseReference [" + vReference + " is invalid]");
           return false;
         }
@@ -49,7 +47,7 @@ public class BookmarkUtils {
       // this will be called if we did not find any bookmark reference separator
       // meaning - only one verse is being bookmarked
       // if so, validate the single verse's reference
-      if (!verseUtils.validateReference(reference)) {
+      if (!VerseUtils.validateReference(reference)) {
         Log.d(TAG, "validateReference: verseReference [" + reference + " is invalid]");
         return false;
       } else {
@@ -74,9 +72,8 @@ public class BookmarkUtils {
 
     StringBuilder builder = new StringBuilder();
 
-    final VerseUtils verseUtils = VerseUtils.getInstance();
     for (final Verse verse : tempList) {
-      builder.append(verseUtils.createReference(verse))
+      builder.append(VerseUtils.createReference(verse))
              .append(SEPARATOR);
     }
 

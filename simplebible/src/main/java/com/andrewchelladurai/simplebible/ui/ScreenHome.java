@@ -249,8 +249,7 @@ public class ScreenHome
       return;
     }
 
-    if (!VerseUtils.getInstance()
-                   .validateReference(reference)) {
+    if (!VerseUtils.validateReference(reference)) {
       Log.e(TAG, "showDailyVerse: invalid reference [" + reference + "]");
       showDefaultDailyVerse(defaultReference);
       return;
@@ -310,8 +309,7 @@ public class ScreenHome
 
     final int defaultVerseRawText = R.string.screen_home_template_default_verse;
 
-    if (!VerseUtils.getInstance()
-                   .validateReference(reference)) {
+    if (!VerseUtils.validateReference(reference)) {
       Log.e(TAG, "showDefaultDailyVerse: invalid reference [" + reference + "]");
       showVerseText(defaultVerseRawText);
       return;
