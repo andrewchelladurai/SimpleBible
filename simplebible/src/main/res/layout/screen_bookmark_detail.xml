@@ -55,7 +55,7 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    app:spanCount="@integer/scr_bookmark_list_columns"
+    app:spanCount="@integer/screen_bookmark_detail_list_columns"
     tools:listitem="@layout/screen_bookmark_detail_list_item" />
 
   <com.google.android.material.textfield.TextInputLayout

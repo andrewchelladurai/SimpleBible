@@ -13,7 +13,7 @@ public class BookUtils {
   public static final int SETUP_FILE_RECORD_SEPARATOR_COUNT = 5;
 
   private static final String TAG = "BookUtils";
-  private static BookUtils THIS_INSTANCE = new BookUtils();
+  private static final BookUtils THIS_INSTANCE = new BookUtils();
 
   private BookUtils() {
   }

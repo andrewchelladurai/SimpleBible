@@ -38,7 +38,7 @@ public class ScreenHomeModel
   @NonNull
   private final BookDao bookDao;
   @NonNull
-  private static MutableLiveData<Integer> DB_SETUP_JOB_STATE =
+  private static final MutableLiveData<Integer> DB_SETUP_JOB_STATE =
       new MutableLiveData<>(DbSetupJob.NOT_STARTED);
 
   public ScreenHomeModel(@NonNull final Application application) {

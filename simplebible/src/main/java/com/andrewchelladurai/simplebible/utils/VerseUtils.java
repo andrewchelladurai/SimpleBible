@@ -18,7 +18,7 @@ public class VerseUtils {
   public static final String SEPARATOR = ":";
 
   private static final String TAG = "VerseUtils";
-  private static VerseUtils THIS_INSTANCE = new VerseUtils();
+  private static final VerseUtils THIS_INSTANCE = new VerseUtils();
 
   private VerseUtils() {
   }

@@ -24,8 +24,8 @@ public class SearchAdapter
 
   private static final String TAG = "SearchAdapter";
 
-  private static ArrayList<Verse> LIST = new ArrayList<>();
-  private static HashMap<Verse, String> SELECTED_LIST = new HashMap<>();
+  private static final ArrayList<Verse> LIST = new ArrayList<>();
+  private static final HashMap<Verse, String> SELECTED_LIST = new HashMap<>();
 
   private final ScreenSearchOps ops;
 

@@ -22,7 +22,7 @@ public class BookmarkDetailAdapter
 
   private static final String TAG = "BookmarkDetailAdapter";
   private final ArrayList<Verse> list = new ArrayList<>();
-  private ScreenBookmarkDetailOps ops;
+  private final ScreenBookmarkDetailOps ops;
 
   public BookmarkDetailAdapter(final ScreenBookmarkDetailOps ops) {
     this.ops = ops;

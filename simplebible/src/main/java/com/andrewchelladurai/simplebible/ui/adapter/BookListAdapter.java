@@ -24,8 +24,9 @@ public class BookListAdapter
     implements RecyclerViewAdapterOps {
 
   private static final String TAG = "BookListAdapter";
-  private static ArrayList<Book> ALL_BOOKS = new ArrayList<>(BookUtils.EXPECTED_COUNT);
-  private static ArrayList<Book> FILTERED_BOOK_LIST = new ArrayList<>(BookUtils.EXPECTED_COUNT);
+  private static final ArrayList<Book> ALL_BOOKS = new ArrayList<>(BookUtils.EXPECTED_COUNT);
+  private static final ArrayList<Book> FILTERED_BOOK_LIST =
+      new ArrayList<>(BookUtils.EXPECTED_COUNT);
   private final ScreenBookListOps viewOps;
 
   public BookListAdapter(final ScreenBookListOps ops) {
