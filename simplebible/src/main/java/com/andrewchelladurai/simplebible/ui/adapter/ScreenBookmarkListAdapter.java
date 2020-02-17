@@ -14,7 +14,6 @@ import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entity.Bookmark;
 import com.andrewchelladurai.simplebible.ui.ops.RecyclerViewAdapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenBookmarkListOps;
-import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,12 +105,9 @@ public class ScreenBookmarkListAdapter
       final TextView noteField = rootView.findViewById(R.id.screen_bookmarks_list_item_note);
       noteField.setText(htmlText);
 
-      final TextView verseField = rootView
-                                      .findViewById(R.id.screen_bookmarks_list_item_first_verse);
-      final Chip verseCountChip = rootView
-                                      .findViewById(R.id.screen_bookmarks_list_verse_count);
-
-      ops.updateVerseList(verseCountChip, verseField, bookmark.getReference());
+      ops.updateVerseList(rootView.findViewById(R.id.screen_bookmarks_list_item_verse_count),
+                          rootView.findViewById(R.id.screen_bookmarks_list_item_first_verse),
+                          bookmark.getReference());
 
     }
 

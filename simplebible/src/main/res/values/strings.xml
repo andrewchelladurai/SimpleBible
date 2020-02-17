@@ -133,8 +133,7 @@
   <string name="screen_bookmark_detail_template_share">Bookmarked Verse(s):\n%s\n\nBookmarked Notes:\n%s\n\nThe World English Bible\nShared from SimpleBible</string>
 
   <!-- String used in the ScreenBookmarkList -->
-  <string name="scr_bmark_list_image_desc">Bookmarks</string>
-  <string name="scr_bmark_list_help_txt"><![CDATA[
+  <string name="screen_bookmarks_help_text"><![CDATA[
     <h1><font color="#bf360c">No Bookmarked Verses Found</font></h1>
     <h5><font color="#bf360c">To bookmark a verse</font><br/><br/>
     Long press on a Verse in either<br/>
@@ -142,18 +141,20 @@
     - or a Search Result<br/>
     and then select the Bookmark action.<br/><br/>
     You can also Bookmark Today\'s Verse<br/>displayed on the Home Screen</h5>]]></string>
-  <string name="scr_bmark_list_msg_empty_note">This Bookmark does not have any Notes</string>
+  <string name="screen_bookmarks_list_msg_empty_note">This Bookmark does not have any Notes</string>
 
-  <plurals name="itm_bmark_list_verse_count_template">
+  <plurals name="screen_bookmarks_list_item_template_verse_count">
     <item quantity="one">Bookmark contains %d Verse</item>
     <item quantity="other">Bookmark contains %d Verses</item>
   </plurals>
   <string name="screen_bookmarks_list_item_note_template"><![CDATA[<b>Bookmarked Note :</b> %s]]></string>
-  <string name="screen_bookmarks_list_verse_count_msg_none_found"><![CDATA[<b>No verses found for this bookmarked entry]]></string>
-  <string name="screen_bookmarks_list_item_first_verse_template"><![CDATA[<b>%s %d:%d -</b> %s]]></string>
+  <string name="screen_bookmarks_list_item_msg_no_verse_found"><![CDATA[<b>No verses found for this bookmarked entry]]></string>
+  <string name="screen_bookmarks_list_item_template_first_verse"><![CDATA[<b>%s %d:%d -</b> %s]]></string>
 
   <!-- String used in the ScreenError -->
-  <string name="scr_error_default_text">Something unexpected happened and we do not know how. Help us find out by sharing details. Press the below button to send the developer an email.</string>
+  <string name="screen_error_msg_default">Something unexpected happened and we do not know how. Help us find out by sharing details. Press the below button to send the developer an email.</string>
+  <string name="screen_error_button">Inform Developer</string>
+  <string name="screen_error_icon_description">Something went wrong</string>
 
   <!-- String used in the ScreenSettings -->
   <string name="pref_cat_app_title">Settings for Simple Bible</string>
@@ -194,7 +195,4 @@
   <string name="pref_license_title">Licenses of components</string>
   <string name="pref_license_summary">used to make this application.</string>
 
-  <!-- String used in the ScreenError -->
-  <string name="screen_error_button">Inform Developer</string>
-  <string name="screen_error_icon_description">Something went wrong</string>
 </resources>

@@ -23,7 +23,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:padding="@dimen/gap_huge"
-      android:text="@string/scr_bmark_list_help_txt" />
+      android:text="@string/screen_bookmarks_help_text" />
   </ScrollView>
 
   <androidx.recyclerview.widget.RecyclerView

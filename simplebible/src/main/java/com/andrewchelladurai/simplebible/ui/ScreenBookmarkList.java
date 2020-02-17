@@ -1,5 +1,6 @@
 package com.andrewchelladurai.simplebible.ui;
 
+import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Spanned;
@@ -47,13 +48,13 @@ public class ScreenBookmarkList
       throw new RuntimeException(context.toString() + " must implement InteractionListener");
     }
 
-    final String templateEmptyNoteContent = getString(R.string.scr_bmark_list_msg_empty_note);
-
+    final Application application = requireActivity().getApplication();
     mainOps = (ScreenSimpleBibleOps) context;
 
-    adapter = new ScreenBookmarkListAdapter(this, templateEmptyNoteContent);
-    bookmarkListModel = new ScreenBookmarkListModel(requireActivity().getApplication());
-    bookModel = new ScreenBookListModel(requireActivity().getApplication());
+    adapter = new ScreenBookmarkListAdapter(
+        this, getString(R.string.screen_bookmarks_list_msg_empty_note));
+    bookmarkListModel = new ScreenBookmarkListModel(application);
+    bookModel = new ScreenBookListModel(application);
   }
 
   @Override
@@ -86,7 +87,7 @@ public class ScreenBookmarkList
   }
 
   private void showHelpInfo() {
-    final String rawText = getString(R.string.scr_bmark_list_help_txt);
+    final String rawText = getString(R.string.screen_bookmarks_help_text);
     final Spanned htmlText = HtmlCompat.fromHtml(rawText, HtmlCompat.FROM_HTML_MODE_COMPACT);
 
     final TextView textView = rootView.findViewById(R.id.screen_bookmarks_help_text);
@@ -121,9 +122,9 @@ public class ScreenBookmarkList
                               @NonNull final TextView verseField,
                               @NonNull final String bookmarkReference) {
 
-    final int templateFirstVerse = R.string.screen_bookmarks_list_item_first_verse_template;
+    final int templateFirstVerse = R.string.screen_bookmarks_list_item_template_first_verse;
     final Spanned htmlVerseNoneFound = HtmlCompat.fromHtml(
-        getString(R.string.screen_bookmarks_list_verse_count_msg_none_found),
+        getString(R.string.screen_bookmarks_list_item_msg_no_verse_found),
         HtmlCompat.FROM_HTML_MODE_COMPACT);
 
     bookmarkListModel.getBookmarkedVerse(bookmarkReference)
@@ -131,7 +132,7 @@ public class ScreenBookmarkList
 
                        final int verseCount = verseList.size();
                        final String templateVerseCount = getResources().getQuantityString(
-                           R.plurals.itm_bmark_list_verse_count_template, verseCount);
+                           R.plurals.screen_bookmarks_list_item_template_verse_count, verseCount);
 
                        verseCountChip.setText(String.format(templateVerseCount, verseCount));
 
