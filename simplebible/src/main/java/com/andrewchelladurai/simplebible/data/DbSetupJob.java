@@ -90,8 +90,8 @@ public class DbSetupJob
     final Intent intent = new Intent(this, DbSetupJob.class);
     final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
     startForeground(JOB_ID, new NotificationCompat.Builder(this, getPackageName())
-                                .setContentTitle(getString(R.string.db_setup_notification_title))
-                                .setContentText(getString(R.string.db_setup_notification_message))
+                                .setContentTitle(getString(R.string.db_setup_notify_title))
+                                .setContentText(getString(R.string.db_setup_notify_message))
                                 .setContentIntent(pendingIntent)
                                 .setOngoing(true)
                                 .setSmallIcon(R.drawable.ic_logo)

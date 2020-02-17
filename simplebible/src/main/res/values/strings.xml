@@ -7,18 +7,18 @@
   <!--  These strings are used during the DBSetup Job on application start  -->
   <string name="db_setup_1st_book_name">Genesis</string>
   <string name="db_setup_nth_book_name">Revelation</string>
-  <string name="db_setup_notification_title">Database Loading</string>
-  <string name="db_setup_notification_message">Setup is in progress</string>
+  <string name="db_setup_notify_title">Database Loading</string>
+  <string name="db_setup_notify_message">Setup is in progress</string>
   <string name="db_setup_msg_failure">Database Setup failed, please use the below button to inform the developer.</string>
 
   <!-- Strings used in the Main Screen -->
-  <string name="screen_main_bottom_nav_bar_menu_home">home</string>
-  <string name="screen_main_bottom_nav_bar_menu_books">books</string>
-  <string name="screen_main_bottom_nav_bar_menu_search">search</string>
-  <string name="screen_main_bottom_nav_bar_menu_bookmarks">bookmarks</string>
-  <string name="screen_main_bottom_nav_bar_menu_settings">settings</string>
-  <string name="scr_simple_bible_notif_channel_name">Simple Bible Notifications</string>
-  <string name="scr_simple_bible_notif_channel_desc">Will show the Daily Verse notifications and others</string>
+  <string name="screen_main_menu_title_home">home</string>
+  <string name="screen_main_menu_title_books">books</string>
+  <string name="screen_main_menu_title_search">search</string>
+  <string name="screen_main_menu_title_bookmarks">bookmarks</string>
+  <string name="screen_main_menu_title_settings">settings</string>
+  <string name="screen_main_notify_channel_name">Simple Bible Notifications</string>
+  <string name="screen_main_notify_channel_desc">Will show the Daily Verse notifications and others</string>
 
   <!-- String used in the HomeScreen -->
   <string name="scr_home_template_progress_txt">%d</string>
