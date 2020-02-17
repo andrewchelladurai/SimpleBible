@@ -23,8 +23,8 @@
   <string name="scr_home_template_progress_txt">%d</string>
   <string name="scr_home_verse_content_loading">
     <![CDATA[
-    <h1>Simple Bible</h1>
-    <h5>CREATING DATABASE</h5>
+    <h1><font color="#bf360c">Simple Bible</h1>
+    <h5>CREATING DATABASE</font></h5>
     <h5>Please be patient like Jacob<br/>
     for it is said in<br/><br/>
     <b>The Book of Genesis<br/>
@@ -32,17 +32,17 @@
     <h3>Jacob served seven years for Rachel.<br/>
     They seemed to him but a few days,<br/>
     for the love he had for her.</h3><br/><br/>
-    <b>The World English Bible</b>]]></string>
+    <font color="#bf360c"><b>The World English Bible</b></font>]]></string>
   <string name="scr_home_verse_content_template">
     <![CDATA[
-    <h1>Simple Bible</h1><br/>
+    <h1><font color="#bf360c">Simple Bible</font></h1><br/>
     <h5>%s</h5>
     <h5>Chapter %d Verse %d</h5><br/>
     <h3>%s</h3><br/>
-    The World English Bible]]></string>
+    <font color="#bf360c"><b>The World English Bible</b></font>]]></string>
   <string name="scr_home_verse_content_default">
     <![CDATA[
-    <h1>Simple Bible</h1><br/>
+    <h1><font color="#bf360c">Simple Bible</h1></font><br/>
     <h5>The Gospel of John<br/>
     Chapter 03 Verse 16</h5><br/>
     <h3>For God so loved the world,<br/>
@@ -50,7 +50,7 @@
     that whoever believes in him<br/>
     should not perish,<br/>
     but have eternal life.</h3><br/>
-    <b>The World English Bible</b>]]></string>
+    <font color="#bf360c"><b>The World English Bible</b></font>]]></string>
 
   <!-- String used in the ScreenBookList -->
   <string name="scr_book_list_err_no_books_in_db">No books found in the database. Please clear the application data or reinstall the application again. if the issue persists, please inform the developer.</string>
@@ -79,7 +79,7 @@
   <string name="scr_search_msg_no_results">No verse found</string>
   <string name="scr_search_image_desc">Search Verse Tips</string>
   <string name="screen_search_tips_text"><![CDATA[
-    <h1><u>TIPS</u> for relevant results</h1>
+    <h1><font color="#bf360c"><u>TIPS</u> to find relevant results</font></h1>
     <p><h5>The length of the input text must be<br/>
     - More than 3 alphabets.<br/>
     - Less than 13 alphabets.<br/><br/>
@@ -89,14 +89,14 @@
     like this <u>\' Eli \'</u></h5></p>
     ]]></string>
   <string name="scr_search_template_share">%s\nThe World English Bible\nShared from SimpleBible</string>
-  <string name="screen_search_list_item_content_template"><![CDATA[<b>%s %d:%d -</b> %s]]></string>
+  <string name="screen_search_list_item_content_template"><![CDATA[<font color="#bf360c"><b>%s %d:%d -</b></font> %s]]></string>
 
   <!-- String used in the ScreenBookmarkDetail & ScreenBookmarkList -->
   <string name="scr_bmark_msg_no_args">No verses passed as arguments</string>
   <string name="scr_bmark_msg_no_verse">Empty verses list received</string>
 
   <!-- String used in the ScreenChapter -->
-  <string name="screen_chapter_list_item_content_template"><![CDATA[<b>%d : </b>%s]]></string>
+  <string name="screen_chapter_list_item_content_template"><![CDATA[<font color="#bf360c"><b>%d : </b></font>%s]]></string>
   <string name="scr_chapter_msg_unexpected_error">No arguments passed</string>
   <string name="scr_chapter_msg_no_args">No arguments passed</string>
   <string name="scr_chapter_msg_book_invalid">Incorrect Book Reference Passed, using default</string>
@@ -104,11 +104,11 @@
   <string name="scr_chapter_msg_verse_invalid">Incorrect Chapter passed, using default</string>
   <string name="scr_chapter_msg_no_verse_found">No Verses found for Chapter %d of Book %s</string>
   <string name="screen_chapter_title_template"><![CDATA[<b>%s : Chapter %d</b><br/>%s]]></string>
-  <string name="screen_chapter_menu_list_dialog_title">Swipe to Select Chapters</string>
+  <string name="screen_chapter_menu_list_dialog_title">Chapter List</string>
   <string name="screen_chapter_menu_bookmark">Bookmark</string>
   <string name="screen_chapter_menu_share">Share</string>
   <string name="screen_chapter_menu_clear">Clear</string>
-  <string name="screen_chapter_dialog_title">Select A Chapter</string>
+  <string name="screen_chapter_dialog_title">Swipe and Select a Chapter</string>
 
   <!-- String used in the ScreenBookmarkDetail -->
   <string name="screen_bookmark_detail_title_template"><![CDATA[<b>%s</b><br/>%s]]></string>
@@ -132,18 +132,18 @@
   <string name="scr_bmark_msg_delete_success">Bookmark Deleted</string>
   <string name="scr_bmark_msg_delete_fail">Delete Bookmark Failed</string>
   <string name="itm_bmark_template_share">Bookmarked Verse(s):\n%s\n\nBookmarked Notes:\n%s\n\nThe World English Bible\nShared from SimpleBible</string>
-  <string name="screen_bookmark_detail_list_item_content_template"><![CDATA[<b>%s %d:%d -</b> %s]]></string>
+  <string name="screen_bookmark_detail_list_item_content_template"><![CDATA[<font color="#bf360c"><b>%s %d:%d -</b></font> %s]]></string>
 
   <!-- String used in the ScreenBookmarkList -->
   <string name="scr_bmark_list_image_desc">Bookmarks</string>
   <string name="scr_bmark_list_help_txt"><![CDATA[
-    <h1>No Bookmarked Verses Found</h1>
-    <h5>To bookmark a verse<br/><br/>
+    <h1><font color="#bf360c">No Bookmarked Verses Found</font></h1>
+    <h5><font color="#bf360c">To bookmark a verse</font><br/><br/>
     Long press on a Verse in either<br/>
     - a Chapter<br/>
     - or a Search Result<br/>
     and then select the Bookmark action.<br/><br/>
-    You can also Bookmark Today\'s Verse displayed on the Home Screen</h5>]]></string>
+    You can also Bookmark Today\'s Verse<br/>displayed on the Home Screen</h5>]]></string>
   <string name="scr_bmark_list_msg_empty_note">This Bookmark does not have any Notes</string>
 
   <plurals name="itm_bmark_list_verse_count_template">
