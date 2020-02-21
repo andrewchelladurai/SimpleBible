@@ -157,8 +157,7 @@
   <string name="screen_error_icon_description">Something went wrong</string>
 
   <!-- String used in the ScreenSettings -->
-  <string name="pref_category_title_application">Settings for Simple Bible</string>
-
+  <string name="pref_category_title_actions">Settings for Simple Bible</string>
   <string name="pref_theme_key">sb_pref_key_theme</string>
   <string name="pref_theme_title">Dark Theme</string>
   <string name="pref_theme_summary">use a dark background.</string>
@@ -177,12 +176,7 @@
   <string name="pref_reminder_title">Daily Notification</string>
   <string name="pref_reminder_summary">remind me at </string>
 
-  <string name="pref_category_title_user">Your thoughts about Simple Bible</string>
-
-  <string name="pref_about_key">sb_pref_key_about</string>
-  <string name="pref_about_title">About Simple Bible</string>
-  <string name="pref_about_summary"><![CDATA[and it\'s change history.]]></string>
-
+  <string name="pref_category_title_feedback">Your thoughts about Simple Bible</string>
   <string name="pref_rate_key">sb_pref_key_rate</string>
   <string name="pref_rate_title">Rate Application</string>
   <string name="pref_rate_summary">also provide feedback.</string>
@@ -190,6 +184,11 @@
   <string name="pref_email_key">sb_pref_key_email</string>
   <string name="pref_email_title">Email Developer</string>
   <string name="pref_email_summary">for Feature requests or issues.</string>
+
+  <string name="pref_category_title_about">Know More</string>
+  <string name="pref_about_key">sb_pref_key_about</string>
+  <string name="pref_about_title">About Simple Bible</string>
+  <string name="pref_about_summary"><![CDATA[and it\'s change history.]]></string>
 
   <string name="pref_license_key">pref_license_key</string>
   <string name="pref_license_title">Licenses of components</string>
