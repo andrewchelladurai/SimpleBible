@@ -24,6 +24,7 @@ import com.andrewchelladurai.simplebible.ui.adapter.SearchAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSearchOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -295,14 +296,15 @@ public class ScreenSearch
 
   private void updateTitle() {
     Log.d(TAG, "updateTitle:");
+    rootView.findViewById(R.id.screen_search_bottom_appbar)
+            .setElevation(0);
     final int resultCount = adapter.getItemCount();
-    final String titleTemplate = getResources()
-                                     .getQuantityString(R.plurals.screen_search_template_title,
-                                                        resultCount);
+    final String titleTemplate = getResources().getQuantityString(
+        R.plurals.screen_search_template_title, resultCount);
     final String formattedText = String.format(titleTemplate, resultCount);
     final Spanned htmlText = HtmlCompat.fromHtml(formattedText, HtmlCompat.FROM_HTML_MODE_COMPACT);
-    final TextView titleView = rootView.findViewById(R.id.screen_search_title);
-    titleView.setText(htmlText);
+
+    ((Chip) rootView.findViewById(R.id.screen_search_title)).setText(htmlText);
   }
 
 }

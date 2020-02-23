@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +26,7 @@ import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -232,10 +232,11 @@ public class ScreenChapter
                                       book.getName(), model.getCachedChapterNumber());
     final String titleText = HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_COMPACT)
                                        .toString();
-    adapter.setBookDetails(titleText);
 
-    final TextView title = rootView.findViewById(R.id.screen_chapter_title);
-    title.setText(titleText);
+    ((Chip) rootView.findViewById(R.id.screen_chapter_title))
+        .setText(titleText);
+
+    adapter.setBookDetails(titleText);
 
     rootView.findViewById(R.id.screen_chapter_bottom_appbar)
             .setElevation(0);

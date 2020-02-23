@@ -73,8 +73,8 @@
   <string name="screen_search_menu_title_reset">Reset</string>
   <string name="screen_search_text_hint">Search text</string>
   <plurals name="screen_search_template_title">
-    <item quantity="one"><![CDATA[<b>%d Result Found</b><br/>Tap a verse for actions]]></item>
-    <item quantity="other"><![CDATA[<b>%d Results Found</b><br/>Tap a verse for actions]]></item>
+    <item quantity="one"><![CDATA[%d Result Found]]></item>
+    <item quantity="other"><![CDATA[%d Results Found]]></item>
   </plurals>
   <string name="screen_search_msg_none_selected">Clear : No verses selected</string>
   <string name="screen_search_msg_input_invalid">Invalid input, see tips.</string>

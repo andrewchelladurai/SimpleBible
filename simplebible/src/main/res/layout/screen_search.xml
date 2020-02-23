@@ -71,14 +71,16 @@
       android:id="@+id/screen_search_title_container"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:animateLayoutChanges="true"
-      android:fillViewport="true">
+      android:animateLayoutChanges="true">
 
-      <TextView
+      <com.google.android.material.chip.Chip
         android:id="@+id/screen_search_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:animateLayoutChanges="true" />
+        android:animateLayoutChanges="true"
+        android:fontFamily="sans-serif-black"
+        android:textColor="?colorOnPrimary"
+        app:chipBackgroundColor="?colorPrimary" />
     </HorizontalScrollView>
   </com.google.android.material.bottomappbar.BottomAppBar>
 
@@ -88,7 +90,7 @@
     android:layout_height="0dp"
     android:padding="@dimen/gap_huge"
     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-    app:layout_constraintBottom_toTopOf="@+id/screen_search_bottom_appbar"
+    app:layout_constraintBottom_toTopOf="@id/screen_search_bottom_appbar"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
