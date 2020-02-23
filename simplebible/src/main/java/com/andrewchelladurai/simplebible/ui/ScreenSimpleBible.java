@@ -141,25 +141,24 @@ public class ScreenSimpleBible
     final String keyValueYes = getString(R.string.pref_theme_value_yes);
     final String keyValueNo = getString(R.string.pref_theme_value_no);
 
-    final String darkThemeMode = PreferenceManager.getDefaultSharedPreferences(this)
-                                                  .getString(keyName, keyValueAuto);
-    Log.d(TAG, "handleThemeToggle: darkThemeMode[" + darkThemeMode + "]");
+    final String currentValue = PreferenceManager.getDefaultSharedPreferences(this)
+                                                 .getString(keyName, keyValueAuto);
+    Log.d(TAG, "handleThemeToggle: currentValue[" + currentValue + "]");
 
-    int nightModeValue = AppCompatDelegate.MODE_NIGHT_YES;
-    if (darkThemeMode.equalsIgnoreCase(keyValueAuto)) {
-      nightModeValue = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-                       ? AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-                       : AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY;
-    } else if (darkThemeMode.equalsIgnoreCase(keyValueYes)) {
-      //noinspection ConstantConditions
-      nightModeValue = AppCompatDelegate.MODE_NIGHT_YES;
-    } else if (darkThemeMode.equalsIgnoreCase(keyValueNo)) {
-      nightModeValue = AppCompatDelegate.MODE_NIGHT_NO;
+    final int[] mode = new int[1];
+    if (currentValue.equalsIgnoreCase(keyValueAuto)) {
+      mode[0] = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+                ? AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                : AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY;
+    } else if (currentValue.equalsIgnoreCase(keyValueYes)) {
+      mode[0] = AppCompatDelegate.MODE_NIGHT_YES;
+    } else if (currentValue.equalsIgnoreCase(keyValueNo)) {
+      mode[0] = AppCompatDelegate.MODE_NIGHT_NO;
     } else {
       Log.d(TAG, "handleThemeToggle: unknown match");
     }
 
-    AppCompatDelegate.setDefaultNightMode(nightModeValue);
+    AppCompatDelegate.setDefaultNightMode(mode[0]);
   }
 
   @Override
