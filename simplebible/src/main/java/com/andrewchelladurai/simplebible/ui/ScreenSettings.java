@@ -87,63 +87,16 @@ public class ScreenSettings
     return super.onCreateView(inflater, container, savedInstanceState);
   }
 
+  private void handlePreferenceClickTheme() {
+    Log.d(TAG, "handlePreferenceClickTheme:");
+  }
+
   private void handlePreferenceClickExport() {
     Log.d(TAG, "handlePreferenceClickExport:");
   }
 
-  private void handlePreferenceClickAbout() {
-    Log.d(TAG, "handlePreferenceClickAbout:");
-    showAlertWebView("about.html",
-                     R.string.screen_settings_msg_not_found_about);
-  }
-
-  private void showAlertWebView(@NonNull final String assetsFileName,
-                                @StringRes final int errorMsgStrRef) {
-    final Context context = requireContext();
-
-    try {
-      final AlertDialog.Builder alert = new AlertDialog.Builder(context);
-      final WebView wv = new WebView(context);
-      wv.loadUrl("file:///android_asset/" + assetsFileName);
-      wv.setWebViewClient(new WebViewClient() {
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-          if (url != null && (url.startsWith("http://") || url.startsWith("https://"))) {
-            view.getContext()
-                .startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-            return true;
-          } else {
-            return false;
-          }
-        }
-      });
-
-      alert.setView(wv);
-      alert.show();
-
-    } catch (Exception e) {
-      Log.e(TAG,
-            "showAlertWebView: Could not open assets file [" + assetsFileName + "]"
-            + e.getLocalizedMessage());
-      mainOps.showMessage(getString(errorMsgStrRef));
-    }
-  }
-
-  private void handlePreferenceClickEmail() {
-    Log.d(TAG, "handlePreferenceClickEmail:");
-    final Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-    emailIntent.setData(Uri.parse("mailto:"));
-    emailIntent.putExtra(Intent.EXTRA_EMAIL, getString(R.string.pref_email_address));
-    emailIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.pref_email_subject));
-    if (null != emailIntent.resolveActivity(requireActivity().getPackageManager())) {
-      startActivity(emailIntent);
-    } else {
-      Log.e(TAG, "handlePreferenceClickEmail: No email application found");
-    }
-  }
-
-  private void handlePreferenceClickTheme() {
-    Log.d(TAG, "handlePreferenceClickTheme:");
+  private void handlePreferenceClickReminder() {
+    Log.d(TAG, "handlePreferenceClickReminder:");
   }
 
   private void handlePreferenceClickRate() {
@@ -164,14 +117,59 @@ public class ScreenSettings
 
   }
 
-  private void handlePreferenceClickReminder() {
-    Log.d(TAG, "handlePreferenceClickReminder:");
+  private void handlePreferenceClickEmail() {
+    Log.d(TAG, "handlePreferenceClickEmail:");
+    final Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+    emailIntent.setData(Uri.parse("mailto:"));
+    emailIntent.putExtra(Intent.EXTRA_EMAIL, getString(R.string.pref_email_address));
+    emailIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.pref_email_subject));
+    if (null != emailIntent.resolveActivity(requireActivity().getPackageManager())) {
+      startActivity(emailIntent);
+    } else {
+      Log.e(TAG, "handlePreferenceClickEmail: No email application found");
+    }
+  }
+
+  private void handlePreferenceClickAbout() {
+    Log.d(TAG, "handlePreferenceClickAbout:");
+    showAlertWebView("about.html",
+                     R.string.screen_settings_msg_not_found_about);
   }
 
   private void handlePreferenceClickLicense() {
     Log.d(TAG, "handlePreferenceClickLicense:");
     showAlertWebView("licenses.html",
                      R.string.screen_settings_msg_not_found_license);
+  }
+
+  private void showAlertWebView(@NonNull final String assetsFileName,
+                                @StringRes final int errorMsgStrRef) {
+    final Context context = requireContext();
+
+    try {
+      final AlertDialog.Builder alert = new AlertDialog.Builder(context);
+      final WebView wv = new WebView(context);
+      wv.loadUrl("file:///android_asset/" + assetsFileName);
+      wv.setWebViewClient(new WebViewClient() {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+          if (url != null && (url.startsWith("http://") || url.startsWith("https://"))) {
+            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+            return true;
+          } else {
+            return false;
+          }
+        }
+      });
+
+      alert.setView(wv);
+      alert.show();
+
+    } catch (Exception e) {
+      Log.e(TAG, "showAlertWebView: Could not open assets file [" + assetsFileName + "]"
+                 + e.getLocalizedMessage());
+      mainOps.showMessage(getString(errorMsgStrRef));
+    }
   }
 
   private class PreferenceChangeHandler
