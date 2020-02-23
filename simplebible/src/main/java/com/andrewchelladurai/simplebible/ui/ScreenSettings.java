@@ -36,20 +36,6 @@ public class ScreenSettings
   }
 
   @Override
-  public void onCreatePreferences(final Bundle savedInstanceState, final String rootKey) {
-    setPreferencesFromResource(R.xml.sb_main_preferences, rootKey);
-  }
-
-  @Override
-  public View onCreateView(@NonNull final LayoutInflater inflater,
-                           @Nullable final ViewGroup container,
-                           @Nullable final Bundle savedInstanceState) {
-    mainOps.hideKeyboard();
-    mainOps.showNavigationView();
-    return super.onCreateView(inflater, container, savedInstanceState);
-  }
-
-  @Override
   public void onDetach() {
     super.onDetach();
     mainOps = null;
@@ -87,12 +73,46 @@ public class ScreenSettings
 
   }
 
+  @Override
+  public void onCreatePreferences(final Bundle savedInstanceState, final String rootKey) {
+    setPreferencesFromResource(R.xml.sb_main_preferences, rootKey);
+  }
+
+  @Override
+  public View onCreateView(@NonNull final LayoutInflater inflater,
+                           @Nullable final ViewGroup container,
+                           @Nullable final Bundle savedInstanceState) {
+    mainOps.hideKeyboard();
+    mainOps.showNavigationView();
+    return super.onCreateView(inflater, container, savedInstanceState);
+  }
+
   private void handlePreferenceClickExport() {
     Log.d(TAG, "handlePreferenceClickExport:");
   }
 
   private void handlePreferenceClickAbout() {
     Log.d(TAG, "handlePreferenceClickAbout:");
+  }
+
+  private void handlePreferenceClickLicense() {
+    Log.d(TAG, "handlePreferenceClickLicense:");
+  }
+
+  private void handlePreferenceClickEmail() {
+    Log.d(TAG, "handlePreferenceClickEmail:");
+  }
+
+  private void handlePreferenceClickTheme() {
+    Log.d(TAG, "handlePreferenceClickTheme:");
+  }
+
+  private void handlePreferenceClickRate() {
+    Log.d(TAG, "handlePreferenceClickRate:");
+  }
+
+  private void handlePreferenceClickReminder() {
+    Log.d(TAG, "handlePreferenceClickReminder:");
   }
 
   private class PreferenceChangeHandler
@@ -105,7 +125,7 @@ public class ScreenSettings
         mainOps.handleThemeToggle();
         mainOps.restartApp();
       } else {
-        Log.e(TAG, "onSharedPreferenceChanged: unhandled pref key [" + key + "]");
+        Log.e(TAG, "onSharedPreferenceChanged: unhandled key [" + key + "]");
       }
     }
 
@@ -116,20 +136,27 @@ public class ScreenSettings
 
     @Override
     public boolean onPreferenceTreeClick(final Preference preference) {
-      final String preferenceKey = preference.getKey();
-      final String keyAbout = getString(R.string.pref_about_key);
-      final String keyExport = getString(R.string.pref_export_key);
+      final String gotKey = preference.getKey();
 
-      if (preferenceKey.equalsIgnoreCase(keyAbout)) {
-        handlePreferenceClickAbout();
-        return true;
-      } else if (preferenceKey.equalsIgnoreCase(keyExport)) {
+      if (gotKey.equalsIgnoreCase(getString(R.string.pref_theme_key))) {
+        handlePreferenceClickTheme();
+      } else if (gotKey.equalsIgnoreCase(getString(R.string.pref_export_key))) {
         handlePreferenceClickExport();
-        return true;
+      } else if (gotKey.equalsIgnoreCase(getString(R.string.pref_reminder_key))) {
+        handlePreferenceClickReminder();
+      } else if (gotKey.equalsIgnoreCase(getString(R.string.pref_rate_key))) {
+        handlePreferenceClickRate();
+      } else if (gotKey.equalsIgnoreCase(getString(R.string.pref_email_key))) {
+        handlePreferenceClickEmail();
+      } else if (gotKey.equalsIgnoreCase(getString(R.string.pref_about_key))) {
+        handlePreferenceClickAbout();
+      } else if (gotKey.equalsIgnoreCase(getString(R.string.pref_license_key))) {
+        handlePreferenceClickLicense();
       } else {
-        Log.e(TAG, "onPreferenceTreeClick: unknown key[" + preferenceKey + "]");
+        Log.e(TAG, "onPreferenceTreeClick: unknown key[" + gotKey + "]");
         return false;
       }
+      return true;
     }
 
   }
