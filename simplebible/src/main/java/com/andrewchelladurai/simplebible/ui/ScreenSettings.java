@@ -25,8 +25,8 @@ public class ScreenSettings
   private static final String TAG = "ScreenSettings";
 
   private ScreenSimpleBibleOps mainOps;
-  private PreferenceChangeHandler preferenceChangeHandler;
-  private PreferenceClickListener preferenceClickListener;
+  private PreferenceChangeHandler prefChangeHandler;
+  private PreferenceClickListener prefClickListener;
 
   @Override
   public void onAttach(@NonNull Context context) {
@@ -47,32 +47,26 @@ public class ScreenSettings
   public void onResume() {
     super.onResume();
 
-    if (preferenceChangeHandler == null) {
-      preferenceChangeHandler = new PreferenceChangeHandler();
-      getPreferenceManager().getSharedPreferences()
-                            .registerOnSharedPreferenceChangeListener(preferenceChangeHandler);
+    if (prefChangeHandler == null) {
+      prefChangeHandler = new PreferenceChangeHandler();
     }
 
-    if (preferenceClickListener == null) {
-      preferenceClickListener = new PreferenceClickListener();
-      getPreferenceManager().setOnPreferenceTreeClickListener(preferenceClickListener);
+    if (prefClickListener == null) {
+      prefClickListener = new PreferenceClickListener();
     }
 
+    getPreferenceManager().getSharedPreferences()
+                          .registerOnSharedPreferenceChangeListener(prefChangeHandler);
+    getPreferenceManager().setOnPreferenceTreeClickListener(prefClickListener);
   }
 
   @Override
   public void onPause() {
     super.onPause();
 
-    if (preferenceChangeHandler != null) {
-      getPreferenceManager().getSharedPreferences()
-                            .unregisterOnSharedPreferenceChangeListener(preferenceChangeHandler);
-    }
-
-    if (preferenceClickListener != null) {
-      getPreferenceManager().setOnPreferenceTreeClickListener(null);
-    }
-
+    getPreferenceManager().getSharedPreferences()
+                          .unregisterOnSharedPreferenceChangeListener(prefChangeHandler);
+    getPreferenceManager().setOnPreferenceTreeClickListener(null);
   }
 
   @Override
