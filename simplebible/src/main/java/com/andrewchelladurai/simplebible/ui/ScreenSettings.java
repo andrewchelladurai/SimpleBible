@@ -9,9 +9,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
@@ -89,10 +93,40 @@ public class ScreenSettings
 
   private void handlePreferenceClickAbout() {
     Log.d(TAG, "handlePreferenceClickAbout:");
+    showAlertWebView("about.html",
+                     R.string.screen_settings_msg_not_found_about);
   }
 
-  private void handlePreferenceClickLicense() {
-    Log.d(TAG, "handlePreferenceClickLicense:");
+  private void showAlertWebView(@NonNull final String assetsFileName,
+                                @StringRes final int errorMsgStrRef) {
+    final Context context = requireContext();
+
+    try {
+      final AlertDialog.Builder alert = new AlertDialog.Builder(context);
+      final WebView wv = new WebView(context);
+      wv.loadUrl("file:///android_asset/" + assetsFileName);
+      wv.setWebViewClient(new WebViewClient() {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+          if (url != null && (url.startsWith("http://") || url.startsWith("https://"))) {
+            view.getContext()
+                .startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+            return true;
+          } else {
+            return false;
+          }
+        }
+      });
+
+      alert.setView(wv);
+      alert.show();
+
+    } catch (Exception e) {
+      Log.e(TAG,
+            "showAlertWebView: Could not open assets file [" + assetsFileName + "]"
+            + e.getLocalizedMessage());
+      mainOps.showMessage(getString(errorMsgStrRef));
+    }
   }
 
   private void handlePreferenceClickEmail() {
@@ -132,6 +166,12 @@ public class ScreenSettings
 
   private void handlePreferenceClickReminder() {
     Log.d(TAG, "handlePreferenceClickReminder:");
+  }
+
+  private void handlePreferenceClickLicense() {
+    Log.d(TAG, "handlePreferenceClickLicense:");
+    showAlertWebView("licenses.html",
+                     R.string.screen_settings_msg_not_found_license);
   }
 
   private class PreferenceChangeHandler
