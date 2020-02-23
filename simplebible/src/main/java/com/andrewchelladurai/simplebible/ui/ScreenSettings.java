@@ -97,6 +97,15 @@ public class ScreenSettings
 
   private void handlePreferenceClickEmail() {
     Log.d(TAG, "handlePreferenceClickEmail:");
+    final Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+    emailIntent.setData(Uri.parse("mailto:"));
+    emailIntent.putExtra(Intent.EXTRA_EMAIL, getString(R.string.pref_email_address));
+    emailIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.pref_email_subject));
+    if (null != emailIntent.resolveActivity(requireActivity().getPackageManager())) {
+      startActivity(emailIntent);
+    } else {
+      Log.e(TAG, "handlePreferenceClickEmail: No email application found");
+    }
   }
 
   private void handlePreferenceClickTheme() {
@@ -107,16 +116,16 @@ public class ScreenSettings
     Log.d(TAG, "handlePreferenceClickRate:");
     final String packName = requireActivity().getPackageName();
 
-    final Intent intentPlayStore = new Intent(Intent.ACTION_VIEW,
-                                              Uri.parse("market://details?id=" + packName));
+    final Intent appIntent = new Intent(Intent.ACTION_VIEW,
+                                        Uri.parse("market://details?id=" + packName));
 
-    if (intentPlayStore.resolveActivity(requireActivity().getPackageManager()) != null) {
-      startActivity(intentPlayStore);
+    if (appIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
+      startActivity(appIntent);
     } else {
       Log.e(TAG, "handlePreferenceClickRate: Google PlayStore NOT found");
       final Uri urlPath = Uri.parse("https://play.google.com/store/apps/details?id=" + packName);
-      final Intent intentWebPlayStore = new Intent(Intent.ACTION_VIEW, urlPath);
-      startActivity(intentWebPlayStore);
+      final Intent browserIntent = new Intent(Intent.ACTION_VIEW, urlPath);
+      startActivity(browserIntent);
     }
 
   }

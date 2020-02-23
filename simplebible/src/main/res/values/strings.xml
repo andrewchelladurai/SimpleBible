@@ -178,12 +178,14 @@
 
   <string name="pref_category_title_feedback">Your thoughts about Simple Bible</string>
   <string name="pref_rate_key">sb_pref_key_rate</string>
-  <string name="pref_rate_title">Rate Application</string>
-  <string name="pref_rate_summary">also provide feedback.</string>
+  <string name="pref_rate_title">Rate &amp; Review</string>
+  <string name="pref_rate_summary">on the Google PlayStore.</string>
 
   <string name="pref_email_key">sb_pref_key_email</string>
   <string name="pref_email_title">Email Developer</string>
-  <string name="pref_email_summary">for Feature requests or issues.</string>
+  <string name="pref_email_summary">for Feature requests, problems or feedback</string>
+  <string name="pref_email_address">theunknownandrew+apps@gmail.com</string>
+  <string name="pref_email_subject">Simple Bible - Feature Request / Problems / Feedback</string>
 
   <string name="pref_category_title_about">Know More</string>
   <string name="pref_about_key">sb_pref_key_about</string>
