@@ -1,7 +1,9 @@
 package com.andrewchelladurai.simplebible.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -109,6 +111,20 @@ public class ScreenSettings
 
   private void handlePreferenceClickRate() {
     Log.d(TAG, "handlePreferenceClickRate:");
+    final String packName = requireActivity().getPackageName();
+
+    final Intent intentPlayStore = new Intent(Intent.ACTION_VIEW,
+                                              Uri.parse("market://details?id=" + packName));
+
+    if (intentPlayStore.resolveActivity(requireActivity().getPackageManager()) != null) {
+      startActivity(intentPlayStore);
+    } else {
+      Log.e(TAG, "handlePreferenceClickRate: Google PlayStore NOT found");
+      final Uri urlPath = Uri.parse("https://play.google.com/store/apps/details?id=" + packName);
+      final Intent intentWebPlayStore = new Intent(Intent.ACTION_VIEW, urlPath);
+      startActivity(intentWebPlayStore);
+    }
+
   }
 
   private void handlePreferenceClickReminder() {
