@@ -45,6 +45,8 @@
         android:id="@+id/screen_chapter_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textColor="?colorPrimary"
         tools:text="@string/screen_chapter_template_title" />
     </HorizontalScrollView>
   </com.google.android.material.bottomappbar.BottomAppBar>

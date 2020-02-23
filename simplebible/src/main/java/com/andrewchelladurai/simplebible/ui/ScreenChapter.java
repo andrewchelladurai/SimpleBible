@@ -229,14 +229,17 @@ public class ScreenChapter
   private void updateScreenTitle() {
     final Book book = model.getCachedBook();
     final String htmlText = getString(R.string.screen_chapter_template_title,
-                                      book.getName(), model.getCachedChapterNumber(),
-                                      book.getDescription());
+                                      book.getName(), model.getCachedChapterNumber());
     final String titleText = HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_COMPACT)
                                        .toString();
     adapter.setBookDetails(titleText);
 
     final TextView title = rootView.findViewById(R.id.screen_chapter_title);
     title.setText(titleText);
+
+    rootView.findViewById(R.id.screen_chapter_bottom_appbar)
+            .setElevation(0);
+
   }
 
   private void updateVerseList() {

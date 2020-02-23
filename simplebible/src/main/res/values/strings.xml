@@ -104,7 +104,7 @@
   <string name="screen_chapter_msg_invalid_chapter">Incorrect Chapter passed, using default</string>
   <string name="screen_chapter_msg_invalid_verse">Incorrect Chapter passed, using default</string>
   <string name="screen_chapter_msg_empty_chapter">No Verses found for Chapter %d of Book %s</string>
-  <string name="screen_chapter_template_title"><![CDATA[<b>%s : Chapter %d</b><br/>%s]]></string>
+  <string name="screen_chapter_template_title"><![CDATA[<b>%s : Chapter %d]]></string>
   <string name="screen_chapter_menu_title_list">Chapter List</string>
   <string name="screen_chapter_menu_title_bookmark">Bookmark</string>
   <string name="screen_chapter_menu_title_share">Share</string>
