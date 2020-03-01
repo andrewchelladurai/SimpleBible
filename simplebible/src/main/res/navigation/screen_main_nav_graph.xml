@@ -115,10 +115,16 @@
     tools:layout="@layout/screen_settings" />
 
   <action
-    android:id="@+id/global_screen_error"
+    android:id="@+id/global_screen_error_app_exit_true"
     app:destination="@+id/screen_error"
     app:launchSingleTop="true"
     app:popUpTo="@id/nav_graph_simple_bible"
     app:popUpToInclusive="true" />
+
+  <action
+    android:id="@+id/global_screen_error_app_exit_false"
+    app:destination="@+id/screen_error"
+    app:launchSingleTop="true"
+    app:popUpTo="@id/screen_home" />
 
 </navigation>

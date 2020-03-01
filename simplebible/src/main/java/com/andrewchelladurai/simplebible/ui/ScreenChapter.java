@@ -251,17 +251,11 @@ public class ScreenChapter
            final int chapterNumber = model.getCachedChapterNumber();
 
            if (list == null || list.isEmpty()) {
-             final Bundle bundle = new Bundle();
              final String message =
                  String.format(getString(R.string.screen_chapter_msg_empty_chapter),
                                chapterNumber, model.getCachedBook()
                                                    .getName());
-             bundle.putString(ScreenError.ARG_MESSAGE, message);
-             bundle.putBoolean(ScreenError.ARG_EXIT_APP, true);
-             bundle.putBoolean(ScreenError.ARG_INFORM_DEV, true);
-
-             NavHostFragment.findNavController(this)
-                            .navigate(R.id.global_screen_error, bundle);
+             mainOps.showErrorScreen(message, true, true);
              return;
            }
 

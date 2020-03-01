@@ -166,9 +166,8 @@ public class ScreenSettings
       alert.show();
 
     } catch (Exception e) {
-      Log.e(TAG, "showAlertWebView: Could not open assets file [" + assetsFileName + "]"
-                 + e.getLocalizedMessage());
-      mainOps.showMessage(getString(errorMsgStrRef));
+      Log.e(TAG, "showAlertWebView: Could not open assets file [" + assetsFileName + "]", e);
+      mainOps.showErrorScreen(getString(errorMsgStrRef), true, false);
     }
   }
 

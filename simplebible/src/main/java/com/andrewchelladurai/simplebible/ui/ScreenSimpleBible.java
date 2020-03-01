@@ -129,8 +129,12 @@ public class ScreenSimpleBible
     bundle.putBoolean(ScreenError.ARG_INFORM_DEV, informDev);
     bundle.putBoolean(ScreenError.ARG_EXIT_APP, exitApp);
 
+    final int navDestination = (exitApp)
+                               ? R.id.global_screen_error_app_exit_true
+                               : R.id.global_screen_error_app_exit_false;
+
     Navigation.findNavController(this, R.id.screen_main_nav_host_fragment)
-              .navigate(R.id.global_screen_error, bundle);
+              .navigate(navDestination, bundle);
   }
 
   @Override
