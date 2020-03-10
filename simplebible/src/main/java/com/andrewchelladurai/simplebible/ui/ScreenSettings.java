@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentActivity;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
@@ -144,17 +145,15 @@ public class ScreenSettings
 
   private void showAlertWebView(@NonNull final String assetsFileName,
                                 @StringRes final int errorMsgStrRef) {
-    final Context context = requireContext();
-
     try {
-      final AlertDialog.Builder alert = new AlertDialog.Builder(context);
-      final WebView wv = new WebView(context);
+      final FragmentActivity fragAct = requireActivity();
+      final WebView wv = new WebView(fragAct.getApplicationContext());
       wv.loadUrl("file:///android_asset/" + assetsFileName);
       wv.setWebViewClient(new WebViewClient() {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
           if (url != null && (url.startsWith("http://") || url.startsWith("https://"))) {
-            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
             return true;
           } else {
             return false;
@@ -162,9 +161,8 @@ public class ScreenSettings
         }
       });
 
-      alert.setView(wv);
-      alert.show();
-
+      new AlertDialog.Builder(fragAct).setView(wv)
+                                      .show();
     } catch (Exception e) {
       Log.e(TAG, "showAlertWebView: Could not open assets file [" + assetsFileName + "]", e);
       mainOps.showErrorScreen(getString(errorMsgStrRef), true, false);
