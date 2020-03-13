@@ -140,29 +140,24 @@ public class ScreenSimpleBible
   @Override
   public void handleThemeToggle() {
     final String keyName = getString(R.string.pref_theme_key);
+    final String valueAuto = getString(R.string.pref_theme_value_system);
+    final String valueYes = getString(R.string.pref_theme_value_yes);
+    final String valueNo = getString(R.string.pref_theme_value_no);
 
-    final String keyValueAuto = getString(R.string.pref_theme_value_system);
-    final String keyValueYes = getString(R.string.pref_theme_value_yes);
-    final String keyValueNo = getString(R.string.pref_theme_value_no);
+    final String value = PreferenceManager.getDefaultSharedPreferences(this)
+                                          .getString(keyName, valueAuto);
+    Log.d(TAG, "handleThemeToggle: value[" + value + "]");
 
-    final String currentValue = PreferenceManager.getDefaultSharedPreferences(this)
-                                                 .getString(keyName, keyValueAuto);
-    Log.d(TAG, "handleThemeToggle: currentValue[" + currentValue + "]");
-
-    final int[] mode = new int[1];
-    if (currentValue.equalsIgnoreCase(keyValueAuto)) {
-      mode[0] = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-                ? AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-                : AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY;
-    } else if (currentValue.equalsIgnoreCase(keyValueYes)) {
-      mode[0] = AppCompatDelegate.MODE_NIGHT_YES;
-    } else if (currentValue.equalsIgnoreCase(keyValueNo)) {
-      mode[0] = AppCompatDelegate.MODE_NIGHT_NO;
+    if (value.equalsIgnoreCase(valueYes)) {
+      AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+    } else if (value.equalsIgnoreCase(valueNo)) {
+      AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     } else {
-      Log.d(TAG, "handleThemeToggle: unknown match");
+      Log.d(TAG, "handleThemeToggle: AUTO or unknown, using system default behavior");
+      AppCompatDelegate.setDefaultNightMode((Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+                                            ? AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                                            : AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
     }
-
-    AppCompatDelegate.setDefaultNightMode(mode[0]);
   }
 
   @Override
