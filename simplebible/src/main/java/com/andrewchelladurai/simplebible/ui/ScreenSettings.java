@@ -196,7 +196,7 @@ public class ScreenSettings
         handlePreferenceClickTheme();
       } else if (gotKey.equalsIgnoreCase(getString(R.string.pref_export_key))) {
         handlePreferenceClickExport();
-      } else if (gotKey.equalsIgnoreCase(getString(R.string.pref_reminder_key))) {
+      } else if (gotKey.equalsIgnoreCase(getString(R.string.pref_reminder_time_key))) {
         handlePreferenceClickReminder();
       } else if (gotKey.equalsIgnoreCase(getString(R.string.pref_rate_key))) {
         handlePreferenceClickRate();

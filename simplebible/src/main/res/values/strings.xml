@@ -172,9 +172,14 @@
   <string name="pref_export_title">Export Bookmarks</string>
   <string name="pref_export_summary">into a file.</string>
 
-  <string name="pref_reminder_key">pref_notification_time</string>
-  <string name="pref_reminder_title">Daily Notification</string>
-  <string name="pref_reminder_summary">remind me at </string>
+  <string name="pref_reminder_key">pref_reminder_key</string>
+  <string name="pref_reminder_title">Daily Reminder</string>
+  <string name="pref_reminder_summary_on">show day\'s verse</string>
+  <string name="pref_reminder_summary_off">is disabled</string>
+
+  <string name="pref_reminder_time_key">pref_reminder_time</string>
+  <string name="pref_reminder_time_title">Set notification time</string>
+  <string name="pref_reminder_time_summary">to this : </string>
 
   <string name="pref_category_title_feedback">Your thoughts about Simple Bible</string>
   <string name="pref_rate_key">sb_pref_key_rate</string>
