@@ -84,15 +84,39 @@ public class ScreenSettings
   public void onCreatePreferences(final Bundle savedInstanceState, final String rootKey) {
     setPreferencesFromResource(R.xml.sb_main_preferences, rootKey);
 
+    updateSectionTheme();
     updateSectionReminderTime();
   }
 
+  private void updateSectionTheme() {
+    final String key = getString(R.string.pref_theme_key);
+    Log.d(TAG, "updateSectionTheme:key[" + key + "]");
+
+    final SharedPreferences sPreferences = getPreferenceManager().getSharedPreferences();
+    final Preference pref = getPreferenceScreen().findPreference(key);
+
+    if (pref != null) {
+      final String value =
+          sPreferences.getString(key, getString(R.string.pref_theme_value_system));
+      if (value.equalsIgnoreCase(getString(R.string.pref_theme_value_yes))) {
+        pref.setSummary(getString(R.string.pref_theme_entry_yes));
+      } else if (value.equalsIgnoreCase(getString(R.string.pref_theme_value_no))) {
+        pref.setSummary(getString(R.string.pref_theme_entry_no));
+      } else {
+        pref.setSummary(getString(R.string.pref_theme_entry_system));
+      }
+    } else {
+      Log.e(TAG, "updateSectionTheme: could not locate preference for key [" + key + "]");
+    }
+  }
+
   private void updateSectionReminderTime() {
-    final SharedPreferences preferences = getPreferenceManager().getSharedPreferences();
     final String key = getString(R.string.pref_reminder_time_key);
     Log.d(TAG, "updateSectionReminderTime: populating section for [" + key + "]");
 
+    final SharedPreferences preferences = getPreferenceManager().getSharedPreferences();
     final Preference pref = getPreferenceScreen().findPreference(key);
+
     if (pref != null) {
       final String value = preferences.getString(key, "");
 
@@ -106,7 +130,7 @@ public class ScreenSettings
         pref.setSummary(getString(R.string.pref_reminder_time_summary_invalid));
       }
     } else {
-      Log.e(TAG, "onCreatePreferences: Preference with key [" + key + "] not found");
+      Log.d(TAG, "updateSectionReminderTime: could not locate preference for key [" + key + "]");
     }
   }
 

@@ -161,9 +161,9 @@
   <string name="pref_theme_key">sb_pref_key_theme</string>
   <string name="pref_theme_title">Dark Theme</string>
   <string name="pref_theme_summary">use a dark background.</string>
-  <string name="pref_theme_entry_system">System Default Behavior</string>
-  <string name="pref_theme_entry_yes">Yes</string>
-  <string name="pref_theme_entry_no">No</string>
+  <string name="pref_theme_entry_system">Use default behavior</string>
+  <string name="pref_theme_entry_yes">Rule the dark</string>
+  <string name="pref_theme_entry_no">Live in the light</string>
   <string name="pref_theme_value_system">AUTO</string>
   <string name="pref_theme_value_yes">YES</string>
   <string name="pref_theme_value_no">NO</string>
@@ -202,7 +202,7 @@
   <string name="pref_license_title">Licenses of components</string>
   <string name="pref_license_summary">used to make this application.</string>
 
-  <string name="screen_settings_msg_not_found_license">Unable to show Licenses</string>
-  <string name="screen_settings_msg_not_found_about">Unable to show About</string>
+  <string name="screen_settings_msg_not_found_license">Failed to show Licenses</string>
+  <string name="screen_settings_msg_not_found_about">Failed to show About</string>
 
 </resources>
