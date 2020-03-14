@@ -199,7 +199,7 @@
   <string name="pref_about_summary"><![CDATA[and it\'s change history.]]></string>
 
   <string name="pref_license_key">pref_license_key</string>
-  <string name="pref_license_title">Licenses of components</string>
+  <string name="pref_license_title">Licenses of parts</string>
   <string name="pref_license_summary">used to make this application.</string>
 
   <string name="screen_settings_msg_not_found_license">Failed to show Licenses</string>
