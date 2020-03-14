@@ -1,10 +1,12 @@
 package com.andrewchelladurai.simplebible.ui;
 
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -23,6 +26,9 @@ import androidx.preference.PreferenceManager;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
+import com.andrewchelladurai.simplebible.utils.Utils;
+
+import java.util.Calendar;
 
 public class ScreenSettings
     extends PreferenceFragmentCompat {
@@ -77,6 +83,31 @@ public class ScreenSettings
   @Override
   public void onCreatePreferences(final Bundle savedInstanceState, final String rootKey) {
     setPreferencesFromResource(R.xml.sb_main_preferences, rootKey);
+
+    updateSectionReminderTime();
+  }
+
+  private void updateSectionReminderTime() {
+    final SharedPreferences preferences = getPreferenceManager().getSharedPreferences();
+    final String key = getString(R.string.pref_reminder_time_key);
+    Log.d(TAG, "updateSectionReminderTime: populating section for [" + key + "]");
+
+    final Preference pref = getPreferenceScreen().findPreference(key);
+    if (pref != null) {
+      final String value = preferences.getString(key, "");
+
+      if (Utils.getInstance().validateReminderKeyValue(value)) {
+        final int[] parts = Utils.getInstance().splitReminderKeyValue(value);
+        final Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, parts[0]);
+        cal.set(Calendar.MINUTE, parts[1]);
+        pref.setSummary(DateFormat.getTimeFormat(requireActivity()).format(cal.getTime()));
+      } else {
+        pref.setSummary(getString(R.string.pref_reminder_time_summary_invalid));
+      }
+    } else {
+      Log.e(TAG, "onCreatePreferences: Preference with key [" + key + "] not found");
+    }
   }
 
   @Override
@@ -98,6 +129,53 @@ public class ScreenSettings
 
   private void handlePreferenceClickReminder() {
     Log.d(TAG, "handlePreferenceClickReminder:");
+    final SharedPreferences preferences = getPreferenceManager().getSharedPreferences();
+
+    final String key = getString(R.string.pref_reminder_time_key);
+    final String value = preferences.getString(key, "");
+    final int[] hourMinute = new int[2];
+
+    final Utils utils = Utils.getInstance();
+    if (utils.validateReminderKeyValue(value)) {
+      final int[] array = utils.splitReminderKeyValue(value);
+      hourMinute[0] = array[0];
+      hourMinute[1] = array[1];
+    } else {
+      final Calendar now = Calendar.getInstance();
+      hourMinute[0] = now.get(Calendar.HOUR_OF_DAY);
+      hourMinute[1] = now.get(Calendar.MINUTE);
+    }
+
+    final FragmentActivity fActivity = requireActivity();
+    new TimePickerDialog(
+        fActivity,
+        (view, hour, min) -> {
+          updateKeyValueReminderTime(hour, min);
+        },
+        hourMinute[0],
+        hourMinute[1],
+        DateFormat.is24HourFormat(fActivity)
+    ).show();
+  }
+
+  private void updateKeyValueReminderTime(@IntRange(from = 0, to = 23) final int hour,
+                                          @IntRange(from = 0, to = 59) final int min) {
+    final String key = getString(R.string.pref_reminder_time_key);
+    Log.d(TAG, "handlePreferenceClickReminder: key[" + key + "]"
+               + " hour[" + hour + "], " + "min[" + min + "]");
+    final SharedPreferences.Editor editor = getPreferenceManager().getSharedPreferences().edit();
+    editor.putString(key, Utils.getInstance().createReminderKeyValue(hour, min));
+    editor.apply();
+
+    final Preference pref = getPreferenceScreen().findPreference(key);
+    if (pref != null) {
+      final Calendar cal = Calendar.getInstance();
+      cal.set(Calendar.HOUR_OF_DAY, hour);
+      cal.set(Calendar.MINUTE, min);
+      pref.setSummary(DateFormat.getTimeFormat(requireActivity()).format(cal.getTime()));
+    } else {
+      Log.e(TAG, "updateKeyValueReminderTime: could not locate preference with key[" + key + "]");
+    }
   }
 
   private void handlePreferenceClickRate() {
@@ -178,6 +256,10 @@ public class ScreenSettings
       if (getString(R.string.pref_theme_key).equalsIgnoreCase(key)) {
         mainOps.handleThemeToggle();
         mainOps.restartApp();
+      } else if (getString(R.string.pref_reminder_key).equalsIgnoreCase(key)) {
+        Log.d(TAG, "onSharedPreferenceChanged: [" + key + "] is handled automatically");
+      } else if (getString(R.string.pref_reminder_time_key).equalsIgnoreCase(key)) {
+        Log.d(TAG, "onSharedPreferenceChanged: [" + key + "] is handled automatically");
       } else {
         Log.e(TAG, "onSharedPreferenceChanged: unhandled key [" + key + "]");
       }
@@ -206,6 +288,10 @@ public class ScreenSettings
         handlePreferenceClickAbout();
       } else if (gotKey.equalsIgnoreCase(getString(R.string.pref_license_key))) {
         handlePreferenceClickLicense();
+      } else if (gotKey.equalsIgnoreCase(getString(R.string.pref_reminder_key))) {
+        Log.d(TAG, "onPreferenceTreeClick: [pref_reminder_key] is handled automatically");
+      } else if (gotKey.equalsIgnoreCase(getString(R.string.pref_reminder_time_key))) {
+        Log.d(TAG, "onPreferenceTreeClick: [pref_reminder_time_key] is handled automatically");
       } else {
         Log.e(TAG, "onPreferenceTreeClick: unknown key[" + gotKey + "]");
         return false;

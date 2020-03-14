@@ -179,7 +179,8 @@
 
   <string name="pref_reminder_time_key">pref_reminder_time</string>
   <string name="pref_reminder_time_title">Set notification time</string>
-  <string name="pref_reminder_time_summary">to this : </string>
+  <string name="pref_reminder_time_summary_invalid">Not set</string>
+  <string name="pref_reminder_time_summary_valid">%s</string>
 
   <string name="pref_category_title_feedback">Your thoughts about Simple Bible</string>
   <string name="pref_rate_key">sb_pref_key_rate</string>

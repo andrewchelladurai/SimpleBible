@@ -31,7 +31,7 @@
     <Preference
       app:dependency="@string/pref_reminder_key"
       app:key="@string/pref_reminder_time_key"
-      app:summary="@string/pref_reminder_time_summary"
+      app:summary="@string/pref_reminder_time_summary_invalid"
       app:title="@string/pref_reminder_time_title" />
 
   </PreferenceCategory>
