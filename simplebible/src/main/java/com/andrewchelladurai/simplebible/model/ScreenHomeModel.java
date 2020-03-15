@@ -15,6 +15,7 @@ import com.andrewchelladurai.simplebible.data.dao.BookDao;
 import com.andrewchelladurai.simplebible.data.dao.VerseDao;
 import com.andrewchelladurai.simplebible.data.entity.EntityBook;
 import com.andrewchelladurai.simplebible.data.entity.Verse;
+import com.andrewchelladurai.simplebible.object.Book;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 import com.andrewchelladurai.simplebible.utils.VerseUtils;
 
@@ -27,16 +28,22 @@ public class ScreenHomeModel
 
   @IntRange(from = 1, to = 365)
   private static int CACHED_DAY;
+
   @NonNull
   private static String CACHED_REFERENCE = "";
+
   @NonNull
   private static Verse CACHED_VERSE = new Verse("", 1, 1, 1, "");
+
   @NonNull
-  private static EntityBook CACHED_BOOK = new EntityBook("", "", 1, "", 1, 1);
+  private static Book CACHED_BOOK;
+
   @NonNull
   private final VerseDao verseDao;
+
   @NonNull
   private final BookDao bookDao;
+
   @NonNull
   private static final MutableLiveData<Integer> DB_SETUP_JOB_STATE =
       new MutableLiveData<>(DbSetupJob.NOT_STARTED);
@@ -109,11 +116,11 @@ public class ScreenHomeModel
   }
 
   @NonNull
-  public EntityBook getCachedBook() {
+  public Book getCachedBook() {
     return CACHED_BOOK;
   }
 
-  public void setCachedBook(@NonNull final EntityBook book) {
+  public void setCachedBook(@NonNull final Book book) {
     CACHED_BOOK = book;
   }
 
