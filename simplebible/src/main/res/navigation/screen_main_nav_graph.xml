@@ -59,7 +59,7 @@
     tools:layout="@layout/screen_bookmark_detail">
     <argument
       android:name="ARG_VERSE_LIST"
-      app:argType="com.andrewchelladurai.simplebible.data.entity.Verse[]" />
+      app:argType="com.andrewchelladurai.simplebible.data.entity.EntityVerse[]" />
     <action
       android:id="@+id/screen_bookmark_detail_pop"
       app:popUpTo="@id/screen_bookmark_detail"

@@ -15,7 +15,7 @@ import com.andrewchelladurai.simplebible.data.dao.BookmarkDao;
 import com.andrewchelladurai.simplebible.data.dao.VerseDao;
 import com.andrewchelladurai.simplebible.data.entity.Bookmark;
 import com.andrewchelladurai.simplebible.data.entity.EntityBook;
-import com.andrewchelladurai.simplebible.data.entity.Verse;
+import com.andrewchelladurai.simplebible.data.entity.EntityVerse;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 import com.andrewchelladurai.simplebible.utils.BookmarkUtils;
 
@@ -30,7 +30,7 @@ public class BookmarkDetailModel
   private final VerseDao verseDao;
   private final BookmarkDao bookmarkDao;
   private final BookDao bookDao;
-  private final ArrayList<Verse> cachedList = new ArrayList<>();
+  private final ArrayList<EntityVerse> cachedList = new ArrayList<>();
 
   public BookmarkDetailModel(@NonNull final Application application) {
     super(application);
@@ -42,14 +42,14 @@ public class BookmarkDetailModel
                          .getVerseDao();
   }
 
-  public void cacheList(@NonNull final ArrayList<Verse> list) {
+  public void cacheList(@NonNull final ArrayList<EntityVerse> list) {
     cachedList.clear();
     cachedList.addAll(list);
     Log.d(TAG, "cacheList: [" + cachedList.size() + "] records cached");
   }
 
   @NonNull
-  public ArrayList<Verse> getCachedList() {
+  public ArrayList<EntityVerse> getCachedList() {
     return cachedList;
   }
 

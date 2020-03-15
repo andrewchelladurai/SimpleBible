@@ -16,7 +16,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.entity.Verse;
+import com.andrewchelladurai.simplebible.data.entity.EntityVerse;
 import com.andrewchelladurai.simplebible.model.ScreenChapterModel;
 import com.andrewchelladurai.simplebible.objects.Book;
 import com.andrewchelladurai.simplebible.ui.adapter.ChapterNumberAdapter;
@@ -178,8 +178,8 @@ public class ScreenChapter
 
   private void handleActionClickBookmark() {
     // get the list of all verses that are selected and sort it
-    final ArrayList<Verse> list = new ArrayList<>(adapter.getSelectedVerses()
-                                                         .keySet());
+    final ArrayList<EntityVerse> list = new ArrayList<>(adapter.getSelectedVerses()
+                                                               .keySet());
     //noinspection unchecked
     Collections.sort(list);
 
@@ -187,7 +187,7 @@ public class ScreenChapter
     handleActionClickClear();
 
     // convert the list into an array
-    final Verse[] array = new Verse[list.size()];
+    final EntityVerse[] array = new EntityVerse[list.size()];
     for (int i = 0; i < array.length; i++) {
       array[i] = list.get(i);
     }
@@ -206,13 +206,13 @@ public class ScreenChapter
              .append("\n\n");
 
     // get the list of all verses that are selected and sort it
-    final HashMap<Verse, String> versesMap = adapter.getSelectedVerses();
-    final ArrayList<Verse> keySet = new ArrayList<>(versesMap.keySet());
+    final HashMap<EntityVerse, String> versesMap = adapter.getSelectedVerses();
+    final ArrayList<EntityVerse> keySet = new ArrayList<>(versesMap.keySet());
     //noinspection unchecked
     Collections.sort(keySet);
 
     // now get the text from the selected verses
-    for (final Verse verse : keySet) {
+    for (final EntityVerse verse : keySet) {
       shareText.append(versesMap.get(verse))
                .append("\n");
     }
