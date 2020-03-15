@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.entity.Verse;
+import com.andrewchelladurai.simplebible.data.entity.VerseEntity;
 import com.andrewchelladurai.simplebible.ui.ops.RecyclerViewAdapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenBookmarkDetailOps;
 
@@ -21,7 +21,7 @@ public class BookmarkDetailAdapter
     implements RecyclerViewAdapterOps {
 
   private static final String TAG = "BookmarkDetailAdapter";
-  private final ArrayList<Verse> list = new ArrayList<>();
+  private final ArrayList<VerseEntity> list = new ArrayList<>();
   private final ScreenBookmarkDetailOps ops;
 
   public BookmarkDetailAdapter(final ScreenBookmarkDetailOps ops) {
@@ -32,7 +32,7 @@ public class BookmarkDetailAdapter
   public void updateList(@NonNull final List<?> list) {
     clearList();
     for (final Object o : list) {
-      this.list.add((Verse) o);
+      this.list.add((VerseEntity) o);
     }
     Log.d(TAG, "updateList: filled [" + getItemCount() + "] records");
   }
@@ -71,7 +71,7 @@ public class BookmarkDetailAdapter
       implements ItemHolderOps {
 
     private final View rootView;
-    private Verse verse;
+    private VerseEntity verse;
     private int position;
 
     BookmarkVerse(final View rootView) {
@@ -81,7 +81,7 @@ public class BookmarkDetailAdapter
 
     @Override
     public void updateView(final Object object, final int position) {
-      verse = (Verse) object;
+      verse = (VerseEntity) object;
       this.position = position;
 
       ops.updateBookmarkVerseView(verse, rootView.findViewById(

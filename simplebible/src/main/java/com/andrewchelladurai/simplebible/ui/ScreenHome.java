@@ -19,7 +19,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.DbSetupJob;
-import com.andrewchelladurai.simplebible.data.entity.Verse;
+import com.andrewchelladurai.simplebible.data.entity.VerseEntity;
 import com.andrewchelladurai.simplebible.model.ScreenHomeModel;
 import com.andrewchelladurai.simplebible.object.Book;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
@@ -123,7 +123,7 @@ public class ScreenHome
 
     final Bundle bundle = new Bundle();
     bundle.putParcelableArray(ScreenBookmarkDetail.ARG_VERSE_LIST,
-                              new Verse[]{model.getCachedVerse()});
+                              new VerseEntity[]{model.getCachedVerse()});
 
     NavHostFragment.findNavController(this)
                    .navigate(R.id.screen_home_to_screen_bookmark_detail, bundle);
@@ -131,7 +131,7 @@ public class ScreenHome
 
   private void handleActionChapter() {
     Log.d(TAG, "handleActionChapter:");
-    final Verse cachedVerse = model.getCachedVerse();
+    final VerseEntity cachedVerse = model.getCachedVerse();
 
     final Bundle bundle = new Bundle();
     bundle.putInt(ScreenChapter.ARG_BOOK, cachedVerse.getBook());
@@ -292,7 +292,7 @@ public class ScreenHome
 
   }
 
-  private void formatAndDisplayDailyVerse(@NonNull final Verse verse, @NonNull Book book) {
+  private void formatAndDisplayDailyVerse(@NonNull final VerseEntity verse, @NonNull Book book) {
     Log.d(TAG, "formatAndDisplayDailyVerse:");
     final String template = getString(R.string.screen_home_template_verse);
     final String bookName = book.getName();

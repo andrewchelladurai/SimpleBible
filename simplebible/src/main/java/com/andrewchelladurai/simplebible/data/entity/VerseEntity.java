@@ -13,19 +13,19 @@ import com.andrewchelladurai.simplebible.utils.BookUtils;
 import java.util.Objects;
 
 @Entity(tableName = "sb_verses", primaryKeys = {"book", "chapter", "verse"})
-public class Verse
+public class VerseEntity
     implements Comparable,
                Parcelable {
 
-  public static final Creator<Verse> CREATOR = new Creator<Verse>() {
+  public static final Creator<VerseEntity> CREATOR = new Creator<VerseEntity>() {
     @Override
-    public Verse createFromParcel(Parcel in) {
-      return new Verse(in);
+    public VerseEntity createFromParcel(Parcel in) {
+      return new VerseEntity(in);
     }
 
     @Override
-    public Verse[] newArray(int size) {
-      return new Verse[size];
+    public VerseEntity[] newArray(int size) {
+      return new VerseEntity[size];
     }
   };
 
@@ -49,11 +49,11 @@ public class Verse
   @ColumnInfo(name = "text")
   private final String text;
 
-  public Verse(@NonNull final String translation,
-               @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int book,
-               @IntRange(from = 1) final int chapter,
-               @IntRange(from = 1) final int verse,
-               @NonNull final String text) {
+  public VerseEntity(@NonNull final String translation,
+                     @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int book,
+                     @IntRange(from = 1) final int chapter,
+                     @IntRange(from = 1) final int verse,
+                     @NonNull final String text) {
     this.translation = translation;
     this.book = book;
     this.chapter = chapter;
@@ -62,7 +62,7 @@ public class Verse
   }
 
   @SuppressWarnings("ConstantConditions")
-  protected Verse(Parcel in) {
+  protected VerseEntity(Parcel in) {
     translation = in.readString();
     book = in.readInt();
     chapter = in.readInt();
@@ -107,7 +107,7 @@ public class Verse
       return false;
     }
 
-    final Verse verse1 = (Verse) o;
+    final VerseEntity verse1 = (VerseEntity) o;
     return book == verse1.book
            && chapter == verse1.chapter
            && verse == verse1.verse
@@ -129,7 +129,7 @@ public class Verse
 
   @Override
   public int compareTo(final Object o) {
-    Verse newVerse = (Verse) o;
+    VerseEntity newVerse = (VerseEntity) o;
 
     return Integer.parseInt(book + "" + chapter + "" + verse)
            - Integer.parseInt(newVerse.book + "" + newVerse.chapter + "" + newVerse.verse);

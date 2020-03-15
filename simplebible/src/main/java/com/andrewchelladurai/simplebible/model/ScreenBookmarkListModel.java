@@ -10,7 +10,7 @@ import com.andrewchelladurai.simplebible.data.SbDatabase;
 import com.andrewchelladurai.simplebible.data.dao.BookmarkDao;
 import com.andrewchelladurai.simplebible.data.dao.VerseDao;
 import com.andrewchelladurai.simplebible.data.entity.Bookmark;
-import com.andrewchelladurai.simplebible.data.entity.Verse;
+import com.andrewchelladurai.simplebible.data.entity.VerseEntity;
 import com.andrewchelladurai.simplebible.utils.BookmarkUtils;
 import com.andrewchelladurai.simplebible.utils.VerseUtils;
 
@@ -37,7 +37,7 @@ public class ScreenBookmarkListModel
     return bookmarkDao.getAllRecords();
   }
 
-  public LiveData<List<Verse>> getBookmarkedVerse(@NonNull final String bookmarkReference) {
+  public LiveData<List<VerseEntity>> getBookmarkedVerse(@NonNull final String bookmarkReference) {
     final String[] verseReferences = bookmarkReference.split(BookmarkUtils.SEPARATOR);
 
     String[] verseParts;

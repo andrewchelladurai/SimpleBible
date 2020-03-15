@@ -13,7 +13,7 @@ import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.entity.Verse;
+import com.andrewchelladurai.simplebible.data.entity.VerseEntity;
 import com.andrewchelladurai.simplebible.ui.ops.RecyclerViewAdapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenChapterOps;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
@@ -28,8 +28,8 @@ public class ChapterVerseAdapter
 
   private static final String TAG = "ChapterVerseAdapter";
 
-  private static final ArrayList<Verse> LIST = new ArrayList<>();
-  private static final HashMap<Verse, String> SELECTED_LIST = new HashMap<>();
+  private static final ArrayList<VerseEntity> LIST = new ArrayList<>();
+  private static final HashMap<VerseEntity, String> SELECTED_LIST = new HashMap<>();
   private static final StringBuilder CONTENT_TEMPLATE = new StringBuilder();
 
   @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT)
@@ -75,7 +75,7 @@ public class ChapterVerseAdapter
   @Override
   public void updateList(@NonNull final List<?> list) {
     for (final Object o : list) {
-      LIST.add((Verse) o);
+      LIST.add((VerseEntity) o);
     }
     Log.d(TAG, "updateList: updated [" + getItemCount() + "] records");
   }
@@ -98,7 +98,7 @@ public class ChapterVerseAdapter
   }
 
   @NonNull
-  public HashMap<Verse, String> getSelectedVerses() {
+  public HashMap<VerseEntity, String> getSelectedVerses() {
     return SELECTED_LIST;
   }
 
@@ -140,7 +140,7 @@ public class ChapterVerseAdapter
       implements ItemHolderOps {
 
     private final TextView textView;
-    private Verse verse;
+    private VerseEntity verse;
 
     ChapterVerseView(@NonNull final View view) {
       super(view);
@@ -159,7 +159,7 @@ public class ChapterVerseAdapter
 
     @Override
     public void updateView(final Object object, final int position) {
-      verse = (Verse) object;
+      verse = (VerseEntity) object;
 
       final String rawText = String.format(CONTENT_TEMPLATE.toString(),
                                            verse.getVerse(), verse.getText());

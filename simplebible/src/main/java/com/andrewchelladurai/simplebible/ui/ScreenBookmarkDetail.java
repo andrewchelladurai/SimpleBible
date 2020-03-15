@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entity.Bookmark;
-import com.andrewchelladurai.simplebible.data.entity.Verse;
+import com.andrewchelladurai.simplebible.data.entity.VerseEntity;
 import com.andrewchelladurai.simplebible.model.BookmarkDetailModel;
 import com.andrewchelladurai.simplebible.ui.adapter.BookmarkDetailAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenBookmarkDetailOps;
@@ -92,9 +92,9 @@ public class ScreenBookmarkDetail
       }
 
       // if yes, convert it into a type we can use
-      final ArrayList<Verse> list = new ArrayList<>();
+      final ArrayList<VerseEntity> list = new ArrayList<>();
       for (final Parcelable parcelable : parcelableArray) {
-        list.add((Verse) parcelable);
+        list.add((VerseEntity) parcelable);
       }
 
       model.cacheList(list);
@@ -137,7 +137,7 @@ public class ScreenBookmarkDetail
   private void handleClickActionDelete() {
     Log.d(TAG, "handleClickActionDelete() called");
 
-    final ArrayList<Verse> verseList = model.getCachedList();
+    final ArrayList<VerseEntity> verseList = model.getCachedList();
     final String bookmarkReference = BookmarkUtils.createReference(verseList);
     final String noteText = getNoteText();
 
@@ -185,7 +185,7 @@ public class ScreenBookmarkDetail
   private void handleClickActionSave() {
     Log.d(TAG, "handleClickActionSave() called");
 
-    final ArrayList<Verse> verseList = model.getCachedList();
+    final ArrayList<VerseEntity> verseList = model.getCachedList();
     final String bookmarkReference = BookmarkUtils.createReference(verseList);
     final String noteText = getNoteText();
 
@@ -206,7 +206,7 @@ public class ScreenBookmarkDetail
   }
 
   private void updateContent() {
-    final ArrayList<Verse> list = model.getCachedList();
+    final ArrayList<VerseEntity> list = model.getCachedList();
     final String reference = BookmarkUtils.createReference(list);
 
     adapter.updateList(list);
@@ -289,7 +289,7 @@ public class ScreenBookmarkDetail
   }
 
   @Override
-  public void updateBookmarkVerseView(@NonNull final Verse verse,
+  public void updateBookmarkVerseView(@NonNull final VerseEntity verse,
                                       @NonNull final TextView textView) {
     model.getBook(verse.getBook()).observe(this, bookEn -> {
       if (bookEn == null) {

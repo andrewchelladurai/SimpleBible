@@ -4,11 +4,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.andrewchelladurai.simplebible.data.entity.Verse;
+import com.andrewchelladurai.simplebible.data.entity.VerseEntity;
 
 public interface ScreenSearchOps {
 
-  void updateSearchResultView(@NonNull Verse verse, @NonNull TextView textView);
+  void updateSearchResultView(@NonNull VerseEntity verse, @NonNull TextView textView);
 
   void toggleSelectedActionsView();
 

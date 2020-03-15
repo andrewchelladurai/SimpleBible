@@ -15,7 +15,7 @@ import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.dao.BookDao;
 import com.andrewchelladurai.simplebible.data.dao.VerseDao;
 import com.andrewchelladurai.simplebible.data.entity.EntityBook;
-import com.andrewchelladurai.simplebible.data.entity.Verse;
+import com.andrewchelladurai.simplebible.data.entity.VerseEntity;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 import com.andrewchelladurai.simplebible.utils.VerseUtils;
 
@@ -318,7 +318,7 @@ public class DbSetupJob
           continue;
         }
         // using the values, create a new verse in the database.
-        verseDao.createVerse(new Verse(translation, book, chapter, verse, text));
+        verseDao.createVerse(new VerseEntity(translation, book, chapter, verse, text));
         lineProgressValue = lineProgressValue + 1;
         final Bundle bundle = new Bundle();
         bundle.putInt(LINE_PROGRESS, lineProgressValue);

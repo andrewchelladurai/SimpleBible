@@ -14,7 +14,7 @@ import com.andrewchelladurai.simplebible.data.SbDatabase;
 import com.andrewchelladurai.simplebible.data.dao.BookDao;
 import com.andrewchelladurai.simplebible.data.dao.VerseDao;
 import com.andrewchelladurai.simplebible.data.entity.EntityBook;
-import com.andrewchelladurai.simplebible.data.entity.Verse;
+import com.andrewchelladurai.simplebible.data.entity.VerseEntity;
 import com.andrewchelladurai.simplebible.object.Book;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 import com.andrewchelladurai.simplebible.utils.VerseUtils;
@@ -33,7 +33,7 @@ public class ScreenHomeModel
   private static String CACHED_REFERENCE = "";
 
   @NonNull
-  private static Verse CACHED_VERSE = new Verse("", 1, 1, 1, "");
+  private static VerseEntity CACHED_VERSE = new VerseEntity("", 1, 1, 1, "");
 
   @NonNull
   private static Book CACHED_BOOK;
@@ -77,7 +77,7 @@ public class ScreenHomeModel
   }
 
   @NonNull
-  public LiveData<Verse> getVerse(@NonNull final String reference) {
+  public LiveData<VerseEntity> getVerse(@NonNull final String reference) {
     final int[] parts = VerseUtils.splitReference(reference);
     return verseDao.getLiveVerse(parts[0], parts[1], parts[2]);
   }
@@ -107,11 +107,11 @@ public class ScreenHomeModel
   }
 
   @NonNull
-  public Verse getCachedVerse() {
+  public VerseEntity getCachedVerse() {
     return CACHED_VERSE;
   }
 
-  public void setCachedVerse(@NonNull final Verse verse) {
+  public void setCachedVerse(@NonNull final VerseEntity verse) {
     CACHED_VERSE = verse;
   }
 
