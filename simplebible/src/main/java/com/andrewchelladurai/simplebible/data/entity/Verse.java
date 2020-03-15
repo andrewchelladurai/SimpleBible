@@ -128,7 +128,7 @@ public class Verse
   }
 
   @Override
-  public int compareTo(final Object o) {
+  public int compareTo(@NonNull final Object o) {
     Verse newVerse = (Verse) o;
 
     return Integer.parseInt(book + "" + chapter + "" + verse)

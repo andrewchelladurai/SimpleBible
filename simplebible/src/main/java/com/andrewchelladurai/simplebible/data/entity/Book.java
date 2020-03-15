@@ -135,7 +135,7 @@ public class Book
   }
 
   @Override
-  public int compareTo(final Object o) {
+  public int compareTo(@NonNull final Object o) {
     return number - ((Book) o).number;
   }
 
