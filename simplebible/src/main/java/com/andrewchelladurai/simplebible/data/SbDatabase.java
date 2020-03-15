@@ -10,11 +10,11 @@ import androidx.room.RoomDatabase;
 import com.andrewchelladurai.simplebible.data.dao.BookDao;
 import com.andrewchelladurai.simplebible.data.dao.BookmarkDao;
 import com.andrewchelladurai.simplebible.data.dao.VerseDao;
-import com.andrewchelladurai.simplebible.data.entity.Book;
 import com.andrewchelladurai.simplebible.data.entity.Bookmark;
+import com.andrewchelladurai.simplebible.data.entity.EntityBook;
 import com.andrewchelladurai.simplebible.data.entity.Verse;
 
-@Database(entities = {Book.class, Verse.class, Bookmark.class},
+@Database(entities = {EntityBook.class, Verse.class, Bookmark.class},
           // epoch time in seconds : date +%s
           version = 1520969806,
           // March 13, 2018 7:36:46 PM

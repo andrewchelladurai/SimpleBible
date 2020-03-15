@@ -14,7 +14,7 @@ import androidx.core.app.NotificationCompat;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.dao.BookDao;
 import com.andrewchelladurai.simplebible.data.dao.VerseDao;
-import com.andrewchelladurai.simplebible.data.entity.Book;
+import com.andrewchelladurai.simplebible.data.entity.EntityBook;
 import com.andrewchelladurai.simplebible.data.entity.Verse;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 import com.andrewchelladurai.simplebible.utils.VerseUtils;
@@ -120,7 +120,7 @@ public class DbSetupJob
     Log.d(TAG, "validateTableBooks: expected count of books [" + expectedCount + "] exist");
 
     final String[] expectedValue = new String[]{getString(R.string.db_setup_1st_book_name)};
-    final Book firstBook = bookDao.getBookUsingPosition(1);
+    final EntityBook firstBook = bookDao.getBookUsingPosition(1);
     if (firstBook != null && !firstBook.getName()
                                        .equalsIgnoreCase(expectedValue[0])) {
       Log.e(TAG, "validateTableBooks: first book's name didn't match, returning false");
@@ -129,7 +129,7 @@ public class DbSetupJob
     Log.d(TAG, "validateTableBooks: first book's name matches [" + expectedValue[0] + "]");
 
     expectedValue[0] = getString(R.string.db_setup_nth_book_name);
-    final Book lastBook = bookDao.getBookUsingPosition(expectedCount);
+    final EntityBook lastBook = bookDao.getBookUsingPosition(expectedCount);
     if (lastBook != null && !lastBook.getName()
                                      .equalsIgnoreCase(expectedValue[0])) {
       Log.e(TAG, "validateTableBooks: last book's name didn't match, returning false");
@@ -236,7 +236,8 @@ public class DbSetupJob
           continue;
         }
         // using the data values, create a new book record in the database
-        bookDao.createBook(new Book(testament, description, position, name, chapters, verses));
+        bookDao
+            .createBook(new EntityBook(testament, description, position, name, chapters, verses));
         lineProgressValue = lineProgressValue + 1;
         final Bundle bundle = new Bundle();
         bundle.putInt(LINE_PROGRESS, lineProgressValue);

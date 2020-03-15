@@ -8,7 +8,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.andrewchelladurai.simplebible.data.entity.Book;
+import com.andrewchelladurai.simplebible.data.entity.EntityBook;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 
 import java.util.List;
@@ -23,15 +23,16 @@ public interface BookDao {
   int getBookCount();
 
   @Query("select * from sb_books where number=:bookNumber;")
-  Book getBookUsingPosition(@IntRange(from = 1, to = maxBookNumber) int bookNumber);
+  EntityBook getBookUsingPosition(@IntRange(from = 1, to = maxBookNumber) int bookNumber);
 
   @Query("select * from sb_books where number=:bookNumber;")
-  LiveData<Book> getBookUsingPositionLive(@IntRange(from = 1, to = maxBookNumber) int bookNumber);
+  LiveData<EntityBook> getBookUsingPositionLive(
+      @IntRange(from = 1, to = maxBookNumber) int bookNumber);
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  void createBook(@NonNull Book book);
+  void createBook(@NonNull EntityBook book);
 
   @Query("select * from sb_books order by number asc")
-  LiveData<List<Book>> getAllBooksLive();
+  LiveData<List<EntityBook>> getAllBooksLive();
 
 }

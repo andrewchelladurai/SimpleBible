@@ -10,7 +10,7 @@ import androidx.lifecycle.LiveData;
 import com.andrewchelladurai.simplebible.data.SbDatabase;
 import com.andrewchelladurai.simplebible.data.dao.BookDao;
 import com.andrewchelladurai.simplebible.data.dao.VerseDao;
-import com.andrewchelladurai.simplebible.data.entity.Book;
+import com.andrewchelladurai.simplebible.data.entity.EntityBook;
 import com.andrewchelladurai.simplebible.data.entity.Verse;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 
@@ -35,7 +35,7 @@ public class ScreenSearchModel
     return verseDao.getLiveVersesWithText(queryText);
   }
 
-  public LiveData<Book> getBook(
+  public LiveData<EntityBook> getBook(
       @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int bookNumber) {
     return bookDao.getBookUsingPositionLive(bookNumber);
   }

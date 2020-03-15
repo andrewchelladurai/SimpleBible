@@ -13,7 +13,7 @@ import com.andrewchelladurai.simplebible.data.DbSetupJob;
 import com.andrewchelladurai.simplebible.data.SbDatabase;
 import com.andrewchelladurai.simplebible.data.dao.BookDao;
 import com.andrewchelladurai.simplebible.data.dao.VerseDao;
-import com.andrewchelladurai.simplebible.data.entity.Book;
+import com.andrewchelladurai.simplebible.data.entity.EntityBook;
 import com.andrewchelladurai.simplebible.data.entity.Verse;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 import com.andrewchelladurai.simplebible.utils.VerseUtils;
@@ -32,7 +32,7 @@ public class ScreenHomeModel
   @NonNull
   private static Verse CACHED_VERSE = new Verse("", 1, 1, 1, "");
   @NonNull
-  private static Book CACHED_BOOK = new Book("", "", 1, "", 1, 1);
+  private static EntityBook CACHED_BOOK = new EntityBook("", "", 1, "", 1, 1);
   @NonNull
   private final VerseDao verseDao;
   @NonNull
@@ -76,7 +76,8 @@ public class ScreenHomeModel
   }
 
   @NonNull
-  public LiveData<Book> getBook(@IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int book) {
+  public LiveData<EntityBook> getBook(
+      @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int book) {
     return bookDao.getBookUsingPositionLive(book);
   }
 
@@ -108,11 +109,11 @@ public class ScreenHomeModel
   }
 
   @NonNull
-  public Book getCachedBook() {
+  public EntityBook getCachedBook() {
     return CACHED_BOOK;
   }
 
-  public void setCachedBook(@NonNull final Book book) {
+  public void setCachedBook(@NonNull final EntityBook book) {
     CACHED_BOOK = book;
   }
 
