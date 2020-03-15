@@ -16,9 +16,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.entity.EntityBook;
 import com.andrewchelladurai.simplebible.data.entity.Verse;
 import com.andrewchelladurai.simplebible.model.ScreenChapterModel;
+import com.andrewchelladurai.simplebible.objects.Book;
 import com.andrewchelladurai.simplebible.ui.adapter.ChapterNumberAdapter;
 import com.andrewchelladurai.simplebible.ui.adapter.ChapterVerseAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenChapterOps;
@@ -113,11 +113,12 @@ public class ScreenChapter
       }
 
       model.getBook(bookNumber)
-           .observe(getViewLifecycleOwner(), book -> {
+           .observe(getViewLifecycleOwner(), entityBook -> {
 
-             if (book != null) {
+             if (entityBook != null) {
 
                // book is good, cache it and use it
+               final Book book = new Book(entityBook);
                model.setCachedBook(book);
 
                if (chapterNumber < 1 || chapterNumber > book.getChapters()) {
@@ -227,7 +228,7 @@ public class ScreenChapter
   }
 
   private void updateScreenTitle() {
-    final EntityBook book = model.getCachedBook();
+    final Book book = model.getCachedBook();
     final String htmlText = getString(R.string.screen_chapter_template_title,
                                       book.getName(), model.getCachedChapterNumber());
     final String titleText = HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_COMPACT)

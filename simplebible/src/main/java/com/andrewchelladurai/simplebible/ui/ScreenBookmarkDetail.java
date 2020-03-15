@@ -292,15 +292,15 @@ public class ScreenBookmarkDetail
   public void updateBookmarkVerseView(@NonNull final Verse verse,
                                       @NonNull final TextView textView) {
     model.getBook(verse.getBook())
-         .observe(this, book -> {
-           if (book == null) {
+         .observe(this, entityBook -> {
+           if (entityBook == null) {
              Log.e(TAG, "updateSearchResultView: book not found for verse [" + verse + "]");
              return;
            }
 
            textView.setText(HtmlCompat.fromHtml(
                String.format(contentTemplate,
-                             book.getName(),
+                             entityBook.getName(),
                              verse.getChapter(),
                              verse.getVerse(),
                              verse.getText()),

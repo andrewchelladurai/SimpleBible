@@ -11,7 +11,7 @@ public class Book {
   @NonNull
   private final EntityBook book;
 
-  private Book(@NonNull EntityBook book) {
+  public Book(@NonNull EntityBook book) {
     this.book = book;
   }
 

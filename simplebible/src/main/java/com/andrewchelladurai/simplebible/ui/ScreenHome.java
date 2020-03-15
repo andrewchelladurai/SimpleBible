@@ -266,9 +266,9 @@ public class ScreenHome
 
            final int bookNum = verse.getBook();
            model.getBook(bookNum)
-                .observe(getViewLifecycleOwner(), book -> {
+                .observe(getViewLifecycleOwner(), entityBook -> {
 
-                  if (book == null) {
+                  if (entityBook == null) {
                     Log.e(TAG, "showDailyVerse: no book found for position [" + bookNum + "]");
                     showDefaultDailyVerse(defaultReference);
                     return;
@@ -276,12 +276,12 @@ public class ScreenHome
 
                   Log.d(TAG, "showDailyVerse: using reference[" + reference
                              + "] for day[" + dayNumber + "]");
-                  formatAndDisplayDailyVerse(verse, book);
+                  formatAndDisplayDailyVerse(verse, entityBook);
 
                   model.setCachedDayOfYear(dayNumber);
                   model.setCachedReference(reference);
                   model.setCachedVerse(verse);
-                  model.setCachedBook(book);
+                  model.setCachedBook(entityBook);
 
                 });
          });
@@ -326,9 +326,9 @@ public class ScreenHome
 
            final int bookNum = verse.getBook();
            model.getBook(bookNum)
-                .observe(getViewLifecycleOwner(), book -> {
+                .observe(getViewLifecycleOwner(), entityBook -> {
 
-                  if (book == null) {
+                  if (entityBook == null) {
                     Log.e(TAG,
                           "showDefaultDailyVerse: no book found for position [" + bookNum + "]");
                     showVerseText(defaultVerseRawText);
@@ -345,7 +345,7 @@ public class ScreenHome
                   model.setCachedDayOfYear(dayNumber);
                   model.setCachedReference(reference);
                   model.setCachedVerse(verse);
-                  model.setCachedBook(book);
+                  model.setCachedBook(entityBook);
 
                 });
          });

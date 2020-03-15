@@ -144,15 +144,15 @@ public class ScreenBookmarkList
                        final Verse verse = verseList.get(0);
 
                        bookModel.getBookUsingNumber(verse.getBook())
-                                .observe(this, book -> {
-                                  if (book == null) {
+                                .observe(this, entityBook -> {
+                                  if (entityBook == null) {
                                     verseCountChip.setText(htmlVerseNoneFound);
                                     return;
                                   }
 
                                   verseField.setText(HtmlCompat.fromHtml(
                                       String.format(getString(templateFirstVerse),
-                                                    book.getName(),
+                                                    entityBook.getName(),
                                                     verse.getChapter(),
                                                     verse.getVerse(),
                                                     verse.getText()),
