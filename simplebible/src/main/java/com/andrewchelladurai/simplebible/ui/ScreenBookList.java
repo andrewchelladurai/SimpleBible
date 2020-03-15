@@ -14,10 +14,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.entity.EntityBook;
 import com.andrewchelladurai.simplebible.model.ScreenBookListModel;
+import com.andrewchelladurai.simplebible.objects.Book;
 import com.andrewchelladurai.simplebible.ui.adapter.BookListAdapter;
-import com.andrewchelladurai.simplebible.ui.ops.RecyclerViewAdapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenBookListOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
@@ -30,7 +29,7 @@ public class ScreenBookList
 
   private ScreenSimpleBibleOps mainOps;
   private ScreenBookListModel model;
-  private RecyclerViewAdapterOps adapter;
+  private BookListAdapter adapter;
   private View rootView;
 
   public ScreenBookList() {
@@ -80,25 +79,27 @@ public class ScreenBookList
     });
 
     final RecyclerView recyclerView = rootView.findViewById(R.id.screen_books_list);
-    recyclerView.setAdapter((RecyclerView.Adapter) adapter);
+    recyclerView.setAdapter(adapter);
 
     if (savedState == null) {
-      model.getAllBooks()
-           .observe(getViewLifecycleOwner(), list -> {
-             if (list == null) {
-               final String message = getString(R.string.screen_bookmarks_msg_no_books);
-               Log.e(TAG, "onCreateView: " + message);
-               mainOps.showErrorScreen(message, true, true);
-               return;
-             }
-             if (list.isEmpty() || list.size() != BookUtils.EXPECTED_COUNT) {
-               final String message = getString(R.string.screen_bookmarks_msg_book_count_incorrect);
-               Log.e(TAG, "onCreateView: " + message);
-               mainOps.showErrorScreen(message, true, true);
-               return;
-             }
-             adapter.updateList(list);
-           });
+      model.getAllBooks().observe(getViewLifecycleOwner(), entityBookList -> {
+
+        if (entityBookList == null) {
+          final String message = getString(R.string.screen_bookmarks_msg_no_books);
+          Log.e(TAG, "onCreateView: " + message);
+          mainOps.showErrorScreen(message, true, true);
+          return;
+        }
+
+        if (entityBookList.isEmpty() || entityBookList.size() != BookUtils.EXPECTED_COUNT) {
+          final String message = getString(R.string.screen_bookmarks_msg_book_count_incorrect);
+          Log.e(TAG, "onCreateView: " + message);
+          mainOps.showErrorScreen(message, true, true);
+          return;
+        }
+
+        adapter.updateList(entityBookList);
+      });
     }
 
     mainOps.hideKeyboard();
@@ -123,7 +124,7 @@ public class ScreenBookList
   }
 
   @Override
-  public void handleBookClick(@NonNull final EntityBook book) {
+  public void handleBookClick(@NonNull final Book book) {
     final Bundle bundle = new Bundle();
     bundle.putInt(ScreenChapter.ARG_BOOK, book.getNumber());
     bundle.putInt(ScreenChapter.ARG_CHAPTER, 1);

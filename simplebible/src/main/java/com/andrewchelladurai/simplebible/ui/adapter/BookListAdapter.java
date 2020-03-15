@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entity.EntityBook;
+import com.andrewchelladurai.simplebible.objects.Book;
 import com.andrewchelladurai.simplebible.ui.ops.RecyclerViewAdapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenBookListOps;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
@@ -24,8 +25,8 @@ public class BookListAdapter
     implements RecyclerViewAdapterOps {
 
   private static final String TAG = "BookListAdapter";
-  private static final ArrayList<EntityBook> ALL_BOOKS = new ArrayList<>(BookUtils.EXPECTED_COUNT);
-  private static final ArrayList<EntityBook> FILTERED_BOOK_LIST =
+  private static final ArrayList<Book> ALL_BOOKS = new ArrayList<>(BookUtils.EXPECTED_COUNT);
+  private static final ArrayList<Book> FILTERED_BOOK_LIST =
       new ArrayList<>(BookUtils.EXPECTED_COUNT);
   private final ScreenBookListOps viewOps;
 
@@ -37,9 +38,9 @@ public class BookListAdapter
   @Override
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent,
                                                     final int viewType) {
-    return new BookViewHolder(LayoutInflater.from(parent.getContext())
-                                            .inflate(R.layout.screen_books_list_item, parent,
-                                                     false));
+    return new BookViewHolder(
+        LayoutInflater.from(parent.getContext())
+                      .inflate(R.layout.screen_books_list_item, parent, false));
   }
 
   @Override
@@ -57,7 +58,7 @@ public class BookListAdapter
     clearList();
 
     for (final Object o : list) {
-      ALL_BOOKS.add((EntityBook) o);
+      ALL_BOOKS.add(new Book((EntityBook) o));
     }
 
     FILTERED_BOOK_LIST.addAll(ALL_BOOKS);
@@ -72,7 +73,7 @@ public class BookListAdapter
     if (searchTerm.isEmpty()) {
       FILTERED_BOOK_LIST.addAll(ALL_BOOKS);
     } else {
-      for (final EntityBook book : ALL_BOOKS) {
+      for (final Book book : ALL_BOOKS) {
         if (book.getName()
                 .toLowerCase()
                 .contains(searchTerm.toLowerCase())) {
@@ -94,7 +95,7 @@ public class BookListAdapter
       implements ItemHolderOps {
 
     private final View rootView;
-    private EntityBook book;
+    private Book book;
 
     BookViewHolder(final View view) {
       super(view);
@@ -103,7 +104,7 @@ public class BookListAdapter
 
     @Override
     public void updateView(final Object object, int position) {
-      book = (EntityBook) object;
+      book = (Book) object;
 
       ((TextView) rootView.findViewById(R.id.screen_books_list_item_name))
           .setText(book.getName());
