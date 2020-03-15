@@ -12,7 +12,7 @@ import com.andrewchelladurai.simplebible.data.SbDatabase;
 import com.andrewchelladurai.simplebible.data.dao.BookDao;
 import com.andrewchelladurai.simplebible.data.dao.VerseDao;
 import com.andrewchelladurai.simplebible.data.entity.EntityBook;
-import com.andrewchelladurai.simplebible.data.entity.VerseEntity;
+import com.andrewchelladurai.simplebible.data.entity.EntityVerse;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 
 import java.util.List;
@@ -63,7 +63,7 @@ public class ScreenChapterModel
   }
 
   @NonNull
-  public LiveData<List<VerseEntity>> getChapterVerseList() {
+  public LiveData<List<EntityVerse>> getChapterVerseList() {
     return verseDao.getLiveChapterVerses(CACHED_BOOK.getNumber(), getCachedChapterNumber());
   }
 

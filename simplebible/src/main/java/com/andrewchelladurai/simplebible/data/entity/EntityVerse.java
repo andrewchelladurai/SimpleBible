@@ -13,19 +13,19 @@ import com.andrewchelladurai.simplebible.utils.BookUtils;
 import java.util.Objects;
 
 @Entity(tableName = "sb_verses", primaryKeys = {"book", "chapter", "verse"})
-public class VerseEntity
+public class EntityVerse
     implements Comparable,
                Parcelable {
 
-  public static final Creator<VerseEntity> CREATOR = new Creator<VerseEntity>() {
+  public static final Creator<EntityVerse> CREATOR = new Creator<EntityVerse>() {
     @Override
-    public VerseEntity createFromParcel(Parcel in) {
-      return new VerseEntity(in);
+    public EntityVerse createFromParcel(Parcel in) {
+      return new EntityVerse(in);
     }
 
     @Override
-    public VerseEntity[] newArray(int size) {
-      return new VerseEntity[size];
+    public EntityVerse[] newArray(int size) {
+      return new EntityVerse[size];
     }
   };
 
@@ -49,7 +49,7 @@ public class VerseEntity
   @ColumnInfo(name = "text")
   private final String text;
 
-  public VerseEntity(@NonNull final String translation,
+  public EntityVerse(@NonNull final String translation,
                      @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int book,
                      @IntRange(from = 1) final int chapter,
                      @IntRange(from = 1) final int verse,
@@ -62,7 +62,7 @@ public class VerseEntity
   }
 
   @SuppressWarnings("ConstantConditions")
-  protected VerseEntity(Parcel in) {
+  protected EntityVerse(Parcel in) {
     translation = in.readString();
     book = in.readInt();
     chapter = in.readInt();
@@ -107,7 +107,7 @@ public class VerseEntity
       return false;
     }
 
-    final VerseEntity verse1 = (VerseEntity) o;
+    final EntityVerse verse1 = (EntityVerse) o;
     return book == verse1.book
            && chapter == verse1.chapter
            && verse == verse1.verse
@@ -129,7 +129,7 @@ public class VerseEntity
 
   @Override
   public int compareTo(final Object o) {
-    VerseEntity newVerse = (VerseEntity) o;
+    EntityVerse newVerse = (EntityVerse) o;
 
     return Integer.parseInt(book + "" + chapter + "" + verse)
            - Integer.parseInt(newVerse.book + "" + newVerse.chapter + "" + newVerse.verse);

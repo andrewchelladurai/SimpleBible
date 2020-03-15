@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.andrewchelladurai.simplebible.data.dao.BookmarkDao;
 import com.andrewchelladurai.simplebible.data.entity.Bookmark;
-import com.andrewchelladurai.simplebible.data.entity.VerseEntity;
+import com.andrewchelladurai.simplebible.data.entity.EntityVerse;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -57,9 +57,9 @@ public class BookmarkUtils {
       throw new IllegalArgumentException(TAG + " createReference: Empty list passed");
     }
 
-    final ArrayList<VerseEntity> tempList = new ArrayList<>();
+    final ArrayList<EntityVerse> tempList = new ArrayList<>();
     for (final Object o : list) {
-      tempList.add((VerseEntity) o);
+      tempList.add((EntityVerse) o);
     }
 
     //noinspection unchecked
@@ -67,7 +67,7 @@ public class BookmarkUtils {
 
     StringBuilder builder = new StringBuilder();
 
-    for (final VerseEntity verse : tempList) {
+    for (final EntityVerse verse : tempList) {
       builder.append(VerseUtils.createReference(verse))
              .append(SEPARATOR);
     }

@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.entity.VerseEntity;
+import com.andrewchelladurai.simplebible.data.entity.EntityVerse;
 import com.andrewchelladurai.simplebible.ui.ops.RecyclerViewAdapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSearchOps;
 
@@ -24,8 +24,8 @@ public class SearchAdapter
 
   private static final String TAG = "SearchAdapter";
 
-  private static final ArrayList<VerseEntity> LIST = new ArrayList<>();
-  private static final HashMap<VerseEntity, String> SELECTED_LIST = new HashMap<>();
+  private static final ArrayList<EntityVerse> LIST = new ArrayList<>();
+  private static final HashMap<EntityVerse, String> SELECTED_LIST = new HashMap<>();
 
   private final ScreenSearchOps ops;
 
@@ -61,7 +61,7 @@ public class SearchAdapter
     clearList();
 
     for (final Object obj : list) {
-      LIST.add((VerseEntity) obj);
+      LIST.add((EntityVerse) obj);
     }
 
     notifyDataSetChanged();
@@ -87,7 +87,7 @@ public class SearchAdapter
   }
 
   @NonNull
-  public HashMap<VerseEntity, String> getSelectedVerses() {
+  public HashMap<EntityVerse, String> getSelectedVerses() {
     return SELECTED_LIST;
   }
 
@@ -97,7 +97,7 @@ public class SearchAdapter
 
     private final View rootView;
     private final TextView contentView;
-    private VerseEntity verse;
+    private EntityVerse verse;
     private int position;
 
     SearchResultViewHolder(@NonNull final View itemView) {
@@ -118,7 +118,7 @@ public class SearchAdapter
 
     @Override
     public void updateView(final Object object, int position) {
-      verse = (VerseEntity) object;
+      verse = (EntityVerse) object;
       this.position = position;
 
       ops.updateSearchResultView(verse, contentView);

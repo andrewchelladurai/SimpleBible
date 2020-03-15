@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entity.Bookmark;
-import com.andrewchelladurai.simplebible.data.entity.VerseEntity;
+import com.andrewchelladurai.simplebible.data.entity.EntityVerse;
 import com.andrewchelladurai.simplebible.model.ScreenBookListModel;
 import com.andrewchelladurai.simplebible.model.ScreenBookmarkListModel;
 import com.andrewchelladurai.simplebible.object.Book;
@@ -141,7 +141,7 @@ public class ScreenBookmarkList
         return;
       }
 
-      final VerseEntity verse = verseList.get(0);
+      final EntityVerse verse = verseList.get(0);
 
       bookModel.getBookUsingNumber(verse.getBook()).observe(this, bookEn -> {
         if (bookEn == null) {
@@ -176,7 +176,7 @@ public class ScreenBookmarkList
              return;
            }
 
-           final VerseEntity[] array = new VerseEntity[verses.size()];
+           final EntityVerse[] array = new EntityVerse[verses.size()];
            for (int i = 0; i < verses.size(); i++) {
              array[i] = verses.get(i);
            }

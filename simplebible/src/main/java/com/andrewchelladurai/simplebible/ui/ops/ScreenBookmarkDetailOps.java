@@ -4,10 +4,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.andrewchelladurai.simplebible.data.entity.VerseEntity;
+import com.andrewchelladurai.simplebible.data.entity.EntityVerse;
 
 public interface ScreenBookmarkDetailOps {
 
-  void updateBookmarkVerseView(@NonNull VerseEntity verse, @NonNull TextView textView);
+  void updateBookmarkVerseView(@NonNull EntityVerse verse, @NonNull TextView textView);
 
 }

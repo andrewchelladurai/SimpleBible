@@ -8,7 +8,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.andrewchelladurai.simplebible.data.entity.VerseEntity;
+import com.andrewchelladurai.simplebible.data.entity.EntityVerse;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 
 import java.util.List;
@@ -23,25 +23,25 @@ public interface VerseDao {
   LiveData<Integer> getLiveVerseCount();
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  void createVerse(@NonNull VerseEntity verse);
+  void createVerse(@NonNull EntityVerse verse);
 
   @Query("select * from sb_verses"
          + " where book=:book"
          + " and chapter=:chapter"
          + " and verse=:verse")
-  LiveData<VerseEntity> getLiveVerse(@IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) int book,
+  LiveData<EntityVerse> getLiveVerse(@IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) int book,
                                      @IntRange(from = 1) int chapter,
                                      @IntRange(from = 1) int verse);
 
   @Query("select * from sb_verses"
          + " where lower(text) like :textToSearch"
          + " order by book, chapter, verse")
-  LiveData<List<VerseEntity>> getLiveVersesWithText(@NonNull String textToSearch);
+  LiveData<List<EntityVerse>> getLiveVersesWithText(@NonNull String textToSearch);
 
   @Query("select * from sb_verses "
          + "where book=:bookNumber and chapter=:chapterNumber "
          + "order by verse")
-  LiveData<List<VerseEntity>> getLiveChapterVerses(
+  LiveData<List<EntityVerse>> getLiveChapterVerses(
       @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) int bookNumber,
       @IntRange(from = 1) int chapterNumber);
 
@@ -50,7 +50,7 @@ public interface VerseDao {
          + " and chapter in (:chapterNumbers)"
          + " and verse in (:verseNumbers)"
          + " order by book, chapter, verse")
-  LiveData<List<VerseEntity>> getLiveVerses(@NonNull List<String> bookNumbers,
+  LiveData<List<EntityVerse>> getLiveVerses(@NonNull List<String> bookNumbers,
                                             @NonNull List<String> chapterNumbers,
                                             @NonNull List<String> verseNumbers);
 

@@ -18,7 +18,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.entity.VerseEntity;
+import com.andrewchelladurai.simplebible.data.entity.EntityVerse;
 import com.andrewchelladurai.simplebible.model.ScreenSearchModel;
 import com.andrewchelladurai.simplebible.ui.adapter.SearchAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSearchOps;
@@ -180,13 +180,13 @@ public class ScreenSearch
     final StringBuilder shareText = new StringBuilder();
 
     // get the list of all verses that are selected and sort it
-    final HashMap<VerseEntity, String> versesMap = adapter.getSelectedVerses();
-    final ArrayList<VerseEntity> keySet = new ArrayList<>(versesMap.keySet());
+    final HashMap<EntityVerse, String> versesMap = adapter.getSelectedVerses();
+    final ArrayList<EntityVerse> keySet = new ArrayList<>(versesMap.keySet());
     //noinspection unchecked
     Collections.sort(keySet);
 
     // now get the text from the selected verses
-    for (final VerseEntity verse : keySet) {
+    for (final EntityVerse verse : keySet) {
       shareText.append(versesMap.get(verse))
                .append("\n");
     }
@@ -201,7 +201,7 @@ public class ScreenSearch
     }
 
     // get the list of all verses that are selected and sort it
-    final ArrayList<VerseEntity> list = new ArrayList<>(adapter.getSelectedVerses()
+    final ArrayList<EntityVerse> list = new ArrayList<>(adapter.getSelectedVerses()
                                                                .keySet());
     //noinspection unchecked
     Collections.sort(list);
@@ -210,7 +210,7 @@ public class ScreenSearch
     handleClickActionClear();
 
     // convert the list into an array
-    final VerseEntity[] array = new VerseEntity[list.size()];
+    final EntityVerse[] array = new EntityVerse[list.size()];
     for (int i = 0; i < array.length; i++) {
       array[i] = list.get(i);
     }
@@ -276,7 +276,7 @@ public class ScreenSearch
   }
 
   @Override
-  public void updateSearchResultView(@NonNull VerseEntity verse, @NonNull TextView textView) {
+  public void updateSearchResultView(@NonNull EntityVerse verse, @NonNull TextView textView) {
     model.getBook(verse.getBook()).observe(this, bookEn -> {
       if (bookEn == null) {
         Log.e(TAG, "updateSearchResultView: book not found for verse [" + verse + "]");

@@ -11,7 +11,7 @@ import com.andrewchelladurai.simplebible.data.SbDatabase;
 import com.andrewchelladurai.simplebible.data.dao.BookDao;
 import com.andrewchelladurai.simplebible.data.dao.VerseDao;
 import com.andrewchelladurai.simplebible.data.entity.EntityBook;
-import com.andrewchelladurai.simplebible.data.entity.VerseEntity;
+import com.andrewchelladurai.simplebible.data.entity.EntityVerse;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public class ScreenSearchModel
                         .getBookDao();
   }
 
-  public LiveData<List<VerseEntity>> searchTextInVerses(@NonNull final String searchText) {
+  public LiveData<List<EntityVerse>> searchTextInVerses(@NonNull final String searchText) {
     final String queryText = "%" + searchText.toLowerCase() + "%";
     return verseDao.getLiveVersesWithText(queryText);
   }

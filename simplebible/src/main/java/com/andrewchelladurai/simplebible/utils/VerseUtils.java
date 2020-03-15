@@ -4,7 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.andrewchelladurai.simplebible.data.entity.VerseEntity;
+import com.andrewchelladurai.simplebible.data.entity.EntityVerse;
 
 public class VerseUtils {
 
@@ -19,7 +19,7 @@ public class VerseUtils {
   private VerseUtils() {
   }
 
-  static String createReference(@NonNull final VerseEntity verse) {
+  static String createReference(@NonNull final EntityVerse verse) {
     final int bookNumber = verse.getBook();
     final int chapterNumber = verse.getChapter();
     final int verseNumber = verse.getVerse();
