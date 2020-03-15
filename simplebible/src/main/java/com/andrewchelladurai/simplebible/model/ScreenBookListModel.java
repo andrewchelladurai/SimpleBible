@@ -9,7 +9,7 @@ import androidx.lifecycle.LiveData;
 
 import com.andrewchelladurai.simplebible.data.SbDatabase;
 import com.andrewchelladurai.simplebible.data.dao.BookDao;
-import com.andrewchelladurai.simplebible.data.entity.Book;
+import com.andrewchelladurai.simplebible.data.entity.EntityBook;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 
 import java.util.List;
@@ -26,11 +26,11 @@ public class ScreenBookListModel
                         .getBookDao();
   }
 
-  public LiveData<List<Book>> getAllBooks() {
+  public LiveData<List<EntityBook>> getAllBooks() {
     return bookDao.getAllBooksLive();
   }
 
-  public LiveData<Book> getBookUsingNumber(
+  public LiveData<EntityBook> getBookUsingNumber(
       @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int bookNumber) {
     return bookDao.getBookUsingPositionLive(bookNumber);
   }

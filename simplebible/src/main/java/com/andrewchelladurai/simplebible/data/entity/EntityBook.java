@@ -13,19 +13,19 @@ import com.andrewchelladurai.simplebible.utils.BookUtils;
 import java.util.Objects;
 
 @Entity(tableName = "sb_books", primaryKeys = {"number", "name", "chapters", "verses"})
-public class Book
+public class EntityBook
     implements Comparable,
                Parcelable {
 
-  public static final Creator<Book> CREATOR = new Creator<Book>() {
+  public static final Creator<EntityBook> CREATOR = new Creator<EntityBook>() {
     @Override
-    public Book createFromParcel(Parcel in) {
-      return new Book(in);
+    public EntityBook createFromParcel(Parcel in) {
+      return new EntityBook(in);
     }
 
     @Override
-    public Book[] newArray(int size) {
-      return new Book[size];
+    public EntityBook[] newArray(int size) {
+      return new EntityBook[size];
     }
   };
 
@@ -48,12 +48,12 @@ public class Book
   @ColumnInfo(name = "verses")
   private final int verses;
 
-  public Book(@NonNull final String testament,
-              @NonNull final String description,
-              @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int number,
-              @NonNull final String name,
-              @IntRange(from = 1) final int chapters,
-              @IntRange(from = 1) final int verses) {
+  public EntityBook(@NonNull final String testament,
+                    @NonNull final String description,
+                    @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT) final int number,
+                    @NonNull final String name,
+                    @IntRange(from = 1) final int chapters,
+                    @IntRange(from = 1) final int verses) {
     this.testament = testament;
     this.description = description;
     this.number = number;
@@ -63,7 +63,7 @@ public class Book
   }
 
   @SuppressWarnings("ConstantConditions")
-  protected Book(Parcel in) {
+  protected EntityBook(Parcel in) {
     testament = in.readString();
     description = in.readString();
     number = in.readInt();
@@ -85,7 +85,7 @@ public class Book
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    final Book book = (Book) o;
+    final EntityBook book = (EntityBook) o;
     return number == book.number
            && chapters == book.chapters
            && verses == book.verses
@@ -136,7 +136,7 @@ public class Book
 
   @Override
   public int compareTo(final Object o) {
-    return number - ((Book) o).number;
+    return number - ((EntityBook) o).number;
   }
 
   @Override

@@ -14,7 +14,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.entity.Book;
+import com.andrewchelladurai.simplebible.data.entity.EntityBook;
 import com.andrewchelladurai.simplebible.model.ScreenBookListModel;
 import com.andrewchelladurai.simplebible.ui.adapter.BookListAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.RecyclerViewAdapterOps;
@@ -123,7 +123,7 @@ public class ScreenBookList
   }
 
   @Override
-  public void handleBookClick(@NonNull final Book book) {
+  public void handleBookClick(@NonNull final EntityBook book) {
     final Bundle bundle = new Bundle();
     bundle.putInt(ScreenChapter.ARG_BOOK, book.getNumber());
     bundle.putInt(ScreenChapter.ARG_CHAPTER, 1);

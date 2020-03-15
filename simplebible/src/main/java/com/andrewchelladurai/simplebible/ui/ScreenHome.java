@@ -19,7 +19,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.DbSetupJob;
-import com.andrewchelladurai.simplebible.data.entity.Book;
+import com.andrewchelladurai.simplebible.data.entity.EntityBook;
 import com.andrewchelladurai.simplebible.data.entity.Verse;
 import com.andrewchelladurai.simplebible.model.ScreenHomeModel;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
@@ -290,7 +290,7 @@ public class ScreenHome
 
   }
 
-  private void formatAndDisplayDailyVerse(@NonNull final Verse verse, @NonNull Book book) {
+  private void formatAndDisplayDailyVerse(@NonNull final Verse verse, @NonNull EntityBook book) {
     Log.d(TAG, "formatAndDisplayDailyVerse:");
     final String template = getString(R.string.screen_home_template_verse);
     final String bookName = book.getName();

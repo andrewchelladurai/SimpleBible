@@ -3,7 +3,7 @@ package com.andrewchelladurai.simplebible.utils;
 import android.os.AsyncTask;
 
 import com.andrewchelladurai.simplebible.data.dao.BookDao;
-import com.andrewchelladurai.simplebible.data.entity.Book;
+import com.andrewchelladurai.simplebible.data.entity.EntityBook;
 
 public class BookUtils {
 
@@ -22,12 +22,12 @@ public class BookUtils {
     return THIS_INSTANCE;
   }
 
-  public void createBook(final BookDao dao, final Book book) {
+  public void createBook(final BookDao dao, final EntityBook book) {
     new CreateBookTask(dao).execute(book);
   }
 
   private static class CreateBookTask
-      extends AsyncTask<Book, Void, Void> {
+      extends AsyncTask<EntityBook, Void, Void> {
 
     private final BookDao dao;
 
@@ -36,8 +36,8 @@ public class BookUtils {
     }
 
     @Override
-    protected Void doInBackground(final Book... books) {
-      for (final Book book : books) {
+    protected Void doInBackground(final EntityBook... books) {
+      for (final EntityBook book : books) {
         dao.createBook(book);
       }
       return null;
