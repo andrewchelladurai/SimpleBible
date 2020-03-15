@@ -12,7 +12,7 @@ import com.andrewchelladurai.simplebible.utils.BookUtils;
 
 import java.util.Objects;
 
-public class Book
+public final class Book
     implements Comparable, Parcelable {
 
   public static final Creator<Book> CREATOR = new Creator<Book>() {
