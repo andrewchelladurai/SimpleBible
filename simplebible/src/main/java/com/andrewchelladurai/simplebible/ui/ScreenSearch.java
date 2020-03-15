@@ -277,21 +277,20 @@ public class ScreenSearch
 
   @Override
   public void updateSearchResultView(@NonNull EntityVerse verse, @NonNull TextView textView) {
-    model.getBook(verse.getBook())
-         .observe(this, book -> {
-           if (book == null) {
-             Log.e(TAG, "updateSearchResultView: book not found for verse [" + verse + "]");
-             return;
-           }
+    model.getBook(verse.getBook()).observe(this, bookEn -> {
+      if (bookEn == null) {
+        Log.e(TAG, "updateSearchResultView: book not found for verse [" + verse + "]");
+        return;
+      }
 
-           textView.setText(HtmlCompat.fromHtml(
-               String.format(searchResultContentTemplate,
-                             book.getName(),
-                             verse.getChapter(),
-                             verse.getVerse(),
-                             verse.getText()),
-               HtmlCompat.FROM_HTML_MODE_LEGACY));
-         });
+      textView.setText(HtmlCompat.fromHtml(
+          String.format(searchResultContentTemplate,
+                        bookEn.getName(),
+                        verse.getChapter(),
+                        verse.getVerse(),
+                        verse.getText()),
+          HtmlCompat.FROM_HTML_MODE_LEGACY));
+    });
   }
 
   private void updateTitle() {

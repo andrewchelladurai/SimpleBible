@@ -291,21 +291,20 @@ public class ScreenBookmarkDetail
   @Override
   public void updateBookmarkVerseView(@NonNull final EntityVerse verse,
                                       @NonNull final TextView textView) {
-    model.getBook(verse.getBook())
-         .observe(this, entityBook -> {
-           if (entityBook == null) {
-             Log.e(TAG, "updateSearchResultView: book not found for verse [" + verse + "]");
-             return;
-           }
+    model.getBook(verse.getBook()).observe(this, bookEn -> {
+      if (bookEn == null) {
+        Log.e(TAG, "updateSearchResultView: book not found for verse [" + verse + "]");
+        return;
+      }
 
-           textView.setText(HtmlCompat.fromHtml(
-               String.format(contentTemplate,
-                             entityBook.getName(),
-                             verse.getChapter(),
-                             verse.getVerse(),
-                             verse.getText()),
-               HtmlCompat.FROM_HTML_MODE_LEGACY));
-         });
+      textView.setText(HtmlCompat.fromHtml(
+          String.format(contentTemplate,
+                        bookEn.getName(),
+                        verse.getChapter(),
+                        verse.getVerse(),
+                        verse.getText()),
+          HtmlCompat.FROM_HTML_MODE_LEGACY));
+    });
 
   }
 

@@ -3,7 +3,7 @@ package com.andrewchelladurai.simplebible.ui.ops;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 
-import com.andrewchelladurai.simplebible.objects.Book;
+import com.andrewchelladurai.simplebible.object.Book;
 
 public interface ScreenBookListOps {
 

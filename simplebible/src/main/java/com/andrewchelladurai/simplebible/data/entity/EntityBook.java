@@ -117,7 +117,6 @@ public class EntityBook
     return description;
   }
 
-  @IntRange(from = 1, to = BookUtils.EXPECTED_COUNT)
   public int getNumber() {
     return number;
   }
@@ -127,18 +126,16 @@ public class EntityBook
     return name;
   }
 
-  @IntRange(from = 1)
   public int getChapters() {
     return chapters;
   }
 
-  @IntRange(from = 1)
   public int getVerses() {
     return verses;
   }
 
   @Override
-  public int compareTo(@NonNull final Object o) {
+  public int compareTo(final Object o) {
     return number - ((EntityBook) o).number;
   }
 

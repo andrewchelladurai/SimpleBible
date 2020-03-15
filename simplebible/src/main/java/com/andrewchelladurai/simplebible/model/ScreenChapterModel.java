@@ -13,7 +13,6 @@ import com.andrewchelladurai.simplebible.data.dao.BookDao;
 import com.andrewchelladurai.simplebible.data.dao.VerseDao;
 import com.andrewchelladurai.simplebible.data.entity.EntityBook;
 import com.andrewchelladurai.simplebible.data.entity.EntityVerse;
-import com.andrewchelladurai.simplebible.objects.Book;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 
 import java.util.List;
@@ -22,7 +21,7 @@ public class ScreenChapterModel
     extends AndroidViewModel {
 
   private static final String TAG = "ScreenChapterModel";
-  private static Book CACHED_BOOK;
+  private static EntityBook CACHED_BOOK;
   @IntRange(from = 1)
   private static int CACHED_CHAPTER_NUMBER;
   @IntRange(from = 1)
@@ -55,11 +54,11 @@ public class ScreenChapterModel
   }
 
   @NonNull
-  public Book getCachedBook() {
+  public EntityBook getCachedBook() {
     return CACHED_BOOK;
   }
 
-  public void setCachedBook(@NonNull final Book book) {
+  public void setCachedBook(@NonNull final EntityBook book) {
     CACHED_BOOK = book;
   }
 

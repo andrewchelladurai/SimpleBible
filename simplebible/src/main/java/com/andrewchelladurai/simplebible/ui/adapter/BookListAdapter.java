@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.entity.EntityBook;
-import com.andrewchelladurai.simplebible.objects.Book;
+import com.andrewchelladurai.simplebible.object.Book;
 import com.andrewchelladurai.simplebible.ui.ops.RecyclerViewAdapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenBookListOps;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
@@ -38,9 +38,9 @@ public class BookListAdapter
   @Override
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent,
                                                     final int viewType) {
-    return new BookViewHolder(
-        LayoutInflater.from(parent.getContext())
-                      .inflate(R.layout.screen_books_list_item, parent, false));
+    return new BookViewHolder(LayoutInflater.from(parent.getContext())
+                                            .inflate(R.layout.screen_books_list_item, parent,
+                                                     false));
   }
 
   @Override

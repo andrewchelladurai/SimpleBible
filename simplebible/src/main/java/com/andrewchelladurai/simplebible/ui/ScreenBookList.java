@@ -15,8 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.model.ScreenBookListModel;
-import com.andrewchelladurai.simplebible.objects.Book;
+import com.andrewchelladurai.simplebible.object.Book;
 import com.andrewchelladurai.simplebible.ui.adapter.BookListAdapter;
+import com.andrewchelladurai.simplebible.ui.ops.RecyclerViewAdapterOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenBookListOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
@@ -29,7 +30,7 @@ public class ScreenBookList
 
   private ScreenSimpleBibleOps mainOps;
   private ScreenBookListModel model;
-  private BookListAdapter adapter;
+  private RecyclerViewAdapterOps adapter;
   private View rootView;
 
   public ScreenBookList() {
@@ -79,26 +80,25 @@ public class ScreenBookList
     });
 
     final RecyclerView recyclerView = rootView.findViewById(R.id.screen_books_list);
-    recyclerView.setAdapter(adapter);
+    recyclerView.setAdapter((RecyclerView.Adapter) adapter);
 
     if (savedState == null) {
-      model.getAllBooks().observe(getViewLifecycleOwner(), entityBookList -> {
-
-        if (entityBookList == null) {
+      model.getAllBooks().observe(getViewLifecycleOwner(), bookList -> {
+        if (bookList == null) {
           final String message = getString(R.string.screen_bookmarks_msg_no_books);
           Log.e(TAG, "onCreateView: " + message);
           mainOps.showErrorScreen(message, true, true);
           return;
         }
 
-        if (entityBookList.isEmpty() || entityBookList.size() != BookUtils.EXPECTED_COUNT) {
+        if (bookList.isEmpty() || bookList.size() != BookUtils.EXPECTED_COUNT) {
           final String message = getString(R.string.screen_bookmarks_msg_book_count_incorrect);
           Log.e(TAG, "onCreateView: " + message);
           mainOps.showErrorScreen(message, true, true);
           return;
         }
 
-        adapter.updateList(entityBookList);
+        adapter.updateList(bookList);
       });
     }
 

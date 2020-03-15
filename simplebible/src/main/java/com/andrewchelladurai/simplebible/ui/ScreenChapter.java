@@ -16,9 +16,10 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.entity.EntityBook;
 import com.andrewchelladurai.simplebible.data.entity.EntityVerse;
 import com.andrewchelladurai.simplebible.model.ScreenChapterModel;
-import com.andrewchelladurai.simplebible.objects.Book;
+import com.andrewchelladurai.simplebible.object.Book;
 import com.andrewchelladurai.simplebible.ui.adapter.ChapterNumberAdapter;
 import com.andrewchelladurai.simplebible.ui.adapter.ChapterVerseAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenChapterOps;
@@ -112,46 +113,45 @@ public class ScreenChapter
         return rootView;
       }
 
-      model.getBook(bookNumber)
-           .observe(getViewLifecycleOwner(), entityBook -> {
+      model.getBook(bookNumber).observe(getViewLifecycleOwner(), bookEn -> {
 
-             if (entityBook != null) {
+        if (bookEn != null) {
 
-               // book is good, cache it and use it
-               final Book book = new Book(entityBook);
-               model.setCachedBook(book);
+          final Book book = new Book(bookEn);
+          // book is good, cache it and use it
+          model.setCachedBook(bookEn);
 
-               if (chapterNumber < 1 || chapterNumber > book.getChapters()) {
-                 // chapter is not good, show first chapter from the book
-                 final String message = getString(R.string.screen_chapter_msg_invalid_chapter);
-                 Log.e(TAG, "onCreateView: " + message);
-                 mainOps.showMessage(message);
-                 model.setCachedChapterNumber(1);
-               } else {
-                 // chapter is good, cache & use it
-                 model.setCachedChapterNumber(chapterNumber);
-               }
+          if (chapterNumber < 1 || chapterNumber > book.getChapters()) {
+            // chapter is not good, show first chapter from the book
+            final String message = getString(R.string.screen_chapter_msg_invalid_chapter);
+            Log.e(TAG, "onCreateView: " + message);
+            mainOps.showMessage(message);
+            model.setCachedChapterNumber(1);
+          } else {
+            // chapter is good, cache & use it
+            model.setCachedChapterNumber(chapterNumber);
+          }
 
-               if (verseNumber < 1) {
-                 // verse is not good, show first verse from the chapter
-                 final String message = getString(R.string.screen_chapter_msg_invalid_verse);
-                 Log.e(TAG, "onCreateView: " + message);
-                 mainOps.showMessage(message);
-                 model.setCachedVerseNumber(1);
-               } else {
-                 // verse is good, cache & use it
-                 model.setCachedVerseNumber(verseNumber);
-               }
+          if (verseNumber < 1) {
+            // verse is not good, show first verse from the chapter
+            final String message = getString(R.string.screen_chapter_msg_invalid_verse);
+            Log.e(TAG, "onCreateView: " + message);
+            mainOps.showMessage(message);
+            model.setCachedVerseNumber(1);
+          } else {
+            // verse is good, cache & use it
+            model.setCachedVerseNumber(verseNumber);
+          }
 
-               updateScreenTitle();
-               updateVerseList();
+          updateScreenTitle();
+          updateVerseList();
 
-             } else {
-               final String message = getString(R.string.screen_chapter_msg_invalid_book);
-               Log.e(TAG, "onCreateView: " + message);
-               mainOps.showErrorScreen(message, true, true);
-             }
-           });
+        } else {
+          final String message = getString(R.string.screen_chapter_msg_invalid_book);
+          Log.e(TAG, "onCreateView: " + message);
+          mainOps.showErrorScreen(message, true, true);
+        }
+      });
     } else {
       updateScreenTitle();
       updateVerseList();
@@ -228,7 +228,7 @@ public class ScreenChapter
   }
 
   private void updateScreenTitle() {
-    final Book book = model.getCachedBook();
+    final EntityBook book = model.getCachedBook();
     final String htmlText = getString(R.string.screen_chapter_template_title,
                                       book.getName(), model.getCachedChapterNumber());
     final String titleText = HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_COMPACT)

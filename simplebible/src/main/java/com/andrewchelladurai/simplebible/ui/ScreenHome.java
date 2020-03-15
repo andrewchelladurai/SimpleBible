@@ -19,9 +19,9 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.DbSetupJob;
-import com.andrewchelladurai.simplebible.data.entity.EntityBook;
-import com.andrewchelladurai.simplebible.data.entity.EntityVerse;
 import com.andrewchelladurai.simplebible.model.ScreenHomeModel;
+import com.andrewchelladurai.simplebible.object.Book;
+import com.andrewchelladurai.simplebible.object.Verse;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
 import com.andrewchelladurai.simplebible.utils.BookUtils;
 import com.andrewchelladurai.simplebible.utils.VerseUtils;
@@ -123,7 +123,7 @@ public class ScreenHome
 
     final Bundle bundle = new Bundle();
     bundle.putParcelableArray(ScreenBookmarkDetail.ARG_VERSE_LIST,
-                              new EntityVerse[]{model.getCachedVerse()});
+                              new Verse[]{model.getCachedVerse()});
 
     NavHostFragment.findNavController(this)
                    .navigate(R.id.screen_home_to_screen_bookmark_detail, bundle);
@@ -131,12 +131,12 @@ public class ScreenHome
 
   private void handleActionChapter() {
     Log.d(TAG, "handleActionChapter:");
-    final EntityVerse cachedVerse = model.getCachedVerse();
+    final Verse verse = model.getCachedVerse();
 
     final Bundle bundle = new Bundle();
-    bundle.putInt(ScreenChapter.ARG_BOOK, cachedVerse.getBook());
-    bundle.putInt(ScreenChapter.ARG_CHAPTER, cachedVerse.getChapter());
-    bundle.putInt(ScreenChapter.ARG_VERSE, cachedVerse.getVerse());
+    bundle.putInt(ScreenChapter.ARG_BOOK, verse.getBookNumber());
+    bundle.putInt(ScreenChapter.ARG_CHAPTER, verse.getChapterNumber());
+    bundle.putInt(ScreenChapter.ARG_VERSE, verse.getVerseNumber());
 
     NavHostFragment.findNavController(this)
                    .navigate(R.id.screen_home_to_screen_chapter, bundle);
@@ -238,7 +238,7 @@ public class ScreenHome
     if (dayNumber == model.getCachedDayOfYear()
         && reference.equalsIgnoreCase(cachedReference)) {
       Log.d(TAG, "showDailyVerse: Same day & reference, using cached data");
-      formatAndDisplayDailyVerse(model.getCachedVerse(), model.getCachedBook());
+      formatAndDisplayDailyVerse(model.getCachedVerse());
       return;
     } else if (dayNumber == model.getCachedDayOfYear()
                && defaultReference.equalsIgnoreCase(cachedReference)) {
@@ -255,48 +255,49 @@ public class ScreenHome
       return;
     }
 
-    model.getVerse(reference)
-         .observe(getViewLifecycleOwner(), verse -> {
+    model.getVerse(reference).observe(getViewLifecycleOwner(), verseEn -> {
 
-           if (verse == null) {
-             Log.e(TAG, "showDailyVerse: no verse found for reference [" + reference + "]");
-             showDefaultDailyVerse(defaultReference);
-             return;
-           }
+      if (verseEn == null) {
+        Log.e(TAG, "showDailyVerse: no verse found for reference [" + reference + "]");
+        showDefaultDailyVerse(defaultReference);
+        return;
+      }
 
-           final int bookNum = verse.getBook();
-           model.getBook(bookNum)
-                .observe(getViewLifecycleOwner(), entityBook -> {
+      final Verse verse = new Verse(verseEn);
 
-                  if (entityBook == null) {
-                    Log.e(TAG, "showDailyVerse: no book found for position [" + bookNum + "]");
-                    showDefaultDailyVerse(defaultReference);
-                    return;
-                  }
+      final int bookNum = verseEn.getBook();
+      model.getBook(bookNum).observe(getViewLifecycleOwner(), bookEn -> {
 
-                  Log.d(TAG, "showDailyVerse: using reference[" + reference
-                             + "] for day[" + dayNumber + "]");
-                  formatAndDisplayDailyVerse(verse, entityBook);
+        if (bookEn == null) {
+          Log.e(TAG, "showDailyVerse: no book found for position [" + bookNum + "]");
+          showDefaultDailyVerse(defaultReference);
+          return;
+        }
 
-                  model.setCachedDayOfYear(dayNumber);
-                  model.setCachedReference(reference);
-                  model.setCachedVerse(verse);
-                  model.setCachedBook(entityBook);
+        Log.d(TAG, "showDailyVerse: using reference[" + reference
+                   + "] for day[" + dayNumber + "]");
 
-                });
-         });
+        verse.addBook(new Book(bookEn));
+
+        model.setCachedDayOfYear(dayNumber);
+        model.setCachedReference(reference);
+        model.setCachedVerse(verse);
+
+        formatAndDisplayDailyVerse(verse);
+
+      });
+    });
 
     mainOps.showNavigationView();
 
   }
 
-  private void formatAndDisplayDailyVerse(@NonNull final EntityVerse verse,
-                                          @NonNull EntityBook book) {
+  private void formatAndDisplayDailyVerse(@NonNull final Verse verse) {
     Log.d(TAG, "formatAndDisplayDailyVerse:");
     final String template = getString(R.string.screen_home_template_verse);
-    final String bookName = book.getName();
-    final int chapterNum = verse.getChapter();
-    final int verseNum = verse.getVerse();
+    final String bookName = verse.getBookName();
+    final int chapterNum = verse.getChapterNumber();
+    final int verseNum = verse.getVerseNumber();
     final String verseText = verse.getText();
     final String rawText = String.format(
         template, bookName, chapterNum, verseNum, verseText);
@@ -316,40 +317,39 @@ public class ScreenHome
       return;
     }
 
-    model.getVerse(reference)
-         .observe(getViewLifecycleOwner(), verse -> {
+    model.getVerse(reference).observe(getViewLifecycleOwner(), verseEn -> {
 
-           if (verse == null) {
-             Log.e(TAG, "showDefaultDailyVerse: no verse found for reference [" + reference + "]");
-             showVerseText(defaultVerseRawText);
-             return;
-           }
+      if (verseEn == null) {
+        Log.e(TAG, "showDefaultDailyVerse: no verse found for reference [" + reference + "]");
+        showVerseText(defaultVerseRawText);
+        return;
+      }
 
-           final int bookNum = verse.getBook();
-           model.getBook(bookNum)
-                .observe(getViewLifecycleOwner(), entityBook -> {
+      final Verse verse = new Verse(verseEn);
 
-                  if (entityBook == null) {
-                    Log.e(TAG,
-                          "showDefaultDailyVerse: no book found for position [" + bookNum + "]");
-                    showVerseText(defaultVerseRawText);
-                    return;
-                  }
+      final int bookNum = verseEn.getBook();
+      model.getBook(bookNum).observe(getViewLifecycleOwner(), bookEn -> {
 
-                  final int dayNumber = model.getDayNumber();
+        if (bookEn == null) {
+          Log.e(TAG, "showDefaultDailyVerse: no book found for position [" + bookNum + "]");
+          showVerseText(defaultVerseRawText);
+          return;
+        }
 
-                  Log.d(TAG, "showDefaultDailyVerse: using reference["
-                             + reference + "] for day [" + dayNumber + "]");
+        final int dayNumber = model.getDayNumber();
 
-                  showVerseText(defaultVerseRawText);
+        Log.d(TAG, "showDefaultDailyVerse: using reference["
+                   + reference + "] for day [" + dayNumber + "]");
 
-                  model.setCachedDayOfYear(dayNumber);
-                  model.setCachedReference(reference);
-                  model.setCachedVerse(verse);
-                  model.setCachedBook(entityBook);
+        verse.addBook(new Book(bookEn));
+        model.setCachedDayOfYear(dayNumber);
+        model.setCachedReference(reference);
+        model.setCachedVerse(verse);
 
-                });
-         });
+        showVerseText(defaultVerseRawText);
+
+      });
+    });
 
     mainOps.showNavigationView();
 

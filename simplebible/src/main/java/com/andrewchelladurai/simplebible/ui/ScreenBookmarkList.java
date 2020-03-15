@@ -21,6 +21,7 @@ import com.andrewchelladurai.simplebible.data.entity.Bookmark;
 import com.andrewchelladurai.simplebible.data.entity.EntityVerse;
 import com.andrewchelladurai.simplebible.model.ScreenBookListModel;
 import com.andrewchelladurai.simplebible.model.ScreenBookmarkListModel;
+import com.andrewchelladurai.simplebible.object.Book;
 import com.andrewchelladurai.simplebible.ui.adapter.ScreenBookmarkListAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenBookmarkListOps;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
@@ -34,7 +35,7 @@ public class ScreenBookmarkList
 
   private ScreenSimpleBibleOps mainOps;
   private View rootView;
-  private ScreenBookmarkListModel bookmarkListModel;
+  private ScreenBookmarkListModel model;
   private ScreenBookmarkListAdapter adapter;
   private ScreenBookListModel bookModel;
 
@@ -53,7 +54,7 @@ public class ScreenBookmarkList
 
     adapter = new ScreenBookmarkListAdapter(
         this, getString(R.string.screen_bookmarks_list_msg_empty_note));
-    bookmarkListModel = new ScreenBookmarkListModel(application);
+    model = new ScreenBookmarkListModel(application);
     bookModel = new ScreenBookListModel(application);
   }
 
@@ -62,18 +63,18 @@ public class ScreenBookmarkList
                            Bundle savedState) {
     rootView = inflater.inflate(R.layout.screen_bookmarks, container, false);
 
-    bookmarkListModel.getBookmarkList()
-                     .observe(getViewLifecycleOwner(), bookmarkList -> {
-                       if (bookmarkList == null || bookmarkList.isEmpty()) {
-                         hideList();
-                         showHelpInfo();
-                       } else {
-                         hideHelpInfo();
-                         adapter.clearList();
-                         adapter.updateList(bookmarkList);
-                         showList();
-                       }
-                     });
+    model.getBookmarkList()
+         .observe(getViewLifecycleOwner(), bookmarkList -> {
+           if (bookmarkList == null || bookmarkList.isEmpty()) {
+             hideList();
+             showHelpInfo();
+           } else {
+             hideHelpInfo();
+             adapter.clearList();
+             adapter.updateList(bookmarkList);
+             showList();
+           }
+         });
 
     mainOps.hideKeyboard();
     mainOps.showNavigationView();
@@ -127,38 +128,38 @@ public class ScreenBookmarkList
         getString(R.string.screen_bookmarks_list_item_msg_no_verse_found),
         HtmlCompat.FROM_HTML_MODE_COMPACT);
 
-    bookmarkListModel.getBookmarkedVerse(bookmarkReference)
-                     .observe(this, verseList -> {
+    model.getBookmarkedVerse(bookmarkReference).observe(this, verseList -> {
 
-                       final int verseCount = verseList.size();
-                       final String templateVerseCount = getResources().getQuantityString(
-                           R.plurals.screen_bookmarks_list_item_template_verse_count, verseCount);
+      final int verseCount = verseList.size();
+      final String templateVerseCount = getResources().getQuantityString(
+          R.plurals.screen_bookmarks_list_item_template_verse_count, verseCount);
 
-                       verseCountChip.setText(String.format(templateVerseCount, verseCount));
+      verseCountChip.setText(String.format(templateVerseCount, verseCount));
 
-                       if (verseList.isEmpty()) {
-                         verseCountChip.setText(htmlVerseNoneFound);
-                         return;
-                       }
+      if (verseList.isEmpty()) {
+        verseCountChip.setText(htmlVerseNoneFound);
+        return;
+      }
 
-                       final EntityVerse verse = verseList.get(0);
+      final EntityVerse verse = verseList.get(0);
 
-                       bookModel.getBookUsingNumber(verse.getBook())
-                                .observe(this, entityBook -> {
-                                  if (entityBook == null) {
-                                    verseCountChip.setText(htmlVerseNoneFound);
-                                    return;
-                                  }
+      bookModel.getBookUsingNumber(verse.getBook()).observe(this, bookEn -> {
+        if (bookEn == null) {
+          verseCountChip.setText(htmlVerseNoneFound);
+          return;
+        }
 
-                                  verseField.setText(HtmlCompat.fromHtml(
-                                      String.format(getString(templateFirstVerse),
-                                                    entityBook.getName(),
-                                                    verse.getChapter(),
-                                                    verse.getVerse(),
-                                                    verse.getText()),
-                                      HtmlCompat.FROM_HTML_MODE_COMPACT));
-                                });
-                     });
+        final Book book = new Book(bookEn);
+
+        verseField.setText(HtmlCompat.fromHtml(
+            String.format(getString(templateFirstVerse),
+                          book.getName(),
+                          verse.getChapter(),
+                          verse.getVerse(),
+                          verse.getText()),
+            HtmlCompat.FROM_HTML_MODE_COMPACT));
+      });
+    });
   }
 
   @Override
@@ -166,31 +167,31 @@ public class ScreenBookmarkList
     Log.d(TAG, "handleBookmarkClick: bookmark [" + bookmark + "]");
 
     final String reference = bookmark.getReference();
-    bookmarkListModel.getBookmarkedVerse(reference)
-                     .observe(this, verses -> {
-                       if (verses == null || verses.isEmpty()) {
-                         final String message =
-                             getString(R.string.screen_bookmark_detail_msg_no_verse);
-                         Log.e(TAG, "handleBookmarkClick: " + message);
-                         return;
-                       }
+    model.getBookmarkedVerse(reference)
+         .observe(this, verses -> {
+           if (verses == null || verses.isEmpty()) {
+             final String message =
+                 getString(R.string.screen_bookmark_detail_msg_no_verse);
+             Log.e(TAG, "handleBookmarkClick: " + message);
+             return;
+           }
 
-                       final EntityVerse[] array = new EntityVerse[verses.size()];
-                       for (int i = 0; i < verses.size(); i++) {
-                         array[i] = verses.get(i);
-                       }
+           final EntityVerse[] array = new EntityVerse[verses.size()];
+           for (int i = 0; i < verses.size(); i++) {
+             array[i] = verses.get(i);
+           }
 
-                       Log.d(TAG, "handleBookmarkClick: got [" + array.length + "] verses");
+           Log.d(TAG, "handleBookmarkClick: got [" + array.length + "] verses");
 
-                       final Bundle bundle = new Bundle();
-                       bundle.putParcelableArray(ScreenBookmarkDetail.ARG_VERSE_LIST, array);
-                       Log.d(TAG, "handleBookmarkClick: created bundle to pass to fragment");
+           final Bundle bundle = new Bundle();
+           bundle.putParcelableArray(ScreenBookmarkDetail.ARG_VERSE_LIST, array);
+           Log.d(TAG, "handleBookmarkClick: created bundle to pass to fragment");
 
-                       final int destination =
-                           R.id.screen_bookmark_list_to_screen_bookmark_detail;
-                       NavHostFragment.findNavController(this)
-                                      .navigate(destination, bundle);
-                     });
+           final int destination =
+               R.id.screen_bookmark_list_to_screen_bookmark_detail;
+           NavHostFragment.findNavController(this)
+                          .navigate(destination, bundle);
+         });
 
   }
 
