@@ -25,6 +25,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.model.ScreenSettingsModel;
 import com.andrewchelladurai.simplebible.ui.ops.ScreenSimpleBibleOps;
 import com.andrewchelladurai.simplebible.utils.Utils;
 
@@ -35,6 +36,7 @@ public class ScreenSettings
 
   private static final String TAG = "ScreenSettings";
 
+  private ScreenSettingsModel model;
   private ScreenSimpleBibleOps mainOps;
   private PreferenceChangeHandler prefChangeHandler;
   private PreferenceClickListener prefClickListener;
@@ -46,6 +48,7 @@ public class ScreenSettings
       throw new RuntimeException(context.toString() + " must implement ScreenSimpleBibleOps");
     }
     mainOps = (ScreenSimpleBibleOps) context;
+    model = new ScreenSettingsModel(requireActivity().getApplication());
   }
 
   @Override
