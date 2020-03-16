@@ -1,7 +1,13 @@
 <resources>
-    <string name="app_name">Simple Bible</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="title_activity_simple_bible_screen">Simple Bible</string>
+
+    <!--  Common throughout the application  -->
+    <string name="application_name">Simple Bible</string>
+
+    <!--  MainScreen  -->
+    <string name="main_nav_bar_home">home</string>
+    <string name="main_nav_bar_book_list">books</string>
+    <string name="main_nav_bar_search">search</string>
+    <string name="main_nav_bar_bookmark_list">bookmarks</string>
+    <string name="main_nav_bar_settings">settings</string>
+
 </resources>
