@@ -1,4 +1,8 @@
 <resources>
     <dimen name="activity_margin_horizontal">16dp</dimen>
     <dimen name="activity_margin_vertical">16dp</dimen>
+    <dimen name="none">0dp</dimen>
+    <dimen name="small">4dp</dimen>
+    <dimen name="normal">8dp</dimen>
+    <dimen name="big">12dp</dimen>
 </resources>
