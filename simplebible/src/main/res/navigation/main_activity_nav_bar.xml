@@ -9,7 +9,14 @@
         android:id="@+id/screen_home"
         android:name="com.andrewchelladurai.simplebible.ui.HomeScreen"
         android:label="home_fragment"
-        tools:layout="@layout/home_screen" />
+        tools:layout="@layout/home_screen">
+        <action
+            android:id="@+id/nav_from_scr_home_to_scr_bookmark"
+            app:destination="@id/screen_bookmark" />
+        <action
+            android:id="@+id/nav_from_scr_home_to_scr_chapter"
+            app:destination="@id/screen_chapter" />
+    </fragment>
     <fragment
         android:id="@+id/screen_settings"
         android:name="com.andrewchelladurai.simplebible.ui.SettingsScreen"
@@ -28,15 +35,27 @@
         android:id="@+id/screen_bookmark_list"
         android:name="com.andrewchelladurai.simplebible.ui.BookmarkListScreen"
         android:label="bookmark_screen"
-        tools:layout="@layout/bookmark_list_screen" />
+        tools:layout="@layout/bookmark_list_screen">
+        <action
+            android:id="@+id/nav_from_scr_bookmark_list_to_scr_bookmark"
+            app:destination="@id/screen_bookmark" />
+    </fragment>
     <fragment
         android:id="@+id/screen_chapter"
         android:name="com.andrewchelladurai.simplebible.ui.ChapterScreen"
         android:label="chapter_screen"
-        tools:layout="@layout/chapter_screen" />
+        tools:layout="@layout/chapter_screen">
+        <action
+            android:id="@+id/nav_from_scr_chapter_to_scr_bookmark"
+            app:destination="@id/screen_bookmark" />
+    </fragment>
     <fragment
         android:id="@+id/screen_search"
         android:name="com.andrewchelladurai.simplebible.ui.SearchScreen"
         android:label="search_screen"
-        tools:layout="@layout/search_screen" />
+        tools:layout="@layout/search_screen">
+        <action
+            android:id="@+id/nav_from_scr_search_to_scr_bookmark"
+            app:destination="@id/screen_bookmark" />
+    </fragment>
 </navigation>

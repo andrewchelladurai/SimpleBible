@@ -22,14 +22,14 @@
         <SwitchPreference
             android:summaryOff="@string/pref_reminder_summary_off"
             android:summaryOn="@string/pref_reminder_summary_on"
-            app:icon="@drawable/ic_alarm"
+            app:icon="@drawable/ic_notification"
             app:key="@string/pref_reminder_key"
             app:singleLineTitle="true"
             app:title="@string/pref_reminder_title" />
 
         <Preference
             app:dependency="@string/pref_reminder_key"
-            app:icon="@drawable/ic_notification"
+            app:icon="@drawable/ic_alarm"
             app:key="@string/pref_reminder_time_key"
             app:summary="@string/pref_reminder_time_summary_invalid"
             app:title="@string/pref_reminder_time_title" />
