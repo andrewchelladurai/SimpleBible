@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,21 +12,24 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.model.BookmarkDetailViewModel;
+import com.andrewchelladurai.simplebible.model.BookmarkListViewModel;
 
-public class BookmarkDetailScreen
+public class BookmarkListScreen
     extends Fragment {
 
-  private BookmarkDetailViewModel model;
+  private static final String TAG = "BookmarkListScreen";
 
-  public static BookmarkDetailScreen newInstance() {
-    return new BookmarkDetailScreen();
+  private BookmarkListViewModel model;
+
+  public static BookmarkListScreen newInstance() {
+    return new BookmarkListScreen();
   }
 
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.bookmark_detail_screen, container, false);
+    Log.d(TAG, "onCreateView:");
+    return inflater.inflate(R.layout.bookmark_list_screen, container, false);
   }
 
   @Override
@@ -33,7 +37,7 @@ public class BookmarkDetailScreen
     super.onActivityCreated(savedInstanceState);
     model = ViewModelProvider.AndroidViewModelFactory
                 .getInstance(requireActivity().getApplication())
-                .create(BookmarkDetailViewModel.class);
+                .create(BookmarkListViewModel.class);
   }
 
 }

@@ -5,6 +5,8 @@ import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 import com.andrewchelladurai.simplebible.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -23,19 +25,19 @@ public class SimpleBible
     final BottomNavigationView navigation = findViewById(R.id.main_nav_bar);
     navigation.setOnNavigationItemSelectedListener(item -> {
       switch (item.getItemId()) {
-        case R.id.main_nav_bar_home:
+        case R.id.screen_home:
           textView.setText(R.string.main_nav_bar_home);
           return true;
-        case R.id.main_nav_bar_book_list:
+        case R.id.screen_book_list:
           textView.setText(R.string.main_nav_bar_book_list);
           return true;
-        case R.id.main_nav_bar_search:
+        case R.id.screen_search:
           textView.setText(R.string.main_nav_bar_search);
           return true;
-        case R.id.main_nav_bar_bookmark_list:
+        case R.id.screen_bookmark_list:
           textView.setText(R.string.main_nav_bar_bookmark_list);
           return true;
-        case R.id.main_nav_bar_settings:
+        case R.id.screen_settings:
           textView.setText(R.string.main_nav_bar_settings);
           return true;
         default:
@@ -45,8 +47,8 @@ public class SimpleBible
       return false;
     });
 
-    // show the home screen by default on page load
-    navigation.getMenu().performIdentifierAction(R.id.main_nav_bar_home, 0);
+    NavigationUI.setupWithNavController(
+        navigation, Navigation.findNavController(this, R.id.main_nav_host_fragment));
 
   }
 

@@ -6,14 +6,14 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
-public class ChapterViewModel
+public class BookmarkListViewModel
     extends AndroidViewModel {
 
-  private static final String TAG = "ChapterViewModel";
+  private static final String TAG = "BookmarkListViewModel";
 
-  public ChapterViewModel(@NonNull final Application application) {
+  public BookmarkListViewModel(@NonNull final Application application) {
     super(application);
-    Log.d(TAG, "ChapterViewModel:");
+    Log.d(TAG, "BookmarkListViewModel:");
   }
 
 }

@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import com.andrewchelladurai.simplebible.model.BookmarkViewModel;
 public class BookmarkScreen
     extends Fragment {
 
+  private static final String TAG = "BookmarkScreen";
+
   private BookmarkViewModel model;
 
   public static BookmarkScreen newInstance() {
@@ -25,7 +28,8 @@ public class BookmarkScreen
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.bookmark_screen, container, false);
+    Log.d(TAG, "onCreateView:");
+    return inflater.inflate(R.layout.bookmark_detail_screen, container, false);
   }
 
   @Override

@@ -9,19 +9,54 @@
     <string name="main_nav_bar_search">search</string>
     <string name="main_nav_bar_bookmark_list">bookmarks</string>
     <string name="main_nav_bar_settings">settings</string>
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
 
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
+    <!-- SettingsScreen -->
+    <string name="pref_category_title_actions">Settings for Simple Bible</string>
+    <string name="pref_theme_key">sb_pref_key_theme</string>
+    <string name="pref_theme_title">Dark Theme</string>
+    <string name="pref_theme_summary">use a dark background.</string>
+    <string name="pref_theme_entry_system">Use default behavior</string>
+    <string name="pref_theme_entry_yes">Rule the dark</string>
+    <string name="pref_theme_entry_no">Live in the light</string>
+    <string name="pref_theme_value_system">AUTO</string>
+    <string name="pref_theme_value_yes">YES</string>
+    <string name="pref_theme_value_no">NO</string>
 
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="pref_export_key">sb_pref_key_export</string>
+    <string name="pref_export_title">Export Bookmarks</string>
+    <string name="pref_export_summary">into a file.</string>
+
+    <string name="pref_reminder_key">pref_reminder_key</string>
+    <string name="pref_reminder_title">Daily Reminder</string>
+    <string name="pref_reminder_summary_on">show day\'s verse</string>
+    <string name="pref_reminder_summary_off">is disabled</string>
+
+    <string name="pref_reminder_time_key">pref_reminder_time</string>
+    <string name="pref_reminder_time_title">Set notification time</string>
+    <string name="pref_reminder_time_summary_invalid">Not set</string>
+    <string name="pref_reminder_time_summary_valid">%s</string>
+
+    <string name="pref_category_title_feedback">Your thoughts about Simple Bible</string>
+    <string name="pref_rate_key">sb_pref_key_rate</string>
+    <string name="pref_rate_title">Rate &amp; Review</string>
+    <string name="pref_rate_summary">on the Google PlayStore.</string>
+
+    <string name="pref_email_key">sb_pref_key_email</string>
+    <string name="pref_email_title">Email Developer</string>
+    <string name="pref_email_summary">for Feature requests, problems or feedback</string>
+    <string name="pref_email_address">theunknownandrew+apps@gmail.com</string>
+    <string name="pref_email_subject">Simple Bible - Feature Request / Problems / Feedback</string>
+
+    <string name="pref_category_title_about">Know More</string>
+    <string name="pref_about_key">sb_pref_key_about</string>
+    <string name="pref_about_title">About Simple Bible</string>
+    <string name="pref_about_summary"><![CDATA[and it\'s change history.]]></string>
+
+    <string name="pref_license_key">pref_license_key</string>
+    <string name="pref_license_title">Licenses of parts</string>
+    <string name="pref_license_summary">used to make this application.</string>
+
+    <string name="screen_settings_msg_not_found_license">Failed to show Licenses</string>
+    <string name="screen_settings_msg_not_found_about">Failed to show About</string>
 
 </resources>

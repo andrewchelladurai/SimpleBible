@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import com.andrewchelladurai.simplebible.model.SearchViewModel;
 public class SearchScreen
     extends Fragment {
 
+  private static final String TAG = "SearchScreen";
+
   private SearchViewModel model;
 
   public static SearchScreen newInstance() {
@@ -25,6 +28,7 @@ public class SearchScreen
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState) {
+    Log.d(TAG, "onCreateView:");
     return inflater.inflate(R.layout.search_screen, container, false);
   }
 

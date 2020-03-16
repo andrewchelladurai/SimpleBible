@@ -3,39 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_activity_nav_bar"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/screen_home">
 
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/screen_home"
         android:name="com.andrewchelladurai.simplebible.ui.HomeScreen"
         android:label="home_fragment"
         tools:layout="@layout/home_screen" />
     <fragment
-        android:id="@+id/settingsScreen"
+        android:id="@+id/screen_settings"
         android:name="com.andrewchelladurai.simplebible.ui.SettingsScreen"
         android:label="SettingsScreen" />
     <fragment
-        android:id="@+id/bookListScreen"
+        android:id="@+id/screen_book_list"
         android:name="com.andrewchelladurai.simplebible.ui.BookListScreen"
         android:label="book_list_screen"
         tools:layout="@layout/book_list_screen" />
     <fragment
-        android:id="@+id/bookmarkDetailScreen"
-        android:name="com.andrewchelladurai.simplebible.ui.BookmarkDetailScreen"
-        android:label="bookmark_detail_screen"
-        tools:layout="@layout/bookmark_detail_screen" />
-    <fragment
-        android:id="@+id/bookmarkScreen"
+        android:id="@+id/screen_bookmark"
         android:name="com.andrewchelladurai.simplebible.ui.BookmarkScreen"
         android:label="bookmark_screen"
-        tools:layout="@layout/bookmark_screen" />
+        tools:layout="@layout/bookmark_detail_screen" />
     <fragment
-        android:id="@+id/chapterScreen"
+        android:id="@+id/screen_bookmark_list"
+        android:name="com.andrewchelladurai.simplebible.ui.BookmarkListScreen"
+        android:label="bookmark_screen"
+        tools:layout="@layout/bookmark_list_screen" />
+    <fragment
+        android:id="@+id/screen_chapter"
         android:name="com.andrewchelladurai.simplebible.ui.ChapterScreen"
         android:label="chapter_screen"
         tools:layout="@layout/chapter_screen" />
     <fragment
-        android:id="@+id/searchScreen"
+        android:id="@+id/screen_search"
         android:name="com.andrewchelladurai.simplebible.ui.SearchScreen"
         android:label="search_screen"
         tools:layout="@layout/search_screen" />

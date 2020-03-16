@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
@@ -12,11 +13,14 @@ import com.andrewchelladurai.simplebible.model.SettingsScreenModel;
 public class SettingsScreen
     extends PreferenceFragmentCompat {
 
+  private static final String TAG = "SettingsScreen";
+
   private SettingsScreenModel model;
 
   @Override
   public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
     setPreferencesFromResource(R.xml.root_preferences, rootKey);
+    Log.d(TAG, "onCreatePreferences:");
   }
 
   @Override public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
