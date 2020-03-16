@@ -1,10 +1,12 @@
 <resources>
 
-  <style name="AppTheme"
-         parent="Theme.MaterialComponents.DayNight.NoActionBar">
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
-  </style>
+    <style name="SbBaseTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorSurface">@color/surface_color</item>
+        <item name="colorOnSurface">@color/text_surface_color</item>
+
+        <item name="android:windowBackground">?colorSurface</item>
+        <item name="android:navigationBarColor">?colorSurface</item>
+        <item name="android:statusBarColor">?colorSurface</item>
+    </style>
 
 </resources>
