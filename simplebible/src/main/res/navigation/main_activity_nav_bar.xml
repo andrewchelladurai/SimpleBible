@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_activity_nav_bar"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.andrewchelladurai.simplebible.ui.HomeScreen"
+        android:label="home_fragment"
+        tools:layout="@layout/home_screen" />
+    <fragment
+        android:id="@+id/settingsScreen"
+        android:name="com.andrewchelladurai.simplebible.ui.SettingsScreen"
+        android:label="SettingsScreen" />
+    <fragment
+        android:id="@+id/bookListScreen"
+        android:name="com.andrewchelladurai.simplebible.ui.BookListScreen"
+        android:label="book_list_screen"
+        tools:layout="@layout/book_list_screen" />
+    <fragment
+        android:id="@+id/bookmarkDetailScreen"
+        android:name="com.andrewchelladurai.simplebible.ui.BookmarkDetailScreen"
+        android:label="bookmark_detail_screen"
+        tools:layout="@layout/bookmark_detail_screen" />
+    <fragment
+        android:id="@+id/bookmarkScreen"
+        android:name="com.andrewchelladurai.simplebible.ui.BookmarkScreen"
+        android:label="bookmark_screen"
+        tools:layout="@layout/bookmark_screen" />
+    <fragment
+        android:id="@+id/chapterScreen"
+        android:name="com.andrewchelladurai.simplebible.ui.ChapterScreen"
+        android:label="chapter_screen"
+        tools:layout="@layout/chapter_screen" />
+    <fragment
+        android:id="@+id/searchScreen"
+        android:name="com.andrewchelladurai.simplebible.ui.SearchScreen"
+        android:label="search_screen"
+        tools:layout="@layout/search_screen" />
+</navigation>

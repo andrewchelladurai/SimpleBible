@@ -13,7 +13,7 @@
         android:theme="@style/SbBaseTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".ui.SimpleBibleScreen"
+            android:name=".ui.SimpleBible"
             android:label="@string/application_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

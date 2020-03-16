@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.andrewchelladurai.simplebible.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class SimpleBibleScreen
+public class SimpleBible
     extends AppCompatActivity {
 
   private static final String TAG = "SimpleBibleScreen";
@@ -17,7 +17,7 @@ public class SimpleBibleScreen
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.simple_bible_screen);
+    setContentView(R.layout.simple_bible);
 
     final TextView textView = findViewById(R.id.message);
     final BottomNavigationView navigation = findViewById(R.id.main_nav_bar);
