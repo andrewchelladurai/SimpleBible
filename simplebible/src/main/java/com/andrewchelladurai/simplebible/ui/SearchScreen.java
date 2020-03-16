@@ -21,10 +21,6 @@ public class SearchScreen
 
   private SearchViewModel model;
 
-  public static SearchScreen newInstance() {
-    return new SearchScreen();
-  }
-
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState) {

@@ -21,10 +21,6 @@ public class ChapterScreen
 
   private ChapterViewModel model;
 
-  public static ChapterScreen newInstance() {
-    return new ChapterScreen();
-  }
-
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState) {

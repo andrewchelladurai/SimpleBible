@@ -21,10 +21,6 @@ public class HomeScreen
 
   private HomeViewModel model;
 
-  public static HomeScreen newInstance() {
-    return new HomeScreen();
-  }
-
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState) {

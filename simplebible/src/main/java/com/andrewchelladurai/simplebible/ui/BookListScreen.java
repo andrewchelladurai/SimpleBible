@@ -21,10 +21,6 @@ public class BookListScreen
 
   private BookListViewModel model;
 
-  public static BookListScreen newInstance() {
-    return new BookListScreen();
-  }
-
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState) {

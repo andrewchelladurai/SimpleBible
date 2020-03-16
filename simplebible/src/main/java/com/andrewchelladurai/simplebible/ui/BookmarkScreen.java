@@ -21,10 +21,6 @@ public class BookmarkScreen
 
   private BookmarkViewModel model;
 
-  public static BookmarkScreen newInstance() {
-    return new BookmarkScreen();
-  }
-
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState) {
