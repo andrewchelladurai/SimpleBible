@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.andrewchelladurai.simplebible"
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 29
         versionName '2018.01.16'
         versionCode 20180116
