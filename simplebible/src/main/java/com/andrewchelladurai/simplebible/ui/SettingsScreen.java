@@ -38,19 +38,23 @@ public class SettingsScreen
 
   private SettingsScreenModel model;
 
-  private SimpleBibleOps mainOps;
-
   private ChangeHandler prefChangeHandler;
 
   private ClickListener prefClickListener;
 
+  private SimpleBibleOps ops;
+
   @Override
-  public void onAttach(@NonNull Context context) {
+  public void onAttach(@NonNull final Context context) {
+    Log.d(TAG, "onAttach:");
     super.onAttach(context);
-    if (!(context instanceof SimpleBibleOps)) {
-      throw new RuntimeException(context.toString() + " must implement SimpleBibleOps");
+
+    if (context instanceof SimpleBibleOps) {
+      ops = (SimpleBibleOps) context;
+    } else {
+      throw new ClassCastException(TAG + " onAttach: [Context] must implement [SimpleBibleOps]");
     }
-    mainOps = (SimpleBibleOps) context;
+
     model = ViewModelProvider.AndroidViewModelFactory
                 .getInstance(requireActivity().getApplication())
                 .create(SettingsScreenModel.class);
@@ -59,7 +63,7 @@ public class SettingsScreen
   @Override
   public void onDetach() {
     super.onDetach();
-    mainOps = null;
+    ops = null;
   }
 
   @Override
@@ -147,8 +151,8 @@ public class SettingsScreen
   public View onCreateView(@NonNull final LayoutInflater inflater,
                            @Nullable final ViewGroup container,
                            @Nullable final Bundle savedInstanceState) {
-    mainOps.hideKeyboard();
-    mainOps.showNavigationView();
+    ops.hideKeyboard();
+    ops.showNavigationView();
     return super.onCreateView(inflater, container, savedInstanceState);
   }
 
@@ -268,7 +272,7 @@ public class SettingsScreen
                                       .show();
     } catch (Exception e) {
       Log.e(TAG, "showAlertWebView: Could not open assets file [" + assetsFileName + "]", e);
-      mainOps.showErrorScreen(getString(errorMsgStrRef), true, false);
+      ops.showErrorScreen(getString(errorMsgStrRef), true, false);
     }
   }
 
@@ -285,8 +289,8 @@ public class SettingsScreen
     public void onSharedPreferenceChanged(final SharedPreferences preferences,
                                           final String key) {
       if (getString(R.string.pref_theme_key).equalsIgnoreCase(key)) {
-        mainOps.applyThemeSelectedInPreference();
-        mainOps.restartApp();
+        ops.applyThemeSelectedInPreference();
+        ops.restartApp();
       } else if (getString(R.string.pref_reminder_key).equalsIgnoreCase(key)
                  || getString(R.string.pref_reminder_time_key).equalsIgnoreCase(key)) {
         Log.d(TAG, "onSharedPreferenceChanged: [" + key + "] is handled automatically");
