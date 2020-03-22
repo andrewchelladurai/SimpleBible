@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -26,38 +25,17 @@ public class SimpleBible
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    // apply the theme selected in the preferences
     applyThemeSelectedInPreference();
+
+    // create the UI
     super.onCreate(savedInstanceState);
     setContentView(R.layout.simple_bible);
 
-    final TextView textView = findViewById(R.id.message);
-    final BottomNavigationView navigation = findViewById(R.id.main_nav_bar);
-    navigation.setOnNavigationItemSelectedListener(item -> {
-      switch (item.getItemId()) {
-        case R.id.screen_home:
-          textView.setText(R.string.main_nav_bar_home);
-          return true;
-        case R.id.screen_book_list:
-          textView.setText(R.string.main_nav_bar_book_list);
-          return true;
-        case R.id.screen_search:
-          textView.setText(R.string.main_nav_bar_search);
-          return true;
-        case R.id.screen_bookmark_list:
-          textView.setText(R.string.main_nav_bar_bookmark_list);
-          return true;
-        case R.id.screen_settings:
-          textView.setText(R.string.main_nav_bar_settings);
-          return true;
-        default:
-          Log.e(TAG, "onCreate:", new IllegalArgumentException(
-              "Unknown item passed [" + item.getTitle() + " - " + item.getItemId() + "]"));
-      }
-      return false;
-    });
-
+    // Tie the BottomNavigationBar with the NavigationUi Arch component
     NavigationUI.setupWithNavController(
-        navigation, Navigation.findNavController(this, R.id.main_nav_host_fragment));
+        (BottomNavigationView) findViewById(R.id.main_nav_bar),
+        Navigation.findNavController(this, R.id.main_nav_host_fragment));
 
   }
 
@@ -86,17 +64,17 @@ public class SimpleBible
 
   @Override
   public void hideKeyboard() {
-    InputMethodManager imm =
+    // find the view that has focus, if there is none, create the activity window
+    final View view = (getCurrentFocus() != null)
+                      ? getCurrentFocus()
+                      : new View(this);
+
+    final InputMethodManager imm =
         (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-    //Find the currently focused view, so we can grab the correct window token from it.
-    View view = getCurrentFocus();
-    //If no view currently has focus, create a new one, just so we can grab a window token
-    // from it
-    if (view == null) {
-      view = new View(this);
-    }
     if (imm != null) {
       imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    } else {
+      Log.e(TAG, "hideKeyboard: failed to hide keyboard", new NullPointerException());
     }
   }
 
