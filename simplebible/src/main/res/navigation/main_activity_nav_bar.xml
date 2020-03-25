@@ -3,8 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_activity_nav_bar"
-    app:startDestination="@id/screen_home">
+    app:startDestination="@id/screen_setup">
 
+    <fragment
+        android:id="@+id/screen_setup"
+        android:name="com.andrewchelladurai.simplebible.ui.SetupScreen"
+        android:label="SetupScreen">
+        <action
+            android:id="@+id/nav_from_scr_setup_to_scr_home"
+            app:destination="@id/screen_home" />
+    </fragment>
     <fragment
         android:id="@+id/screen_home"
         android:name="com.andrewchelladurai.simplebible.ui.HomeScreen"

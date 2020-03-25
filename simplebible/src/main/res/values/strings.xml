@@ -2,6 +2,7 @@
 
     <!--  Common throughout the application  -->
     <string name="application_name">Simple Bible</string>
+    <string name="default_verse_reference">43:3:16</string>
     <string name="notify_channel_name_setup">Setup notifications</string>
     <string name="notify_channel_desc_setup">Notifications related to the application setup will show under this channel</string>
     <string name="notify_channel_id_setup">161413</string>
@@ -12,6 +13,21 @@
     <string name="db_setup_validation_book_name_last">revelation</string>
     <string name="db_setup_validation_book_number_last">66</string>
     <string name="db_setup_validation_verse_number_last">662221</string>
+
+    <!--  Setup Screen  -->
+    <string name="scr_setup_verse">
+    <![CDATA[
+    <h1>Simple Bible</h1><br/><br/><br/><br/>
+    <h5>CREATING DATABASE</h5><br/>
+    <h5>Please be patient like Jacob<br/>
+    for it is said in<br/><br/>
+    <b>The Book of Genesis<br/>
+    Chapter 29 Verse 20</b></h5><br/>
+    <h3>Jacob served seven years for Rachel.<br/>
+    They seemed to him but a few days,<br/>
+    for the love he had for her.</h3><br/><br/>
+    <b>The World English Bible</b>]]>
+    </string>
 
     <!--  MainScreen  -->
     <string name="main_nav_bar_home">home</string>

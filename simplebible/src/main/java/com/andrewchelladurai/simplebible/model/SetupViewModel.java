@@ -11,20 +11,16 @@ import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.SbDao;
 import com.andrewchelladurai.simplebible.data.SbDatabase;
 
-public class SimpleBibleModel
+public class SetupViewModel
     extends AndroidViewModel {
 
-  private static final String TAG = "SimpleBibleModel";
+  private static final String TAG = "SetupViewModel";
 
   private final SbDao dao;
 
-  public SimpleBibleModel(@NonNull final Application application) {
+  public SetupViewModel(@NonNull final Application application) {
     super(application);
-
-    final SbDatabase database = SbDatabase.getDatabase(getApplication());
-    dao = database.getDao();
-
-    Log.d(TAG, "SimpleBibleModel:");
+    dao = SbDatabase.getDatabase(getApplication()).getDao();
   }
 
   public LiveData<Integer> validateTableData() {
@@ -54,6 +50,10 @@ public class SimpleBibleModel
     }
 
     return dao.validateTableData(bookNameFirst, bookNameLast, lastBookPos, lastVersePos);
+  }
+
+  public void setupDatabase() {
+    Log.d(TAG, "setupDatabase:");
   }
 
 }
