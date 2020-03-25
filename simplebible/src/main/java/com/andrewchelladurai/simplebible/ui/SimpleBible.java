@@ -34,6 +34,12 @@ public class SimpleBible
     // apply the theme selected in the preferences
     applyThemeSelectedInPreference();
 
+    if (model == null) {
+      model = ViewModelProvider.AndroidViewModelFactory
+                  .getInstance(getApplication())
+                  .create(SimpleBibleModel.class);
+    }
+
     // create the UI
     super.onCreate(savedInstanceState);
     setContentView(R.layout.simple_bible);
@@ -108,6 +114,7 @@ public class SimpleBible
   @Override
   public void setupApplication() {
     Log.d(TAG, "setupApplication:");
+    hideNavigationView();
     setupNotificationChannel();
     setupDatabase();
   }
@@ -145,11 +152,6 @@ public class SimpleBible
 
   private void setupDatabase() {
     Log.d(TAG, "setupDatabase:");
-    if (model == null) {
-      model = ViewModelProvider.AndroidViewModelFactory
-                  .getInstance(getApplication())
-                  .create(SimpleBibleModel.class);
-    }
     model.getBooksAndVerseRecordCount();
   }
 
