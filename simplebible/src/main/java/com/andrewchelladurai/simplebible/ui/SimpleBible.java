@@ -11,11 +11,13 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.model.SimpleBibleModel;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -24,6 +26,8 @@ public class SimpleBible
     implements SimpleBibleOps {
 
   private static final String TAG = "SimpleBibleScreen";
+
+  private SimpleBibleModel model;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -141,7 +145,12 @@ public class SimpleBible
 
   private void setupDatabase() {
     Log.d(TAG, "setupDatabase:");
-    // TODO: 25/3/20 implement method
+    if (model == null) {
+      model = ViewModelProvider.AndroidViewModelFactory
+                  .getInstance(getApplication())
+                  .create(SimpleBibleModel.class);
+    }
+    model.getBooksAndVerseRecordCount();
   }
 
 }
