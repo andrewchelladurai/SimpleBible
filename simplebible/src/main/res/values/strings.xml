@@ -2,6 +2,12 @@
 
     <!--  Common throughout the application  -->
     <string name="application_name">Simple Bible</string>
+    <string name="notify_channel_name_setup">Setup notifications</string>
+    <string name="notify_channel_desc_setup">Notifications related to the application setup will show under this channel</string>
+    <string name="notify_channel_id_setup">161413</string>
+    <string name="notify_channel_name_reminder">Reminder notifications</string>
+    <string name="notify_channel_desc_reminder">The Daily verse reminders will use this channel</string>
+    <string name="notify_channel_id_reminder">141613</string>
 
     <!--  MainScreen  -->
     <string name="main_nav_bar_home">home</string>

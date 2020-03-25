@@ -1,6 +1,8 @@
 package com.andrewchelladurai.simplebible.ui;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -97,6 +99,49 @@ public class SimpleBible
   @Override
   public void restartApp() {
     recreate();
+  }
+
+  @Override
+  public void setupApplication() {
+    Log.d(TAG, "setupApplication:");
+    setupNotificationChannel();
+    setupDatabase();
+  }
+
+  private void setupNotificationChannel() {
+    Log.d(TAG, "setupNotificationChannel:");
+
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+      Log.d(TAG, "setupNotificationChannel: skipping, feature not present in ["
+                 + Build.VERSION.CODENAME + "]");
+      return;
+    }
+
+    final NotificationManager notificationManager = getSystemService(NotificationManager.class);
+    if (notificationManager == null) {
+      Log.e(TAG, "setupNotificationChannel: skipping coz we have a null NotificationManager");
+      return;
+    }
+
+    final NotificationChannel setupChannel = new NotificationChannel(
+        getString(R.string.notify_channel_id_setup),
+        getString(R.string.notify_channel_name_setup),
+        NotificationManager.IMPORTANCE_DEFAULT);
+    setupChannel.setDescription(getString(R.string.notify_channel_desc_setup));
+
+    final NotificationChannel reminderChannel = new NotificationChannel(
+        getString(R.string.notify_channel_id_reminder),
+        getString(R.string.notify_channel_name_reminder),
+        NotificationManager.IMPORTANCE_DEFAULT);
+    reminderChannel.setDescription(getString(R.string.notify_channel_desc_reminder));
+
+    notificationManager.createNotificationChannel(setupChannel);
+    notificationManager.createNotificationChannel(reminderChannel);
+  }
+
+  private void setupDatabase() {
+    Log.d(TAG, "setupDatabase:");
+    // TODO: 25/3/20 implement method
   }
 
 }

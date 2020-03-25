@@ -45,8 +45,15 @@ public class HomeScreen
 
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                           @Nullable Bundle savedInstanceState) {
+                           @Nullable Bundle savedState) {
     Log.d(TAG, "onCreateView:");
+
+    if (savedState == null) {
+      ops.setupApplication();
+    } else {
+      Log.d(TAG, "onCreateView: saved instance");
+    }
+
     return inflater.inflate(R.layout.home_screen, container, false);
   }
 

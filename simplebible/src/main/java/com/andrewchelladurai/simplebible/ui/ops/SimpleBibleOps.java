@@ -14,4 +14,6 @@ public interface SimpleBibleOps {
 
   void restartApp();
 
+  void setupApplication();
+
 }
