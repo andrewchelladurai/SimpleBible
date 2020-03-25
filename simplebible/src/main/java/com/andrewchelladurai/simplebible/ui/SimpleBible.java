@@ -19,6 +19,7 @@ import androidx.preference.PreferenceManager;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.model.SimpleBibleModel;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
+import com.andrewchelladurai.simplebible.utils.Utils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class SimpleBible
@@ -114,9 +115,36 @@ public class SimpleBible
   @Override
   public void setupApplication() {
     Log.d(TAG, "setupApplication:");
-    hideNavigationView();
     setupNotificationChannel();
-    setupDatabase();
+    validateDatabase();
+  }
+
+  private void validateDatabase() {
+    Log.d(TAG, "validateDatabase:");
+
+    try {
+      model.validateTableData().observe(this, recordCount -> {
+        if (recordCount != (Utils.MAX_BOOKS + Utils.MAX_VERSES)) {
+          Log.e(TAG, "validateDatabase: [" + recordCount + "] != [(MAX_BOOKS + MAX_VERSES)]");
+
+          hideNavigationView();
+          showLoadingScreen();
+          setupDatabase();
+
+        }
+
+        //    model.validateBookTable();
+        //    model.validateVerseTable();
+
+      });
+    } catch (Exception e) {
+      Log.e(TAG, "validateDatabase: Failure validating database", e);
+      showErrorScreen("Failure validating database", true, true);
+    }
+  }
+
+  private void showLoadingScreen() {
+    Log.d(TAG, "showLoadingScreen:");
   }
 
   private void setupNotificationChannel() {
@@ -150,9 +178,12 @@ public class SimpleBible
     notificationManager.createNotificationChannel(reminderChannel);
   }
 
+  private void showHomeScreen() {
+    Log.d(TAG, "showHomeScreen:");
+  }
+
   private void setupDatabase() {
     Log.d(TAG, "setupDatabase:");
-    model.getBooksAndVerseRecordCount();
   }
 
 }

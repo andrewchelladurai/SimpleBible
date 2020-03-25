@@ -37,6 +37,8 @@ public abstract class SbDatabase
     return THIS_INSTANCE;
   }
 
+  public abstract SbDao getDao();
+
   public abstract BookDao getDaoBook();
 
   public abstract VerseDao getDaoVerse();

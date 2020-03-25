@@ -8,6 +8,10 @@
     <string name="notify_channel_name_reminder">Reminder notifications</string>
     <string name="notify_channel_desc_reminder">The Daily verse reminders will use this channel</string>
     <string name="notify_channel_id_reminder">141613</string>
+    <string name="db_setup_validation_book_name_first">genesis</string>
+    <string name="db_setup_validation_book_name_last">revelation</string>
+    <string name="db_setup_validation_book_number_last">66</string>
+    <string name="db_setup_validation_verse_number_last">662221</string>
 
     <!--  MainScreen  -->
     <string name="main_nav_bar_home">home</string>
