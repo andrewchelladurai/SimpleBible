@@ -126,7 +126,7 @@ public class SimpleBible
     final NotificationChannel setupChannel = new NotificationChannel(
         getString(R.string.notify_channel_id_setup),
         getString(R.string.notify_channel_name_setup),
-        NotificationManager.IMPORTANCE_DEFAULT);
+        NotificationManager.IMPORTANCE_HIGH);
     setupChannel.setDescription(getString(R.string.notify_channel_desc_setup));
 
     final NotificationChannel reminderChannel = new NotificationChannel(
