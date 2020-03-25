@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.SbDao;
@@ -16,11 +17,18 @@ public class SetupViewModel
 
   private static final String TAG = "SetupViewModel";
 
+  private static final MutableLiveData<Boolean> IS_SETUP = new MutableLiveData<>(false);
+
   private final SbDao dao;
 
   public SetupViewModel(@NonNull final Application application) {
     super(application);
     dao = SbDatabase.getDatabase(getApplication()).getDao();
+  }
+
+  @NonNull
+  public MutableLiveData<Boolean> isSetup() {
+    return IS_SETUP;
   }
 
   public LiveData<Integer> validateTableData() {

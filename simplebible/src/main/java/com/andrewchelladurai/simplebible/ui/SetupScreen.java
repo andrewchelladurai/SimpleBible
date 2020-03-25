@@ -39,7 +39,6 @@ public class SetupScreen
     } else {
       throw new ClassCastException(TAG + " onAttach: [Context] must implement [SimpleBibleOps]");
     }
-
     model = ViewModelProvider.AndroidViewModelFactory
                 .getInstance(requireActivity().getApplication())
                 .create(SetupViewModel.class);
@@ -50,15 +49,13 @@ public class SetupScreen
                            @Nullable Bundle savedState) {
     final View view = inflater.inflate(R.layout.setup_screen, container, false);
 
+    ops.hideNavigationView();
+
     final Spanned htmlText = HtmlCompat.fromHtml(getString(R.string.scr_setup_verse),
                                                  HtmlCompat.FROM_HTML_MODE_COMPACT);
     ((TextView) view.findViewById(R.id.scr_setup_text)).setText(htmlText);
 
-    if (savedState == null) {
-      validateDatabase();
-    } else {
-      Log.d(TAG, "onCreateView: saved instance");
-    }
+    validateDatabase();
 
     return view;
   }
@@ -66,24 +63,25 @@ public class SetupScreen
   private void validateDatabase() {
     Log.d(TAG, "validateDatabase:");
 
-    try {
-      model.validateTableData().observe(getViewLifecycleOwner(), recordCount -> {
-        if (recordCount != (Utils.MAX_BOOKS + Utils.MAX_VERSES)) {
-          Log.e(TAG, "validateDatabase: [" + recordCount + "] != [(MAX_BOOKS + MAX_VERSES)]");
-
-          ops.hideNavigationView();
-          model.setupDatabase();
-
+    model.isSetup().observe(getViewLifecycleOwner(), isSetup -> {
+      if (isSetup) {
+        // model.validateBookTable();
+        // model.validateVerseTable();
+      } else {
+        try {
+          model.validateTableData().observe(getViewLifecycleOwner(), recordCount -> {
+            if (recordCount != (Utils.MAX_BOOKS + Utils.MAX_VERSES)) {
+              Log.e(TAG, "validateDatabase: [" + recordCount + "] != [(MAX_BOOKS + MAX_VERSES)]");
+              model.setupDatabase();
+            }
+          });
+        } catch (Exception e) {
+          Log.e(TAG, "validateDatabase: Failure validating database", e);
+          ops.showErrorScreen("Failure validating database", true, true);
         }
+      }
+    });
 
-        //    model.validateBookTable();
-        //    model.validateVerseTable();
-
-      });
-    } catch (Exception e) {
-      Log.e(TAG, "validateDatabase: Failure validating database", e);
-      ops.showErrorScreen("Failure validating database", true, true);
-    }
   }
 
 }

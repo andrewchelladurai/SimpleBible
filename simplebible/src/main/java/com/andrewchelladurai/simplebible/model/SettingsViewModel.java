@@ -7,14 +7,14 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
-public class SettingsScreenModel
+public class SettingsViewModel
     extends AndroidViewModel {
 
   private static final String TAG = "SettingsScreenModel";
 
   private static final String KEY_VALUE_SEPARATOR = "~";
 
-  public SettingsScreenModel(@NonNull final Application application) {
+  public SettingsViewModel(@NonNull final Application application) {
     super(application);
     Log.d(TAG, "SettingsScreenModel:");
   }

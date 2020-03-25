@@ -26,7 +26,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.model.SettingsScreenModel;
+import com.andrewchelladurai.simplebible.model.SettingsViewModel;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 
 import java.util.Calendar;
@@ -36,7 +36,7 @@ public class SettingsScreen
 
   private static final String TAG = "SettingsScreen";
 
-  private SettingsScreenModel model;
+  private SettingsViewModel model;
 
   private ChangeHandler prefChangeHandler;
 
@@ -57,7 +57,7 @@ public class SettingsScreen
 
     model = ViewModelProvider.AndroidViewModelFactory
                 .getInstance(requireActivity().getApplication())
-                .create(SettingsScreenModel.class);
+                .create(SettingsViewModel.class);
   }
 
   @Override
