@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.Navigation;
@@ -95,9 +96,11 @@ public class SimpleBible
   }
 
   @Override
-  public void showErrorScreen(final String message, final boolean shareLogs,
+  public void showErrorScreen(@Nullable final String message,
+                              final boolean shareLogs,
                               final boolean exitApp) {
-    throw new UnsupportedOperationException("Not yet Implemented");
+    Log.d(TAG, "showErrorScreen: message = [" + message + "], shareLogs = ["
+               + shareLogs + "], exitApp = [" + exitApp + "]");
   }
 
   @Override

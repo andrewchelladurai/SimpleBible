@@ -1,5 +1,7 @@
 package com.andrewchelladurai.simplebible.ui.ops;
 
+import androidx.annotation.Nullable;
+
 public interface SimpleBibleOps {
 
   void hideKeyboard();
@@ -8,7 +10,7 @@ public interface SimpleBibleOps {
 
   void hideNavigationView();
 
-  void showErrorScreen(String message, boolean shareLogs, boolean exitApp);
+  void showErrorScreen(@Nullable String message, boolean shareLogs, boolean exitApp);
 
   void applyThemeSelectedInPreference();
 

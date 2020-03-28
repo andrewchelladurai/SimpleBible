@@ -14,11 +14,11 @@ import androidx.annotation.Nullable;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.model.SetupViewModel;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
-import com.andrewchelladurai.simplebible.utils.Utils;
 
 public class SetupScreen
     extends Fragment {
@@ -62,26 +62,31 @@ public class SetupScreen
 
   private void validateDatabase() {
     Log.d(TAG, "validateDatabase:");
-
-    model.isSetup().observe(getViewLifecycleOwner(), isSetup -> {
-      if (isSetup) {
-        // model.validateBookTable();
-        // model.validateVerseTable();
-      } else {
-        try {
-          model.validateTableData().observe(getViewLifecycleOwner(), recordCount -> {
-            if (recordCount != (Utils.MAX_BOOKS + Utils.MAX_VERSES)) {
-              Log.e(TAG, "validateDatabase: [" + recordCount + "] != [(MAX_BOOKS + MAX_VERSES)]");
-              model.setupDatabase();
-            }
-          });
-        } catch (Exception e) {
-          Log.e(TAG, "validateDatabase: Failure validating database", e);
-          ops.showErrorScreen("Failure validating database", true, true);
-        }
+    model.validateTableData().observe(getViewLifecycleOwner(), count -> {
+      Log.d(TAG, "validateDatabase: [" + count + "] rows found using validation query");
+      switch (count) {
+        case 4:
+          Log.d(TAG, "validateDatabase: expected count - validated");
+          NavHostFragment.findNavController(this)
+                         .navigate(R.id.nav_from_scr_setup_to_scr_home);
+          break;
+        case -1:
+          Log.e(TAG, "validateDatabase: negative count (failed to validate)");
+          final String msg = getString(R.string.scr_setup_msg_err_validation);
+          Log.e(TAG, "validateDatabase: " + msg);
+          ops.showErrorScreen(TAG + " " + msg, true, true);
+          break;
+        default:
+          Log.e(TAG, "validateDatabase: unexpected, perform setup");
+          if (model.setupDatabase()) {
+            Log.d(TAG, "validateDatabase: successfully setup database");
+            NavHostFragment.findNavController(this)
+                           .navigate(R.id.nav_from_scr_setup_to_scr_home);
+          } else {
+            ops.showErrorScreen(getString(R.string.scr_setup_msg_err_creation), true, true);
+          }
       }
     });
-
   }
 
 }

@@ -28,6 +28,9 @@
     for the love he had for her.</h3><br/><br/>
     <b>The World English Bible</b>]]>
     </string>
+    <string name="scr_setup_msg_err_creation">Failure when creating database</string>
+    <string name="scr_setup_msg_err_validation">Unable to validate database</string>
+
 
     <!--  MainScreen  -->
     <string name="main_nav_bar_home">home</string>
@@ -84,5 +87,4 @@
 
     <string name="screen_settings_msg_not_found_license">Failed to show Licenses</string>
     <string name="screen_settings_msg_not_found_about">Failed to show About</string>
-
 </resources>

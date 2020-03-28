@@ -32,36 +32,42 @@ public class SetupViewModel
   }
 
   public LiveData<Integer> validateTableData() {
-    final Application application = getApplication();
-
-    final String bookNameFirst;
-    final String bookNameLast;
-    final int lastBookPos;
-    final int lastVersePos;
-
+    final Application app = getApplication();
     try {
-      bookNameFirst = application.getString(R.string.db_setup_validation_book_name_first)
-                                 .trim();
-
-      bookNameLast = application.getString(R.string.db_setup_validation_book_name_last)
-                                .trim();
-
-      lastBookPos = Integer.parseInt(
-          application.getString(R.string.db_setup_validation_book_number_last).trim());
-
-      lastVersePos = Integer.parseInt(
-          application.getString(R.string.db_setup_validation_verse_number_last).trim());
-
+      return dao.validateTableData(
+          app.getString(R.string.db_setup_validation_book_name_first).trim(),
+          app.getString(R.string.db_setup_validation_book_name_last).trim(),
+          Integer.parseInt(app.getString(R.string.db_setup_validation_book_number_last).trim()),
+          Integer.parseInt(app.getString(R.string.db_setup_validation_verse_number_last).trim()));
     } catch (NumberFormatException nfe) {
-      Log.e(TAG, "validateTableData: Failure getting validation values", nfe);
-      return null;
+      Log.e(TAG, "validateBookTable: Failure getting validation values", nfe);
+      return new MutableLiveData<Integer>(-1);
     }
-
-    return dao.validateTableData(bookNameFirst, bookNameLast, lastBookPos, lastVersePos);
   }
 
-  public void setupDatabase() {
+  public boolean setupDatabase() {
     Log.d(TAG, "setupDatabase:");
+    if (!createBooksTable()) {
+      Log.e(TAG, "setupDatabase: Failed to create sb_books");
+      return false;
+    }
+
+    if (!createVersesTable()) {
+      Log.e(TAG, "setupDatabase: Failed to create sb_verses");
+      return false;
+    }
+
+    return true;
+  }
+
+  private boolean createBooksTable() {
+    Log.e(TAG, "createBooksTable:");
+    return false;
+  }
+
+  private boolean createVersesTable() {
+    Log.e(TAG, "createVersesTable:");
+    return false;
   }
 
 }
