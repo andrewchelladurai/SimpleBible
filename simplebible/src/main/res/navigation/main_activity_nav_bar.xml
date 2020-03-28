@@ -11,7 +11,9 @@
         android:label="SetupScreen">
         <action
             android:id="@+id/nav_from_scr_setup_to_scr_home"
-            app:destination="@id/screen_home" />
+            app:destination="@id/screen_home"
+            app:popUpTo="@id/main_activity_nav_bar"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/screen_home"
