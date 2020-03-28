@@ -8,6 +8,7 @@ import androidx.room.Entity;
 import com.andrewchelladurai.simplebible.utils.Utils;
 
 @Entity(tableName = "sb_books", primaryKeys = {"number", "name", "chapters", "verses"})
+public
 class EntityBook {
 
   @NonNull
@@ -34,12 +35,12 @@ class EntityBook {
   @ColumnInfo(name = "testament")
   private final String testament;
 
-  EntityBook(@NonNull final String description,
-             @IntRange(from = 1, to = Utils.MAX_BOOKS) final int number,
-             @NonNull final String name,
-             @IntRange(from = 1) final int chapters,
-             @IntRange(from = 1) final int verses,
-             @NonNull final String testament) {
+  public EntityBook(@NonNull final String description,
+                    @IntRange(from = 1, to = Utils.MAX_BOOKS) final int number,
+                    @NonNull final String name,
+                    @IntRange(from = 1) final int chapters,
+                    @IntRange(from = 1) final int verses,
+                    @NonNull final String testament) {
     this.description = description;
     this.number = number;
     this.name = name;

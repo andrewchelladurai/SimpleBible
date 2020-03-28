@@ -4,6 +4,8 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 @Dao
@@ -26,5 +28,8 @@ public interface SbDao {
                                       @NonNull final String bookNameLast,
                                       @IntRange(from = 1) final int lastBookNumber,
                                       @IntRange(from = 1) final int lastVerseNumber);
+
+  @Insert(entity = EntityBook.class, onConflict = OnConflictStrategy.REPLACE)
+  void createBook(EntityBook entityBook);
 
 }

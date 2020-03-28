@@ -7,28 +7,29 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.DbSetupWorker;
 import com.andrewchelladurai.simplebible.data.SbDao;
 import com.andrewchelladurai.simplebible.data.SbDatabase;
+
+import java.util.UUID;
 
 public class SetupViewModel
     extends AndroidViewModel {
 
   private static final String TAG = "SetupViewModel";
 
-  private static final MutableLiveData<Boolean> IS_SETUP = new MutableLiveData<>(false);
-
   private final SbDao dao;
+
+  private WorkInfo.State state;
 
   public SetupViewModel(@NonNull final Application application) {
     super(application);
     dao = SbDatabase.getDatabase(getApplication()).getDao();
-  }
-
-  @NonNull
-  public MutableLiveData<Boolean> isSetup() {
-    return IS_SETUP;
   }
 
   public LiveData<Integer> validateTableData() {
@@ -41,33 +42,26 @@ public class SetupViewModel
           Integer.parseInt(app.getString(R.string.db_setup_validation_verse_number_last).trim()));
     } catch (NumberFormatException nfe) {
       Log.e(TAG, "validateBookTable: Failure getting validation values", nfe);
-      return new MutableLiveData<Integer>(-1);
+      return new MutableLiveData<>(-1);
     }
   }
 
-  public boolean setupDatabase() {
-    Log.d(TAG, "setupDatabase:");
-    if (!createBooksTable()) {
-      Log.e(TAG, "setupDatabase: Failed to create sb_books");
-      return false;
-    }
+  public UUID setupDatabase(@NonNull final WorkManager workManager) {
+    final OneTimeWorkRequest workRequest =
+        new OneTimeWorkRequest.Builder(DbSetupWorker.class).build();
 
-    if (!createVersesTable()) {
-      Log.e(TAG, "setupDatabase: Failed to create sb_verses");
-      return false;
-    }
+    workManager.enqueue(workRequest);
 
-    return true;
+    return workRequest.getId();
   }
 
-  private boolean createBooksTable() {
-    Log.e(TAG, "createBooksTable:");
-    return false;
+  @NonNull
+  public WorkInfo.State getDatabaseSetupWorkerState() {
+    return state;
   }
 
-  private boolean createVersesTable() {
-    Log.e(TAG, "createVersesTable:");
-    return false;
+  public void setDatabaseSetupWorkerState(@NonNull final WorkInfo.State state) {
+    this.state = state;
   }
 
 }
