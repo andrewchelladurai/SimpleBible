@@ -12,16 +12,16 @@ import androidx.room.Query;
 public interface SbDao {
 
   @Query("select sum(record_count) from ("
-         + " select count(1) as record_count from sb_books "
+         + " select count(number) as record_count from sb_books "
          + " where lower(name) = lower(:bookNameFirst) and number = 1 "
          + " union all "
-         + " select count(1) as record_count from sb_books "
+         + " select count(number) as record_count from sb_books "
          + " where lower(name) = lower(:bookNameLast) and number = 66 "
          + " union all "
-         + " select count(1) as record_count from sb_books "
+         + " select count(distinct number) as record_count from sb_books "
          + " where number = :lastBookNumber "
          + " union all "
-         + " select count(1) as record_count from sb_verses "
+         + " select count(book||''||chapter||''||verse) as record_count from sb_verses "
          + " where book||''||chapter||''||verse = :lastVerseNumber"
          + " );")
   LiveData<Integer> validateTableData(@NonNull final String bookNameFirst,
@@ -30,6 +30,12 @@ public interface SbDao {
                                       @IntRange(from = 1) final int lastVerseNumber);
 
   @Insert(entity = EntityBook.class, onConflict = OnConflictStrategy.REPLACE)
-  void createBook(EntityBook entityBook);
+  void createBook(@NonNull EntityBook entityBook);
+
+  @Insert(entity = EntityVerse.class, onConflict = OnConflictStrategy.REPLACE)
+  void createVerse(@NonNull EntityVerse entityVerse);
+
+  @Insert(entity = EntityBookmark.class, onConflict = OnConflictStrategy.REPLACE)
+  void createBookmark(@NonNull EntityBookmark entityBookmark);
 
 }
