@@ -13,9 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 import com.andrewchelladurai.simplebible.R;
@@ -60,69 +60,71 @@ public class SetupScreen
                                                  HtmlCompat.FROM_HTML_MODE_COMPACT);
     ((TextView) view.findViewById(R.id.scr_setup_text)).setText(htmlText);
 
-    if (savedState == null) {
+    if (model.getWorkerUuid() == null) {
       validateDatabase();
+    } else {
+      monitorDatabaseSetup();
     }
 
     return view;
   }
 
   private void validateDatabase() {
-    Log.d(TAG, "validateDatabase:");
-    model.validateTableData().observe(getViewLifecycleOwner(), count -> {
-      if (count == -1) {
+    final LifecycleOwner lifeOwner = getViewLifecycleOwner();
+    model.validateTableData().observe(lifeOwner, count -> {
 
+      if (model.getWorkerUuid() != null) {
+        return;
+      }
+
+      if (count == -1) {
+        // a negative count indicates that the validation query itself failed
         final String msg = getString(R.string.scr_setup_msg_err_validation);
         Log.e(TAG, "validateDatabase: " + msg);
         ops.showErrorScreen(TAG + " " + msg, true, true);
+      } else if (count != 4) {
 
-      } else if (count >= 0 && count <= 3) {
+        Log.e(TAG, "validateDatabase: no uuid set and count != 4");
+        final WorkManager wManager = WorkManager.getInstance(requireContext());
+        @NonNull final UUID uuid = model.setupDatabase(wManager);
+        model.setWorkerUuid(uuid);
+        monitorDatabaseSetup();
 
-        final WorkInfo.State cachedDbSetupWorkState = model.getDatabaseSetupWorkerState();
-        if (cachedDbSetupWorkState == WorkInfo.State.RUNNING
-            || cachedDbSetupWorkState == WorkInfo.State.CANCELLED
-            || cachedDbSetupWorkState == WorkInfo.State.BLOCKED
-            || cachedDbSetupWorkState == WorkInfo.State.FAILED
-            || cachedDbSetupWorkState == WorkInfo.State.SUCCEEDED) {
-          return;
-        }
-
-        Log.e(TAG, "validateDatabase: incorrect count[" + count + "], need to setup database");
-
-        final WorkManager workManager = WorkManager.getInstance(requireContext());
-        final UUID uuid = model.setupDatabase(workManager);
-
-        workManager.getWorkInfoByIdLiveData(uuid).observe(getViewLifecycleOwner(), workInfo -> {
-
-          if (workInfo == null) {
-            ops.showErrorScreen(getString(R.string.scr_setup_msg_err_creation), true, true);
-            return;
-          }
-
-          final WorkInfo.State currentDbSetupWorkState = workInfo.getState();
-          model.setDatabaseSetupWorkerState(currentDbSetupWorkState);
-
-          if (currentDbSetupWorkState == WorkInfo.State.CANCELLED
-              || currentDbSetupWorkState == WorkInfo.State.FAILED) {
-            ops.showErrorScreen(getString(R.string.scr_setup_msg_err_creation), true, true);
-          } else if (currentDbSetupWorkState == WorkInfo.State.SUCCEEDED) {
-            Log.d(TAG, "validateDatabase: Database setup work successfully completed");
-            NavHostFragment.findNavController(SetupScreen.this)
-                           .navigate(R.id.nav_from_scr_setup_to_scr_home);
-          }
-
-        });
-
-      } else if (count == 4) {
-
-        Log.d(TAG, "validateDatabase: expected count[" + count + "], records seem correct");
-        NavHostFragment.findNavController(this)
-                       .navigate(R.id.nav_from_scr_setup_to_scr_home);
-
-      } else {
-        Log.e(TAG, "validateDatabase: unexpected count[" + count + "]");
       }
     });
+  }
+
+  private void monitorDatabaseSetup() {
+    Log.d(TAG, "monitorDatabaseSetup:");
+
+    final UUID uuid = model.getWorkerUuid();
+    if (uuid == null) {
+      Log.e(TAG, "monitorDatabaseSetup: null worker UUID");
+      return;
+    }
+
+    WorkManager.getInstance(requireContext())
+               .getWorkInfoByIdLiveData(uuid)
+               .observe(getViewLifecycleOwner(), info -> {
+                 switch (info.getState()) {
+                   case SUCCEEDED:
+                     Log.d(TAG, "validateDatabase: database successfully setup");
+                     NavHostFragment.findNavController(SetupScreen.this)
+                                    .navigate(R.id.nav_from_scr_setup_to_scr_home);
+                     break;
+                   case CANCELLED:
+                   case FAILED:
+                     ops.showErrorScreen(getString(R.string.scr_setup_msg_err_creation), true,
+                                         true);
+                     break;
+                   case BLOCKED:
+                   case ENQUEUED:
+                     Log.e(TAG, "validateDatabase: database setup is enqueued or blocked");
+                     break;
+                   case RUNNING:
+                   default:
+                 }
+               });
   }
 
 }

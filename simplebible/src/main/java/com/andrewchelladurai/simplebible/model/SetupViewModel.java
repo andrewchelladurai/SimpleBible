@@ -8,7 +8,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 import com.andrewchelladurai.simplebible.R;
@@ -25,13 +24,14 @@ public class SetupViewModel
 
   private final SbDao dao;
 
-  private WorkInfo.State state;
+  private static UUID DB_SETUP_WORKER_UUID;
 
   public SetupViewModel(@NonNull final Application application) {
     super(application);
     dao = SbDatabase.getDatabase(getApplication()).getDao();
   }
 
+  @NonNull
   public LiveData<Integer> validateTableData() {
     final Application app = getApplication();
     try {
@@ -46,22 +46,25 @@ public class SetupViewModel
     }
   }
 
+  @NonNull
   public UUID setupDatabase(@NonNull final WorkManager workManager) {
+    if (DB_SETUP_WORKER_UUID != null) {
+      return DB_SETUP_WORKER_UUID;
+    }
+
     final OneTimeWorkRequest workRequest =
         new OneTimeWorkRequest.Builder(DbSetupWorker.class).build();
-
     workManager.enqueue(workRequest);
-
     return workRequest.getId();
+
   }
 
-  @NonNull
-  public WorkInfo.State getDatabaseSetupWorkerState() {
-    return state;
+  public UUID getWorkerUuid() {
+    return DB_SETUP_WORKER_UUID;
   }
 
-  public void setDatabaseSetupWorkerState(@NonNull final WorkInfo.State state) {
-    this.state = state;
+  public void setWorkerUuid(@NonNull final UUID uuid) {
+    DB_SETUP_WORKER_UUID = uuid;
   }
 
 }
