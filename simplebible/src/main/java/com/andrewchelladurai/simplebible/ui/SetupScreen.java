@@ -60,11 +60,7 @@ public class SetupScreen
                                                  HtmlCompat.FROM_HTML_MODE_COMPACT);
     ((TextView) view.findViewById(R.id.scr_setup_text)).setText(htmlText);
 
-    if (model.getWorkerUuid() == null) {
-      validateDatabase();
-    } else {
-      monitorDatabaseSetup();
-    }
+    validateDatabase();
 
     return view;
   }
@@ -72,8 +68,8 @@ public class SetupScreen
   private void validateDatabase() {
     final LifecycleOwner lifeOwner = getViewLifecycleOwner();
     model.validateTableData().observe(lifeOwner, count -> {
-
       if (model.getWorkerUuid() != null) {
+        monitorDatabaseSetup();
         return;
       }
 
@@ -88,8 +84,6 @@ public class SetupScreen
   }
 
   private void monitorDatabaseSetup() {
-    Log.d(TAG, "monitorDatabaseSetup:");
-
     final UUID uuid = model.getWorkerUuid();
     if (uuid == null) {
       Log.e(TAG, "monitorDatabaseSetup: null worker UUID");
