@@ -12,7 +12,7 @@
     <string name="db_setup_validation_book_name_first">genesis</string>
     <string name="db_setup_validation_book_name_last">revelation</string>
     <string name="db_setup_validation_book_number_last">66</string>
-    <string name="db_setup_validation_verse_number_last">662221</string>
+    <string name="db_setup_validation_verse_number_last">66~22~21</string>
     <string name="db_setup_asset_file_table_books">sb_books.txt</string>
     <string name="db_setup_asset_file_table_books_separator">~</string>
     <string name="db_setup_asset_file_table_verses">sb_verses.txt</string>

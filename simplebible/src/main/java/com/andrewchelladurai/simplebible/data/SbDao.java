@@ -1,6 +1,5 @@
 package com.andrewchelladurai.simplebible.data;
 
-import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -21,13 +20,13 @@ public interface SbDao {
          + " select count(distinct number) as record_count from sb_books "
          + " where number = :lastBookNumber "
          + " union all "
-         + " select count(book||''||chapter||''||verse) as record_count from sb_verses "
-         + " where book||''||chapter||''||verse = :lastVerseNumber"
+         + " select count(distinct book||'~'||chapter||'~'||verse) as record_count from sb_verses "
+         + " where book||'~'||chapter||'~'||verse = :lastVerseReference"
          + " );")
   LiveData<Integer> validateTableData(@NonNull final String bookNameFirst,
                                       @NonNull final String bookNameLast,
-                                      @IntRange(from = 1) final int lastBookNumber,
-                                      @IntRange(from = 1) final int lastVerseNumber);
+                                      @NonNull final String lastBookNumber,
+                                      @NonNull final String lastVerseReference);
 
   @Insert(entity = EntityBook.class, onConflict = OnConflictStrategy.REPLACE)
   void createBook(@NonNull EntityBook entityBook);

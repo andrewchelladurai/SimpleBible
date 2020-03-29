@@ -77,19 +77,12 @@ public class SetupScreen
         return;
       }
 
-      if (count == -1) {
-        // a negative count indicates that the validation query itself failed
-        final String msg = getString(R.string.scr_setup_msg_err_validation);
-        Log.e(TAG, "validateDatabase: " + msg);
-        ops.showErrorScreen(TAG + " " + msg, true, true);
-      } else if (count != 4) {
-
-        Log.e(TAG, "validateDatabase: no uuid set and count != 4");
+      if (count != 4) {
+        Log.e(TAG, "validateDatabase: no uuid set and count[" + count + "] != 4");
         final WorkManager wManager = WorkManager.getInstance(requireContext());
         @NonNull final UUID uuid = model.setupDatabase(wManager);
         model.setWorkerUuid(uuid);
         monitorDatabaseSetup();
-
       }
     });
   }

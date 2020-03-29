@@ -1,12 +1,10 @@
 package com.andrewchelladurai.simplebible.model;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -34,16 +32,11 @@ public class SetupViewModel
   @NonNull
   public LiveData<Integer> validateTableData() {
     final Application app = getApplication();
-    try {
-      return dao.validateTableData(
-          app.getString(R.string.db_setup_validation_book_name_first).trim(),
-          app.getString(R.string.db_setup_validation_book_name_last).trim(),
-          Integer.parseInt(app.getString(R.string.db_setup_validation_book_number_last).trim()),
-          Integer.parseInt(app.getString(R.string.db_setup_validation_verse_number_last).trim()));
-    } catch (NumberFormatException nfe) {
-      Log.e(TAG, "validateBookTable: Failure getting validation values", nfe);
-      return new MutableLiveData<>(-1);
-    }
+    return dao.validateTableData(
+        app.getString(R.string.db_setup_validation_book_name_first).trim(),
+        app.getString(R.string.db_setup_validation_book_name_last).trim(),
+        app.getString(R.string.db_setup_validation_book_number_last).trim(),
+        app.getString(R.string.db_setup_validation_verse_number_last).trim());
   }
 
   @NonNull
