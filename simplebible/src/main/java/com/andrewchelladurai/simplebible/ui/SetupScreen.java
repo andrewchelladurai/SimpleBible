@@ -70,10 +70,10 @@ public class SetupScreen
     Log.d(TAG, "validateDatabase:");
     final LifecycleOwner lifeOwner = getViewLifecycleOwner();
 
-    model.validateTableData().observe(lifeOwner, count -> {
+    model.validateTableData().observe(lifeOwner, value -> {
 
-      if (count == 4) {
-        Log.d(TAG, "validateDatabase: Expected count[" + count + "] received");
+      if (value == 4) {
+        Log.d(TAG, "validateDatabase: Expected value[" + value + "] received");
         NavHostFragment.findNavController(SetupScreen.this)
                        .navigate(R.id.nav_from_scr_setup_to_scr_home);
         return;
@@ -83,7 +83,7 @@ public class SetupScreen
         return;
       }
 
-      Log.e(TAG, "validateDatabase: no uuid set and count[" + count + "] != 4");
+      Log.e(TAG, "validateDatabase: no uuid set and value[" + value + "] != 4");
       final WorkManager wManager = WorkManager.getInstance(requireContext());
       @NonNull final UUID uuid = model.setupDatabase(wManager);
       model.setWorkerUuid(uuid);
