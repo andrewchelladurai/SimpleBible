@@ -1,8 +1,14 @@
 <resources>
 
+    <style name="SbSplashTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="android:navigationBarColor">@color/splash_surface</item>
+        <item name="android:statusBarColor">@color/splash_surface</item>
+    </style>
+
     <style name="SbBaseTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorSurface">@color/surface_color</item>
-        <item name="colorOnSurface">@color/text_surface_color</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="android:textColor">@color/text_on_surface</item>
 
         <item name="android:windowBackground">?colorSurface</item>
         <item name="android:navigationBarColor">?colorSurface</item>

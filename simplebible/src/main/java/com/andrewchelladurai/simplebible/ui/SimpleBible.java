@@ -28,6 +28,9 @@ public class SimpleBible
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    // apply application theme
+    setTheme(R.style.SbBaseTheme);
+
     // apply the theme selected in the preferences
     applyThemeSelectedInPreference();
 

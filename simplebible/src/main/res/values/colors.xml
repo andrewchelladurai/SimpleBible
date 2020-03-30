@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="surface_color">#D0D0D0</color>
-    <color name="text_surface_color">@android:color/black</color>
+    <color name="surface">#D0D0D0</color>
+    <color name="text_on_surface">@android:color/black</color>
+    <color name="splash_surface">@android:color/black</color>
 </resources>
