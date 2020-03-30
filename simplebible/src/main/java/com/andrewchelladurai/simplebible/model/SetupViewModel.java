@@ -10,9 +10,12 @@ import androidx.work.WorkManager;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.DbSetupWorker;
+import com.andrewchelladurai.simplebible.data.EntityBook;
 import com.andrewchelladurai.simplebible.data.SbDao;
 import com.andrewchelladurai.simplebible.data.SbDatabase;
+import com.andrewchelladurai.simplebible.utils.Utils;
 
+import java.util.List;
 import java.util.UUID;
 
 public class SetupViewModel
@@ -58,6 +61,19 @@ public class SetupViewModel
 
   public void setWorkerUuid(@NonNull final UUID uuid) {
     DB_SETUP_WORKER_UUID = uuid;
+  }
+
+  @NonNull
+  public LiveData<List<EntityBook>> getAllBooks() {
+    return dao.getAllBookRecords();
+  }
+
+  public void updateCacheBooks(@NonNull final List<EntityBook> bookList) {
+    Utils.getInstance().updateCacheBooks(bookList);
+  }
+
+  public boolean isCacheUpdated() {
+    return Utils.getInstance().isCacheUpdated();
   }
 
 }

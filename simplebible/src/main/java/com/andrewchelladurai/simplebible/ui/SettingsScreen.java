@@ -246,7 +246,7 @@ public class SettingsScreen
   private void handlePreferenceClickAbout() {
     Log.d(TAG, "handlePreferenceClickAbout:");
     showAlertWebView("about.html",
-                     R.string.screen_settings_msg_not_found_about);
+                     R.string.scr_settings_err_not_found_about);
   }
 
   private void showAlertWebView(@NonNull final String assetsFileName,
@@ -279,7 +279,7 @@ public class SettingsScreen
   private void handlePreferenceClickLicense() {
     Log.d(TAG, "handlePreferenceClickLicense:");
     showAlertWebView("licenses.html",
-                     R.string.screen_settings_msg_not_found_license);
+                     R.string.scr_settings_err_not_found_license);
   }
 
   private class ChangeHandler

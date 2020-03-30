@@ -21,6 +21,7 @@ import androidx.work.WorkManager;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.model.SetupViewModel;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
+import com.andrewchelladurai.simplebible.utils.Utils;
 
 import java.util.UUID;
 
@@ -74,8 +75,7 @@ public class SetupScreen
 
       if (value == 4) {
         Log.d(TAG, "validateDatabase: Expected value[" + value + "] received");
-        NavHostFragment.findNavController(SetupScreen.this)
-                       .navigate(R.id.nav_from_scr_setup_to_scr_home);
+        updateCacheRepository();
         return;
       }
 
@@ -90,6 +90,24 @@ public class SetupScreen
       monitorDatabaseSetup();
 
     });
+  }
+
+  private void updateCacheRepository() {
+    Log.d(TAG, "updateCacheRepository:");
+    if (!model.isCacheUpdated()) {
+      model.getAllBooks().observe(getViewLifecycleOwner(), bookList -> {
+        if (bookList == null || bookList.isEmpty() || bookList.size() != Utils.MAX_BOOKS) {
+          String msg = getString(R.string.scr_setup_err_cache_update_failure);
+          Log.e(TAG, "updateCacheRepository: " + msg);
+          ops.showErrorScreen(msg, true, true);
+        } else {
+          model.updateCacheBooks(bookList);
+          showHomeScreen();
+        }
+      });
+    } else {
+      showHomeScreen();
+    }
   }
 
   private void monitorDatabaseSetup() {
@@ -107,12 +125,11 @@ public class SetupScreen
                  switch (info.getState()) {
                    case SUCCEEDED:
                      Log.d(TAG, "validateDatabase: database successfully setup");
-                     NavHostFragment.findNavController(SetupScreen.this)
-                                    .navigate(R.id.nav_from_scr_setup_to_scr_home);
+                     updateCacheRepository();
                      break;
                    case CANCELLED:
                    case FAILED:
-                     ops.showErrorScreen(getString(R.string.scr_setup_msg_err_creation), true,
+                     ops.showErrorScreen(getString(R.string.scr_setup_err_creation), true,
                                          true);
                      break;
                    case BLOCKED:
@@ -123,6 +140,12 @@ public class SetupScreen
                    default:
                  }
                });
+  }
+
+  private void showHomeScreen() {
+    Log.d(TAG, "showHomeScreen:");
+    NavHostFragment.findNavController(SetupScreen.this)
+                   .navigate(R.id.nav_from_scr_setup_to_scr_home);
   }
 
 }

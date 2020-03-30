@@ -3,12 +3,16 @@
     <!--  Common throughout the application  -->
     <string name="application_name">Simple Bible</string>
     <string name="default_verse_reference">43:3:16</string>
+
+    <!--  Used for setting up the Notification Channel  -->
     <string name="notify_channel_name_setup">Setup notifications</string>
     <string name="notify_channel_desc_setup">Notifications related to the application setup will show under this channel</string>
     <string name="notify_channel_id_setup">161413</string>
     <string name="notify_channel_name_reminder">Reminder notifications</string>
     <string name="notify_channel_desc_reminder">The Daily verse reminders will use this channel</string>
     <string name="notify_channel_id_reminder">141613</string>
+
+    <!--  Used during the database setup  -->
     <string name="db_setup_validation_book_name_first">genesis</string>
     <string name="db_setup_validation_book_name_last">revelation</string>
     <string name="db_setup_validation_book_number_last">66</string>
@@ -20,7 +24,7 @@
     <string name="new_testament">New Testament</string>
     <string name="old_testament">Old Testament</string>
 
-    <!--  Setup Screen  -->
+    <!--  SetupScreen  -->
     <string name="scr_setup_verse">
     <![CDATA[
     <h1>Simple Bible</h1><br/><br/><br/><br/>
@@ -34,9 +38,9 @@
     for the love he had for her.</h3><br/><br/>
     <b>The World English Bible</b>]]>
     </string>
-    <string name="scr_setup_msg_err_creation">Failure when creating database</string>
-    <string name="scr_setup_msg_err_validation">Unable to validate database</string>
-
+    <string name="scr_setup_err_creation">Failure when creating database</string>
+    <string name="scr_setup_err_validation">Unable to validate database</string>
+    <string name="scr_setup_err_cache_update_failure">Number of books after successfully setting up the database does not match the expected count</string>
 
     <!--  MainScreen  -->
     <string name="main_nav_bar_home">home</string>
@@ -91,6 +95,6 @@
     <string name="pref_license_title">Licenses of parts</string>
     <string name="pref_license_summary">used to make this application.</string>
 
-    <string name="screen_settings_msg_not_found_license">Failed to show Licenses</string>
-    <string name="screen_settings_msg_not_found_about">Failed to show About</string>
+    <string name="scr_settings_err_not_found_license">Failed to show Licenses</string>
+    <string name="scr_settings_err_not_found_about">Failed to show About</string>
 </resources>

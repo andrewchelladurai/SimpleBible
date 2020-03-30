@@ -7,6 +7,8 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import java.util.List;
+
 @Dao
 public interface SbDao {
 
@@ -36,5 +38,8 @@ public interface SbDao {
 
   @Insert(entity = EntityBookmark.class, onConflict = OnConflictStrategy.REPLACE)
   void createBookmark(@NonNull EntityBookmark entityBookmark);
+
+  @Query("select * from sb_books order by number")
+  LiveData<List<EntityBook>> getAllBookRecords();
 
 }
