@@ -43,6 +43,7 @@ public class SetupScreen
     } else {
       throw new ClassCastException(TAG + " onAttach: [Context] must implement [SimpleBibleOps]");
     }
+
     model = ViewModelProvider.AndroidViewModelFactory
                 .getInstance(requireActivity().getApplication())
                 .create(SetupViewModel.class);
@@ -66,25 +67,35 @@ public class SetupScreen
   }
 
   private void validateDatabase() {
+    Log.d(TAG, "validateDatabase:");
     final LifecycleOwner lifeOwner = getViewLifecycleOwner();
+
     model.validateTableData().observe(lifeOwner, count -> {
-      if (model.getWorkerUuid() != null) {
-        monitorDatabaseSetup();
+
+      if (count == 4) {
+        Log.d(TAG, "validateDatabase: Expected count[" + count + "] received");
+        NavHostFragment.findNavController(SetupScreen.this)
+                       .navigate(R.id.nav_from_scr_setup_to_scr_home);
         return;
       }
 
-      if (count != 4) {
-        Log.e(TAG, "validateDatabase: no uuid set and count[" + count + "] != 4");
-        final WorkManager wManager = WorkManager.getInstance(requireContext());
-        @NonNull final UUID uuid = model.setupDatabase(wManager);
-        model.setWorkerUuid(uuid);
-        monitorDatabaseSetup();
+      if (model.getWorkerUuid() != null) {
+        return;
       }
+
+      Log.e(TAG, "validateDatabase: no uuid set and count[" + count + "] != 4");
+      final WorkManager wManager = WorkManager.getInstance(requireContext());
+      @NonNull final UUID uuid = model.setupDatabase(wManager);
+      model.setWorkerUuid(uuid);
+      monitorDatabaseSetup();
+
     });
   }
 
   private void monitorDatabaseSetup() {
+    Log.d(TAG, "monitorDatabaseSetup:");
     final UUID uuid = model.getWorkerUuid();
+
     if (uuid == null) {
       Log.e(TAG, "monitorDatabaseSetup: null worker UUID");
       return;
