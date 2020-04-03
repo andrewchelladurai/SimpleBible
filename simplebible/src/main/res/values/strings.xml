@@ -4,6 +4,13 @@
     <string name="application_name">Simple Bible</string>
     <string name="default_verse_reference">43:3:16</string>
 
+    <!--  MainScreen  -->
+    <string name="main_nav_bar_home">home</string>
+    <string name="main_nav_bar_book_list">books</string>
+    <string name="main_nav_bar_search">search</string>
+    <string name="main_nav_bar_bookmark_list">bookmarks</string>
+    <string name="main_nav_bar_settings">settings</string>
+
     <!--  Used for setting up the Notification Channel  -->
     <string name="notify_channel_name_setup">Setup notifications</string>
     <string name="notify_channel_desc_setup">Notifications related to the application setup will show under this channel</string>
@@ -42,12 +49,29 @@
     <string name="scr_setup_err_validation">Unable to validate database</string>
     <string name="scr_setup_err_cache_update_failure">Number of books after successfully setting up the database does not match the expected count</string>
 
-    <!--  MainScreen  -->
-    <string name="main_nav_bar_home">home</string>
-    <string name="main_nav_bar_book_list">books</string>
-    <string name="main_nav_bar_search">search</string>
-    <string name="main_nav_bar_bookmark_list">bookmarks</string>
-    <string name="main_nav_bar_settings">settings</string>
+    <!--  HomeScreen  -->
+    <string name="scr_home_verse_default">
+    <![CDATA[
+    <h1>Simple Bible</h1><br/>
+    <h5>The Gospel of John<br/>
+    Chapter 03 Verse 16</h5><br/>
+    <h3>For God so loved the world,<br/>
+    that he gave his one and only Son,<br/>
+    that whoever believes in him<br/>
+    should not perish,<br/>
+    but have eternal life.</h3><br/>
+    <b>The World English Bible</b>
+    ]]>
+    </string>
+    <string name="scr_home_verse_template">
+    <![CDATA[
+    <h1>Simple Bible</h1><br/>
+    <h5>%s</h5>
+    <h5>Chapter %d Verse %d</h5><br/>
+    <h3>%s</h3><br/>
+    <b>The World English Bible</b>
+    ]]>
+    </string>
 
     <!-- SettingsScreen -->
     <string name="pref_category_title_actions">Settings for Simple Bible</string>

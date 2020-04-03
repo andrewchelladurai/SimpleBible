@@ -27,6 +27,8 @@ public class HomeScreen
 
   private SimpleBibleOps ops;
 
+  private View rootView;
+
   @Override
   public void onAttach(@NonNull final Context context) {
     Log.d(TAG, "onAttach:");
@@ -47,8 +49,10 @@ public class HomeScreen
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedState) {
     Log.d(TAG, "onCreateView:");
+    rootView = inflater.inflate(R.layout.home_screen, container, false);
+    ops.showNavigationView();
 
-    return inflater.inflate(R.layout.home_screen, container, false);
+    return rootView;
   }
 
 }
