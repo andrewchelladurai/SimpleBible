@@ -3,7 +3,7 @@ package com.andrewchelladurai.simplebible.utils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.collection.ArraySet;
+import androidx.collection.ArrayMap;
 
 import com.andrewchelladurai.simplebible.data.EntityBook;
 
@@ -20,7 +20,8 @@ public class Utils {
   private static final Utils THIS_INSTANCE = new Utils();
 
   @NonNull
-  private static ArraySet<EntityBook> CACHED_BOOKS_SET = new ArraySet<>(Utils.MAX_BOOKS);
+  private static ArrayMap<Integer, EntityBook> CACHED_BOOKS_SET
+      = new ArrayMap<>(Utils.MAX_BOOKS);
 
   private Utils() {
   }
@@ -41,11 +42,13 @@ public class Utils {
     }
 
     CACHED_BOOKS_SET.clear();
-    CACHED_BOOKS_SET.addAll(bookList);
+    for (final EntityBook book : bookList) {
+      CACHED_BOOKS_SET.put(book.getNumber(), book);
+    }
 
     Log.d(TAG, "updateCacheBooks: updated [" + CACHED_BOOKS_SET.size() + "] records\n"
-               + "1=[" + CACHED_BOOKS_SET.valueAt(0) + "]\n"
-               + maxCount + "=[" + CACHED_BOOKS_SET.valueAt(maxCount - 1) + "]");
+               + "1=[" + CACHED_BOOKS_SET.get(1) + "]\n"
+               + maxCount + "=[" + CACHED_BOOKS_SET.get(maxCount) + "]");
   }
 
   public boolean isCacheUpdated() {
