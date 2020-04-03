@@ -7,9 +7,12 @@ import androidx.room.Entity;
 
 import com.andrewchelladurai.simplebible.utils.Utils;
 
+import java.util.Objects;
+
 @Entity(tableName = "sb_books", primaryKeys = {"number", "name", "chapters", "verses"})
 public
-class EntityBook {
+class EntityBook
+    implements Comparable {
 
   @NonNull
   @ColumnInfo(name = "description")
@@ -77,6 +80,45 @@ class EntityBook {
   @NonNull
   public String getTestament() {
     return testament;
+  }
+
+  @Override
+  public boolean equals(final Object newObj) {
+    if (this == newObj) {
+      return true;
+    }
+
+    if (newObj == null || this.getClass() != newObj.getClass()) {
+      return false;
+    }
+
+    final EntityBook that = (EntityBook) newObj;
+    return this.getNumber() == that.getNumber()
+           && this.getChapters() == that.getChapters()
+           && this.getVerses() == that.getVerses()
+           && this.getName().equals(that.getName())
+           && this.getTestament().equals(that.getTestament());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getNumber(), getName(), getChapters(), getVerses(), getTestament());
+  }
+
+  @NonNull
+  @Override
+  public String toString() {
+    return getNumber()
+           + "-" + getName()
+           + "-" + getDescription()
+           + "-" + getChapters()
+           + "-" + getVerses()
+           + "-" + getTestament();
+  }
+
+  @Override
+  public int compareTo(@NonNull final Object that) {
+    return this.getNumber() - ((EntityBook) that).getNumber();
   }
 
 }

@@ -3,11 +3,11 @@ package com.andrewchelladurai.simplebible.utils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.collection.ArrayMap;
 
 import com.andrewchelladurai.simplebible.data.EntityBook;
 
 import java.util.List;
+import java.util.TreeMap;
 
 public class Utils {
 
@@ -20,8 +20,7 @@ public class Utils {
   private static final Utils THIS_INSTANCE = new Utils();
 
   @NonNull
-  private static ArrayMap<Integer, EntityBook> CACHED_BOOKS_SET
-      = new ArrayMap<>(Utils.MAX_BOOKS);
+  private static TreeMap<Integer, EntityBook> CACHE_BOOKS_MAP = new TreeMap<>();
 
   private Utils() {
   }
@@ -36,23 +35,23 @@ public class Utils {
 
     if (isCacheUpdated()) {
       Log.d(TAG, "updateCacheBooks: already contains " + maxCount + "records\n"
-                 + "1=[" + CACHED_BOOKS_SET.valueAt(0) + "]\n"
-                 + maxCount + "=[" + CACHED_BOOKS_SET.valueAt(maxCount - 1) + "]");
+                 + "1=[" + CACHE_BOOKS_MAP.get(1) + "]\n"
+                 + maxCount + "=[" + CACHE_BOOKS_MAP.get(maxCount) + "]");
       return;
     }
 
-    CACHED_BOOKS_SET.clear();
+    CACHE_BOOKS_MAP.clear();
     for (final EntityBook book : bookList) {
-      CACHED_BOOKS_SET.put(book.getNumber(), book);
+      CACHE_BOOKS_MAP.put(book.getNumber(), book);
     }
 
-    Log.d(TAG, "updateCacheBooks: updated [" + CACHED_BOOKS_SET.size() + "] records\n"
-               + "1=[" + CACHED_BOOKS_SET.get(1) + "]\n"
-               + maxCount + "=[" + CACHED_BOOKS_SET.get(maxCount) + "]");
+    Log.d(TAG, "updateCacheBooks: updated [" + CACHE_BOOKS_MAP.size() + "] records\n"
+               + "1=[" + CACHE_BOOKS_MAP.get(1) + "]\n"
+               + maxCount + "=[" + CACHE_BOOKS_MAP.get(maxCount) + "]");
   }
 
   public boolean isCacheUpdated() {
-    return CACHED_BOOKS_SET.size() == MAX_BOOKS;
+    return CACHE_BOOKS_MAP.size() == MAX_BOOKS;
   }
 
 }
