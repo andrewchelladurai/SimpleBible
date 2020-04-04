@@ -18,6 +18,7 @@ import com.andrewchelladurai.simplebible.model.ChapterViewModel;
 import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 import com.andrewchelladurai.simplebible.utils.Utils;
+import com.google.android.material.bottomappbar.BottomAppBar;
 
 public class ChapterScreen
     extends Fragment
@@ -81,9 +82,31 @@ public class ChapterScreen
       chapter = model.getCurrentChapter();
     }
 
+    final BottomAppBar bar = rootView.findViewById(R.id.scr_chapter_bottom_app_bar);
+    bar.setOnMenuItemClickListener(item -> {
+      switch (item.getItemId()) {
+        case R.id.menu_scr_chapter_action_clear:
+          handleActionClear();
+          return true;
+        case R.id.menu_scr_chapter_action_bookmark:
+          handleActionBookmark();
+          return true;
+        case R.id.menu_scr_chapter_action_share:
+          handleActionShare();
+          return true;
+        default:
+          Log.e(TAG, "onMenuItemClick: unknown menu item");
+      }
+      return false;
+    });
+
     updateContent();
 
     return rootView;
+  }
+
+  private void handleActionClear() {
+    Log.d(TAG, "handleActionClear:");
   }
 
   private void updateContent() {
@@ -103,8 +126,23 @@ public class ChapterScreen
 
   }
 
+  private void handleActionBookmark() {
+    Log.d(TAG, "handleActionBookmark:");
+  }
+
+  private void handleActionShare() {
+    Log.d(TAG, "handleActionShare:");
+  }
+
   private void refreshData() {
     Log.d(TAG, "refreshData:");
+    setActionsVisibility(true);
+  }
+
+  private void setActionsVisibility(final boolean isVisible) {
+    Log.d(TAG, "setActionsVisibility: isVisible[" + isVisible + "]");
+    final BottomAppBar bar = rootView.findViewById(R.id.scr_chapter_bottom_app_bar);
+    bar.getMenu().setGroupVisible(R.id.menu_scr_chapter_actions, isVisible);
   }
 
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="AlwaysShowAction">
+    <group android:id="@+id/menu_scr_chapter_actions">
+        <item
+            android:id="@+id/menu_scr_chapter_action_clear"
+            android:icon="@drawable/ic_clear"
+            android:title="@string/menu_scr_chapter_action_clear"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/menu_scr_chapter_action_bookmark"
+            android:icon="@drawable/ic_bookmark"
+            android:title="@string/menu_scr_chapter_action_bookmark"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/menu_scr_chapter_action_share"
+            android:icon="@drawable/ic_share"
+            android:title="@string/menu_scr_chapter_action_share"
+            app:showAsAction="always" />
+    </group>
+</menu>
