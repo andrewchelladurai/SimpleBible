@@ -11,8 +11,7 @@ import com.andrewchelladurai.simplebible.utils.Utils;
 import java.util.Objects;
 
 @Entity(tableName = "sb_verses", primaryKeys = {"book", "chapter", "verse"})
-public
-class EntityVerse
+public class EntityVerse
     implements Comparable {
 
   @NonNull
