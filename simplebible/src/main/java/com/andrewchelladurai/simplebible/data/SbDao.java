@@ -1,11 +1,14 @@
 package com.andrewchelladurai.simplebible.data;
 
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+
+import com.andrewchelladurai.simplebible.utils.Utils;
 
 import java.util.List;
 
@@ -41,5 +44,11 @@ public interface SbDao {
 
   @Query("select * from sb_books order by number")
   LiveData<List<EntityBook>> getAllBookRecords();
+
+  @Query("select * from sb_verses "
+         + "where book=:bookNum and chapter=:chapterNum and verse=:verseNumb")
+  LiveData<EntityVerse> getVerse(@IntRange(from = 1, to = Utils.MAX_BOOKS) final int bookNum,
+                                 @IntRange(from = 1) final int chapterNum,
+                                 @IntRange(from = 1) final int verseNumb);
 
 }
