@@ -2,14 +2,18 @@ package com.andrewchelladurai.simplebible.data;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 
 import com.andrewchelladurai.simplebible.utils.Utils;
 
+import java.util.Objects;
+
 @Entity(tableName = "sb_verses", primaryKeys = {"book", "chapter", "verse"})
 public
-class EntityVerse {
+class EntityVerse
+    implements Comparable {
 
   @NonNull
   @ColumnInfo(name = "translation")
@@ -66,6 +70,39 @@ class EntityVerse {
   @NonNull
   public String getText() {
     return text;
+  }
+
+  @Override
+  public boolean equals(@Nullable final Object o) {
+
+    if (this == o) {
+      return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    final EntityVerse that = (EntityVerse) o;
+    return this.book == that.book
+           && this.chapter == that.chapter
+           && this.verse == that.verse
+           && this.translation.equals(that.translation);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(translation, book, chapter, verse);
+  }
+
+  @Override
+  public int compareTo(@NonNull final Object o) {
+    final EntityVerse that = (EntityVerse) o;
+
+    final int thisPosition = Integer.parseInt(this.book + "" + this.chapter + "" + this.verse);
+    final int thatPosition = Integer.parseInt(that.book + "" + that.chapter + "" + that.verse);
+
+    return thisPosition - thatPosition;
   }
 
 }
