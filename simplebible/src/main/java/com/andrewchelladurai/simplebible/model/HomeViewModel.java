@@ -19,9 +19,14 @@ public class HomeViewModel
 
   private static final String TAG = "HomeViewModel";
 
-  @Nullable private static EntityVerse CACHED_VERSE = null;
+  @Nullable
+  private static EntityVerse CACHED_VERSE = null;
 
-  @NonNull private final SbDao dao;
+  @IntRange(from = 0)
+  private static int CACHED_DOY = 0;
+
+  @NonNull
+  private final SbDao dao;
 
   public HomeViewModel(@NonNull final Application application) {
     super(application);
@@ -38,6 +43,7 @@ public class HomeViewModel
     CACHED_VERSE = verse;
   }
 
+  @NonNull
   public LiveData<EntityVerse> getVerse(@IntRange(from = 1, to = Utils.MAX_BOOKS) final int book,
                                         @IntRange(from = 1) final int chapter,
                                         @IntRange(from = 1) final int verse) {
@@ -45,6 +51,15 @@ public class HomeViewModel
 
     return dao.getVerse(book, chapter, verse);
 
+  }
+
+  @IntRange(from = 0)
+  public int getCachedVerseDay() {
+    return CACHED_DOY;
+  }
+
+  public void setCachedVerseDay(@IntRange(from = 1) final int dayNo) {
+    CACHED_DOY = dayNo;
   }
 
 }

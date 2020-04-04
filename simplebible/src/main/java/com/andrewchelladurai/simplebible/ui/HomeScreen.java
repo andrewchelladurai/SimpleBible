@@ -68,13 +68,14 @@ public class HomeScreen
   private void updateContent() {
     Log.d(TAG, "updateContent:");
 
+    final int dayNo = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
     final EntityVerse cachedVerse = model.getCachedVerse();
-    if (cachedVerse != null) {
+    if (cachedVerse != null && dayNo == model.getCachedVerseDay()) {
+      Log.d(TAG, "updateContent: already cached verse for day[" + dayNo + "]");
       displayVerse(cachedVerse);
       return;
     }
 
-    final int dayNo = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
     final String[] array = requireContext().getResources()
                                            .getStringArray(R.array.daily_verse_references);
 
@@ -105,6 +106,7 @@ public class HomeScreen
       }
 
       model.setCachedVerse(verse);
+      model.setCachedVerseDay(dayNo);
       displayVerse(verse);
 
     });
