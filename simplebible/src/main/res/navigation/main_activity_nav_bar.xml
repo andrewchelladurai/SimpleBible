@@ -58,6 +58,14 @@
         <action
             android:id="@+id/nav_from_scr_chapter_to_scr_bookmark"
             app:destination="@id/screen_bookmark" />
+        <argument
+            android:name="ARG_BOOK"
+            android:defaultValue="1"
+            app:argType="integer" />
+        <argument
+            android:name="ARG_CHAPTER"
+            android:defaultValue="29"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/screen_search"

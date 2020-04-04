@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.EntityBook;
@@ -59,6 +60,13 @@ public class HomeScreen
     Log.d(TAG, "onCreateView:");
     rootView = inflater.inflate(R.layout.home_screen, container, false);
     ops.showNavigationView();
+
+    rootView.findViewById(R.id.scr_home_action_bookmark)
+            .setOnClickListener(v -> handleActionBookmark());
+    rootView.findViewById(R.id.scr_home_action_chapter)
+            .setOnClickListener(v -> handleActionChapter());
+    rootView.findViewById(R.id.scr_home_action_share)
+            .setOnClickListener(v -> handleActionShare());
 
     updateContent();
 
@@ -139,6 +147,33 @@ public class HomeScreen
                                                  HtmlCompat.FROM_HTML_MODE_COMPACT);
     final TextView textView = rootView.findViewById(R.id.scr_home_verse);
     textView.setText(htmlText);
+  }
+
+  private void handleActionBookmark() {
+    Log.d(TAG, "handleActionBookmark:");
+    throw new UnsupportedOperationException();
+  }
+
+  private void handleActionChapter() {
+    Log.d(TAG, "handleActionChapter:");
+    final EntityVerse verse = model.getCachedVerse();
+    if (verse == null) {
+      Log.e(TAG, "handleActionChapter: null cached verse");
+      return;
+    }
+
+    final Bundle bundle = new Bundle();
+    bundle.putInt(ChapterScreen.ARG_BOOK, 1);
+    bundle.putInt(ChapterScreen.ARG_CHAPTER, 29);
+    NavHostFragment.findNavController(this)
+                   .navigate(R.id.nav_from_scr_home_to_scr_chapter, bundle);
+
+  }
+
+  private void handleActionShare() {
+    Log.d(TAG, "handleActionShare:");
+    final CharSequence text = ((TextView) rootView.findViewById(R.id.scr_home_verse)).getText();
+    ops.shareText(text.toString());
   }
 
 }

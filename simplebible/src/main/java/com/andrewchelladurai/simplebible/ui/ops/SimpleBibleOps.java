@@ -1,5 +1,6 @@
 package com.andrewchelladurai.simplebible.ui.ops;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public interface SimpleBibleOps {
@@ -15,5 +16,7 @@ public interface SimpleBibleOps {
   void applyThemeSelectedInPreference();
 
   void restartApp();
+
+  void shareText(@NonNull String text);
 
 }

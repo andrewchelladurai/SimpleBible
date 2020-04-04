@@ -3,12 +3,14 @@ package com.andrewchelladurai.simplebible.ui;
 import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -140,6 +142,24 @@ public class SimpleBible
 
     notificationManager.createNotificationChannel(setupChannel);
     notificationManager.createNotificationChannel(reminderChannel);
+  }
+
+  @Override
+  public void shareText(@NonNull final String text) {
+    hideKeyboard();
+
+    if (text.isEmpty()) {
+      Log.e(TAG, "shareText: why do you want to share empty text?");
+      return;
+    }
+
+    final String appName = getString(R.string.application_name);
+    Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+    intent.setType("text/plain");
+    intent.putExtra(android.content.Intent.EXTRA_SUBJECT, appName);
+    intent.putExtra(android.content.Intent.EXTRA_TEXT, text);
+    startActivity(Intent.createChooser(intent, appName));
+
   }
 
 }
