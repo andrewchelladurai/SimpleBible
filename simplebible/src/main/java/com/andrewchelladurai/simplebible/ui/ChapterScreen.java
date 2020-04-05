@@ -175,13 +175,7 @@ public class ChapterScreen
   private void refreshData() {
     Log.d(TAG, "refreshData:");
     adapter.notifyDataSetChanged();
-    updateVerseSelectionActionsVisibility();
-  }
-
-  private void updateVerseSelectionActionsVisibility() {
-    final BottomAppBar bar = rootView.findViewById(R.id.scr_chapter_bottom_app_bar);
-    bar.getMenu().setGroupVisible(R.id.menu_scr_chapter_actions_selection,
-                                  model.getSelectedListSize() > 0);
+    updateSelectionActionsVisibility();
   }
 
   @Override
@@ -193,6 +187,28 @@ public class ChapterScreen
   @Nullable
   public EntityVerse getVerseAtPosition(@IntRange(from = 0) final int position) {
     return model.getVerseAtPosition(position);
+  }
+
+  @Override
+  public void updateSelectionActionsVisibility() {
+    final BottomAppBar bar = rootView.findViewById(R.id.scr_chapter_bottom_app_bar);
+    bar.getMenu().setGroupVisible(R.id.menu_scr_chapter_actions_selection,
+                                  model.getSelectedListSize() > 0);
+  }
+
+  @Override
+  public boolean isVerseSelected(@NonNull final EntityVerse verse) {
+    return model.isVerseSelected(verse);
+  }
+
+  @Override
+  public void removeSelectedVerse(@NonNull final EntityVerse verse) {
+    model.removeSelectedVerse(verse);
+  }
+
+  @Override
+  public void addSelectedVerse(@NonNull final EntityVerse verse) {
+    model.addSelectedVerse(verse);
   }
 
 }

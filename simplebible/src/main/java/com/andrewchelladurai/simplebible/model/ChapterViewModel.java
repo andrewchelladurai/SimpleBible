@@ -102,4 +102,17 @@ public class ChapterViewModel
     return CACHED_LIST.get(position);
   }
 
+  public boolean isVerseSelected(@NonNull final EntityVerse verse) {
+    final EntityVerse foundVerse = SELECTED_LIST.get(verse.getVerse());
+    return (foundVerse != null && foundVerse.equals(verse));
+  }
+
+  public void removeSelectedVerse(@NonNull final EntityVerse verse) {
+    SELECTED_LIST.remove(verse.getVerse());
+  }
+
+  public void addSelectedVerse(@NonNull final EntityVerse verse) {
+    SELECTED_LIST.put(verse.getVerse(), verse);
+  }
+
 }

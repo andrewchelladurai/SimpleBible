@@ -51,20 +51,36 @@ public class ChapterVerseAdapter
 
     private final TextView textView;
 
+    private final View selectedView;
+
     private EntityVerse verse;
 
     ChapterVerseView(final View view) {
       super(view);
       textView = view.findViewById(R.id.scr_chapter_list_item);
+      selectedView = view.findViewById(R.id.scr_chapter_list_item_selected);
+
+      textView.setOnClickListener(v -> {
+        if (ops.isVerseSelected(verse)) {
+          ops.removeSelectedVerse(verse);
+          selectedView.setVisibility(View.GONE);
+        } else {
+          ops.addSelectedVerse(verse);
+          selectedView.setVisibility(View.VISIBLE);
+        }
+        ops.updateSelectionActionsVisibility();
+      });
     }
 
     private void updateContent(final int position) {
       verse = ops.getVerseAtPosition(position + 1);
+
       if (verse == null) {
         Log.e(TAG, "updateContent: null verse at position[" + position + 1 + "]");
         return;
       }
 
+      selectedView.setVisibility(ops.isVerseSelected(verse) ? View.VISIBLE : View.GONE);
       textView.setText(String.format(template, verse.getVerse(), verse.getText()));
     }
 
