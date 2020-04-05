@@ -151,7 +151,16 @@ public class HomeScreen
 
   private void handleActionBookmark() {
     Log.d(TAG, "handleActionBookmark:");
-    throw new UnsupportedOperationException();
+    final EntityVerse verse = model.getCachedVerse();
+    if (verse == null) {
+      Log.e(TAG, "handleActionBookmark: null cached verse");
+      return;
+    }
+
+    final Bundle bundle = new Bundle();
+    bundle.putString(BookmarkScreen.ARG_REFERENCE, verse.getReference());
+    NavHostFragment.findNavController(this)
+                   .navigate(R.id.nav_from_scr_home_to_scr_bookmark, bundle);
   }
 
   private void handleActionChapter() {
