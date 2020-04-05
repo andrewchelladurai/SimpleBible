@@ -101,6 +101,7 @@ public class ChapterScreen
     ((RecyclerView) rootView.findViewById(R.id.scr_chapter_list)).setAdapter(adapter);
 
     final BottomAppBar bar = rootView.findViewById(R.id.scr_chapter_bottom_app_bar);
+    bar.setNavigationOnClickListener(v -> handleActionChapters());
     bar.setOnMenuItemClickListener(item -> {
       switch (item.getItemId()) {
         case R.id.menu_scr_chapter_action_clear:

@@ -49,6 +49,7 @@
         android:id="@+id/scr_chapter_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/small"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/scr_chapter_contain_bottom_app_bar"
         app:layout_constraintEnd_toEndOf="parent"
