@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
@@ -94,6 +95,11 @@ public class ChapterViewModel
 
   public int getSelectedListSize() {
     return SELECTED_LIST.size();
+  }
+
+  @Nullable
+  public EntityVerse getVerseAtPosition(@IntRange(from = 0) final int position) {
+    return CACHED_LIST.get(position);
   }
 
 }

@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.EntityVerse;
 import com.andrewchelladurai.simplebible.model.ChapterViewModel;
 import com.andrewchelladurai.simplebible.ui.adapter.ChapterVerseAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;
@@ -73,6 +74,7 @@ public class ChapterScreen
     rootView = inflater.inflate(R.layout.chapter_screen, container, false);
 
     if (savedState == null) {
+      Log.d(TAG, "onCreateView: new State");
       final int defaultBookNumber = getResources().getInteger(R.integer.default_book_number);
       final int defaultChapterNumber = getResources().getInteger(R.integer.default_chapter_number);
       final Bundle bundle = getArguments();
@@ -81,13 +83,17 @@ public class ChapterScreen
           && bundle.containsKey(ARG_CHAPTER)) {
         book = bundle.getInt(ARG_BOOK, defaultBookNumber);
         chapter = bundle.getInt(ARG_CHAPTER, defaultChapterNumber);
+        Log.d(TAG, "onCreateView: book[" + book + "], chapter[" + chapter + "]");
       } else {
         book = defaultBookNumber;
         chapter = defaultChapterNumber;
+        Log.d(TAG, "onCreateView: using default book[" + book + "], chapter[" + chapter + "]");
       }
     } else {
       book = model.getCachedBookNumber();
       chapter = model.getCachedChapterNumber();
+      Log.d(TAG, "onCreateView: already savedState, using cached book["
+                 + book + "], chapter[" + chapter + "]");
     }
 
     ((RecyclerView) rootView.findViewById(R.id.scr_chapter_list)).setAdapter(adapter);
@@ -118,7 +124,24 @@ public class ChapterScreen
     return rootView;
   }
 
+  private void handleActionChapters() {
+    Log.d(TAG, "handleActionChapters:");
+  }
+
+  private void handleActionClear() {
+    Log.d(TAG, "handleActionClear:");
+  }
+
+  private void handleActionBookmark() {
+    Log.d(TAG, "handleActionBookmark:");
+  }
+
+  private void handleActionShare() {
+    Log.d(TAG, "handleActionShare:");
+  }
+
   private void updateContent() {
+
     if (book == model.getCachedBookNumber()
         && chapter == model.getCachedChapterNumber()) {
       Log.e(TAG, "updateContent: already cached book[" + book + "], chapter[" + chapter + "]");
@@ -161,20 +184,15 @@ public class ChapterScreen
                                   model.getSelectedListSize() > 0);
   }
 
-  private void handleActionBookmark() {
-    Log.d(TAG, "handleActionBookmark:");
+  @Override
+  public int getCachedListSize() {
+    return model.getCachedListSize();
   }
 
-  private void handleActionShare() {
-    Log.d(TAG, "handleActionShare:");
-  }
-
-  private void handleActionChapters() {
-    Log.d(TAG, "handleActionChapters:");
-  }
-
-  private void handleActionClear() {
-    Log.d(TAG, "handleActionClear:");
+  @Override
+  @Nullable
+  public EntityVerse getVerseAtPosition(@IntRange(from = 0) final int position) {
+    return model.getVerseAtPosition(position);
   }
 
 }

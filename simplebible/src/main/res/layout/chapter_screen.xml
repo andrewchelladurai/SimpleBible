@@ -4,46 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ChapterScreen"
-    tools:ignore="BottomAppBar">
+    tools:context=".ui.ChapterScreen">
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/scr_chapter_bottom_app_bar"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/scr_chapter_contain_bottom_app_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:elevation="@dimen/none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_scr_chapter_actions">
+        app:layout_constraintStart_toStartOf="parent">
 
-        <HorizontalScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/scr_chapter_bottom_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:animateLayoutChanges="true"
+            app:elevation="@dimen/none"
+            app:hideOnScroll="false"
+            app:menu="@menu/menu_scr_chapter_actions">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/scr_chapter_title"
+            <HorizontalScrollView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="?colorPrimary"
-                android:clickable="false"
-                android:text="@string/application_name"
-                android:textColor="?colorOnPrimary" />
+                android:layout_height="wrap_content">
 
-        </HorizontalScrollView>
-    </com.google.android.material.bottomappbar.BottomAppBar>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/scr_chapter_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="?colorPrimary"
+                    android:clickable="false"
+                    android:text="@string/application_name"
+                    android:textColor="?colorOnPrimary" />
+
+            </HorizontalScrollView>
+        </com.google.android.material.bottomappbar.BottomAppBar>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/scr_chapter_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_gravity="top"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/scr_chapter_bottom_app_bar"
+        app:layout_constraintBottom_toTopOf="@id/scr_chapter_contain_bottom_app_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:spanCount="@integer/scr_chapter_list_columns" />
+        app:spanCount="@integer/scr_chapter_list_columns"
+        tools:listitem="@layout/chapter_screen_list_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
