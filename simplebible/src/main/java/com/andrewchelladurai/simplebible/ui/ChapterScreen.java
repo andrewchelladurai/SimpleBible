@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.EntityBook;
 import com.andrewchelladurai.simplebible.data.EntityVerse;
 import com.andrewchelladurai.simplebible.model.ChapterViewModel;
 import com.andrewchelladurai.simplebible.ui.adapter.ChapterVerseAdapter;
@@ -22,6 +23,7 @@ import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 import com.andrewchelladurai.simplebible.utils.Utils;
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.chip.Chip;
 
 public class ChapterScreen
     extends Fragment
@@ -101,9 +103,6 @@ public class ChapterScreen
     final BottomAppBar bar = rootView.findViewById(R.id.scr_chapter_bottom_app_bar);
     bar.setOnMenuItemClickListener(item -> {
       switch (item.getItemId()) {
-        case R.id.menu_scr_chapter_action_chapters:
-          handleActionChapters();
-          return true;
         case R.id.menu_scr_chapter_action_clear:
           handleActionClear();
           return true;
@@ -175,6 +174,16 @@ public class ChapterScreen
   private void refreshData() {
     Log.d(TAG, "refreshData:");
     adapter.notifyDataSetChanged();
+
+    final EntityBook book = Utils.getInstance().getCachedBook(model.getCachedBookNumber());
+    if (book != null) {
+      final Chip chip = rootView.findViewById(R.id.scr_chapter_title);
+      chip.setText(getString(R.string.scr_chapter_template_title,
+                             book.getName(),
+                             model.getCachedChapterNumber(),
+                             model.getCachedListSize()));
+    }
+
     updateSelectionActionsVisibility();
   }
 
@@ -194,6 +203,8 @@ public class ChapterScreen
     final BottomAppBar bar = rootView.findViewById(R.id.scr_chapter_bottom_app_bar);
     bar.getMenu().setGroupVisible(R.id.menu_scr_chapter_actions_selection,
                                   model.getSelectedListSize() > 0);
+    rootView.findViewById(R.id.scr_chapter_title)
+            .setVisibility(model.getSelectedListSize() > 0 ? View.GONE : View.VISIBLE);
   }
 
   @Override
