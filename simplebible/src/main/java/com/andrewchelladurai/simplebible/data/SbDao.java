@@ -51,4 +51,10 @@ public interface SbDao {
                                  @IntRange(from = 1) final int chapterNum,
                                  @IntRange(from = 1) final int verseNumb);
 
+  @Query("select * from sb_verses "
+         + "where book=:bookNum and chapter=:chapterNum order by verse asc")
+  LiveData<List<EntityVerse>> getChapter(
+      @IntRange(from = 1, to = Utils.MAX_BOOKS) final int bookNum,
+      @IntRange(from = 1) final int chapterNum);
+
 }
