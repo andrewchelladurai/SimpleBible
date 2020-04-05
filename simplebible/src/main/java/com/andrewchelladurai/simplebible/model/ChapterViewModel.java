@@ -14,6 +14,7 @@ import com.andrewchelladurai.simplebible.data.SbDao;
 import com.andrewchelladurai.simplebible.data.SbDatabase;
 import com.andrewchelladurai.simplebible.utils.Utils;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -113,6 +114,10 @@ public class ChapterViewModel
 
   public void addSelectedVerse(@NonNull final EntityVerse verse) {
     SELECTED_LIST.put(verse.getVerse(), verse);
+  }
+
+  public Collection<EntityVerse> getSelectedList() {
+    return SELECTED_LIST.values();
   }
 
 }

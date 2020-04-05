@@ -25,6 +25,8 @@ import com.andrewchelladurai.simplebible.utils.Utils;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.chip.Chip;
 
+import java.util.Collection;
+
 public class ChapterScreen
     extends Fragment
     implements ChapterScreenOps {
@@ -140,6 +142,26 @@ public class ChapterScreen
 
   private void handleActionShare() {
     Log.d(TAG, "handleActionShare:");
+    final EntityBook book = Utils.getInstance().getCachedBook(model.getCachedBookNumber());
+    final Collection<EntityVerse> list = model.getSelectedList();
+    if (book == null || list == null || list.isEmpty()) {
+      Log.e(TAG, "handleActionShare: "
+                 + "book / selectedVerseList = null || selectedVerseList is empty");
+      return;
+    }
+
+    final StringBuilder verseText = new StringBuilder();
+    final String verseTextTemplate = getString(R.string.scr_chapter_template_verse);
+    for (final EntityVerse verse : list) {
+      verseText.append("\n")
+               .append(String.format(verseTextTemplate, verse.getVerse(), verse.getText()));
+    }
+
+    ops.shareText(getString(R.string.scr_chapter_template_share,
+                            list.size(),
+                            book.getName(),
+                            model.getCachedChapterNumber(),
+                            verseText));
   }
 
   private void updateContent() {
