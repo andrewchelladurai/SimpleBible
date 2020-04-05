@@ -67,15 +67,17 @@ public class ChapterScreen
     rootView = inflater.inflate(R.layout.chapter_screen, container, false);
 
     if (savedState == null) {
+      final int defaultBookNumber = getResources().getInteger(R.integer.default_book_number);
+      final int defaultChapterNumber = getResources().getInteger(R.integer.default_chapter_number);
       final Bundle bundle = getArguments();
       if (bundle != null
           && bundle.containsKey(ARG_BOOK)
           && bundle.containsKey(ARG_CHAPTER)) {
-        book = bundle.getInt(ARG_BOOK, 1);
-        chapter = bundle.getInt(ARG_CHAPTER, 29);
+        book = bundle.getInt(ARG_BOOK, defaultBookNumber);
+        chapter = bundle.getInt(ARG_CHAPTER, defaultChapterNumber);
       } else {
-        book = 1;
-        chapter = 29;
+        book = defaultBookNumber;
+        chapter = defaultChapterNumber;
       }
     } else {
       book = model.getCurrentBook();
@@ -85,6 +87,9 @@ public class ChapterScreen
     final BottomAppBar bar = rootView.findViewById(R.id.scr_chapter_bottom_app_bar);
     bar.setOnMenuItemClickListener(item -> {
       switch (item.getItemId()) {
+        case R.id.menu_scr_chapter_action_chapters:
+          handleActionChapters();
+          return true;
         case R.id.menu_scr_chapter_action_clear:
           handleActionClear();
           return true;
@@ -105,6 +110,10 @@ public class ChapterScreen
     return rootView;
   }
 
+  private void handleActionChapters() {
+    Log.d(TAG, "handleActionChapters:");
+  }
+
   private void handleActionClear() {
     Log.d(TAG, "handleActionClear:");
   }
@@ -119,11 +128,24 @@ public class ChapterScreen
       return;
     }
 
+    Log.d(TAG, "updateContent: book[" + book + "], chapter[" + chapter + "]");
+
     model.setCurrentBook(book);
     model.setCurrentChapter(chapter);
 
     refreshData();
 
+  }
+
+  private void refreshData() {
+    Log.d(TAG, "refreshData:");
+    showVerseSelectionActions(true);
+  }
+
+  private void showVerseSelectionActions(final boolean visibility) {
+    Log.d(TAG, "showVerseSelectionActions: [" + visibility + "]");
+    final BottomAppBar bar = rootView.findViewById(R.id.scr_chapter_bottom_app_bar);
+    bar.getMenu().setGroupVisible(R.id.menu_scr_chapter_actions_selection, visibility);
   }
 
   private void handleActionBookmark() {
@@ -132,17 +154,6 @@ public class ChapterScreen
 
   private void handleActionShare() {
     Log.d(TAG, "handleActionShare:");
-  }
-
-  private void refreshData() {
-    Log.d(TAG, "refreshData:");
-    setActionsVisibility(true);
-  }
-
-  private void setActionsVisibility(final boolean isVisible) {
-    Log.d(TAG, "setActionsVisibility: isVisible[" + isVisible + "]");
-    final BottomAppBar bar = rootView.findViewById(R.id.scr_chapter_bottom_app_bar);
-    bar.getMenu().setGroupVisible(R.id.menu_scr_chapter_actions, isVisible);
   }
 
 }

@@ -6,6 +6,7 @@
     <string name="bookmark">Bookmark</string>
     <string name="share">Share</string>
     <string name="clear">Clear</string>
+    <string name="chapters">Chapters</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
 
@@ -79,9 +80,10 @@
     </string>
 
     <!--  ChapterScreen  -->
-    <string name="menu_scr_chapter_action_bookmark">@string/bookmark</string>
-    <string name="menu_scr_chapter_action_share">@string/share</string>
-    <string name="menu_scr_chapter_action_clear">@string/clear</string>
+    <string name="scr_chapter_menu_action_bookmark">@string/bookmark</string>
+    <string name="scr_chapter_menu_action_share">@string/share</string>
+    <string name="scr_chapter_menu_action_clear">@string/clear</string>
+    <string name="scr_chapter_menu_action_chapters">@string/chapters</string>
 
     <!-- SettingsScreen -->
     <string name="pref_category_title_actions">Settings for Simple Bible</string>

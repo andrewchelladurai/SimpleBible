@@ -7,48 +7,43 @@
     tools:context=".ui.ChapterScreen"
     tools:ignore="BottomAppBar">
 
-    <TextView
-        android:id="@+id/scr_chapter_title"
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/scr_chapter_bottom_app_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/scr_chapter_contain_bottom_app_bar"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        app:elevation="@dimen/none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scr_chapter_title">
+        app:menu="@menu/menu_scr_chapter_actions">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/scr_chapter_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top" />
-
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/scr_chapter_bottom_app_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            app:elevation="@dimen/none"
-            app:fabAlignmentMode="end"
-            app:fabAnimationMode="slide"
-            app:hideOnScroll="true"
-            app:menu="@menu/menu_scr_chapter_actions" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/scr_chapter_bottom_app_bar_fab"
+        <HorizontalScrollView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_list"
-            app:elevation="@dimen/none"
-            app:layout_anchor="@id/scr_chapter_bottom_app_bar" />
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/scr_chapter_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="?colorPrimary"
+                android:clickable="false"
+                android:text="@string/application_name"
+                android:textColor="?colorOnPrimary" />
+
+        </HorizontalScrollView>
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/scr_chapter_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/scr_chapter_bottom_app_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:spanCount="@integer/scr_chapter_list_columns" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

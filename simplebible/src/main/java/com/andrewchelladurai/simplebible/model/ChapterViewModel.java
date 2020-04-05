@@ -7,12 +7,17 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
+import com.andrewchelladurai.simplebible.data.SbDao;
+import com.andrewchelladurai.simplebible.data.SbDatabase;
 import com.andrewchelladurai.simplebible.utils.Utils;
 
 public class ChapterViewModel
     extends AndroidViewModel {
 
   private static final String TAG = "ChapterViewModel";
+
+  @NonNull
+  private final SbDao dao;
 
   @IntRange(from = 1, to = Utils.MAX_BOOKS)
   private static int CACHED_BOOK = 1;
@@ -23,6 +28,7 @@ public class ChapterViewModel
   public ChapterViewModel(@NonNull final Application application) {
     super(application);
     Log.d(TAG, "ChapterViewModel:");
+    dao = SbDatabase.getDatabase(getApplication()).getDao();
   }
 
   @IntRange(from = 1, to = Utils.MAX_BOOKS)
