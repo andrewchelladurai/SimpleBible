@@ -130,6 +130,8 @@ public class ChapterScreen
 
   private void handleActionClear() {
     Log.d(TAG, "handleActionClear:");
+    model.clearSelection();
+    refreshData();
   }
 
   private void handleActionBookmark() {
