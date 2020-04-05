@@ -156,15 +156,20 @@ public class HomeScreen
 
   private void handleActionChapter() {
     Log.d(TAG, "handleActionChapter:");
+    final Bundle bundle = new Bundle();
     final EntityVerse verse = model.getCachedVerse();
+
     if (verse == null) {
-      Log.e(TAG, "handleActionChapter: null cached verse");
-      return;
+      Log.e(TAG, "handleActionChapter: null cached verse, will show default chapter");
+      bundle.putInt(ChapterScreen.ARG_BOOK,
+                    getResources().getInteger(R.integer.default_book_number));
+      bundle.putInt(ChapterScreen.ARG_CHAPTER,
+                    getResources().getInteger(R.integer.default_chapter_number));
+    } else {
+      bundle.putInt(ChapterScreen.ARG_BOOK, verse.getBook());
+      bundle.putInt(ChapterScreen.ARG_CHAPTER, verse.getChapter());
     }
 
-    final Bundle bundle = new Bundle();
-    bundle.putInt(ChapterScreen.ARG_BOOK, 1);
-    bundle.putInt(ChapterScreen.ARG_CHAPTER, 29);
     NavHostFragment.findNavController(this)
                    .navigate(R.id.nav_from_scr_home_to_scr_chapter, bundle);
 
