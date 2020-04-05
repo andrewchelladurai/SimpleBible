@@ -7,7 +7,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.andrewchelladurai.simplebible.data.EntityBook;
+import com.andrewchelladurai.simplebible.data.EntityVerse;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -21,9 +23,9 @@ public class Utils {
 
   private static final Utils THIS_INSTANCE = new Utils();
 
-  private static final String SEPARATOR_VERSE_REFERENCE = ":";
+  public static final String SEPARATOR_VERSE_REFERENCE = ":";
 
-  private static final String SEPARATOR_BOOKMARK_REFERENCE = "~";
+  public static final String SEPARATOR_BOOKMARK_REFERENCE = "~";
 
   @NonNull
   private static TreeMap<Integer, EntityBook> CACHE_BOOKS_MAP = new TreeMap<>();
@@ -127,6 +129,26 @@ public class Utils {
   @Nullable
   public EntityBook getCachedBook(@IntRange(from = 1, to = MAX_BOOKS) final int bookNumber) {
     return CACHE_BOOKS_MAP.get(bookNumber);
+  }
+
+  @Nullable
+  public String createBookmarkReference(@NonNull final Collection<EntityVerse> list) {
+    if (list.isEmpty()) {
+      Log.d(TAG, "handleActionBookmark: list is null or empty");
+      return null;
+    }
+
+    final StringBuilder reference = new StringBuilder();
+    for (final EntityVerse verse : list) {
+      reference.append(verse.getReference())
+               .append(SEPARATOR_BOOKMARK_REFERENCE);
+    }
+
+    // remove the last appended SEPARATOR_BOOKMARK_REFERENCE
+    final int refLength = reference.length();
+    reference.delete(refLength - SEPARATOR_BOOKMARK_REFERENCE.length(), refLength);
+
+    return reference.toString();
   }
 
 }

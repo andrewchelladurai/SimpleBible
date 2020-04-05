@@ -23,6 +23,8 @@ public class BookmarkScreen
 
   private static final String TAG = "BookmarkScreen";
 
+  public static final String ARG_REFERENCE = "ARG_REFERENCE";
+
   private BookmarkViewModel model;
 
   private SimpleBibleOps ops;

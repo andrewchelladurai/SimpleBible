@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
@@ -138,6 +139,17 @@ public class ChapterScreen
 
   private void handleActionBookmark() {
     Log.d(TAG, "handleActionBookmark:");
+    final Collection<EntityVerse> list = model.getSelectedList();
+    if (list == null || list.isEmpty()) {
+      Log.d(TAG, "handleActionBookmark: list is null or empty");
+      return;
+    }
+
+    final String reference = Utils.getInstance().createBookmarkReference(list);
+    final Bundle bundle = new Bundle();
+    bundle.putString(BookmarkScreen.ARG_REFERENCE, reference);
+    NavHostFragment.findNavController(this)
+                   .navigate(R.id.nav_from_scr_chapter_to_scr_bookmark, bundle);
   }
 
   private void handleActionShare() {
