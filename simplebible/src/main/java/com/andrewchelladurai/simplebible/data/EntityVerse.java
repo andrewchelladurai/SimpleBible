@@ -104,4 +104,13 @@ public class EntityVerse
     return thisPosition - thatPosition;
   }
 
+  @NonNull
+  public String getReference() {
+    return book
+           + Utils.SEPARATOR_VERSE_REFERENCE
+           + chapter
+           + Utils.SEPARATOR_VERSE_REFERENCE
+           + verse;
+  }
+
 }
