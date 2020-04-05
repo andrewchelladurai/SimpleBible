@@ -86,8 +86,8 @@ public class ChapterScreen
         chapter = defaultChapterNumber;
       }
     } else {
-      book = model.getCurrentBook();
-      chapter = model.getCurrentChapter();
+      book = model.getCachedBookNumber();
+      chapter = model.getCachedChapterNumber();
     }
 
     ((RecyclerView) rootView.findViewById(R.id.scr_chapter_list)).setAdapter(adapter);
@@ -119,8 +119,8 @@ public class ChapterScreen
   }
 
   private void updateContent() {
-    if (book == model.getCurrentBook()
-        && chapter == model.getCurrentChapter()) {
+    if (book == model.getCachedBookNumber()
+        && chapter == model.getCachedChapterNumber()) {
       Log.e(TAG, "updateContent: already cached book[" + book + "], chapter[" + chapter + "]");
       refreshData();
       return;
@@ -128,22 +128,37 @@ public class ChapterScreen
 
     Log.d(TAG, "updateContent: book[" + book + "], chapter[" + chapter + "]");
 
-    model.setCurrentBook(book);
-    model.setCurrentChapter(chapter);
+    model.getChapterVerses(book, chapter).observe(getViewLifecycleOwner(), verseList -> {
 
-    refreshData();
+      if (verseList == null || verseList.isEmpty()) {
+        final String msg = getString(R.string.scr_chapter_err_empty_chapter, book, chapter);
+        Log.e(TAG, "updateContent: " + msg);
+        ops.showErrorScreen(msg, true, true);
+        return;
+      }
+
+      model.clearCache();
+      model.clearSelection();
+      model.setCachedBookNumber(book);
+      model.setCachedChapterNumber(chapter);
+      model.setCacheList(verseList);
+
+      refreshData();
+
+    });
 
   }
 
   private void refreshData() {
     Log.d(TAG, "refreshData:");
-    showVerseSelectionActions(true);
+    adapter.notifyDataSetChanged();
+    updateVerseSelectionActionsVisibility();
   }
 
-  private void showVerseSelectionActions(final boolean visibility) {
-    Log.d(TAG, "showVerseSelectionActions: [" + visibility + "]");
+  private void updateVerseSelectionActionsVisibility() {
     final BottomAppBar bar = rootView.findViewById(R.id.scr_chapter_bottom_app_bar);
-    bar.getMenu().setGroupVisible(R.id.menu_scr_chapter_actions_selection, visibility);
+    bar.getMenu().setGroupVisible(R.id.menu_scr_chapter_actions_selection,
+                                  model.getSelectedListSize() > 0);
   }
 
   private void handleActionBookmark() {
