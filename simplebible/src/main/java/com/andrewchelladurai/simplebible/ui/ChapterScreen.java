@@ -12,9 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.model.ChapterViewModel;
+import com.andrewchelladurai.simplebible.ui.adapter.ChapterVerseAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 import com.andrewchelladurai.simplebible.utils.Utils;
@@ -31,6 +33,8 @@ public class ChapterScreen
   public static final String ARG_CHAPTER = "ARG_CHAPTER";
 
   private ChapterViewModel model;
+
+  private ChapterVerseAdapter adapter;
 
   private SimpleBibleOps ops;
 
@@ -56,6 +60,8 @@ public class ChapterScreen
     model = ViewModelProvider.AndroidViewModelFactory
                 .getInstance(requireActivity().getApplication())
                 .create(ChapterViewModel.class);
+
+    adapter = new ChapterVerseAdapter(this, getString(R.string.scr_chapter_template_verse));
   }
 
   @Override
@@ -84,6 +90,8 @@ public class ChapterScreen
       chapter = model.getCurrentChapter();
     }
 
+    ((RecyclerView) rootView.findViewById(R.id.scr_chapter_list)).setAdapter(adapter);
+
     final BottomAppBar bar = rootView.findViewById(R.id.scr_chapter_bottom_app_bar);
     bar.setOnMenuItemClickListener(item -> {
       switch (item.getItemId()) {
@@ -110,17 +118,7 @@ public class ChapterScreen
     return rootView;
   }
 
-  private void handleActionChapters() {
-    Log.d(TAG, "handleActionChapters:");
-  }
-
-  private void handleActionClear() {
-    Log.d(TAG, "handleActionClear:");
-  }
-
   private void updateContent() {
-    Log.d(TAG, "updateContent:");
-
     if (book == model.getCurrentBook()
         && chapter == model.getCurrentChapter()) {
       Log.e(TAG, "updateContent: already cached book[" + book + "], chapter[" + chapter + "]");
@@ -154,6 +152,14 @@ public class ChapterScreen
 
   private void handleActionShare() {
     Log.d(TAG, "handleActionShare:");
+  }
+
+  private void handleActionChapters() {
+    Log.d(TAG, "handleActionChapters:");
+  }
+
+  private void handleActionClear() {
+    Log.d(TAG, "handleActionClear:");
   }
 
 }

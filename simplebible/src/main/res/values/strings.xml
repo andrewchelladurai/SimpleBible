@@ -84,6 +84,8 @@
     <string name="scr_chapter_menu_action_share">@string/share</string>
     <string name="scr_chapter_menu_action_clear">@string/clear</string>
     <string name="scr_chapter_menu_action_chapters">@string/chapters</string>
+    <string name="scr_chapter_template_title">%s Chapter %d</string>
+    <string name="scr_chapter_template_verse">%d : %s</string>
 
     <!-- SettingsScreen -->
     <string name="pref_category_title_actions">Settings for Simple Bible</string>
