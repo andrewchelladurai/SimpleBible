@@ -21,4 +21,6 @@ public interface ChapterScreenOps {
 
   void updateSelectionActionsVisibility();
 
+  void handleNewChapterSelection(@IntRange(from = 1) int newChapter);
+
 }

@@ -92,6 +92,7 @@
         %s
     </string>
     <string name="scr_chapter_err_empty_chapter">No verses found for Book[%d] and Chapter[%d]</string>
+    <string name="scr_chapter_chapter_title">Swipe to select a chapter</string>
 
     <!-- SettingsScreen -->
     <string name="pref_category_title_actions">Settings for Simple Bible</string>

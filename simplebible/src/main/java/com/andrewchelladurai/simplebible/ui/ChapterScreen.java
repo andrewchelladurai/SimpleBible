@@ -24,8 +24,10 @@ import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 import com.andrewchelladurai.simplebible.utils.Utils;
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.chip.Chip;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class ChapterScreen
@@ -40,7 +42,11 @@ public class ChapterScreen
 
   private ChapterViewModel model;
 
-  private ChapterVerseAdapter adapter;
+  private ChapterVerseAdapter verseListAdapter;
+
+  private ChapterNumberAdapter chapterListAdapter;
+
+  private ChapterDialog chapterDialog;
 
   private SimpleBibleOps ops;
 
@@ -67,7 +73,10 @@ public class ChapterScreen
                 .getInstance(requireActivity().getApplication())
                 .create(ChapterViewModel.class);
 
-    adapter = new ChapterVerseAdapter(this, getString(R.string.scr_chapter_template_verse));
+    verseListAdapter = new ChapterVerseAdapter(this,
+                                               getString(R.string.scr_chapter_template_verse));
+    chapterListAdapter = new ChapterNumberAdapter(this);
+    chapterDialog = new ChapterDialog(chapterListAdapter);
   }
 
   @Override
@@ -101,7 +110,7 @@ public class ChapterScreen
                  + book + "], chapter[" + chapter + "]");
     }
 
-    ((RecyclerView) rootView.findViewById(R.id.scr_chapter_list)).setAdapter(adapter);
+    ((RecyclerView) rootView.findViewById(R.id.scr_chapter_list)).setAdapter(verseListAdapter);
 
     final BottomAppBar bar = rootView.findViewById(R.id.scr_chapter_bottom_app_bar);
     bar.setNavigationOnClickListener(v -> handleActionChapters());
@@ -129,6 +138,13 @@ public class ChapterScreen
 
   private void handleActionChapters() {
     Log.d(TAG, "handleActionChapters:");
+    final EntityBook book = Utils.getInstance().getCachedBook(model.getCachedBookNumber());
+    if (book == null) {
+      Log.e(TAG, "handleActionChapters: null book, returning");
+      return;
+    }
+
+    chapterDialog.show(getParentFragmentManager(), ChapterDialog.TAG);
   }
 
   private void handleActionClear() {
@@ -181,7 +197,7 @@ public class ChapterScreen
     if (book == model.getCachedBookNumber()
         && chapter == model.getCachedChapterNumber()) {
       Log.e(TAG, "updateContent: already cached book[" + book + "], chapter[" + chapter + "]");
-      refreshData();
+      //      refreshData();
       return;
     }
 
@@ -210,18 +226,21 @@ public class ChapterScreen
 
   private void refreshData() {
     Log.d(TAG, "refreshData:");
-    adapter.notifyDataSetChanged();
+    verseListAdapter.notifyDataSetChanged();
+    updateSelectionActionsVisibility();
 
     final EntityBook book = Utils.getInstance().getCachedBook(model.getCachedBookNumber());
-    if (book != null) {
-      final Chip chip = rootView.findViewById(R.id.scr_chapter_title);
-      chip.setText(getString(R.string.scr_chapter_template_title,
-                             book.getName(),
-                             model.getCachedChapterNumber(),
-                             model.getCachedListSize()));
+    if (book == null) {
+      Log.e(TAG, "refreshData: Null book, returning");
+      return;
     }
 
-    updateSelectionActionsVisibility();
+    final Chip chip = rootView.findViewById(R.id.scr_chapter_title);
+    chip.setText(getString(R.string.scr_chapter_template_title,
+                           book.getName(),
+                           model.getCachedChapterNumber(),
+                           model.getCachedListSize()));
+    chapterListAdapter.updateContent(book.getChapters());
   }
 
   @Override
@@ -245,6 +264,19 @@ public class ChapterScreen
   }
 
   @Override
+  public void handleNewChapterSelection(@IntRange(from = 1) final int newChapter) {
+    chapterDialog.dismiss();
+
+    if (newChapter == model.getCachedChapterNumber()) {
+      Log.d(TAG, "handleNewChapterSelection: not a different chapter");
+      return;
+    }
+    chapter = newChapter;
+    updateContent();
+    ((RecyclerView) rootView.findViewById(R.id.scr_chapter_list)).scrollToPosition(0);
+  }
+
+  @Override
   public boolean isVerseSelected(@NonNull final EntityVerse verse) {
     return model.isVerseSelected(verse);
   }
@@ -257,6 +289,95 @@ public class ChapterScreen
   @Override
   public void addSelectedVerse(@NonNull final EntityVerse verse) {
     model.addSelectedVerse(verse);
+  }
+
+  public static class ChapterDialog
+      extends BottomSheetDialogFragment {
+
+    private static final String TAG = "ChapterDialog";
+
+    private final ChapterNumberAdapter adapter;
+
+    ChapterDialog(final ChapterNumberAdapter adapter) {
+      this.adapter = adapter;
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull final LayoutInflater inflater,
+                             @Nullable final ViewGroup container,
+                             @Nullable final Bundle savedInstanceState) {
+      final View view = inflater.inflate(R.layout.chapter_screen_list_chapter, container, false);
+      ((RecyclerView) view.findViewById(R.id.scr_chapter_chapter_list)).setAdapter(adapter);
+      return view;
+    }
+
+  }
+
+  private static class ChapterNumberAdapter
+      extends RecyclerView.Adapter {
+
+    private static final String TAG = "ChapterNumberAdapter";
+
+    private static final ArrayList<Integer> CHAPTER_NUMBER_SET = new ArrayList<>();
+
+    @NonNull
+    private final ChapterScreenOps ops;
+
+    ChapterNumberAdapter(@NonNull final ChapterScreenOps ops) {
+      this.ops = ops;
+    }
+
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent,
+                                                      final int viewType) {
+      return new ChapterNumberView(
+          LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.chapter_screen_chapter_item, parent, false));
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder,
+                                 final int position) {
+      ((ChapterNumberView) holder).updateItem(position);
+    }
+
+    private void updateContent(@IntRange(from = 1) final int chapters) {
+      if (CHAPTER_NUMBER_SET.size() == chapters) {
+        Log.d(TAG, "updateContent: same number of chapters, no need to refresh");
+        return;
+      }
+      CHAPTER_NUMBER_SET.clear();
+      for (int i = 0; i < chapters; i++) {
+        CHAPTER_NUMBER_SET.add(i + 1);
+      }
+      Log.d(TAG, "updateContent: updated chapters numbers to [" + getItemCount() + "]");
+    }
+
+    @Override
+    public int getItemCount() {
+      return CHAPTER_NUMBER_SET.size();
+    }
+
+    private class ChapterNumberView
+        extends RecyclerView.ViewHolder {
+
+      private final Chip chapterNumberView;
+
+      ChapterNumberView(final View view) {
+        super(view);
+        chapterNumberView = view.findViewById(R.id.chapter_screen_chapter_item);
+      }
+
+      private void updateItem(final int position) {
+        final int chapterNumber = CHAPTER_NUMBER_SET.get(position);
+        chapterNumberView.setText(String.valueOf(chapterNumber));
+        chapterNumberView.setOnClickListener(v -> ops.handleNewChapterSelection(chapterNumber));
+      }
+
+    }
+
   }
 
 }
