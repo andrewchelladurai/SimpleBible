@@ -108,6 +108,7 @@ public class ChapterScreen
       chapter = model.getCachedChapterNumber();
       Log.d(TAG, "onCreateView: already savedState, using cached book["
                  + book + "], chapter[" + chapter + "]");
+      refreshData();
     }
 
     ((RecyclerView) rootView.findViewById(R.id.scr_chapter_list)).setAdapter(verseListAdapter);
