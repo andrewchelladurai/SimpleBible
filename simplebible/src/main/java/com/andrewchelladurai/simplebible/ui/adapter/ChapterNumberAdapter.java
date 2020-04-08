@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.ui.ops.ChapterNumberDialogOps;
 import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;
 import com.google.android.material.chip.Chip;
 
@@ -22,36 +21,13 @@ public class ChapterNumberAdapter
   private static final String TAG = "ChapterNumberAdapter";
 
   @NonNull
-  private static final ArrayList<Integer> CHAPTER_NUMBER_LIST = new ArrayList<>();
+  private static final ArrayList<Integer> LIST = new ArrayList<>();
 
   @NonNull
-  private final ChapterScreenOps screenOps;
+  private final ChapterScreenOps ops;
 
-  @NonNull
-  private final ChapterNumberDialogOps dialogOps;
-
-  public ChapterNumberAdapter(@NonNull final ChapterScreenOps ops,
-                              @IntRange(from = 1) final int chapters,
-                              @NonNull final ChapterNumberDialogOps dialogOps) {
-    this.screenOps = ops;
-    this.dialogOps = dialogOps;
-
-    if (CHAPTER_NUMBER_LIST.size() == chapters) {
-      Log.d(TAG, "ChapterNumberAdapter: same number of chapters, no need to refresh");
-      return;
-    }
-
-    CHAPTER_NUMBER_LIST.clear();
-    for (int i = 0; i < chapters; i++) {
-      CHAPTER_NUMBER_LIST.add(i + 1);
-    }
-
-    Log.d(TAG, "ChapterNumberAdapter: list now has [" + getItemCount() + "] chapters");
-  }
-
-  @Override
-  public int getItemCount() {
-    return CHAPTER_NUMBER_LIST.size();
+  public ChapterNumberAdapter(@NonNull final ChapterScreenOps ops) {
+    this.ops = ops;
   }
 
   @NonNull
@@ -59,33 +35,50 @@ public class ChapterNumberAdapter
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent,
                                                     final int viewType) {
     return new ChapterNumberView(
-        LayoutInflater.from(parent.getContext())
-                      .inflate(R.layout.chapter_screen_chapter_item, parent, false));
+        LayoutInflater.from(parent.getContext()).inflate(R.layout.chapter_screen_chapter_item,
+                                                         parent, false));
   }
 
   @Override
-  public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder,
-                               final int position) {
-    ((ChapterNumberView) holder).updateItem(position);
+  public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
+    ((ChapterNumberView) holder).updateView(LIST.get(position));
+  }
+
+  public void updateList(@IntRange(from = 1) final int chapterCount) {
+    if (LIST.size() != chapterCount) {
+      LIST.clear();
+      for (int i = 0; i < chapterCount; i++) {
+        LIST.add((i + 1));
+      }
+      Log.d(TAG, "updateList: updated [" + getItemCount() + "] records");
+    } else {
+      Log.d(TAG, "updateList: retained [" + getItemCount() + "] records");
+    }
+  }
+
+  @Override
+  public int getItemCount() {
+    return LIST.size();
   }
 
   private class ChapterNumberView
       extends RecyclerView.ViewHolder {
 
-    private final Chip chapterNumberView;
+    private final Chip textView;
+
+    private int chapterNumber;
 
     ChapterNumberView(final View view) {
       super(view);
-      chapterNumberView = view.findViewById(R.id.chapter_screen_chapter_item);
+      textView = view.findViewById(R.id.chapter_screen_chapter_item);
+      textView.setOnClickListener(v -> {
+        ops.handleNewChapterSelection(chapterNumber);
+      });
     }
 
-    private void updateItem(final int position) {
-      final int chapterNumber = CHAPTER_NUMBER_LIST.get(position);
-      chapterNumberView.setText(String.valueOf(chapterNumber));
-      chapterNumberView.setOnClickListener(v -> {
-        dialogOps.dismissSelectionView();
-        screenOps.handleNewChapterSelection(chapterNumber);
-      });
+    private void updateView(final Integer chapterNumber) {
+      this.chapterNumber = chapterNumber;
+      textView.setText(String.valueOf(chapterNumber));
     }
 
   }

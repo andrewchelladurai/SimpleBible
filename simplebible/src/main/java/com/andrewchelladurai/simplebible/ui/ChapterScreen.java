@@ -19,6 +19,7 @@ import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.EntityBook;
 import com.andrewchelladurai.simplebible.data.EntityVerse;
 import com.andrewchelladurai.simplebible.model.ChapterViewModel;
+import com.andrewchelladurai.simplebible.ui.adapter.ChapterNumberAdapter;
 import com.andrewchelladurai.simplebible.ui.adapter.ChapterVerseAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
@@ -41,6 +42,8 @@ public class ChapterScreen
   private ChapterViewModel model;
 
   private ChapterVerseAdapter verseListAdapter;
+
+  private ChapterNumberAdapter chapterAdapter;
 
   private SimpleBibleOps ops;
 
@@ -69,6 +72,7 @@ public class ChapterScreen
 
     verseListAdapter = new ChapterVerseAdapter(this,
                                                getString(R.string.scr_chapter_template_verse));
+    chapterAdapter = new ChapterNumberAdapter(this);
   }
 
   @Override
@@ -125,6 +129,14 @@ public class ChapterScreen
       book = model.getCachedBookNumber();
       chapter = model.getCachedChapterNumber();
       Log.d(TAG, "onCreateView: savedState: cached book[" + book + "], chapter[" + chapter + "]");
+
+      // if we have an open dialog, close it
+      ChapterNumberDialog dialog =
+          (ChapterNumberDialog) getParentFragmentManager().findFragmentByTag(TAG);
+      if (dialog != null) {
+        dialog.dismiss();
+      }
+
       refreshData();
 
     }
@@ -140,9 +152,10 @@ public class ChapterScreen
       return;
     }
 
-    final ChapterNumberDialog dialog = new ChapterNumberDialog();
-    dialog.updateDialog(this, book.getChapters());
+    ChapterNumberDialog dialog = new ChapterNumberDialog();
+    dialog.updateAdapter(chapterAdapter);
     dialog.show(getParentFragmentManager(), TAG);
+
   }
 
   private void handleActionClear() {
@@ -223,6 +236,7 @@ public class ChapterScreen
 
   private void refreshData() {
     Log.d(TAG, "refreshData:");
+
     verseListAdapter.notifyDataSetChanged();
     updateSelectionActionsVisibility();
 
@@ -232,11 +246,16 @@ public class ChapterScreen
       return;
     }
 
+    if (chapterAdapter != null) {
+      chapterAdapter.updateList(book.getChapters());
+    }
+
     final Chip chip = rootView.findViewById(R.id.scr_chapter_title);
     chip.setText(getString(R.string.scr_chapter_template_title,
                            book.getName(),
                            model.getCachedChapterNumber(),
                            model.getCachedListSize()));
+    ((RecyclerView) rootView.findViewById(R.id.scr_chapter_list)).scrollToPosition(0);
   }
 
   @Override
@@ -265,9 +284,15 @@ public class ChapterScreen
       Log.d(TAG, "handleNewChapterSelection: not a different chapter");
       return;
     }
+
+    ChapterNumberDialog dialog =
+        (ChapterNumberDialog) getParentFragmentManager().findFragmentByTag(TAG);
+    if (dialog != null) {
+      dialog.dismiss();
+    }
+
     chapter = newChapter;
     updateContent();
-    ((RecyclerView) rootView.findViewById(R.id.scr_chapter_list)).scrollToPosition(0);
   }
 
   @Override
