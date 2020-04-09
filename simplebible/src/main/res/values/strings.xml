@@ -145,4 +145,15 @@
 
     <!-- Book List Screen -->
     <string name="scr_book_list_search_hint">Search book name</string>
+    <string name="scr_book_list_err_invalid_list">Found %d books in the database instead of % which is the expected count</string>
+    <string name="scr_book_list_null_book_name">Empty Book</string>
+    <string name="scr_book_list_null_book_description" />
+    <plurals name="book_list_item_details_template">
+        <item quantity="one"><![CDATA[
+        has %d verses in only <b>%d Chapter</b>and is known as <b>"%s"</b>
+        ]]></item>
+        <item quantity="other"><![CDATA[
+        has %d verses spread across <b>%d Chapters</b> & is called <b>"%s"</b>
+        ]]></item>
+    </plurals>
 </resources>

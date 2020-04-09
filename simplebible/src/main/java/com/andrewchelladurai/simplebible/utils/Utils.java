@@ -11,6 +11,7 @@ import com.andrewchelladurai.simplebible.data.EntityVerse;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class Utils {
@@ -149,6 +150,11 @@ public class Utils {
     reference.delete(refLength - SEPARATOR_BOOKMARK_REFERENCE.length(), refLength);
 
     return reference.toString();
+  }
+
+  @NonNull
+  public Set<Integer> getCachedBookList() {
+    return CACHE_BOOKS_MAP.keySet();
   }
 
 }
