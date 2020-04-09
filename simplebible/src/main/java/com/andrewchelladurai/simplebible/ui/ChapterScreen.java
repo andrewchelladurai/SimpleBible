@@ -41,7 +41,7 @@ public class ChapterScreen
 
   private ChapterViewModel model;
 
-  private ChapterVerseAdapter verseListAdapter;
+  private ChapterVerseAdapter verseAdapter;
 
   private ChapterNumberAdapter chapterAdapter;
 
@@ -70,8 +70,7 @@ public class ChapterScreen
                 .getInstance(requireActivity().getApplication())
                 .create(ChapterViewModel.class);
 
-    verseListAdapter = new ChapterVerseAdapter(this,
-                                               getString(R.string.scr_chapter_template_verse));
+    verseAdapter = new ChapterVerseAdapter(this, getString(R.string.scr_chapter_template_verse));
     chapterAdapter = new ChapterNumberAdapter(this);
   }
 
@@ -84,7 +83,7 @@ public class ChapterScreen
 
     rootView = inflater.inflate(R.layout.chapter_screen, container, false);
 
-    ((RecyclerView) rootView.findViewById(R.id.scr_chapter_list)).setAdapter(verseListAdapter);
+    ((RecyclerView) rootView.findViewById(R.id.scr_chapter_list)).setAdapter(verseAdapter);
 
     final BottomAppBar bar = rootView.findViewById(R.id.scr_chapter_bottom_app_bar);
     bar.setNavigationOnClickListener(v -> handleActionChapters());
@@ -237,7 +236,7 @@ public class ChapterScreen
   private void refreshData() {
     Log.d(TAG, "refreshData:");
 
-    verseListAdapter.notifyDataSetChanged();
+    verseAdapter.notifyDataSetChanged();
     updateSelectionActionsVisibility();
 
     final EntityBook book = Utils.getInstance().getCachedBook(model.getCachedBookNumber());
@@ -280,15 +279,15 @@ public class ChapterScreen
 
   @Override
   public void handleNewChapterSelection(@IntRange(from = 1) final int newChapter) {
-    if (newChapter == model.getCachedChapterNumber()) {
-      Log.d(TAG, "handleNewChapterSelection: not a different chapter");
-      return;
-    }
-
     ChapterNumberDialog dialog =
         (ChapterNumberDialog) getParentFragmentManager().findFragmentByTag(TAG);
     if (dialog != null) {
       dialog.dismiss();
+    }
+
+    if (newChapter == model.getCachedChapterNumber()) {
+      Log.d(TAG, "handleNewChapterSelection: not a different chapter");
+      return;
     }
 
     chapter = newChapter;
