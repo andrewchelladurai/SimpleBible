@@ -4,4 +4,5 @@
     <integer name="default_chapter_number">3</integer>
     <integer name="scr_chapter_list_columns">1</integer>
     <integer name="scr_chapter_chapter_list_columns">1</integer>
+    <integer name="scr_book_list_list_columns">1</integer>
 </resources>

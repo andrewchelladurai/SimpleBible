@@ -142,4 +142,7 @@
 
     <string name="scr_settings_err_not_found_license">Failed to show Licenses</string>
     <string name="scr_settings_err_not_found_about">Failed to show About</string>
+
+    <!-- Book List Screen -->
+    <string name="scr_book_list_search_hint">Search book name</string>
 </resources>

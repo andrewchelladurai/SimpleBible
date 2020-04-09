@@ -2,4 +2,5 @@
 <resources>
     <integer name="scr_chapter_list_columns">2</integer>
     <integer name="scr_chapter_chapter_list_columns">2</integer>
+    <integer name="scr_book_list_list_columns">2</integer>
 </resources>
