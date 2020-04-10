@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
@@ -57,9 +58,20 @@ public class BookListScreen
   }
 
   @Override
+  public void onDestroyView() {
+    final SearchView searchView = rootView.findViewById(R.id.scr_book_list_search);
+    searchView.setQuery("", true);
+    super.onDestroyView();
+  }
+
+  @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState) {
     Log.d(TAG, "onCreateView:");
+
+    ops.hideKeyboard();
+    ops.showNavigationView();
+
     rootView = inflater.inflate(R.layout.book_list_screen, container, false);
 
     final RecyclerView recyclerView = rootView.findViewById(R.id.scr_book_list_list);
@@ -131,8 +143,12 @@ public class BookListScreen
       return;
     }
 
-    Log.d(TAG, "handleBookSelection: " + book);
+    final Bundle bundle = new Bundle();
+    bundle.putInt(ChapterScreen.ARG_BOOK, book.getNumber());
+    bundle.putInt(ChapterScreen.ARG_CHAPTER, 1);
 
+    NavHostFragment.findNavController(this)
+                   .navigate(R.id.nav_from_scr_book_list_to_scr_chapter, bundle);
   }
 
 }

@@ -1,5 +1,6 @@
 package com.andrewchelladurai.simplebible.model;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.util.Log;
 
@@ -26,11 +27,14 @@ public class ChapterViewModel
   @NonNull
   private final SbDao dao;
 
+  @SuppressLint("Range")
   @IntRange(from = 1, to = Utils.MAX_BOOKS)
-  private static int CACHED_BOOK = 1;
+  private static int CACHED_BOOK = 0;
 
+  // set the initial value to zero so that the first time all book:chapter is refreshed & cached
+  @SuppressLint("Range")
   @IntRange(from = 1)
-  private static int CACHED_CHAPTER = 1;
+  private static int CACHED_CHAPTER = 0;
 
   @NonNull
   private static final TreeMap<Integer, EntityVerse> CACHED_LIST = new TreeMap<>();

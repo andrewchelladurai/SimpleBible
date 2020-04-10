@@ -105,7 +105,6 @@ public class ChapterScreen
     });
 
     if (savedState == null) {
-
       final int defaultBookNumber = getResources().getInteger(R.integer.default_book_number);
       final int defaultChapterNumber = getResources().getInteger(R.integer.default_chapter_number);
       final Bundle bundle = getArguments();
