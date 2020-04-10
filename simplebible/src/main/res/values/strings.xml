@@ -9,6 +9,7 @@
     <string name="chapters">Chapters</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="search">Search</string>
 
     <!--  MainScreen  -->
     <string name="main_nav_bar_home">home</string>
@@ -156,4 +157,11 @@
         has %d verses spread across <b>%d Chapters</b> & is called <b>"%s"</b>
         ]]></item>
     </plurals>
+
+    <!-- Search Screen -->
+    <string name="bookmark_action_menu_scr_search">@string/bookmark</string>
+    <string name="share_action_menu_scr_search">@string/share</string>
+    <string name="clear_action_menu_scr_search">@string/clear</string>
+    <string name="search_action_menu_scr_search">@string/search</string>
+    <string name="hint_search_view_scr_search">Find text in verses</string>
 </resources>
