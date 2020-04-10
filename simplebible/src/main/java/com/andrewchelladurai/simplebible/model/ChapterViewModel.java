@@ -31,7 +31,6 @@ public class ChapterViewModel
   @IntRange(from = 1, to = Utils.MAX_BOOKS)
   private static int CACHED_BOOK = 0;
 
-  // set the initial value to zero so that the first time all book:chapter is refreshed & cached
   @SuppressLint("Range")
   @IntRange(from = 1)
   private static int CACHED_CHAPTER = 0;

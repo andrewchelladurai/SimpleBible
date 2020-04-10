@@ -23,7 +23,7 @@ public class BookmarkScreen
 
   private static final String TAG = "BookmarkScreen";
 
-  public static final String ARG_REFERENCE = "ARG_REFERENCE";
+  public static final String ARG_STR_REFERENCE = "ARG_STR_REFERENCE";
 
   private BookmarkViewModel model;
 

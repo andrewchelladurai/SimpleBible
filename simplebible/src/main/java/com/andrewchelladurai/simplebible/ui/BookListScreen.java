@@ -144,8 +144,8 @@ public class BookListScreen
     }
 
     final Bundle bundle = new Bundle();
-    bundle.putInt(ChapterScreen.ARG_BOOK, book.getNumber());
-    bundle.putInt(ChapterScreen.ARG_CHAPTER, 1);
+    bundle.putInt(ChapterScreen.ARG_INT_BOOK, book.getNumber());
+    bundle.putInt(ChapterScreen.ARG_INT_CHAPTER, 1);
 
     NavHostFragment.findNavController(this)
                    .navigate(R.id.nav_from_scr_book_list_to_scr_chapter, bundle);

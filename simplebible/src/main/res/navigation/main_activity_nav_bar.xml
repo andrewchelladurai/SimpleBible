@@ -46,7 +46,7 @@
         android:label="bookmark_screen"
         tools:layout="@layout/bookmark_detail_screen">
         <argument
-            android:name="ARG_REFERENCE"
+            android:name="ARG_STR_REFERENCE"
             app:argType="string" />
     </fragment>
     <fragment
@@ -67,11 +67,11 @@
             android:id="@+id/nav_from_scr_chapter_to_scr_bookmark"
             app:destination="@id/screen_bookmark" />
         <argument
-            android:name="ARG_BOOK"
+            android:name="ARG_INT_BOOK"
             android:defaultValue="1"
             app:argType="integer" />
         <argument
-            android:name="ARG_CHAPTER"
+            android:name="ARG_INT_CHAPTER"
             android:defaultValue="29"
             app:argType="integer" />
     </fragment>

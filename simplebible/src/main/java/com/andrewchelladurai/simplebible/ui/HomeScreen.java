@@ -158,7 +158,7 @@ public class HomeScreen
     }
 
     final Bundle bundle = new Bundle();
-    bundle.putString(BookmarkScreen.ARG_REFERENCE, verse.getReference());
+    bundle.putString(BookmarkScreen.ARG_STR_REFERENCE, verse.getReference());
     NavHostFragment.findNavController(this)
                    .navigate(R.id.nav_from_scr_home_to_scr_bookmark, bundle);
   }
@@ -170,13 +170,13 @@ public class HomeScreen
 
     if (verse == null) {
       Log.e(TAG, "handleActionChapter: null cached verse, will show default chapter");
-      bundle.putInt(ChapterScreen.ARG_BOOK,
+      bundle.putInt(ChapterScreen.ARG_INT_BOOK,
                     getResources().getInteger(R.integer.default_book_number));
-      bundle.putInt(ChapterScreen.ARG_CHAPTER,
+      bundle.putInt(ChapterScreen.ARG_INT_CHAPTER,
                     getResources().getInteger(R.integer.default_chapter_number));
     } else {
-      bundle.putInt(ChapterScreen.ARG_BOOK, verse.getBook());
-      bundle.putInt(ChapterScreen.ARG_CHAPTER, verse.getChapter());
+      bundle.putInt(ChapterScreen.ARG_INT_BOOK, verse.getBook());
+      bundle.putInt(ChapterScreen.ARG_INT_CHAPTER, verse.getChapter());
     }
 
     NavHostFragment.findNavController(this)

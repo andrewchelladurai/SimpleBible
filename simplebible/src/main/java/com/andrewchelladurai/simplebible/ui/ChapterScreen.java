@@ -35,9 +35,9 @@ public class ChapterScreen
 
   private static final String TAG = "ChapterScreen";
 
-  static final String ARG_BOOK = "ARG_BOOK";
+  static final String ARG_INT_BOOK = "ARG_INT_BOOK";
 
-  static final String ARG_CHAPTER = "ARG_CHAPTER";
+  static final String ARG_INT_CHAPTER = "ARG_INT_CHAPTER";
 
   private ChapterViewModel model;
 
@@ -109,10 +109,10 @@ public class ChapterScreen
       final int defaultChapterNumber = getResources().getInteger(R.integer.default_chapter_number);
       final Bundle bundle = getArguments();
       if (bundle != null
-          && bundle.containsKey(ARG_BOOK)
-          && bundle.containsKey(ARG_CHAPTER)) {
-        book = bundle.getInt(ARG_BOOK, defaultBookNumber);
-        chapter = bundle.getInt(ARG_CHAPTER, defaultChapterNumber);
+          && bundle.containsKey(ARG_INT_BOOK)
+          && bundle.containsKey(ARG_INT_CHAPTER)) {
+        book = bundle.getInt(ARG_INT_BOOK, defaultBookNumber);
+        chapter = bundle.getInt(ARG_INT_CHAPTER, defaultChapterNumber);
         Log.d(TAG, "onCreateView: newState: book[" + book + "], chapter[" + chapter + "]");
       } else {
         book = defaultBookNumber;
@@ -172,7 +172,7 @@ public class ChapterScreen
 
     final String reference = Utils.getInstance().createBookmarkReference(list);
     final Bundle bundle = new Bundle();
-    bundle.putString(BookmarkScreen.ARG_REFERENCE, reference);
+    bundle.putString(BookmarkScreen.ARG_STR_REFERENCE, reference);
     NavHostFragment.findNavController(this)
                    .navigate(R.id.nav_from_scr_chapter_to_scr_bookmark, bundle);
   }
