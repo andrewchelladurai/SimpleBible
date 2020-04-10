@@ -164,4 +164,14 @@
     <string name="clear_action_menu_scr_search">@string/clear</string>
     <string name="search_action_menu_scr_search">@string/search</string>
     <string name="hint_search_view_scr_search">Find text in verses</string>
+    <string name="help_text_scr_search"><![CDATA[
+    <h1>TIPS to find relevant results</h1><br/>
+    <p><h5>The length of the input text must be<br/>
+    - More than 3 alphabets.<br/>
+    - Less than 13 alphabets.<br/><br/>
+    </h5></p>
+    <p><h5>To search for 3 alphabet words like <u>\'Eli\'</u><br/>
+    include a space before or after the text<br/>
+    like this <u>\' Eli \'</u></h5></p>]]>
+    </string>
 </resources>
