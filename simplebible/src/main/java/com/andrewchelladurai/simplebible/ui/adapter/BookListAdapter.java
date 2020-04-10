@@ -15,15 +15,23 @@ import com.andrewchelladurai.simplebible.data.EntityBook;
 import com.andrewchelladurai.simplebible.ui.ops.BookListScreenOps;
 import com.andrewchelladurai.simplebible.utils.Utils;
 
+import java.util.ArrayList;
+import java.util.Set;
+
 public class BookListAdapter
     extends RecyclerView.Adapter {
 
-  @NonNull private final BookListScreenOps ops;
+  private static final String TAG = "BookListAdapter";
 
-  @NonNull Utils utils = Utils.getInstance();
+  @NonNull
+  private static final ArrayList<Integer> BOOK_NUMBER_LIST = new ArrayList<>(Utils.MAX_BOOKS);
+
+  @NonNull
+  private final BookListScreenOps ops;
 
   public BookListAdapter(@NonNull final BookListScreenOps ops) {
     this.ops = ops;
+    filterList("");
   }
 
   @NonNull
@@ -35,14 +43,38 @@ public class BookListAdapter
                                                        parent, false));
   }
 
+  public void filterList(@NonNull final String text) {
+    BOOK_NUMBER_LIST.clear();
+
+    final Utils utils = Utils.getInstance();
+    final boolean showAll = text.isEmpty();
+    final Set<Integer> cachedBookList = utils.getCachedBookList();
+    EntityBook book;
+
+    for (final Integer integer : cachedBookList) {
+      book = utils.getCachedBook(integer);
+      if (book == null) {
+        continue;
+      }
+      if (showAll) {
+        BOOK_NUMBER_LIST.add(integer);
+      } else {
+        if (book.getName().toLowerCase().contains(text.toLowerCase())) {
+          BOOK_NUMBER_LIST.add(integer);
+        }
+      }
+    }
+  }
+
   @Override
   public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
-    ((BookListItemView) holder).updateContent(utils.getCachedBook(position + 1));
+    ((BookListItemView) holder)
+        .updateContent(Utils.getInstance().getCachedBook(BOOK_NUMBER_LIST.get(position)));
   }
 
   @Override
   public int getItemCount() {
-    return Utils.MAX_BOOKS;
+    return BOOK_NUMBER_LIST.size();
   }
 
   private class BookListItemView

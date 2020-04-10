@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -61,8 +62,24 @@ public class BookListScreen
     Log.d(TAG, "onCreateView:");
     rootView = inflater.inflate(R.layout.book_list_screen, container, false);
 
-    RecyclerView recyclerView = rootView.findViewById(R.id.scr_book_list_list);
+    final RecyclerView recyclerView = rootView.findViewById(R.id.scr_book_list_list);
     recyclerView.setAdapter(booksAdapter);
+
+    final SearchView searchView = rootView.findViewById(R.id.scr_book_list_search);
+    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+      @Override
+      public boolean onQueryTextSubmit(final String query) {
+        return false;
+      }
+
+      @Override
+      public boolean onQueryTextChange(final String newText) {
+        booksAdapter.filterList((newText == null) ? "" : newText);
+        booksAdapter.notifyDataSetChanged();
+        return true;
+      }
+    });
 
     if (savedInstanceState == null) {
       updateContent();
@@ -101,6 +118,7 @@ public class BookListScreen
 
   private void refreshContent() {
     Log.d(TAG, "refreshContent:");
+    booksAdapter.filterList("");
     booksAdapter.notifyDataSetChanged();
   }
 

@@ -43,7 +43,7 @@ public class Utils {
     final int maxCount = MAX_BOOKS;
 
     if (isCacheUpdated()) {
-      Log.d(TAG, "updateCacheBooks: already contains " + maxCount + "records\n"
+      Log.d(TAG, "updateCacheBooks: already contains " + maxCount + " records\n"
                  + "1=[" + CACHE_BOOKS_MAP.get(1) + "]\n"
                  + maxCount + "=[" + CACHE_BOOKS_MAP.get(maxCount) + "]");
       return;
