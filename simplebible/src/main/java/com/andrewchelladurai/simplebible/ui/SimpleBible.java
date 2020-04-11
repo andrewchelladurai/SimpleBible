@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,7 @@ import androidx.preference.PreferenceManager;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 public class SimpleBible
     extends AppCompatActivity
@@ -160,6 +162,13 @@ public class SimpleBible
     intent.putExtra(android.content.Intent.EXTRA_TEXT, text);
     startActivity(Intent.createChooser(intent, appName));
 
+  }
+
+  @Override
+  public void showMessage(@NonNull final String string, @IdRes final int anchorViewId) {
+    Snackbar.make(findViewById(anchorViewId), string, Snackbar.LENGTH_SHORT)
+            .setAnchorView(anchorViewId)
+            .show();
   }
 
 }

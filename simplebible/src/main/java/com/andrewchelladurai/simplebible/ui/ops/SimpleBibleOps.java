@@ -1,5 +1,6 @@
 package com.andrewchelladurai.simplebible.ui.ops;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -18,5 +19,7 @@ public interface SimpleBibleOps {
   void restartApp();
 
   void shareText(@NonNull String text);
+
+  void showMessage(@NonNull String string, @IdRes int anchorViewId);
 
 }

@@ -91,7 +91,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="@dimen/big"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/contain_bottom_app_bar_scr_search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/contain_search_view_scr_search">
@@ -105,4 +105,5 @@
             android:padding="@dimen/big"
             android:text="@string/help_text_scr_search" />
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
