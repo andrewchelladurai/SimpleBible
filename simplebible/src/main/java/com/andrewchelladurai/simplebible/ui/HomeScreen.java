@@ -110,6 +110,7 @@ public class HomeScreen
     model.getVerse(parts[0], parts[1], parts[2]).observe(getViewLifecycleOwner(), verse -> {
       if (verse == null) {
         Log.e(TAG, "updateContent: null verse returned for reference[" + reference + "]");
+        displayDefaultVerse();
         return;
       }
 
