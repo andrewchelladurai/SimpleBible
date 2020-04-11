@@ -4,11 +4,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.text.HtmlCompat;
@@ -20,6 +22,7 @@ import com.andrewchelladurai.simplebible.model.SearchViewModel;
 import com.andrewchelladurai.simplebible.ui.ops.SearchScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.chip.Chip;
 
 public class SearchScreen
     extends Fragment
@@ -99,6 +102,9 @@ public class SearchScreen
             handleActionSearch(text);
           }
           return true;
+        case R.id.action_menu_scr_search_reset:
+          handleActionReset();
+          return true;
         default:
           Log.d(TAG, "onMenuItemClick: unknown menu item " + item.getTitle());
           return false;
@@ -112,22 +118,24 @@ public class SearchScreen
     return rootView;
   }
 
-  private void showHelpText() {
-    Log.d(TAG, "showHelpText:");
-    rootView.findViewById(R.id.list_view_scr_search).setVisibility(View.GONE);
+  private void handleActionSearch(@NonNull final String text) {
+    Log.d(TAG, "handleActionSearch: text = [" + text + "]");
 
-    setVerseSelectionActionsVisibility(false);
+    model.findVersesContainingText(text).observe(getViewLifecycleOwner(), verseList -> {
 
-    rootView.findViewById(R.id.contain_help_text_scr_search).setVisibility(View.VISIBLE);
+      if (verseList == null) {
+        showHelpText();
+        return;
+      }
+
+      showSearchResults(text, verseList.size());
+
+    });
+
   }
 
-  private void showSearchResults() {
-    Log.d(TAG, "showSearchResults:");
-    rootView.findViewById(R.id.list_view_scr_search).setVisibility(View.VISIBLE);
-
-    setVerseSelectionActionsVisibility(false);
-
-    rootView.findViewById(R.id.contain_help_text_scr_search).setVisibility(View.GONE);
+  private void handleActionClear() {
+    Log.d(TAG, "handleActionClear:");
   }
 
   private boolean validateSearchText(@NonNull final String text) {
@@ -160,11 +168,9 @@ public class SearchScreen
     return true;
   }
 
-  private void handleActionSearch(@NonNull final String text) {
-    Log.d(TAG, "handleActionSearch: text = [" + text + "]");
-
-    model.findVersesContainingText(text);
-
+  private void handleActionReset() {
+    Log.d(TAG, "handleActionReset:");
+    showHelpText();
   }
 
   private void handleActionShare() {
@@ -175,17 +181,35 @@ public class SearchScreen
     Log.d(TAG, "handleActionBookmark:");
   }
 
-  private void handleActionClear() {
-    Log.d(TAG, "handleActionClear:");
-    showHelpText();
-    // TODO: adapter.clearList();
-    setVerseSelectionActionsVisibility(false);
+  private void showHelpText() {
+    Log.d(TAG, "showHelpText:");
+    rootView.findViewById(R.id.list_view_scr_search).setVisibility(View.GONE);
+    rootView.findViewById(R.id.contain_help_text_scr_search).setVisibility(View.VISIBLE);
+
+    final Menu menu =
+        ((BottomAppBar) rootView.findViewById(R.id.bottom_app_bar_scr_search)).getMenu();
+    menu.findItem(R.id.action_menu_scr_search_search).setVisible(true);
+    menu.findItem(R.id.action_menu_scr_search_reset).setVisible(false);
+    menu.setGroupVisible(R.id.menu_group_selection_scr_search, false);
+
+    final Chip title = rootView.findViewById(R.id.title_scr_search);
+    title.setText(getString(R.string.application_name));
   }
 
-  private void setVerseSelectionActionsVisibility(final boolean visible) {
-    // TODO: 11/4/20 visible = (adapter.getSelectedVerses().size() > 0);
-    final BottomAppBar appBar = rootView.findViewById(R.id.bottom_app_bar_scr_search);
-    appBar.getMenu().setGroupVisible(R.id.menu_group_selection_scr_search, visible);
+  private void showSearchResults(@NonNull final String text,
+                                 @IntRange(from = 0) final int count) {
+    Log.d(TAG, "showSearchResults: text = [" + text + "], count = [" + count + "]");
+    rootView.findViewById(R.id.list_view_scr_search).setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.contain_help_text_scr_search).setVisibility(View.GONE);
+
+    final Menu menu =
+        ((BottomAppBar) rootView.findViewById(R.id.bottom_app_bar_scr_search)).getMenu();
+    menu.findItem(R.id.action_menu_scr_search_search).setVisible(false);
+    menu.findItem(R.id.action_menu_scr_search_reset).setVisible(true);
+    menu.setGroupVisible(R.id.menu_group_selection_scr_search, false);
+
+    ((Chip) rootView.findViewById(R.id.title_scr_search))
+        .setText(getString(R.string.scr_search_result_template, count, text));
   }
 
 }

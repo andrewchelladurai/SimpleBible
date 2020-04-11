@@ -5,9 +5,13 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
+import com.andrewchelladurai.simplebible.data.EntityVerse;
 import com.andrewchelladurai.simplebible.data.SbDao;
 import com.andrewchelladurai.simplebible.data.SbDatabase;
+
+import java.util.List;
 
 public class SearchViewModel
     extends AndroidViewModel {
@@ -22,8 +26,9 @@ public class SearchViewModel
     dao = SbDatabase.getDatabase(getApplication()).getDao();
   }
 
-  public void findVersesContainingText(@NonNull final String text) {
-
+  @NonNull
+  public LiveData<List<EntityVerse>> findVersesContainingText(@NonNull final String text) {
+    return dao.findVersesContainingText("%" + text + "%");
   }
 
 }

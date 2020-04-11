@@ -10,6 +10,7 @@
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
     <string name="search">Search</string>
+    <string name="reset">Reset</string>
 
     <!--  MainScreen  -->
     <string name="main_nav_bar_home">home</string>
@@ -159,6 +160,7 @@
     <string name="share_action_menu_scr_search">@string/share</string>
     <string name="clear_action_menu_scr_search">@string/clear</string>
     <string name="search_action_menu_scr_search">@string/search</string>
+    <string name="reset_action_menu_scr_search">@string/reset</string>
     <string name="hint_search_view_scr_search">Find text in verses</string>
     <string name="help_text_scr_search"><![CDATA[
     <h1>TIPS to find relevant results</h1><br/>
@@ -173,4 +175,5 @@
     <string name="scr_search_msg_txt_length_none">Empty text not allowed</string>
     <string name="scr_search_msg_txt_length_min">Text must have a minimum of 3 alphabets</string>
     <string name="scr_search_msg_txt_length_max">Text must not be more than 13 alphabets</string>
+    <string name="scr_search_result_template">%d verses found containing : %s</string>
 </resources>
