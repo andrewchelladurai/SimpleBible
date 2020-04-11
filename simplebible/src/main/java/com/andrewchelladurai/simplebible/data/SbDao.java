@@ -57,4 +57,7 @@ public interface SbDao {
       @IntRange(from = 1, to = Utils.MAX_BOOKS) final int bookNum,
       @IntRange(from = 1) final int chapterNum);
 
+  @Query("select * from sb_verses where lower(text) like lower(:text)")
+  LiveData<List<EntityVerse>> findVersesContainingText(@NonNull String text);
+
 }
