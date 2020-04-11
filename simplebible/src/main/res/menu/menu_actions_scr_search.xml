@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="AlwaysShowAction">
     <group
-        android:id="@+id/actions_menu_scr_search_selection"
+        android:id="@+id/menu_group_selection_scr_search"
         android:visible="false">
         <item
             android:id="@+id/action_menu_scr_search_bookmark"
