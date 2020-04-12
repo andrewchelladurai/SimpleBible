@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.collection.ArrayMap;
+import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
@@ -134,8 +135,9 @@ public class SearchResultAdapter
       selectedView.setVisibility(
           SELECTED_LIST.containsKey(verse.getReference()) ? View.VISIBLE : View.GONE);
 
-      textView.setText(String.format(
-          template, book.getName(), verse.getChapter(), verse.getVerse(), verse.getText()));
+      textView.setText(HtmlCompat.fromHtml(String.format(
+          template, book.getName(), verse.getChapter(), verse.getVerse(), verse.getText()),
+                                           HtmlCompat.FROM_HTML_MODE_COMPACT));
     }
 
   }

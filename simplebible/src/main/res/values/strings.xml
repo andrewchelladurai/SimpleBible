@@ -177,5 +177,5 @@
     <string name="scr_search_msg_input_length_max">Text must not be more than 13 alphabets</string>
     <string name="scr_Search_msg_selection_none">No verses selected</string>
     <string name="scr_search_result_title_template">%d verses found containing : %s</string>
-    <string name="scr_search_result_item_template">(%s Chapter %d: Verse %d) %s</string>
+    <string name="scr_search_result_item_template"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
 </resources>
