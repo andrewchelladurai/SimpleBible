@@ -138,7 +138,7 @@ public class SearchScreen
         return;
       }
 
-      adapter.updateContent(verseList, text);
+      model.updateContent(verseList, text);
       showSearchResults(text, verseList.size());
 
     });
@@ -178,30 +178,32 @@ public class SearchScreen
   private void handleActionReset() {
     Log.d(TAG, "handleActionReset:");
     showHelpText();
-    adapter.resetContent();
+    model.resetContent();
+    adapter.notifyDataSetChanged();
     updateSelectionActionsState();
+  }
+
+  @Override
+  public void updateSelectionActionsState() {
+    final boolean showActions = model.getSelectedList().size() > 0;
+    final Menu menu =
+        ((BottomAppBar) rootView.findViewById(R.id.bottom_app_bar_scr_search)).getMenu();
+    menu.setGroupVisible(R.id.menu_group_selection_scr_search, showActions);
+
+    rootView.findViewById(R.id.title_scr_search)
+            .setVisibility((showActions) ? View.GONE : View.VISIBLE);
   }
 
   private void handleActionClear() {
     Log.d(TAG, "handleActionClear:");
-    adapter.clearSelectedList();
+    model.clearSelectedList();
+    adapter.notifyDataSetChanged();
     updateSelectionActionsState();
   }
 
   private void handleActionShare() {
     Log.d(TAG, "handleActionShare:");
-    final Collection<EntityVerse> list = adapter.getSelectedList();
-    if (list.size() < 1) {
-      ops.showMessage(getString(R.string.scr_Search_msg_selection_none),
-                      R.id.bottom_app_bar_scr_search);
-      return;
-    }
-    Log.d(TAG, "handleActionShare: [" + list.size() + "] verses selected");
-  }
-
-  private void handleActionBookmark() {
-    Log.d(TAG, "handleActionBookmark:");
-    final Collection<EntityVerse> list = adapter.getSelectedList();
+    final Collection<EntityVerse> list = model.getSelectedList();
     if (list.size() < 1) {
       ops.showMessage(getString(R.string.scr_Search_msg_selection_none),
                       R.id.bottom_app_bar_scr_search);
@@ -241,15 +243,41 @@ public class SearchScreen
         .setText(getString(R.string.scr_search_result_title_template, count, text));
   }
 
-  @Override
-  public void updateSelectionActionsState() {
-    final boolean showActions = adapter.getSelectedList().size() > 0;
-    final Menu menu =
-        ((BottomAppBar) rootView.findViewById(R.id.bottom_app_bar_scr_search)).getMenu();
-    menu.setGroupVisible(R.id.menu_group_selection_scr_search, showActions);
+  private void handleActionBookmark() {
+    Log.d(TAG, "handleActionBookmark:");
+    final Collection<EntityVerse> list = model.getSelectedList();
+    if (list.size() < 1) {
+      ops.showMessage(getString(R.string.scr_Search_msg_selection_none),
+                      R.id.bottom_app_bar_scr_search);
+      return;
+    }
+    Log.d(TAG, "handleActionShare: [" + list.size() + "] verses selected");
+  }
 
-    rootView.findViewById(R.id.title_scr_search)
-            .setVisibility((showActions) ? View.GONE : View.VISIBLE);
+  @Override
+  public boolean isSelected(@NonNull final String verseReference) {
+    return model.isSelected(verseReference);
+  }
+
+  @Override
+  public void removeSelection(@NonNull final String verseReference) {
+    model.removeSelection(verseReference);
+  }
+
+  @Override
+  public void addSelection(@NonNull final String verseReference, @NonNull final EntityVerse verse) {
+    model.addSelection(verseReference, verse);
+  }
+
+  @NonNull
+  @Override
+  public EntityVerse getVerseAtPosition(@IntRange(from = 0) final int position) {
+    return model.getVerseAtPosition(position);
+  }
+
+  @Override
+  public int getResultCount() {
+    return model.getResultCount();
   }
 
 }

@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.collection.ArrayMap;
 import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,32 +16,19 @@ import com.andrewchelladurai.simplebible.data.EntityVerse;
 import com.andrewchelladurai.simplebible.ui.ops.SearchScreenOps;
 import com.andrewchelladurai.simplebible.utils.Utils;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 public class SearchResultAdapter
     extends RecyclerView.Adapter {
 
   private static final String TAG = "SearchResultAdapter";
 
   @NonNull
-  private static final ArrayList<EntityVerse> BASE_LIST = new ArrayList<>();
-
-  @NonNull
-  private static final ArrayMap<String, EntityVerse> SELECTED_LIST = new ArrayMap<>();
-
-  @NonNull
-  private static String SEARCH_TEXT = "";
+  private final String template;
 
   @NonNull
   private final SearchScreenOps ops;
 
-  @NonNull
-  private final String template;
-
   public SearchResultAdapter(@NonNull final SearchScreenOps ops,
-                             @NonNull String template) {
+                             @NonNull final String template) {
     this.ops = ops;
     this.template = template;
   }
@@ -58,42 +44,12 @@ public class SearchResultAdapter
 
   @Override
   public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
-    ((SearchResultView) holder).updateContent(BASE_LIST.get(position));
-  }
-
-  public void updateContent(@NonNull final List<EntityVerse> verseList, @NonNull String text) {
-    final int count = getItemCount();
-    if (SEARCH_TEXT.equalsIgnoreCase(text) && count == verseList.size()) {
-      Log.d(TAG, "updateContent: already cached [" + count + "] results for [" + text + "]");
-    }
-
-    resetContent();
-    BASE_LIST.addAll(verseList);
-
-    Log.d(TAG, "updateContent: updated [" + getItemCount() + " records]");
+    ((SearchResultView) holder).updateContent(ops.getVerseAtPosition(position));
   }
 
   @Override
   public int getItemCount() {
-    return BASE_LIST.size();
-  }
-
-  public void resetContent() {
-    BASE_LIST.clear();
-    SELECTED_LIST.clear();
-    SEARCH_TEXT = "";
-    notifyDataSetChanged();
-    ops.updateSelectionActionsState();
-  }
-
-  public void clearSelectedList() {
-    SELECTED_LIST.clear();
-    notifyDataSetChanged();
-    ops.updateSelectionActionsState();
-  }
-
-  public Collection<EntityVerse> getSelectedList() {
-    return SELECTED_LIST.values();
+    return ops.getResultCount();
   }
 
   private class SearchResultView
@@ -111,11 +67,11 @@ public class SearchResultAdapter
       selectedView = view.findViewById(R.id.selected_item_list_view_scr_search);
 
       textView.setOnClickListener(v -> {
-        if (SELECTED_LIST.containsKey(verse.getReference())) {
-          SELECTED_LIST.remove(verse.getReference());
+        if (ops.isSelected(verse.getReference())) {
+          ops.removeSelection(verse.getReference());
           selectedView.setVisibility(View.GONE);
         } else {
-          SELECTED_LIST.put(verse.getReference(), verse);
+          ops.addSelection(verse.getReference(), verse);
           selectedView.setVisibility(View.VISIBLE);
         }
         ops.updateSelectionActionsState();
@@ -133,7 +89,7 @@ public class SearchResultAdapter
       }
 
       selectedView.setVisibility(
-          SELECTED_LIST.containsKey(verse.getReference()) ? View.VISIBLE : View.GONE);
+          ops.isSelected(verse.getReference()) ? View.VISIBLE : View.GONE);
 
       textView.setText(HtmlCompat.fromHtml(String.format(
           template, book.getName(), verse.getChapter(), verse.getVerse(), verse.getText()),
