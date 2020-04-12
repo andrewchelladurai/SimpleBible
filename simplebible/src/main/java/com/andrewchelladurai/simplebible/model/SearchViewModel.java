@@ -56,6 +56,7 @@ public class SearchViewModel
     Log.d(TAG, "updateContent: updated [" + getResultCount() + " records]");
   }
 
+  @IntRange(from = 0)
   public int getResultCount() {
     return BASE_LIST.size();
   }
@@ -90,6 +91,11 @@ public class SearchViewModel
   @NonNull
   public EntityVerse getVerseAtPosition(@IntRange(from = 0) final int position) {
     return BASE_LIST.get(position);
+  }
+
+  @NonNull
+  public String getCachedText() {
+    return SEARCH_TEXT;
   }
 
 }

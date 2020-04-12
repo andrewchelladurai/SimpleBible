@@ -45,7 +45,6 @@ public class SearchScreen
 
   @Override
   public void onAttach(@NonNull final Context context) {
-    Log.d(TAG, "onAttach:");
     super.onAttach(context);
 
     if (context instanceof SimpleBibleOps) {
@@ -63,7 +62,6 @@ public class SearchScreen
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState) {
-    Log.d(TAG, "onCreateView:");
     rootView = inflater.inflate(R.layout.search_screen, container, false);
 
     ((TextView) rootView.findViewById(R.id.help_text_scr_search))
@@ -94,7 +92,6 @@ public class SearchScreen
 
     final BottomAppBar appBar = rootView.findViewById(R.id.bottom_app_bar_scr_search);
     appBar.setOnMenuItemClickListener(item -> {
-      Log.d(TAG, "onCreateView: " + item.getTitle());
       switch (item.getItemId()) {
         case R.id.action_menu_scr_search_clear:
           handleActionClear();
@@ -122,6 +119,16 @@ public class SearchScreen
     });
 
     if (savedInstanceState == null) {
+      Log.d(TAG, "onCreateView: first run");
+      showHelpText();
+    } else if (model.getResultCount() > 0) {
+      Log.d(TAG, "onCreateView: not the first run and has cached data");
+      showSearchResults(model.getCachedText(), model.getResultCount());
+    } else if (model.getResultCount() < 1) {
+      Log.d(TAG, "onCreateView: not the first run but has no cache");
+      showHelpText();
+    } else {
+      Log.d(TAG, "onCreateView: default");
       showHelpText();
     }
 
@@ -223,8 +230,8 @@ public class SearchScreen
     menu.findItem(R.id.action_menu_scr_search_reset).setVisible(false);
     updateSelectionActionsState();
 
-    final Chip title = rootView.findViewById(R.id.title_scr_search);
-    title.setText(getString(R.string.application_name));
+    ((Chip) rootView.findViewById(R.id.title_scr_search))
+        .setText(getString(R.string.application_name));
   }
 
   private void showSearchResults(@NonNull final String text,
@@ -241,6 +248,7 @@ public class SearchScreen
 
     ((Chip) rootView.findViewById(R.id.title_scr_search))
         .setText(getString(R.string.scr_search_result_title_template, count, text));
+    adapter.notifyDataSetChanged();
   }
 
   private void handleActionBookmark() {
