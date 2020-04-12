@@ -91,7 +91,6 @@
         android:id="@+id/contain_help_text_scr_search"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/big"
         app:layout_constraintBottom_toTopOf="@id/contain_bottom_app_bar_scr_search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,8 +101,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/big"
-            android:padding="@dimen/big"
             android:text="@string/help_text_scr_search" />
     </ScrollView>
 
