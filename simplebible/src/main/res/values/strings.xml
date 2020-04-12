@@ -172,8 +172,10 @@
     include a space before or after the text<br/>
     like this <u>\' Eli \'</u></h5></p>]]>
     </string>
-    <string name="scr_search_msg_txt_length_none">Empty text not allowed</string>
-    <string name="scr_search_msg_txt_length_min">Text must have a minimum of 3 alphabets</string>
-    <string name="scr_search_msg_txt_length_max">Text must not be more than 13 alphabets</string>
-    <string name="scr_search_result_template">%d verses found containing : %s</string>
+    <string name="scr_search_msg_input_length_none">Empty text not allowed</string>
+    <string name="scr_search_msg_input_length_min">Text must have a minimum of 3 alphabets</string>
+    <string name="scr_search_msg_input_length_max">Text must not be more than 13 alphabets</string>
+    <string name="scr_Search_msg_selection_none">No verses selected</string>
+    <string name="scr_search_result_title_template">%d verses found containing : %s</string>
+    <string name="scr_search_result_item_template">(%s Chapter %d: Verse %d) %s</string>
 </resources>

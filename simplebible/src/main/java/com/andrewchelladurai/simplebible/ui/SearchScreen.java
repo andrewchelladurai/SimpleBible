@@ -16,13 +16,18 @@ import androidx.annotation.Nullable;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.EntityVerse;
 import com.andrewchelladurai.simplebible.model.SearchViewModel;
+import com.andrewchelladurai.simplebible.ui.adapter.SearchResultAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.SearchScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.chip.Chip;
+
+import java.util.Collection;
 
 public class SearchScreen
     extends Fragment
@@ -33,6 +38,8 @@ public class SearchScreen
   private SearchViewModel model;
 
   private SimpleBibleOps ops;
+
+  private SearchResultAdapter adapter;
 
   private View rootView;
 
@@ -50,6 +57,7 @@ public class SearchScreen
     model = ViewModelProvider.AndroidViewModelFactory
                 .getInstance(requireActivity().getApplication())
                 .create(SearchViewModel.class);
+    adapter = new SearchResultAdapter(this, getString(R.string.scr_search_result_item_template));
   }
 
   @Override
@@ -61,6 +69,8 @@ public class SearchScreen
     ((TextView) rootView.findViewById(R.id.help_text_scr_search))
         .setText(HtmlCompat.fromHtml(getString(R.string.help_text_scr_search),
                                      HtmlCompat.FROM_HTML_MODE_COMPACT));
+
+    ((RecyclerView) rootView.findViewById(R.id.list_view_scr_search)).setAdapter(adapter);
 
     final SearchView searchView = rootView.findViewById(R.id.search_view_scr_search);
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -128,14 +138,11 @@ public class SearchScreen
         return;
       }
 
+      adapter.updateContent(verseList, text);
       showSearchResults(text, verseList.size());
 
     });
 
-  }
-
-  private void handleActionClear() {
-    Log.d(TAG, "handleActionClear:");
   }
 
   private boolean validateSearchText(@NonNull final String text) {
@@ -143,21 +150,21 @@ public class SearchScreen
 
     if (text.isEmpty()) {
       showHelpText();
-      ops.showMessage(getString(R.string.scr_search_msg_txt_length_none),
+      ops.showMessage(getString(R.string.scr_search_msg_input_length_none),
                       R.id.bottom_app_bar_scr_search);
       return false;
     }
 
     if (text.length() < 3) {
       showHelpText();
-      ops.showMessage(getString(R.string.scr_search_msg_txt_length_min),
+      ops.showMessage(getString(R.string.scr_search_msg_input_length_min),
                       R.id.bottom_app_bar_scr_search);
       return false;
     }
 
     if (text.length() > 13) {
       showHelpText();
-      ops.showMessage(getString(R.string.scr_search_msg_txt_length_max),
+      ops.showMessage(getString(R.string.scr_search_msg_input_length_max),
                       R.id.bottom_app_bar_scr_search);
       return false;
     }
@@ -171,14 +178,36 @@ public class SearchScreen
   private void handleActionReset() {
     Log.d(TAG, "handleActionReset:");
     showHelpText();
+    adapter.resetContent();
+    updateSelectionActionsState();
+  }
+
+  private void handleActionClear() {
+    Log.d(TAG, "handleActionClear:");
+    adapter.clearSelectedList();
+    updateSelectionActionsState();
   }
 
   private void handleActionShare() {
     Log.d(TAG, "handleActionShare:");
+    final Collection<EntityVerse> list = adapter.getSelectedList();
+    if (list.size() < 1) {
+      ops.showMessage(getString(R.string.scr_Search_msg_selection_none),
+                      R.id.bottom_app_bar_scr_search);
+      return;
+    }
+    Log.d(TAG, "handleActionShare: [" + list.size() + "] verses selected");
   }
 
   private void handleActionBookmark() {
     Log.d(TAG, "handleActionBookmark:");
+    final Collection<EntityVerse> list = adapter.getSelectedList();
+    if (list.size() < 1) {
+      ops.showMessage(getString(R.string.scr_Search_msg_selection_none),
+                      R.id.bottom_app_bar_scr_search);
+      return;
+    }
+    Log.d(TAG, "handleActionShare: [" + list.size() + "] verses selected");
   }
 
   private void showHelpText() {
@@ -190,7 +219,7 @@ public class SearchScreen
         ((BottomAppBar) rootView.findViewById(R.id.bottom_app_bar_scr_search)).getMenu();
     menu.findItem(R.id.action_menu_scr_search_search).setVisible(true);
     menu.findItem(R.id.action_menu_scr_search_reset).setVisible(false);
-    menu.setGroupVisible(R.id.menu_group_selection_scr_search, false);
+    updateSelectionActionsState();
 
     final Chip title = rootView.findViewById(R.id.title_scr_search);
     title.setText(getString(R.string.application_name));
@@ -206,10 +235,21 @@ public class SearchScreen
         ((BottomAppBar) rootView.findViewById(R.id.bottom_app_bar_scr_search)).getMenu();
     menu.findItem(R.id.action_menu_scr_search_search).setVisible(false);
     menu.findItem(R.id.action_menu_scr_search_reset).setVisible(true);
-    menu.setGroupVisible(R.id.menu_group_selection_scr_search, false);
+    updateSelectionActionsState();
 
     ((Chip) rootView.findViewById(R.id.title_scr_search))
-        .setText(getString(R.string.scr_search_result_template, count, text));
+        .setText(getString(R.string.scr_search_result_title_template, count, text));
+  }
+
+  @Override
+  public void updateSelectionActionsState() {
+    final boolean showActions = adapter.getSelectedList().size() > 0;
+    final Menu menu =
+        ((BottomAppBar) rootView.findViewById(R.id.bottom_app_bar_scr_search)).getMenu();
+    menu.setGroupVisible(R.id.menu_group_selection_scr_search, showActions);
+
+    rootView.findViewById(R.id.title_scr_search)
+            .setVisibility((showActions) ? View.GONE : View.VISIBLE);
   }
 
 }
