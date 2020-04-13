@@ -52,8 +52,10 @@ public class SearchViewModel
 
     resetContent();
     BASE_LIST.addAll(verseList);
+    SEARCH_TEXT = text;
 
-    Log.d(TAG, "updateContent: updated [" + getResultCount() + " records]");
+    Log.d(TAG, "updateContent: updated [" + getResultCount()
+               + "] records for [" + SEARCH_TEXT + "]");
   }
 
   @IntRange(from = 0)
