@@ -16,18 +16,21 @@ import androidx.annotation.Nullable;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.EntityBook;
 import com.andrewchelladurai.simplebible.data.EntityVerse;
 import com.andrewchelladurai.simplebible.model.SearchViewModel;
 import com.andrewchelladurai.simplebible.ui.adapter.SearchResultAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.SearchScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
+import com.andrewchelladurai.simplebible.utils.Utils;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.chip.Chip;
 
-import java.util.Collection;
+import java.util.TreeSet;
 
 public class SearchScreen
     extends Fragment
@@ -118,17 +121,14 @@ public class SearchScreen
       }
     });
 
-    if (savedInstanceState == null) {
-      Log.d(TAG, "onCreateView: first run");
-      showHelpText();
-    } else if (model.getResultCount() > 0) {
-      Log.d(TAG, "onCreateView: not the first run and has cached data");
+    if (savedInstanceState != null && model.getResultCount() > 0) {
+      Log.d(TAG, "onCreateView: not the first run & has cached data");
       showSearchResults(model.getCachedText(), model.getResultCount());
-    } else if (model.getResultCount() < 1) {
-      Log.d(TAG, "onCreateView: not the first run but has no cache");
+    } else if (savedInstanceState != null && model.getResultCount() < 1) {
+      Log.d(TAG, "onCreateView: not the first run & has no cache");
       showHelpText();
     } else {
-      Log.d(TAG, "onCreateView: default");
+      Log.d(TAG, "onCreateView: default catch");
       showHelpText();
     }
 
@@ -208,15 +208,68 @@ public class SearchScreen
     updateSelectionActionsState();
   }
 
-  private void handleActionShare() {
-    Log.d(TAG, "handleActionShare:");
-    final Collection<EntityVerse> list = model.getSelectedList();
-    if (list.size() < 1) {
+  private void handleActionBookmark() {
+    Log.d(TAG, "handleActionBookmark:");
+    final TreeSet<EntityVerse> set = model.getSelectedList();
+    if (set.size() < 1) {
       ops.showMessage(getString(R.string.scr_Search_msg_selection_none),
                       R.id.bottom_app_bar_scr_search);
       return;
     }
-    Log.d(TAG, "handleActionShare: [" + list.size() + "] verses selected");
+
+    Log.d(TAG, "handleActionBookmark: [" + set.size() + "] verses selected");
+
+    final StringBuilder ref = new StringBuilder();
+    final String separator = Utils.SEPARATOR_BOOKMARK_REFERENCE;
+
+    for (final EntityVerse verse : set) {
+      ref.append(verse.getReference())
+         .append(separator);
+    }
+    ref.delete(ref.length() - separator.length(), ref.length());
+
+    Log.d(TAG, "handleActionBookmark: created bookmark reference[" + ref + "]");
+
+    final Bundle bundle = new Bundle();
+    bundle.putString(BookmarkScreen.ARG_STR_REFERENCE, String.valueOf(ref));
+
+    NavHostFragment.findNavController(this)
+                   .navigate(R.id.nav_from_scr_search_to_scr_bookmark, bundle);
+  }
+
+  private void handleActionShare() {
+    Log.d(TAG, "handleActionShare:");
+    final TreeSet<EntityVerse> set = model.getSelectedList();
+    if (set.size() < 1) {
+      ops.showMessage(getString(R.string.scr_Search_msg_selection_none),
+                      R.id.bottom_app_bar_scr_search);
+      return;
+    }
+
+    Log.d(TAG, "handleActionShare: [" + set.size() + "] verses selected");
+
+    final String verseTemplate = getString(R.string.scr_search_result_item_template);
+    final StringBuilder verseText = new StringBuilder();
+
+    EntityBook book;
+    for (final EntityVerse verse : set) {
+
+      book = Utils.getInstance().getCachedBook(verse.getBook());
+      if (book == null) {
+        Log.e(TAG, "updateContent: null book returned");
+        continue;
+      }
+
+      verseText.append(HtmlCompat.fromHtml(String.format(
+          verseTemplate, book.getName(), verse.getChapter(), verse.getVerse(), verse.getText()),
+                                           HtmlCompat.FROM_HTML_MODE_COMPACT).toString())
+               .append("\n");
+    }
+
+    ops.shareText(getString(R.string.scr_search_result_share_template,
+                            set.size(),
+                            model.getCachedText(),
+                            verseText.toString()));
   }
 
   private void showHelpText() {
@@ -249,17 +302,6 @@ public class SearchScreen
     ((Chip) rootView.findViewById(R.id.title_scr_search))
         .setText(getString(R.string.scr_search_result_title_template, count, text));
     adapter.notifyDataSetChanged();
-  }
-
-  private void handleActionBookmark() {
-    Log.d(TAG, "handleActionBookmark:");
-    final Collection<EntityVerse> list = model.getSelectedList();
-    if (list.size() < 1) {
-      ops.showMessage(getString(R.string.scr_Search_msg_selection_none),
-                      R.id.bottom_app_bar_scr_search);
-      return;
-    }
-    Log.d(TAG, "handleActionShare: [" + list.size() + "] verses selected");
   }
 
   @Override

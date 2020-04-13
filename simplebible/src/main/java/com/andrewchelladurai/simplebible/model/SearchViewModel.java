@@ -14,8 +14,8 @@ import com.andrewchelladurai.simplebible.data.SbDao;
 import com.andrewchelladurai.simplebible.data.SbDatabase;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.TreeSet;
 
 public class SearchViewModel
     extends AndroidViewModel {
@@ -74,8 +74,8 @@ public class SearchViewModel
   }
 
   @NonNull
-  public Collection<EntityVerse> getSelectedList() {
-    return SELECTED_LIST.values();
+  public TreeSet<EntityVerse> getSelectedList() {
+    return new TreeSet<>(SELECTED_LIST.values());
   }
 
   public boolean isSelected(@NonNull final String verseReference) {

@@ -178,4 +178,5 @@
     <string name="scr_Search_msg_selection_none">No verses selected</string>
     <string name="scr_search_result_title_template">%d verses found containing : %s</string>
     <string name="scr_search_result_item_template"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
+    <string name="scr_search_result_share_template">Shared from SimpleBible\n%d Verses that contain text \"%s\"\n\n%s</string>
 </resources>
