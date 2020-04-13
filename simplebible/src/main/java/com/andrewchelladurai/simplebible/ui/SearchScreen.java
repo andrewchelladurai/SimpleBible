@@ -64,7 +64,7 @@ public class SearchScreen
 
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                           @Nullable Bundle savedInstanceState) {
+                           @Nullable Bundle savedState) {
     rootView = inflater.inflate(R.layout.search_screen, container, false);
 
     ((TextView) rootView.findViewById(R.id.help_text_scr_search))
@@ -121,15 +121,13 @@ public class SearchScreen
       }
     });
 
-    if (savedInstanceState != null && model.getResultCount() > 0) {
-      Log.d(TAG, "onCreateView: not the first run & has cached data");
-      showSearchResults(model.getCachedText(), model.getResultCount());
-    } else if (savedInstanceState != null && model.getResultCount() < 1) {
-      Log.d(TAG, "onCreateView: not the first run & has no cache");
-      showHelpText();
+    Log.d(TAG, "onCreateView: savedState [" + (savedState == null) + "]\n"
+               + "cachedResultCount [" + (model.getResultCount()) + "]");
+
+    if (model.getResultCount() < 1) {
+      handleActionReset();
     } else {
-      Log.d(TAG, "onCreateView: default catch");
-      showHelpText();
+      showSearchResults(model.getCachedText(), model.getResultCount());
     }
 
     return rootView;
