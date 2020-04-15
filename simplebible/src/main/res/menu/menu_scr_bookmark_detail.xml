@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="AlwaysShowAction">
+    <group
+        android:id="@+id/menu_group_new_scr_bookmark_detail"
+        android:visible="false">
+        <item
+            android:id="@+id/menu_action_save_scr_bookmark_detail"
+            android:icon="@drawable/ic_save"
+            android:title="@string/scr_bookmark_detail_menu_action_save_title"
+            app:showAsAction="always" />
+    </group>
+    <group
+        android:id="@+id/menu_group_existing_scr_bookmark_detail"
+        android:visible="false">
+        <item
+            android:id="@+id/menu_action_delete_scr_bookmark_detail"
+            android:icon="@drawable/ic_delete"
+            android:title="@string/scr_bookmark_detail_menu_action_delete_title"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/menu_action_share_scr_bookmark_detail"
+            android:icon="@drawable/ic_share"
+            android:title="@string/scr_bookmark_detail_menu_action_share_title"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/menu_action_edit_scr_bookmark_detail"
+            android:icon="@drawable/ic_edit"
+            android:title="@string/scr_bookmark_detail_menu_action_edit_title"
+            app:showAsAction="always" />
+    </group>
+
+</menu>

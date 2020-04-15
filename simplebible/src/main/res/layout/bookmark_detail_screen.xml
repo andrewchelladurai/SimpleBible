@@ -1,13 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.BookmarkScreen">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/scr_bookmark_details_contain_app_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-</FrameLayout>
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/scr_bookmark_details_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:animateLayoutChanges="true"
+            app:elevation="@dimen/none"
+            app:menu="@menu/menu_scr_bookmark_detail">
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/scr_bookmark_details_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:clickable="false"
+                    android:text="@string/application_name"
+                    android:textColor="?colorOnPrimary"
+                    app:chipEndPadding="@dimen/big"
+                    app:chipStartPadding="@dimen/big"
+                    app:chipSurfaceColor="?colorPrimary" />
+            </HorizontalScrollView>
+
+        </com.google.android.material.bottomappbar.BottomAppBar>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/scr_bookmark_details_gh50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/scr_bookmark_details_contain_note"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/normal"
+        app:layout_constraintBottom_toTopOf="@+id/scr_bookmark_details_contain_app_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/scr_bookmark_details_gh50">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/scr_bookmark_details_note"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="start"
+            android:hint="@string/scr_bookmark_details_note_hint"
+            tools:text="@string/application_name" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/scr_bookmark_details_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/normal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/scr_bookmark_details_contain_note"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:itemCount="@integer/scr_bookmark_details_list_columns"
+        tools:listitem="@layout/scr_bookmark_details_list_item" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

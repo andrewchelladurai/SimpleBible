@@ -11,6 +11,7 @@
     <string name="edit">Edit</string>
     <string name="search">Search</string>
     <string name="reset">Reset</string>
+    <string name="save">Save</string>
 
     <!--  MainScreen  -->
     <string name="main_nav_bar_home">home</string>
@@ -179,4 +180,22 @@
     <string name="scr_search_result_title_template">%d verses found containing : %s</string>
     <string name="scr_search_result_item_template"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
     <string name="scr_search_result_share_template">Shared from SimpleBible\n%d Verses that contain text \"%s\"\n\n%s</string>
+
+    <!--  Bookmark Detail  -->
+    <string name="scr_bookmark_detail_menu_action_save_title">@string/save</string>
+    <string name="scr_bookmark_detail_menu_action_edit_title">@string/edit</string>
+    <string name="scr_bookmark_detail_menu_action_delete_title">@string/delete</string>
+    <string name="scr_bookmark_detail_menu_action_share_title">@string/share</string>
+    <string name="scr_bookmark_detail_list_item_template"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
+    <string name="scr_bookmark_details_note_hint">Notes</string>
+    <plurals name="scr_bookmark_details_title_template_verses">
+        <item quantity="one">%d Verse</item>
+        <item quantity="other">%d Verses</item>
+    </plurals>
+    <plurals name="scr_bookmark_details_title_template_note">
+        <item quantity="zero">No Note</item>
+        <item quantity="other">Note Saved</item>
+    </plurals>
+    <string name="scr_bookmark_details_title_template">%s for %s</string>
+
 </resources>
