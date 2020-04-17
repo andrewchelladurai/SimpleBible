@@ -7,23 +7,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.EntityBookmark;
 import com.andrewchelladurai.simplebible.data.EntityVerse;
 import com.andrewchelladurai.simplebible.model.BookmarkViewModel;
+import com.andrewchelladurai.simplebible.ui.adapter.BookmarkAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BookmarkScreen
@@ -37,6 +40,8 @@ public class BookmarkScreen
   private BookmarkViewModel model;
 
   private SimpleBibleOps ops;
+
+  private BookmarkAdapter adapter;
 
   private View rootView;
 
@@ -54,6 +59,9 @@ public class BookmarkScreen
     model = ViewModelProvider.AndroidViewModelFactory
                 .getInstance(requireActivity().getApplication())
                 .create(BookmarkViewModel.class);
+
+    adapter = new BookmarkAdapter(this,
+                                  getString(R.string.scr_bookmark_detail_verse_item_template));
   }
 
   @Override
@@ -84,6 +92,8 @@ public class BookmarkScreen
               return false;
           }
         });
+
+    ((RecyclerView) rootView.findViewById(R.id.scr_bookmark_details_list)).setAdapter(adapter);
 
     final Bundle arguments = getArguments();
 
@@ -183,16 +193,21 @@ public class BookmarkScreen
 
     final EntityBookmark bookmark = model.getCachedBookmark();
     final TextInputEditText noteField = rootView.findViewById(R.id.scr_bookmark_details_note);
+    final Chip title = rootView.findViewById(R.id.scr_bookmark_details_title);
+
     if (bookmark == null) {
-      noteField.setText(R.string.scr_bookmark_details_note_new);
+      noteField.setText(R.string.scr_bookmark_detail_note_new);
+      title.setText(R.string.scr_bookmark_detail_title_new);
     } else if (bookmark.getNote().isEmpty()) {
-      noteField.setText(R.string.scr_bookmark_details_note_empty);
+      noteField.setText(R.string.scr_bookmark_detail_note_empty);
+      title.setText(R.string.scr_bookmark_detail_title_empty);
     } else {
       noteField.setText(bookmark.getNote());
+      title.setText(R.string.scr_bookmark_detail_title_saved);
     }
 
-    final ArrayList<EntityVerse> verses = model.getCachedVerses();
-    Log.d(TAG, "refreshContent: got [" + verses.size() + "] verses");
+    adapter.notifyDataSetChanged();
+
   }
 
   private void handleActionSave() {
@@ -209,6 +224,18 @@ public class BookmarkScreen
 
   private void handleActionShare() {
     Log.d(TAG, "handleActionShare:");
+  }
+
+  @Nullable
+  @Override
+  public EntityVerse getVerseAtPosition(@IntRange(from = 0) final int position) {
+    return model.getVerseAtPosition(position);
+  }
+
+  @IntRange(from = 0)
+  @Override
+  public int getCachedVerseListSize() {
+    return model.getCachedVerseListSize();
   }
 
 }

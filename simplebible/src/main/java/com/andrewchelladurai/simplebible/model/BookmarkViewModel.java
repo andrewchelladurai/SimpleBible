@@ -3,6 +3,7 @@ package com.andrewchelladurai.simplebible.model;
 import android.app.Application;
 import android.util.Log;
 
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
@@ -25,7 +26,7 @@ public class BookmarkViewModel
   private static final String TAG = "BookmarkViewModel";
 
   @NonNull
-  private static final TreeSet<EntityVerse> CACHED_VERSES = new TreeSet<>();
+  private static final ArrayList<EntityVerse> CACHED_VERSES = new ArrayList<>();
 
   @Nullable
   private static EntityBookmark CACHED_BOOKMARK = null;
@@ -51,7 +52,7 @@ public class BookmarkViewModel
 
   @NonNull
   public ArrayList<EntityVerse> getCachedVerses() {
-    return new ArrayList<>(CACHED_VERSES);
+    return CACHED_VERSES;
   }
 
   public void setCachedVerses(@NonNull final List<EntityVerse> verseList) {
@@ -118,6 +119,16 @@ public class BookmarkViewModel
   @NonNull
   public LiveData<EntityBookmark> getBookmarkForReference(@NonNull final String reference) {
     return dao.getBookmarkForReference(reference);
+  }
+
+  @IntRange(from = 0)
+  public int getCachedVerseListSize() {
+    return CACHED_VERSES.size();
+  }
+
+  @Nullable
+  public EntityVerse getVerseAtPosition(@IntRange(from = 0) final int position) {
+    return CACHED_VERSES.get(position);
   }
 
 }

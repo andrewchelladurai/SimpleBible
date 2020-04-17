@@ -176,7 +176,7 @@
     <string name="scr_search_msg_input_length_none">Empty text not allowed</string>
     <string name="scr_search_msg_input_length_min">Text must have a minimum of 3 alphabets</string>
     <string name="scr_search_msg_input_length_max">Text must not be more than 13 alphabets</string>
-    <string name="scr_Search_msg_selection_none">No verses selected</string>
+    <string name="scr_search_msg_selection_none">No verses selected</string>
     <string name="scr_search_result_title_template">%d verses found containing : %s</string>
     <string name="scr_search_result_item_template"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
     <string name="scr_search_result_share_template">Shared from SimpleBible\n%d Verses that contain text \"%s\"\n\n%s</string>
@@ -187,17 +187,12 @@
     <string name="scr_bookmark_detail_menu_action_delete_title">@string/delete</string>
     <string name="scr_bookmark_detail_menu_action_share_title">@string/share</string>
     <string name="scr_bookmark_detail_list_item_template"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
-    <string name="scr_bookmark_details_note_hint">Notes</string>
-    <string name="scr_bookmark_details_note_new">Enter notes for the verses in the above list here</string>
-    <string name="scr_bookmark_details_note_empty">This bookmark does not have a saved Note yet, you can create one here.</string>
-    <plurals name="scr_bookmark_details_title_template_verses">
-        <item quantity="one">%d Verse</item>
-        <item quantity="other">%d Verses</item>
-    </plurals>
-    <plurals name="scr_bookmark_details_title_template_note">
-        <item quantity="zero">No Note</item>
-        <item quantity="other">Note Saved</item>
-    </plurals>
-    <string name="scr_bookmark_details_title_template">%s for %s</string>
+    <string name="scr_bookmark_detail_note_hint">Notes</string>
+    <string name="scr_bookmark_detail_note_new">Enter notes for the verses in the above list here</string>
+    <string name="scr_bookmark_detail_note_empty">This bookmark does not have a saved Note yet, you can create one here.</string>
+    <string name="scr_bookmark_detail_title_new">Unsaved Bookmark</string>
+    <string name="scr_bookmark_detail_title_empty">Saved Bookmark without a note</string>
+    <string name="scr_bookmark_detail_title_saved">Saved Bookmark</string>
+    <string name="scr_bookmark_detail_verse_item_template"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
 
 </resources>

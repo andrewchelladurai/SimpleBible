@@ -210,7 +210,7 @@ public class SearchScreen
     Log.d(TAG, "handleActionBookmark:");
     final TreeSet<EntityVerse> set = model.getSelectedList();
     if (set.size() < 1) {
-      ops.showMessage(getString(R.string.scr_Search_msg_selection_none),
+      ops.showMessage(getString(R.string.scr_search_msg_selection_none),
                       R.id.bottom_app_bar_scr_search);
       return;
     }
@@ -239,7 +239,7 @@ public class SearchScreen
     Log.d(TAG, "handleActionShare:");
     final TreeSet<EntityVerse> set = model.getSelectedList();
     if (set.size() < 1) {
-      ops.showMessage(getString(R.string.scr_Search_msg_selection_none),
+      ops.showMessage(getString(R.string.scr_search_msg_selection_none),
                       R.id.bottom_app_bar_scr_search);
       return;
     }

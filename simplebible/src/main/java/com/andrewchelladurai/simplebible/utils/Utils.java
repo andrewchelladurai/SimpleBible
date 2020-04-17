@@ -128,9 +128,10 @@ public class Utils {
     }
 
     for (final String verse : verseList) {
-      if (!validateVerseReference(reference)) {
+      if (!validateVerseReference(verse)) {
         Log.e(TAG, "validateBookmarkReference: ", new IllegalArgumentException(
-            "Verse [" + verse + "] present in reference [" + reference + "] failed validation"
+            "Verse reference [" + verse + "] present in bookmark reference ["
+            + reference + "] failed validation"
         ));
         return false;
       }
