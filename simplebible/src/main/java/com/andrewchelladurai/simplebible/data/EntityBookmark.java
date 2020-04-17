@@ -6,7 +6,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "sb_bookmarks")
-class EntityBookmark {
+public class EntityBookmark {
 
   @PrimaryKey
   @ColumnInfo(name = "reference")

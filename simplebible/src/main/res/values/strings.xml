@@ -188,6 +188,8 @@
     <string name="scr_bookmark_detail_menu_action_share_title">@string/share</string>
     <string name="scr_bookmark_detail_list_item_template"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
     <string name="scr_bookmark_details_note_hint">Notes</string>
+    <string name="scr_bookmark_details_note_new">Enter notes for the verses in the above list here</string>
+    <string name="scr_bookmark_details_note_empty">This bookmark does not have a saved Note yet, you can create one here.</string>
     <plurals name="scr_bookmark_details_title_template_verses">
         <item quantity="one">%d Verse</item>
         <item quantity="other">%d Verses</item>

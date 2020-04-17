@@ -60,4 +60,19 @@ public interface SbDao {
   @Query("select * from sb_verses where lower(text) like lower(:text)")
   LiveData<List<EntityVerse>> findVersesContainingText(@NonNull String text);
 
+  @Query("select * from sb_verses"
+         + " where book in (:bookNumbers)"
+         + " and chapter in (:chapterNumbers)"
+         + " and verse in (:verseNumbers)"
+         + " order by book, chapter, verse")
+  LiveData<List<EntityVerse>> getVerses(@NonNull List<Integer> bookNumbers,
+                                        @NonNull List<Integer> chapterNumbers,
+                                        @NonNull List<Integer> verseNumbers);
+
+  @Query("select count(reference) from sb_bookmarks where reference=:reference")
+  LiveData<Integer> isBookmarkReferenceSaved(@NonNull String reference);
+
+  @Query("select * from sb_bookmarks where reference=:reference")
+  LiveData<EntityBookmark> getBookmarkForReference(@NonNull String reference);
+
 }

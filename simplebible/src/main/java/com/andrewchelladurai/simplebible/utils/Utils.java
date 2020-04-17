@@ -78,53 +78,12 @@ public class Utils {
         };
   }
 
-  public boolean validateVerseReference(@NonNull final String reference) {
-    Log.d(TAG, "validateVerseReference: reference[" + reference + "]");
-
-    if (reference.isEmpty()) {
-      Log.e(TAG, "validateVerseReference: empty reference");
-      return false;
+  @NonNull
+  public String[] splitBookmarkReference(@NonNull final String reference) {
+    if (validateBookmarkReference(reference)) {
+      return reference.split(SEPARATOR_BOOKMARK_REFERENCE);
     }
-
-    if (!reference.contains(SEPARATOR_VERSE_REFERENCE)) {
-      Log.e(TAG, "validateVerseReference: no separator char found");
-      return false;
-    }
-
-    final String[] part = reference.split(SEPARATOR_VERSE_REFERENCE);
-    if (part.length != 3) {
-      Log.e(TAG, "validateVerseReference: reference does not contain 3 parts");
-    }
-
-    @IntRange(from = 1, to = MAX_BOOKS) final int book;
-    @IntRange(from = 1) final int chapter;
-    @IntRange(from = 1) final int verse;
-
-    try {
-      book = Integer.parseInt(part[0]);
-      chapter = Integer.parseInt(part[1]);
-      verse = Integer.parseInt(part[2]);
-    } catch (NumberFormatException nfe) {
-      Log.e(TAG, "validateVerseReference: book, chapter or book is NAN", nfe);
-      return false;
-    }
-
-    if (book < 1 || book > MAX_BOOKS) {
-      Log.e(TAG, "validateVerseReference: invalid book number");
-      return false;
-    }
-
-    if (chapter < 1) {
-      Log.e(TAG, "validateVerseReference: invalid chapter number");
-      return false;
-    }
-
-    if (verse < 1) {
-      Log.e(TAG, "validateVerseReference: invalid verse number");
-      return false;
-    }
-
-    return true;
+    return new String[0];
   }
 
   @Nullable
@@ -155,6 +114,89 @@ public class Utils {
   @NonNull
   public Set<Integer> getCachedBookList() {
     return CACHE_BOOKS_MAP.keySet();
+  }
+
+  public boolean validateBookmarkReference(@NonNull final String reference) {
+    final String[] verseList = reference.split(SEPARATOR_BOOKMARK_REFERENCE);
+
+    if (verseList.length < 1) {
+      Log.e(TAG, "validateBookmarkReference:",
+            new IllegalArgumentException("Bookmark reference[" + reference + "] has no verses "
+                                         + "after splitting it using separator ["
+                                         + SEPARATOR_BOOKMARK_REFERENCE + "]"));
+      return false;
+    }
+
+    for (final String verse : verseList) {
+      if (!validateVerseReference(reference)) {
+        Log.e(TAG, "validateBookmarkReference: ", new IllegalArgumentException(
+            "Verse [" + verse + "] present in reference [" + reference + "] failed validation"
+        ));
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  public boolean validateVerseReference(@NonNull final String reference) {
+    if (reference.isEmpty()) {
+      Log.e(TAG, "validateVerseReference:", new IllegalArgumentException(
+          "Verse reference [" + reference + "] is empty."
+      ));
+      return false;
+    }
+
+    if (!reference.contains(SEPARATOR_VERSE_REFERENCE)) {
+      Log.e(TAG, "validateVerseReference:", new IllegalArgumentException(
+          "Verse reference [" + reference + "] has no separators ["
+          + SEPARATOR_VERSE_REFERENCE + "]"
+      ));
+      return false;
+    }
+
+    final String[] part = reference.split(SEPARATOR_VERSE_REFERENCE);
+    if (part.length != 3) {
+      Log.e(TAG, "validateVerseReference:", new IllegalArgumentException(
+          "Verse reference [" + reference + "] does not contain 3 parts"
+      ));
+    }
+
+    @IntRange(from = 1, to = MAX_BOOKS) final int book;
+    @IntRange(from = 1) final int chapter;
+    @IntRange(from = 1) final int verse;
+
+    try {
+      book = Integer.parseInt(part[0]);
+      chapter = Integer.parseInt(part[1]);
+      verse = Integer.parseInt(part[2]);
+    } catch (NumberFormatException nfe) {
+      Log.e(TAG, "validateVerseReference: book, chapter or book is NAN", nfe);
+      return false;
+    }
+
+    if (book < 1 || book > MAX_BOOKS) {
+      Log.e(TAG, "validateVerseReference:", new IllegalArgumentException(
+          "Verse reference [" + reference + "] has an invalid book number [" + book + "]"
+      ));
+      return false;
+    }
+
+    if (chapter < 1) {
+      Log.e(TAG, "validateVerseReference:", new IllegalArgumentException(
+          "Verse reference [" + reference + "] has an invalid chapter number [" + chapter + "]"
+      ));
+      return false;
+    }
+
+    if (verse < 1) {
+      Log.e(TAG, "validateVerseReference:", new IllegalArgumentException(
+          "Verse reference [" + reference + "] has an invalid verse number [" + verse + "]"
+      ));
+      return false;
+    }
+
+    return true;
   }
 
 }
