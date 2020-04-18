@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
@@ -147,22 +148,19 @@ public class BookmarkScreen
 
     final int taskId = new Random().nextInt();
 
-    final AsyncTaskLoader<Boolean> saveTask = new AsyncTaskLoader<Boolean>(requireContext()) {
-
-      @Nullable
-      @Override
-      public Boolean loadInBackground() {
-        return model.saveBookmark(bookmark);
-      }
-    };
-
-    final LoaderManager.LoaderCallbacks<Boolean> saveTaskListener =
+    final LoaderManager.LoaderCallbacks<Boolean> taskListener =
         new LoaderManager.LoaderCallbacks<Boolean>() {
 
           @NonNull
           @Override
           public Loader<Boolean> onCreateLoader(final int id, @Nullable final Bundle args) {
-            return saveTask;
+            return new AsyncTaskLoader<Boolean>(requireContext()) {
+
+              @Override
+              public Boolean loadInBackground() {
+                return model.saveBookmark(bookmark);
+              }
+            };
           }
 
           @Override
@@ -185,7 +183,7 @@ public class BookmarkScreen
         };
 
     LoaderManager.getInstance(requireActivity())
-                 .initLoader(taskId, Bundle.EMPTY, saveTaskListener)
+                 .initLoader(taskId, Bundle.EMPTY, taskListener)
                  .forceLoad();
   }
 
@@ -255,6 +253,53 @@ public class BookmarkScreen
 
   private void handleActionDelete() {
     Log.d(TAG, "handleActionDelete:");
+
+    final EntityBookmark bookmark = model.getCachedBookmark();
+    if (bookmark == null) {
+      Log.e(TAG, "handleActionDelete: ",
+            new IllegalArgumentException("null bookmark, can not delete"));
+      return;
+    }
+
+    final LoaderManager.LoaderCallbacks<Boolean> taskListener =
+        new LoaderManager.LoaderCallbacks<Boolean>() {
+
+          @NonNull
+          @Override
+          public Loader<Boolean> onCreateLoader(final int id,
+                                                @Nullable final Bundle args) {
+            return new AsyncTaskLoader<Boolean>(requireContext()) {
+
+              @Override
+              public Boolean loadInBackground() {
+                model.deleteBookmark(bookmark);
+                return true;
+              }
+            };
+          }
+
+          @Override
+          public void onLoadFinished(@NonNull final Loader<Boolean> loader,
+                                     final Boolean saved) {
+            if (saved) {
+              model.clearCache();
+              ops.showMessage(
+                  getString(R.string.scr_bookmark_detail_msg_deleted),
+                  R.id.main_nav_bar);
+              NavHostFragment.findNavController(BookmarkScreen.this)
+                             .popBackStack();
+            }
+          }
+
+          @Override
+          public void onLoaderReset(@NonNull final Loader<Boolean> loader) {
+
+          }
+        };
+
+    LoaderManager.getInstance(requireActivity())
+                 .initLoader(new Random().nextInt(), Bundle.EMPTY, taskListener)
+                 .forceLoad();
   }
 
   private void updateContent(@NonNull final String reference) {

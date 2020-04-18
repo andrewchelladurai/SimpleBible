@@ -43,6 +43,12 @@ public class BookmarkViewModel
     dao = SbDatabase.getDatabase(getApplication()).getDao();
   }
 
+  public void clearCache() {
+    CACHED_BOOKMARK = null;
+    CACHED_BOOKMARK_REFERENCE = "";
+    CACHED_VERSES.clear();
+  }
+
   @Nullable
   public EntityBookmark getCachedBookmark() {
     return CACHED_BOOKMARK;
@@ -135,8 +141,13 @@ public class BookmarkViewModel
     return CACHED_VERSES.get(position);
   }
 
-  public Boolean saveBookmark(@NonNull final EntityBookmark bookmark) {
+  public boolean saveBookmark(@NonNull final EntityBookmark bookmark) {
     dao.createBookmark(bookmark);
+    return true;
+  }
+
+  public boolean deleteBookmark(@NonNull final EntityBookmark bookmark) {
+    dao.deleteBookmark(bookmark);
     return true;
   }
 
