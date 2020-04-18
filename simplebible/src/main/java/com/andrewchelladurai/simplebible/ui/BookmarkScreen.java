@@ -2,6 +2,7 @@ package com.andrewchelladurai.simplebible.ui;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,6 +16,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.AsyncTaskLoader;
+import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
@@ -29,6 +33,7 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
+import java.util.Random;
 
 public class BookmarkScreen
     extends Fragment
@@ -133,60 +138,55 @@ public class BookmarkScreen
     return rootView;
   }
 
-  private void updateContent(@NonNull final String reference) {
-    final EntityBookmark cachedBookmark = model.getCachedBookmark();
+  private void handleActionSave() {
+    Log.d(TAG, "handleActionSave:");
+    final String noteText = getNoteFieldText();
 
-    if (cachedBookmark != null
-        && cachedBookmark.getReference().equalsIgnoreCase(reference)) {
-      Log.d(TAG, "updateContent: reference is already cached");
-      refreshContent();
-      return;
-    }
+    final EntityBookmark bookmark =
+        new EntityBookmark(model.getCachedBookmarkReference(), noteText);
 
-    // validate the passed bookmark reference
-    if (!model.validateBookmarkReference(reference)) {
-      // TODO: 16/4/20 extract error message
-      ops.showErrorScreen("Invalid Bookmark Reference [" + reference + "] passed", true, false);
-      return;
-    }
+    final int taskId = new Random().nextInt();
 
-    // get the references of each verses present in the bookmark reference
-    final String[] verseReferenceList = model.getVersesForBookmarkReference(reference);
-    if (verseReferenceList.length < 1) {
-      // TODO: 16/4/20 extract error message
-      ops.showErrorScreen("No Verse references found in bookmark reference ["
-                          + reference + "]", true, true);
-      return;
-    }
+    final AsyncTaskLoader<Boolean> saveTask = new AsyncTaskLoader<Boolean>(requireContext()) {
 
-    // use the verse references to get the individual verses
-    final LiveData<List<EntityVerse>> verses = model.getVerses(verseReferenceList);
-    if (verses == null) {
-      // TODO: 16/4/20 extract error message
-      ops.showErrorScreen("No Verses found for bookmark reference ["
-                          + reference + "]", true, false);
-      return;
-    }
-
-    final LifecycleOwner lifeOwner = getViewLifecycleOwner();
-
-    // if we have a valid live data object, observe it
-    verses.observe(lifeOwner, verseList -> {
-      if (verseList.isEmpty()) {
-        // TODO: 16/4/20 extract error message
-        ops.showErrorScreen("No Verses found for bookmark reference ["
-                            + reference + "]", true, false);
-        return;
+      @Nullable
+      @Override
+      public Boolean loadInBackground() {
+        return model.saveBookmark(bookmark);
       }
+    };
 
-      // get the bookmark from the database using the bookmark reference
-      model.getBookmarkForReference(reference).observe(lifeOwner, bookmark -> {
-        model.setCachedBookmark(bookmark);
-        model.setCachedVerses(verseList);
-        refreshContent();
-      });
-    });
+    final LoaderManager.LoaderCallbacks<Boolean> saveTaskListener =
+        new LoaderManager.LoaderCallbacks<Boolean>() {
 
+          @NonNull
+          @Override
+          public Loader<Boolean> onCreateLoader(final int id, @Nullable final Bundle args) {
+            return saveTask;
+          }
+
+          @Override
+          public void onLoadFinished(@NonNull final Loader<Boolean> loader,
+                                     final Boolean saved) {
+            if (saved) {
+              model.setCachedBookmark(bookmark);
+              model.setCachedBookmarkReference(bookmark.getReference());
+
+              updateContent(model.getCachedBookmarkReference());
+              ops.showMessage(
+                  getString(R.string.scr_bookmark_detail_msg_saved),
+                  R.id.scr_bookmark_details_app_bar);
+            }
+          }
+
+          @Override
+          public void onLoaderReset(@NonNull final Loader<Boolean> loader) {
+          }
+        };
+
+    LoaderManager.getInstance(requireActivity())
+                 .initLoader(taskId, Bundle.EMPTY, saveTaskListener)
+                 .forceLoad();
   }
 
   private void refreshContent() {
@@ -246,16 +246,72 @@ public class BookmarkScreen
     menu.setGroupVisible(R.id.menu_group_new_scr_bookmark_detail, false);
   }
 
-  private void handleActionSave() {
-    Log.d(TAG, "handleActionSave:");
+  @NonNull
+  private String getNoteFieldText() {
+    final Editable noteField =
+        ((TextInputEditText) rootView.findViewById(R.id.scr_bookmark_details_note)).getText();
+    return (noteField == null) ? "" : noteField.toString();
   }
 
   private void handleActionDelete() {
     Log.d(TAG, "handleActionDelete:");
   }
 
-  private void handleActionEdit() {
-    Log.d(TAG, "handleActionEdit:");
+  private void updateContent(@NonNull final String reference) {
+    final EntityBookmark cachedBookmark = model.getCachedBookmark();
+
+    if (cachedBookmark != null
+        && model.getCachedBookmarkReference().equalsIgnoreCase(reference)) {
+      Log.d(TAG, "updateContent: reference is already cached");
+      refreshContent();
+      return;
+    }
+
+    // validate the passed bookmark reference
+    if (!model.validateBookmarkReference(reference)) {
+      // TODO: 16/4/20 extract error message
+      ops.showErrorScreen("Invalid Bookmark Reference [" + reference + "] passed", true, false);
+      return;
+    }
+
+    // get the references of each verses present in the bookmark reference
+    final String[] verseReferenceList = model.getVersesForBookmarkReference(reference);
+    if (verseReferenceList.length < 1) {
+      // TODO: 16/4/20 extract error message
+      ops.showErrorScreen("No Verse references found in bookmark reference ["
+                          + reference + "]", true, true);
+      return;
+    }
+
+    // use the verse references to get the individual verses
+    final LiveData<List<EntityVerse>> verses = model.getVerses(verseReferenceList);
+    if (verses == null) {
+      // TODO: 16/4/20 extract error message
+      ops.showErrorScreen("No Verses found for bookmark reference ["
+                          + reference + "]", true, false);
+      return;
+    }
+
+    final LifecycleOwner lifeOwner = getViewLifecycleOwner();
+
+    // if we have a valid live data object, observe it
+    verses.observe(lifeOwner, verseList -> {
+      if (verseList.isEmpty()) {
+        // TODO: 16/4/20 extract error message
+        ops.showErrorScreen("No Verses found for bookmark reference ["
+                            + reference + "]", true, false);
+        return;
+      }
+
+      // get the bookmark from the database using the bookmark reference
+      model.getBookmarkForReference(reference).observe(lifeOwner, bookmark -> {
+        model.setCachedBookmark(bookmark);
+        model.setCachedVerses(verseList);
+        model.setCachedBookmarkReference(reference);
+        refreshContent();
+      });
+    });
+
   }
 
   private void handleActionShare() {
@@ -272,6 +328,32 @@ public class BookmarkScreen
   @Override
   public int getCachedVerseListSize() {
     return model.getCachedVerseListSize();
+  }
+
+  private void handleActionEdit() {
+    Log.d(TAG, "handleActionEdit:");
+
+    final TextInputEditText noteField = rootView.findViewById(R.id.scr_bookmark_details_note);
+    final Chip title = rootView.findViewById(R.id.scr_bookmark_details_title);
+    final int verseCount = model.getCachedVerseListSize();
+    final String titleCount = getResources().getQuantityString(
+        R.plurals.scr_bookmark_detail_title_template_verse_count, verseCount,
+        verseCount);
+    final String note = model.getCachedBookmark().getNote();
+    final boolean emptyNote = note.isEmpty();
+
+    title.setText(getString(R.string.scr_bookmark_detail_title_template,
+                            getString(R.string.scr_bookmark_detail_title_template_bookmark_new),
+                            titleCount));
+
+    noteField.setHint(emptyNote ? getString(R.string.scr_bookmark_detail_note_empty) : note);
+    noteField.setText(emptyNote ? getString(R.string.scr_bookmark_detail_note_empty) : note);
+
+    showActionGroupNew();
+    noteField.setEnabled(true);
+
+    // grab focus so that the text-layout hint and text-field hint does not overlay each other
+    noteField.requestFocus();
   }
 
 }

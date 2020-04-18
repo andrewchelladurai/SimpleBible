@@ -17,7 +17,7 @@ public class EntityBookmark {
   @NonNull
   private final String note;
 
-  EntityBookmark(@NonNull final String reference, @NonNull final String note) {
+  public EntityBookmark(@NonNull final String reference, @NonNull final String note) {
     this.reference = reference;
     this.note = note;
   }

@@ -32,6 +32,9 @@ public class BookmarkViewModel
   private static EntityBookmark CACHED_BOOKMARK = null;
 
   @NonNull
+  private static String CACHED_BOOKMARK_REFERENCE = "";
+
+  @NonNull
   private final SbDao dao;
 
   public BookmarkViewModel(@NonNull final Application application) {
@@ -51,8 +54,13 @@ public class BookmarkViewModel
   }
 
   @NonNull
-  public ArrayList<EntityVerse> getCachedVerses() {
-    return CACHED_VERSES;
+  public String getCachedBookmarkReference() {
+    return CACHED_BOOKMARK_REFERENCE;
+  }
+
+  public void setCachedBookmarkReference(@NonNull final String reference) {
+    CACHED_BOOKMARK_REFERENCE = reference;
+    Log.d(TAG, "setCachedBookmarkReference: reference[" + CACHED_BOOKMARK_REFERENCE + "]");
   }
 
   public void setCachedVerses(@NonNull final List<EntityVerse> verseList) {
@@ -93,6 +101,7 @@ public class BookmarkViewModel
     final ArrayList<Integer> bookNumbers = new ArrayList<>();
     final ArrayList<Integer> chapterNumbers = new ArrayList<>();
     final ArrayList<Integer> verseNumbers = new ArrayList<>();
+    //noinspection CheckStyle
     int[] vParts;
 
     for (final String verseReference : finalReferences) {
@@ -112,11 +121,6 @@ public class BookmarkViewModel
   }
 
   @NonNull
-  public LiveData<Integer> isBookmarkReferenceSaved(@NonNull final String reference) {
-    return dao.isBookmarkReferenceSaved(reference);
-  }
-
-  @NonNull
   public LiveData<EntityBookmark> getBookmarkForReference(@NonNull final String reference) {
     return dao.getBookmarkForReference(reference);
   }
@@ -129,6 +133,11 @@ public class BookmarkViewModel
   @Nullable
   public EntityVerse getVerseAtPosition(@IntRange(from = 0) final int position) {
     return CACHED_VERSES.get(position);
+  }
+
+  public Boolean saveBookmark(@NonNull final EntityBookmark bookmark) {
+    dao.createBookmark(bookmark);
+    return true;
   }
 
 }

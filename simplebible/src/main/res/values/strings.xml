@@ -199,5 +199,7 @@
     <string name="scr_bookmark_detail_title_template_bookmark_empty">Saved Bookmark without a note</string>
     <string name="scr_bookmark_detail_title_template_bookmark_saved">Saved Bookmark</string>
     <string name="scr_bookmark_detail_verse_item_template"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
+    <string name="scr_bookmark_detail_msg_saved">Bookmark saved</string>
+    <string name="scr_bookmark_detail_msg_deleted">Bookmark deleted</string>
 
 </resources>
