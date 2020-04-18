@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -196,32 +197,53 @@ public class BookmarkScreen
     final Chip title = rootView.findViewById(R.id.scr_bookmark_details_title);
 
     final int verseCount = model.getCachedVerseListSize();
-    final String countTemplate = getResources().getQuantityString(
+    final String titleCount = getResources().getQuantityString(
         R.plurals.scr_bookmark_detail_title_template_verse_count, verseCount,
         verseCount);
 
     if (bookmark == null) {
-      noteField.setHint(R.string.scr_bookmark_detail_note_new);
+      showActionGroupNew();
       title.setText(getString(R.string.scr_bookmark_detail_title_template,
                               getString(R.string.scr_bookmark_detail_title_template_bookmark_new),
-                              countTemplate));
-    } else if (bookmark.getNote().isEmpty()) {
-      noteField.setHint(R.string.scr_bookmark_detail_note_empty);
-      title.setText(getString(R.string.scr_bookmark_detail_title_template,
-                              getString(R.string.scr_bookmark_detail_title_template_bookmark_empty),
-                              countTemplate));
-    } else {
-      noteField.setHint(bookmark.getNote());
-      title.setText(getString(R.string.scr_bookmark_detail_title_template,
-                              getString(R.string.scr_bookmark_detail_title_template_bookmark_saved),
-                              countTemplate));
-    }
+                              titleCount));
 
-    adapter.notifyDataSetChanged();
+      noteField.setHint(R.string.scr_bookmark_detail_note_new);
+    } else {
+      final String note = bookmark.getNote();
+      final boolean emptyNote = note.isEmpty();
+
+      showActionGroupExisting();
+      noteField.setEnabled(false);
+
+      final String titleState =
+          getString(emptyNote ? R.string.scr_bookmark_detail_title_template_bookmark_empty
+                              : R.string.scr_bookmark_detail_title_template_bookmark_saved);
+
+      title.setText(getString(R.string.scr_bookmark_detail_title_template, titleState, titleCount));
+
+      noteField.setHint(emptyNote ? getString(R.string.scr_bookmark_detail_note_empty) : note);
+      noteField.setText(emptyNote ? getString(R.string.scr_bookmark_detail_note_empty) : note);
+    }
 
     // grab focus so that the text-layout hint and text-field hint does not overlay each other
     noteField.requestFocus();
 
+    adapter.notifyDataSetChanged();
+
+  }
+
+  private void showActionGroupNew() {
+    final Menu menu = ((BottomAppBar) rootView.findViewById(R.id.scr_bookmark_details_app_bar))
+                          .getMenu();
+    menu.setGroupVisible(R.id.menu_group_new_scr_bookmark_detail, true);
+    menu.setGroupVisible(R.id.menu_group_existing_scr_bookmark_detail, false);
+  }
+
+  private void showActionGroupExisting() {
+    final Menu menu = ((BottomAppBar) rootView.findViewById(R.id.scr_bookmark_details_app_bar))
+                          .getMenu();
+    menu.setGroupVisible(R.id.menu_group_existing_scr_bookmark_detail, true);
+    menu.setGroupVisible(R.id.menu_group_new_scr_bookmark_detail, false);
   }
 
   private void handleActionSave() {
