@@ -195,18 +195,32 @@ public class BookmarkScreen
     final TextInputEditText noteField = rootView.findViewById(R.id.scr_bookmark_details_note);
     final Chip title = rootView.findViewById(R.id.scr_bookmark_details_title);
 
+    final int verseCount = model.getCachedVerseListSize();
+    final String countTemplate = getResources().getQuantityString(
+        R.plurals.scr_bookmark_detail_title_template_verse_count, verseCount,
+        verseCount);
+
     if (bookmark == null) {
-      noteField.setText(R.string.scr_bookmark_detail_note_new);
-      title.setText(R.string.scr_bookmark_detail_title_new);
+      noteField.setHint(R.string.scr_bookmark_detail_note_new);
+      title.setText(getString(R.string.scr_bookmark_detail_title_template,
+                              getString(R.string.scr_bookmark_detail_title_template_bookmark_new),
+                              countTemplate));
     } else if (bookmark.getNote().isEmpty()) {
-      noteField.setText(R.string.scr_bookmark_detail_note_empty);
-      title.setText(R.string.scr_bookmark_detail_title_empty);
+      noteField.setHint(R.string.scr_bookmark_detail_note_empty);
+      title.setText(getString(R.string.scr_bookmark_detail_title_template,
+                              getString(R.string.scr_bookmark_detail_title_template_bookmark_empty),
+                              countTemplate));
     } else {
-      noteField.setText(bookmark.getNote());
-      title.setText(R.string.scr_bookmark_detail_title_saved);
+      noteField.setHint(bookmark.getNote());
+      title.setText(getString(R.string.scr_bookmark_detail_title_template,
+                              getString(R.string.scr_bookmark_detail_title_template_bookmark_saved),
+                              countTemplate));
     }
 
     adapter.notifyDataSetChanged();
+
+    // grab focus so that the text-layout hint and text-field hint does not overlay each other
+    noteField.requestFocus();
 
   }
 

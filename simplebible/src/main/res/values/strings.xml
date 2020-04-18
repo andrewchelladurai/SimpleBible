@@ -190,9 +190,14 @@
     <string name="scr_bookmark_detail_note_hint">Notes</string>
     <string name="scr_bookmark_detail_note_new">Enter notes for the verses in the above list here</string>
     <string name="scr_bookmark_detail_note_empty">This bookmark does not have a saved Note yet, you can create one here.</string>
-    <string name="scr_bookmark_detail_title_new">Unsaved Bookmark</string>
-    <string name="scr_bookmark_detail_title_empty">Saved Bookmark without a note</string>
-    <string name="scr_bookmark_detail_title_saved">Saved Bookmark</string>
+    <string name="scr_bookmark_detail_title_template">%s - %s</string>
+    <plurals name="scr_bookmark_detail_title_template_verse_count">
+        <item quantity="one">%d Verse</item>
+        <item quantity="other">%d Verses</item>
+    </plurals>
+    <string name="scr_bookmark_detail_title_template_bookmark_new">Unsaved Bookmark</string>
+    <string name="scr_bookmark_detail_title_template_bookmark_empty">Saved Bookmark without a note</string>
+    <string name="scr_bookmark_detail_title_template_bookmark_saved">Saved Bookmark</string>
     <string name="scr_bookmark_detail_verse_item_template"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
 
 </resources>
