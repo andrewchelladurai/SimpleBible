@@ -41,7 +41,7 @@ public class BookmarkAdapter
                                                     final int viewType) {
     return new BookmarkVerseView(
         LayoutInflater.from(parent.getContext())
-                      .inflate(R.layout.scr_bookmark_details_list_item, parent, false));
+                      .inflate(R.layout.bookmark_verse, parent, false));
   }
 
   @Override
@@ -83,14 +83,14 @@ public class BookmarkAdapter
   private class BookmarkVerseView
       extends RecyclerView.ViewHolder {
 
-    private final TextView verseTextView;
+    private final TextView textView;
 
     @Nullable
     private EntityVerse verse;
 
     BookmarkVerseView(final View view) {
       super(view);
-      verseTextView = view.findViewById(R.id.item_list_scr_bookmark_detail);
+      textView = view.findViewById(R.id.bookmark_verse_content);
     }
 
     private void updateContent(@Nullable final EntityVerse verse) {
@@ -109,9 +109,9 @@ public class BookmarkAdapter
         return;
       }
 
-      verseTextView.setText(HtmlCompat.fromHtml(String.format(
+      textView.setText(HtmlCompat.fromHtml(String.format(
           template, book.getName(), verse.getChapter(), verse.getVerse(), verse.getText()),
-                                                HtmlCompat.FROM_HTML_MODE_COMPACT));
+                                           HtmlCompat.FROM_HTML_MODE_COMPACT));
     }
 
   }

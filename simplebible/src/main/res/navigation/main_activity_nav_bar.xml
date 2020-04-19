@@ -44,7 +44,7 @@
         android:id="@+id/screen_bookmark"
         android:name="com.andrewchelladurai.simplebible.ui.BookmarkScreen"
         android:label="bookmark_screen"
-        tools:layout="@layout/bookmark_detail_screen">
+        tools:layout="@layout/bookmark_screen">
         <argument
             android:name="ARG_STR_REFERENCE"
             app:argType="string" />

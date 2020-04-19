@@ -182,25 +182,28 @@
     <string name="scr_search_result_share_template">Shared from SimpleBible\n%d Verses that contain text \"%s\"\n\n%s</string>
 
     <!--  Bookmark Detail  -->
-    <string name="scr_bookmark_detail_menu_action_save_title">@string/save</string>
-    <string name="scr_bookmark_detail_menu_action_edit_title">@string/edit</string>
-    <string name="scr_bookmark_detail_menu_action_delete_title">@string/delete</string>
-    <string name="scr_bookmark_detail_menu_action_share_title">@string/share</string>
-    <string name="scr_bookmark_detail_list_item_template"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
-    <string name="scr_bookmark_detail_note_hint">Notes</string>
-    <string name="scr_bookmark_detail_note_new">Enter notes for the verses in the above list here</string>
-    <string name="scr_bookmark_detail_note_empty">This bookmark does not have a saved Note yet.</string>
-    <string name="scr_bookmark_detail_title_template">%s - %s</string>
-    <plurals name="scr_bookmark_detail_title_template_verse_count">
+    <string name="scr_bookmark_menu_action_save">@string/save</string>
+    <string name="scr_bookmark_menu_action_edit">@string/edit</string>
+    <string name="scr_bookmark_menu_action_delete">@string/delete</string>
+    <string name="scr_bookmark_menu_action_share">@string/share</string>
+    <string name="scr_bookmark_note_hint">Notes</string>
+    <string name="scr_bookmark_note_new">Enter notes for the verses in the above list here</string>
+    <string name="scr_bookmark_note_empty">This bookmark does not have a saved Note yet.</string>
+    <string name="scr_bookmark_msg_saved">Bookmark saved</string>
+    <string name="scr_bookmark_msg_deleted">Bookmark deleted</string>
+    <string name="scr_bookmark_msg_empty_args">No Arguments passed when loading screen</string>
+    <string name="scr_bookmark_msg_no_reference">No Bookmark Reference Passed when loading screen</string>
+    <string name="scr_bookmark_msg_invalid_reference">Invalid Bookmark Reference [%s] passed</string>
+    <string name="scr_bookmark_msg_no_verse_found">No Verse references found in bookmark reference [%s]</string>
+    <string name="scr_bookmark_template_share">Bookmark shared from SimpleBible\n\nVerse(s):\n%s\n\nNote(s):\n%s</string>
+    <string name="scr_bookmark_template_title">%s - %s</string>
+    <plurals name="scr_bookmark_template_title_verse_count">
         <item quantity="one">%d Verse</item>
         <item quantity="other">%d Verses</item>
     </plurals>
-    <string name="scr_bookmark_detail_title_template_bookmark_new">Unsaved Bookmark</string>
-    <string name="scr_bookmark_detail_title_template_bookmark_empty">Saved Bookmark without a note</string>
-    <string name="scr_bookmark_detail_title_template_bookmark_saved">Saved Bookmark</string>
-    <string name="scr_bookmark_detail_verse_item_template"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
-    <string name="scr_bookmark_detail_msg_saved">Bookmark saved</string>
-    <string name="scr_bookmark_detail_msg_deleted">Bookmark deleted</string>
-    <string name="scr_bookmark_detail_share_template">Bookmark shared from SimpleBible\n\nVerse(s):\n%s\n\nNote(s):\n%s</string>
+    <string name="scr_bookmark_template_title_bookmark_new">Unsaved Bookmark</string>
+    <string name="scr_bookmark_template_title_bookmark_empty">Saved Bookmark without a note</string>
+    <string name="scr_bookmark_template_title_bookmark_saved">Saved Bookmark</string>
+    <string name="scr_bookmark_template_verse_item"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
 
 </resources>

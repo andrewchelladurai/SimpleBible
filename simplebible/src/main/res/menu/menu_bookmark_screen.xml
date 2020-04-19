@@ -4,31 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="AlwaysShowAction">
     <group
-        android:id="@+id/menu_group_new_scr_bookmark_detail"
+        android:id="@+id/scr_bookmark_menu_group_new"
         android:visible="false">
         <item
-            android:id="@+id/menu_action_save_scr_bookmark_detail"
+            android:id="@+id/scr_bookmark_menu_action_save"
             android:icon="@drawable/ic_save"
-            android:title="@string/scr_bookmark_detail_menu_action_save_title"
+            android:title="@string/scr_bookmark_menu_action_save"
             app:showAsAction="always" />
     </group>
     <group
-        android:id="@+id/menu_group_existing_scr_bookmark_detail"
+        android:id="@+id/scr_bookmark_menu_group_existing"
         android:visible="false">
         <item
-            android:id="@+id/menu_action_delete_scr_bookmark_detail"
+            android:id="@+id/scr_bookmark_menu_action_delete"
             android:icon="@drawable/ic_delete"
-            android:title="@string/scr_bookmark_detail_menu_action_delete_title"
+            android:title="@string/scr_bookmark_menu_action_delete"
             app:showAsAction="always" />
         <item
-            android:id="@+id/menu_action_share_scr_bookmark_detail"
+            android:id="@+id/scr_bookmark_menu_action_share"
             android:icon="@drawable/ic_share"
-            android:title="@string/scr_bookmark_detail_menu_action_share_title"
+            android:title="@string/scr_bookmark_menu_action_share"
             app:showAsAction="always" />
         <item
-            android:id="@+id/menu_action_edit_scr_bookmark_detail"
+            android:id="@+id/scr_bookmark_menu_action_edit"
             android:icon="@drawable/ic_edit"
-            android:title="@string/scr_bookmark_detail_menu_action_edit_title"
+            android:title="@string/scr_bookmark_menu_action_edit"
             app:showAsAction="always" />
     </group>
 

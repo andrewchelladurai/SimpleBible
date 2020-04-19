@@ -69,7 +69,7 @@ public class BookmarkScreen
                 .create(BookmarkViewModel.class);
 
     adapter = new BookmarkAdapter(this,
-                                  getString(R.string.scr_bookmark_detail_verse_item_template));
+                                  getString(R.string.scr_bookmark_template_verse_item));
   }
 
   @Override
@@ -78,21 +78,21 @@ public class BookmarkScreen
     ops.hideKeyboard();
     ops.hideNavigationView();
 
-    rootView = inflater.inflate(R.layout.bookmark_detail_screen, container, false);
+    rootView = inflater.inflate(R.layout.bookmark_screen, container, false);
 
-    ((BottomAppBar) rootView.findViewById(R.id.scr_bookmark_details_app_bar))
+    ((BottomAppBar) rootView.findViewById(R.id.scr_bookmark_app_bar))
         .setOnMenuItemClickListener(item -> {
           switch (item.getItemId()) {
-            case R.id.menu_action_save_scr_bookmark_detail:
+            case R.id.scr_bookmark_menu_action_save:
               handleActionSave();
               return true;
-            case R.id.menu_action_delete_scr_bookmark_detail:
+            case R.id.scr_bookmark_menu_action_delete:
               handleActionDelete();
               return true;
-            case R.id.menu_action_edit_scr_bookmark_detail:
+            case R.id.scr_bookmark_menu_action_edit:
               handleActionEdit();
               return true;
-            case R.id.menu_action_share_scr_bookmark_detail:
+            case R.id.scr_bookmark_menu_action_share:
               handleActionShare();
               return true;
             default:
@@ -101,20 +101,20 @@ public class BookmarkScreen
           }
         });
 
-    ((RecyclerView) rootView.findViewById(R.id.scr_bookmark_details_list)).setAdapter(adapter);
+    ((RecyclerView) rootView.findViewById(R.id.scr_bookmark_list)).setAdapter(adapter);
 
     final Bundle arguments = getArguments();
 
     if (savedState == null) {
       if (arguments == null) {
-        // TODO: 16/4/20 extract error message
-        ops.showErrorScreen("No Arguments passed when loading screen", true, false);
+        ops.showErrorScreen(getString(R.string.scr_bookmark_msg_empty_args),
+                            true, false);
         return rootView;
       }
 
       if (!arguments.containsKey(ARG_STR_REFERENCE)) {
-        // TODO: 16/4/20 extract error message
-        ops.showErrorScreen("No Bookmark Reference Passed when loading screen", true, false);
+        ops.showErrorScreen(getString(R.string.scr_bookmark_msg_no_reference),
+                            true, false);
         return rootView;
       }
 
@@ -130,8 +130,8 @@ public class BookmarkScreen
         if (arguments != null) {
           updateContent(arguments.getString(ARG_STR_REFERENCE, ""));
         } else {
-          // TODO: 16/4/20 extract error message
-          ops.showErrorScreen("No Bookmark Reference Passed when loading screen", true, false);
+          ops.showErrorScreen(getString(R.string.scr_bookmark_msg_no_reference),
+                              true, false);
           return rootView;
         }
       }
@@ -173,8 +173,8 @@ public class BookmarkScreen
 
               updateContent(model.getCachedBookmarkReference());
               ops.showMessage(
-                  getString(R.string.scr_bookmark_detail_msg_saved),
-                  R.id.scr_bookmark_details_app_bar);
+                  getString(R.string.scr_bookmark_msg_saved),
+                  R.id.scr_bookmark_app_bar);
             }
           }
 
@@ -192,21 +192,21 @@ public class BookmarkScreen
     Log.d(TAG, "refreshContent:");
 
     final EntityBookmark bookmark = model.getCachedBookmark();
-    final TextInputEditText noteField = rootView.findViewById(R.id.scr_bookmark_details_note);
-    final Chip title = rootView.findViewById(R.id.scr_bookmark_details_title);
+    final TextInputEditText noteField = rootView.findViewById(R.id.scr_bookmark_note);
+    final Chip title = rootView.findViewById(R.id.scr_bookmark_title);
 
     final int verseCount = model.getCachedVerseListSize();
     final String titleCount = getResources().getQuantityString(
-        R.plurals.scr_bookmark_detail_title_template_verse_count, verseCount,
+        R.plurals.scr_bookmark_template_title_verse_count, verseCount,
         verseCount);
 
     if (bookmark == null) {
       showActionGroupNew();
-      title.setText(getString(R.string.scr_bookmark_detail_title_template,
-                              getString(R.string.scr_bookmark_detail_title_template_bookmark_new),
+      title.setText(getString(R.string.scr_bookmark_template_title,
+                              getString(R.string.scr_bookmark_template_title_bookmark_new),
                               titleCount));
 
-      noteField.setHint(R.string.scr_bookmark_detail_note_new);
+      noteField.setHint(R.string.scr_bookmark_note_new);
     } else {
       final String note = bookmark.getNote();
       final boolean emptyNote = note.isEmpty();
@@ -215,13 +215,13 @@ public class BookmarkScreen
       noteField.setEnabled(false);
 
       final String titleState =
-          getString(emptyNote ? R.string.scr_bookmark_detail_title_template_bookmark_empty
-                              : R.string.scr_bookmark_detail_title_template_bookmark_saved);
+          getString(emptyNote ? R.string.scr_bookmark_template_title_bookmark_empty
+                              : R.string.scr_bookmark_template_title_bookmark_saved);
 
-      title.setText(getString(R.string.scr_bookmark_detail_title_template, titleState, titleCount));
+      title.setText(getString(R.string.scr_bookmark_template_title, titleState, titleCount));
 
-      noteField.setHint(emptyNote ? getString(R.string.scr_bookmark_detail_note_empty) : note);
-      noteField.setText(emptyNote ? getString(R.string.scr_bookmark_detail_note_empty) : note);
+      noteField.setHint(emptyNote ? getString(R.string.scr_bookmark_note_empty) : note);
+      noteField.setText(emptyNote ? getString(R.string.scr_bookmark_note_empty) : note);
     }
 
     // grab focus so that the text-layout hint and text-field hint does not overlay each other
@@ -232,23 +232,23 @@ public class BookmarkScreen
   }
 
   private void showActionGroupNew() {
-    final Menu menu = ((BottomAppBar) rootView.findViewById(R.id.scr_bookmark_details_app_bar))
+    final Menu menu = ((BottomAppBar) rootView.findViewById(R.id.scr_bookmark_app_bar))
                           .getMenu();
-    menu.setGroupVisible(R.id.menu_group_new_scr_bookmark_detail, true);
-    menu.setGroupVisible(R.id.menu_group_existing_scr_bookmark_detail, false);
+    menu.setGroupVisible(R.id.scr_bookmark_menu_group_new, true);
+    menu.setGroupVisible(R.id.scr_bookmark_menu_group_existing, false);
   }
 
   private void showActionGroupExisting() {
-    final Menu menu = ((BottomAppBar) rootView.findViewById(R.id.scr_bookmark_details_app_bar))
+    final Menu menu = ((BottomAppBar) rootView.findViewById(R.id.scr_bookmark_app_bar))
                           .getMenu();
-    menu.setGroupVisible(R.id.menu_group_existing_scr_bookmark_detail, true);
-    menu.setGroupVisible(R.id.menu_group_new_scr_bookmark_detail, false);
+    menu.setGroupVisible(R.id.scr_bookmark_menu_group_existing, true);
+    menu.setGroupVisible(R.id.scr_bookmark_menu_group_new, false);
   }
 
   @NonNull
   private String getNoteFieldText() {
     final Editable noteField =
-        ((TextInputEditText) rootView.findViewById(R.id.scr_bookmark_details_note)).getText();
+        ((TextInputEditText) rootView.findViewById(R.id.scr_bookmark_note)).getText();
     return (noteField == null) ? "" : noteField.toString();
   }
 
@@ -285,7 +285,7 @@ public class BookmarkScreen
             if (saved) {
               model.clearCache();
               ops.showMessage(
-                  getString(R.string.scr_bookmark_detail_msg_deleted),
+                  getString(R.string.scr_bookmark_msg_deleted),
                   R.id.main_nav_bar);
               NavHostFragment.findNavController(BookmarkScreen.this)
                              .popBackStack();
@@ -315,26 +315,25 @@ public class BookmarkScreen
 
     // validate the passed bookmark reference
     if (!model.validateBookmarkReference(reference)) {
-      // TODO: 16/4/20 extract error message
-      ops.showErrorScreen("Invalid Bookmark Reference [" + reference + "] passed", true, false);
+      ops.showErrorScreen(
+          getString(R.string.scr_bookmark_msg_invalid_reference, reference),
+          true, false);
       return;
     }
 
     // get the references of each verses present in the bookmark reference
     final String[] verseReferenceList = model.getVersesForBookmarkReference(reference);
     if (verseReferenceList.length < 1) {
-      // TODO: 16/4/20 extract error message
-      ops.showErrorScreen("No Verse references found in bookmark reference ["
-                          + reference + "]", true, true);
+      ops.showErrorScreen(getString(R.string.scr_bookmark_msg_no_verse_found, reference),
+                          true, true);
       return;
     }
 
     // use the verse references to get the individual verses
     final LiveData<List<EntityVerse>> verses = model.getVerses(verseReferenceList);
     if (verses == null) {
-      // TODO: 16/4/20 extract error message
-      ops.showErrorScreen("No Verses found for bookmark reference ["
-                          + reference + "]", true, false);
+      ops.showErrorScreen(getString(R.string.scr_bookmark_msg_no_verse_found, reference),
+                          true, true);
       return;
     }
 
@@ -343,9 +342,8 @@ public class BookmarkScreen
     // if we have a valid live data object, observe it
     verses.observe(lifeOwner, verseList -> {
       if (verseList.isEmpty()) {
-        // TODO: 16/4/20 extract error message
-        ops.showErrorScreen("No Verses found for bookmark reference ["
-                            + reference + "]", true, false);
+        ops.showErrorScreen(getString(R.string.scr_bookmark_msg_no_verse_found, reference),
+                            true, true);
         return;
       }
 
@@ -364,7 +362,7 @@ public class BookmarkScreen
     Log.d(TAG, "handleActionShare:");
     final EntityBookmark bookmark = model.getCachedBookmark();
     if (bookmark == null) {
-      ops.showMessage("This is mot a Saved Bookmark", R.id.scr_bookmark_details_app_bar);
+      ops.showMessage("This is mot a Saved Bookmark", R.id.scr_bookmark_app_bar);
       return;
     }
 
@@ -374,10 +372,10 @@ public class BookmarkScreen
       verses.append(text).append("\n");
     }
 
-    ops.shareText(getString(R.string.scr_bookmark_detail_share_template, // template
+    ops.shareText(getString(R.string.scr_bookmark_template_share, // template
                             verses.toString(), // transformed verses
                             (bookmark.getNote().isEmpty()) // note text, use placeholder if empty
-                            ? getString(R.string.scr_bookmark_detail_note_empty)
+                            ? getString(R.string.scr_bookmark_note_empty)
                             : bookmark.getNote()));
   }
 
@@ -396,21 +394,21 @@ public class BookmarkScreen
   private void handleActionEdit() {
     Log.d(TAG, "handleActionEdit:");
 
-    final TextInputEditText noteField = rootView.findViewById(R.id.scr_bookmark_details_note);
-    final Chip title = rootView.findViewById(R.id.scr_bookmark_details_title);
+    final TextInputEditText noteField = rootView.findViewById(R.id.scr_bookmark_note);
+    final Chip title = rootView.findViewById(R.id.scr_bookmark_title);
     final int verseCount = model.getCachedVerseListSize();
     final String titleCount = getResources().getQuantityString(
-        R.plurals.scr_bookmark_detail_title_template_verse_count, verseCount,
+        R.plurals.scr_bookmark_template_title_verse_count, verseCount,
         verseCount);
     final String note = model.getCachedBookmark().getNote();
     final boolean emptyNote = note.isEmpty();
 
-    title.setText(getString(R.string.scr_bookmark_detail_title_template,
-                            getString(R.string.scr_bookmark_detail_title_template_bookmark_new),
+    title.setText(getString(R.string.scr_bookmark_template_title,
+                            getString(R.string.scr_bookmark_template_title_bookmark_new),
                             titleCount));
 
-    noteField.setHint(emptyNote ? getString(R.string.scr_bookmark_detail_note_empty) : note);
-    noteField.setText(emptyNote ? getString(R.string.scr_bookmark_detail_note_empty) : note);
+    noteField.setHint(emptyNote ? getString(R.string.scr_bookmark_note_empty) : note);
+    noteField.setText(emptyNote ? getString(R.string.scr_bookmark_note_empty) : note);
 
     showActionGroupNew();
     noteField.setEnabled(true);
