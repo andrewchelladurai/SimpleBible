@@ -17,6 +17,8 @@ import com.andrewchelladurai.simplebible.data.EntityVerse;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkScreenOps;
 import com.andrewchelladurai.simplebible.utils.Utils;
 
+import java.util.ArrayList;
+
 public class BookmarkAdapter
     extends RecyclerView.Adapter {
 
@@ -50,6 +52,32 @@ public class BookmarkAdapter
   @Override
   public int getItemCount() {
     return ops.getCachedVerseListSize();
+  }
+
+  @NonNull
+  public ArrayList<String> getVerseTexts() {
+
+    final ArrayList<String> arrayList = new ArrayList<>();
+    EntityVerse verse;
+    final int itemCount = getItemCount();
+    for (int i = 0; i < itemCount; i++) {
+      verse = ops.getVerseAtPosition(i);
+
+      if (verse == null) {
+        continue;
+      }
+
+      final EntityBook book = Utils.getInstance().getCachedBook(verse.getBook());
+      if (book == null) {
+        continue;
+      }
+
+      arrayList.add(HtmlCompat.fromHtml(String.format(
+          template, book.getName(), verse.getChapter(), verse.getVerse(), verse.getText()),
+                                        HtmlCompat.FROM_HTML_MODE_COMPACT).toString());
+    }
+
+    return arrayList;
   }
 
   private class BookmarkVerseView

@@ -189,7 +189,7 @@
     <string name="scr_bookmark_detail_list_item_template"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
     <string name="scr_bookmark_detail_note_hint">Notes</string>
     <string name="scr_bookmark_detail_note_new">Enter notes for the verses in the above list here</string>
-    <string name="scr_bookmark_detail_note_empty">This bookmark does not have a saved Note yet, you can create one here.</string>
+    <string name="scr_bookmark_detail_note_empty">This bookmark does not have a saved Note yet.</string>
     <string name="scr_bookmark_detail_title_template">%s - %s</string>
     <plurals name="scr_bookmark_detail_title_template_verse_count">
         <item quantity="one">%d Verse</item>
@@ -201,5 +201,6 @@
     <string name="scr_bookmark_detail_verse_item_template"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
     <string name="scr_bookmark_detail_msg_saved">Bookmark saved</string>
     <string name="scr_bookmark_detail_msg_deleted">Bookmark deleted</string>
+    <string name="scr_bookmark_detail_share_template">Bookmark shared from SimpleBible\n\nVerse(s):\n%s\n\nNote(s):\n%s</string>
 
 </resources>

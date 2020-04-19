@@ -33,6 +33,7 @@ import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -361,6 +362,23 @@ public class BookmarkScreen
 
   private void handleActionShare() {
     Log.d(TAG, "handleActionShare:");
+    final EntityBookmark bookmark = model.getCachedBookmark();
+    if (bookmark == null) {
+      ops.showMessage("This is mot a Saved Bookmark", R.id.scr_bookmark_details_app_bar);
+      return;
+    }
+
+    final ArrayList<String> verseTexts = adapter.getVerseTexts();
+    final StringBuilder verses = new StringBuilder();
+    for (final String text : verseTexts) {
+      verses.append(text).append("\n");
+    }
+
+    ops.shareText(getString(R.string.scr_bookmark_detail_share_template, // template
+                            verses.toString(), // transformed verses
+                            (bookmark.getNote().isEmpty()) // note text, use placeholder if empty
+                            ? getString(R.string.scr_bookmark_detail_note_empty)
+                            : bookmark.getNote()));
   }
 
   @Nullable
