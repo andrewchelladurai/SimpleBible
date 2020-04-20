@@ -17,27 +17,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.EntityBook;
-import com.andrewchelladurai.simplebible.model.BookListViewModel;
-import com.andrewchelladurai.simplebible.ui.adapter.BookListAdapter;
+import com.andrewchelladurai.simplebible.model.BooksViewModel;
+import com.andrewchelladurai.simplebible.ui.adapter.BooksAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BookListScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 import com.andrewchelladurai.simplebible.utils.Utils;
 
 import java.util.Set;
 
-public class BookListScreen
+public class BooksScreen
     extends Fragment
     implements BookListScreenOps {
 
-  private static final String TAG = "BookListScreen";
-
-  private BookListViewModel model;
+  private static final String TAG = "BooksScreen";
 
   private SimpleBibleOps ops;
 
   private View rootView;
 
-  private BookListAdapter booksAdapter;
+  private BooksViewModel model;
+
+  private BooksAdapter booksAdapter;
 
   @Override
   public void onAttach(@NonNull final Context context) {
@@ -52,14 +52,14 @@ public class BookListScreen
 
     model = ViewModelProvider.AndroidViewModelFactory
                 .getInstance(requireActivity().getApplication())
-                .create(BookListViewModel.class);
+                .create(BooksViewModel.class);
 
-    booksAdapter = new BookListAdapter(this);
+    booksAdapter = new BooksAdapter(this);
   }
 
   @Override
   public void onDestroyView() {
-    final SearchView searchView = rootView.findViewById(R.id.scr_book_list_search);
+    final SearchView searchView = rootView.findViewById(R.id.scr_books_search);
     searchView.setQuery("", true);
     super.onDestroyView();
   }
@@ -72,12 +72,12 @@ public class BookListScreen
     ops.hideKeyboard();
     ops.showNavigationView();
 
-    rootView = inflater.inflate(R.layout.book_list_screen, container, false);
+    rootView = inflater.inflate(R.layout.books_screen, container, false);
 
-    final RecyclerView recyclerView = rootView.findViewById(R.id.scr_book_list_list);
+    final RecyclerView recyclerView = rootView.findViewById(R.id.scr_books_list);
     recyclerView.setAdapter(booksAdapter);
 
-    final SearchView searchView = rootView.findViewById(R.id.scr_book_list_search);
+    final SearchView searchView = rootView.findViewById(R.id.scr_books_search);
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
       @Override
@@ -114,7 +114,7 @@ public class BookListScreen
     model.getAllBooks().observe(getViewLifecycleOwner(), bookList -> {
 
       if (bookList == null || bookList.isEmpty() || bookList.size() != Utils.MAX_BOOKS) {
-        final String msg = getString(R.string.scr_book_list_err_invalid_list,
+        final String msg = getString(R.string.scr_books_msg_invalid_list,
                                      (bookList == null) ? 0 : bookList.size(),
                                      Utils.MAX_BOOKS);
         Log.e(TAG, "updateContent: " + msg);

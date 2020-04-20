@@ -33,9 +33,9 @@
         android:label="SettingsScreen" />
     <fragment
         android:id="@+id/screen_book_list"
-        android:name="com.andrewchelladurai.simplebible.ui.BookListScreen"
+        android:name="com.andrewchelladurai.simplebible.ui.BooksScreen"
         android:label="book_list_screen"
-        tools:layout="@layout/book_list_screen">
+        tools:layout="@layout/books_screen">
         <action
             android:id="@+id/nav_from_scr_book_list_to_scr_chapter"
             app:destination="@id/screen_chapter" />

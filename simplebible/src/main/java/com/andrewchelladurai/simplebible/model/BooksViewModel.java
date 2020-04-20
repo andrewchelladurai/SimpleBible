@@ -13,14 +13,14 @@ import com.andrewchelladurai.simplebible.data.SbDatabase;
 
 import java.util.List;
 
-public class BookListViewModel
+public class BooksViewModel
     extends AndroidViewModel {
 
-  private static final String TAG = "BookListViewModel";
+  private static final String TAG = "BooksViewModel";
 
   private final SbDao dao;
 
-  public BookListViewModel(@NonNull final Application application) {
+  public BooksViewModel(@NonNull final Application application) {
     super(application);
     Log.d(TAG, "BookListViewModel:");
     dao = SbDatabase.getDatabase(getApplication()).getDao();

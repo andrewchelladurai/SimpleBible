@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.BookListScreen">
+    tools:context=".ui.BooksScreen">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/scr_book_list_contain_search"
+        android:id="@+id/scr_books_contain_search"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/normal"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <SearchView
-            android:id="@+id/scr_book_list_search"
+            android:id="@+id/scr_books_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/normal"
@@ -27,12 +27,12 @@
             android:inputType="textNoSuggestions"
             android:orientation="horizontal"
             android:outlineProvider="none"
-            android:queryHint="@string/scr_book_list_search_hint"
+            android:queryHint="@string/scr_books_search_hint"
             android:searchIcon="@drawable/ic_search" />
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/scr_book_list_list"
+        android:id="@+id/scr_books_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/normal"
@@ -43,7 +43,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scr_book_list_contain_search"
-        app:spanCount="@integer/scr_book_list_list_columns"
-        tools:listitem="@layout/scr_book_list_list_item" />
+        app:layout_constraintTop_toBottomOf="@id/scr_books_contain_search"
+        app:spanCount="@integer/scr_books_list_columns"
+        tools:listitem="@layout/books_screen_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>

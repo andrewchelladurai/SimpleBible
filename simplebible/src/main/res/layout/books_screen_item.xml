@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingTop="@dimen/normal"
-    android:paddingBottom="@dimen/normal"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/normal"
+    android:paddingBottom="@dimen/normal">
 
     <TextView
-        android:id="@+id/book_list_item_name"
+        android:id="@+id/books_screen_item_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/normal"
@@ -17,18 +16,16 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/application_name" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/book_list_item_details"
+        android:id="@+id/books_screen_item_details"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="serif"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        app:layout_constraintEnd_toEndOf="@id/book_list_item_name"
-        app:layout_constraintStart_toStartOf="@id/book_list_item_name"
-        app:layout_constraintTop_toBottomOf="@id/book_list_item_name"
-        tools:text="@string/notify_channel_desc_reminder" />
+        app:layout_constraintEnd_toEndOf="@id/books_screen_item_name"
+        app:layout_constraintStart_toStartOf="@id/books_screen_item_name"
+        app:layout_constraintTop_toBottomOf="@id/books_screen_item_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

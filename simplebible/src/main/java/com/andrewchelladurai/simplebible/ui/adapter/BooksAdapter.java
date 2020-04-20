@@ -18,10 +18,10 @@ import com.andrewchelladurai.simplebible.utils.Utils;
 import java.util.ArrayList;
 import java.util.Set;
 
-public class BookListAdapter
+public class BooksAdapter
     extends RecyclerView.Adapter {
 
-  private static final String TAG = "BookListAdapter";
+  private static final String TAG = "BooksAdapter";
 
   @NonNull
   private static final ArrayList<Integer> BOOK_NUMBER_LIST = new ArrayList<>(Utils.MAX_BOOKS);
@@ -29,7 +29,7 @@ public class BookListAdapter
   @NonNull
   private final BookListScreenOps ops;
 
-  public BookListAdapter(@NonNull final BookListScreenOps ops) {
+  public BooksAdapter(@NonNull final BookListScreenOps ops) {
     this.ops = ops;
     filterList("");
   }
@@ -39,7 +39,7 @@ public class BookListAdapter
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent,
                                                     final int viewType) {
     return new BookListItemView(LayoutInflater.from(parent.getContext())
-                                              .inflate(R.layout.scr_book_list_list_item,
+                                              .inflate(R.layout.books_screen_item,
                                                        parent, false));
   }
 
@@ -91,15 +91,15 @@ public class BookListAdapter
       super(view);
       view.setOnClickListener(v -> ops.handleBookSelection(book));
 
-      nameView = view.findViewById(R.id.book_list_item_name);
-      detailsView = view.findViewById(R.id.book_list_item_details);
+      nameView = view.findViewById(R.id.books_screen_item_name);
+      detailsView = view.findViewById(R.id.books_screen_item_details);
     }
 
     private void updateContent(@Nullable final EntityBook book) {
       this.book = book;
       if (book == null) {
-        nameView.setText(R.string.scr_book_list_null_book_name);
-        detailsView.setText(R.string.scr_book_list_null_book_description);
+        nameView.setText(R.string.scr_books_null_book_name);
+        detailsView.setText(R.string.scr_books_null_book_description);
         return;
       }
 
@@ -107,7 +107,7 @@ public class BookListAdapter
       detailsView.setText(HtmlCompat.fromHtml(nameView.getContext()
                                                       .getResources()
                                                       .getQuantityString(
-                                                          R.plurals.book_list_item_details_template,
+                                                          R.plurals.scr_books_list_item_template_details,
                                                           book.getChapters(),
                                                           book.getVerses(),
                                                           book.getChapters(),
