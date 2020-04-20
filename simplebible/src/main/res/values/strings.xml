@@ -2,7 +2,6 @@
 
     <!--  Common throughout the application  -->
     <string name="application_name">Simple Bible</string>
-    <string name="default_verse_reference">43:3:16</string>
     <string name="bookmark">Bookmark</string>
     <string name="share">Share</string>
     <string name="clear">Clear</string>

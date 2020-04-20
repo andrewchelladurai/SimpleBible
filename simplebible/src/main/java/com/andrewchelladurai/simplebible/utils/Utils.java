@@ -91,6 +91,21 @@ public class Utils {
     return CACHE_BOOKS_MAP.get(bookNumber);
   }
 
+  @NonNull
+  public String createVerseReference(@IntRange(from = 1, to = MAX_BOOKS) int book,
+                                     @IntRange(from = 1) int chapter,
+                                     @IntRange(from = 1) int verse) {
+    if (book < 1 || chapter < 1 || verse < 1) {
+      Log.e(TAG, "createVerseReference:",
+            new IllegalArgumentException("one of the passed values is < 1\n"
+                                         + "book =[" + book + "], "
+                                         + "chapter =[" + chapter + "], "
+                                         + "verse = [" + verse + "]"));
+      return "";
+    }
+    return book + SEPARATOR_VERSE_REFERENCE + chapter + SEPARATOR_VERSE_REFERENCE + verse;
+  }
+
   @Nullable
   public String createBookmarkReference(@NonNull final Collection<EntityVerse> list) {
     if (list.isEmpty()) {

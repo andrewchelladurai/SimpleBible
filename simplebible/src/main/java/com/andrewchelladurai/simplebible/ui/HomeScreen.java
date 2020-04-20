@@ -1,6 +1,7 @@
 package com.andrewchelladurai.simplebible.ui;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Spanned;
 import android.util.Log;
@@ -87,9 +88,14 @@ public class HomeScreen
     final String[] array = requireContext().getResources()
                                            .getStringArray(R.array.daily_verse_references);
 
-    final String reference = (array.length < dayNo)
-                             ? getString(R.string.default_verse_reference)
-                             : array[dayNo];
+    final Resources resources = getResources();
+    final String defaultVerseReference =
+        Utils.getInstance().createVerseReference(
+            resources.getInteger(R.integer.default_book_number),
+            resources.getInteger(R.integer.default_chapter_number),
+            resources.getInteger(R.integer.default_verse_number));
+
+    final String reference = (array.length < dayNo) ? defaultVerseReference : array[dayNo];
 
     final Utils utils = Utils.getInstance();
     final boolean validated = utils.validateVerseReference(reference);
@@ -171,10 +177,11 @@ public class HomeScreen
 
     if (verse == null) {
       Log.e(TAG, "handleActionChapter: null cached verse, will show default chapter");
+      final Resources resources = getResources();
       bundle.putInt(ChapterScreen.ARG_INT_BOOK,
-                    getResources().getInteger(R.integer.default_book_number));
+                    resources.getInteger(R.integer.default_book_number));
       bundle.putInt(ChapterScreen.ARG_INT_CHAPTER,
-                    getResources().getInteger(R.integer.default_chapter_number));
+                    resources.getInteger(R.integer.default_chapter_number));
     } else {
       bundle.putInt(ChapterScreen.ARG_INT_BOOK, verse.getBook());
       bundle.putInt(ChapterScreen.ARG_INT_CHAPTER, verse.getChapter());
