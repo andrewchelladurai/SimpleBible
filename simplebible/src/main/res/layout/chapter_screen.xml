@@ -58,7 +58,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:spanCount="@integer/scr_chapter_list_columns"
-        tools:listitem="@layout/chapter_screen_list_item" />
+        tools:listitem="@layout/item_chapter_verse" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

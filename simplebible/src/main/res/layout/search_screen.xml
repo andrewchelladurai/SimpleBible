@@ -85,7 +85,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/scr_search_contain_search_view"
         app:spanCount="@integer/scr_search_list_columns"
-        tools:listitem="@layout/search_result" />
+        tools:listitem="@layout/item_search_result" />
 
     <ScrollView
         android:id="@+id/scr_search_contain_help_text"

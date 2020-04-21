@@ -41,7 +41,7 @@ public class BookmarkAdapter
                                                     final int viewType) {
     return new BookmarkVerseView(
         LayoutInflater.from(parent.getContext())
-                      .inflate(R.layout.bookmark_verse, parent, false));
+                      .inflate(R.layout.item_bookmark_verse, parent, false));
   }
 
   @Override
@@ -90,7 +90,7 @@ public class BookmarkAdapter
 
     BookmarkVerseView(final View view) {
       super(view);
-      textView = view.findViewById(R.id.bookmark_verse_content);
+      textView = view.findViewById(R.id.item_bookmark_verse_text);
     }
 
     private void updateContent(@Nullable final EntityVerse verse) {

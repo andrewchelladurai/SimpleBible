@@ -45,5 +45,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/scr_books_contain_search"
         app:spanCount="@integer/scr_books_list_columns"
-        tools:listitem="@layout/books_screen_item" />
+        tools:listitem="@layout/item_book" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,7 +33,7 @@ public class ChapterVerseAdapter
                                                     final int viewType) {
     return new ChapterVerseView(LayoutInflater
                                     .from(parent.getContext())
-                                    .inflate(R.layout.chapter_screen_list_item, parent, false));
+                                    .inflate(R.layout.item_chapter_verse, parent, false));
   }
 
   @Override
@@ -57,8 +57,8 @@ public class ChapterVerseAdapter
 
     ChapterVerseView(final View view) {
       super(view);
-      textView = view.findViewById(R.id.scr_chapter_list_item);
-      selectedView = view.findViewById(R.id.scr_chapter_list_item_selected);
+      textView = view.findViewById(R.id.item_chapter_verse_text);
+      selectedView = view.findViewById(R.id.item_chapter_verse_selected);
 
       textView.setOnClickListener(v -> {
         if (ops.isVerseSelected(verse)) {

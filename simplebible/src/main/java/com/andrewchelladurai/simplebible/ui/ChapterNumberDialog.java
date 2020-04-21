@@ -30,8 +30,8 @@ public class ChapterNumberDialog
   public View onCreateView(@NonNull final LayoutInflater inflater,
                            @Nullable final ViewGroup container,
                            @Nullable final Bundle savedInstanceState) {
-    final View view = inflater.inflate(R.layout.chapter_screen_list_chapter, container);
-    ((RecyclerView) view.findViewById(R.id.scr_chapter_chapter_list)).setAdapter(adapter);
+    final View view = inflater.inflate(R.layout.dialog_chapter_number, container);
+    ((RecyclerView) view.findViewById(R.id.scr_chapter_dialog_list)).setAdapter(adapter);
 
     return view;
   }

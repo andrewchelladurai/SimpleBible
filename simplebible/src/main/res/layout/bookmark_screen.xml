@@ -88,6 +88,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:itemCount="@integer/scr_bookmark_list_columns"
-        tools:listitem="@layout/bookmark_verse" />
+        tools:listitem="@layout/item_bookmark_verse" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

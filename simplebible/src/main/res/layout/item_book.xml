@@ -7,7 +7,7 @@
     android:paddingBottom="@dimen/normal">
 
     <TextView
-        android:id="@+id/books_screen_item_name"
+        android:id="@+id/item_book_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/normal"
@@ -19,13 +19,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/books_screen_item_details"
+        android:id="@+id/item_book_details"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="serif"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        app:layout_constraintEnd_toEndOf="@id/books_screen_item_name"
-        app:layout_constraintStart_toStartOf="@id/books_screen_item_name"
-        app:layout_constraintTop_toBottomOf="@id/books_screen_item_name" />
+        app:layout_constraintEnd_toEndOf="@id/item_book_name"
+        app:layout_constraintStart_toStartOf="@id/item_book_name"
+        app:layout_constraintTop_toBottomOf="@id/item_book_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

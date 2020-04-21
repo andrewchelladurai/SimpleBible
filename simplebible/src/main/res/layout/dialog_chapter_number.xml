@@ -8,22 +8,22 @@
     android:padding="@dimen/big">
 
     <TextView
-        android:id="@+id/scr_chapter_chapter_title"
+        android:id="@+id/scr_chapter_dialog_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/big"
         android:padding="@dimen/small"
-        android:text="@string/scr_chapter_chapter_title"
+        android:text="@string/scr_chapter_dialog_title"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/scr_chapter_chapter_list"
+        android:id="@+id/scr_chapter_dialog_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="@integer/scr_chapter_chapter_list_columns"
-        tools:listitem="@layout/chapter_screen_chapter_item" />
+        app:spanCount="@integer/scr_chapter_dialog_list_columns"
+        tools:listitem="@layout/item_chapter_number" />
 
 </LinearLayout>

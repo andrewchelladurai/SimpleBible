@@ -39,7 +39,7 @@ public class BooksAdapter
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent,
                                                     final int viewType) {
     return new BookListItemView(LayoutInflater.from(parent.getContext())
-                                              .inflate(R.layout.books_screen_item,
+                                              .inflate(R.layout.item_book,
                                                        parent, false));
   }
 
@@ -91,8 +91,8 @@ public class BooksAdapter
       super(view);
       view.setOnClickListener(v -> ops.handleBookSelection(book));
 
-      nameView = view.findViewById(R.id.books_screen_item_name);
-      detailsView = view.findViewById(R.id.books_screen_item_details);
+      nameView = view.findViewById(R.id.item_book_name);
+      detailsView = view.findViewById(R.id.item_book_details);
     }
 
     private void updateContent(@Nullable final EntityBook book) {
