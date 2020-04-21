@@ -98,8 +98,8 @@ public class BooksAdapter
     private void updateContent(@Nullable final EntityBook book) {
       this.book = book;
       if (book == null) {
-        nameView.setText(R.string.scr_books_null_book_name);
-        detailsView.setText(R.string.scr_books_null_book_description);
+        nameView.setText(R.string.scr_books_empty_book_name);
+        detailsView.setText(R.string.scr_books_empty_book_description);
         return;
       }
 

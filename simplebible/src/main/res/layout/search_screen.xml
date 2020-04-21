@@ -8,7 +8,7 @@
     tools:context=".ui.SearchScreen">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/contain_bottom_app_bar_scr_search"
+        android:id="@+id/scr_search_contain_bottom_app_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
@@ -17,13 +17,13 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottom_app_bar_scr_search"
+            android:id="@+id/scr_search_bottom_app_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:animateLayoutChanges="true"
             app:elevation="@dimen/none"
             app:hideOnScroll="false"
-            app:menu="@menu/menu_actions_scr_search">
+            app:menu="@menu/menu_search_screen">
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                 android:animateLayoutChanges="true">
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/title_scr_search"
+                    android:id="@+id/scr_search_title"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="start"
@@ -46,7 +46,7 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/contain_search_view_scr_search"
+        android:id="@+id/scr_search_contain_search_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/normal"
@@ -57,7 +57,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <SearchView
-            android:id="@+id/search_view_scr_search"
+            android:id="@+id/scr_search_input"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/normal"
@@ -66,12 +66,12 @@
             android:inputType="textNoSuggestions"
             android:orientation="horizontal"
             android:outlineProvider="none"
-            android:queryHint="@string/hint_search_view_scr_search"
+            android:queryHint="@string/scr_search_input_hint"
             android:searchIcon="@drawable/ic_search" />
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_view_scr_search"
+        android:id="@+id/scr_search_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/normal"
@@ -80,28 +80,28 @@
         android:layout_marginBottom="@dimen/big"
         android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/contain_bottom_app_bar_scr_search"
+        app:layout_constraintBottom_toTopOf="@id/scr_search_contain_bottom_app_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/contain_search_view_scr_search"
-        app:spanCount="@integer/columns_list_view_scr_search"
-        tools:listitem="@layout/item_list_view_scr_search" />
+        app:layout_constraintTop_toBottomOf="@id/scr_search_contain_search_view"
+        app:spanCount="@integer/scr_search_list_columns"
+        tools:listitem="@layout/search_result" />
 
     <ScrollView
-        android:id="@+id/contain_help_text_scr_search"
+        android:id="@+id/scr_search_contain_help_text"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/contain_bottom_app_bar_scr_search"
+        app:layout_constraintBottom_toTopOf="@id/scr_search_contain_bottom_app_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/contain_search_view_scr_search">
+        app:layout_constraintTop_toBottomOf="@id/scr_search_contain_search_view">
 
         <TextView
-            android:id="@+id/help_text_scr_search"
+            android:id="@+id/scr_search_help_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/help_text_scr_search" />
+            android:text="@string/scr_search_help_text" />
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

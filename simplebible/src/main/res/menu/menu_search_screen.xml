@@ -4,33 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="AlwaysShowAction">
     <group
-        android:id="@+id/menu_group_selection_scr_search"
+        android:id="@+id/scr_search_menu_group_selected"
         android:visible="false">
         <item
-            android:id="@+id/action_menu_scr_search_bookmark"
+            android:id="@+id/scr_search_menu_action_bookmark"
             android:icon="@drawable/ic_bookmark"
-            android:title="@string/bookmark_action_menu_scr_search"
+            android:title="@string/scr_search_menu_action_bookmark"
             app:showAsAction="always" />
         <item
-            android:id="@+id/action_menu_scr_search_share"
+            android:id="@+id/scr_search_menu_action_share"
             android:icon="@drawable/ic_share"
-            android:title="@string/share_action_menu_scr_search"
+            android:title="@string/scr_search_menu_action_share"
             app:showAsAction="always" />
         <item
-            android:id="@+id/action_menu_scr_search_clear"
+            android:id="@+id/scr_search_menu_action_clear"
             android:icon="@drawable/ic_clear_all"
-            android:title="@string/clear_action_menu_scr_search"
+            android:title="@string/scr_search_menu_action_clear"
             app:showAsAction="always" />
     </group>
     <item
-        android:id="@+id/action_menu_scr_search_search"
+        android:id="@+id/scr_search_menu_action_search"
         android:icon="@drawable/ic_search"
-        android:title="@string/search_action_menu_scr_search"
+        android:title="@string/scr_search_menu_action_search"
         app:showAsAction="always" />
     <item
-        android:id="@+id/action_menu_scr_search_reset"
+        android:id="@+id/scr_search_menu_action_reset"
         android:icon="@drawable/ic_clear"
-        android:title="@string/reset_action_menu_scr_search"
+        android:title="@string/scr_search_menu_action_reset"
         android:visible="false"
         app:showAsAction="always" />
 </menu>

@@ -3,5 +3,5 @@
     <integer name="scr_chapter_list_columns">2</integer>
     <integer name="scr_chapter_chapter_list_columns">2</integer>
     <integer name="scr_books_list_columns">2</integer>
-    <integer name="columns_list_view_scr_search">2</integer>
+    <integer name="scr_search_list_columns">2</integer>
 </resources>

@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
     android:orientation="horizontal">
 
     <View
-        android:id="@+id/selected_item_list_view_scr_search"
+        android:id="@+id/scr_search_result_selection"
         android:layout_width="3dp"
         android:layout_height="match_parent"
         android:layout_marginEnd="@dimen/small"
@@ -17,10 +16,9 @@
         android:focusable="false" />
 
     <TextView
-        android:id="@+id/item_list_view_scr_search"
+        android:id="@+id/scr_search_result_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/small"
-        tools:text="@string/scr_chapter_template_verse" />
+        android:padding="@dimen/small" />
 
 </LinearLayout>

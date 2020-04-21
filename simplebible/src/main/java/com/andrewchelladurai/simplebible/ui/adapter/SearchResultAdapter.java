@@ -39,7 +39,7 @@ public class SearchResultAdapter
                                                     final int viewType) {
     return new SearchResultView(
         LayoutInflater.from(parent.getContext())
-                      .inflate(R.layout.item_list_view_scr_search, parent, false));
+                      .inflate(R.layout.search_result, parent, false));
   }
 
   @Override
@@ -63,8 +63,8 @@ public class SearchResultAdapter
 
     SearchResultView(final View view) {
       super(view);
-      textView = view.findViewById(R.id.item_list_view_scr_search);
-      selectedView = view.findViewById(R.id.selected_item_list_view_scr_search);
+      textView = view.findViewById(R.id.scr_search_result_text);
+      selectedView = view.findViewById(R.id.scr_search_result_selection);
 
       textView.setOnClickListener(v -> {
         if (ops.isSelected(verse.getReference())) {

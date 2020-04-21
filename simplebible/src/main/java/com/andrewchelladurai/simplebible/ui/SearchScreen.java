@@ -38,9 +38,9 @@ public class SearchScreen
 
   private static final String TAG = "SearchScreen";
 
-  private SearchViewModel model;
-
   private SimpleBibleOps ops;
+
+  private SearchViewModel model;
 
   private SearchResultAdapter adapter;
 
@@ -59,7 +59,7 @@ public class SearchScreen
     model = ViewModelProvider.AndroidViewModelFactory
                 .getInstance(requireActivity().getApplication())
                 .create(SearchViewModel.class);
-    adapter = new SearchResultAdapter(this, getString(R.string.scr_search_result_item_template));
+    adapter = new SearchResultAdapter(this, getString(R.string.scr_search_result_template));
   }
 
   @Override
@@ -67,13 +67,13 @@ public class SearchScreen
                            @Nullable Bundle savedState) {
     rootView = inflater.inflate(R.layout.search_screen, container, false);
 
-    ((TextView) rootView.findViewById(R.id.help_text_scr_search))
-        .setText(HtmlCompat.fromHtml(getString(R.string.help_text_scr_search),
+    ((TextView) rootView.findViewById(R.id.scr_search_help_text))
+        .setText(HtmlCompat.fromHtml(getString(R.string.scr_search_help_text),
                                      HtmlCompat.FROM_HTML_MODE_COMPACT));
 
-    ((RecyclerView) rootView.findViewById(R.id.list_view_scr_search)).setAdapter(adapter);
+    ((RecyclerView) rootView.findViewById(R.id.scr_search_list)).setAdapter(adapter);
 
-    final SearchView searchView = rootView.findViewById(R.id.search_view_scr_search);
+    final SearchView searchView = rootView.findViewById(R.id.scr_search_input);
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
       @Override
@@ -93,26 +93,26 @@ public class SearchScreen
       }
     });
 
-    final BottomAppBar appBar = rootView.findViewById(R.id.bottom_app_bar_scr_search);
+    final BottomAppBar appBar = rootView.findViewById(R.id.scr_search_bottom_app_bar);
     appBar.setOnMenuItemClickListener(item -> {
       switch (item.getItemId()) {
-        case R.id.action_menu_scr_search_clear:
+        case R.id.scr_search_menu_action_clear:
           handleActionClear();
           return true;
-        case R.id.action_menu_scr_search_bookmark:
+        case R.id.scr_search_menu_action_bookmark:
           handleActionBookmark();
           return true;
-        case R.id.action_menu_scr_search_share:
+        case R.id.scr_search_menu_action_share:
           handleActionShare();
           return true;
-        case R.id.action_menu_scr_search_search:
+        case R.id.scr_search_menu_action_search:
           final String text = searchView.getQuery().toString();
           final boolean valid = validateSearchText(text);
           if (valid) {
             handleActionSearch(text);
           }
           return true;
-        case R.id.action_menu_scr_search_reset:
+        case R.id.scr_search_menu_action_reset:
           handleActionReset();
           return true;
         default:
@@ -156,25 +156,25 @@ public class SearchScreen
     if (text.isEmpty()) {
       showHelpText();
       ops.showMessage(getString(R.string.scr_search_msg_input_length_none),
-                      R.id.bottom_app_bar_scr_search);
+                      R.id.scr_search_bottom_app_bar);
       return false;
     }
 
     if (text.length() < 3) {
       showHelpText();
       ops.showMessage(getString(R.string.scr_search_msg_input_length_min),
-                      R.id.bottom_app_bar_scr_search);
+                      R.id.scr_search_bottom_app_bar);
       return false;
     }
 
     if (text.length() > 13) {
       showHelpText();
       ops.showMessage(getString(R.string.scr_search_msg_input_length_max),
-                      R.id.bottom_app_bar_scr_search);
+                      R.id.scr_search_bottom_app_bar);
       return false;
     }
 
-    final SearchView searchView = rootView.findViewById(R.id.search_view_scr_search);
+    final SearchView searchView = rootView.findViewById(R.id.scr_search_input);
     searchView.setQuery("", false);
 
     return true;
@@ -188,30 +188,12 @@ public class SearchScreen
     updateSelectionActionsState();
   }
 
-  @Override
-  public void updateSelectionActionsState() {
-    final boolean showActions = model.getSelectedList().size() > 0;
-    final Menu menu =
-        ((BottomAppBar) rootView.findViewById(R.id.bottom_app_bar_scr_search)).getMenu();
-    menu.setGroupVisible(R.id.menu_group_selection_scr_search, showActions);
-
-    rootView.findViewById(R.id.title_scr_search)
-            .setVisibility((showActions) ? View.GONE : View.VISIBLE);
-  }
-
-  private void handleActionClear() {
-    Log.d(TAG, "handleActionClear:");
-    model.clearSelectedList();
-    adapter.notifyDataSetChanged();
-    updateSelectionActionsState();
-  }
-
   private void handleActionBookmark() {
     Log.d(TAG, "handleActionBookmark:");
     final TreeSet<EntityVerse> set = model.getSelectedList();
     if (set.size() < 1) {
       ops.showMessage(getString(R.string.scr_search_msg_selection_none),
-                      R.id.bottom_app_bar_scr_search);
+                      R.id.scr_search_bottom_app_bar);
       return;
     }
 
@@ -235,18 +217,25 @@ public class SearchScreen
                    .navigate(R.id.nav_from_scr_search_to_scr_bookmark, bundle);
   }
 
+  private void handleActionClear() {
+    Log.d(TAG, "handleActionClear:");
+    model.clearSelectedList();
+    adapter.notifyDataSetChanged();
+    updateSelectionActionsState();
+  }
+
   private void handleActionShare() {
     Log.d(TAG, "handleActionShare:");
     final TreeSet<EntityVerse> set = model.getSelectedList();
     if (set.size() < 1) {
       ops.showMessage(getString(R.string.scr_search_msg_selection_none),
-                      R.id.bottom_app_bar_scr_search);
+                      R.id.scr_search_bottom_app_bar);
       return;
     }
 
     Log.d(TAG, "handleActionShare: [" + set.size() + "] verses selected");
 
-    final String verseTemplate = getString(R.string.scr_search_result_item_template);
+    final String verseTemplate = getString(R.string.scr_search_result_template);
     final StringBuilder verseText = new StringBuilder();
 
     EntityBook book;
@@ -270,36 +259,47 @@ public class SearchScreen
                             verseText.toString()));
   }
 
-  private void showHelpText() {
-    Log.d(TAG, "showHelpText:");
-    rootView.findViewById(R.id.list_view_scr_search).setVisibility(View.GONE);
-    rootView.findViewById(R.id.contain_help_text_scr_search).setVisibility(View.VISIBLE);
-
-    final Menu menu =
-        ((BottomAppBar) rootView.findViewById(R.id.bottom_app_bar_scr_search)).getMenu();
-    menu.findItem(R.id.action_menu_scr_search_search).setVisible(true);
-    menu.findItem(R.id.action_menu_scr_search_reset).setVisible(false);
-    updateSelectionActionsState();
-
-    ((Chip) rootView.findViewById(R.id.title_scr_search))
-        .setText(getString(R.string.application_name));
-  }
-
   private void showSearchResults(@NonNull final String text,
                                  @IntRange(from = 0) final int count) {
     Log.d(TAG, "showSearchResults: text = [" + text + "], count = [" + count + "]");
-    rootView.findViewById(R.id.list_view_scr_search).setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.contain_help_text_scr_search).setVisibility(View.GONE);
+    rootView.findViewById(R.id.scr_search_list).setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scr_search_contain_help_text).setVisibility(View.GONE);
 
     final Menu menu =
-        ((BottomAppBar) rootView.findViewById(R.id.bottom_app_bar_scr_search)).getMenu();
-    menu.findItem(R.id.action_menu_scr_search_search).setVisible(false);
-    menu.findItem(R.id.action_menu_scr_search_reset).setVisible(true);
+        ((BottomAppBar) rootView.findViewById(R.id.scr_search_bottom_app_bar)).getMenu();
+    menu.findItem(R.id.scr_search_menu_action_search).setVisible(false);
+    menu.findItem(R.id.scr_search_menu_action_reset).setVisible(true);
     updateSelectionActionsState();
 
-    ((Chip) rootView.findViewById(R.id.title_scr_search))
-        .setText(getString(R.string.scr_search_result_title_template, count, text));
+    ((Chip) rootView.findViewById(R.id.scr_search_title))
+        .setText(getString(R.string.scr_search_title_template, count, text));
     adapter.notifyDataSetChanged();
+  }
+
+  private void showHelpText() {
+    Log.d(TAG, "showHelpText:");
+    rootView.findViewById(R.id.scr_search_list).setVisibility(View.GONE);
+    rootView.findViewById(R.id.scr_search_contain_help_text).setVisibility(View.VISIBLE);
+
+    final Menu menu =
+        ((BottomAppBar) rootView.findViewById(R.id.scr_search_bottom_app_bar)).getMenu();
+    menu.findItem(R.id.scr_search_menu_action_search).setVisible(true);
+    menu.findItem(R.id.scr_search_menu_action_reset).setVisible(false);
+    updateSelectionActionsState();
+
+    ((Chip) rootView.findViewById(R.id.scr_search_title))
+        .setText(getString(R.string.application_name));
+  }
+
+  @Override
+  public void updateSelectionActionsState() {
+    final boolean showActions = model.getSelectedList().size() > 0;
+    final Menu menu =
+        ((BottomAppBar) rootView.findViewById(R.id.scr_search_bottom_app_bar)).getMenu();
+    menu.setGroupVisible(R.id.scr_search_menu_group_selected, showActions);
+
+    rootView.findViewById(R.id.scr_search_title)
+            .setVisibility((showActions) ? View.GONE : View.VISIBLE);
   }
 
   @Override

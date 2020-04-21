@@ -148,21 +148,21 @@
     <!-- Book List Screen -->
     <string name="scr_books_search_hint">Search book name</string>
     <string name="scr_books_msg_invalid_list">Found %d books in the database instead of % which is the expected count</string>
-    <string name="scr_books_null_book_name">Empty Book</string>
-    <string name="scr_books_null_book_description" />
+    <string name="scr_books_empty_book_name">No book found</string>
+    <string name="scr_books_empty_book_description">Empty description</string>
     <plurals name="scr_books_list_item_template_details">
         <item quantity="one"><![CDATA[has %d verses in only <b>%d Chapter</b>and is known as <b>"%s"</b>]]></item>
         <item quantity="other"><![CDATA[has %d verses spread across <b>%d Chapters</b> & is called <b>"%s"</b>]]></item>
     </plurals>
 
     <!-- Search Screen -->
-    <string name="bookmark_action_menu_scr_search">@string/bookmark</string>
-    <string name="share_action_menu_scr_search">@string/share</string>
-    <string name="clear_action_menu_scr_search">@string/clear</string>
-    <string name="search_action_menu_scr_search">@string/search</string>
-    <string name="reset_action_menu_scr_search">@string/reset</string>
-    <string name="hint_search_view_scr_search">Find text in verses</string>
-    <string name="help_text_scr_search"><![CDATA[
+    <string name="scr_search_menu_action_bookmark">@string/bookmark</string>
+    <string name="scr_search_menu_action_share">@string/share</string>
+    <string name="scr_search_menu_action_clear">@string/clear</string>
+    <string name="scr_search_menu_action_search">@string/search</string>
+    <string name="scr_search_menu_action_reset">@string/reset</string>
+    <string name="scr_search_input_hint">Find text in verses</string>
+    <string name="scr_search_help_text"><![CDATA[
     <h1>TIPS to find relevant results</h1><br/>
     <p><h5>The length of the input text must be<br/>
     - More than 3 alphabets.<br/>
@@ -176,8 +176,8 @@
     <string name="scr_search_msg_input_length_min">Text must have a minimum of 3 alphabets</string>
     <string name="scr_search_msg_input_length_max">Text must not be more than 13 alphabets</string>
     <string name="scr_search_msg_selection_none">No verses selected</string>
-    <string name="scr_search_result_title_template">%d verses found containing : %s</string>
-    <string name="scr_search_result_item_template"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
+    <string name="scr_search_title_template">%d verses found containing : %s</string>
+    <string name="scr_search_result_template"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
     <string name="scr_search_result_share_template">Shared from SimpleBible\n%d Verses that contain text \"%s\"\n\n%s</string>
 
     <!--  Bookmark Detail  -->
