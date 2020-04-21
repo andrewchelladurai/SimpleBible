@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <integer name="default_book_number">45</integer>
+    <integer name="default_book_number">43</integer>
     <integer name="default_chapter_number">3</integer>
     <integer name="default_verse_number">16</integer>
 

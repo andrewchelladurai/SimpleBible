@@ -39,6 +39,8 @@ public class HomeScreen
 
   private View rootView;
 
+  private static String DEFAULT_REFERENCE = null;
+
   @Override
   public void onAttach(@NonNull final Context context) {
     Log.d(TAG, "onAttach:");
@@ -69,54 +71,62 @@ public class HomeScreen
     rootView.findViewById(R.id.scr_home_action_share)
             .setOnClickListener(v -> handleActionShare());
 
-    updateContent();
+    if (null == DEFAULT_REFERENCE) {
+      final Resources resources = getResources();
+      DEFAULT_REFERENCE = Utils.getInstance().createVerseReference(
+          resources.getInteger(R.integer.default_book_number),
+          resources.getInteger(R.integer.default_chapter_number),
+          resources.getInteger(R.integer.default_verse_number));
+      Log.d(TAG, "onCreateView: DEFAULT_VERSE_REFERENCE[" + DEFAULT_REFERENCE + "]");
+    }
+
+    updateContent("");
 
     return rootView;
   }
 
-  private void updateContent() {
-    Log.d(TAG, "updateContent:");
+  private void updateContent(@NonNull final String verseReference) {
+    Log.d(TAG, "updateContent: verseReference = [" + verseReference + "]");
 
+    final String[] reference = {verseReference};
     final int dayNo = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
-    final EntityVerse cachedVerse = model.getCachedVerse();
-    if (cachedVerse != null && dayNo == model.getCachedVerseDay()) {
-      Log.d(TAG, "updateContent: already cached verse for day[" + dayNo + "]");
-      displayVerse(cachedVerse);
-      return;
+
+    if (verseReference.isEmpty()) {
+      final EntityVerse cachedVerse = model.getCachedVerse();
+
+      if (cachedVerse != null && dayNo == model.getCachedVerseDay()) {
+        Log.d(TAG, "updateContent: already cached verse for day[" + dayNo + "]");
+        displayVerse(cachedVerse);
+        return;
+      }
+
+      final String[] array = getResources().getStringArray(R.array.daily_verse_references);
+      reference[0] = (array.length < dayNo) ? DEFAULT_REFERENCE : array[dayNo];
     }
-
-    final String[] array = requireContext().getResources()
-                                           .getStringArray(R.array.daily_verse_references);
-
-    final Resources resources = getResources();
-    final String defaultVerseReference =
-        Utils.getInstance().createVerseReference(
-            resources.getInteger(R.integer.default_book_number),
-            resources.getInteger(R.integer.default_chapter_number),
-            resources.getInteger(R.integer.default_verse_number));
-
-    final String reference = (array.length < dayNo) ? defaultVerseReference : array[dayNo];
 
     final Utils utils = Utils.getInstance();
-    final boolean validated = utils.validateVerseReference(reference);
+    final boolean validated = utils.validateVerseReference(reference[0]);
 
     if (!validated) {
-      Log.e(TAG, "updateContent: reference[" + reference + "] not valid");
-      displayDefaultVerse();
+      Log.e(TAG, "updateContent:",
+            new IllegalArgumentException("reference[" + reference[0] + "] not valid"));
+      updateContent(DEFAULT_REFERENCE);
       return;
     }
 
-    final int[] parts = utils.splitVerseReference(reference);
+    final int[] parts = utils.splitVerseReference(reference[0]);
     if (parts == null) {
-      Log.e(TAG, "updateContent: invalid parts of reference[" + reference + "]");
-      displayDefaultVerse();
+      Log.e(TAG, "updateContent:",
+            new IllegalArgumentException("invalid parts of reference[" + reference[0] + "]"));
+      updateContent(DEFAULT_REFERENCE);
       return;
     }
 
     model.getVerse(parts[0], parts[1], parts[2]).observe(getViewLifecycleOwner(), verse -> {
       if (verse == null) {
-        Log.e(TAG, "updateContent: null verse returned for reference[" + reference + "]");
-        displayDefaultVerse();
+        Log.e(TAG, "updateContent:",
+              new IllegalArgumentException("no verse found for reference[" + reference[0] + "]"));
+        updateContent(DEFAULT_REFERENCE);
         return;
       }
 
@@ -128,15 +138,21 @@ public class HomeScreen
   }
 
   private void displayVerse(@NonNull final EntityVerse verse) {
-    Log.d(TAG, "displayVerse:");
     EntityBook book = Utils.getInstance().getCachedBook(verse.getBook());
 
     if (book == null) {
-      displayDefaultVerse();
       Log.e(TAG, "displayVerse: No book found for book number in verse[" + verse + "]");
+      displayDefaultVerse();
       return;
     }
 
+    if (verse.getReference().equalsIgnoreCase(DEFAULT_REFERENCE)) {
+      Log.d(TAG, "displayVerse: displaying defaultReference[" + DEFAULT_REFERENCE + "]");
+      displayDefaultVerse();
+      return;
+    }
+
+    Log.d(TAG, "displayVerse: displaying reference[" + verse.getReference() + "]");
     final String formattedText = String.format(getString(R.string.scr_home_verse_template),
                                                book.getName(),
                                                verse.getChapter(),
