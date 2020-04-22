@@ -4,4 +4,5 @@
     <integer name="scr_chapter_dialog_list_columns">2</integer>
     <integer name="scr_books_list_columns">2</integer>
     <integer name="scr_search_list_columns">2</integer>
+    <integer name="scr_bookmarks_list_columns">2</integer>
 </resources>

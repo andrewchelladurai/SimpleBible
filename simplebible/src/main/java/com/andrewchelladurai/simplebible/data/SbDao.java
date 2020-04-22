@@ -79,4 +79,7 @@ public interface SbDao {
   @Query("select * from sb_bookmarks where reference=:reference")
   LiveData<EntityBookmark> getBookmarkForReference(@NonNull String reference);
 
+  @Query("select * from sb_bookmarks")
+  LiveData<List<EntityBookmark>> getAllBookmarks();
+
 }

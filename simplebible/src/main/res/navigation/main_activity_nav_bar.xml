@@ -51,9 +51,9 @@
     </fragment>
     <fragment
         android:id="@+id/screen_bookmark_list"
-        android:name="com.andrewchelladurai.simplebible.ui.BookmarkListScreen"
+        android:name="com.andrewchelladurai.simplebible.ui.BookmarksScreen"
         android:label="bookmark_screen"
-        tools:layout="@layout/bookmark_list_screen">
+        tools:layout="@layout/bookmarks_screen">
         <action
             android:id="@+id/nav_from_scr_bookmark_list_to_scr_bookmark"
             app:destination="@id/screen_bookmark" />
