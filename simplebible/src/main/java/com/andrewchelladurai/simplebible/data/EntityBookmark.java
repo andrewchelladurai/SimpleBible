@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "sb_bookmarks")
 public class EntityBookmark {
 
+  // TODO: 22/4/20 save created date and modified date too
+
   @PrimaryKey
   @ColumnInfo(name = "reference")
   @NonNull
