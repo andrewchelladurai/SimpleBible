@@ -40,16 +40,16 @@ public class BookmarksScreen
   private View rootView;
 
   @NonNull
-  private String verseTemplateSingle;
+  private String verseTemplateSingle = "";
 
   @NonNull
-  private String verseTemplateMultiple;
+  private String verseTemplateMultiple = "";
 
   @NonNull
-  private String noteTemplate;
+  private String noteTemplate = "";
 
   @NonNull
-  private String noteEmptyTemplate;
+  private String noteEmptyTemplate = "";
 
   @Override
   public void onAttach(@NonNull final Context context) {
@@ -74,8 +74,10 @@ public class BookmarksScreen
     Log.d(TAG, "onCreateView:");
     rootView = inflater.inflate(R.layout.bookmarks_screen, container, false);
 
-    verseTemplateSingle = getString(R.string.item_bookmark_template_verse_single);
-    verseTemplateMultiple = getString(R.string.item_bookmark_template_verse_multiple);
+    verseTemplateSingle =
+        getResources().getQuantityString(R.plurals.item_bookmark_template_verse, 1);
+    verseTemplateMultiple =
+        getResources().getQuantityString(R.plurals.item_bookmark_template_verse, 2);
     noteTemplate = getString(R.string.item_bookmark_template_note);
     noteEmptyTemplate = getString(R.string.item_bookmark_template_note_empty);
 
@@ -166,14 +168,15 @@ public class BookmarksScreen
       }
 
       final int htmlMode = HtmlCompat.FROM_HTML_MODE_COMPACT;
-      final Spanned verseContent = HtmlCompat.fromHtml(String.format((verseCount == 1)
-                                                                     ? verseTemplateSingle
-                                                                     : verseTemplateMultiple,
-                                                                     verseCount,
-                                                                     book.getName(),
-                                                                     verse.getChapter(),
-                                                                     verse.getVerse(),
-                                                                     verse.getText()), htmlMode);
+      final Spanned verseContent =
+          HtmlCompat.fromHtml(String.format((verseCount == 1)
+                                            ? verseTemplateSingle
+                                            : verseTemplateMultiple,
+                                            verseCount,
+                                            book.getName(),
+                                            verse.getChapter(),
+                                            verse.getVerse(),
+                                            verse.getText()), htmlMode);
 
       final Spanned noteContent =
           (bookmarkNote.isEmpty())
