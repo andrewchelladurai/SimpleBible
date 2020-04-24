@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/small"
+    android:layout_margin="@dimen/normal"
     app:cardCornerRadius="@dimen/normal"
     app:cardElevation="@dimen/normal"
     app:cardMaxElevation="@dimen/normal">
@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/small">
+        android:padding="@dimen/big">
 
         <TextView
             android:id="@+id/item_bookmark_verse"

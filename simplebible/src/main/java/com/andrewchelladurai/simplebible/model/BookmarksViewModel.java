@@ -12,6 +12,7 @@ import com.andrewchelladurai.simplebible.data.EntityBookmark;
 import com.andrewchelladurai.simplebible.data.EntityVerse;
 import com.andrewchelladurai.simplebible.data.SbDao;
 import com.andrewchelladurai.simplebible.data.SbDatabase;
+import com.andrewchelladurai.simplebible.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,8 +55,12 @@ public class BookmarksViewModel
   }
 
   @NonNull
-  public EntityVerse getFirstVerseOfBookmark(@NonNull final EntityBookmark bookmark) {
-    return null;
+  public LiveData<EntityVerse> getFirstVerseOfBookmark(@NonNull final EntityBookmark bookmark) {
+    final Utils utils = Utils.getInstance();
+    final String[] references = utils.splitBookmarkReference(bookmark.getReference());
+    final int[] referenceParts = utils.splitVerseReference(references[0]);
+    //noinspection ConstantConditions
+    return dao.getVerse(referenceParts[0], referenceParts[1], referenceParts[2]);
   }
 
 }

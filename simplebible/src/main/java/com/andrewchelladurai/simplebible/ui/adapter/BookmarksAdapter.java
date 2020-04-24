@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.EntityBookmark;
-import com.andrewchelladurai.simplebible.data.EntityVerse;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarksScreenOps;
 
 public class BookmarksAdapter
@@ -19,23 +18,8 @@ public class BookmarksAdapter
   @NonNull
   private final BookmarksScreenOps ops;
 
-  @NonNull
-  private final String verseTemplate;
-
-  @NonNull
-  private final String noteTemplate;
-
-  @NonNull
-  private final String noteEmptyTemplate;
-
-  public BookmarksAdapter(@NonNull final BookmarksScreenOps ops,
-                          @NonNull final String verseTemplate,
-                          @NonNull final String noteTemplate,
-                          @NonNull final String noteEmptyTemplate) {
+  public BookmarksAdapter(@NonNull final BookmarksScreenOps ops) {
     this.ops = ops;
-    this.verseTemplate = verseTemplate;
-    this.noteTemplate = noteTemplate;
-    this.noteEmptyTemplate = noteEmptyTemplate;
   }
 
   @NonNull
@@ -84,10 +68,7 @@ public class BookmarksAdapter
     private void updateContent(@NonNull final EntityBookmark bookmark) {
       this.bookmark = bookmark;
 
-      @NonNull final EntityVerse verse = ops.getFirstVerseOfBookmark(bookmark);
-
-      verseView.setText(bookmark.getReference());
-      noteView.setText(bookmark.getNote());
+      ops.getFirstVerseOfBookmark(bookmark, verseView, noteView);
 
     }
 

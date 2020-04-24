@@ -1,10 +1,11 @@
 package com.andrewchelladurai.simplebible.ui.ops;
 
+import android.widget.TextView;
+
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 
 import com.andrewchelladurai.simplebible.data.EntityBookmark;
-import com.andrewchelladurai.simplebible.data.EntityVerse;
 
 public interface BookmarksScreenOps {
 
@@ -22,8 +23,9 @@ public interface BookmarksScreenOps {
 
   void handleActionSelect(@NonNull EntityBookmark bookmark);
 
-  @NonNull
-  EntityVerse getFirstVerseOfBookmark(@NonNull EntityBookmark bookmark);
+  void getFirstVerseOfBookmark(@NonNull EntityBookmark bookmark,
+                               @NonNull final TextView verseView,
+                               @NonNull final TextView noteView);
 
 
 }

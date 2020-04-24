@@ -2,24 +2,28 @@ package com.andrewchelladurai.simplebible.ui;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.EntityBook;
 import com.andrewchelladurai.simplebible.data.EntityBookmark;
-import com.andrewchelladurai.simplebible.data.EntityVerse;
 import com.andrewchelladurai.simplebible.model.BookmarksViewModel;
 import com.andrewchelladurai.simplebible.ui.adapter.BookmarksAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarksScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
+import com.andrewchelladurai.simplebible.utils.Utils;
 
 public class BookmarksScreen
     extends Fragment
@@ -35,6 +39,18 @@ public class BookmarksScreen
 
   private View rootView;
 
+  @NonNull
+  private String verseTemplateSingle;
+
+  @NonNull
+  private String verseTemplateMultiple;
+
+  @NonNull
+  private String noteTemplate;
+
+  @NonNull
+  private String noteEmptyTemplate;
+
   @Override
   public void onAttach(@NonNull final Context context) {
     Log.d(TAG, "onAttach:");
@@ -49,10 +65,7 @@ public class BookmarksScreen
     model = ViewModelProvider.AndroidViewModelFactory
                 .getInstance(requireActivity().getApplication())
                 .create(BookmarksViewModel.class);
-    adapter = new BookmarksAdapter(this,
-                                   getString(R.string.item_bookmark_template_verse),
-                                   getString(R.string.item_bookmark_template_note),
-                                   getString(R.string.item_bookmark_template_note_empty));
+    adapter = new BookmarksAdapter(this);
   }
 
   @Override
@@ -60,6 +73,11 @@ public class BookmarksScreen
                            @Nullable Bundle savedInstanceState) {
     Log.d(TAG, "onCreateView:");
     rootView = inflater.inflate(R.layout.bookmarks_screen, container, false);
+
+    verseTemplateSingle = getString(R.string.item_bookmark_template_verse_single);
+    verseTemplateMultiple = getString(R.string.item_bookmark_template_verse_multiple);
+    noteTemplate = getString(R.string.item_bookmark_template_note);
+    noteEmptyTemplate = getString(R.string.item_bookmark_template_note_empty);
 
     ((RecyclerView) rootView.findViewById(R.id.scr_bookmarks_list)).setAdapter(adapter);
 
@@ -122,10 +140,50 @@ public class BookmarksScreen
     Log.d(TAG, "handleActionSelect: bookmark = [" + bookmark + "]");
   }
 
-  @NonNull
   @Override
-  public EntityVerse getFirstVerseOfBookmark(@NonNull final EntityBookmark bookmark) {
-    return model.getFirstVerseOfBookmark(bookmark);
+  public void getFirstVerseOfBookmark(@NonNull final EntityBookmark bookmark,
+                                      @NonNull final TextView verseView,
+                                      @NonNull final TextView noteView) {
+    model.getFirstVerseOfBookmark(bookmark).observe(getViewLifecycleOwner(), verse -> {
+      final String bookmarkReference = bookmark.getReference();
+      final String bookmarkNote = bookmark.getNote();
+      final int verseCount = Utils.getInstance()
+                                  .splitBookmarkReference(bookmarkReference).length;
+
+      if (verse == null) {
+        Log.e(TAG, "getFirstVerseOfBookmark: ",
+              new IllegalArgumentException("null bookmark found for reference["
+                                           + bookmarkReference + "]"));
+        return;
+      }
+
+      final EntityBook book = Utils.getInstance().getCachedBook(verse.getBook());
+      if (book == null) {
+        Log.e(TAG, "getFirstVerseOfBookmark: ",
+              new IllegalArgumentException("null book for verse reference["
+                                           + verse.getReference() + "]"));
+        return;
+      }
+
+      final int htmlMode = HtmlCompat.FROM_HTML_MODE_COMPACT;
+      final Spanned verseContent = HtmlCompat.fromHtml(String.format((verseCount == 1)
+                                                                     ? verseTemplateSingle
+                                                                     : verseTemplateMultiple,
+                                                                     verseCount,
+                                                                     book.getName(),
+                                                                     verse.getChapter(),
+                                                                     verse.getVerse(),
+                                                                     verse.getText()), htmlMode);
+
+      final Spanned noteContent =
+          (bookmarkNote.isEmpty())
+          ? HtmlCompat.fromHtml(noteEmptyTemplate, htmlMode)
+          : HtmlCompat.fromHtml(String.format(noteTemplate, bookmarkNote), htmlMode);
+
+      noteView.setText(noteContent);
+      verseView.setText(verseContent);
+
+    });
   }
 
 }

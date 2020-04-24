@@ -209,8 +209,9 @@
     <string name="scr_bookmarks_help">No bookmarks saved</string>
     <string name="scr_bookmarks_template_share">Bookmark shared from SimpleBible\n\nVerse(s):\n%s\n\nNote(s):\n%s</string>
     <string name="item_bookmark_template_note"><![CDATA[<b>Note: </b>%s]]></string>
-    <string name="item_bookmark_template_note_empty"><![CDATA[<b>This bookmark does not have a note.</b> Edit the bookmark and include a note before saving it again.]]></string>
-    <string name="item_bookmark_template_verse"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
+    <string name="item_bookmark_template_note_empty"><![CDATA[<b>This bookmark does not have a note.</b>Edit the bookmark if you want to add one but remember to save the changes.]]></string>
+    <string name="item_bookmark_template_verse_single"><![CDATA[Bookmarked <b>only %d verse</b>, and it\'s this - <b>%s Chapter %d: Verse %d :</b>%s]]></string>
+    <string name="item_bookmark_template_verse_multiple"><![CDATA[Bookmarked <b>total %d verses</b>, the first is - <b>%s Chapter %d: Verse %d :</b>%s]]></string>
     <string name="item_bookmark_action_edit">@string/edit</string>
     <string name="item_bookmark_action_share">@string/share</string>
     <string name="item_bookmark_action_delete">@string/delete</string>
