@@ -87,21 +87,20 @@ public class ChapterScreen
     ((RecyclerView) rootView.findViewById(R.id.scr_chapter_list)).setAdapter(verseAdapter);
 
     final BottomAppBar bar = rootView.findViewById(R.id.scr_chapter_bottom_app_bar);
-    bar.setNavigationOnClickListener(v -> handleActionChapters());
     bar.setOnMenuItemClickListener(item -> {
       switch (item.getItemId()) {
-        case R.id.menu_scr_chapter_action_clear:
-          handleActionClear();
-          return true;
-        case R.id.menu_scr_chapter_action_bookmark:
-          handleActionBookmark();
-          return true;
-        case R.id.menu_scr_chapter_action_share:
-          handleActionShare();
-          return true;
+        case R.id.scr_chapter_menu_action_clear:
+          return handleActionClear();
+        case R.id.scr_chapter_menu_action_bookmark:
+          return handleActionBookmark();
+        case R.id.scr_chapter_menu_action_share:
+          return handleActionShare();
+        case R.id.scr_chapter_menu_action_previous:
+          return handleActionChapterPrevious();
+        case R.id.scr_chapter_menu_action_next:
+          return handleActionChaptersNext();
         case R.id.scr_chapter_menu_action_chapters:
-          handleActionChapters();
-          return true;
+          return handleActionChapterList();
         default:
           Log.e(TAG, "onMenuItemClick: unknown menu item");
       }
@@ -146,32 +145,19 @@ public class ChapterScreen
     return rootView;
   }
 
-  private void handleActionChapters() {
-    Log.d(TAG, "handleActionChapters:");
-    final EntityBook book = Utils.getInstance().getCachedBook(model.getCachedBookNumber());
-    if (book == null) {
-      Log.e(TAG, "handleActionChapters: null book, returning");
-      return;
-    }
-
-    ChapterNumberDialog dialog = new ChapterNumberDialog();
-    dialog.updateAdapter(chapterAdapter);
-    dialog.show(getParentFragmentManager(), TAG);
-
-  }
-
-  private void handleActionClear() {
+  private boolean handleActionClear() {
     Log.d(TAG, "handleActionClear:");
     model.clearSelection();
     refreshData();
+    return true;
   }
 
-  private void handleActionBookmark() {
+  private boolean handleActionBookmark() {
     Log.d(TAG, "handleActionBookmark:");
     final Collection<EntityVerse> list = model.getSelectedList();
     if (list == null || list.isEmpty()) {
       Log.d(TAG, "handleActionBookmark: list is null or empty");
-      return;
+      return true;
     }
 
     final String reference = Utils.getInstance().createBookmarkReference(list);
@@ -179,16 +165,17 @@ public class ChapterScreen
     bundle.putString(BookmarkScreen.ARG_STR_REFERENCE, reference);
     NavHostFragment.findNavController(this)
                    .navigate(R.id.nav_from_scr_chapter_to_scr_bookmark, bundle);
+    return true;
   }
 
-  private void handleActionShare() {
+  private boolean handleActionShare() {
     Log.d(TAG, "handleActionShare:");
     final EntityBook book = Utils.getInstance().getCachedBook(model.getCachedBookNumber());
     final Collection<EntityVerse> list = model.getSelectedList();
     if (book == null || list == null || list.isEmpty()) {
       Log.e(TAG, "handleActionShare: "
                  + "book / selectedVerseList = null || selectedVerseList is empty");
-      return;
+      return true;
     }
 
     final StringBuilder verseText = new StringBuilder();
@@ -205,6 +192,35 @@ public class ChapterScreen
                             book.getName(),
                             model.getCachedChapterNumber(),
                             verseText));
+
+    return true;
+  }
+
+  private boolean handleActionChapterPrevious() {
+    Log.d(TAG, "handleActionChapterPrevious:");
+
+    return true;
+  }
+
+  private boolean handleActionChaptersNext() {
+    Log.d(TAG, "handleActionChaptersNext:");
+
+    return true;
+  }
+
+  private boolean handleActionChapterList() {
+    Log.d(TAG, "handleActionChapters:");
+    final EntityBook book = Utils.getInstance().getCachedBook(model.getCachedBookNumber());
+    if (book == null) {
+      Log.e(TAG, "handleActionChapters: null book, returning");
+      return true;
+    }
+
+    ChapterNumberDialog dialog = new ChapterNumberDialog();
+    dialog.updateAdapter(chapterAdapter);
+    dialog.show(getParentFragmentManager(), TAG);
+
+    return true;
   }
 
   private void updateContent() {
@@ -277,7 +293,7 @@ public class ChapterScreen
   @Override
   public void updateSelectionActionsVisibility() {
     final BottomAppBar bar = rootView.findViewById(R.id.scr_chapter_bottom_app_bar);
-    bar.getMenu().setGroupVisible(R.id.menu_scr_chapter_actions_selection,
+    bar.getMenu().setGroupVisible(R.id.scr_chapter_menu_group_selected,
                                   model.getSelectedListSize() > 0);
   }
 

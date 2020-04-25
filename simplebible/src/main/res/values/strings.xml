@@ -5,6 +5,8 @@
     <string name="bookmark">Bookmark</string>
     <string name="share">Share</string>
     <string name="clear">Clear</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
     <string name="chapters">Chapters</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
@@ -85,6 +87,8 @@
     <string name="scr_chapter_menu_action_bookmark">@string/bookmark</string>
     <string name="scr_chapter_menu_action_share">@string/share</string>
     <string name="scr_chapter_menu_action_clear">@string/clear</string>
+    <string name="scr_chapter_menu_action_previous">@string/previous</string>
+    <string name="scr_chapter_menu_action_next">@string/next</string>
     <string name="scr_chapter_menu_action_chapters">@string/chapters</string>
     <string name="scr_chapter_template_title">%s : Chapter %d : %d Verses</string>
     <string name="scr_chapter_template_verse"><![CDATA[<b>%d :</b> %s]]></string>
