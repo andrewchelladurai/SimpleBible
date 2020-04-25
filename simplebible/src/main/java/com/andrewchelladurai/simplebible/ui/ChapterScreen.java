@@ -199,11 +199,58 @@ public class ChapterScreen
   private boolean handleActionChapterPrevious() {
     Log.d(TAG, "handleActionChapterPrevious:");
 
+    final int currentBook = model.getCachedBookNumber();
+    final int currentChapter = model.getCachedChapterNumber();
+
+    if (currentBook == 1) {
+      if (currentChapter == 1) {
+        ops.showMessage(getString(R.string.scr_chapter_msg_navigate_at_start),
+                        R.id.scr_chapter_contain_bottom_app_bar);
+        return true;
+      } else {
+        chapter = currentChapter - 1;
+      }
+    } else {
+      if (currentChapter == 1) {
+        book = currentBook - 1;
+        //noinspection ConstantConditions
+        chapter = Utils.getInstance().getCachedBook(book).getChapters();
+      } else {
+        chapter = currentChapter - 1;
+      }
+    }
+
+    updateContent();
+
     return true;
   }
 
   private boolean handleActionChaptersNext() {
     Log.d(TAG, "handleActionChaptersNext:");
+
+    final Utils utils = Utils.getInstance();
+    final int currentBook = model.getCachedBookNumber();
+    final int currentChapter = model.getCachedChapterNumber();
+
+    if (currentBook == Utils.MAX_BOOKS) {
+      //noinspection ConstantConditions
+      if (currentChapter == utils.getCachedBook(Utils.MAX_BOOKS).getChapters()) {
+        ops.showMessage(getString(R.string.scr_chapter_msg_navigate_at_end),
+                        R.id.scr_chapter_contain_bottom_app_bar);
+      } else {
+        chapter = currentChapter + 1;
+      }
+    } else {
+      //noinspection ConstantConditions
+      if (currentChapter == utils.getCachedBook(currentBook).getChapters()) {
+        book = currentBook + 1;
+        chapter = 1;
+      } else {
+        chapter = currentChapter + 1;
+      }
+    }
+
+    updateContent();
 
     return true;
   }

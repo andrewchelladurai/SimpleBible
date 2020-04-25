@@ -41,6 +41,7 @@
             android:layout_height="match_parent"
             android:fontFamily="sans-serif-condensed-medium"
             android:padding="@dimen/small"
+            android:layout_marginBottom="@dimen/big"
             android:text="@string/application_name"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />

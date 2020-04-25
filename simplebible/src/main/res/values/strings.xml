@@ -90,6 +90,8 @@
     <string name="scr_chapter_menu_action_previous">@string/previous</string>
     <string name="scr_chapter_menu_action_next">@string/next</string>
     <string name="scr_chapter_menu_action_chapters">@string/chapters</string>
+    <string name="scr_chapter_msg_navigate_at_start">You are already at the start</string>
+    <string name="scr_chapter_msg_navigate_at_end">You are already at the end</string>
     <string name="scr_chapter_template_title">%s : Chapter %d : %d Verses</string>
     <string name="scr_chapter_template_verse"><![CDATA[<b>%d :</b> %s]]></string>
     <string name="scr_chapter_template_share">Shared from Simple Bible\n%d Verses from %s : Chapter %d\n%s</string>
