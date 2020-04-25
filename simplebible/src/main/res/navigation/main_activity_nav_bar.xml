@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_activity_nav_bar"
+    app:startDestination="@id/screen_setup">
+
+    <fragment
+        android:id="@+id/screen_setup"
+        android:name="com.andrewchelladurai.simplebible.ui.SetupScreen"
+        android:label="SetupScreen">
+        <action
+            android:id="@+id/nav_from_scr_setup_to_scr_home"
+            app:destination="@id/screen_home"
+            app:popUpTo="@id/main_activity_nav_bar"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/screen_home"
+        android:name="com.andrewchelladurai.simplebible.ui.HomeScreen"
+        android:label="home_fragment"
+        tools:layout="@layout/home_screen">
+        <action
+            android:id="@+id/nav_from_scr_home_to_scr_bookmark"
+            app:destination="@id/screen_bookmark" />
+        <action
+            android:id="@+id/nav_from_scr_home_to_scr_chapter"
+            app:destination="@id/screen_chapter" />
+    </fragment>
+    <fragment
+        android:id="@+id/screen_settings"
+        android:name="com.andrewchelladurai.simplebible.ui.SettingsScreen"
+        android:label="SettingsScreen" />
+    <fragment
+        android:id="@+id/screen_book_list"
+        android:name="com.andrewchelladurai.simplebible.ui.BooksScreen"
+        android:label="book_list_screen"
+        tools:layout="@layout/books_screen">
+        <action
+            android:id="@+id/nav_from_scr_book_list_to_scr_chapter"
+            app:destination="@id/screen_chapter" />
+    </fragment>
+    <fragment
+        android:id="@+id/screen_bookmark"
+        android:name="com.andrewchelladurai.simplebible.ui.BookmarkScreen"
+        android:label="bookmark_screen"
+        tools:layout="@layout/bookmark_screen">
+        <argument
+            android:name="ARG_STR_REFERENCE"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/screen_bookmark_list"
+        android:name="com.andrewchelladurai.simplebible.ui.BookmarksScreen"
+        android:label="bookmark_screen"
+        tools:layout="@layout/bookmarks_screen">
+        <action
+            android:id="@+id/nav_from_scr_bookmark_list_to_scr_bookmark"
+            app:destination="@id/screen_bookmark" />
+    </fragment>
+    <fragment
+        android:id="@+id/screen_chapter"
+        android:name="com.andrewchelladurai.simplebible.ui.ChapterScreen"
+        android:label="chapter_screen"
+        tools:layout="@layout/chapter_screen">
+        <action
+            android:id="@+id/nav_from_scr_chapter_to_scr_bookmark"
+            app:destination="@id/screen_bookmark" />
+        <argument
+            android:name="ARG_INT_BOOK"
+            android:defaultValue="1"
+            app:argType="integer" />
+        <argument
+            android:name="ARG_INT_CHAPTER"
+            android:defaultValue="29"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/screen_search"
+        android:name="com.andrewchelladurai.simplebible.ui.SearchScreen"
+        android:label="search_screen"
+        tools:layout="@layout/search_screen">
+        <action
+            android:id="@+id/nav_from_scr_search_to_scr_bookmark"
+            app:destination="@id/screen_bookmark" />
+    </fragment>
+</navigation>

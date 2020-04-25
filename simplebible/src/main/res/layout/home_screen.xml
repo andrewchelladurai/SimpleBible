@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.HomeScreen">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/scr_home_gh_69"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.69" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/scr_home_action_bookmark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_bookmark"
+        app:layout_constraintBottom_toBottomOf="@+id/scr_home_action_chapter"
+        app:layout_constraintEnd_toStartOf="@+id/scr_home_action_chapter"
+        app:layout_constraintHorizontal_bias="0.84"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/scr_home_action_chapter" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/scr_home_action_chapter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_list"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scr_home_gh_69" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/scr_home_action_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_share"
+        app:layout_constraintBottom_toBottomOf="@+id/scr_home_action_chapter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintStart_toEndOf="@+id/scr_home_action_chapter"
+        app:layout_constraintTop_toTopOf="@+id/scr_home_action_chapter" />
+
+    <ScrollView
+        android:id="@+id/scr_home_contain_verse"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/scr_home_gh_69"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/scr_home_verse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/big"
+            android:padding="@dimen/big"
+            android:textAlignment="center"
+            tools:text="@string/application_name" />
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

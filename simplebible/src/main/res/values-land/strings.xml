@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--  SetupScreen  -->
+    <string name="scr_setup_verse">
+    <![CDATA[
+    <h1>Simple Bible</h1><br/>
+    <h5>CREATING DATABASE</h5>
+    <h5>Please be patient like Jacob for it is said in<br/><br/>
+    <b>The Book of Genesis, Chapter 29 Verse 20</b></h5><br/>
+    <h3>Jacob served seven years for Rachel.<br/>
+    They seemed to him but a few days, for the love he had for her.</h3><br/><br/>
+    <b>The World English Bible</b>]]>
+    </string>
+
+    <!--  HomeScreen  -->
+    <string name="scr_home_verse_default">
+    <![CDATA[
+    <h1>Simple Bible</h1><br/>
+    <h5>The Gospel of John, Chapter 03 Verse 16</h5><br/>
+    <h3>For God so loved the world,<br/>
+    that he gave his one and only Son,<br/>
+    that whoever believes in him should not perish,<br/>
+    but have eternal life.</h3><br/>
+    <b>The World English Bible</b>
+    ]]>
+    </string>
+
+    <!-- Search Screen -->
+    <string name="scr_search_help_text"><![CDATA[
+    <h1>TIPS to find relevant results</h1><br/>
+    <p><h5>The length of the input text must be<br/>
+    More than 3 alphabets. and / or Less than 13 alphabets.<br/><br/>
+    </h5></p>
+    <p><h5>To search for 3 alphabet words like <u>\'Eli\'</u><br/>
+    include a space before or after the text like this <u>\' Eli \'</u></h5></p>]]>
+    </string>
+</resources>

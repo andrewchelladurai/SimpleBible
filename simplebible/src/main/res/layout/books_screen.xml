@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.BooksScreen">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/scr_books_contain_search"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/normal"
+        app:cardCornerRadius="@dimen/big"
+        app:cardElevation="@dimen/normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <SearchView
+            android:id="@+id/scr_books_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/normal"
+            android:iconifiedByDefault="false"
+            android:imeOptions="actionSearch"
+            android:inputType="textNoSuggestions"
+            android:orientation="horizontal"
+            android:outlineProvider="none"
+            android:queryHint="@string/scr_books_search_hint"
+            android:searchIcon="@drawable/ic_search" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/scr_books_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/normal"
+        android:layout_marginTop="@dimen/big"
+        android:layout_marginEnd="@dimen/normal"
+        android:layout_marginBottom="@dimen/big"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scr_books_contain_search"
+        app:spanCount="@integer/scr_books_list_columns"
+        tools:listitem="@layout/item_book" />
+</androidx.constraintlayout.widget.ConstraintLayout>

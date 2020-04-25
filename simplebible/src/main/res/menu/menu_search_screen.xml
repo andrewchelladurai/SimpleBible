@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="AlwaysShowAction">
+    <group
+        android:id="@+id/scr_search_menu_group_selected"
+        android:visible="false">
+        <item
+            android:id="@+id/scr_search_menu_action_bookmark"
+            android:icon="@drawable/ic_bookmark"
+            android:title="@string/scr_search_menu_action_bookmark"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/scr_search_menu_action_share"
+            android:icon="@drawable/ic_share"
+            android:title="@string/scr_search_menu_action_share"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/scr_search_menu_action_clear"
+            android:icon="@drawable/ic_clear_all"
+            android:title="@string/scr_search_menu_action_clear"
+            app:showAsAction="always" />
+    </group>
+    <item
+        android:id="@+id/scr_search_menu_action_search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/scr_search_menu_action_search"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/scr_search_menu_action_reset"
+        android:icon="@drawable/ic_clear"
+        android:title="@string/scr_search_menu_action_reset"
+        android:visible="false"
+        app:showAsAction="always" />
+</menu>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="scr_chapter_list_columns">2</integer>
+    <integer name="scr_chapter_dialog_list_columns">2</integer>
+    <integer name="scr_books_list_columns">2</integer>
+    <integer name="scr_search_list_columns">2</integer>
+    <integer name="scr_bookmarks_list_columns">2</integer>
+</resources>

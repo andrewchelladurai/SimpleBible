@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/screen_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/main_nav_bar_home" />
+
+    <item
+        android:id="@+id/screen_book_list"
+        android:icon="@drawable/ic_list"
+        android:title="@string/main_nav_bar_book_list" />
+
+    <item
+        android:id="@+id/screen_search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/main_nav_bar_search" />
+
+    <item
+        android:id="@+id/screen_bookmark_list"
+        android:icon="@drawable/ic_bookmarks"
+        android:title="@string/main_nav_bar_bookmark_list" />
+
+    <item
+        android:id="@+id/screen_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/main_nav_bar_settings" />
+
+</menu>

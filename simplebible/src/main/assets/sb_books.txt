@@ -1,0 +1,66 @@
+The 1st Book of Moses - Law~1~Genesis~50~1533
+The 2nd Book of Moses - Law~2~Exodus~40~1213
+The 3rd Book of Moses - Law~3~Leviticus~27~859
+The 4th Book of Moses - Law~4~Numbers~36~1288
+The 5th Book of Moses - Law~5~Deuteronomy~34~959
+Narrative of Rulers and Kings~6~Joshua~24~658
+Narrative of Rulers and Kings~7~Judges~21~618
+Narrative of Rulers and Kings~8~Ruth~4~85
+Narrative of Rulers and Kings~9~Samuel 1~31~810
+Narrative of Rulers and Kings~10~Samuel 2~24~695
+Narrative of Rulers and Kings~11~Kings 1~22~816
+Narrative of Rulers and Kings~12~Kings 2~25~719
+Narrative of Rulers and Kings~13~Chronicles 1~29~942
+Narrative of Rulers and Kings~14~Chronicles 2~36~822
+Narrative of Rulers and Kings~15~Ezra~10~280
+Narrative of Rulers and Kings~16~Nehemiah~13~406
+Narrative of Rulers and Kings~17~Esther~10~167
+Literature of Wisdom~18~Job~42~1070
+Literature of Wisdom~19~Psalms~150~2461
+Literature of Wisdom~20~Proverbs~31~915
+Literature of Wisdom~21~Ecclesiastes~12~222
+Literature of Wisdom~22~Song of Solomon~8~117
+The Books of The Major Prophets~23~Isaiah~66~1292
+The Books of The Major Prophets~24~Jeremiah~52~1364
+The Books of The Major Prophets~25~Lamentations~5~154
+The Books of The Major Prophets~26~Ezekiel~48~1273
+The Books of The Major Prophets~27~Daniel~12~357
+The Books of The Minor Prophets~28~Hosea~14~197
+The Books of The Minor Prophets~29~Joel~3~73
+The Books of The Minor Prophets~30~Amos~9~146
+The Books of The Minor Prophets~31~Obadiah~1~21
+The Books of The Minor Prophets~32~Jonah~4~48
+The Books of The Minor Prophets~33~Micah~7~105
+The Books of The Minor Prophets~34~Nahum~3~47
+The Books of The Minor Prophets~35~Habakkuk~3~56
+The Books of The Minor Prophets~36~Zephaniah~3~53
+The Books of The Minor Prophets~37~Haggai~2~38
+The Books of The Minor Prophets~38~Zechariah~14~211
+The Books of The Minor Prophets~39~Malachi~4~55
+The Gospel~40~Matthew~28~1071
+The Gospel~41~Mark~16~678
+The Gospel~42~Luke~24~1151
+The Gospel~43~John~21~879
+Narrative of The Early Church~44~Acts~28~1007
+Letters of Apostle Paul~45~Romans~16~433
+Letters of Apostle Paul~46~Corinthians 1~16~437
+Letters of Apostle Paul~47~Corinthians 2~13~257
+Letters of Apostle Paul~48~Galatians~6~149
+Letters of Apostle Paul~49~Ephesians~6~155
+Letters of Apostle Paul~50~Philippians~4~104
+Letters of Apostle Paul~51~Colossians~4~95
+Letters of Apostle Paul~52~Thessalonians 1~5~89
+Letters of Apostle Paul~53~Thessalonians 2~3~47
+Letters of Apostle Paul~54~Timothy 1~6~113
+Letters of Apostle Paul~55~Timothy 2~4~83
+Letters of Apostle Paul~56~Titus~3~46
+Letters of Apostle Paul~57~Philemon~1~25
+Letters of Other Apostles~58~Hebrews~13~303
+Letters of Other Apostles~59~James~5~108
+Letters of Other Apostles~60~Peter 1~5~105
+Letters of Other Apostles~61~Peter 2~3~61
+Letters of Other Apostles~62~John 1~5~105
+Letters of Other Apostles~63~John 2~1~13
+Letters of Other Apostles~64~John 3~1~14
+Letters of Other Apostles~65~Jude~1~25
+Apocalyptic Epistle~66~Revelation~22~404
