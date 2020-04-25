@@ -22,28 +22,28 @@
             android:animateLayoutChanges="true"
             app:elevation="@dimen/none"
             app:hideOnScroll="false"
-            app:menu="@menu/menu_scr_chapter_actions"
-            app:navigationIcon="@drawable/ic_menu">
-
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:animateLayoutChanges="true">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/scr_chapter_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="end"
-                    android:clickable="false"
-                    android:text="@string/application_name"
-                    android:textColor="?colorOnPrimary"
-                    app:chipEndPadding="@dimen/big"
-                    app:chipStartPadding="@dimen/big"
-                    app:chipSurfaceColor="?colorPrimary" />
-            </HorizontalScrollView>
-        </com.google.android.material.bottomappbar.BottomAppBar>
+            app:menu="@menu/menu_scr_chapter_actions" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/scr_chapter_contain_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/scr_chapter_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:padding="@dimen/small"
+            android:text="@string/application_name"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
+    </HorizontalScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/scr_chapter_list"
@@ -55,7 +55,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scr_chapter_contain_title"
         app:layout_constraintVertical_bias="0.0"
         app:spanCount="@integer/scr_chapter_list_columns"
         tools:listitem="@layout/item_chapter_verse" />
