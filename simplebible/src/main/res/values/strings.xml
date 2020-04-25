@@ -206,8 +206,18 @@
     <string name="scr_bookmark_template_verse_item"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
 
     <!--  Screen Bookmark List -->
-    <string name="scr_bookmarks_help">No bookmarks saved</string>
+    <string name="scr_bookmarks_help"><![CDATA[
+    <h1>No bookmarks present.</h1><br/>
+    <p><h5>You can create bookmarks out of<br/>
+    - The Daily Verse.<br/>
+    - Verse(s) from a Chapter.<br/>
+    - Search Results of Verses with a specific text.<br/><br/></h5></p>
+    <p><h5>Tap on a verse in a Chapter or a search result to select it, then press the Bookmark action button.<br/>
+    You can optionally add a Note to the bookmarked verses.</h5>
+    ]]></string>
     <string name="scr_bookmarks_template_share">Bookmark shared from SimpleBible\n\nVerse(s):\n%s\n\nNote(s):\n%s</string>
+    <string name="scr_bookmarks_msg_delete_success">Bookmark deleted</string>
+    <string name="scr_bookmarks_msg_delete_failure">Error deleting Bookmark</string>
     <string name="item_bookmark_template_note"><![CDATA[<b>Note: </b>%s]]></string>
     <string name="item_bookmark_template_note_empty"><![CDATA[<b>This bookmark does not have a note.</b>Edit the bookmark if you want to add one but remember to save the changes.]]></string>
     <plurals name="item_bookmark_template_verse">
