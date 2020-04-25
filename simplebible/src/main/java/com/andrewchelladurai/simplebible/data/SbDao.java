@@ -13,6 +13,7 @@ import com.andrewchelladurai.simplebible.utils.Utils;
 
 import java.util.List;
 
+@SuppressWarnings("NullableProblems")
 @Dao
 public interface SbDao {
 
@@ -72,9 +73,6 @@ public interface SbDao {
   LiveData<List<EntityVerse>> getVerses(@NonNull List<Integer> bookNumbers,
                                         @NonNull List<Integer> chapterNumbers,
                                         @NonNull List<Integer> verseNumbers);
-
-  @Query("select count(reference) from sb_bookmarks where reference=:reference")
-  LiveData<Integer> isBookmarkReferenceSaved(@NonNull String reference);
 
   @Query("select * from sb_bookmarks where reference=:reference")
   LiveData<EntityBookmark> getBookmarkForReference(@NonNull String reference);
