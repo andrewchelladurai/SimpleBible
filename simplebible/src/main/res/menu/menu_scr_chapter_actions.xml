@@ -21,4 +21,9 @@
             android:title="@string/scr_chapter_menu_action_clear"
             app:showAsAction="always" />
     </group>
+    <item
+        android:id="@+id/scr_chapter_menu_action_chapters"
+        android:icon="@drawable/ic_menu"
+        android:title="@string/scr_chapter_menu_action_chapters"
+        app:showAsAction="always" />
 </menu>

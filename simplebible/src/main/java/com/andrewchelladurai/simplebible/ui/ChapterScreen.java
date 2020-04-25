@@ -6,10 +6,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
@@ -25,7 +27,6 @@ import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 import com.andrewchelladurai.simplebible.utils.Utils;
 import com.google.android.material.bottomappbar.BottomAppBar;
-import com.google.android.material.chip.Chip;
 
 import java.util.Collection;
 
@@ -97,6 +98,9 @@ public class ChapterScreen
           return true;
         case R.id.menu_scr_chapter_action_share:
           handleActionShare();
+          return true;
+        case R.id.scr_chapter_menu_action_chapters:
+          handleActionChapters();
           return true;
         default:
           Log.e(TAG, "onMenuItemClick: unknown menu item");
@@ -191,7 +195,9 @@ public class ChapterScreen
     final String verseTextTemplate = getString(R.string.scr_chapter_template_verse);
     for (final EntityVerse verse : list) {
       verseText.append("\n")
-               .append(String.format(verseTextTemplate, verse.getVerse(), verse.getText()));
+               .append(HtmlCompat.fromHtml(
+                   String.format(verseTextTemplate, verse.getVerse(), verse.getText()),
+                   HtmlCompat.FROM_HTML_MODE_COMPACT));
     }
 
     ops.shareText(getString(R.string.scr_chapter_template_share,
@@ -248,11 +254,11 @@ public class ChapterScreen
       chapterAdapter.updateList(book.getChapters());
     }
 
-    final Chip chip = rootView.findViewById(R.id.scr_chapter_title);
-    chip.setText(getString(R.string.scr_chapter_template_title,
-                           book.getName(),
-                           model.getCachedChapterNumber(),
-                           model.getCachedListSize()));
+    final TextView title = rootView.findViewById(R.id.scr_chapter_title);
+    title.setText(getString(R.string.scr_chapter_template_title,
+                            book.getName(),
+                            model.getCachedChapterNumber(),
+                            model.getCachedListSize()));
     ((RecyclerView) rootView.findViewById(R.id.scr_chapter_list)).scrollToPosition(0);
   }
 
@@ -272,8 +278,6 @@ public class ChapterScreen
     final BottomAppBar bar = rootView.findViewById(R.id.scr_chapter_bottom_app_bar);
     bar.getMenu().setGroupVisible(R.id.menu_scr_chapter_actions_selection,
                                   model.getSelectedListSize() > 0);
-    rootView.findViewById(R.id.scr_chapter_title)
-            .setVisibility(model.getSelectedListSize() > 0 ? View.GONE : View.VISIBLE);
   }
 
   @Override

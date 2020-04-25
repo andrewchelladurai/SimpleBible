@@ -87,12 +87,8 @@
     <string name="scr_chapter_menu_action_clear">@string/clear</string>
     <string name="scr_chapter_menu_action_chapters">@string/chapters</string>
     <string name="scr_chapter_template_title">%s : Chapter %d : %d Verses</string>
-    <string name="scr_chapter_template_verse">%d : %s</string>
-    <string name="scr_chapter_template_share">
-        Shared from Simple Bible\n
-        %d Verses from %s : Chapter %d\n
-        %s
-    </string>
+    <string name="scr_chapter_template_verse"><![CDATA[<b>%d :</b> %s]]></string>
+    <string name="scr_chapter_template_share">Shared from Simple Bible\n%d Verses from %s : Chapter %d\n%s</string>
     <string name="scr_chapter_err_empty_chapter">No verses found for Book[%d] and Chapter[%d]</string>
     <string name="scr_chapter_dialog_title">Swipe to select a chapter</string>
 
