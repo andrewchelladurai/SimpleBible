@@ -97,7 +97,6 @@
     <string name="scr_chapter_dialog_title">Swipe to select a chapter</string>
 
     <!-- SettingsScreen -->
-    <string name="pref_category_title_actions">Settings for Simple Bible</string>
     <string name="pref_theme_key">sb_pref_key_theme</string>
     <string name="pref_theme_title">Dark Theme</string>
     <string name="pref_theme_summary">use a dark background.</string>
