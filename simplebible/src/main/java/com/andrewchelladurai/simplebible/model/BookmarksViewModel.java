@@ -63,4 +63,9 @@ public class BookmarksViewModel
     return dao.getVerse(referenceParts[0], referenceParts[1], referenceParts[2]);
   }
 
+  public boolean deleteBookmark(@NonNull final EntityBookmark bookmark) {
+    dao.deleteBookmark(bookmark);
+    return true;
+  }
+
 }

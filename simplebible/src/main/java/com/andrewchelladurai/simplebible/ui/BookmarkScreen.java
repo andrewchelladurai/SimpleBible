@@ -172,9 +172,8 @@ public class BookmarkScreen
               model.setCachedBookmarkReference(bookmark.getReference());
 
               updateContent(model.getCachedBookmarkReference());
-              ops.showMessage(
-                  getString(R.string.scr_bookmark_msg_saved),
-                  R.id.scr_bookmark_app_bar);
+              ops.showMessage(getString(R.string.scr_bookmark_msg_saved),
+                              R.id.scr_bookmark_app_bar);
             }
           }
 
@@ -281,12 +280,10 @@ public class BookmarkScreen
 
           @Override
           public void onLoadFinished(@NonNull final Loader<Boolean> loader,
-                                     final Boolean saved) {
-            if (saved) {
+                                     final Boolean deleted) {
+            if (deleted) {
               model.clearCache();
-              ops.showMessage(
-                  getString(R.string.scr_bookmark_msg_deleted),
-                  R.id.main_nav_bar);
+              ops.showMessage(getString(R.string.scr_bookmark_msg_deleted), R.id.main_nav_bar);
               NavHostFragment.findNavController(BookmarkScreen.this)
                              .popBackStack();
             }

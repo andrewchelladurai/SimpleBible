@@ -56,13 +56,8 @@ public class BookmarksAdapter
 
       verseView.setOnClickListener(v -> ops.handleActionSelect(bookmark));
       noteView.setOnClickListener(v -> ops.handleActionSelect(bookmark));
+      view.setOnClickListener(v -> ops.handleActionSelect(bookmark));
 
-      view.findViewById(R.id.item_bookmark_action_edit)
-          .setOnClickListener(v -> ops.handleActionEdit(bookmark));
-      view.findViewById(R.id.item_bookmark_action_delete)
-          .setOnClickListener(v -> ops.handleActionDelete(bookmark));
-      view.findViewById(R.id.item_bookmark_action_share)
-          .setOnClickListener(v -> ops.handleActionShare(bookmark));
     }
 
     private void updateContent(@NonNull final EntityBookmark bookmark) {

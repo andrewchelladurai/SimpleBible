@@ -15,12 +15,6 @@ public interface BookmarksScreenOps {
   @NonNull
   EntityBookmark getBookmarkAtPosition(@IntRange(from = 0) int position);
 
-  void handleActionEdit(@NonNull EntityBookmark bookmark);
-
-  void handleActionDelete(@NonNull EntityBookmark bookmark);
-
-  void handleActionShare(@NonNull EntityBookmark bookmark);
-
   void handleActionSelect(@NonNull EntityBookmark bookmark);
 
   void getFirstVerseOfBookmark(@NonNull EntityBookmark bookmark,
