@@ -212,6 +212,7 @@ public class ChapterScreen
     if (book == model.getCachedBookNumber()
         && chapter == model.getCachedChapterNumber()) {
       Log.e(TAG, "updateContent: already cached book[" + book + "], chapter[" + chapter + "]");
+      refreshData();
       return;
     }
 
