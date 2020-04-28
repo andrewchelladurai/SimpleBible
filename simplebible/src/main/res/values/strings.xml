@@ -177,7 +177,12 @@
     <string name="scr_search_msg_input_length_min">Text must have a minimum of 3 alphabets</string>
     <string name="scr_search_msg_input_length_max">Text must not be more than 13 alphabets</string>
     <string name="scr_search_msg_selection_none">No verses selected</string>
-    <string name="scr_search_title_template">%d verses found containing : %s</string>
+    <plurals name="scr_search_title_template">
+        <item quantity="one"><![CDATA[Only <b>%d verse</b> has<b>\"%s\"</b>]]></item>
+        <item quantity="other"><![CDATA[<b>%d verses</b> has<b>\"%s\"</b>]]></item>
+    </plurals>
+
+    <!--    <string name="scr_search_title_template"><![CDATA[<b>%d verse(s)</b> has<b>\"%s\"</b>]]></string>-->
     <string name="scr_search_result_template"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
     <string name="scr_search_result_share_template">Shared from SimpleBible\n%d Verses that contain text \"%s\"\n\n%s</string>
 

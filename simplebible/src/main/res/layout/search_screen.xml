@@ -23,26 +23,7 @@
             android:animateLayoutChanges="true"
             app:elevation="@dimen/none"
             app:hideOnScroll="false"
-            app:menu="@menu/menu_search_screen">
-
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:animateLayoutChanges="true">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/scr_search_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="start"
-                    android:clickable="false"
-                    android:text="@string/application_name"
-                    android:textColor="?colorOnPrimary"
-                    app:chipEndPadding="@dimen/big"
-                    app:chipStartPadding="@dimen/big"
-                    app:chipSurfaceColor="?colorPrimary" />
-            </HorizontalScrollView>
-        </com.google.android.material.bottomappbar.BottomAppBar>
+            app:menu="@menu/menu_search_screen" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <androidx.cardview.widget.CardView
@@ -50,6 +31,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/normal"
+        android:animateLayoutChanges="true"
         app:cardCornerRadius="@dimen/big"
         app:cardElevation="@dimen/normal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,6 +50,15 @@
             android:outlineProvider="none"
             android:queryHint="@string/scr_search_input_hint"
             android:searchIcon="@drawable/ic_search" />
+
+        <TextView
+            android:id="@+id/scr_search_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:visibility="gone" />
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView

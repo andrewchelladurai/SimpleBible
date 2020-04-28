@@ -28,7 +28,6 @@ import com.andrewchelladurai.simplebible.ui.ops.SearchScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 import com.andrewchelladurai.simplebible.utils.Utils;
 import com.google.android.material.bottomappbar.BottomAppBar;
-import com.google.android.material.chip.Chip;
 
 import java.util.TreeSet;
 
@@ -262,8 +261,6 @@ public class SearchScreen
   private void showSearchResults(@NonNull final String text,
                                  @IntRange(from = 0) final int count) {
     Log.d(TAG, "showSearchResults: text = [" + text + "], count = [" + count + "]");
-    rootView.findViewById(R.id.scr_search_list).setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scr_search_contain_help_text).setVisibility(View.GONE);
 
     final Menu menu =
         ((BottomAppBar) rootView.findViewById(R.id.scr_search_bottom_app_bar)).getMenu();
@@ -271,15 +268,23 @@ public class SearchScreen
     menu.findItem(R.id.scr_search_menu_action_reset).setVisible(true);
     updateSelectionActionsState();
 
-    ((Chip) rootView.findViewById(R.id.scr_search_title))
-        .setText(getString(R.string.scr_search_title_template, count, text));
+    final TextView titleView = rootView.findViewById(R.id.scr_search_title);
+
+    final String unformattedHtmlTitle = getResources().getQuantityString(
+        R.plurals.scr_search_title_template, count, count,
+        (text.length() <= 13) ? text : text.substring(0, 13) + "...");
+    titleView.setText(HtmlCompat.fromHtml(unformattedHtmlTitle, HtmlCompat.FROM_HTML_MODE_COMPACT));
+
+    titleView.setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scr_search_list).setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scr_search_input).setVisibility(View.INVISIBLE);
+    rootView.findViewById(R.id.scr_search_contain_help_text).setVisibility(View.GONE);
+
     adapter.notifyDataSetChanged();
   }
 
   private void showHelpText() {
     Log.d(TAG, "showHelpText:");
-    rootView.findViewById(R.id.scr_search_list).setVisibility(View.GONE);
-    rootView.findViewById(R.id.scr_search_contain_help_text).setVisibility(View.VISIBLE);
 
     final Menu menu =
         ((BottomAppBar) rootView.findViewById(R.id.scr_search_bottom_app_bar)).getMenu();
@@ -287,8 +292,13 @@ public class SearchScreen
     menu.findItem(R.id.scr_search_menu_action_reset).setVisible(false);
     updateSelectionActionsState();
 
-    ((Chip) rootView.findViewById(R.id.scr_search_title))
-        .setText(getString(R.string.application_name));
+    final TextView titleView = rootView.findViewById(R.id.scr_search_title);
+    titleView.setText("");
+
+    titleView.setVisibility(View.INVISIBLE);
+    rootView.findViewById(R.id.scr_search_list).setVisibility(View.GONE);
+    rootView.findViewById(R.id.scr_search_input).setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scr_search_contain_help_text).setVisibility(View.VISIBLE);
   }
 
   @Override
