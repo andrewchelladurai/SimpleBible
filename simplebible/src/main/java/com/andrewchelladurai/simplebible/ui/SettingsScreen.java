@@ -185,7 +185,10 @@ public class SettingsScreen
     final FragmentActivity fActivity = requireActivity();
     new TimePickerDialog(
         fActivity,
-        (view, hour, min) -> updateKeyValueReminderTime(hour, min),
+        (view, hour, min) -> {
+          updateKeyValueReminderTime(hour, min);
+          updateNotificationReminder();
+        },
         hourMinute[0],
         hourMinute[1],
         DateFormat.is24HourFormat(fActivity)
@@ -194,22 +197,25 @@ public class SettingsScreen
 
   private void updateKeyValueReminderTime(@IntRange(from = 0, to = 23) final int hour,
                                           @IntRange(from = 0, to = 59) final int min) {
-    final String key = getString(R.string.pref_reminder_time_key);
-    Log.d(TAG, "handlePreferenceClickReminder: key[" + key + "]"
-               + " hour[" + hour + "], " + "min[" + min + "]");
+    Log.d(TAG, "updateKeyValueReminderTime: hour = [" + hour + "], min = [" + min + "]");
+
+    // save the HH:MM values passed in the preferences
     final SharedPreferences.Editor editor = getPreferenceManager().getSharedPreferences().edit();
+    final String key = getString(R.string.pref_reminder_time_key);
     editor.putString(key, model.createReminderKeyValue(hour, min));
     editor.apply();
 
     final Preference pref = getPreferenceScreen().findPreference(key);
-    if (pref != null) {
-      final Calendar cal = Calendar.getInstance();
-      cal.set(Calendar.HOUR_OF_DAY, hour);
-      cal.set(Calendar.MINUTE, min);
-      pref.setSummary(DateFormat.getTimeFormat(requireActivity()).format(cal.getTime()));
-    } else {
-      Log.e(TAG, "updateKeyValueReminderTime: could not locate preference with key[" + key + "]");
+    if (pref == null) {
+      Log.e(TAG, "updateKeyValueReminderTime: no pref found  with key[" + key + "]");
+      return;
     }
+
+    // format the HH:MM values to show in the summary text of the preference entry
+    final Calendar cal = Calendar.getInstance();
+    cal.set(Calendar.HOUR_OF_DAY, hour);
+    cal.set(Calendar.MINUTE, min);
+    pref.setSummary(DateFormat.getTimeFormat(requireActivity()).format(cal.getTime()));
   }
 
   private void handlePreferenceClickRate() {
@@ -282,6 +288,23 @@ public class SettingsScreen
                      R.string.scr_settings_err_not_found_license);
   }
 
+  private void updateNotificationReminder() {
+    Log.d(TAG, "updateNotificationReminder:");
+    final SharedPreferences sPref = getPreferenceManager().getSharedPreferences();
+
+    final String timeValue = sPref.getString(getString(R.string.pref_reminder_time_key), "");
+
+    if (model.validateReminderKeyValue(timeValue)) {
+      final int[] timePart = model.splitReminderKeyValue(timeValue);
+      final boolean reminderValue = sPref.getBoolean(getString(R.string.pref_reminder_key), true);
+      ops.updateReminderTime(reminderValue, timePart[0], timePart[1]);
+    } else {
+      Log.e(TAG, "updateNotificationReminder: invalid timeValue[" + timeValue
+                 + "]. forcefully get a correct value and use it.");
+      handlePreferenceClickReminder();
+    }
+  }
+
   private class ChangeHandler
       implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -293,7 +316,7 @@ public class SettingsScreen
         ops.restartApp();
       } else if (getString(R.string.pref_reminder_key).equalsIgnoreCase(key)
                  || getString(R.string.pref_reminder_time_key).equalsIgnoreCase(key)) {
-        Log.d(TAG, "onSharedPreferenceChanged: [" + key + "] is handled automatically");
+        updateNotificationReminder();
       } else {
         Log.e(TAG, "onSharedPreferenceChanged: unhandled key [" + key + "]");
       }
@@ -324,7 +347,7 @@ public class SettingsScreen
         handlePreferenceClickLicense();
       } else if (getString(R.string.pref_reminder_key).equalsIgnoreCase(key)
                  || getString(R.string.pref_reminder_time_key).equalsIgnoreCase(key)) {
-        Log.d(TAG, "onPreferenceTreeClick: [" + key + "] is handled automatically");
+        Log.d(TAG, "onPreferenceTreeClick: ignore intentionally, handled in standalone method");
       } else {
         Log.e(TAG, "onPreferenceTreeClick: unknown key[" + key + "]");
         return false;

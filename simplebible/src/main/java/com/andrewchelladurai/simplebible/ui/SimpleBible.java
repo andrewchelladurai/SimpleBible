@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.IdRes;
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -169,6 +170,15 @@ public class SimpleBible
     Snackbar.make(findViewById(anchorViewId), string, Snackbar.LENGTH_SHORT)
             .setAnchorView(anchorViewId)
             .show();
+  }
+
+  @Override
+  public void updateReminderTime(final boolean enableReminder,
+                                 @IntRange(from = 0, to = 23) final int hour,
+                                 @IntRange(from = 0, to = 59) final int min) {
+    Log.d(TAG, "updateReminderTime: enableReminder = [" + enableReminder
+               + "], hour = [" + hour + "], min = [" + min + "]");
+
   }
 
 }
