@@ -10,7 +10,7 @@
             app:entryValues="@array/pref_theme_values"
             app:icon="@drawable/ic_theme"
             app:key="@string/pref_theme_key"
-            app:summary="@string/pref_theme_summary"
+            app:summary="@string/pref_theme_entry_system"
             app:title="@string/pref_theme_title" />
 
         <Preference

@@ -101,7 +101,6 @@
     <!-- SettingsScreen -->
     <string name="pref_theme_key">sb_pref_key_theme</string>
     <string name="pref_theme_title">Dark Theme</string>
-    <string name="pref_theme_summary">use a dark background.</string>
     <string name="pref_theme_entry_system">Controlled by device</string>
     <string name="pref_theme_entry_yes">Rule the dark</string>
     <string name="pref_theme_entry_no">Live in the light</string>
@@ -113,7 +112,7 @@
     <string name="pref_export_title">Export Bookmarks</string>
     <string name="pref_export_summary">into a file.</string>
 
-    <string name="pref_reminder_key">pref_reminder_key</string>
+    <string name="pref_reminder_key">sb_pref_key_reminder</string>
     <string name="pref_reminder_title">Daily Reminder</string>
     <string name="pref_reminder_summary_on">show day\'s verse</string>
     <string name="pref_reminder_summary_off">is disabled</string>
