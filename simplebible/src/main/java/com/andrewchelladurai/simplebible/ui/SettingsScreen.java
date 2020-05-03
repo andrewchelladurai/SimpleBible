@@ -2,7 +2,9 @@ package com.andrewchelladurai.simplebible.ui;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,8 @@ import androidx.preference.PreferenceManager;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.model.SettingsViewModel;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
+
+import java.util.Calendar;
 
 public class SettingsScreen
     extends PreferenceFragmentCompat {
@@ -98,27 +102,92 @@ public class SettingsScreen
 
     updateSummaryTheme(getString(R.string.pref_theme_key));
     updateSummaryReminder(getString(R.string.pref_reminder_key));
+    updateSummaryReminderTime(getString(R.string.pref_reminder_time_key));
   }
 
-  private void updateSummaryTheme(final String key) {
-    Log.d(TAG, "updateSummaryTheme: key[" + key + "]");
+  private void updateSummaryTheme(@NonNull final String key) {
+    final Preference prefSection = getPreferenceScreen().findPreference(key);
+    if (prefSection == null) {
+      Log.e(TAG, "updateSummaryTheme:", new NullPointerException(
+          "No Preference found for key[" + key + "]"));
+      return;
+    }
+
+    final String value = getPreferenceManager()
+                             .getSharedPreferences()
+                             .getString(key, getString(R.string.pref_theme_value_system));
+    if (value.equalsIgnoreCase(getString(R.string.pref_theme_value_yes))) {
+      prefSection.setSummary(R.string.pref_theme_entry_yes);
+    } else if (value.equalsIgnoreCase(getString(R.string.pref_theme_value_no))) {
+      prefSection.setSummary(R.string.pref_theme_entry_no);
+    } else if (value.equalsIgnoreCase(getString(R.string.pref_theme_value_system))) {
+      prefSection.setSummary(R.string.pref_theme_entry_system);
+    } else {
+      Log.e(TAG, "updateSummaryTheme:", new IllegalArgumentException(
+          "unknown value[" + value + "] returned for key[" + key + "]"));
+    }
   }
 
   private void updateSummaryReminder(@NonNull final String key) {
-    Log.d(TAG, "updateSummaryReminder: key[" + key + "]");
+    final Preference prefSection = getPreferenceScreen().findPreference(key);
+    if (prefSection == null) {
+      Log.e(TAG, "updateSummaryReminder:", new NullPointerException(
+          "No Preference found for key[" + key + "]"));
+      return;
+    }
+
+    final boolean value = getPreferenceManager().getSharedPreferences()
+                                                .getBoolean(key, false);
+    prefSection.setSummary((value) ? R.string.pref_reminder_summary_on
+                                   : R.string.pref_reminder_summary_off);
   }
 
-  private void handleValueChangeTheme(final String key) {
+  private void updateSummaryReminderTime(@NonNull final String key) {
+    final Preference prefSection = getPreferenceScreen().findPreference(key);
+    if (prefSection == null) {
+      Log.e(TAG, "updateSummaryReminder:", new NullPointerException(
+          "No Preference found for key[" + key + "]"));
+      return;
+    }
+
+    final SharedPreferences sPref = getPreferenceManager().getSharedPreferences();
+    final Resources resources = getResources();
+    final int hour = sPref.getInt(getString(R.string.pref_reminder_time_hour_key),
+                                  resources.getInteger(R.integer.default_reminder_time_hour));
+    final int minute = sPref.getInt(getString(R.string.pref_reminder_time_minute_key),
+                                    resources.getInteger(R.integer.default_reminder_time_minute));
+
+    if (model.validateReminderTimeValue(hour, minute)) {
+      final Calendar calendar = Calendar.getInstance();
+      calendar.set(Calendar.HOUR_OF_DAY, hour);
+      calendar.set(Calendar.MINUTE, minute);
+      final String timeStr = DateFormat.getTimeFormat(requireContext())
+                                       .format(calendar.getTime());
+      prefSection.setSummary(getString(R.string.pref_reminder_time_summary_valid, timeStr));
+    } else {
+      prefSection.setSummary(R.string.pref_reminder_time_summary_invalid);
+    }
+
+  }
+
+  private void handleValueChangeTheme(@NonNull final String key) {
     Log.d(TAG, "handleValueChangeTheme: key[" + key + "]");
     updateSummaryTheme(key);
 
-    ops.applyThemeSelectedInPreference();
+    ops.updateApplicationTheme();
     ops.restartApp();
   }
 
-  private void handleValueChangeReminder(final String key) {
-    Log.d(TAG, "handleValueChangeReminder: key[" + key + "]");
+  private void handleValueChangeReminderState(@NonNull final String key) {
+    Log.d(TAG, "handleValueChangeReminderState: key[" + key + "]");
     updateSummaryReminder(key);
+    ops.updateDailyVerseReminderState();
+  }
+
+  private void handleValueChangeReminderTime(@NonNull final String key) {
+    Log.d(TAG, "handleValueChangeReminderTime: key[" + key + "]");
+    updateSummaryReminderTime(key);
+    ops.updateDailyVerseReminderTime();
   }
 
 /*
@@ -202,9 +271,11 @@ public class SettingsScreen
       if (key.equalsIgnoreCase(getString(R.string.pref_theme_key))) {
         handleValueChangeTheme(key);
       } else if (key.equalsIgnoreCase(getString(R.string.pref_reminder_key))) {
-        handleValueChangeReminder(key);
+        handleValueChangeReminderState(key);
+      } else if (key.equalsIgnoreCase(getString(R.string.pref_reminder_time_key))) {
+        handleValueChangeReminderTime(key);
       } else {
-        Log.e(TAG, "onSharedPreferenceChanged: unhandled key [" + key + "]");
+        Log.e(TAG, "onSharedPreferenceChanged: ignoring key [" + key + "]");
       }
     }
 

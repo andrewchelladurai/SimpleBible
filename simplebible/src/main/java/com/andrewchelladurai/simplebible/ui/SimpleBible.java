@@ -36,7 +36,7 @@ public class SimpleBible
     setTheme(R.style.SbBaseTheme);
 
     // apply the theme selected in the preferences
-    applyThemeSelectedInPreference();
+    updateApplicationTheme();
 
     if (savedInstanceState == null) {
       setupNotificationChannel();
@@ -54,22 +54,18 @@ public class SimpleBible
   }
 
   @Override
-  public void applyThemeSelectedInPreference() {
-    final String keyName = getString(R.string.pref_theme_key);
-    final String valueAuto = getString(R.string.pref_theme_value_system);
-    final String valueYes = getString(R.string.pref_theme_value_yes);
-    final String valueNo = getString(R.string.pref_theme_value_no);
-
+  public void updateApplicationTheme() {
     final String value = PreferenceManager.getDefaultSharedPreferences(this)
-                                          .getString(keyName, valueAuto);
-    Log.d(TAG, "applyThemeSelectedInPreference: value[" + value + "]");
+                                          .getString(getString(R.string.pref_theme_key),
+                                                     getString(R.string.pref_theme_value_system));
+    Log.d(TAG, "updateApplicationTheme: value[" + value + "]");
 
-    if (value.equalsIgnoreCase(valueYes)) {
+    if (value.equalsIgnoreCase(getString(R.string.pref_theme_value_yes))) {
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-    } else if (value.equalsIgnoreCase(valueNo)) {
+    } else if (value.equalsIgnoreCase(getString(R.string.pref_theme_value_no))) {
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     } else {
-      Log.d(TAG, "applyThemeSelectedInPreference: AUTO/unknown, using default behavior");
+      Log.d(TAG, "updateApplicationTheme: AUTO/unknown, using default behavior");
       AppCompatDelegate.setDefaultNightMode((Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
                                             ? AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
                                             : AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
@@ -169,6 +165,18 @@ public class SimpleBible
     Snackbar.make(findViewById(anchorViewId), string, Snackbar.LENGTH_SHORT)
             .setAnchorView(anchorViewId)
             .show();
+  }
+
+  @Override
+  public void updateDailyVerseReminderState() {
+    Log.d(TAG, "updateDailyVerseReminderState:");
+    // TODO: 3/5/20 implement this
+  }
+
+  @Override
+  public void updateDailyVerseReminderTime() {
+    Log.d(TAG, "updateDailyVerseReminderTime:");
+    // TODO: 3/5/20 implement this
   }
 
 }

@@ -14,12 +14,16 @@ public interface SimpleBibleOps {
 
   void showErrorScreen(@Nullable String message, boolean shareLogs, boolean exitApp);
 
-  void applyThemeSelectedInPreference();
+  void updateApplicationTheme();
 
   void restartApp();
 
   void shareText(@NonNull String text);
 
   void showMessage(@NonNull String string, @IdRes int anchorViewId);
+
+  void updateDailyVerseReminderState();
+
+  void updateDailyVerseReminderTime();
 
 }

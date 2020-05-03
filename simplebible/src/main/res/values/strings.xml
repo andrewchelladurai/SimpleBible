@@ -114,13 +114,15 @@
 
     <string name="pref_reminder_key">sb_pref_key_reminder</string>
     <string name="pref_reminder_title">Daily Reminder</string>
-    <string name="pref_reminder_summary_on">show day\'s verse</string>
+    <string name="pref_reminder_summary_on">show daily verse in a notification</string>
     <string name="pref_reminder_summary_off">is disabled</string>
 
-    <string name="pref_reminder_time_key">pref_reminder_time</string>
+    <string name="pref_reminder_time_key">sb_pref_key_reminder_time</string>
+    <string name="pref_reminder_time_hour_key">sb_pref_key_reminder_time_hour</string>
+    <string name="pref_reminder_time_minute_key">sb_pref_key_reminder_time_minute</string>
     <string name="pref_reminder_time_title">Set notification time</string>
     <string name="pref_reminder_time_summary_invalid">Not set</string>
-    <string name="pref_reminder_time_summary_valid">%s</string>
+    <string name="pref_reminder_time_summary_valid">Notify at : %s</string>
 
     <string name="pref_category_title_feedback">Your thoughts about Simple Bible</string>
     <string name="pref_rate_key">sb_pref_key_rate</string>
