@@ -1,17 +1,26 @@
 package com.andrewchelladurai.simplebible.ui;
 
+import android.app.AlertDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
@@ -100,12 +109,13 @@ public class SettingsScreen
     Log.d(TAG, "onCreatePreferences:");
     setPreferencesFromResource(R.xml.root_preferences, rootKey);
 
-    updateSummaryTheme(getString(R.string.pref_theme_key));
-    updateSummaryReminder(getString(R.string.pref_reminder_key));
-    updateSummaryReminderTime(getString(R.string.pref_reminder_time_key));
+    updateSummaryTheme();
+    updateSummaryReminder();
+    updateSummaryReminderTime();
   }
 
-  private void updateSummaryTheme(@NonNull final String key) {
+  private void updateSummaryTheme() {
+    final String key = getString(R.string.pref_theme_key);
     final Preference prefSection = getPreferenceScreen().findPreference(key);
     if (prefSection == null) {
       Log.e(TAG, "updateSummaryTheme:", new NullPointerException(
@@ -128,7 +138,8 @@ public class SettingsScreen
     }
   }
 
-  private void updateSummaryReminder(@NonNull final String key) {
+  private void updateSummaryReminder() {
+    final String key = getString(R.string.pref_reminder_key);
     final Preference prefSection = getPreferenceScreen().findPreference(key);
     if (prefSection == null) {
       Log.e(TAG, "updateSummaryReminder:", new NullPointerException(
@@ -142,7 +153,8 @@ public class SettingsScreen
                                    : R.string.pref_reminder_summary_off);
   }
 
-  private void updateSummaryReminderTime(@NonNull final String key) {
+  private void updateSummaryReminderTime() {
+    final String key = getString(R.string.pref_reminder_time_key);
     final Preference prefSection = getPreferenceScreen().findPreference(key);
     if (prefSection == null) {
       Log.e(TAG, "updateSummaryReminder:", new NullPointerException(
@@ -170,62 +182,25 @@ public class SettingsScreen
 
   }
 
-  private void handleValueChangeTheme(@NonNull final String key) {
-    Log.d(TAG, "handleValueChangeTheme: key[" + key + "]");
-    updateSummaryTheme(key);
+  private void handleValueChangeTheme() {
+    updateSummaryTheme();
 
     ops.updateApplicationTheme();
     ops.restartApp();
   }
 
-  private void handleValueChangeReminderState(@NonNull final String key) {
-    Log.d(TAG, "handleValueChangeReminderState: key[" + key + "]");
-    updateSummaryReminder(key);
+  private void handleValueChangeReminderState() {
+    updateSummaryReminder();
     ops.updateDailyVerseReminderState();
   }
 
-  private void handleValueChangeReminderTime(@NonNull final String key) {
-    Log.d(TAG, "handleValueChangeReminderTime: key[" + key + "]");
-    updateSummaryReminderTime(key);
+  private void handleValueChangeReminderTime() {
+    updateSummaryReminderTime();
     ops.updateDailyVerseReminderTime();
   }
 
-/*
-  private void handlePreferenceClickRate() {
-    Log.d(TAG, "handlePreferenceClickRate:");
-    final String packName = requireActivity().getPackageName();
-
-    final Intent appIntent = new Intent(Intent.ACTION_VIEW,
-                                        Uri.parse("market://details?id=" + packName));
-
-    if (appIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
-      startActivity(appIntent);
-    } else {
-      Log.e(TAG, "handlePreferenceClickRate: Google PlayStore NOT found");
-      final Uri urlPath = Uri.parse("https://play.google.com/store/apps/details?id=" + packName);
-      final Intent browserIntent = new Intent(Intent.ACTION_VIEW, urlPath);
-      startActivity(browserIntent);
-    }
-
-  }
-
-  private void handlePreferenceClickEmail() {
-    Log.d(TAG, "handlePreferenceClickEmail:");
-    final Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-    emailIntent.setData(Uri.parse("mailto:"));
-    emailIntent.putExtra(Intent.EXTRA_EMAIL, getString(R.string.pref_email_address));
-    emailIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.pref_email_subject));
-    if (null != emailIntent.resolveActivity(requireActivity().getPackageManager())) {
-      startActivity(emailIntent);
-    } else {
-      Log.e(TAG, "handlePreferenceClickEmail: No email application found");
-    }
-  }
-
-  private void handlePreferenceClickAbout() {
-    Log.d(TAG, "handlePreferenceClickAbout:");
-    showAlertWebView("about.html",
-                     R.string.scr_settings_err_not_found_about);
+  private void handlePreferenceClickLicense() {
+    showAlertWebView("licenses.html", R.string.scr_settings_err_not_found_license);
   }
 
   private void showAlertWebView(@NonNull final String assetsFileName,
@@ -247,20 +222,81 @@ public class SettingsScreen
         }
       });
 
-      new AlertDialog.Builder(fragAct).setView(wv)
-                                      .show();
+      new AlertDialog.Builder(fragAct).setView(wv).show();
     } catch (Exception e) {
       Log.e(TAG, "showAlertWebView: Could not open assets file [" + assetsFileName + "]", e);
       ops.showErrorScreen(getString(errorMsgStrRef), true, false);
     }
   }
 
-  private void handlePreferenceClickLicense() {
-    Log.d(TAG, "handlePreferenceClickLicense:");
-    showAlertWebView("licenses.html",
-                     R.string.scr_settings_err_not_found_license);
+  private void handlePreferenceClickAbout() {
+    showAlertWebView("about.html", R.string.scr_settings_err_not_found_about);
   }
-*/
+
+  private void handlePreferenceClickEmail() {
+    final Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+    emailIntent.setData(Uri.parse("mailto:"));
+    emailIntent.putExtra(Intent.EXTRA_EMAIL, getString(R.string.pref_email_address));
+    emailIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.pref_email_subject));
+    if (null != emailIntent.resolveActivity(requireActivity().getPackageManager())) {
+      startActivity(emailIntent);
+    } else {
+      Log.e(TAG, "handlePreferenceClickEmail: No email application found");
+    }
+  }
+
+  private void handlePreferenceClickRate() {
+    final String packName = requireActivity().getPackageName();
+
+    final Intent appIntent = new Intent(Intent.ACTION_VIEW,
+                                        Uri.parse("market://details?id=" + packName));
+
+    if (appIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
+      startActivity(appIntent);
+    } else {
+      Log.e(TAG, "handlePreferenceClickRate: Google PlayStore NOT found");
+      final Uri urlPath = Uri.parse("https://play.google.com/store/apps/details?id=" + packName);
+      final Intent browserIntent = new Intent(Intent.ACTION_VIEW, urlPath);
+      startActivity(browserIntent);
+    }
+  }
+
+  private void handlePreferenceClickReminderTime() {
+    final SharedPreferences sPref = getPreferenceManager().getSharedPreferences();
+    final Resources resources = getResources();
+    final int hour = sPref.getInt(getString(R.string.pref_reminder_time_hour_key),
+                                  resources.getInteger(R.integer.default_reminder_time_hour));
+    final int minute = sPref.getInt(getString(R.string.pref_reminder_time_minute_key),
+                                    resources.getInteger(R.integer.default_reminder_time_minute));
+    final Context context = requireContext();
+    new TimePickerDialog(
+        context,
+        (view, newHour, newMinute) -> {
+          if (newHour != hour || newMinute != minute) {
+            updateDailyVerseReminderTime(newHour, newMinute);
+          }
+        },
+        hour,
+        minute,
+        DateFormat.is24HourFormat(context))
+        .show();
+  }
+
+  private void updateDailyVerseReminderTime(@IntRange(from = 0, to = 23) final int hour,
+                                            @IntRange(from = 0, to = 59) final int minute) {
+    Log.d(TAG, "updateDailyVerseReminderTime:");
+    final SharedPreferences.Editor editor = getPreferenceManager().getSharedPreferences().edit();
+    editor.putInt(getString(R.string.pref_reminder_time_hour_key), hour);
+    editor.putInt(getString(R.string.pref_reminder_time_minute_key), minute);
+    editor.apply();
+
+    updateSummaryReminderTime();
+    ops.updateDailyVerseReminderTime();
+  }
+
+  private void handlePreferenceClickExport() {
+    Log.d(TAG, "handlePreferenceClickExport:");
+  }
 
   private class ChangeHandler
       implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -269,11 +305,11 @@ public class SettingsScreen
     public void onSharedPreferenceChanged(final SharedPreferences preferences,
                                           final String key) {
       if (key.equalsIgnoreCase(getString(R.string.pref_theme_key))) {
-        handleValueChangeTheme(key);
+        handleValueChangeTheme();
       } else if (key.equalsIgnoreCase(getString(R.string.pref_reminder_key))) {
-        handleValueChangeReminderState(key);
+        handleValueChangeReminderState();
       } else if (key.equalsIgnoreCase(getString(R.string.pref_reminder_time_key))) {
-        handleValueChangeReminderTime(key);
+        handleValueChangeReminderTime();
       } else {
         Log.e(TAG, "onSharedPreferenceChanged: ignoring key [" + key + "]");
       }
@@ -287,7 +323,23 @@ public class SettingsScreen
     @Override
     public boolean onPreferenceTreeClick(final Preference preference) {
       final String key = preference.getKey();
-      Log.d(TAG, "onPreferenceTreeClick: preferenceKey = [" + key + "]");
+
+      if (key.equalsIgnoreCase(getString(R.string.pref_export_key))) {
+        handlePreferenceClickExport();
+      } else if (key.equalsIgnoreCase(getString(R.string.pref_reminder_time_key))) {
+        handlePreferenceClickReminderTime();
+      } else if (key.equalsIgnoreCase(getString(R.string.pref_rate_key))) {
+        handlePreferenceClickRate();
+      } else if (key.equalsIgnoreCase(getString(R.string.pref_email_key))) {
+        handlePreferenceClickEmail();
+      } else if (key.equalsIgnoreCase(getString(R.string.pref_about_key))) {
+        handlePreferenceClickAbout();
+      } else if (key.equalsIgnoreCase(getString(R.string.pref_license_key))) {
+        handlePreferenceClickLicense();
+      } else {
+        Log.d(TAG, "onPreferenceTreeClick: ignoring preferenceKey = [" + key + "]");
+      }
+
       return true;
     }
 
