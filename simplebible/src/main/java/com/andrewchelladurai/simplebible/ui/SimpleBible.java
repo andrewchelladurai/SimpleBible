@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -18,11 +21,23 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
+import com.andrewchelladurai.simplebible.utils.ReminderWorker;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.common.util.concurrent.ListenableFuture;
+
+import java.util.Calendar;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 public class SimpleBible
     extends AppCompatActivity
@@ -59,7 +74,6 @@ public class SimpleBible
                                           .getString(getString(R.string.pref_theme_key),
                                                      getString(R.string.pref_theme_value_system));
     Log.d(TAG, "updateApplicationTheme: value[" + value + "]");
-
     if (value.equalsIgnoreCase(getString(R.string.pref_theme_value_yes))) {
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     } else if (value.equalsIgnoreCase(getString(R.string.pref_theme_value_no))) {
@@ -169,14 +183,72 @@ public class SimpleBible
 
   @Override
   public void updateDailyVerseReminderState() {
-    Log.d(TAG, "updateDailyVerseReminderState:");
-    // TODO: 3/5/20 implement this
+    if (PreferenceManager.getDefaultSharedPreferences(this)
+                         .getBoolean(getString(R.string.pref_reminder_key), true)) {
+      updateDailyVerseReminderTime();
+    } else {
+      final WorkManager workManager = WorkManager.getInstance(this);
+      workManager.cancelAllWorkByTag(ReminderWorker.TAG);
+      Log.d(TAG, "updateDailyVerseReminderState: cancelled All Work By Tag ["
+                 + ReminderWorker.TAG + "]");
+    }
   }
 
   @Override
   public void updateDailyVerseReminderTime() {
-    Log.d(TAG, "updateDailyVerseReminderTime:");
-    // TODO: 3/5/20 implement this
+    final String prefKeyHour = getString(R.string.pref_reminder_time_hour_key);
+    final String prefKeyMin = getString(R.string.pref_reminder_time_hour_key);
+
+    final Resources resources = getResources();
+    final int defaultHourValue = resources.getInteger(R.integer.default_reminder_time_hour);
+    final int defaultMinValue = resources.getInteger(R.integer.default_reminder_time_minute);
+
+    final SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(this);
+    final int hour = sPref.getInt(prefKeyHour, defaultHourValue);
+    final int minute = sPref.getInt(prefKeyMin, defaultMinValue);
+
+    final Calendar reminderTimeStamp = Calendar.getInstance();
+    reminderTimeStamp.set(Calendar.HOUR_OF_DAY, hour);
+    reminderTimeStamp.set(Calendar.MINUTE, minute);
+    reminderTimeStamp.set(Calendar.SECOND, 0);
+
+    final Calendar timeNow = Calendar.getInstance();
+    if (reminderTimeStamp.before(timeNow)) {
+      reminderTimeStamp.add(Calendar.HOUR_OF_DAY, 24);
+      Log.d(TAG, "updateDailyVerseReminderTime: reminderTimestamp is past, adjusted by 24 Hours");
+    }
+
+    final long timeDiff = reminderTimeStamp.getTimeInMillis() - timeNow.getTimeInMillis();
+    Log.d(TAG, "updateDailyVerseReminderTime: reminderTimeStamp["
+               + DateFormat.format("yyyyMMdd @ kkmmssz", reminderTimeStamp) + "]");
+
+    final WorkManager workManager = WorkManager.getInstance(getApplicationContext());
+    workManager.enqueueUniqueWork(ReminderWorker.TAG,
+                                  ExistingWorkPolicy.REPLACE,
+                                  new OneTimeWorkRequest.Builder(ReminderWorker.class)
+                                      .setInitialDelay(timeDiff, TimeUnit.MILLISECONDS)
+                                      .addTag(ReminderWorker.TAG)
+                                      .setInputData(new Data.Builder()
+                                                        .putInt(ReminderWorker.ARG_HOUR, hour)
+                                                        .putInt(ReminderWorker.ARG_MINUTE, minute)
+                                                        .build())
+                                      .build());
+
+    final ListenableFuture<List<WorkInfo>> listWorkInfoByTag =
+        workManager.getWorkInfosByTag(ReminderWorker.TAG);
+
+    try {
+      final List<WorkInfo> infoList = listWorkInfoByTag.get();
+      final WorkInfo.State enqueuedState = WorkInfo.State.ENQUEUED;
+      for (final WorkInfo workInfo : infoList) {
+        if (workInfo.getState().equals(enqueuedState)) {
+          Log.d(TAG, "doWork: [" + enqueuedState.name() + "]" + "[" + workInfo.getId() + "]");
+        }
+      }
+    } catch (ExecutionException | InterruptedException ex) {
+      Log.e(TAG, "updateDailyVerseReminderTime: ", ex);
+    }
+
   }
 
 }
