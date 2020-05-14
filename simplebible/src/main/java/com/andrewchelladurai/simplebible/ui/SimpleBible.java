@@ -197,7 +197,7 @@ public class SimpleBible
   @Override
   public void updateDailyVerseReminderTime() {
     final String prefKeyHour = getString(R.string.pref_reminder_time_hour_key);
-    final String prefKeyMin = getString(R.string.pref_reminder_time_hour_key);
+    final String prefKeyMin = getString(R.string.pref_reminder_time_minute_key);
 
     final Resources resources = getResources();
     final int defaultHourValue = resources.getInteger(R.integer.default_reminder_time_hour);
@@ -220,9 +220,10 @@ public class SimpleBible
 
     final long timeDiff = reminderTimeStamp.getTimeInMillis() - timeNow.getTimeInMillis();
     Log.d(TAG, "updateDailyVerseReminderTime: reminderTimeStamp["
-               + DateFormat.format("yyyyMMdd @ kkmmssz", reminderTimeStamp) + "]");
+               + DateFormat.format("yyyy-MMM-dd @ HH:mm:ss z", reminderTimeStamp) + "]");
 
     final WorkManager workManager = WorkManager.getInstance(getApplicationContext());
+    workManager.cancelAllWorkByTag(ReminderWorker.TAG);
     workManager.enqueueUniqueWork(ReminderWorker.TAG,
                                   ExistingWorkPolicy.REPLACE,
                                   new OneTimeWorkRequest.Builder(ReminderWorker.class)

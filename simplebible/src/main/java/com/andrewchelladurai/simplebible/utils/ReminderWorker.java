@@ -65,18 +65,16 @@ public class ReminderWorker
 
     final long timeDiff = reminderTimeStamp.getTimeInMillis() - timeNow.getTimeInMillis();
     Log.d(TAG, "doWork: reminderTimeStamp["
-               + DateFormat.format("yyyyMMdd @ kkmmssz", reminderTimeStamp) + "]");
+               + DateFormat.format("yyyy-MMM-dd @ HH:mm:ss z", reminderTimeStamp) + "]");
 
     final WorkManager workManager = WorkManager.getInstance(getApplicationContext());
+    workManager.cancelAllWorkByTag(ReminderWorker.TAG);
     workManager.enqueueUniqueWork(ReminderWorker.TAG,
                                   ExistingWorkPolicy.REPLACE,
                                   new OneTimeWorkRequest.Builder(ReminderWorker.class)
                                       .setInitialDelay(timeDiff, TimeUnit.MILLISECONDS)
                                       .addTag(ReminderWorker.TAG)
-                                      .setInputData(new Data.Builder()
-                                                        .putInt(ReminderWorker.ARG_HOUR, hour)
-                                                        .putInt(ReminderWorker.ARG_MINUTE, minute)
-                                                        .build())
+                                      .setInputData(iData)
                                       .build());
 
     final ListenableFuture<List<WorkInfo>> listWorkInfoByTag =
