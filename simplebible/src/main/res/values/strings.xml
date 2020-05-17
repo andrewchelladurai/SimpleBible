@@ -99,6 +99,7 @@
     <string name="scr_chapter_dialog_title">Swipe to select a chapter</string>
 
     <!-- SettingsScreen -->
+    <string name="pref_category_title_actions">Actions and Operations</string>
     <string name="pref_theme_key">sb_pref_key_theme</string>
     <string name="pref_theme_title">Dark Theme</string>
     <string name="pref_theme_entry_system">Controlled by device</string>

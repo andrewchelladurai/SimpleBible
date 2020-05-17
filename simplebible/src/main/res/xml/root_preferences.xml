@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_category_title_actions">
 
         <ListPreference
             app:defaultValue="@string/pref_theme_value_system"
@@ -19,20 +19,23 @@
             app:summary="@string/pref_export_summary"
             app:title="@string/pref_export_title" />
 
-        <SwitchPreference
-            android:summaryOff="@string/pref_reminder_summary_off"
-            android:summaryOn="@string/pref_reminder_summary_on"
-            app:icon="@drawable/ic_notification"
-            app:key="@string/pref_reminder_key"
-            app:singleLineTitle="true"
-            app:title="@string/pref_reminder_title" />
+        <!--    TODO Implement this action    -->
+        <!--
+                <SwitchPreference
+                    android:summaryOff="@string/pref_reminder_summary_off"
+                    android:summaryOn="@string/pref_reminder_summary_on"
+                    app:icon="@drawable/ic_notification"
+                    app:key="@string/pref_reminder_key"
+                    app:singleLineTitle="true"
+                    app:title="@string/pref_reminder_title" />
 
-        <Preference
-            app:dependency="@string/pref_reminder_key"
-            app:icon="@drawable/ic_alarm"
-            app:key="@string/pref_reminder_time_key"
-            app:summary="@string/pref_reminder_time_summary_invalid"
-            app:title="@string/pref_reminder_time_title" />
+                <Preference
+                    app:dependency="@string/pref_reminder_key"
+                    app:icon="@drawable/ic_alarm"
+                    app:key="@string/pref_reminder_time_key"
+                    app:summary="@string/pref_reminder_time_summary_invalid"
+                    app:title="@string/pref_reminder_time_title" />
+        -->
 
     </PreferenceCategory>
 
@@ -51,15 +54,15 @@
             app:title="@string/pref_email_title" />
     </PreferenceCategory>
 
-    <PreferenceCategory
-        app:icon="@drawable/ic_info"
-        app:title="@string/pref_category_title_about">
+    <PreferenceCategory app:title="@string/pref_category_title_about">
         <Preference
+            app:icon="@drawable/ic_info"
             app:key="@string/pref_about_key"
             app:summary="@string/pref_about_summary"
             app:title="@string/pref_about_title" />
 
         <Preference
+            app:icon="@drawable/ic_info"
             app:key="@string/pref_license_key"
             app:summary="@string/pref_license_summary"
             app:title="@string/pref_license_title" />
