@@ -9,17 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.andrewchelladurai.simplebible.R;
-import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.Calendar;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 public class ReminderWorker
@@ -40,9 +36,18 @@ public class ReminderWorker
   @NonNull
   @Override
   public Result doWork() {
+    triggerNotification();
+    enqueueNextWorkRequest();
+    return Result.success();
+  }
 
+  private void triggerNotification() {
+    Log.d(TAG, "triggerNotification:");
     // TODO: 15/5/20 show a Pending Notification displaying the day's verse.
+  }
 
+  private void enqueueNextWorkRequest() {
+    Log.d(TAG, "enqueueNextWorkRequest:");
     final Data iData = getInputData();
     final Resources resources = getApplicationContext().getResources();
 
@@ -60,11 +65,11 @@ public class ReminderWorker
     final Calendar timeNow = Calendar.getInstance();
     if (reminderTimeStamp.before(timeNow)) {
       reminderTimeStamp.add(Calendar.HOUR_OF_DAY, 24);
-      Log.d(TAG, "doWork: reminderTimestamp is past, adjusted by 24 Hours");
+      Log.d(TAG, "enqueueNextWorkRequest: reminderTimestamp is past, adjusted by 24 Hours");
     }
 
     final long timeDiff = reminderTimeStamp.getTimeInMillis() - timeNow.getTimeInMillis();
-    Log.d(TAG, "doWork: reminderTimeStamp["
+    Log.d(TAG, "enqueueNextWorkRequest: reminderTimeStamp["
                + DateFormat.format("yyyy-MMM-dd @ HH:mm:ss z", reminderTimeStamp) + "]");
 
     final WorkManager workManager = WorkManager.getInstance(getApplicationContext());
@@ -76,22 +81,6 @@ public class ReminderWorker
                                       .addTag(ReminderWorker.TAG)
                                       .setInputData(iData)
                                       .build());
-
-    final ListenableFuture<List<WorkInfo>> listWorkInfoByTag =
-        workManager.getWorkInfosByTag(ReminderWorker.TAG);
-
-    try {
-      final List<WorkInfo> infoList = listWorkInfoByTag.get();
-      final WorkInfo.State enqueuedState = WorkInfo.State.ENQUEUED;
-      for (final WorkInfo workInfo : infoList) {
-        if (workInfo.getState().equals(enqueuedState)) {
-          Log.d(TAG, "doWork: [" + enqueuedState.name() + "]" + "[" + workInfo.getId() + "]");
-        }
-      }
-    } catch (ExecutionException | InterruptedException ex) {
-      Log.e(TAG, "doWork: ", ex);
-    }
-    return Result.success();
   }
 
 }

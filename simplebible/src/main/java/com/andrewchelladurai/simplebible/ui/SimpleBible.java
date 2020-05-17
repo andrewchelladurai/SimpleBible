@@ -24,7 +24,6 @@ import androidx.preference.PreferenceManager;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 import com.andrewchelladurai.simplebible.R;
@@ -32,11 +31,8 @@ import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 import com.andrewchelladurai.simplebible.utils.ReminderWorker;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.Calendar;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 public class SimpleBible
@@ -234,22 +230,6 @@ public class SimpleBible
                                                         .putInt(ReminderWorker.ARG_MINUTE, minute)
                                                         .build())
                                       .build());
-
-    final ListenableFuture<List<WorkInfo>> listWorkInfoByTag =
-        workManager.getWorkInfosByTag(ReminderWorker.TAG);
-
-    try {
-      final List<WorkInfo> infoList = listWorkInfoByTag.get();
-      final WorkInfo.State enqueuedState = WorkInfo.State.ENQUEUED;
-      for (final WorkInfo workInfo : infoList) {
-        if (workInfo.getState().equals(enqueuedState)) {
-          Log.d(TAG, "doWork: [" + enqueuedState.name() + "]" + "[" + workInfo.getId() + "]");
-        }
-      }
-    } catch (ExecutionException | InterruptedException ex) {
-      Log.e(TAG, "updateDailyVerseReminderTime: ", ex);
-    }
-
   }
 
 }
