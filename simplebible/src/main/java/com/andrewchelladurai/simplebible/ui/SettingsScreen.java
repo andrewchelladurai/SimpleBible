@@ -30,8 +30,6 @@ import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.model.SettingsViewModel;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 
-import java.util.Calendar;
-
 public class SettingsScreen
     extends PreferenceFragmentCompat {
 
@@ -139,6 +137,9 @@ public class SettingsScreen
   }
 
   private void updateSummaryReminder() {
+    Log.d(TAG, "updateSummaryReminder: commented because of git commit"
+               + "[fee26f975e23c9b46954edd72cb03b402707c830]");
+/*
     final String key = getString(R.string.pref_reminder_key);
     final Preference prefSection = getPreferenceScreen().findPreference(key);
     if (prefSection == null) {
@@ -151,9 +152,13 @@ public class SettingsScreen
                                                 .getBoolean(key, false);
     prefSection.setSummary((value) ? R.string.pref_reminder_summary_on
                                    : R.string.pref_reminder_summary_off);
+*/
   }
 
   private void updateSummaryReminderTime() {
+    Log.d(TAG, "updateSummaryReminderTime: commented because of git commit"
+               + "[fee26f975e23c9b46954edd72cb03b402707c830]");
+/*
     final String key = getString(R.string.pref_reminder_time_key);
     final Preference prefSection = getPreferenceScreen().findPreference(key);
     if (prefSection == null) {
@@ -179,7 +184,7 @@ public class SettingsScreen
     } else {
       prefSection.setSummary(R.string.pref_reminder_time_summary_invalid);
     }
-
+*/
   }
 
   private void handleValueChangeTheme() {
