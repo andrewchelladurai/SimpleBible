@@ -32,6 +32,8 @@ public class BookmarksScreen
 
   private static final String TAG = "BookmarksScreen";
 
+  private SimpleBibleOps ops;
+
   private BookmarksViewModel model;
 
   private BookmarksAdapter adapter;
@@ -57,7 +59,7 @@ public class BookmarksScreen
 
     if (context instanceof SimpleBibleOps) {
       //noinspection unused
-      final SimpleBibleOps ops = (SimpleBibleOps) context;
+      ops = (SimpleBibleOps) context;
     } else {
       throw new ClassCastException(TAG + " onAttach: [Context] must implement [SimpleBibleOps]");
     }
@@ -72,6 +74,7 @@ public class BookmarksScreen
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState) {
     Log.d(TAG, "onCreateView:");
+    ops.showNavigationView();
     rootView = inflater.inflate(R.layout.bookmarks_screen, container, false);
 
     verseTemplateSingle =
