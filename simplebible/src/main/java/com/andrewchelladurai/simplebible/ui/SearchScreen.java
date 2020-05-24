@@ -64,6 +64,7 @@ public class SearchScreen
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedState) {
+    ops.showNavigationView();
     rootView = inflater.inflate(R.layout.search_screen, container, false);
 
     ((TextView) rootView.findViewById(R.id.scr_search_help_text))
