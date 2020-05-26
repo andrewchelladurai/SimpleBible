@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 
+import com.andrewchelladurai.simplebible.data.Verse;
 import com.andrewchelladurai.simplebible.utils.Utils;
 
 @Entity(tableName = "sb_verses", primaryKeys = {"book", "chapter", "verse"})
@@ -65,6 +66,20 @@ public class EntityVerse {
   @NonNull
   public String getText() {
     return text;
+  }
+
+  @NonNull
+  @Override
+  public String toString() {
+    return translation
+           + Verse.REFERENCE_SEPARATOR
+           + book
+           + Verse.REFERENCE_SEPARATOR
+           + chapter
+           + Verse.REFERENCE_SEPARATOR
+           + verse
+           + Verse.REFERENCE_SEPARATOR
+           + text;
   }
 
 }
