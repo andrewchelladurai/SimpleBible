@@ -11,7 +11,7 @@ import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.EntityBook;
+import com.andrewchelladurai.simplebible.data.entities.EntityBook;
 import com.andrewchelladurai.simplebible.ui.ops.BookListScreenOps;
 import com.andrewchelladurai.simplebible.utils.Utils;
 

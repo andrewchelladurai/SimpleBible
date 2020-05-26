@@ -8,10 +8,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.andrewchelladurai.simplebible.data.EntityBookmark;
-import com.andrewchelladurai.simplebible.data.EntityVerse;
-import com.andrewchelladurai.simplebible.data.SbDao;
 import com.andrewchelladurai.simplebible.data.SbDatabase;
+import com.andrewchelladurai.simplebible.data.dao.SbDao;
+import com.andrewchelladurai.simplebible.data.entities.EntityBookmark;
+import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
 import com.andrewchelladurai.simplebible.utils.Utils;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.andrewchelladurai.simplebible.data;
+package com.andrewchelladurai.simplebible.data.entities;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
@@ -34,11 +34,11 @@ public class EntityVerse
   @ColumnInfo(name = "text")
   private final String text;
 
-  EntityVerse(@NonNull final String translation,
-              @IntRange(from = 1, to = Utils.MAX_BOOKS) final int book,
-              @IntRange(from = 1) final int chapter,
-              @IntRange(from = 1) final int verse,
-              @NonNull final String text) {
+  public EntityVerse(@NonNull final String translation,
+                     @IntRange(from = 1, to = Utils.MAX_BOOKS) final int book,
+                     @IntRange(from = 1) final int chapter,
+                     @IntRange(from = 1) final int verse,
+                     @NonNull final String text) {
     this.translation = translation;
     this.book = book;
     this.chapter = chapter;

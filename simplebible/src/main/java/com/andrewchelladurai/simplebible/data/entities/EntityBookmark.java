@@ -1,4 +1,4 @@
-package com.andrewchelladurai.simplebible.data;
+package com.andrewchelladurai.simplebible.data.entities;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

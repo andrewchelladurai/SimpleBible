@@ -10,9 +10,9 @@ import androidx.work.WorkManager;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.DbSetupWorker;
-import com.andrewchelladurai.simplebible.data.EntityBook;
-import com.andrewchelladurai.simplebible.data.SbDao;
 import com.andrewchelladurai.simplebible.data.SbDatabase;
+import com.andrewchelladurai.simplebible.data.dao.SbDao;
+import com.andrewchelladurai.simplebible.data.entities.EntityBook;
 import com.andrewchelladurai.simplebible.utils.Utils;
 
 import java.util.List;

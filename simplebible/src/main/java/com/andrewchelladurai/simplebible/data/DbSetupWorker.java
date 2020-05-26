@@ -9,6 +9,9 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.dao.SbDao;
+import com.andrewchelladurai.simplebible.data.entities.EntityBook;
+import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
 import com.andrewchelladurai.simplebible.utils.Utils;
 
 import java.io.BufferedReader;

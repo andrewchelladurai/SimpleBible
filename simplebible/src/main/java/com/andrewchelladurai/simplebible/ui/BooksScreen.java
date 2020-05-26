@@ -16,7 +16,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.EntityBook;
+import com.andrewchelladurai.simplebible.data.entities.EntityBook;
 import com.andrewchelladurai.simplebible.model.BooksViewModel;
 import com.andrewchelladurai.simplebible.ui.adapter.BooksAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BookListScreenOps;

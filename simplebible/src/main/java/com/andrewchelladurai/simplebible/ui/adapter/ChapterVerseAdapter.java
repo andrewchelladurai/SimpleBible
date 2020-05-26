@@ -11,7 +11,7 @@ import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.EntityVerse;
+import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
 import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;
 
 public class ChapterVerseAdapter

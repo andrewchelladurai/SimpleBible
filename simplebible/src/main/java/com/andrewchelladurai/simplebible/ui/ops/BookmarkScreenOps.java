@@ -3,7 +3,7 @@ package com.andrewchelladurai.simplebible.ui.ops;
 import androidx.annotation.IntRange;
 import androidx.annotation.Nullable;
 
-import com.andrewchelladurai.simplebible.data.EntityVerse;
+import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
 
 public interface BookmarkScreenOps {
 

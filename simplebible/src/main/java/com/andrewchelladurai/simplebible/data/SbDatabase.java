@@ -7,6 +7,14 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.andrewchelladurai.simplebible.data.dao.BookDao;
+import com.andrewchelladurai.simplebible.data.dao.BookmarkDao;
+import com.andrewchelladurai.simplebible.data.dao.SbDao;
+import com.andrewchelladurai.simplebible.data.dao.VerseDao;
+import com.andrewchelladurai.simplebible.data.entities.EntityBook;
+import com.andrewchelladurai.simplebible.data.entities.EntityBookmark;
+import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
+
 @Database(entities = {EntityBook.class, EntityVerse.class, EntityBookmark.class},
           // epoch time in seconds : date +%s
           version = 1520969806,

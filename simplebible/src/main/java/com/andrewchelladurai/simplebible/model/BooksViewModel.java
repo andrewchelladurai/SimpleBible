@@ -7,9 +7,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.andrewchelladurai.simplebible.data.EntityBook;
-import com.andrewchelladurai.simplebible.data.SbDao;
 import com.andrewchelladurai.simplebible.data.SbDatabase;
+import com.andrewchelladurai.simplebible.data.dao.SbDao;
+import com.andrewchelladurai.simplebible.data.entities.EntityBook;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.andrewchelladurai.simplebible.data;
+package com.andrewchelladurai.simplebible.data.dao;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
@@ -9,6 +9,9 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import com.andrewchelladurai.simplebible.data.entities.EntityBook;
+import com.andrewchelladurai.simplebible.data.entities.EntityBookmark;
+import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
 import com.andrewchelladurai.simplebible.utils.Utils;
 
 import java.util.List;

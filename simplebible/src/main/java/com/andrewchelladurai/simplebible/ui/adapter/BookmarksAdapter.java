@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.EntityBookmark;
+import com.andrewchelladurai.simplebible.data.entities.EntityBookmark;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarksScreenOps;
 
 public class BookmarksAdapter

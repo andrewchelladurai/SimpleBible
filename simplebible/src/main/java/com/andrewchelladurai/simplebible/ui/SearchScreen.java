@@ -20,8 +20,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.EntityBook;
-import com.andrewchelladurai.simplebible.data.EntityVerse;
+import com.andrewchelladurai.simplebible.data.entities.EntityBook;
+import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
 import com.andrewchelladurai.simplebible.model.SearchViewModel;
 import com.andrewchelladurai.simplebible.ui.adapter.SearchResultAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.SearchScreenOps;

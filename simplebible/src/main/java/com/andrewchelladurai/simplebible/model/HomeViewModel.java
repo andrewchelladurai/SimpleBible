@@ -9,9 +9,9 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.andrewchelladurai.simplebible.data.EntityVerse;
-import com.andrewchelladurai.simplebible.data.SbDao;
 import com.andrewchelladurai.simplebible.data.SbDatabase;
+import com.andrewchelladurai.simplebible.data.dao.SbDao;
+import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
 import com.andrewchelladurai.simplebible.utils.Utils;
 
 public class HomeViewModel
