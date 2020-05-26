@@ -137,12 +137,7 @@ public class HomeScreen
         return;
       }
 
-      final Verse dailyVerse = new Verse(verse.getTranslation(),
-                                         verse.getBook(),
-                                         verse.getChapter(),
-                                         verse.getVerse(),
-                                         verse.getText(),
-                                         book);
+      final Verse dailyVerse = new Verse(verse, book);
 
       model.setCachedVerse(dailyVerse);
       model.setCachedVerseDay(dayNo);

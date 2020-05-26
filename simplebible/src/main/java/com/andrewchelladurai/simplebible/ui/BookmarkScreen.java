@@ -356,12 +356,7 @@ public class BookmarkScreen
           Log.e(TAG, "updateContent: no book found for verse [" + verse + ", skipping it]");
           continue;
         }
-        verseList.add(new Verse(verse.getTranslation(),
-                                verse.getBook(),
-                                verse.getChapter(),
-                                verse.getVerse(),
-                                verse.getText(),
-                                book[0]));
+        verseList.add(new Verse(verse, book[0]));
       }
 
       // get the bookmark from the database using the bookmark reference

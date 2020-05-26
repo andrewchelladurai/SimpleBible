@@ -299,12 +299,7 @@ public class ChapterScreen
 
       final ArrayList<Verse> verseList = new ArrayList<>(list.size());
       for (final EntityVerse verse : list) {
-        verseList.add(new Verse(verse.getTranslation(),
-                                verse.getBook(),
-                                verse.getChapter(),
-                                verse.getVerse(),
-                                verse.getText(),
-                                cachedBook));
+        verseList.add(new Verse(verse, cachedBook));
       }
 
       model.clearCache();

@@ -156,12 +156,7 @@ public class SearchScreen
           continue;
         }
 
-        verseList.add(new Verse(verse.getTranslation(),
-                                verse.getBook(),
-                                verse.getChapter(),
-                                verse.getVerse(),
-                                verse.getText(),
-                                book[0]));
+        verseList.add(new Verse(verse, book[0]));
 
       }
 

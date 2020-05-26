@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.core.text.HtmlCompat;
 
 import com.andrewchelladurai.simplebible.data.entities.EntityBook;
+import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
 import com.andrewchelladurai.simplebible.utils.Utils;
 
 import java.util.Objects;
@@ -40,17 +41,12 @@ public class Verse
   @NonNull
   private final EntityBook book;
 
-  public Verse(@NonNull final String translation,
-               @IntRange(from = 1, to = Utils.MAX_BOOKS) final int bookNumber,
-               @IntRange(from = 1) final int chapterNumber,
-               @IntRange(from = 1) final int verseNumber,
-               @NonNull final String verseText,
-               @NonNull final EntityBook entityBook) {
-    this.translation = translation;
-    this.bookNumber = bookNumber;
-    this.chapterNumber = chapterNumber;
-    this.verseNumber = verseNumber;
-    this.verseText = verseText;
+  public Verse(@NonNull final EntityVerse verse, @NonNull final EntityBook entityBook) {
+    translation = verse.getTranslation();
+    bookNumber = verse.getBook();
+    chapterNumber = verse.getChapter();
+    verseNumber = verse.getVerse();
+    verseText = verse.getText();
     book = entityBook;
   }
 
