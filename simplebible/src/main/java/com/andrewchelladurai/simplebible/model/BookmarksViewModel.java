@@ -9,6 +9,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.andrewchelladurai.simplebible.data.SbDatabase;
+import com.andrewchelladurai.simplebible.data.Verse;
 import com.andrewchelladurai.simplebible.data.dao.SbDao;
 import com.andrewchelladurai.simplebible.data.entities.EntityBookmark;
 import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
@@ -58,7 +59,7 @@ public class BookmarksViewModel
   public LiveData<EntityVerse> getFirstVerseOfBookmark(@NonNull final EntityBookmark bookmark) {
     final Utils utils = Utils.getInstance();
     final String[] references = utils.splitBookmarkReference(bookmark.getReference());
-    final int[] referenceParts = utils.splitVerseReference(references[0]);
+    final int[] referenceParts = Verse.splitReference(references[0]);
     //noinspection ConstantConditions
     return dao.getVerse(referenceParts[0], referenceParts[1], referenceParts[2]);
   }

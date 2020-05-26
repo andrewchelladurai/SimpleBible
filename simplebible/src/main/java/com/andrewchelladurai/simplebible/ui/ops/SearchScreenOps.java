@@ -3,7 +3,7 @@ package com.andrewchelladurai.simplebible.ui.ops;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 
-import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
+import com.andrewchelladurai.simplebible.data.Verse;
 
 public interface SearchScreenOps {
 
@@ -13,10 +13,10 @@ public interface SearchScreenOps {
 
   void removeSelection(@NonNull String verseReference);
 
-  void addSelection(@NonNull String verseReference, @NonNull EntityVerse verse);
+  void addSelection(@NonNull String verseReference, @NonNull Verse verse);
 
   @NonNull
-  EntityVerse getVerseAtPosition(@IntRange(from = 0) int position);
+  Verse getVerseAtPosition(@IntRange(from = 0) int position);
 
   @IntRange(from = 0)
   int getResultCount();

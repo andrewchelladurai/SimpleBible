@@ -4,20 +4,20 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
+import com.andrewchelladurai.simplebible.data.Verse;
 
 public interface ChapterScreenOps {
 
   int getCachedListSize();
 
   @Nullable
-  EntityVerse getVerseAtPosition(@IntRange(from = 0) int position);
+  Verse getVerseAtPosition(@IntRange(from = 0) int position);
 
-  boolean isVerseSelected(@NonNull EntityVerse verse);
+  boolean isVerseSelected(@NonNull Verse verse);
 
-  void removeSelectedVerse(@NonNull EntityVerse verse);
+  void removeSelectedVerse(@NonNull Verse verse);
 
-  void addSelectedVerse(@NonNull EntityVerse verse);
+  void addSelectedVerse(@NonNull Verse verse);
 
   void updateSelectionActionsVisibility();
 

@@ -8,12 +8,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.Verse;
 import com.andrewchelladurai.simplebible.data.entities.EntityBook;
-import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkScreenOps;
 import com.andrewchelladurai.simplebible.utils.Utils;
 
@@ -58,7 +57,7 @@ public class BookmarkAdapter
   public ArrayList<String> getVerseTexts() {
 
     final ArrayList<String> arrayList = new ArrayList<>();
-    EntityVerse verse;
+    Verse verse;
     final int itemCount = getItemCount();
     for (int i = 0; i < itemCount; i++) {
       verse = ops.getVerseAtPosition(i);
@@ -67,14 +66,12 @@ public class BookmarkAdapter
         continue;
       }
 
-      final EntityBook book = Utils.getInstance().getCachedBook(verse.getBook());
+      final EntityBook book = Utils.getInstance().getCachedBook(verse.getBookNumber());
       if (book == null) {
         continue;
       }
 
-      arrayList.add(HtmlCompat.fromHtml(String.format(
-          template, book.getName(), verse.getChapter(), verse.getVerse(), verse.getText()),
-                                        HtmlCompat.FROM_HTML_MODE_COMPACT).toString());
+      arrayList.add(verse.getFormattedContentForBookmark(template).toString());
     }
 
     return arrayList;
@@ -86,14 +83,14 @@ public class BookmarkAdapter
     private final TextView textView;
 
     @Nullable
-    private EntityVerse verse;
+    private Verse verse;
 
     BookmarkVerseView(final View view) {
       super(view);
       textView = view.findViewById(R.id.item_bookmark_verse_text);
     }
 
-    private void updateContent(@Nullable final EntityVerse verse) {
+    private void updateContent(@Nullable final Verse verse) {
       this.verse = verse;
 
       if (this.verse == null) {
@@ -101,7 +98,7 @@ public class BookmarkAdapter
         return;
       }
 
-      final EntityBook book = Utils.getInstance().getCachedBook(verse.getBook());
+      final EntityBook book = Utils.getInstance().getCachedBook(verse.getBookNumber());
       if (book == null) {
         Log.e(TAG, "updateContent:",
               new IllegalArgumentException("null book for verse reference["
@@ -109,9 +106,7 @@ public class BookmarkAdapter
         return;
       }
 
-      textView.setText(HtmlCompat.fromHtml(String.format(
-          template, book.getName(), verse.getChapter(), verse.getVerse(), verse.getText()),
-                                           HtmlCompat.FROM_HTML_MODE_COMPACT));
+      textView.setText(verse.getFormattedContentForBookmark(template));
     }
 
   }

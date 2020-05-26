@@ -6,8 +6,8 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.andrewchelladurai.simplebible.data.Verse;
 import com.andrewchelladurai.simplebible.data.entities.EntityBook;
-import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
 
 import java.util.Collection;
 import java.util.List;
@@ -20,11 +20,7 @@ public class Utils {
 
   public static final int MAX_BOOKS = 66;
 
-  public static final int MAX_VERSES = 31098;
-
   private static final Utils THIS_INSTANCE = new Utils();
-
-  public static final String SEPARATOR_VERSE_REFERENCE = ":";
 
   public static final String SEPARATOR_BOOKMARK_REFERENCE = "~";
 
@@ -63,21 +59,6 @@ public class Utils {
     return CACHE_BOOKS_MAP.size() == MAX_BOOKS;
   }
 
-  @Nullable
-  public int[] splitVerseReference(@NonNull final String reference) {
-
-    if (!validateVerseReference(reference)) {
-      return null;
-    }
-
-    final String[] parts = reference.split(SEPARATOR_VERSE_REFERENCE);
-    return new int[]{
-        Integer.parseInt(parts[0]),
-        Integer.parseInt(parts[1]),
-        Integer.parseInt(parts[2]),
-        };
-  }
-
   @NonNull
   public String[] splitBookmarkReference(@NonNull final String reference) {
     if (validateBookmarkReference(reference)) {
@@ -91,30 +72,15 @@ public class Utils {
     return CACHE_BOOKS_MAP.get(bookNumber);
   }
 
-  @NonNull
-  public String createVerseReference(@IntRange(from = 1, to = MAX_BOOKS) int book,
-                                     @IntRange(from = 1) int chapter,
-                                     @IntRange(from = 1) int verse) {
-    if (book < 1 || chapter < 1 || verse < 1) {
-      Log.e(TAG, "createVerseReference:",
-            new IllegalArgumentException("one of the passed values is < 1\n"
-                                         + "book =[" + book + "], "
-                                         + "chapter =[" + chapter + "], "
-                                         + "verse = [" + verse + "]"));
-      return "";
-    }
-    return book + SEPARATOR_VERSE_REFERENCE + chapter + SEPARATOR_VERSE_REFERENCE + verse;
-  }
-
   @Nullable
-  public String createBookmarkReference(@NonNull final Collection<EntityVerse> list) {
+  public String createBookmarkReference(@NonNull final Collection<Verse> list) {
     if (list.isEmpty()) {
       Log.d(TAG, "handleActionBookmark: list is null or empty");
       return null;
     }
 
     final StringBuilder reference = new StringBuilder();
-    for (final EntityVerse verse : list) {
+    for (final Verse verse : list) {
       reference.append(verse.getReference())
                .append(SEPARATOR_BOOKMARK_REFERENCE);
     }
@@ -143,73 +109,13 @@ public class Utils {
     }
 
     for (final String verse : verseList) {
-      if (!validateVerseReference(verse)) {
+      if (!Verse.validateReference(verse)) {
         Log.e(TAG, "validateBookmarkReference: ", new IllegalArgumentException(
             "Verse reference [" + verse + "] present in bookmark reference ["
             + reference + "] failed validation"
         ));
         return false;
       }
-    }
-
-    return true;
-  }
-
-  public boolean validateVerseReference(@NonNull final String reference) {
-    if (reference.isEmpty()) {
-      Log.e(TAG, "validateVerseReference:", new IllegalArgumentException(
-          "Verse reference [" + reference + "] is empty."
-      ));
-      return false;
-    }
-
-    if (!reference.contains(SEPARATOR_VERSE_REFERENCE)) {
-      Log.e(TAG, "validateVerseReference:", new IllegalArgumentException(
-          "Verse reference [" + reference + "] has no separators ["
-          + SEPARATOR_VERSE_REFERENCE + "]"
-      ));
-      return false;
-    }
-
-    final String[] part = reference.split(SEPARATOR_VERSE_REFERENCE);
-    if (part.length != 3) {
-      Log.e(TAG, "validateVerseReference:", new IllegalArgumentException(
-          "Verse reference [" + reference + "] does not contain 3 parts"
-      ));
-    }
-
-    @IntRange(from = 1, to = MAX_BOOKS) final int book;
-    @IntRange(from = 1) final int chapter;
-    @IntRange(from = 1) final int verse;
-
-    try {
-      book = Integer.parseInt(part[0]);
-      chapter = Integer.parseInt(part[1]);
-      verse = Integer.parseInt(part[2]);
-    } catch (NumberFormatException nfe) {
-      Log.e(TAG, "validateVerseReference: book, chapter or book is NAN", nfe);
-      return false;
-    }
-
-    if (book < 1 || book > MAX_BOOKS) {
-      Log.e(TAG, "validateVerseReference:", new IllegalArgumentException(
-          "Verse reference [" + reference + "] has an invalid book number [" + book + "]"
-      ));
-      return false;
-    }
-
-    if (chapter < 1) {
-      Log.e(TAG, "validateVerseReference:", new IllegalArgumentException(
-          "Verse reference [" + reference + "] has an invalid chapter number [" + chapter + "]"
-      ));
-      return false;
-    }
-
-    if (verse < 1) {
-      Log.e(TAG, "validateVerseReference:", new IllegalArgumentException(
-          "Verse reference [" + reference + "] has an invalid verse number [" + verse + "]"
-      ));
-      return false;
     }
 
     return true;

@@ -18,8 +18,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.Verse;
 import com.andrewchelladurai.simplebible.data.entities.EntityBook;
-import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
 import com.andrewchelladurai.simplebible.model.HomeViewModel;
 import com.andrewchelladurai.simplebible.ui.ops.HomeScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
@@ -73,7 +73,7 @@ public class HomeScreen
 
     if (null == DEFAULT_REFERENCE) {
       final Resources resources = getResources();
-      DEFAULT_REFERENCE = Utils.getInstance().createVerseReference(
+      DEFAULT_REFERENCE = Verse.createReference(
           resources.getInteger(R.integer.default_book_number),
           resources.getInteger(R.integer.default_chapter_number),
           resources.getInteger(R.integer.default_verse_number));
@@ -92,7 +92,7 @@ public class HomeScreen
     final int dayNo = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
 
     if (verseReference.isEmpty()) {
-      final EntityVerse cachedVerse = model.getCachedVerse();
+      final Verse cachedVerse = model.getCachedVerse();
 
       if (cachedVerse != null && dayNo == model.getCachedVerseDay()) {
         Log.d(TAG, "updateContent: already cached verse for day[" + dayNo + "]");
@@ -104,8 +104,7 @@ public class HomeScreen
       reference[0] = (array.length < dayNo) ? DEFAULT_REFERENCE : array[dayNo];
     }
 
-    final Utils utils = Utils.getInstance();
-    final boolean validated = utils.validateVerseReference(reference[0]);
+    final boolean validated = Verse.validateReference(reference[0]);
 
     if (!validated) {
       Log.e(TAG, "updateContent:",
@@ -114,7 +113,7 @@ public class HomeScreen
       return;
     }
 
-    final int[] parts = utils.splitVerseReference(reference[0]);
+    final int[] parts = Verse.splitReference(reference[0]);
     if (parts == null) {
       Log.e(TAG, "updateContent:",
             new IllegalArgumentException("invalid parts of reference[" + reference[0] + "]"));
@@ -130,21 +129,30 @@ public class HomeScreen
         return;
       }
 
-      model.setCachedVerse(verse);
+      final EntityBook book = Utils.getInstance().getCachedBook(verse.getBook());
+      if (book == null) {
+        Log.e(TAG, "updateContent:",
+              new IllegalArgumentException("no book found for reference[" + reference[0] + "]"));
+        updateContent(DEFAULT_REFERENCE);
+        return;
+      }
+
+      final Verse dailyVerse = new Verse(verse.getTranslation(),
+                                         verse.getBook(),
+                                         verse.getChapter(),
+                                         verse.getVerse(),
+                                         verse.getText(),
+                                         book);
+
+      model.setCachedVerse(dailyVerse);
       model.setCachedVerseDay(dayNo);
-      displayVerse(verse);
+      displayVerse(dailyVerse);
 
     });
   }
 
-  private void displayVerse(@NonNull final EntityVerse verse) {
-    EntityBook book = Utils.getInstance().getCachedBook(verse.getBook());
-
-    if (book == null) {
-      Log.e(TAG, "displayVerse: No book found for book number in verse[" + verse + "]");
-      displayDefaultVerse();
-      return;
-    }
+  private void displayVerse(@NonNull final Verse verse) {
+    EntityBook book = verse.getBook();
 
     if (verse.getReference().equalsIgnoreCase(DEFAULT_REFERENCE)) {
       Log.d(TAG, "displayVerse: displaying defaultReference[" + DEFAULT_REFERENCE + "]");
@@ -155,9 +163,9 @@ public class HomeScreen
     Log.d(TAG, "displayVerse: displaying reference[" + verse.getReference() + "]");
     final String formattedText = String.format(getString(R.string.scr_home_verse_template),
                                                book.getName(),
-                                               verse.getChapter(),
-                                               verse.getVerse(),
-                                               verse.getText());
+                                               verse.getChapterNumber(),
+                                               verse.getVerseNumber(),
+                                               verse.getVerseText());
     final Spanned htmlText = HtmlCompat.fromHtml(formattedText,
                                                  HtmlCompat.FROM_HTML_MODE_COMPACT);
     final TextView textView = rootView.findViewById(R.id.scr_home_verse);
@@ -174,7 +182,7 @@ public class HomeScreen
 
   private void handleActionBookmark() {
     Log.d(TAG, "handleActionBookmark:");
-    final EntityVerse verse = model.getCachedVerse();
+    final Verse verse = model.getCachedVerse();
     if (verse == null) {
       Log.e(TAG, "handleActionBookmark: null cached verse");
       return;
@@ -189,7 +197,7 @@ public class HomeScreen
   private void handleActionChapter() {
     Log.d(TAG, "handleActionChapter:");
     final Bundle bundle = new Bundle();
-    final EntityVerse verse = model.getCachedVerse();
+    final Verse verse = model.getCachedVerse();
 
     if (verse == null) {
       Log.e(TAG, "handleActionChapter: null cached verse, will show default chapter");
@@ -199,8 +207,8 @@ public class HomeScreen
       bundle.putInt(ChapterScreen.ARG_INT_CHAPTER,
                     resources.getInteger(R.integer.default_chapter_number));
     } else {
-      bundle.putInt(ChapterScreen.ARG_INT_BOOK, verse.getBook());
-      bundle.putInt(ChapterScreen.ARG_INT_CHAPTER, verse.getChapter());
+      bundle.putInt(ChapterScreen.ARG_INT_BOOK, verse.getBookNumber());
+      bundle.putInt(ChapterScreen.ARG_INT_CHAPTER, verse.getChapterNumber());
     }
 
     NavHostFragment.findNavController(this)

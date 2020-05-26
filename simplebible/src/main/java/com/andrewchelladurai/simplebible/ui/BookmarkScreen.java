@@ -23,12 +23,15 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.Verse;
+import com.andrewchelladurai.simplebible.data.entities.EntityBook;
 import com.andrewchelladurai.simplebible.data.entities.EntityBookmark;
 import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
 import com.andrewchelladurai.simplebible.model.BookmarkViewModel;
 import com.andrewchelladurai.simplebible.ui.adapter.BookmarkAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
+import com.andrewchelladurai.simplebible.utils.Utils;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.textfield.TextInputEditText;
@@ -337,11 +340,28 @@ public class BookmarkScreen
     final LifecycleOwner lifeOwner = getViewLifecycleOwner();
 
     // if we have a valid live data object, observe it
-    verses.observe(lifeOwner, verseList -> {
-      if (verseList.isEmpty()) {
+    verses.observe(lifeOwner, list -> {
+      if (list == null || list.isEmpty()) {
         ops.showErrorScreen(getString(R.string.scr_bookmark_msg_no_verse_found, reference),
                             true, true);
         return;
+      }
+
+      final ArrayList<Verse> verseList = new ArrayList<>(list.size());
+      final Utils utils = Utils.getInstance();
+      final EntityBook[] book = new EntityBook[1];
+      for (final EntityVerse verse : list) {
+        book[0] = utils.getCachedBook(verse.getBook());
+        if (book[0] == null) {
+          Log.e(TAG, "updateContent: no book found for verse [" + verse + ", skipping it]");
+          continue;
+        }
+        verseList.add(new Verse(verse.getTranslation(),
+                                verse.getBook(),
+                                verse.getChapter(),
+                                verse.getVerse(),
+                                verse.getText(),
+                                book[0]));
       }
 
       // get the bookmark from the database using the bookmark reference
@@ -378,7 +398,7 @@ public class BookmarkScreen
 
   @Nullable
   @Override
-  public EntityVerse getVerseAtPosition(@IntRange(from = 0) final int position) {
+  public Verse getVerseAtPosition(@IntRange(from = 0) final int position) {
     return model.getVerseAtPosition(position);
   }
 
@@ -397,6 +417,7 @@ public class BookmarkScreen
     final String titleCount = getResources().getQuantityString(
         R.plurals.scr_bookmark_template_title_verse_count, verseCount,
         verseCount);
+    //noinspection ConstantConditions
     final String note = model.getCachedBookmark().getNote();
     final boolean emptyNote = note.isEmpty();
 

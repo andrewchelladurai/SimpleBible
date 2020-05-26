@@ -11,6 +11,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.andrewchelladurai.simplebible.data.SbDatabase;
+import com.andrewchelladurai.simplebible.data.Verse;
 import com.andrewchelladurai.simplebible.data.dao.SbDao;
 import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
 import com.andrewchelladurai.simplebible.utils.Utils;
@@ -36,10 +37,10 @@ public class ChapterViewModel
   private static int CACHED_CHAPTER = 0;
 
   @NonNull
-  private static final TreeMap<Integer, EntityVerse> CACHED_LIST = new TreeMap<>();
+  private static final TreeMap<Integer, Verse> CACHED_LIST = new TreeMap<>();
 
   @NonNull
-  private static final TreeMap<Integer, EntityVerse> SELECTED_LIST = new TreeMap<>();
+  private static final TreeMap<Integer, Verse> SELECTED_LIST = new TreeMap<>();
 
   public ChapterViewModel(@NonNull final Application application) {
     super(application);
@@ -79,14 +80,14 @@ public class ChapterViewModel
     CACHED_LIST.clear();
   }
 
-  public void setCacheList(@NonNull final List<EntityVerse> verseList) {
+  public void setCacheList(@NonNull final List<Verse> verseList) {
     if (verseList.isEmpty()) {
       Log.e(TAG, "setCacheList: empty list");
       return;
     }
 
-    for (final EntityVerse verse : verseList) {
-      CACHED_LIST.put(verse.getVerse(), verse);
+    for (final Verse verse : verseList) {
+      CACHED_LIST.put(verse.getVerseNumber(), verse);
     }
 
     Log.d(TAG, "setCacheList: cached [" + getCachedListSize() + "] verses");
@@ -102,24 +103,24 @@ public class ChapterViewModel
   }
 
   @Nullable
-  public EntityVerse getVerseAtPosition(@IntRange(from = 0) final int position) {
+  public Verse getVerseAtPosition(@IntRange(from = 0) final int position) {
     return CACHED_LIST.get(position);
   }
 
-  public boolean isVerseSelected(@NonNull final EntityVerse verse) {
-    final EntityVerse foundVerse = SELECTED_LIST.get(verse.getVerse());
+  public boolean isVerseSelected(@NonNull final Verse verse) {
+    final Verse foundVerse = SELECTED_LIST.get(verse.getVerseNumber());
     return (foundVerse != null && foundVerse.equals(verse));
   }
 
-  public void removeSelectedVerse(@NonNull final EntityVerse verse) {
-    SELECTED_LIST.remove(verse.getVerse());
+  public void removeSelectedVerse(@NonNull final Verse verse) {
+    SELECTED_LIST.remove(verse.getVerseNumber());
   }
 
-  public void addSelectedVerse(@NonNull final EntityVerse verse) {
-    SELECTED_LIST.put(verse.getVerse(), verse);
+  public void addSelectedVerse(@NonNull final Verse verse) {
+    SELECTED_LIST.put(verse.getVerseNumber(), verse);
   }
 
-  public Collection<EntityVerse> getSelectedList() {
+  public Collection<Verse> getSelectedList() {
     return SELECTED_LIST.values();
   }
 

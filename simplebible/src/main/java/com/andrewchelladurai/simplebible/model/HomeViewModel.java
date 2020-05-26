@@ -10,6 +10,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.andrewchelladurai.simplebible.data.SbDatabase;
+import com.andrewchelladurai.simplebible.data.Verse;
 import com.andrewchelladurai.simplebible.data.dao.SbDao;
 import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
 import com.andrewchelladurai.simplebible.utils.Utils;
@@ -20,7 +21,7 @@ public class HomeViewModel
   private static final String TAG = "HomeViewModel";
 
   @Nullable
-  private static EntityVerse CACHED_VERSE = null;
+  private static Verse CACHED_VERSE = null;
 
   @IntRange(from = 0)
   private static int CACHED_DOY = 0;
@@ -35,11 +36,11 @@ public class HomeViewModel
   }
 
   @Nullable
-  public EntityVerse getCachedVerse() {
+  public Verse getCachedVerse() {
     return CACHED_VERSE;
   }
 
-  public void setCachedVerse(@NonNull final EntityVerse verse) {
+  public void setCachedVerse(@NonNull final Verse verse) {
     CACHED_VERSE = verse;
   }
 

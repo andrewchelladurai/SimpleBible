@@ -10,6 +10,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.andrewchelladurai.simplebible.data.SbDatabase;
+import com.andrewchelladurai.simplebible.data.Verse;
 import com.andrewchelladurai.simplebible.data.dao.SbDao;
 import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
 
@@ -23,10 +24,10 @@ public class SearchViewModel
   private static final String TAG = "SearchViewModel";
 
   @NonNull
-  private static final ArrayList<EntityVerse> BASE_LIST = new ArrayList<>();
+  private static final ArrayList<Verse> BASE_LIST = new ArrayList<>();
 
   @NonNull
-  private static final ArrayMap<String, EntityVerse> SELECTED_LIST = new ArrayMap<>();
+  private static final ArrayMap<String, Verse> SELECTED_LIST = new ArrayMap<>();
 
   @NonNull
   private static String SEARCH_TEXT = "";
@@ -44,7 +45,7 @@ public class SearchViewModel
     return dao.findVersesContainingText("%" + text + "%");
   }
 
-  public void updateContent(@NonNull final List<EntityVerse> verseList, @NonNull String text) {
+  public void updateContent(@NonNull final List<Verse> verseList, @NonNull String text) {
     final int count = getResultCount();
     if (SEARCH_TEXT.equalsIgnoreCase(text) && count == verseList.size()) {
       Log.d(TAG, "updateContent: already cached [" + count + "] results for [" + text + "]");
@@ -74,7 +75,7 @@ public class SearchViewModel
   }
 
   @NonNull
-  public TreeSet<EntityVerse> getSelectedList() {
+  public TreeSet<Verse> getSelectedList() {
     return new TreeSet<>(SELECTED_LIST.values());
   }
 
@@ -86,12 +87,12 @@ public class SearchViewModel
     SELECTED_LIST.remove(verseReference);
   }
 
-  public void addSelection(@NonNull final String verseReference, @NonNull final EntityVerse verse) {
+  public void addSelection(@NonNull final String verseReference, @NonNull final Verse verse) {
     SELECTED_LIST.put(verseReference, verse);
   }
 
   @NonNull
-  public EntityVerse getVerseAtPosition(@IntRange(from = 0) final int position) {
+  public Verse getVerseAtPosition(@IntRange(from = 0) final int position) {
     return BASE_LIST.get(position);
   }
 

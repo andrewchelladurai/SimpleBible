@@ -11,13 +11,13 @@ import android.widget.TextView;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.Verse;
 import com.andrewchelladurai.simplebible.data.entities.EntityBook;
 import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
 import com.andrewchelladurai.simplebible.model.ChapterViewModel;
@@ -28,6 +28,7 @@ import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 import com.andrewchelladurai.simplebible.utils.Utils;
 import com.google.android.material.bottomappbar.BottomAppBar;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class ChapterScreen
@@ -154,7 +155,7 @@ public class ChapterScreen
 
   private boolean handleActionBookmark() {
     Log.d(TAG, "handleActionBookmark:");
-    final Collection<EntityVerse> list = model.getSelectedList();
+    final Collection<Verse> list = model.getSelectedList();
     if (list == null || list.isEmpty()) {
       Log.d(TAG, "handleActionBookmark: list is null or empty");
       return true;
@@ -171,7 +172,7 @@ public class ChapterScreen
   private boolean handleActionShare() {
     Log.d(TAG, "handleActionShare:");
     final EntityBook book = Utils.getInstance().getCachedBook(model.getCachedBookNumber());
-    final Collection<EntityVerse> list = model.getSelectedList();
+    final Collection<Verse> list = model.getSelectedList();
     if (book == null || list == null || list.isEmpty()) {
       Log.e(TAG, "handleActionShare: "
                  + "book / selectedVerseList = null || selectedVerseList is empty");
@@ -180,11 +181,9 @@ public class ChapterScreen
 
     final StringBuilder verseText = new StringBuilder();
     final String verseTextTemplate = getString(R.string.scr_chapter_template_verse);
-    for (final EntityVerse verse : list) {
+    for (final Verse verse : list) {
       verseText.append("\n")
-               .append(HtmlCompat.fromHtml(
-                   String.format(verseTextTemplate, verse.getVerse(), verse.getText()),
-                   HtmlCompat.FROM_HTML_MODE_COMPACT));
+               .append(verse.getFormattedContentForShareChapterVerse(verseTextTemplate));
     }
 
     ops.shareText(getString(R.string.scr_chapter_template_share,
@@ -281,13 +280,31 @@ public class ChapterScreen
 
     Log.d(TAG, "updateContent: book[" + book + "], chapter[" + chapter + "]");
 
-    model.getChapterVerses(book, chapter).observe(getViewLifecycleOwner(), verseList -> {
+    model.getChapterVerses(book, chapter).observe(getViewLifecycleOwner(), list -> {
 
-      if (verseList == null || verseList.isEmpty()) {
+      if (list == null || list.isEmpty()) {
         final String msg = getString(R.string.scr_chapter_err_empty_chapter, book, chapter);
         Log.e(TAG, "updateContent: " + msg);
         ops.showErrorScreen(msg, true, true);
         return;
+      }
+
+      final EntityBook cachedBook = Utils.getInstance().getCachedBook(book);
+      if (cachedBook == null) {
+        final String msg = "No book found at position [" + book + "]";
+        Log.e(TAG, "updateContent: " + msg);
+        ops.showErrorScreen(msg, true, true);
+        return;
+      }
+
+      final ArrayList<Verse> verseList = new ArrayList<>(list.size());
+      for (final EntityVerse verse : list) {
+        verseList.add(new Verse(verse.getTranslation(),
+                                verse.getBook(),
+                                verse.getChapter(),
+                                verse.getVerse(),
+                                verse.getText(),
+                                cachedBook));
       }
 
       model.clearCache();
@@ -333,7 +350,7 @@ public class ChapterScreen
 
   @Override
   @Nullable
-  public EntityVerse getVerseAtPosition(@IntRange(from = 0) final int position) {
+  public Verse getVerseAtPosition(@IntRange(from = 0) final int position) {
     return model.getVerseAtPosition(position);
   }
 
@@ -362,17 +379,17 @@ public class ChapterScreen
   }
 
   @Override
-  public boolean isVerseSelected(@NonNull final EntityVerse verse) {
+  public boolean isVerseSelected(@NonNull final Verse verse) {
     return model.isVerseSelected(verse);
   }
 
   @Override
-  public void removeSelectedVerse(@NonNull final EntityVerse verse) {
+  public void removeSelectedVerse(@NonNull final Verse verse) {
     model.removeSelectedVerse(verse);
   }
 
   @Override
-  public void addSelectedVerse(@NonNull final EntityVerse verse) {
+  public void addSelectedVerse(@NonNull final Verse verse) {
     model.addSelectedVerse(verse);
   }
 

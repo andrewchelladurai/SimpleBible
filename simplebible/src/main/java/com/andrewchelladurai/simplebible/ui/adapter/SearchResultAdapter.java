@@ -7,12 +7,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.Verse;
 import com.andrewchelladurai.simplebible.data.entities.EntityBook;
-import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
 import com.andrewchelladurai.simplebible.ui.ops.SearchScreenOps;
 import com.andrewchelladurai.simplebible.utils.Utils;
 
@@ -59,7 +58,7 @@ public class SearchResultAdapter
 
     private final View selectedView;
 
-    private EntityVerse verse;
+    private Verse verse;
 
     SearchResultView(final View view) {
       super(view);
@@ -79,21 +78,19 @@ public class SearchResultAdapter
 
     }
 
-    private void updateContent(@NonNull final EntityVerse entityVerse) {
-      verse = entityVerse;
+    private void updateContent(@NonNull final Verse verse) {
+      this.verse = verse;
 
-      final EntityBook book = Utils.getInstance().getCachedBook(verse.getBook());
+      final EntityBook book = Utils.getInstance().getCachedBook(verse.getBookNumber());
       if (book == null) {
         Log.e(TAG, "updateContent: null book returned");
         return;
       }
 
       selectedView.setVisibility(
-          ops.isSelected(verse.getReference()) ? View.VISIBLE : View.GONE);
+          ops.isSelected(this.verse.getReference()) ? View.VISIBLE : View.GONE);
 
-      textView.setText(HtmlCompat.fromHtml(String.format(
-          template, book.getName(), verse.getChapter(), verse.getVerse(), verse.getText()),
-                                           HtmlCompat.FROM_HTML_MODE_COMPACT));
+      textView.setText(this.verse.getFormattedContentForSearchResult(template));
     }
 
   }

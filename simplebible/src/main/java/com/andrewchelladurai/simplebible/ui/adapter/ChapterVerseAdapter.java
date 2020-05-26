@@ -7,11 +7,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
+import com.andrewchelladurai.simplebible.data.Verse;
 import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;
 
 public class ChapterVerseAdapter
@@ -56,7 +55,7 @@ public class ChapterVerseAdapter
 
     private final View selectedView;
 
-    private EntityVerse verse;
+    private Verse verse;
 
     ChapterVerseView(final View view) {
       super(view);
@@ -84,9 +83,7 @@ public class ChapterVerseAdapter
       }
 
       selectedView.setVisibility(ops.isVerseSelected(verse) ? View.VISIBLE : View.GONE);
-      textView.setText(HtmlCompat.fromHtml(
-          String.format(template, verse.getVerse(), verse.getText()),
-          HtmlCompat.FROM_HTML_MODE_COMPACT));
+      textView.setText(verse.getFormattedContentForChapter(template));
     }
 
   }

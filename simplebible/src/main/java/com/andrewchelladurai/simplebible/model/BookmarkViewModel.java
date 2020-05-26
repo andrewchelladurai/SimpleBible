@@ -11,6 +11,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.andrewchelladurai.simplebible.data.SbDatabase;
+import com.andrewchelladurai.simplebible.data.Verse;
 import com.andrewchelladurai.simplebible.data.dao.SbDao;
 import com.andrewchelladurai.simplebible.data.entities.EntityBookmark;
 import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
@@ -26,7 +27,7 @@ public class BookmarkViewModel
   private static final String TAG = "BookmarkViewModel";
 
   @NonNull
-  private static final ArrayList<EntityVerse> CACHED_VERSES = new ArrayList<>();
+  private static final ArrayList<Verse> CACHED_VERSES = new ArrayList<>();
 
   @Nullable
   private static EntityBookmark CACHED_BOOKMARK = null;
@@ -69,7 +70,7 @@ public class BookmarkViewModel
     Log.d(TAG, "setCachedBookmarkReference: reference[" + CACHED_BOOKMARK_REFERENCE + "]");
   }
 
-  public void setCachedVerses(@NonNull final List<EntityVerse> verseList) {
+  public void setCachedVerses(@NonNull final List<Verse> verseList) {
     CACHED_VERSES.clear();
     CACHED_VERSES.addAll(verseList);
     Log.d(TAG, "setCachedVerses: [" + CACHED_VERSES.size() + "] verses cached");
@@ -92,9 +93,8 @@ public class BookmarkViewModel
     }
 
     final TreeSet<String> finalReferences = new TreeSet<>();
-    final Utils utils = Utils.getInstance();
     for (final String reference : references) {
-      if (utils.validateVerseReference(reference)) {
+      if (Verse.validateReference(reference)) {
         finalReferences.add(reference);
       }
     }
@@ -111,7 +111,7 @@ public class BookmarkViewModel
     int[] vParts;
 
     for (final String verseReference : finalReferences) {
-      vParts = utils.splitVerseReference(verseReference);
+      vParts = Verse.splitReference(verseReference);
       if (vParts == null) {
         Log.e(TAG, "getVerses: ",
               new IllegalArgumentException("no parts found for verse [" + verseReference
@@ -137,7 +137,7 @@ public class BookmarkViewModel
   }
 
   @Nullable
-  public EntityVerse getVerseAtPosition(@IntRange(from = 0) final int position) {
+  public Verse getVerseAtPosition(@IntRange(from = 0) final int position) {
     return CACHED_VERSES.get(position);
   }
 

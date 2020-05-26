@@ -20,6 +20,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.Verse;
 import com.andrewchelladurai.simplebible.data.entities.EntityBook;
 import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
 import com.andrewchelladurai.simplebible.model.SearchViewModel;
@@ -29,6 +30,7 @@ import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 import com.andrewchelladurai.simplebible.utils.Utils;
 import com.google.android.material.bottomappbar.BottomAppBar;
 
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class SearchScreen
@@ -136,15 +138,35 @@ public class SearchScreen
   private void handleActionSearch(@NonNull final String text) {
     Log.d(TAG, "handleActionSearch: text = [" + text + "]");
 
-    model.findVersesContainingText(text).observe(getViewLifecycleOwner(), verseList -> {
+    model.findVersesContainingText(text).observe(getViewLifecycleOwner(), list -> {
 
-      if (verseList == null) {
+      if (list == null || list.isEmpty()) {
         showHelpText();
         return;
       }
 
+      final Utils utils = Utils.getInstance();
+      final EntityBook[] book = new EntityBook[1];
+      final ArrayList<Verse> verseList = new ArrayList<>(list.size());
+      for (final EntityVerse verse : list) {
+
+        book[0] = utils.getCachedBook(verse.getBook());
+        if (book[0] == null) {
+          Log.e(TAG, "handleActionSearch: no book found for verse [" + verse + "]");
+          continue;
+        }
+
+        verseList.add(new Verse(verse.getTranslation(),
+                                verse.getBook(),
+                                verse.getChapter(),
+                                verse.getVerse(),
+                                verse.getText(),
+                                book[0]));
+
+      }
+
       model.updateContent(verseList, text);
-      showSearchResults(text, verseList.size());
+      showSearchResults(text, list.size());
 
     });
 
@@ -190,7 +212,7 @@ public class SearchScreen
 
   private void handleActionBookmark() {
     Log.d(TAG, "handleActionBookmark:");
-    final TreeSet<EntityVerse> set = model.getSelectedList();
+    final TreeSet<Verse> set = model.getSelectedList();
     if (set.size() < 1) {
       ops.showMessage(getString(R.string.scr_search_msg_selection_none),
                       R.id.scr_search_bottom_app_bar);
@@ -202,7 +224,7 @@ public class SearchScreen
     final StringBuilder ref = new StringBuilder();
     final String separator = Utils.SEPARATOR_BOOKMARK_REFERENCE;
 
-    for (final EntityVerse verse : set) {
+    for (final Verse verse : set) {
       ref.append(verse.getReference())
          .append(separator);
     }
@@ -226,7 +248,7 @@ public class SearchScreen
 
   private void handleActionShare() {
     Log.d(TAG, "handleActionShare:");
-    final TreeSet<EntityVerse> set = model.getSelectedList();
+    final TreeSet<Verse> set = model.getSelectedList();
     if (set.size() < 1) {
       ops.showMessage(getString(R.string.scr_search_msg_selection_none),
                       R.id.scr_search_bottom_app_bar);
@@ -239,17 +261,15 @@ public class SearchScreen
     final StringBuilder verseText = new StringBuilder();
 
     EntityBook book;
-    for (final EntityVerse verse : set) {
+    for (final Verse verse : set) {
 
-      book = Utils.getInstance().getCachedBook(verse.getBook());
+      book = Utils.getInstance().getCachedBook(verse.getBookNumber());
       if (book == null) {
         Log.e(TAG, "updateContent: null book returned");
         continue;
       }
 
-      verseText.append(HtmlCompat.fromHtml(String.format(
-          verseTemplate, book.getName(), verse.getChapter(), verse.getVerse(), verse.getText()),
-                                           HtmlCompat.FROM_HTML_MODE_COMPACT).toString())
+      verseText.append(verse.getFormattedContentForSearchResult(verseTemplate).toString())
                .append("\n");
     }
 
@@ -324,13 +344,13 @@ public class SearchScreen
   }
 
   @Override
-  public void addSelection(@NonNull final String verseReference, @NonNull final EntityVerse verse) {
+  public void addSelection(@NonNull final String verseReference, @NonNull final Verse verse) {
     model.addSelection(verseReference, verse);
   }
 
   @NonNull
   @Override
-  public EntityVerse getVerseAtPosition(@IntRange(from = 0) final int position) {
+  public Verse getVerseAtPosition(@IntRange(from = 0) final int position) {
     return model.getVerseAtPosition(position);
   }
 

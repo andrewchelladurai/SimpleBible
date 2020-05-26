@@ -161,8 +161,7 @@ public class BookmarksScreen
       final EntityBook book = Utils.getInstance().getCachedBook(verse.getBook());
       if (book == null) {
         Log.e(TAG, "getFirstVerseOfBookmark: ",
-              new IllegalArgumentException("null book for verse reference["
-                                           + verse.getReference() + "]"));
+              new IllegalArgumentException("null book for verse reference[" + verse + "]"));
         return;
       }
 
