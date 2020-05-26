@@ -56,7 +56,7 @@ public class BookmarkViewModel
     return CACHED_BOOKMARK;
   }
 
-  public void setCachedBookmark(@NonNull final Bookmark bookmark) {
+  public void setCachedBookmark(@Nullable final Bookmark bookmark) {
     CACHED_BOOKMARK = bookmark;
     Log.d(TAG, "setCachedBookmark: cached [" + bookmark + "]");
   }

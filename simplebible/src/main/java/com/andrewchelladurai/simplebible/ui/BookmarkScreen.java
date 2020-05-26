@@ -362,10 +362,10 @@ public class BookmarkScreen
       // get the bookmark from the database using the bookmark reference
       model.getBookmarkForReference(reference).observe(lifeOwner, bookmark -> {
 
-        if (bookmark == null) {
-          model.setCachedBookmark(new Bookmark(new EntityBookmark(reference, "")));
-        } else {
+        if (bookmark != null) {
           model.setCachedBookmark(new Bookmark(bookmark));
+        } else {
+          model.setCachedBookmark(null);
         }
 
         model.setCachedVerses(verseList);
