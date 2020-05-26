@@ -8,8 +8,7 @@ import androidx.room.Entity;
 import com.andrewchelladurai.simplebible.data.Book;
 
 @Entity(tableName = "sb_books", primaryKeys = {"number", "name", "chapters", "verses"})
-public
-class EntityBook {
+public class EntityBook {
 
   @NonNull
   @ColumnInfo(name = "description")
