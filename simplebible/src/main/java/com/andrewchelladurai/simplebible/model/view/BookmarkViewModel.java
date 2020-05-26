@@ -27,14 +27,8 @@ public class BookmarkViewModel
 
   private static final String TAG = "BookmarkViewModel";
 
-  @NonNull
-  private static final ArrayList<Verse> CACHED_VERSES = new ArrayList<>();
-
   @Nullable
   private static Bookmark CACHED_BOOKMARK = null;
-
-  @NonNull
-  private static String CACHED_BOOKMARK_REFERENCE = "";
 
   @NonNull
   private final SbDao dao;
@@ -47,8 +41,6 @@ public class BookmarkViewModel
 
   public void clearCache() {
     CACHED_BOOKMARK = null;
-    CACHED_BOOKMARK_REFERENCE = "";
-    CACHED_VERSES.clear();
   }
 
   @Nullable
@@ -61,22 +53,6 @@ public class BookmarkViewModel
     Log.d(TAG, "setCachedBookmark: cached [" + bookmark + "]");
   }
 
-  @NonNull
-  public String getCachedBookmarkReference() {
-    return CACHED_BOOKMARK_REFERENCE;
-  }
-
-  public void setCachedBookmarkReference(@NonNull final String reference) {
-    CACHED_BOOKMARK_REFERENCE = reference;
-    Log.d(TAG, "setCachedBookmarkReference: reference[" + CACHED_BOOKMARK_REFERENCE + "]");
-  }
-
-  public void setCachedVerses(@NonNull final List<Verse> verseList) {
-    CACHED_VERSES.clear();
-    CACHED_VERSES.addAll(verseList);
-    Log.d(TAG, "setCachedVerses: [" + CACHED_VERSES.size() + "] verses cached");
-  }
-
   public boolean validateBookmarkReference(@NonNull final String reference) {
     return Utils.getInstance().validateBookmarkReference(reference);
   }
@@ -86,7 +62,7 @@ public class BookmarkViewModel
     return Utils.getInstance().splitBookmarkReference(reference);
   }
 
-  @Nullable
+  @NonNull
   public LiveData<List<EntityVerse>> getVerses(@NonNull final String[] references) {
     if (references.length < 1) {
       Log.e(TAG, "getVerses:", new IllegalArgumentException("received empty array of references"));
@@ -102,26 +78,25 @@ public class BookmarkViewModel
 
     if (finalReferences.isEmpty()) {
       Log.e(TAG, "getVerses:", new IllegalArgumentException("No valid verse references remaining"));
-      return null;
+      return new MutableLiveData<>();
     }
 
     final ArrayList<Integer> bookNumbers = new ArrayList<>();
     final ArrayList<Integer> chapterNumbers = new ArrayList<>();
     final ArrayList<Integer> verseNumbers = new ArrayList<>();
-    //noinspection CheckStyle
-    int[] vParts;
+    int[] parts;
 
     for (final String verseReference : finalReferences) {
-      vParts = Verse.splitReference(verseReference);
-      if (vParts == null) {
+      parts = Verse.splitReference(verseReference);
+      if (parts == null) {
         Log.e(TAG, "getVerses: ",
               new IllegalArgumentException("no parts found for verse [" + verseReference
                                            + "] even though it passed validation"));
         continue;
       }
-      bookNumbers.add(vParts[0]);
-      chapterNumbers.add(vParts[1]);
-      verseNumbers.add(vParts[2]);
+      bookNumbers.add(parts[0]);
+      chapterNumbers.add(parts[1]);
+      verseNumbers.add(parts[2]);
     }
 
     return dao.getVerses(bookNumbers, chapterNumbers, verseNumbers);
@@ -134,21 +109,21 @@ public class BookmarkViewModel
 
   @IntRange(from = 0)
   public int getCachedVerseListSize() {
-    return CACHED_VERSES.size();
+    return (CACHED_BOOKMARK != null) ? CACHED_BOOKMARK.getVerseList().size() : 0;
   }
 
   @Nullable
   public Verse getVerseAtPosition(@IntRange(from = 0) final int position) {
-    return CACHED_VERSES.get(position);
+    return (CACHED_BOOKMARK != null) ? CACHED_BOOKMARK.getVerseList().get(position) : null;
   }
 
-  public boolean saveBookmark(@NonNull final Bookmark bookmark) {
-    dao.createBookmark(new EntityBookmark(bookmark.getReference(), bookmark.getNote()));
+  public boolean saveBookmark(@NonNull final EntityBookmark bookmark) {
+    dao.createBookmark(bookmark);
     return true;
   }
 
-  public boolean deleteBookmark(@NonNull final Bookmark bookmark) {
-    dao.deleteBookmark(new EntityBookmark(bookmark.getReference(), bookmark.getNote()));
+  public boolean deleteBookmark(@NonNull final EntityBookmark bookmark) {
+    dao.deleteBookmark(bookmark);
     return true;
   }
 

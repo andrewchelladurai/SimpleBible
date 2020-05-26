@@ -145,10 +145,16 @@ public class BookmarkScreen
 
   private void handleActionSave() {
     Log.d(TAG, "handleActionSave:");
-    final String noteText = getNoteFieldText();
 
-    final Bookmark bookmark = new Bookmark(
-        new EntityBookmark(model.getCachedBookmarkReference(), noteText));
+    final String note = getNoteFieldText();
+    final Bookmark bookmark = model.getCachedBookmark();
+
+    if (bookmark == null) {
+      Log.e(TAG, "handleActionSave:",
+            new IllegalArgumentException("null bookmark, can not delete"));
+      // TODO: 27/5/20 show an error screen if this happens
+      return;
+    }
 
     final int taskId = new Random().nextInt();
 
@@ -162,7 +168,8 @@ public class BookmarkScreen
 
               @Override
               public Boolean loadInBackground() {
-                return model.saveBookmark(bookmark);
+                return model.saveBookmark(
+                    new EntityBookmark(bookmark.getReference(), note));
               }
             };
           }
@@ -171,10 +178,7 @@ public class BookmarkScreen
           public void onLoadFinished(@NonNull final Loader<Boolean> loader,
                                      final Boolean saved) {
             if (saved) {
-              model.setCachedBookmark(bookmark);
-              model.setCachedBookmarkReference(bookmark.getReference());
-
-              updateContent(model.getCachedBookmarkReference());
+              updateContent(bookmark.getReference());
               ops.showMessage(getString(R.string.scr_bookmark_msg_saved),
                               R.id.scr_bookmark_app_bar);
             }
@@ -254,61 +258,11 @@ public class BookmarkScreen
     return (noteField == null) ? "" : noteField.toString();
   }
 
-  private void handleActionDelete() {
-    Log.d(TAG, "handleActionDelete:");
-
-    final Bookmark bookmark = model.getCachedBookmark();
-    if (bookmark == null) {
-      Log.e(TAG, "handleActionDelete: ",
-            new IllegalArgumentException("null bookmark, can not delete"));
-      return;
-    }
-
-    final LoaderManager.LoaderCallbacks<Boolean> taskListener =
-        new LoaderManager.LoaderCallbacks<Boolean>() {
-
-          @NonNull
-          @Override
-          public Loader<Boolean> onCreateLoader(final int id,
-                                                @Nullable final Bundle args) {
-            return new AsyncTaskLoader<Boolean>(requireContext()) {
-
-              @Override
-              public Boolean loadInBackground() {
-                model.deleteBookmark(bookmark);
-                return true;
-              }
-            };
-          }
-
-          @Override
-          public void onLoadFinished(@NonNull final Loader<Boolean> loader,
-                                     final Boolean deleted) {
-            if (deleted) {
-              model.clearCache();
-              ops.showMessage(getString(R.string.scr_bookmark_msg_deleted), R.id.main_nav_bar);
-              NavHostFragment.findNavController(BookmarkScreen.this)
-                             .popBackStack();
-            }
-          }
-
-          @Override
-          public void onLoaderReset(@NonNull final Loader<Boolean> loader) {
-
-          }
-        };
-
-    LoaderManager.getInstance(requireActivity())
-                 .initLoader(new Random().nextInt(), Bundle.EMPTY, taskListener)
-                 .forceLoad();
-  }
-
   private void updateContent(@NonNull final String reference) {
     final Bookmark cachedBookmark = model.getCachedBookmark();
 
     if (cachedBookmark != null
-        && cachedBookmark.getReference().equalsIgnoreCase(reference)
-        && model.getCachedBookmarkReference().equalsIgnoreCase(reference)) {
+        && cachedBookmark.getReference().equalsIgnoreCase(reference)) {
       Log.d(TAG, "updateContent: reference is already cached");
       refreshContent();
       return;
@@ -363,17 +317,66 @@ public class BookmarkScreen
       model.getBookmarkForReference(reference).observe(lifeOwner, bookmark -> {
 
         if (bookmark != null) {
-          model.setCachedBookmark(new Bookmark(bookmark));
+          model.setCachedBookmark(new Bookmark(bookmark, verseList));
         } else {
           model.setCachedBookmark(null);
         }
 
-        model.setCachedVerses(verseList);
-        model.setCachedBookmarkReference(reference);
         refreshContent();
+
       });
     });
 
+  }
+
+  private void handleActionDelete() {
+    Log.d(TAG, "handleActionDelete:");
+
+    final Bookmark bookmark = model.getCachedBookmark();
+    if (bookmark == null) {
+      Log.e(TAG, "handleActionDelete: ",
+            new IllegalArgumentException("null bookmark, can not delete"));
+      // TODO: 27/5/20 show and error screen here
+      return;
+    }
+
+    final LoaderManager.LoaderCallbacks<Boolean> taskListener =
+        new LoaderManager.LoaderCallbacks<Boolean>() {
+
+          @NonNull
+          @Override
+          public Loader<Boolean> onCreateLoader(final int id,
+                                                @Nullable final Bundle args) {
+            return new AsyncTaskLoader<Boolean>(requireContext()) {
+
+              @Override
+              public Boolean loadInBackground() {
+                return model.deleteBookmark(
+                    new EntityBookmark(bookmark.getReference(), bookmark.getNote()));
+              }
+            };
+          }
+
+          @Override
+          public void onLoadFinished(@NonNull final Loader<Boolean> loader,
+                                     final Boolean deleted) {
+            if (deleted) {
+              model.clearCache();
+              ops.showMessage(getString(R.string.scr_bookmark_msg_deleted), R.id.main_nav_bar);
+              NavHostFragment.findNavController(BookmarkScreen.this)
+                             .popBackStack();
+            }
+          }
+
+          @Override
+          public void onLoaderReset(@NonNull final Loader<Boolean> loader) {
+
+          }
+        };
+
+    LoaderManager.getInstance(requireActivity())
+                 .initLoader(new Random().nextInt(), Bundle.EMPTY, taskListener)
+                 .forceLoad();
   }
 
   private void handleActionShare() {
