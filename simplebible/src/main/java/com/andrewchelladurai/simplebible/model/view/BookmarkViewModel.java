@@ -14,6 +14,7 @@ import com.andrewchelladurai.simplebible.db.SbDatabase;
 import com.andrewchelladurai.simplebible.db.dao.SbDao;
 import com.andrewchelladurai.simplebible.db.entities.EntityBookmark;
 import com.andrewchelladurai.simplebible.db.entities.EntityVerse;
+import com.andrewchelladurai.simplebible.model.Bookmark;
 import com.andrewchelladurai.simplebible.model.Verse;
 import com.andrewchelladurai.simplebible.utils.Utils;
 
@@ -30,7 +31,7 @@ public class BookmarkViewModel
   private static final ArrayList<Verse> CACHED_VERSES = new ArrayList<>();
 
   @Nullable
-  private static EntityBookmark CACHED_BOOKMARK = null;
+  private static Bookmark CACHED_BOOKMARK = null;
 
   @NonNull
   private static String CACHED_BOOKMARK_REFERENCE = "";
@@ -51,11 +52,11 @@ public class BookmarkViewModel
   }
 
   @Nullable
-  public EntityBookmark getCachedBookmark() {
+  public Bookmark getCachedBookmark() {
     return CACHED_BOOKMARK;
   }
 
-  public void setCachedBookmark(@NonNull final EntityBookmark bookmark) {
+  public void setCachedBookmark(@NonNull final Bookmark bookmark) {
     CACHED_BOOKMARK = bookmark;
     Log.d(TAG, "setCachedBookmark: cached [" + bookmark + "]");
   }
@@ -141,13 +142,13 @@ public class BookmarkViewModel
     return CACHED_VERSES.get(position);
   }
 
-  public boolean saveBookmark(@NonNull final EntityBookmark bookmark) {
-    dao.createBookmark(bookmark);
+  public boolean saveBookmark(@NonNull final Bookmark bookmark) {
+    dao.createBookmark(new EntityBookmark(bookmark.getReference(), bookmark.getNote()));
     return true;
   }
 
-  public boolean deleteBookmark(@NonNull final EntityBookmark bookmark) {
-    dao.deleteBookmark(bookmark);
+  public boolean deleteBookmark(@NonNull final Bookmark bookmark) {
+    dao.deleteBookmark(new EntityBookmark(bookmark.getReference(), bookmark.getNote()));
     return true;
   }
 

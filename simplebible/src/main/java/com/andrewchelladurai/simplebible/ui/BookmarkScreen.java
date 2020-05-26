@@ -26,6 +26,7 @@ import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.db.entities.EntityBookmark;
 import com.andrewchelladurai.simplebible.db.entities.EntityVerse;
 import com.andrewchelladurai.simplebible.model.Book;
+import com.andrewchelladurai.simplebible.model.Bookmark;
 import com.andrewchelladurai.simplebible.model.Verse;
 import com.andrewchelladurai.simplebible.model.view.BookmarkViewModel;
 import com.andrewchelladurai.simplebible.ui.adapter.BookmarkAdapter;
@@ -124,7 +125,7 @@ public class BookmarkScreen
       updateContent(arguments.getString(ARG_STR_REFERENCE, ""));
     } else {
       Log.d(TAG, "onCreateView: NOT the first run");
-      final EntityBookmark bookmark = model.getCachedBookmark();
+      final Bookmark bookmark = model.getCachedBookmark();
 
       if (bookmark != null) {
         updateContent(bookmark.getReference());
@@ -146,8 +147,8 @@ public class BookmarkScreen
     Log.d(TAG, "handleActionSave:");
     final String noteText = getNoteFieldText();
 
-    final EntityBookmark bookmark =
-        new EntityBookmark(model.getCachedBookmarkReference(), noteText);
+    final Bookmark bookmark = new Bookmark(
+        new EntityBookmark(model.getCachedBookmarkReference(), noteText));
 
     final int taskId = new Random().nextInt();
 
@@ -192,7 +193,7 @@ public class BookmarkScreen
   private void refreshContent() {
     Log.d(TAG, "refreshContent:");
 
-    final EntityBookmark bookmark = model.getCachedBookmark();
+    final Bookmark bookmark = model.getCachedBookmark();
     final TextInputEditText noteField = rootView.findViewById(R.id.scr_bookmark_note);
     final Chip title = rootView.findViewById(R.id.scr_bookmark_title);
 
@@ -256,7 +257,7 @@ public class BookmarkScreen
   private void handleActionDelete() {
     Log.d(TAG, "handleActionDelete:");
 
-    final EntityBookmark bookmark = model.getCachedBookmark();
+    final Bookmark bookmark = model.getCachedBookmark();
     if (bookmark == null) {
       Log.e(TAG, "handleActionDelete: ",
             new IllegalArgumentException("null bookmark, can not delete"));
@@ -303,9 +304,10 @@ public class BookmarkScreen
   }
 
   private void updateContent(@NonNull final String reference) {
-    final EntityBookmark cachedBookmark = model.getCachedBookmark();
+    final Bookmark cachedBookmark = model.getCachedBookmark();
 
     if (cachedBookmark != null
+        && cachedBookmark.getReference().equalsIgnoreCase(reference)
         && model.getCachedBookmarkReference().equalsIgnoreCase(reference)) {
       Log.d(TAG, "updateContent: reference is already cached");
       refreshContent();
@@ -359,7 +361,13 @@ public class BookmarkScreen
 
       // get the bookmark from the database using the bookmark reference
       model.getBookmarkForReference(reference).observe(lifeOwner, bookmark -> {
-        model.setCachedBookmark(bookmark);
+
+        if (bookmark == null) {
+          model.setCachedBookmark(new Bookmark(new EntityBookmark(reference, "")));
+        } else {
+          model.setCachedBookmark(new Bookmark(bookmark));
+        }
+
         model.setCachedVerses(verseList);
         model.setCachedBookmarkReference(reference);
         refreshContent();
@@ -370,7 +378,7 @@ public class BookmarkScreen
 
   private void handleActionShare() {
     Log.d(TAG, "handleActionShare:");
-    final EntityBookmark bookmark = model.getCachedBookmark();
+    final Bookmark bookmark = model.getCachedBookmark();
     if (bookmark == null) {
       ops.showMessage("This is mot a Saved Bookmark", R.id.scr_bookmark_app_bar);
       return;
