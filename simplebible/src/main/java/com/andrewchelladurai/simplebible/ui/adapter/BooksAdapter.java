@@ -12,7 +12,7 @@ import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.Book;
+import com.andrewchelladurai.simplebible.model.Book;
 import com.andrewchelladurai.simplebible.ui.ops.BookListScreenOps;
 import com.andrewchelladurai.simplebible.utils.Utils;
 

@@ -1,4 +1,4 @@
-package com.andrewchelladurai.simplebible.data;
+package com.andrewchelladurai.simplebible.db;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,13 +7,13 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.andrewchelladurai.simplebible.data.dao.BookDao;
-import com.andrewchelladurai.simplebible.data.dao.BookmarkDao;
-import com.andrewchelladurai.simplebible.data.dao.SbDao;
-import com.andrewchelladurai.simplebible.data.dao.VerseDao;
-import com.andrewchelladurai.simplebible.data.entities.EntityBook;
-import com.andrewchelladurai.simplebible.data.entities.EntityBookmark;
-import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
+import com.andrewchelladurai.simplebible.db.dao.BookDao;
+import com.andrewchelladurai.simplebible.db.dao.BookmarkDao;
+import com.andrewchelladurai.simplebible.db.dao.SbDao;
+import com.andrewchelladurai.simplebible.db.dao.VerseDao;
+import com.andrewchelladurai.simplebible.db.entities.EntityBook;
+import com.andrewchelladurai.simplebible.db.entities.EntityBookmark;
+import com.andrewchelladurai.simplebible.db.entities.EntityVerse;
 
 @Database(entities = {EntityBook.class, EntityVerse.class, EntityBookmark.class},
           // epoch time in seconds : date +%s

@@ -1,4 +1,4 @@
-package com.andrewchelladurai.simplebible.model;
+package com.andrewchelladurai.simplebible.model.view;
 
 import android.app.Application;
 
@@ -9,11 +9,11 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.Book;
-import com.andrewchelladurai.simplebible.data.DbSetupWorker;
-import com.andrewchelladurai.simplebible.data.SbDatabase;
-import com.andrewchelladurai.simplebible.data.dao.SbDao;
-import com.andrewchelladurai.simplebible.data.entities.EntityBook;
+import com.andrewchelladurai.simplebible.db.DbSetupWorker;
+import com.andrewchelladurai.simplebible.db.SbDatabase;
+import com.andrewchelladurai.simplebible.db.dao.SbDao;
+import com.andrewchelladurai.simplebible.db.entities.EntityBook;
+import com.andrewchelladurai.simplebible.model.Book;
 
 import java.util.List;
 import java.util.UUID;

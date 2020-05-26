@@ -1,11 +1,11 @@
-package com.andrewchelladurai.simplebible.data.entities;
+package com.andrewchelladurai.simplebible.db.entities;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 
-import com.andrewchelladurai.simplebible.data.Book;
+import com.andrewchelladurai.simplebible.model.Book;
 
 @Entity(tableName = "sb_books", primaryKeys = {"number", "name", "chapters", "verses"})
 public class EntityBook {

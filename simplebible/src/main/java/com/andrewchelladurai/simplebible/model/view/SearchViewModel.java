@@ -1,4 +1,4 @@
-package com.andrewchelladurai.simplebible.model;
+package com.andrewchelladurai.simplebible.model.view;
 
 import android.app.Application;
 import android.util.Log;
@@ -9,10 +9,10 @@ import androidx.collection.ArrayMap;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.andrewchelladurai.simplebible.data.SbDatabase;
-import com.andrewchelladurai.simplebible.data.Verse;
-import com.andrewchelladurai.simplebible.data.dao.SbDao;
-import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
+import com.andrewchelladurai.simplebible.db.SbDatabase;
+import com.andrewchelladurai.simplebible.db.dao.SbDao;
+import com.andrewchelladurai.simplebible.db.entities.EntityVerse;
+import com.andrewchelladurai.simplebible.model.Verse;
 
 import java.util.ArrayList;
 import java.util.List;

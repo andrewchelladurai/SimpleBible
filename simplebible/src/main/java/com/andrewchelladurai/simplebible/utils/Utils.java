@@ -5,7 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.andrewchelladurai.simplebible.data.Verse;
+import com.andrewchelladurai.simplebible.model.Verse;
 
 import java.util.Collection;
 

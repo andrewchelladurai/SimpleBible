@@ -1,4 +1,4 @@
-package com.andrewchelladurai.simplebible.data;
+package com.andrewchelladurai.simplebible.model;
 
 import android.util.Log;
 
@@ -6,7 +6,7 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.andrewchelladurai.simplebible.data.entities.EntityBook;
+import com.andrewchelladurai.simplebible.db.entities.EntityBook;
 
 import java.util.List;
 import java.util.Objects;

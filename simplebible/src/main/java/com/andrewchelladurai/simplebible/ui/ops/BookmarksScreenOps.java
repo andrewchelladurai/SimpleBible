@@ -5,7 +5,7 @@ import android.widget.TextView;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 
-import com.andrewchelladurai.simplebible.data.entities.EntityBookmark;
+import com.andrewchelladurai.simplebible.db.entities.EntityBookmark;
 
 public interface BookmarksScreenOps {
 

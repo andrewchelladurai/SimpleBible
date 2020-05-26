@@ -1,4 +1,4 @@
-package com.andrewchelladurai.simplebible.data;
+package com.andrewchelladurai.simplebible.db;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -9,9 +9,10 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.dao.SbDao;
-import com.andrewchelladurai.simplebible.data.entities.EntityBook;
-import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
+import com.andrewchelladurai.simplebible.db.dao.SbDao;
+import com.andrewchelladurai.simplebible.db.entities.EntityBook;
+import com.andrewchelladurai.simplebible.db.entities.EntityVerse;
+import com.andrewchelladurai.simplebible.model.Book;
 
 import java.io.BufferedReader;
 import java.io.IOException;

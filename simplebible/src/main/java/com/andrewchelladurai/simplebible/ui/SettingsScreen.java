@@ -27,7 +27,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.model.SettingsViewModel;
+import com.andrewchelladurai.simplebible.model.view.SettingsViewModel;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 
 public class SettingsScreen

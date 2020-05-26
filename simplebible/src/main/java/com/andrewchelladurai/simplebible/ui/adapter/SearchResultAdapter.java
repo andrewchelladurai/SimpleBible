@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.Verse;
+import com.andrewchelladurai.simplebible.model.Verse;
 import com.andrewchelladurai.simplebible.ui.ops.SearchScreenOps;
 
 public class SearchResultAdapter

@@ -2,7 +2,7 @@ package com.andrewchelladurai.simplebible.ui.ops;
 
 import androidx.annotation.Nullable;
 
-import com.andrewchelladurai.simplebible.data.Book;
+import com.andrewchelladurai.simplebible.model.Book;
 
 public interface BookListScreenOps {
 

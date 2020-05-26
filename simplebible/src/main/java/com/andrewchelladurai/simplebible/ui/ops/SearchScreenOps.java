@@ -3,7 +3,7 @@ package com.andrewchelladurai.simplebible.ui.ops;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 
-import com.andrewchelladurai.simplebible.data.Verse;
+import com.andrewchelladurai.simplebible.model.Verse;
 
 public interface SearchScreenOps {
 

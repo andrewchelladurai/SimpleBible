@@ -1,4 +1,4 @@
-package com.andrewchelladurai.simplebible.model;
+package com.andrewchelladurai.simplebible.model.view;
 
 import android.app.Application;
 import android.util.Log;

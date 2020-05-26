@@ -19,9 +19,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.work.WorkManager;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.Book;
-import com.andrewchelladurai.simplebible.data.entities.EntityBook;
-import com.andrewchelladurai.simplebible.model.SetupViewModel;
+import com.andrewchelladurai.simplebible.db.entities.EntityBook;
+import com.andrewchelladurai.simplebible.model.Book;
+import com.andrewchelladurai.simplebible.model.view.SetupViewModel;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 
 import java.util.ArrayList;

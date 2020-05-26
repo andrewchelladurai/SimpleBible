@@ -1,4 +1,4 @@
-package com.andrewchelladurai.simplebible.data.dao;
+package com.andrewchelladurai.simplebible.db.dao;
 
 import androidx.room.Dao;
 

@@ -18,9 +18,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.Book;
-import com.andrewchelladurai.simplebible.data.entities.EntityBookmark;
-import com.andrewchelladurai.simplebible.model.BookmarksViewModel;
+import com.andrewchelladurai.simplebible.db.entities.EntityBookmark;
+import com.andrewchelladurai.simplebible.model.Book;
+import com.andrewchelladurai.simplebible.model.view.BookmarksViewModel;
 import com.andrewchelladurai.simplebible.ui.adapter.BookmarksAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarksScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;

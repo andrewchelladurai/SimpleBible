@@ -11,8 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.Book;
-import com.andrewchelladurai.simplebible.data.Verse;
+import com.andrewchelladurai.simplebible.model.Book;
+import com.andrewchelladurai.simplebible.model.Verse;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkScreenOps;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.andrewchelladurai.simplebible.data;
+package com.andrewchelladurai.simplebible.model;
 
 import android.text.Spanned;
 import android.util.Log;
@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.text.HtmlCompat;
 
-import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
+import com.andrewchelladurai.simplebible.db.entities.EntityVerse;
 
 import java.util.Objects;
 

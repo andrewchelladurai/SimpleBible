@@ -18,9 +18,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.Book;
-import com.andrewchelladurai.simplebible.data.Verse;
-import com.andrewchelladurai.simplebible.model.HomeViewModel;
+import com.andrewchelladurai.simplebible.model.Book;
+import com.andrewchelladurai.simplebible.model.Verse;
+import com.andrewchelladurai.simplebible.model.view.HomeViewModel;
 import com.andrewchelladurai.simplebible.ui.ops.HomeScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 
