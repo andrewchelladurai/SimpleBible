@@ -17,8 +17,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.Book;
 import com.andrewchelladurai.simplebible.data.Verse;
-import com.andrewchelladurai.simplebible.data.entities.EntityBook;
 import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
 import com.andrewchelladurai.simplebible.model.ChapterViewModel;
 import com.andrewchelladurai.simplebible.ui.adapter.ChapterNumberAdapter;
@@ -51,7 +51,7 @@ public class ChapterScreen
 
   private View rootView;
 
-  @IntRange(from = 1, to = Utils.MAX_BOOKS)
+  @IntRange(from = 1, to = Book.MAX_BOOKS)
   private int book;
 
   @IntRange(from = 1)
@@ -171,7 +171,7 @@ public class ChapterScreen
 
   private boolean handleActionShare() {
     Log.d(TAG, "handleActionShare:");
-    final EntityBook book = Utils.getInstance().getCachedBook(model.getCachedBookNumber());
+    final Book book = Book.getCachedBook(model.getCachedBookNumber());
     final Collection<Verse> list = model.getSelectedList();
     if (book == null || list == null || list.isEmpty()) {
       Log.e(TAG, "handleActionShare: "
@@ -213,58 +213,13 @@ public class ChapterScreen
       if (currentChapter == 1) {
         book = currentBook - 1;
         //noinspection ConstantConditions
-        chapter = Utils.getInstance().getCachedBook(book).getChapters();
+        chapter = Book.getCachedBook(book).getChapters();
       } else {
         chapter = currentChapter - 1;
       }
     }
 
     updateContent();
-
-    return true;
-  }
-
-  private boolean handleActionChaptersNext() {
-    Log.d(TAG, "handleActionChaptersNext:");
-
-    final Utils utils = Utils.getInstance();
-    final int currentBook = model.getCachedBookNumber();
-    final int currentChapter = model.getCachedChapterNumber();
-
-    if (currentBook == Utils.MAX_BOOKS) {
-      //noinspection ConstantConditions
-      if (currentChapter == utils.getCachedBook(Utils.MAX_BOOKS).getChapters()) {
-        ops.showMessage(getString(R.string.scr_chapter_msg_navigate_at_end),
-                        R.id.scr_chapter_contain_bottom_app_bar);
-      } else {
-        chapter = currentChapter + 1;
-      }
-    } else {
-      //noinspection ConstantConditions
-      if (currentChapter == utils.getCachedBook(currentBook).getChapters()) {
-        book = currentBook + 1;
-        chapter = 1;
-      } else {
-        chapter = currentChapter + 1;
-      }
-    }
-
-    updateContent();
-
-    return true;
-  }
-
-  private boolean handleActionChapterList() {
-    Log.d(TAG, "handleActionChapters:");
-    final EntityBook book = Utils.getInstance().getCachedBook(model.getCachedBookNumber());
-    if (book == null) {
-      Log.e(TAG, "handleActionChapters: null book, returning");
-      return true;
-    }
-
-    ChapterNumberDialog dialog = new ChapterNumberDialog();
-    dialog.updateAdapter(chapterAdapter);
-    dialog.show(getParentFragmentManager(), TAG);
 
     return true;
   }
@@ -289,7 +244,7 @@ public class ChapterScreen
         return;
       }
 
-      final EntityBook cachedBook = Utils.getInstance().getCachedBook(book);
+      final Book cachedBook = Book.getCachedBook(book);
       if (cachedBook == null) {
         final String msg = "No book found at position [" + book + "]";
         Log.e(TAG, "updateContent: " + msg);
@@ -320,7 +275,7 @@ public class ChapterScreen
     verseAdapter.notifyDataSetChanged();
     updateSelectionActionsVisibility();
 
-    final EntityBook book = Utils.getInstance().getCachedBook(model.getCachedBookNumber());
+    final Book book = Book.getCachedBook(model.getCachedBookNumber());
     if (book == null) {
       Log.e(TAG, "refreshData: Null book, returning");
       return;
@@ -336,6 +291,50 @@ public class ChapterScreen
                             model.getCachedChapterNumber(),
                             model.getCachedListSize()));
     ((RecyclerView) rootView.findViewById(R.id.scr_chapter_list)).scrollToPosition(0);
+  }
+
+  private boolean handleActionChaptersNext() {
+    Log.d(TAG, "handleActionChaptersNext:");
+
+    final int currentBook = model.getCachedBookNumber();
+    final int currentChapter = model.getCachedChapterNumber();
+
+    if (currentBook == Book.MAX_BOOKS) {
+      //noinspection ConstantConditions
+      if (currentChapter == Book.getCachedBook(Book.MAX_BOOKS).getChapters()) {
+        ops.showMessage(getString(R.string.scr_chapter_msg_navigate_at_end),
+                        R.id.scr_chapter_contain_bottom_app_bar);
+      } else {
+        chapter = currentChapter + 1;
+      }
+    } else {
+      //noinspection ConstantConditions
+      if (currentChapter == Book.getCachedBook(currentBook).getChapters()) {
+        book = currentBook + 1;
+        chapter = 1;
+      } else {
+        chapter = currentChapter + 1;
+      }
+    }
+
+    updateContent();
+
+    return true;
+  }
+
+  private boolean handleActionChapterList() {
+    Log.d(TAG, "handleActionChapters:");
+    final Book book = Book.getCachedBook(model.getCachedBookNumber());
+    if (book == null) {
+      Log.e(TAG, "handleActionChapters: null book, returning");
+      return true;
+    }
+
+    ChapterNumberDialog dialog = new ChapterNumberDialog();
+    dialog.updateAdapter(chapterAdapter);
+    dialog.show(getParentFragmentManager(), TAG);
+
+    return true;
   }
 
   @Override

@@ -19,10 +19,12 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.work.WorkManager;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.Book;
+import com.andrewchelladurai.simplebible.data.entities.EntityBook;
 import com.andrewchelladurai.simplebible.model.SetupViewModel;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
-import com.andrewchelladurai.simplebible.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class SetupScreen
@@ -95,12 +97,18 @@ public class SetupScreen
   private void updateCacheRepository() {
     Log.d(TAG, "updateCacheRepository:");
     if (!model.isCacheUpdated()) {
-      model.getAllBooks().observe(getViewLifecycleOwner(), bookList -> {
-        if (bookList == null || bookList.isEmpty() || bookList.size() != Utils.MAX_BOOKS) {
+      model.getAllBooks().observe(getViewLifecycleOwner(), list -> {
+        if (list == null || list.isEmpty() || list.size() != Book.MAX_BOOKS) {
           String msg = getString(R.string.scr_setup_err_cache_update_failure);
           Log.e(TAG, "updateCacheRepository: " + msg);
           ops.showErrorScreen(msg, true, true);
         } else {
+
+          final ArrayList<Book> bookList = new ArrayList<>(list.size());
+          for (final EntityBook book : list) {
+            bookList.add(new Book(book));
+          }
+
           model.updateCacheBooks(bookList);
           showHomeScreen();
         }

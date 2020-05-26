@@ -20,8 +20,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.Book;
 import com.andrewchelladurai.simplebible.data.Verse;
-import com.andrewchelladurai.simplebible.data.entities.EntityBook;
 import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
 import com.andrewchelladurai.simplebible.model.SearchViewModel;
 import com.andrewchelladurai.simplebible.ui.adapter.SearchResultAdapter;
@@ -146,11 +146,11 @@ public class SearchScreen
       }
 
       final Utils utils = Utils.getInstance();
-      final EntityBook[] book = new EntityBook[1];
+      final Book[] book = new Book[1];
       final ArrayList<Verse> verseList = new ArrayList<>(list.size());
       for (final EntityVerse verse : list) {
 
-        book[0] = utils.getCachedBook(verse.getBook());
+        book[0] = Book.getCachedBook(verse.getBook());
         if (book[0] == null) {
           Log.e(TAG, "handleActionSearch: no book found for verse [" + verse + "]");
           continue;
@@ -255,15 +255,7 @@ public class SearchScreen
     final String verseTemplate = getString(R.string.scr_search_result_template);
     final StringBuilder verseText = new StringBuilder();
 
-    EntityBook book;
     for (final Verse verse : set) {
-
-      book = Utils.getInstance().getCachedBook(verse.getBookNumber());
-      if (book == null) {
-        Log.e(TAG, "updateContent: null book returned");
-        continue;
-      }
-
       verseText.append(verse.getFormattedContentForSearchResult(verseTemplate).toString())
                .append("\n");
     }

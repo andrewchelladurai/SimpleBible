@@ -18,12 +18,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.Book;
 import com.andrewchelladurai.simplebible.data.Verse;
-import com.andrewchelladurai.simplebible.data.entities.EntityBook;
 import com.andrewchelladurai.simplebible.model.HomeViewModel;
 import com.andrewchelladurai.simplebible.ui.ops.HomeScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
-import com.andrewchelladurai.simplebible.utils.Utils;
 
 import java.util.Calendar;
 
@@ -129,7 +128,7 @@ public class HomeScreen
         return;
       }
 
-      final EntityBook book = Utils.getInstance().getCachedBook(verse.getBook());
+      final Book book = Book.getCachedBook(verse.getBook());
       if (book == null) {
         Log.e(TAG, "updateContent:",
               new IllegalArgumentException("no book found for reference[" + reference[0] + "]"));
@@ -147,7 +146,7 @@ public class HomeScreen
   }
 
   private void displayVerse(@NonNull final Verse verse) {
-    EntityBook book = verse.getBook();
+    Book book = verse.getBook();
 
     if (verse.getReference().equalsIgnoreCase(DEFAULT_REFERENCE)) {
       Log.d(TAG, "displayVerse: displaying defaultReference[" + DEFAULT_REFERENCE + "]");

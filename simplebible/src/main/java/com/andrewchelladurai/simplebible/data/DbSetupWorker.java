@@ -12,7 +12,6 @@ import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.dao.SbDao;
 import com.andrewchelladurai.simplebible.data.entities.EntityBook;
 import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
-import com.andrewchelladurai.simplebible.utils.Utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -81,7 +80,7 @@ public class DbSetupWorker
         // validate book number
         try {
           number = Integer.parseInt(parts[1]);
-          if (number < 1 || number > Utils.MAX_BOOKS) {
+          if (number < 1 || number > Book.MAX_BOOKS) {
             Log.e(TAG, "populateTableBooks: book number invalid in [" + line + "]");
             continue;
           }
@@ -164,7 +163,7 @@ public class DbSetupWorker
         // validate book number
         try {
           number = Integer.parseInt(parts[1]);
-          if (number < 1 || number > Utils.MAX_BOOKS) {
+          if (number < 1 || number > Book.MAX_BOOKS) {
             Log.e(TAG, "populateTableVerses: book number invalid in [" + line + "]");
             continue;
           }

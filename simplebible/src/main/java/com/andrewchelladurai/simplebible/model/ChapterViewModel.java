@@ -10,11 +10,11 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.andrewchelladurai.simplebible.data.Book;
 import com.andrewchelladurai.simplebible.data.SbDatabase;
 import com.andrewchelladurai.simplebible.data.Verse;
 import com.andrewchelladurai.simplebible.data.dao.SbDao;
 import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
-import com.andrewchelladurai.simplebible.utils.Utils;
 
 import java.util.Collection;
 import java.util.List;
@@ -29,7 +29,7 @@ public class ChapterViewModel
   private final SbDao dao;
 
   @SuppressLint("Range")
-  @IntRange(from = 1, to = Utils.MAX_BOOKS)
+  @IntRange(from = 1, to = Book.MAX_BOOKS)
   private static int CACHED_BOOK = 0;
 
   @SuppressLint("Range")
@@ -48,12 +48,12 @@ public class ChapterViewModel
     dao = SbDatabase.getDatabase(getApplication()).getDao();
   }
 
-  @IntRange(from = 1, to = Utils.MAX_BOOKS)
+  @IntRange(from = 1, to = Book.MAX_BOOKS)
   public int getCachedBookNumber() {
     return CACHED_BOOK;
   }
 
-  public void setCachedBookNumber(@IntRange(from = 1, to = Utils.MAX_BOOKS) final int book) {
+  public void setCachedBookNumber(@IntRange(from = 1, to = Book.MAX_BOOKS) final int book) {
     CACHED_BOOK = book;
   }
 

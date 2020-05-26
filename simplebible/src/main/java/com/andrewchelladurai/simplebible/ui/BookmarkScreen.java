@@ -23,15 +23,14 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.Book;
 import com.andrewchelladurai.simplebible.data.Verse;
-import com.andrewchelladurai.simplebible.data.entities.EntityBook;
 import com.andrewchelladurai.simplebible.data.entities.EntityBookmark;
 import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
 import com.andrewchelladurai.simplebible.model.BookmarkViewModel;
 import com.andrewchelladurai.simplebible.ui.adapter.BookmarkAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
-import com.andrewchelladurai.simplebible.utils.Utils;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.textfield.TextInputEditText;
@@ -348,10 +347,9 @@ public class BookmarkScreen
       }
 
       final ArrayList<Verse> verseList = new ArrayList<>(list.size());
-      final Utils utils = Utils.getInstance();
-      final EntityBook[] book = new EntityBook[1];
+      final Book[] book = new Book[1];
       for (final EntityVerse verse : list) {
-        book[0] = utils.getCachedBook(verse.getBook());
+        book[0] = Book.getCachedBook(verse.getBook());
         if (book[0] == null) {
           Log.e(TAG, "updateContent: no book found for verse [" + verse + ", skipping it]");
           continue;

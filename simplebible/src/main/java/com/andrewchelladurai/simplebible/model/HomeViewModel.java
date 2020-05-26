@@ -9,11 +9,11 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.andrewchelladurai.simplebible.data.Book;
 import com.andrewchelladurai.simplebible.data.SbDatabase;
 import com.andrewchelladurai.simplebible.data.Verse;
 import com.andrewchelladurai.simplebible.data.dao.SbDao;
 import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
-import com.andrewchelladurai.simplebible.utils.Utils;
 
 public class HomeViewModel
     extends AndroidViewModel {
@@ -45,7 +45,7 @@ public class HomeViewModel
   }
 
   @NonNull
-  public LiveData<EntityVerse> getVerse(@IntRange(from = 1, to = Utils.MAX_BOOKS) final int book,
+  public LiveData<EntityVerse> getVerse(@IntRange(from = 1, to = Book.MAX_BOOKS) final int book,
                                         @IntRange(from = 1) final int chapter,
                                         @IntRange(from = 1) final int verse) {
     Log.d(TAG, "getVerse: book[" + book + "], chapter[" + chapter + "], verse[" + verse + "]");

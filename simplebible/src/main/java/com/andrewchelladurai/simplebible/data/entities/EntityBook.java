@@ -5,20 +5,17 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 
-import com.andrewchelladurai.simplebible.utils.Utils;
-
-import java.util.Objects;
+import com.andrewchelladurai.simplebible.data.Book;
 
 @Entity(tableName = "sb_books", primaryKeys = {"number", "name", "chapters", "verses"})
 public
-class EntityBook
-    implements Comparable {
+class EntityBook {
 
   @NonNull
   @ColumnInfo(name = "description")
   private final String description;
 
-  @IntRange(from = 1, to = Utils.MAX_BOOKS)
+  @IntRange(from = 1, to = Book.MAX_BOOKS)
   @ColumnInfo(name = "number")
   private final int number;
 
@@ -39,7 +36,7 @@ class EntityBook
   private final String testament;
 
   public EntityBook(@NonNull final String description,
-                    @IntRange(from = 1, to = Utils.MAX_BOOKS) final int number,
+                    @IntRange(from = 1, to = Book.MAX_BOOKS) final int number,
                     @NonNull final String name,
                     @IntRange(from = 1) final int chapters,
                     @IntRange(from = 1) final int verses,
@@ -57,7 +54,7 @@ class EntityBook
     return description;
   }
 
-  @IntRange(from = 1, to = Utils.MAX_BOOKS)
+  @IntRange(from = 1, to = Book.MAX_BOOKS)
   public int getNumber() {
     return number;
   }
@@ -82,43 +79,15 @@ class EntityBook
     return testament;
   }
 
-  @Override
-  public boolean equals(final Object newObj) {
-    if (this == newObj) {
-      return true;
-    }
-
-    if (newObj == null || this.getClass() != newObj.getClass()) {
-      return false;
-    }
-
-    final EntityBook that = (EntityBook) newObj;
-    return this.getNumber() == that.getNumber()
-           && this.getChapters() == that.getChapters()
-           && this.getVerses() == that.getVerses()
-           && this.getName().equals(that.getName())
-           && this.getTestament().equals(that.getTestament());
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(getNumber(), getName(), getChapters(), getVerses(), getTestament());
-  }
-
   @NonNull
   @Override
   public String toString() {
-    return getNumber()
-           + "-" + getName()
-           + "-" + getDescription()
-           + "-" + getChapters()
-           + "-" + getVerses()
-           + "-" + getTestament();
-  }
-
-  @Override
-  public int compareTo(@NonNull final Object that) {
-    return this.getNumber() - ((EntityBook) that).getNumber();
+    return number
+           + "-" + name
+           + "-" + description
+           + "-" + chapters
+           + "-" + verses
+           + "-" + testament;
   }
 
 }

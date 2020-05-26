@@ -8,9 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.text.HtmlCompat;
 
-import com.andrewchelladurai.simplebible.data.entities.EntityBook;
 import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
-import com.andrewchelladurai.simplebible.utils.Utils;
 
 import java.util.Objects;
 
@@ -26,7 +24,7 @@ public class Verse
   @NonNull
   private final String translation;
 
-  @IntRange(from = 1, to = Utils.MAX_BOOKS)
+  @IntRange(from = 1, to = Book.MAX_BOOKS)
   private final int bookNumber;
 
   @IntRange(from = 1)
@@ -39,15 +37,15 @@ public class Verse
   private final String verseText;
 
   @NonNull
-  private final EntityBook book;
+  private final Book book;
 
-  public Verse(@NonNull final EntityVerse verse, @NonNull final EntityBook entityBook) {
+  public Verse(@NonNull final EntityVerse verse, @NonNull final Book book) {
     translation = verse.getTranslation();
     bookNumber = verse.getBook();
     chapterNumber = verse.getChapter();
     verseNumber = verse.getVerse();
     verseText = verse.getText();
-    book = entityBook;
+    this.book = book;
   }
 
   @Nullable
@@ -87,7 +85,7 @@ public class Verse
       ));
     }
 
-    @IntRange(from = 1, to = Utils.MAX_BOOKS) final int book;
+    @IntRange(from = 1, to = Book.MAX_BOOKS) final int book;
     @IntRange(from = 1) final int chapter;
     @IntRange(from = 1) final int verse;
 
@@ -100,7 +98,7 @@ public class Verse
       return false;
     }
 
-    if (book < 1 || book > Utils.MAX_BOOKS) {
+    if (book < 1 || book > Book.MAX_BOOKS) {
       Log.e(TAG, "validateVerseReference:", new IllegalArgumentException(
           "Verse reference [" + reference + "] has an invalid book number [" + book + "]"
       ));
@@ -125,7 +123,7 @@ public class Verse
   }
 
   @NonNull
-  public static String createReference(@IntRange(from = 1, to = Utils.MAX_BOOKS) int book,
+  public static String createReference(@IntRange(from = 1, to = Book.MAX_BOOKS) int book,
                                        @IntRange(from = 1) int chapter,
                                        @IntRange(from = 1) int verse) {
     if (book < 1 || chapter < 1 || verse < 1) {
@@ -144,7 +142,7 @@ public class Verse
     return translation;
   }
 
-  @IntRange(from = 1, to = Utils.MAX_BOOKS)
+  @IntRange(from = 1, to = Book.MAX_BOOKS)
   public int getBookNumber() {
     return bookNumber;
   }
@@ -165,7 +163,7 @@ public class Verse
   }
 
   @NonNull
-  public EntityBook getBook() {
+  public Book getBook() {
     return book;
   }
 

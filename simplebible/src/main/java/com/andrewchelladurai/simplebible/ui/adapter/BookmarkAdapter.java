@@ -11,10 +11,9 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.Book;
 import com.andrewchelladurai.simplebible.data.Verse;
-import com.andrewchelladurai.simplebible.data.entities.EntityBook;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkScreenOps;
-import com.andrewchelladurai.simplebible.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -66,7 +65,7 @@ public class BookmarkAdapter
         continue;
       }
 
-      final EntityBook book = Utils.getInstance().getCachedBook(verse.getBookNumber());
+      final Book book = Book.getCachedBook(verse.getBookNumber());
       if (book == null) {
         continue;
       }
@@ -98,7 +97,7 @@ public class BookmarkAdapter
         return;
       }
 
-      final EntityBook book = Utils.getInstance().getCachedBook(verse.getBookNumber());
+      final Book book = Book.getCachedBook(verse.getBookNumber());
       if (book == null) {
         Log.e(TAG, "updateContent:",
               new IllegalArgumentException("null book for verse reference["

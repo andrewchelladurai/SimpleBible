@@ -1,6 +1,5 @@
 package com.andrewchelladurai.simplebible.ui.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.data.Verse;
-import com.andrewchelladurai.simplebible.data.entities.EntityBook;
 import com.andrewchelladurai.simplebible.ui.ops.SearchScreenOps;
-import com.andrewchelladurai.simplebible.utils.Utils;
 
 public class SearchResultAdapter
     extends RecyclerView.Adapter {
@@ -80,12 +77,6 @@ public class SearchResultAdapter
 
     private void updateContent(@NonNull final Verse verse) {
       this.verse = verse;
-
-      final EntityBook book = Utils.getInstance().getCachedBook(verse.getBookNumber());
-      if (book == null) {
-        Log.e(TAG, "updateContent: null book returned");
-        return;
-      }
 
       selectedView.setVisibility(
           ops.isSelected(this.verse.getReference()) ? View.VISIBLE : View.GONE);

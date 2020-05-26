@@ -16,6 +16,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.Book;
 import com.andrewchelladurai.simplebible.data.entities.EntityBook;
 import com.andrewchelladurai.simplebible.model.BooksViewModel;
 import com.andrewchelladurai.simplebible.ui.adapter.BooksAdapter;
@@ -23,6 +24,7 @@ import com.andrewchelladurai.simplebible.ui.ops.BookListScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 import com.andrewchelladurai.simplebible.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 public class BooksScreen
@@ -104,25 +106,30 @@ public class BooksScreen
     Log.d(TAG, "updateContent:");
 
     final Utils utils = Utils.getInstance();
-    final Set<Integer> books = utils.getCachedBookList();
+    final Set<Integer> books = Book.getCachedBookList();
 
-    if (books.size() != Utils.MAX_BOOKS) {
+    if (books.size() != Book.MAX_BOOKS) {
       refreshContent();
       return;
     }
 
-    model.getAllBooks().observe(getViewLifecycleOwner(), bookList -> {
+    model.getAllBooks().observe(getViewLifecycleOwner(), list -> {
 
-      if (bookList == null || bookList.isEmpty() || bookList.size() != Utils.MAX_BOOKS) {
+      if (list == null || list.isEmpty() || list.size() != Book.MAX_BOOKS) {
         final String msg = getString(R.string.scr_books_msg_invalid_list,
-                                     (bookList == null) ? 0 : bookList.size(),
-                                     Utils.MAX_BOOKS);
+                                     (list == null) ? 0 : list.size(),
+                                     Book.MAX_BOOKS);
         Log.e(TAG, "updateContent: " + msg);
         ops.showErrorScreen(msg, true, true);
         return;
       }
 
-      utils.updateCacheBooks(bookList);
+      final ArrayList<Book> bookList = new ArrayList<>(list.size());
+      for (final EntityBook book : list) {
+        bookList.add(new Book(book));
+      }
+
+      Book.updateCacheBooks(bookList);
       refreshContent();
 
     });
@@ -135,7 +142,7 @@ public class BooksScreen
   }
 
   @Override
-  public void handleBookSelection(@Nullable final EntityBook book) {
+  public void handleBookSelection(@Nullable final Book book) {
     Log.d(TAG, "handleBookSelection:");
 
     if (book == null) {

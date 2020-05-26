@@ -9,11 +9,11 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.data.Book;
 import com.andrewchelladurai.simplebible.data.DbSetupWorker;
 import com.andrewchelladurai.simplebible.data.SbDatabase;
 import com.andrewchelladurai.simplebible.data.dao.SbDao;
 import com.andrewchelladurai.simplebible.data.entities.EntityBook;
-import com.andrewchelladurai.simplebible.utils.Utils;
 
 import java.util.List;
 import java.util.UUID;
@@ -68,12 +68,12 @@ public class SetupViewModel
     return dao.getAllBookRecords();
   }
 
-  public void updateCacheBooks(@NonNull final List<EntityBook> bookList) {
-    Utils.getInstance().updateCacheBooks(bookList);
+  public void updateCacheBooks(@NonNull final List<Book> bookList) {
+    Book.updateCacheBooks(bookList);
   }
 
   public boolean isCacheUpdated() {
-    return Utils.getInstance().isCacheUpdated();
+    return Book.isCacheUpdated();
   }
 
 }

@@ -18,7 +18,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.entities.EntityBook;
+import com.andrewchelladurai.simplebible.data.Book;
 import com.andrewchelladurai.simplebible.data.entities.EntityBookmark;
 import com.andrewchelladurai.simplebible.model.BookmarksViewModel;
 import com.andrewchelladurai.simplebible.ui.adapter.BookmarksAdapter;
@@ -158,7 +158,7 @@ public class BookmarksScreen
         return;
       }
 
-      final EntityBook book = Utils.getInstance().getCachedBook(verse.getBook());
+      final Book book = Book.getCachedBook(verse.getBook());
       if (book == null) {
         Log.e(TAG, "getFirstVerseOfBookmark: ",
               new IllegalArgumentException("null book for verse reference[" + verse + "]"));

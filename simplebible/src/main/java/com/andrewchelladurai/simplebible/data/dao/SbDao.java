@@ -9,10 +9,10 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import com.andrewchelladurai.simplebible.data.Book;
 import com.andrewchelladurai.simplebible.data.entities.EntityBook;
 import com.andrewchelladurai.simplebible.data.entities.EntityBookmark;
 import com.andrewchelladurai.simplebible.data.entities.EntityVerse;
-import com.andrewchelladurai.simplebible.utils.Utils;
 
 import java.util.List;
 
@@ -55,14 +55,14 @@ public interface SbDao {
 
   @Query("select * from sb_verses "
          + "where book=:bookNum and chapter=:chapterNum and verse=:verseNumb")
-  LiveData<EntityVerse> getVerse(@IntRange(from = 1, to = Utils.MAX_BOOKS) final int bookNum,
+  LiveData<EntityVerse> getVerse(@IntRange(from = 1, to = Book.MAX_BOOKS) final int bookNum,
                                  @IntRange(from = 1) final int chapterNum,
                                  @IntRange(from = 1) final int verseNumb);
 
   @Query("select * from sb_verses "
          + "where book=:bookNum and chapter=:chapterNum order by verse asc")
   LiveData<List<EntityVerse>> getChapter(
-      @IntRange(from = 1, to = Utils.MAX_BOOKS) final int bookNum,
+      @IntRange(from = 1, to = Book.MAX_BOOKS) final int bookNum,
       @IntRange(from = 1) final int chapterNum);
 
   @Query("select * from sb_verses where lower(text) like lower(:text)")

@@ -1,5 +1,6 @@
 package com.andrewchelladurai.simplebible.ui.adapter;
 
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,7 @@ import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewchelladurai.simplebible.R;
-import com.andrewchelladurai.simplebible.data.entities.EntityBook;
+import com.andrewchelladurai.simplebible.data.Book;
 import com.andrewchelladurai.simplebible.ui.ops.BookListScreenOps;
 import com.andrewchelladurai.simplebible.utils.Utils;
 
@@ -24,7 +25,7 @@ public class BooksAdapter
   private static final String TAG = "BooksAdapter";
 
   @NonNull
-  private static final ArrayList<Integer> BOOK_NUMBER_LIST = new ArrayList<>(Utils.MAX_BOOKS);
+  private static final ArrayList<Integer> BOOK_NUMBER_LIST = new ArrayList<>(Book.MAX_BOOKS);
 
   @NonNull
   private final BookListScreenOps ops;
@@ -48,11 +49,11 @@ public class BooksAdapter
 
     final Utils utils = Utils.getInstance();
     final boolean showAll = text.isEmpty();
-    final Set<Integer> cachedBookList = utils.getCachedBookList();
-    EntityBook book;
+    final Set<Integer> cachedBookList = Book.getCachedBookList();
+    Book book;
 
     for (final Integer integer : cachedBookList) {
-      book = utils.getCachedBook(integer);
+      book = Book.getCachedBook(integer);
       if (book == null) {
         continue;
       }
@@ -69,7 +70,7 @@ public class BooksAdapter
   @Override
   public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
     ((BookListItemView) holder)
-        .updateContent(Utils.getInstance().getCachedBook(BOOK_NUMBER_LIST.get(position)));
+        .updateContent(Book.getCachedBook(BOOK_NUMBER_LIST.get(position)));
   }
 
   @Override
@@ -85,7 +86,7 @@ public class BooksAdapter
     private final TextView detailsView;
 
     @Nullable
-    private EntityBook book = null;
+    private Book book = null;
 
     BookListItemView(final View view) {
       super(view);
@@ -95,7 +96,7 @@ public class BooksAdapter
       detailsView = view.findViewById(R.id.item_book_details);
     }
 
-    private void updateContent(@Nullable final EntityBook book) {
+    private void updateContent(@Nullable final Book book) {
       this.book = book;
       if (book == null) {
         nameView.setText(R.string.scr_books_empty_book_name);
@@ -103,16 +104,14 @@ public class BooksAdapter
         return;
       }
 
+      final Resources resources = nameView.getContext().getResources();
       nameView.setText(book.getName());
-      detailsView.setText(HtmlCompat.fromHtml(nameView.getContext()
-                                                      .getResources()
-                                                      .getQuantityString(
-                                                          R.plurals.scr_books_list_item_template_details,
-                                                          book.getChapters(),
-                                                          book.getVerses(),
-                                                          book.getChapters(),
-                                                          book.getDescription()),
-                                              HtmlCompat.FROM_HTML_MODE_COMPACT));
+      detailsView.setText(HtmlCompat.fromHtml(resources.getQuantityString(
+          R.plurals.scr_books_list_item_template_details,
+          book.getChapters(),
+          book.getVerses(),
+          book.getChapters(),
+          book.getDescription()), HtmlCompat.FROM_HTML_MODE_COMPACT));
     }
 
   }
