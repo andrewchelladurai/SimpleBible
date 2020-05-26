@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.model.Book;
 import com.andrewchelladurai.simplebible.ui.ops.BookListScreenOps;
-import com.andrewchelladurai.simplebible.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -47,7 +46,6 @@ public class BooksAdapter
   public void filterList(@NonNull final String text) {
     BOOK_NUMBER_LIST.clear();
 
-    final Utils utils = Utils.getInstance();
     final boolean showAll = text.isEmpty();
     final Set<Integer> cachedBookList = Book.getCachedBookList();
     Book book;

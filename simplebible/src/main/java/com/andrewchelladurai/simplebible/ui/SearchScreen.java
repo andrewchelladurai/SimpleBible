@@ -22,12 +22,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.db.entities.EntityVerse;
 import com.andrewchelladurai.simplebible.model.Book;
+import com.andrewchelladurai.simplebible.model.Bookmark;
 import com.andrewchelladurai.simplebible.model.Verse;
 import com.andrewchelladurai.simplebible.model.view.SearchViewModel;
 import com.andrewchelladurai.simplebible.ui.adapter.SearchResultAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.SearchScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
-import com.andrewchelladurai.simplebible.utils.Utils;
 import com.google.android.material.bottomappbar.BottomAppBar;
 
 import java.util.ArrayList;
@@ -145,7 +145,6 @@ public class SearchScreen
         return;
       }
 
-      final Utils utils = Utils.getInstance();
       final Book[] book = new Book[1];
       final ArrayList<Verse> verseList = new ArrayList<>(list.size());
       for (final EntityVerse verse : list) {
@@ -217,7 +216,7 @@ public class SearchScreen
     Log.d(TAG, "handleActionBookmark: [" + set.size() + "] verses selected");
 
     final StringBuilder ref = new StringBuilder();
-    final String separator = Utils.SEPARATOR_BOOKMARK_REFERENCE;
+    final String separator = Bookmark.REFERENCE_SEPARATOR;
 
     for (final Verse verse : set) {
       ref.append(verse.getReference())

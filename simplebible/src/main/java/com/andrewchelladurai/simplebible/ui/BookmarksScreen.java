@@ -20,11 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.db.entities.EntityBookmark;
 import com.andrewchelladurai.simplebible.model.Book;
+import com.andrewchelladurai.simplebible.model.Bookmark;
 import com.andrewchelladurai.simplebible.model.view.BookmarksViewModel;
 import com.andrewchelladurai.simplebible.ui.adapter.BookmarksAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarksScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
-import com.andrewchelladurai.simplebible.utils.Utils;
 
 public class BookmarksScreen
     extends Fragment
@@ -148,8 +148,7 @@ public class BookmarksScreen
     model.getFirstVerseOfBookmark(bookmark).observe(getViewLifecycleOwner(), verse -> {
       final String bookmarkReference = bookmark.getReference();
       final String bookmarkNote = bookmark.getNote();
-      final int verseCount = Utils.getInstance()
-                                  .splitBookmarkReference(bookmarkReference).length;
+      final int verseCount = Bookmark.splitBookmarkReference(bookmarkReference).length;
 
       if (verse == null) {
         Log.e(TAG, "getFirstVerseOfBookmark: ",

@@ -16,7 +16,6 @@ import com.andrewchelladurai.simplebible.db.entities.EntityBookmark;
 import com.andrewchelladurai.simplebible.db.entities.EntityVerse;
 import com.andrewchelladurai.simplebible.model.Bookmark;
 import com.andrewchelladurai.simplebible.model.Verse;
-import com.andrewchelladurai.simplebible.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,12 +53,12 @@ public class BookmarkViewModel
   }
 
   public boolean validateBookmarkReference(@NonNull final String reference) {
-    return Utils.getInstance().validateBookmarkReference(reference);
+    return Bookmark.validateBookmarkReference(reference);
   }
 
   @NonNull
   public String[] getVersesForBookmarkReference(@NonNull final String reference) {
-    return Utils.getInstance().splitBookmarkReference(reference);
+    return Bookmark.splitBookmarkReference(reference);
   }
 
   @NonNull

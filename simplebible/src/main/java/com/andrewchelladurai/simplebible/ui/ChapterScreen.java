@@ -19,13 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.andrewchelladurai.simplebible.R;
 import com.andrewchelladurai.simplebible.db.entities.EntityVerse;
 import com.andrewchelladurai.simplebible.model.Book;
+import com.andrewchelladurai.simplebible.model.Bookmark;
 import com.andrewchelladurai.simplebible.model.Verse;
 import com.andrewchelladurai.simplebible.model.view.ChapterViewModel;
 import com.andrewchelladurai.simplebible.ui.adapter.ChapterNumberAdapter;
 import com.andrewchelladurai.simplebible.ui.adapter.ChapterVerseAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
-import com.andrewchelladurai.simplebible.utils.Utils;
 import com.google.android.material.bottomappbar.BottomAppBar;
 
 import java.util.ArrayList;
@@ -161,7 +161,7 @@ public class ChapterScreen
       return true;
     }
 
-    final String reference = Utils.getInstance().createBookmarkReference(list);
+    final String reference = Bookmark.createBookmarkReference(list);
     final Bundle bundle = new Bundle();
     bundle.putString(BookmarkScreen.ARG_STR_REFERENCE, reference);
     NavHostFragment.findNavController(this)

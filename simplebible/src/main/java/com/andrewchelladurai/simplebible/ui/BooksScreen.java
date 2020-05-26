@@ -22,7 +22,6 @@ import com.andrewchelladurai.simplebible.model.view.BooksViewModel;
 import com.andrewchelladurai.simplebible.ui.adapter.BooksAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BookListScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
-import com.andrewchelladurai.simplebible.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -105,7 +104,6 @@ public class BooksScreen
   private void updateContent() {
     Log.d(TAG, "updateContent:");
 
-    final Utils utils = Utils.getInstance();
     final Set<Integer> books = Book.getCachedBookList();
 
     if (books.size() != Book.MAX_BOOKS) {
