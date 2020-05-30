@@ -13,8 +13,6 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
@@ -37,7 +35,6 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class BookmarkScreen
@@ -285,17 +282,7 @@ public class BookmarkScreen
     }
 
     // use the verse references to get the individual verses
-    final LiveData<List<EntityVerse>> verses = model.getVerses(verseReferenceList);
-    if (verses == null) {
-      ops.showErrorScreen(getString(R.string.scr_bookmark_msg_no_verse_found, reference),
-                          true, true);
-      return;
-    }
-
-    final LifecycleOwner lifeOwner = getViewLifecycleOwner();
-
-    // if we have a valid live data object, observe it
-    verses.observe(lifeOwner, list -> {
+    model.getVerses(verseReferenceList).observe(getViewLifecycleOwner(), list -> {
       if (list == null || list.isEmpty()) {
         ops.showErrorScreen(getString(R.string.scr_bookmark_msg_no_verse_found, reference),
                             true, true);
@@ -314,7 +301,7 @@ public class BookmarkScreen
       }
 
       // get the bookmark from the database using the bookmark reference
-      model.getBookmarkForReference(reference).observe(lifeOwner, bookmark -> {
+      model.getBookmarkForReference(reference).observe(getViewLifecycleOwner(), bookmark -> {
 
         if (bookmark != null) {
           model.setCachedBookmark(new Bookmark(bookmark, verseList));
@@ -326,7 +313,6 @@ public class BookmarkScreen
 
       });
     });
-
   }
 
   private void handleActionDelete() {
