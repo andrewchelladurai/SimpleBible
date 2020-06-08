@@ -147,6 +147,7 @@
 
     <string name="scr_settings_err_not_found_license">Failed to show Licenses</string>
     <string name="scr_settings_err_not_found_about">Failed to show About</string>
+    <string name="scr_settings_msg_empty_bookmarks">No Bookmarks saved.</string>
 
     <!-- Book List Screen -->
     <string name="scr_books_search_hint">Search book name</string>

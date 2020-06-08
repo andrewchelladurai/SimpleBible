@@ -27,8 +27,15 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
 import com.andrewchelladurai.simplebible.R;
+import com.andrewchelladurai.simplebible.db.entities.EntityBookmark;
+import com.andrewchelladurai.simplebible.db.entities.EntityVerse;
+import com.andrewchelladurai.simplebible.model.Book;
+import com.andrewchelladurai.simplebible.model.Bookmark;
+import com.andrewchelladurai.simplebible.model.Verse;
 import com.andrewchelladurai.simplebible.model.view.SettingsViewModel;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
+
+import java.util.ArrayList;
 
 public class SettingsScreen
     extends PreferenceFragmentCompat {
@@ -302,7 +309,47 @@ public class SettingsScreen
   private void handlePreferenceClickExport() {
     Log.d(TAG, "handlePreferenceClickExport:");
     // TODO: 26/5/20 implement this functionality
-    Log.e(TAG, "handlePreferenceClickExport: ", new UnsupportedOperationException());
+
+    final ArrayList<Bookmark> bookmarks = new ArrayList<>(0);
+
+    model.getAllBookmarks().observe(this, list -> {
+      if (list == null || list.isEmpty()) {
+        ops.showMessage(getString(R.string.scr_settings_msg_empty_bookmarks), R.id.main_nav_bar);
+        return;
+      }
+
+      final String[][] bookmarkVerseReferences = new String[1][1];
+      final ArrayList<Verse> bookmarkVerses = new ArrayList<>(0);
+      final Book[] cachedBook = new Book[1];
+
+      for (final EntityBookmark entityBookmark : list) {
+
+        bookmarkVerses.clear();
+        bookmarkVerseReferences[0] = Bookmark.splitBookmarkReference(entityBookmark.getReference());
+
+        model.getBookmarkVerses(bookmarkVerseReferences[0]).observe(this, verseList -> {
+
+          if (verseList == null || verseList.isEmpty()) {
+            Log.e(TAG, "handlePreferenceClickExport: ", new NullPointerException(
+                "no verses found for bookmark reference[" + bookmarkVerseReferences[0][0] + "]"));
+            return;
+          }
+
+          for (final EntityVerse entityVerse : verseList) {
+            cachedBook[0] = Book.getCachedBook(entityVerse.getBook());
+            if (cachedBook[0] == null) {
+              Log.e(TAG, "handlePreferenceClickExport: ", new NullPointerException(
+                  "No book found for verse [" + entityVerse + "]"
+              ));
+              continue;
+            }
+            bookmarkVerses.add(new Verse(entityVerse, cachedBook[0]));
+          }
+          bookmarks.add(new Bookmark(entityBookmark, bookmarkVerses));
+          Log.d(TAG, "handlePreferenceClickExport: now we have [" + bookmarks.size() + "] records");
+        });
+      }
+    });
   }
 
   private class ChangeHandler
