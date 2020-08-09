@@ -184,6 +184,11 @@
         <item quantity="one"><![CDATA[Only <b>%d verse</b> has<b>\"%s\"</b>]]></item>
         <item quantity="other"><![CDATA[<b>%d verses</b> has<b>\"%s\"</b>]]></item>
     </plurals>
+    <plurals name="scr_search_title_template_selected_count">
+        <item quantity="one">%d result selected</item>
+        <item quantity="zero">%d result selected</item>
+        <item quantity="other">%d results selected</item>
+    </plurals>
 
     <!--    <string name="scr_search_title_template"><![CDATA[<b>%d verse(s)</b> has<b>\"%s\"</b>]]></string>-->
     <string name="scr_search_result_template"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>

@@ -34,8 +34,8 @@ import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class SearchScreen
-    extends Fragment
-    implements SearchScreenOps {
+  extends Fragment
+  implements SearchScreenOps {
 
   private static final String TAG = "SearchScreen";
 
@@ -57,9 +57,9 @@ public class SearchScreen
       throw new ClassCastException(TAG + " onAttach: [Context] must implement [SimpleBibleOps]");
     }
 
-    model = ViewModelProvider.AndroidViewModelFactory
-                .getInstance(requireActivity().getApplication())
-                .create(SearchViewModel.class);
+    model = ViewModelProvider.AndroidViewModelFactory.getInstance(
+      requireActivity().getApplication())
+                                                     .create(SearchViewModel.class);
     adapter = new SearchResultAdapter(this, getString(R.string.scr_search_result_template));
   }
 
@@ -69,9 +69,9 @@ public class SearchScreen
     ops.showNavigationView();
     rootView = inflater.inflate(R.layout.search_screen, container, false);
 
-    ((TextView) rootView.findViewById(R.id.scr_search_help_text))
-        .setText(HtmlCompat.fromHtml(getString(R.string.scr_search_help_text),
-                                     HtmlCompat.FROM_HTML_MODE_COMPACT));
+    ((TextView) rootView.findViewById(R.id.scr_search_help_text)).setText(
+      HtmlCompat.fromHtml(getString(R.string.scr_search_help_text),
+                          HtmlCompat.FROM_HTML_MODE_COMPACT));
 
     ((RecyclerView) rootView.findViewById(R.id.scr_search_list)).setAdapter(adapter);
 
@@ -108,7 +108,8 @@ public class SearchScreen
           handleActionShare();
           return true;
         case R.id.scr_search_menu_action_search:
-          final String text = searchView.getQuery().toString();
+          final String text = searchView.getQuery()
+                                        .toString();
           final boolean valid = validateSearchText(text);
           if (valid) {
             handleActionSearch(text);
@@ -123,8 +124,8 @@ public class SearchScreen
       }
     });
 
-    Log.d(TAG, "onCreateView: savedState [" + (savedState == null) + "]\n"
-               + "cachedResultCount [" + (model.getResultCount()) + "]");
+    Log.d(TAG, "onCreateView: savedState [" + (savedState == null) + "]\n" + "cachedResultCount ["
+               + (model.getResultCount()) + "]");
 
     if (model.getResultCount() < 1) {
       handleActionReset();
@@ -138,31 +139,32 @@ public class SearchScreen
   private void handleActionSearch(@NonNull final String text) {
     Log.d(TAG, "handleActionSearch: text = [" + text + "]");
 
-    model.findVersesContainingText(text).observe(getViewLifecycleOwner(), list -> {
+    model.findVersesContainingText(text)
+         .observe(getViewLifecycleOwner(), list -> {
 
-      if (list == null || list.isEmpty()) {
-        showHelpText();
-        return;
-      }
+           if (list == null || list.isEmpty()) {
+             showHelpText();
+             return;
+           }
 
-      final Book[] book = new Book[1];
-      final ArrayList<Verse> verseList = new ArrayList<>(list.size());
-      for (final EntityVerse verse : list) {
+           final Book[] book = new Book[1];
+           final ArrayList<Verse> verseList = new ArrayList<>(list.size());
+           for (final EntityVerse verse : list) {
 
-        book[0] = Book.getCachedBook(verse.getBook());
-        if (book[0] == null) {
-          Log.e(TAG, "handleActionSearch: no book found for verse [" + verse + "]");
-          continue;
-        }
+             book[0] = Book.getCachedBook(verse.getBook());
+             if (book[0] == null) {
+               Log.e(TAG, "handleActionSearch: no book found for verse [" + verse + "]");
+               continue;
+             }
 
-        verseList.add(new Verse(verse, book[0]));
+             verseList.add(new Verse(verse, book[0]));
 
-      }
+           }
 
-      model.updateContent(verseList, text);
-      showSearchResults(text, list.size());
+           model.updateContent(verseList, text);
+           showSearchResults(text, list.size());
 
-    });
+         });
 
   }
 
@@ -255,68 +257,94 @@ public class SearchScreen
     final StringBuilder verseText = new StringBuilder();
 
     for (final Verse verse : set) {
-      verseText.append(verse.getFormattedContentForSearchResult(verseTemplate).toString())
+      verseText.append(verse.getFormattedContentForSearchResult(verseTemplate)
+                            .toString())
                .append("\n");
     }
 
-    ops.shareText(getString(R.string.scr_search_result_share_template,
-                            set.size(),
-                            model.getCachedText(),
-                            verseText.toString()));
+    ops.shareText(
+      getString(R.string.scr_search_result_share_template, set.size(), model.getCachedText(),
+                verseText.toString()));
   }
 
-  private void showSearchResults(@NonNull final String text,
-                                 @IntRange(from = 0) final int count) {
-    Log.d(TAG, "showSearchResults: text = [" + text + "], count = [" + count + "]");
+  private void showSearchResults(@NonNull final String searchText,
+                                 @IntRange(from = 0) final int resultCount) {
+    Log.d(TAG,
+          "showSearchResults: text = [" + searchText + "], resultCount = [" + resultCount + "]");
 
-    final Menu menu =
-        ((BottomAppBar) rootView.findViewById(R.id.scr_search_bottom_app_bar)).getMenu();
-    menu.findItem(R.id.scr_search_menu_action_search).setVisible(false);
-    menu.findItem(R.id.scr_search_menu_action_reset).setVisible(true);
+    final Menu menu = ((BottomAppBar) rootView.findViewById(
+      R.id.scr_search_bottom_app_bar)).getMenu();
+    menu.findItem(R.id.scr_search_menu_action_search)
+        .setVisible(false);
+    menu.findItem(R.id.scr_search_menu_action_reset)
+        .setVisible(true);
     updateSelectionActionsState();
 
     final TextView titleView = rootView.findViewById(R.id.scr_search_title);
-
-    final String unformattedHtmlTitle = getResources().getQuantityString(
-        R.plurals.scr_search_title_template, count, count,
-        (text.length() <= 13) ? text : text.substring(0, 13) + "...");
-    titleView.setText(HtmlCompat.fromHtml(unformattedHtmlTitle, HtmlCompat.FROM_HTML_MODE_COMPACT));
-
+    showTitleMain(titleView, searchText, resultCount);
     titleView.setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scr_search_list).setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scr_search_input).setVisibility(View.INVISIBLE);
-    rootView.findViewById(R.id.scr_search_contain_help_text).setVisibility(View.GONE);
+
+    rootView.findViewById(R.id.scr_search_list)
+            .setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scr_search_input)
+            .setVisibility(View.INVISIBLE);
+    rootView.findViewById(R.id.scr_search_contain_help_text)
+            .setVisibility(View.GONE);
 
     adapter.notifyDataSetChanged();
+  }
+
+  private void showTitleMain(@NonNull final TextView titleView, @NonNull String searchText,
+                             @IntRange(from = 0) final int resultCount) {
+    int strTemplateId = R.plurals.scr_search_title_template;
+    final String textPart = (searchText.length() <= 15) ? searchText : searchText.substring(0, 13)
+                                                                       + "...";
+    final String quantityString = getResources().getQuantityString(strTemplateId, resultCount);
+    final String unformattedTitle = String.format(quantityString, resultCount, textPart);
+    titleView.setText(HtmlCompat.fromHtml(unformattedTitle, HtmlCompat.FROM_HTML_MODE_COMPACT));
   }
 
   private void showHelpText() {
     Log.d(TAG, "showHelpText:");
 
-    final Menu menu =
-        ((BottomAppBar) rootView.findViewById(R.id.scr_search_bottom_app_bar)).getMenu();
-    menu.findItem(R.id.scr_search_menu_action_search).setVisible(true);
-    menu.findItem(R.id.scr_search_menu_action_reset).setVisible(false);
+    final Menu menu = ((BottomAppBar) rootView.findViewById(
+      R.id.scr_search_bottom_app_bar)).getMenu();
+    menu.findItem(R.id.scr_search_menu_action_search)
+        .setVisible(true);
+    menu.findItem(R.id.scr_search_menu_action_reset)
+        .setVisible(false);
     updateSelectionActionsState();
 
     final TextView titleView = rootView.findViewById(R.id.scr_search_title);
     titleView.setText("");
 
     titleView.setVisibility(View.INVISIBLE);
-    rootView.findViewById(R.id.scr_search_list).setVisibility(View.GONE);
-    rootView.findViewById(R.id.scr_search_input).setVisibility(View.VISIBLE);
-    rootView.findViewById(R.id.scr_search_contain_help_text).setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scr_search_list)
+            .setVisibility(View.GONE);
+    rootView.findViewById(R.id.scr_search_input)
+            .setVisibility(View.VISIBLE);
+    rootView.findViewById(R.id.scr_search_contain_help_text)
+            .setVisibility(View.VISIBLE);
   }
 
   @Override
   public void updateSelectionActionsState() {
-    final boolean showActions = model.getSelectedList().size() > 0;
-    final Menu menu =
-        ((BottomAppBar) rootView.findViewById(R.id.scr_search_bottom_app_bar)).getMenu();
+    int selectedCount = model.getSelectedList()
+                             .size();
+
+    final boolean showActions = selectedCount > 0;
+    final Menu menu = ((BottomAppBar) rootView.findViewById(
+      R.id.scr_search_bottom_app_bar)).getMenu();
     menu.setGroupVisible(R.id.scr_search_menu_group_selected, showActions);
 
-    rootView.findViewById(R.id.scr_search_title)
-            .setVisibility((showActions) ? View.GONE : View.VISIBLE);
+    final TextView titleView = rootView.findViewById(R.id.scr_search_title);
+    if (showActions) {
+      final String quantityString = getResources().getQuantityString(
+        R.plurals.scr_search_title_template_selected_count, selectedCount);
+      titleView.setText(String.format(quantityString, selectedCount));
+    } else {
+      showTitleMain(titleView, model.getCachedText(), model.getResultCount());
+    }
   }
 
   @Override
