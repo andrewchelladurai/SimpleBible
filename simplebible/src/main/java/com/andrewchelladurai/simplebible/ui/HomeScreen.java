@@ -27,8 +27,8 @@ import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 import java.util.Calendar;
 
 public class HomeScreen
-    extends Fragment
-    implements HomeScreenOps {
+  extends Fragment
+  implements HomeScreenOps {
 
   private static final String TAG = "HomeScreen";
 
@@ -51,9 +51,9 @@ public class HomeScreen
       throw new ClassCastException(TAG + " onAttach: [Context] must implement [SimpleBibleOps]");
     }
 
-    model = ViewModelProvider.AndroidViewModelFactory
-                .getInstance(requireActivity().getApplication())
-                .create(HomeViewModel.class);
+    model = ViewModelProvider.AndroidViewModelFactory.getInstance(
+      requireActivity().getApplication())
+                                                     .create(HomeViewModel.class);
   }
 
   @Override
@@ -72,10 +72,11 @@ public class HomeScreen
 
     if (null == DEFAULT_REFERENCE) {
       final Resources resources = getResources();
-      DEFAULT_REFERENCE = Verse.createReference(
-          resources.getInteger(R.integer.default_book_number),
-          resources.getInteger(R.integer.default_chapter_number),
-          resources.getInteger(R.integer.default_verse_number));
+      DEFAULT_REFERENCE = Verse.createReference(resources.getInteger(R.integer.default_book_number),
+                                                resources.getInteger(
+                                                  R.integer.default_chapter_number),
+                                                resources.getInteger(
+                                                  R.integer.default_verse_number));
       Log.d(TAG, "onCreateView: DEFAULT_VERSE_REFERENCE[" + DEFAULT_REFERENCE + "]");
     }
 
@@ -85,10 +86,10 @@ public class HomeScreen
   }
 
   private void updateContent(@NonNull final String verseReference) {
-    Log.d(TAG, "updateContent: verseReference = [" + verseReference + "]");
-
     final String[] reference = {verseReference};
-    final int dayNo = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+    final int dayNo = Calendar.getInstance()
+                              .get(Calendar.DAY_OF_YEAR);
+    Log.d(TAG, "updateContent: reference = [" + verseReference + "], dayNo[" + dayNo + "]");
 
     if (verseReference.isEmpty()) {
       final Verse cachedVerse = model.getCachedVerse();
@@ -120,35 +121,37 @@ public class HomeScreen
       return;
     }
 
-    model.getVerse(parts[0], parts[1], parts[2]).observe(getViewLifecycleOwner(), verse -> {
-      if (verse == null) {
-        Log.e(TAG, "updateContent:",
-              new IllegalArgumentException("no verse found for reference[" + reference[0] + "]"));
-        updateContent(DEFAULT_REFERENCE);
-        return;
-      }
+    model.getVerse(parts[0], parts[1], parts[2])
+         .observe(getViewLifecycleOwner(), verse -> {
+           if (verse == null) {
+             Log.e(TAG, "updateContent:", new IllegalArgumentException(
+               "no verse found for reference[" + reference[0] + "]"));
+             updateContent(DEFAULT_REFERENCE);
+             return;
+           }
 
-      final Book book = Book.getCachedBook(verse.getBook());
-      if (book == null) {
-        Log.e(TAG, "updateContent:",
-              new IllegalArgumentException("no book found for reference[" + reference[0] + "]"));
-        updateContent(DEFAULT_REFERENCE);
-        return;
-      }
+           final Book book = Book.getCachedBook(verse.getBook());
+           if (book == null) {
+             Log.e(TAG, "updateContent:", new IllegalArgumentException(
+               "no book found for reference[" + reference[0] + "]"));
+             updateContent(DEFAULT_REFERENCE);
+             return;
+           }
 
-      final Verse dailyVerse = new Verse(verse, book);
+           final Verse dailyVerse = new Verse(verse, book);
 
-      model.setCachedVerse(dailyVerse);
-      model.setCachedVerseDay(dayNo);
-      displayVerse(dailyVerse);
+           model.setCachedVerse(dailyVerse);
+           model.setCachedVerseDay(dayNo);
+           displayVerse(dailyVerse);
 
-    });
+         });
   }
 
   private void displayVerse(@NonNull final Verse verse) {
     Book book = verse.getBook();
 
-    if (verse.getReference().equalsIgnoreCase(DEFAULT_REFERENCE)) {
+    if (verse.getReference()
+             .equalsIgnoreCase(DEFAULT_REFERENCE)) {
       Log.d(TAG, "displayVerse: displaying defaultReference[" + DEFAULT_REFERENCE + "]");
       displayDefaultVerse();
       return;
@@ -156,12 +159,9 @@ public class HomeScreen
 
     Log.d(TAG, "displayVerse: displaying reference[" + verse.getReference() + "]");
     final String formattedText = String.format(getString(R.string.scr_home_verse_template),
-                                               book.getName(),
-                                               verse.getChapterNumber(),
-                                               verse.getVerseNumber(),
-                                               verse.getVerseText());
-    final Spanned htmlText = HtmlCompat.fromHtml(formattedText,
-                                                 HtmlCompat.FROM_HTML_MODE_COMPACT);
+                                               book.getName(), verse.getChapterNumber(),
+                                               verse.getVerseNumber(), verse.getVerseText());
+    final Spanned htmlText = HtmlCompat.fromHtml(formattedText, HtmlCompat.FROM_HTML_MODE_COMPACT);
     final TextView textView = rootView.findViewById(R.id.scr_home_verse);
     textView.setText(htmlText);
   }
@@ -175,15 +175,15 @@ public class HomeScreen
   }
 
   private void handleActionBookmark() {
-    Log.d(TAG, "handleActionBookmark:");
     final Verse verse = model.getCachedVerse();
-    if (verse == null) {
+    if (null == verse) {
       Log.e(TAG, "handleActionBookmark: null cached verse");
       return;
     }
 
     final Bundle bundle = new Bundle();
     bundle.putString(BookmarkScreen.ARG_STR_REFERENCE, verse.getReference());
+    Log.d(TAG, "handleActionBookmark: ARG_STR_REFERENCE [" + verse.getReference() + "]");
     NavHostFragment.findNavController(this)
                    .navigate(R.id.nav_from_scr_home_to_scr_bookmark, bundle);
   }

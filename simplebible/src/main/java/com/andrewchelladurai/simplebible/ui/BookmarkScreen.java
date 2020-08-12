@@ -38,8 +38,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class BookmarkScreen
-    extends Fragment
-    implements BookmarkScreenOps {
+  extends Fragment
+  implements BookmarkScreenOps {
 
   private static final String TAG = "BookmarkScreen";
 
@@ -64,12 +64,11 @@ public class BookmarkScreen
       throw new ClassCastException(TAG + " onAttach: [Context] must implement [SimpleBibleOps]");
     }
 
-    model = ViewModelProvider.AndroidViewModelFactory
-                .getInstance(requireActivity().getApplication())
-                .create(BookmarkViewModel.class);
+    model = ViewModelProvider.AndroidViewModelFactory.getInstance(
+      requireActivity().getApplication())
+                                                     .create(BookmarkViewModel.class);
 
-    adapter = new BookmarkAdapter(this,
-                                  getString(R.string.scr_bookmark_template_verse_item));
+    adapter = new BookmarkAdapter(this, getString(R.string.scr_bookmark_template_verse_item));
   }
 
   @Override
@@ -80,26 +79,26 @@ public class BookmarkScreen
 
     rootView = inflater.inflate(R.layout.bookmark_screen, container, false);
 
-    ((BottomAppBar) rootView.findViewById(R.id.scr_bookmark_app_bar))
-        .setOnMenuItemClickListener(item -> {
-          switch (item.getItemId()) {
-            case R.id.scr_bookmark_menu_action_save:
-              handleActionSave();
-              return true;
-            case R.id.scr_bookmark_menu_action_delete:
-              handleActionDelete();
-              return true;
-            case R.id.scr_bookmark_menu_action_edit:
-              handleActionEdit();
-              return true;
-            case R.id.scr_bookmark_menu_action_share:
-              handleActionShare();
-              return true;
-            default:
-              Log.e(TAG, "onCreateView: unknown Menu item [" + item.getTitle() + "] captured");
-              return false;
-          }
-        });
+    ((BottomAppBar) rootView.findViewById(R.id.scr_bookmark_app_bar)).setOnMenuItemClickListener(
+      item -> {
+        switch (item.getItemId()) {
+          case R.id.scr_bookmark_menu_action_save:
+            handleActionSave();
+            return true;
+          case R.id.scr_bookmark_menu_action_delete:
+            handleActionDelete();
+            return true;
+          case R.id.scr_bookmark_menu_action_edit:
+            handleActionEdit();
+            return true;
+          case R.id.scr_bookmark_menu_action_share:
+            handleActionShare();
+            return true;
+          default:
+            Log.e(TAG, "onCreateView: unknown Menu item [" + item.getTitle() + "] captured");
+            return false;
+        }
+      });
 
     ((RecyclerView) rootView.findViewById(R.id.scr_bookmark_list)).setAdapter(adapter);
 
@@ -107,14 +106,12 @@ public class BookmarkScreen
 
     if (savedState == null) {
       if (arguments == null) {
-        ops.showErrorScreen(getString(R.string.scr_bookmark_msg_empty_args),
-                            true, false);
+        ops.showErrorScreen(getString(R.string.scr_bookmark_msg_empty_args), true, false);
         return rootView;
       }
 
       if (!arguments.containsKey(ARG_STR_REFERENCE)) {
-        ops.showErrorScreen(getString(R.string.scr_bookmark_msg_no_reference),
-                            true, false);
+        ops.showErrorScreen(getString(R.string.scr_bookmark_msg_no_reference), true, false);
         return rootView;
       }
 
@@ -130,8 +127,7 @@ public class BookmarkScreen
         if (arguments != null) {
           updateContent(arguments.getString(ARG_STR_REFERENCE, ""));
         } else {
-          ops.showErrorScreen(getString(R.string.scr_bookmark_msg_no_reference),
-                              true, false);
+          ops.showErrorScreen(getString(R.string.scr_bookmark_msg_no_reference), true, false);
           return rootView;
         }
       }
@@ -155,60 +151,52 @@ public class BookmarkScreen
 
     final int taskId = new Random().nextInt();
 
-    final LoaderManager.LoaderCallbacks<Boolean> taskListener =
-        new LoaderManager.LoaderCallbacks<Boolean>() {
+    final LoaderManager.LoaderCallbacks<Boolean> taskListener = new LoaderManager.LoaderCallbacks<Boolean>() {
 
-          @NonNull
-          @Override
-          public Loader<Boolean> onCreateLoader(final int id, @Nullable final Bundle args) {
-            return new AsyncTaskLoader<Boolean>(requireContext()) {
-
-              @Override
-              public Boolean loadInBackground() {
-                return model.saveBookmark(
-                    new EntityBookmark(bookmark.getReference(), note));
-              }
-            };
-          }
+      @NonNull
+      @Override
+      public Loader<Boolean> onCreateLoader(final int id, @Nullable final Bundle args) {
+        return new AsyncTaskLoader<Boolean>(requireContext()) {
 
           @Override
-          public void onLoadFinished(@NonNull final Loader<Boolean> loader,
-                                     final Boolean saved) {
-            if (saved) {
-              updateContent(bookmark.getReference());
-              ops.showMessage(getString(R.string.scr_bookmark_msg_saved),
-                              R.id.scr_bookmark_app_bar);
-            }
-          }
-
-          @Override
-          public void onLoaderReset(@NonNull final Loader<Boolean> loader) {
+          public Boolean loadInBackground() {
+            return model.saveBookmark(new EntityBookmark(bookmark.getReference(), note));
           }
         };
+      }
+
+      @Override
+      public void onLoadFinished(@NonNull final Loader<Boolean> loader, final Boolean saved) {
+        if (saved) {
+          updateContent(bookmark.getReference());
+          ops.showMessage(getString(R.string.scr_bookmark_msg_saved), R.id.scr_bookmark_app_bar);
+        }
+      }
+
+      @Override
+      public void onLoaderReset(@NonNull final Loader<Boolean> loader) {
+      }
+    };
 
     LoaderManager.getInstance(requireActivity())
                  .initLoader(taskId, Bundle.EMPTY, taskListener)
                  .forceLoad();
   }
 
-  private void refreshContent() {
-    Log.d(TAG, "refreshContent:");
-
+  private void refreshContent(final boolean bookmarkExists) {
     final Bookmark bookmark = model.getCachedBookmark();
     final TextInputEditText noteField = rootView.findViewById(R.id.scr_bookmark_note);
     final Chip title = rootView.findViewById(R.id.scr_bookmark_title);
 
     final int verseCount = model.getCachedVerseListSize();
     final String titleCount = getResources().getQuantityString(
-        R.plurals.scr_bookmark_template_title_verse_count, verseCount,
-        verseCount);
+      R.plurals.scr_bookmark_template_title_verse_count, verseCount, verseCount);
 
-    if (bookmark == null) {
+    if (!bookmarkExists && bookmark != null) {
       showActionGroupNew();
       title.setText(getString(R.string.scr_bookmark_template_title,
                               getString(R.string.scr_bookmark_template_title_bookmark_new),
                               titleCount));
-
       noteField.setHint(R.string.scr_bookmark_note_new);
     } else {
       final String note = bookmark.getNote();
@@ -217,9 +205,9 @@ public class BookmarkScreen
       showActionGroupExisting();
       noteField.setEnabled(false);
 
-      final String titleState =
-          getString(emptyNote ? R.string.scr_bookmark_template_title_bookmark_empty
-                              : R.string.scr_bookmark_template_title_bookmark_saved);
+      final String titleState = getString(
+        emptyNote ? R.string.scr_bookmark_template_title_bookmark_empty
+                  : R.string.scr_bookmark_template_title_bookmark_saved);
 
       title.setText(getString(R.string.scr_bookmark_template_title, titleState, titleCount));
 
@@ -235,84 +223,88 @@ public class BookmarkScreen
   }
 
   private void showActionGroupNew() {
-    final Menu menu = ((BottomAppBar) rootView.findViewById(R.id.scr_bookmark_app_bar))
-                          .getMenu();
+    final Menu menu = ((BottomAppBar) rootView.findViewById(R.id.scr_bookmark_app_bar)).getMenu();
     menu.setGroupVisible(R.id.scr_bookmark_menu_group_new, true);
     menu.setGroupVisible(R.id.scr_bookmark_menu_group_existing, false);
   }
 
   private void showActionGroupExisting() {
-    final Menu menu = ((BottomAppBar) rootView.findViewById(R.id.scr_bookmark_app_bar))
-                          .getMenu();
+    final Menu menu = ((BottomAppBar) rootView.findViewById(R.id.scr_bookmark_app_bar)).getMenu();
     menu.setGroupVisible(R.id.scr_bookmark_menu_group_existing, true);
     menu.setGroupVisible(R.id.scr_bookmark_menu_group_new, false);
   }
 
   @NonNull
   private String getNoteFieldText() {
-    final Editable noteField =
-        ((TextInputEditText) rootView.findViewById(R.id.scr_bookmark_note)).getText();
+    final Editable noteField = ((TextInputEditText) rootView.findViewById(
+      R.id.scr_bookmark_note)).getText();
     return (noteField == null) ? "" : noteField.toString();
   }
 
   private void updateContent(@NonNull final String reference) {
     final Bookmark cachedBookmark = model.getCachedBookmark();
 
-    if (cachedBookmark != null
-        && cachedBookmark.getReference().equalsIgnoreCase(reference)) {
+    if (cachedBookmark != null && cachedBookmark.getReference()
+                                                .equalsIgnoreCase(reference)) {
       Log.d(TAG, "updateContent: reference is already cached");
-      refreshContent();
+      refreshContent(true);
       return;
     }
 
     // validate the passed bookmark reference
+    Log.d(TAG, "updateContent: reference = [" + reference + "]");
     if (!model.validateBookmarkReference(reference)) {
-      ops.showErrorScreen(
-          getString(R.string.scr_bookmark_msg_invalid_reference, reference),
-          true, false);
+      ops.showErrorScreen(getString(R.string.scr_bookmark_msg_invalid_reference, reference), true,
+                          false);
       return;
     }
+    Log.d(TAG, "updateContent: validatedBookmarkReference");
 
     // get the references of each verses present in the bookmark reference
     final String[] verseReferenceList = model.getVersesForBookmarkReference(reference);
     if (verseReferenceList.length < 1) {
-      ops.showErrorScreen(getString(R.string.scr_bookmark_msg_no_verse_found, reference),
-                          true, true);
+      ops.showErrorScreen(getString(R.string.scr_bookmark_msg_no_verse_found, reference), true,
+                          true);
       return;
     }
+    Log.d(TAG, "updateContent: verseReferenceList >= 1");
 
     // use the verse references to get the individual verses
-    model.getVerses(verseReferenceList).observe(getViewLifecycleOwner(), list -> {
-      if (list == null || list.isEmpty()) {
-        ops.showErrorScreen(getString(R.string.scr_bookmark_msg_no_verse_found, reference),
-                            true, true);
-        return;
-      }
+    model.getVerses(verseReferenceList)
+         .observe(getViewLifecycleOwner(), list -> {
+           if (list == null || list.isEmpty()) {
+             ops.showErrorScreen(getString(R.string.scr_bookmark_msg_no_verse_found, reference),
+                                 true, true);
+             return;
+           }
 
-      final ArrayList<Verse> verseList = new ArrayList<>(list.size());
-      final Book[] book = new Book[1];
-      for (final EntityVerse verse : list) {
-        book[0] = Book.getCachedBook(verse.getBook());
-        if (book[0] == null) {
-          Log.e(TAG, "updateContent: no book found for verse [" + verse + ", skipping it]");
-          continue;
-        }
-        verseList.add(new Verse(verse, book[0]));
-      }
+           final ArrayList<Verse> verseList = new ArrayList<>(list.size());
+           final Book[] book = new Book[1];
+           for (final EntityVerse verse : list) {
+             book[0] = Book.getCachedBook(verse.getBook());
+             if (book[0] == null) {
+               Log.e(TAG, "updateContent: no book found for verse [" + verse + ", skipping it]");
+               continue;
+             }
+             verseList.add(new Verse(verse, book[0]));
+           }
+           Log.d(TAG, "updateContent: got [" + verseList.size() + "] verses from reference");
 
-      // get the bookmark from the database using the bookmark reference
-      model.getBookmarkForReference(reference).observe(getViewLifecycleOwner(), bookmark -> {
+           // get the bookmark from the database using the bookmark reference
+           model.getBookmarkForReference(reference)
+                .observe(getViewLifecycleOwner(), bookmark -> {
 
-        if (bookmark != null) {
-          model.setCachedBookmark(new Bookmark(bookmark, verseList));
-        } else {
-          model.setCachedBookmark(null);
-        }
-
-        refreshContent();
-
-      });
-    });
+                  final boolean bookmarkExists = bookmark != null;
+                  final Bookmark[] bMark = new Bookmark[1];
+                  if (bookmarkExists) {
+                    bMark[0] = new Bookmark(bookmark, verseList);
+                  } else {
+                    bMark[0] = new Bookmark(new EntityBookmark(reference, ""), verseList);
+                  }
+                  model.setCachedBookmark(bMark[0]);
+                  refreshContent(bookmarkExists);
+                });
+         });
   }
 
   private void handleActionDelete() {
@@ -326,39 +318,36 @@ public class BookmarkScreen
       return;
     }
 
-    final LoaderManager.LoaderCallbacks<Boolean> taskListener =
-        new LoaderManager.LoaderCallbacks<Boolean>() {
+    final LoaderManager.LoaderCallbacks<Boolean> taskListener = new LoaderManager.LoaderCallbacks<Boolean>() {
 
-          @NonNull
-          @Override
-          public Loader<Boolean> onCreateLoader(final int id,
-                                                @Nullable final Bundle args) {
-            return new AsyncTaskLoader<Boolean>(requireContext()) {
-
-              @Override
-              public Boolean loadInBackground() {
-                return model.deleteBookmark(
-                    new EntityBookmark(bookmark.getReference(), bookmark.getNote()));
-              }
-            };
-          }
+      @NonNull
+      @Override
+      public Loader<Boolean> onCreateLoader(final int id, @Nullable final Bundle args) {
+        return new AsyncTaskLoader<Boolean>(requireContext()) {
 
           @Override
-          public void onLoadFinished(@NonNull final Loader<Boolean> loader,
-                                     final Boolean deleted) {
-            if (deleted) {
-              model.clearCache();
-              ops.showMessage(getString(R.string.scr_bookmark_msg_deleted), R.id.main_nav_bar);
-              NavHostFragment.findNavController(BookmarkScreen.this)
-                             .popBackStack();
-            }
-          }
-
-          @Override
-          public void onLoaderReset(@NonNull final Loader<Boolean> loader) {
-
+          public Boolean loadInBackground() {
+            return model.deleteBookmark(
+              new EntityBookmark(bookmark.getReference(), bookmark.getNote()));
           }
         };
+      }
+
+      @Override
+      public void onLoadFinished(@NonNull final Loader<Boolean> loader, final Boolean deleted) {
+        if (deleted) {
+          model.clearCache();
+          ops.showMessage(getString(R.string.scr_bookmark_msg_deleted), R.id.main_nav_bar);
+          NavHostFragment.findNavController(BookmarkScreen.this)
+                         .popBackStack();
+        }
+      }
+
+      @Override
+      public void onLoaderReset(@NonNull final Loader<Boolean> loader) {
+
+      }
+    };
 
     LoaderManager.getInstance(requireActivity())
                  .initLoader(new Random().nextInt(), Bundle.EMPTY, taskListener)
@@ -376,14 +365,15 @@ public class BookmarkScreen
     final ArrayList<String> verseTexts = adapter.getVerseTexts();
     final StringBuilder verses = new StringBuilder();
     for (final String text : verseTexts) {
-      verses.append(text).append("\n");
+      verses.append(text)
+            .append("\n");
     }
 
     ops.shareText(getString(R.string.scr_bookmark_template_share, // template
                             verses.toString(), // transformed verses
-                            (bookmark.getNote().isEmpty()) // note text, use placeholder if empty
-                            ? getString(R.string.scr_bookmark_note_empty)
-                            : bookmark.getNote()));
+                            (bookmark.getNote()
+                                     .isEmpty()) // note text, use placeholder if empty
+                            ? getString(R.string.scr_bookmark_note_empty) : bookmark.getNote()));
   }
 
   @Nullable
@@ -405,10 +395,10 @@ public class BookmarkScreen
     final Chip title = rootView.findViewById(R.id.scr_bookmark_title);
     final int verseCount = model.getCachedVerseListSize();
     final String titleCount = getResources().getQuantityString(
-        R.plurals.scr_bookmark_template_title_verse_count, verseCount,
-        verseCount);
+      R.plurals.scr_bookmark_template_title_verse_count, verseCount, verseCount);
     //noinspection ConstantConditions
-    final String note = model.getCachedBookmark().getNote();
+    final String note = model.getCachedBookmark()
+                             .getNote();
     final boolean emptyNote = note.isEmpty();
 
     title.setText(getString(R.string.scr_bookmark_template_title,
