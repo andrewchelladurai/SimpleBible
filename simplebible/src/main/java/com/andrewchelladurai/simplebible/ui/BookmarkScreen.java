@@ -151,32 +151,33 @@ public class BookmarkScreen
 
     final int taskId = new Random().nextInt();
 
-    final LoaderManager.LoaderCallbacks<Boolean> taskListener = new LoaderManager.LoaderCallbacks<Boolean>() {
+    final LoaderManager.LoaderCallbacks<Boolean> taskListener =
+      new LoaderManager.LoaderCallbacks<Boolean>() {
 
-      @NonNull
-      @Override
-      public Loader<Boolean> onCreateLoader(final int id, @Nullable final Bundle args) {
-        return new AsyncTaskLoader<Boolean>(requireContext()) {
+        @NonNull
+        @Override
+        public Loader<Boolean> onCreateLoader(final int id, @Nullable final Bundle args) {
+          return new AsyncTaskLoader<Boolean>(requireContext()) {
 
-          @Override
-          public Boolean loadInBackground() {
-            return model.saveBookmark(new EntityBookmark(bookmark.getReference(), note));
-          }
-        };
-      }
-
-      @Override
-      public void onLoadFinished(@NonNull final Loader<Boolean> loader, final Boolean saved) {
-        if (saved) {
-          updateContent(bookmark.getReference());
-          ops.showMessage(getString(R.string.scr_bookmark_msg_saved), R.id.scr_bookmark_app_bar);
+            @Override
+            public Boolean loadInBackground() {
+              return model.saveBookmark(new EntityBookmark(bookmark.getReference(), note));
+            }
+          };
         }
-      }
 
-      @Override
-      public void onLoaderReset(@NonNull final Loader<Boolean> loader) {
-      }
-    };
+        @Override
+        public void onLoadFinished(@NonNull final Loader<Boolean> loader, final Boolean saved) {
+          if (saved) {
+            updateContent(bookmark.getReference());
+            ops.showMessage(getString(R.string.scr_bookmark_msg_saved), R.id.scr_bookmark_app_bar);
+          }
+        }
+
+        @Override
+        public void onLoaderReset(@NonNull final Loader<Boolean> loader) {
+        }
+      };
 
     LoaderManager.getInstance(requireActivity())
                  .initLoader(taskId, Bundle.EMPTY, taskListener)
@@ -185,6 +186,14 @@ public class BookmarkScreen
 
   private void refreshContent(final boolean bookmarkExists) {
     final Bookmark bookmark = model.getCachedBookmark();
+
+    if (bookmark == null) {
+      ops.showErrorScreen("Cached Bookmark can not be null", true, true);
+      Log.e(TAG, "refreshContent: cachedBookmark is null",
+            new IllegalStateException("refreshContent: cachedBookmark is null"));
+      return;
+    }
+
     final TextInputEditText noteField = rootView.findViewById(R.id.scr_bookmark_note);
     final Chip title = rootView.findViewById(R.id.scr_bookmark_title);
 
@@ -192,7 +201,7 @@ public class BookmarkScreen
     final String titleCount = getResources().getQuantityString(
       R.plurals.scr_bookmark_template_title_verse_count, verseCount, verseCount);
 
-    if (!bookmarkExists && bookmark != null) {
+    if (!bookmarkExists) {
       showActionGroupNew();
       title.setText(getString(R.string.scr_bookmark_template_title,
                               getString(R.string.scr_bookmark_template_title_bookmark_new),
@@ -318,36 +327,37 @@ public class BookmarkScreen
       return;
     }
 
-    final LoaderManager.LoaderCallbacks<Boolean> taskListener = new LoaderManager.LoaderCallbacks<Boolean>() {
+    final LoaderManager.LoaderCallbacks<Boolean> taskListener =
+      new LoaderManager.LoaderCallbacks<Boolean>() {
 
-      @NonNull
-      @Override
-      public Loader<Boolean> onCreateLoader(final int id, @Nullable final Bundle args) {
-        return new AsyncTaskLoader<Boolean>(requireContext()) {
+        @NonNull
+        @Override
+        public Loader<Boolean> onCreateLoader(final int id, @Nullable final Bundle args) {
+          return new AsyncTaskLoader<Boolean>(requireContext()) {
 
-          @Override
-          public Boolean loadInBackground() {
-            return model.deleteBookmark(
-              new EntityBookmark(bookmark.getReference(), bookmark.getNote()));
-          }
-        };
-      }
-
-      @Override
-      public void onLoadFinished(@NonNull final Loader<Boolean> loader, final Boolean deleted) {
-        if (deleted) {
-          model.clearCache();
-          ops.showMessage(getString(R.string.scr_bookmark_msg_deleted), R.id.main_nav_bar);
-          NavHostFragment.findNavController(BookmarkScreen.this)
-                         .popBackStack();
+            @Override
+            public Boolean loadInBackground() {
+              return model.deleteBookmark(
+                new EntityBookmark(bookmark.getReference(), bookmark.getNote()));
+            }
+          };
         }
-      }
 
-      @Override
-      public void onLoaderReset(@NonNull final Loader<Boolean> loader) {
+        @Override
+        public void onLoadFinished(@NonNull final Loader<Boolean> loader, final Boolean deleted) {
+          if (deleted) {
+            model.clearCache();
+            ops.showMessage(getString(R.string.scr_bookmark_msg_deleted), R.id.main_nav_bar);
+            NavHostFragment.findNavController(BookmarkScreen.this)
+                           .popBackStack();
+          }
+        }
 
-      }
-    };
+        @Override
+        public void onLoaderReset(@NonNull final Loader<Boolean> loader) {
+
+        }
+      };
 
     LoaderManager.getInstance(requireActivity())
                  .initLoader(new Random().nextInt(), Bundle.EMPTY, taskListener)
