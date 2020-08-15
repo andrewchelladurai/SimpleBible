@@ -16,16 +16,19 @@
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/screen_home"
-        android:name="com.andrewchelladurai.simplebible.ui.HomeScreen"
-        android:label="home_fragment"
-        tools:layout="@layout/home_screen">
-        <action
-            android:id="@+id/nav_from_scr_home_to_scr_bookmark"
-            app:destination="@id/screen_bookmark" />
-        <action
-            android:id="@+id/nav_from_scr_home_to_scr_chapter"
-            app:destination="@id/screen_chapter" />
+      android:id="@+id/screen_home"
+      android:name="com.andrewchelladurai.simplebible.ui.HomeScreen"
+      android:label="home_fragment"
+      tools:layout="@layout/home_screen">
+      <action
+        android:id="@+id/nav_from_scr_home_to_scr_bookmark"
+        app:destination="@id/screen_bookmark" />
+      <action
+        android:id="@+id/nav_from_scr_home_to_scr_chapter"
+        app:destination="@id/screen_chapter" />
+      <action
+        android:id="@+id/nav_from_scr_home_to_scr_settings"
+        app:destination="@id/screen_settings" />
     </fragment>
     <fragment
         android:id="@+id/screen_settings"

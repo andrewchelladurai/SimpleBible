@@ -63,6 +63,8 @@ public class HomeScreen
     rootView = inflater.inflate(R.layout.home_screen, container, false);
     ops.showNavigationView();
 
+    rootView.findViewById(R.id.scr_home_action_settings)
+            .setOnClickListener(v -> handleActionSettings());
     rootView.findViewById(R.id.scr_home_action_bookmark)
             .setOnClickListener(v -> handleActionBookmark());
     rootView.findViewById(R.id.scr_home_action_chapter)
@@ -172,6 +174,12 @@ public class HomeScreen
                                                  HtmlCompat.FROM_HTML_MODE_COMPACT);
     final TextView textView = rootView.findViewById(R.id.scr_home_verse);
     textView.setText(htmlText);
+  }
+
+  private void handleActionSettings() {
+    Log.d(TAG, "handleActionSettings:");
+    NavHostFragment.findNavController(this)
+                   .navigate(R.id.nav_from_scr_home_to_scr_settings);
   }
 
   private void handleActionBookmark() {

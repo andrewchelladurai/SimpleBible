@@ -38,7 +38,7 @@ import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 import java.util.ArrayList;
 
 public class SettingsScreen
-    extends PreferenceFragmentCompat {
+  extends PreferenceFragmentCompat {
 
   private static final String TAG = "SettingsScreen";
 
@@ -62,8 +62,8 @@ public class SettingsScreen
     }
 
     model = ViewModelProvider.AndroidViewModelFactory
-                .getInstance(requireActivity().getApplication())
-                .create(SettingsViewModel.class);
+      .getInstance(requireActivity().getApplication())
+      .create(SettingsViewModel.class);
   }
 
   @Override
@@ -105,7 +105,7 @@ public class SettingsScreen
                            @Nullable final ViewGroup container,
                            @Nullable final Bundle savedInstanceState) {
     ops.hideKeyboard();
-    ops.showNavigationView();
+    ops.hideNavigationView();
     return super.onCreateView(inflater, container, savedInstanceState);
   }
 
@@ -124,22 +124,22 @@ public class SettingsScreen
     final Preference prefSection = getPreferenceScreen().findPreference(key);
     if (prefSection == null) {
       Log.e(TAG, "updateSummaryTheme:", new NullPointerException(
-          "No Preference found for key[" + key + "]"));
+        "No Preference found for key[" + key + "]"));
       return;
     }
 
     final String value = getPreferenceManager()
-                             .getSharedPreferences()
-                             .getString(key, getString(R.string.pref_theme_value_system));
-    if (value.equalsIgnoreCase(getString(R.string.pref_theme_value_yes))) {
+      .getSharedPreferences()
+      .getString(key, getString(R.string.pref_theme_value_system));
+    if (getString(R.string.pref_theme_value_yes).equalsIgnoreCase(value)) {
       prefSection.setSummary(R.string.pref_theme_entry_yes);
-    } else if (value.equalsIgnoreCase(getString(R.string.pref_theme_value_no))) {
+    } else if (getString(R.string.pref_theme_value_no).equalsIgnoreCase(value)) {
       prefSection.setSummary(R.string.pref_theme_entry_no);
-    } else if (value.equalsIgnoreCase(getString(R.string.pref_theme_value_system))) {
+    } else if (getString(R.string.pref_theme_value_system).equalsIgnoreCase(value)) {
       prefSection.setSummary(R.string.pref_theme_entry_system);
     } else {
       Log.e(TAG, "updateSummaryTheme:", new IllegalArgumentException(
-          "unknown value[" + value + "] returned for key[" + key + "]"));
+        "unknown value[" + value + "] returned for key[" + key + "]"));
     }
   }
 
@@ -282,20 +282,22 @@ public class SettingsScreen
                                     resources.getInteger(R.integer.default_reminder_time_minute));
     final Context context = requireContext();
     new TimePickerDialog(
-        context,
-        (view, newHour, newMinute) -> {
-          if (newHour != hour || newMinute != minute) {
-            updateDailyVerseReminderTime(newHour, newMinute);
-          }
-        },
-        hour,
-        minute,
-        DateFormat.is24HourFormat(context))
-        .show();
+      context,
+      (view, newHour, newMinute) -> {
+        if (newHour != hour || newMinute != minute) {
+          updateDailyVerseReminderTime(newHour, newMinute);
+        }
+      },
+      hour,
+      minute,
+      DateFormat.is24HourFormat(context))
+      .show();
   }
 
-  private void updateDailyVerseReminderTime(@IntRange(from = 0, to = 23) final int hour,
-                                            @IntRange(from = 0, to = 59) final int minute) {
+  private void updateDailyVerseReminderTime(@IntRange(from = 0,
+                                                      to = 23) final int hour,
+                                            @IntRange(from = 0,
+                                                      to = 59) final int minute) {
     Log.d(TAG, "updateDailyVerseReminderTime:");
     final SharedPreferences.Editor editor = getPreferenceManager().getSharedPreferences().edit();
     editor.putInt(getString(R.string.pref_reminder_time_hour_key), hour);
@@ -331,7 +333,7 @@ public class SettingsScreen
 
           if (verseList == null || verseList.isEmpty()) {
             Log.e(TAG, "handlePreferenceClickExport: ", new NullPointerException(
-                "no verses found for bookmark reference[" + bookmarkVerseReferences[0][0] + "]"));
+              "no verses found for bookmark reference[" + bookmarkVerseReferences[0][0] + "]"));
             return;
           }
 
@@ -339,7 +341,7 @@ public class SettingsScreen
             cachedBook[0] = Book.getCachedBook(entityVerse.getBook());
             if (cachedBook[0] == null) {
               Log.e(TAG, "handlePreferenceClickExport: ", new NullPointerException(
-                  "No book found for verse [" + entityVerse + "]"
+                "No book found for verse [" + entityVerse + "]"
               ));
               continue;
             }
@@ -353,7 +355,7 @@ public class SettingsScreen
   }
 
   private class ChangeHandler
-      implements SharedPreferences.OnSharedPreferenceChangeListener {
+    implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences preferences,
@@ -372,7 +374,7 @@ public class SettingsScreen
   }
 
   private class ClickListener
-      implements PreferenceManager.OnPreferenceTreeClickListener {
+    implements PreferenceManager.OnPreferenceTreeClickListener {
 
     @Override
     public boolean onPreferenceTreeClick(final Preference preference) {

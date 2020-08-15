@@ -21,9 +21,11 @@
         android:icon="@drawable/ic_bookmarks"
         android:title="@string/main_nav_bar_bookmark_list" />
 
+<!--
     <item
         android:id="@+id/screen_settings"
         android:icon="@drawable/ic_settings"
         android:title="@string/main_nav_bar_settings" />
+-->
 
 </menu>
