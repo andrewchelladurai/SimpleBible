@@ -26,11 +26,13 @@
         android:icon="@drawable/ic_previous"
         android:title="@string/scr_chapter_menu_action_previous"
         app:showAsAction="always" />
+<!--
     <item
         android:id="@+id/scr_chapter_menu_action_chapters"
         android:icon="@drawable/ic_menu"
         android:title="@string/scr_chapter_menu_action_chapters"
         app:showAsAction="always" />
+-->
     <item
         android:id="@+id/scr_chapter_menu_action_next"
         android:icon="@drawable/ic_next"

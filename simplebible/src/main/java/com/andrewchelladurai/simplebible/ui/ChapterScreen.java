@@ -32,8 +32,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class ChapterScreen
-    extends Fragment
-    implements ChapterScreenOps {
+  extends Fragment
+  implements ChapterScreenOps {
 
   private static final String TAG = "ChapterScreen";
 
@@ -51,7 +51,8 @@ public class ChapterScreen
 
   private View rootView;
 
-  @IntRange(from = 1, to = Book.MAX_BOOKS)
+  @IntRange(from = 1,
+            to = Book.MAX_BOOKS)
   private int book;
 
   @IntRange(from = 1)
@@ -69,8 +70,8 @@ public class ChapterScreen
     }
 
     model = ViewModelProvider.AndroidViewModelFactory
-                .getInstance(requireActivity().getApplication())
-                .create(ChapterViewModel.class);
+      .getInstance(requireActivity().getApplication())
+      .create(ChapterViewModel.class);
 
     verseAdapter = new ChapterVerseAdapter(this, getString(R.string.scr_chapter_template_verse));
     chapterAdapter = new ChapterNumberAdapter(this);
@@ -100,13 +101,18 @@ public class ChapterScreen
           return handleActionChapterPrevious();
         case R.id.scr_chapter_menu_action_next:
           return handleActionChaptersNext();
+/*
         case R.id.scr_chapter_menu_action_chapters:
           return handleActionChapterList();
+*/
         default:
           Log.e(TAG, "onMenuItemClick: unknown menu item");
       }
       return false;
     });
+
+    rootView.findViewById(R.id.scr_chapter_bottom_app_bar_fab)
+            .setOnClickListener(view -> handleActionChapterList());
 
     if (savedState == null) {
       final int defaultBookNumber = getResources().getInteger(R.integer.default_book_number);
@@ -134,7 +140,7 @@ public class ChapterScreen
 
       // if we have an open dialog, close it
       ChapterNumberDialog dialog =
-          (ChapterNumberDialog) getParentFragmentManager().findFragmentByTag(TAG);
+        (ChapterNumberDialog) getParentFragmentManager().findFragmentByTag(TAG);
       if (dialog != null) {
         dialog.dismiss();
       }
@@ -322,19 +328,17 @@ public class ChapterScreen
     return true;
   }
 
-  private boolean handleActionChapterList() {
+  private void handleActionChapterList() {
     Log.d(TAG, "handleActionChapters:");
     final Book book = Book.getCachedBook(model.getCachedBookNumber());
     if (book == null) {
       Log.e(TAG, "handleActionChapters: null book, returning");
-      return true;
+      return;
     }
 
     ChapterNumberDialog dialog = new ChapterNumberDialog();
     dialog.updateAdapter(chapterAdapter);
     dialog.show(getParentFragmentManager(), TAG);
-
-    return true;
   }
 
   @Override
@@ -350,15 +354,19 @@ public class ChapterScreen
 
   @Override
   public void updateSelectionActionsVisibility() {
+    boolean isAnySelected = model.getSelectedListSize() > 0;
+
     final BottomAppBar bar = rootView.findViewById(R.id.scr_chapter_bottom_app_bar);
-    bar.getMenu().setGroupVisible(R.id.scr_chapter_menu_group_selected,
-                                  model.getSelectedListSize() > 0);
+    bar.getMenu().setGroupVisible(R.id.scr_chapter_menu_group_selected, isAnySelected);
+
+    rootView.findViewById(R.id.scr_chapter_bottom_app_bar_fab)
+            .setVisibility(isAnySelected ? View.GONE : View.VISIBLE);
   }
 
   @Override
   public void handleNewChapterSelection(@IntRange(from = 1) final int newChapter) {
     ChapterNumberDialog dialog =
-        (ChapterNumberDialog) getParentFragmentManager().findFragmentByTag(TAG);
+      (ChapterNumberDialog) getParentFragmentManager().findFragmentByTag(TAG);
     if (dialog != null) {
       dialog.dismiss();
     }

@@ -1,66 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:animateLayoutChanges="true"
+  tools:context=".ui.ChapterScreen">
+
+  <com.google.android.material.bottomappbar.BottomAppBar
+    android:id="@+id/scr_chapter_bottom_app_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:animateLayoutChanges="true"
+    app:elevation="@dimen/none"
+    app:hideOnScroll="true"
+    app:menu="@menu/menu_chapter_screen" />
+
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/scr_chapter_bottom_app_bar_fab"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_anchor="@id/scr_chapter_bottom_app_bar"
+    app:srcCompat="@drawable/ic_list" />
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/scr_chapter_contain_bottom_app_bar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ChapterScreen">
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/scr_chapter_contain_bottom_app_bar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/scr_chapter_bottom_app_bar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:animateLayoutChanges="true"
-            app:elevation="@dimen/none"
-            app:hideOnScroll="false"
-            app:menu="@menu/menu_chapter_screen" />
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    android:layout_marginBottom="?actionBarSize"
+    android:animateLayoutChanges="true"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
 
     <HorizontalScrollView
-        android:id="@+id/scr_chapter_contain_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/big"
-        android:fillViewport="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+      android:id="@+id/scr_chapter_contain_title"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/big"
+      android:fillViewport="true"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/scr_chapter_title"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:padding="@dimen/small"
-            android:layout_marginBottom="@dimen/big"
-            android:text="@string/application_name"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
+      <TextView
+        android:id="@+id/scr_chapter_title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:padding="@dimen/small"
+        android:text="@string/application_name"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
     </HorizontalScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/scr_chapter_list"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/small"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/scr_chapter_contain_bottom_app_bar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scr_chapter_contain_title"
-        app:layout_constraintVertical_bias="0.0"
-        app:spanCount="@integer/scr_chapter_list_columns"
-        tools:listitem="@layout/item_chapter_verse" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-
+      android:id="@+id/scr_chapter_list"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/scr_chapter_contain_title"
+      app:spanCount="@integer/scr_chapter_list_columns"
+      tools:listitem="@layout/item_chapter_verse" />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
