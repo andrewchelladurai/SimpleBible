@@ -1,35 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="AlwaysShowAction">
-    <group
-        android:id="@+id/scr_bookmark_menu_group_new"
-        android:visible="false">
-        <item
-            android:id="@+id/scr_bookmark_menu_action_save"
-            android:icon="@drawable/ic_save"
-            android:title="@string/scr_bookmark_menu_action_save"
-            app:showAsAction="always" />
-    </group>
-    <group
-        android:id="@+id/scr_bookmark_menu_group_existing"
-        android:visible="false">
-        <item
-            android:id="@+id/scr_bookmark_menu_action_delete"
-            android:icon="@drawable/ic_delete"
-            android:title="@string/scr_bookmark_menu_action_delete"
-            app:showAsAction="always" />
-        <item
-            android:id="@+id/scr_bookmark_menu_action_share"
-            android:icon="@drawable/ic_share"
-            android:title="@string/scr_bookmark_menu_action_share"
-            app:showAsAction="always" />
-        <item
-            android:id="@+id/scr_bookmark_menu_action_edit"
-            android:icon="@drawable/ic_edit"
-            android:title="@string/scr_bookmark_menu_action_edit"
-            app:showAsAction="always" />
-    </group>
-
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:ignore="AlwaysShowAction">
+  <group
+    android:id="@+id/scr_bookmark_menu_group_existing"
+    android:visible="false">
+    <item
+      android:id="@+id/scr_bookmark_menu_action_delete"
+      android:icon="@drawable/ic_delete"
+      android:title="@string/scr_bookmark_menu_action_delete"
+      app:showAsAction="always" />
+    <item
+      android:id="@+id/scr_bookmark_menu_action_share"
+      android:icon="@drawable/ic_share"
+      android:title="@string/scr_bookmark_menu_action_share"
+      app:showAsAction="always" />
+  </group>
 </menu>

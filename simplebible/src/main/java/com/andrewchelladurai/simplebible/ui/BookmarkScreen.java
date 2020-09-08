@@ -32,6 +32,7 @@ import com.andrewchelladurai.simplebible.ui.adapter.BookmarkAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -81,14 +82,8 @@ public class BookmarkScreen
     ((BottomAppBar) rootView.findViewById(R.id.scr_bookmark_app_bar)).setOnMenuItemClickListener(
       item -> {
         switch (item.getItemId()) {
-          case R.id.scr_bookmark_menu_action_save:
-            handleActionSave();
-            return true;
           case R.id.scr_bookmark_menu_action_delete:
             handleActionDelete();
-            return true;
-          case R.id.scr_bookmark_menu_action_edit:
-            handleActionEdit();
             return true;
           case R.id.scr_bookmark_menu_action_share:
             handleActionShare();
@@ -135,6 +130,10 @@ public class BookmarkScreen
     return rootView;
   }
 
+  private void handleActionFabClick() {
+    Log.d(TAG, "handleActionFabClick:");
+  }
+
   private void handleActionSave() {
     Log.d(TAG, "handleActionSave:");
 
@@ -169,7 +168,8 @@ public class BookmarkScreen
         public void onLoadFinished(@NonNull final Loader<Boolean> loader, final Boolean saved) {
           if (saved) {
             updateContent(bookmark.getReference());
-            ops.showMessage(getString(R.string.scr_bookmark_msg_saved), R.id.scr_bookmark_app_bar);
+            ops.showMessage(getString(R.string.scr_bookmark_msg_saved),
+                            R.id.scr_bookmark_app_bar_fab);
           }
         }
 
@@ -231,15 +231,25 @@ public class BookmarkScreen
   }
 
   private void showActionGroupNew() {
+    Log.d(TAG, "showActionGroupNew:");
+
+    final FloatingActionButton fab = rootView.findViewById(R.id.scr_bookmark_app_bar_fab);
+    fab.setImageResource(R.drawable.ic_save);
+    fab.setOnClickListener(view -> handleActionSave());
+
     final Menu menu = ((BottomAppBar) rootView.findViewById(R.id.scr_bookmark_app_bar)).getMenu();
-    menu.setGroupVisible(R.id.scr_bookmark_menu_group_new, true);
     menu.setGroupVisible(R.id.scr_bookmark_menu_group_existing, false);
   }
 
   private void showActionGroupExisting() {
+    Log.d(TAG, "showActionGroupExisting:");
+
+    final FloatingActionButton fab = rootView.findViewById(R.id.scr_bookmark_app_bar_fab);
+    fab.setImageResource(R.drawable.ic_edit);
+    fab.setOnClickListener(view -> handleActionEdit());
+
     final Menu menu = ((BottomAppBar) rootView.findViewById(R.id.scr_bookmark_app_bar)).getMenu();
     menu.setGroupVisible(R.id.scr_bookmark_menu_group_existing, true);
-    menu.setGroupVisible(R.id.scr_bookmark_menu_group_new, false);
   }
 
   @NonNull
@@ -367,7 +377,7 @@ public class BookmarkScreen
     Log.d(TAG, "handleActionShare:");
     final Bookmark bookmark = model.getCachedBookmark();
     if (bookmark == null) {
-      ops.showMessage("This is mot a Saved Bookmark", R.id.scr_bookmark_app_bar);
+      ops.showMessage("This is mot a Saved Bookmark", R.id.scr_bookmark_app_bar_fab);
       return;
     }
 

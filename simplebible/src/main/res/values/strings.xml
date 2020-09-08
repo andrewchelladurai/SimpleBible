@@ -214,9 +214,9 @@
         <item quantity="one">%d Verse</item>
         <item quantity="other">%d Verses</item>
     </plurals>
-    <string name="scr_bookmark_template_title_bookmark_new">Unsaved Bookmark</string>
-    <string name="scr_bookmark_template_title_bookmark_empty">Saved Bookmark without a note</string>
-    <string name="scr_bookmark_template_title_bookmark_saved">Saved Bookmark</string>
+    <string name="scr_bookmark_template_title_bookmark_new">Unsaved</string>
+    <string name="scr_bookmark_template_title_bookmark_empty">Saved, Empty Note</string>
+    <string name="scr_bookmark_template_title_bookmark_saved">Saved</string>
     <string name="scr_bookmark_template_verse_item"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
 
     <!--  Screen Bookmark List -->
