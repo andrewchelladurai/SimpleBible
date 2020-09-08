@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
@@ -31,7 +32,6 @@ import com.andrewchelladurai.simplebible.ui.adapter.BookmarkAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 import com.google.android.material.bottomappbar.BottomAppBar;
-import com.google.android.material.chip.Chip;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -65,8 +65,7 @@ public class BookmarkScreen
     }
 
     model = ViewModelProvider.AndroidViewModelFactory.getInstance(
-      requireActivity().getApplication())
-                                                     .create(BookmarkViewModel.class);
+      requireActivity().getApplication()).create(BookmarkViewModel.class);
 
     adapter = new BookmarkAdapter(this, getString(R.string.scr_bookmark_template_verse_item));
   }
@@ -195,7 +194,7 @@ public class BookmarkScreen
     }
 
     final TextInputEditText noteField = rootView.findViewById(R.id.scr_bookmark_note);
-    final Chip title = rootView.findViewById(R.id.scr_bookmark_title);
+    final TextView title = rootView.findViewById(R.id.scr_bookmark_title);
 
     final int verseCount = model.getCachedVerseListSize();
     final String titleCount = getResources().getQuantityString(
@@ -402,7 +401,7 @@ public class BookmarkScreen
     Log.d(TAG, "handleActionEdit:");
 
     final TextInputEditText noteField = rootView.findViewById(R.id.scr_bookmark_note);
-    final Chip title = rootView.findViewById(R.id.scr_bookmark_title);
+    final TextView title = rootView.findViewById(R.id.scr_bookmark_title);
     final int verseCount = model.getCachedVerseListSize();
     final String titleCount = getResources().getQuantityString(
       R.plurals.scr_bookmark_template_title_verse_count, verseCount, verseCount);
@@ -416,7 +415,7 @@ public class BookmarkScreen
                             titleCount));
 
     noteField.setHint(emptyNote ? getString(R.string.scr_bookmark_note_empty) : note);
-    noteField.setText(emptyNote ? getString(R.string.scr_bookmark_note_empty) : note);
+    noteField.setText(emptyNote ? "" : note);
 
     showActionGroupNew();
     noteField.setEnabled(true);
