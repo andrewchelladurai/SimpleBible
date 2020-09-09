@@ -1,41 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:animateLayoutChanges="true"
-    tools:ignore="AlwaysShowAction">
-    <group android:id="@+id/scr_chapter_menu_group_selected">
-        <item
-            android:id="@+id/scr_chapter_menu_action_bookmark"
-            android:icon="@drawable/ic_bookmark"
-            android:title="@string/scr_chapter_menu_action_bookmark"
-            app:showAsAction="always" />
-        <item
-            android:id="@+id/scr_chapter_menu_action_share"
-            android:icon="@drawable/ic_share"
-            android:title="@string/scr_chapter_menu_action_share"
-            app:showAsAction="always" />
-        <item
-            android:id="@+id/scr_chapter_menu_action_clear"
-            android:icon="@drawable/ic_clear"
-            android:title="@string/scr_chapter_menu_action_clear"
-            app:showAsAction="always" />
-    </group>
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:animateLayoutChanges="true"
+  tools:ignore="AlwaysShowAction">
+  <group android:id="@+id/scr_chapter_menu_group_selected">
     <item
-        android:id="@+id/scr_chapter_menu_action_previous"
-        android:icon="@drawable/ic_previous"
-        android:title="@string/scr_chapter_menu_action_previous"
-        app:showAsAction="always" />
-<!--
+      android:id="@+id/scr_chapter_menu_action_bookmark"
+      android:icon="@drawable/ic_bookmark"
+      android:title="@string/scr_chapter_menu_action_bookmark"
+      app:showAsAction="always" />
     <item
-        android:id="@+id/scr_chapter_menu_action_chapters"
-        android:icon="@drawable/ic_menu"
-        android:title="@string/scr_chapter_menu_action_chapters"
-        app:showAsAction="always" />
--->
+      android:id="@+id/scr_chapter_menu_action_share"
+      android:icon="@drawable/ic_share"
+      android:title="@string/scr_chapter_menu_action_share"
+      app:showAsAction="always" />
     <item
-        android:id="@+id/scr_chapter_menu_action_next"
-        android:icon="@drawable/ic_next"
-        android:title="@string/scr_chapter_menu_action_next"
-        app:showAsAction="always" />
+      android:id="@+id/scr_chapter_menu_action_clear"
+      android:icon="@drawable/ic_clear"
+      android:title="@string/scr_chapter_menu_action_clear"
+      app:showAsAction="always" />
+  </group>
+  <item
+    android:id="@+id/scr_chapter_menu_action_previous"
+    android:icon="@drawable/ic_previous"
+    android:title="@string/scr_chapter_menu_action_previous"
+    app:showAsAction="always" />
+  <item
+    android:id="@+id/scr_chapter_menu_action_next"
+    android:icon="@drawable/ic_next"
+    android:title="@string/scr_chapter_menu_action_next"
+    app:showAsAction="always" />
 </menu>
