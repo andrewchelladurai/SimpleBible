@@ -32,7 +32,7 @@ import com.andrewchelladurai.simplebible.ui.adapter.BookmarkAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.BookmarkScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 import com.google.android.material.bottomappbar.BottomAppBar;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -227,14 +227,14 @@ public class BookmarkScreen
     noteField.requestFocus();
 
     adapter.notifyDataSetChanged();
-
   }
 
   private void showActionGroupNew() {
     Log.d(TAG, "showActionGroupNew:");
 
-    final FloatingActionButton fab = rootView.findViewById(R.id.scr_bookmark_app_bar_fab);
-    fab.setImageResource(R.drawable.ic_save);
+    final ExtendedFloatingActionButton fab = rootView.findViewById(R.id.scr_bookmark_app_bar_fab);
+    fab.setIcon(getResources().getDrawable(R.drawable.ic_save, requireContext().getTheme()));
+    fab.setText(R.string.save);
     fab.setOnClickListener(view -> handleActionSave());
 
     final Menu menu = ((BottomAppBar) rootView.findViewById(R.id.scr_bookmark_app_bar)).getMenu();
@@ -244,8 +244,9 @@ public class BookmarkScreen
   private void showActionGroupExisting() {
     Log.d(TAG, "showActionGroupExisting:");
 
-    final FloatingActionButton fab = rootView.findViewById(R.id.scr_bookmark_app_bar_fab);
-    fab.setImageResource(R.drawable.ic_edit);
+    final ExtendedFloatingActionButton fab = rootView.findViewById(R.id.scr_bookmark_app_bar_fab);
+    fab.setIcon(getResources().getDrawable(R.drawable.ic_edit, requireContext().getTheme()));
+    fab.setText(R.string.edit);
     fab.setOnClickListener(view -> handleActionEdit());
 
     final Menu menu = ((BottomAppBar) rootView.findViewById(R.id.scr_bookmark_app_bar)).getMenu();

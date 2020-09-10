@@ -15,12 +15,13 @@
     app:elevation="@dimen/none"
     app:menu="@menu/menu_bookmark_screen" />
 
-  <com.google.android.material.floatingactionbutton.FloatingActionButton
+  <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
     android:id="@+id/scr_bookmark_app_bar_fab"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:layout_anchor="@id/scr_bookmark_app_bar"
-    app:srcCompat="@drawable/ic_edit" />
+    android:text="@string/edit"
+    app:icon="@drawable/ic_edit" />
 
   <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
