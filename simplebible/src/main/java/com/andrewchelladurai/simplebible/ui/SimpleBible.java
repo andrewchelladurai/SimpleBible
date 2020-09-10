@@ -18,7 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 import androidx.work.Data;
@@ -36,8 +36,8 @@ import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 public class SimpleBible
-    extends AppCompatActivity
-    implements SimpleBibleOps {
+  extends AppCompatActivity
+  implements SimpleBibleOps {
 
   private static final String TAG = "SimpleBibleScreen";
 
@@ -58,10 +58,11 @@ public class SimpleBible
     setContentView(R.layout.simple_bible);
 
     // Tie the BottomNavigationBar with the NavigationUi Arch component
+    //noinspection ConstantConditions
     NavigationUI.setupWithNavController(
-        (BottomNavigationView) findViewById(R.id.main_nav_bar),
-        Navigation.findNavController(this, R.id.main_nav_host_fragment));
-
+      (BottomNavigationView) findViewById(R.id.main_nav_bar),
+      NavHostFragment.findNavController(
+        getSupportFragmentManager().findFragmentById(R.id.main_nav_host_fragment)));
   }
 
   @Override
@@ -70,9 +71,9 @@ public class SimpleBible
                                           .getString(getString(R.string.pref_theme_key),
                                                      getString(R.string.pref_theme_value_system));
     Log.d(TAG, "updateApplicationTheme: value[" + value + "]");
-    if (value.equalsIgnoreCase(getString(R.string.pref_theme_value_yes))) {
+    if (getString(R.string.pref_theme_value_yes).equalsIgnoreCase(value)) {
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-    } else if (value.equalsIgnoreCase(getString(R.string.pref_theme_value_no))) {
+    } else if (getString(R.string.pref_theme_value_no).equalsIgnoreCase(value)) {
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     } else {
       Log.d(TAG, "updateApplicationTheme: AUTO/unknown, using default behavior");
@@ -90,7 +91,7 @@ public class SimpleBible
                       : new View(this);
 
     final InputMethodManager imm =
-        (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+      (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
     if (imm != null) {
       imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     } else {
@@ -137,15 +138,15 @@ public class SimpleBible
     }
 
     final NotificationChannel setupChannel = new NotificationChannel(
-        getString(R.string.notify_channel_id_setup),
-        getString(R.string.notify_channel_name_setup),
-        NotificationManager.IMPORTANCE_HIGH);
+      getString(R.string.notify_channel_id_setup),
+      getString(R.string.notify_channel_name_setup),
+      NotificationManager.IMPORTANCE_HIGH);
     setupChannel.setDescription(getString(R.string.notify_channel_desc_setup));
 
     final NotificationChannel reminderChannel = new NotificationChannel(
-        getString(R.string.notify_channel_id_reminder),
-        getString(R.string.notify_channel_name_reminder),
-        NotificationManager.IMPORTANCE_DEFAULT);
+      getString(R.string.notify_channel_id_reminder),
+      getString(R.string.notify_channel_name_reminder),
+      NotificationManager.IMPORTANCE_DEFAULT);
     reminderChannel.setDescription(getString(R.string.notify_channel_desc_reminder));
 
     notificationManager.createNotificationChannel(setupChannel);
@@ -223,13 +224,13 @@ public class SimpleBible
     workManager.enqueueUniqueWork(ReminderWorker.TAG,
                                   ExistingWorkPolicy.REPLACE,
                                   new OneTimeWorkRequest.Builder(ReminderWorker.class)
-                                      .setInitialDelay(timeDiff, TimeUnit.MILLISECONDS)
-                                      .addTag(ReminderWorker.TAG)
-                                      .setInputData(new Data.Builder()
-                                                        .putInt(ReminderWorker.ARG_HOUR, hour)
-                                                        .putInt(ReminderWorker.ARG_MINUTE, minute)
-                                                        .build())
-                                      .build());
+                                    .setInitialDelay(timeDiff, TimeUnit.MILLISECONDS)
+                                    .addTag(ReminderWorker.TAG)
+                                    .setInputData(new Data.Builder()
+                                                    .putInt(ReminderWorker.ARG_HOUR, hour)
+                                                    .putInt(ReminderWorker.ARG_MINUTE, minute)
+                                                    .build())
+                                    .build());
   }
 
 }
