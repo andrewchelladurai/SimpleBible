@@ -27,6 +27,7 @@ import com.andrewchelladurai.simplebible.ui.adapter.ChapterVerseAdapter;
 import com.andrewchelladurai.simplebible.ui.ops.ChapterScreenOps;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -88,31 +89,22 @@ public class ChapterScreen
 
     ((RecyclerView) rootView.findViewById(R.id.scr_chapter_list)).setAdapter(verseAdapter);
 
-    final BottomAppBar bar = rootView.findViewById(R.id.scr_chapter_bottom_app_bar);
+    final BottomAppBar bar = rootView.findViewById(R.id.scr_chapter_bapp_bar);
     bar.setOnMenuItemClickListener(item -> {
       switch (item.getItemId()) {
-        case R.id.scr_chapter_menu_action_clear:
-          return handleActionClear();
-        case R.id.scr_chapter_menu_action_bookmark:
+        case R.id.scr_chapter_menu_bookmark:
           return handleActionBookmark();
-        case R.id.scr_chapter_menu_action_share:
+        case R.id.scr_chapter_menu_share:
           return handleActionShare();
-        case R.id.scr_chapter_menu_action_previous:
+        case R.id.scr_chapter_menu_previous:
           return handleActionChapterPrevious();
-        case R.id.scr_chapter_menu_action_next:
+        case R.id.scr_chapter_menu_next:
           return handleActionChaptersNext();
-/*
-        case R.id.scr_chapter_menu_action_chapters:
-          return handleActionChapterList();
-*/
         default:
           Log.e(TAG, "onMenuItemClick: unknown menu item");
       }
       return false;
     });
-
-    rootView.findViewById(R.id.scr_chapter_bottom_app_bar_fab)
-            .setOnClickListener(view -> handleActionChapterList());
 
     if (savedState == null) {
       final int defaultBookNumber = getResources().getInteger(R.integer.default_book_number);
@@ -152,11 +144,10 @@ public class ChapterScreen
     return rootView;
   }
 
-  private boolean handleActionClear() {
+  private void handleActionClear() {
     Log.d(TAG, "handleActionClear:");
     model.clearSelection();
     refreshData();
-    return true;
   }
 
   private boolean handleActionBookmark() {
@@ -210,7 +201,7 @@ public class ChapterScreen
     if (currentBook == 1) {
       if (currentChapter == 1) {
         ops.showMessage(getString(R.string.scr_chapter_msg_navigate_at_start),
-                        R.id.scr_chapter_contain_bottom_app_bar);
+                        R.id.scr_chapter_holder_bapp_bar);
         return true;
       } else {
         chapter = currentChapter - 1;
@@ -309,7 +300,7 @@ public class ChapterScreen
       //noinspection ConstantConditions
       if (currentChapter == Book.getCachedBook(Book.MAX_BOOKS).getChapters()) {
         ops.showMessage(getString(R.string.scr_chapter_msg_navigate_at_end),
-                        R.id.scr_chapter_contain_bottom_app_bar);
+                        R.id.scr_chapter_holder_bapp_bar);
       } else {
         chapter = currentChapter + 1;
       }
@@ -356,11 +347,24 @@ public class ChapterScreen
   public void updateSelectionActionsVisibility() {
     boolean isAnySelected = model.getSelectedListSize() > 0;
 
-    final BottomAppBar bar = rootView.findViewById(R.id.scr_chapter_bottom_app_bar);
+    final BottomAppBar bar = rootView.findViewById(R.id.scr_chapter_bapp_bar);
     bar.getMenu().setGroupVisible(R.id.scr_chapter_menu_group_selected, isAnySelected);
+    bar.getMenu().setGroupVisible(R.id.scr_chapter_menu_group_navigation, !isAnySelected);
 
-    rootView.findViewById(R.id.scr_chapter_bottom_app_bar_fab)
-            .setVisibility(isAnySelected ? View.GONE : View.VISIBLE);
+    final ExtendedFloatingActionButton
+      extendedFab = rootView.findViewById(R.id.scr_chapter_bapp_bar_fab);
+
+    if (isAnySelected) {
+      extendedFab.setText(R.string.clear);
+      extendedFab.setIcon(getResources().getDrawable(R.drawable.ic_clear,
+                                                     requireContext().getTheme()));
+      extendedFab.setOnClickListener(view -> handleActionClear());
+    } else {
+      extendedFab.setText(R.string.chapters);
+      extendedFab.setIcon(getResources().getDrawable(R.drawable.ic_list,
+                                                     requireContext().getTheme()));
+      extendedFab.setOnClickListener(view -> handleActionChapterList());
+    }
   }
 
   @Override
