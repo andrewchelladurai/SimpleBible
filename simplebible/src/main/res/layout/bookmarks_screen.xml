@@ -1,40 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.BookmarksScreen">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".ui.BookmarksScreen">
 
-    <ScrollView
-        android:id="@+id/scr_bookmarks_contain_help"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+  <androidx.cardview.widget.CardView
+    android:id="@+id/scr_bookmarks_contain_title"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/normal"
+    android:animateLayoutChanges="true"
+    app:cardCornerRadius="@dimen/big"
+    app:cardElevation="@dimen/normal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/scr_bookmarks_help"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/big"
-            android:text="@string/scr_bookmarks_help" />
-    </ScrollView>
+    <SearchView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_margin="@dimen/normal"
+      android:visibility="invisible" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/scr_bookmarks_list"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="gone"
-        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:spanCount="@integer/scr_bookmarks_list_columns"
-        tools:listitem="@layout/item_bookmark" />
+    <TextView
+      android:id="@+id/scr_bookmarks_title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:text="@string/bookmarks"
+      android:textAlignment="center"
+      android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+  </androidx.cardview.widget.CardView>
+
+  <ScrollView
+    android:id="@+id/scr_bookmarks_contain_help"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginVertical="@dimen/big"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/scr_bookmarks_contain_title">
+
+    <TextView
+      android:id="@+id/scr_bookmarks_help"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_margin="@dimen/big"
+      android:text="@string/scr_bookmarks_help" />
+  </ScrollView>
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/scr_bookmarks_list"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginVertical="@dimen/big"
+    android:visibility="gone"
+    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/scr_bookmarks_contain_title"
+    app:spanCount="@integer/scr_bookmarks_list_columns"
+    tools:listitem="@layout/item_bookmark" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

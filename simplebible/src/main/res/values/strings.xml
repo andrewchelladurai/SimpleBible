@@ -3,6 +3,7 @@
     <!--  Common throughout the application  -->
     <string name="application_name">Simple Bible</string>
     <string name="bookmark">Bookmark</string>
+    <string name="bookmarks">Bookmark List</string>
     <string name="share">Share</string>
     <string name="clear">Clear</string>
     <string name="previous">Previous</string>
