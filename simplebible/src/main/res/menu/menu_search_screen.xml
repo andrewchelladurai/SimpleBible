@@ -22,6 +22,7 @@
             android:title="@string/scr_search_menu_action_clear"
             app:showAsAction="always" />
     </group>
+<!--
     <item
         android:id="@+id/scr_search_menu_action_search"
         android:icon="@drawable/ic_search"
@@ -33,4 +34,5 @@
         android:title="@string/scr_search_menu_action_reset"
         android:visible="false"
         app:showAsAction="always" />
+-->
 </menu>
