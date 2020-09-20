@@ -20,29 +20,30 @@ import java.util.List;
 import java.util.TreeSet;
 
 public class SettingsViewModel
-    extends AndroidViewModel {
+  extends AndroidViewModel {
 
   private static final String TAG = "SettingsScreenModel";
-
   private final SbDao dao;
+  private String formattedBookmarksData;
 
   public SettingsViewModel(@NonNull final Application application) {
     super(application);
     Log.d(TAG, "SettingsScreenModel:");
-    dao = SbDatabase.getDatabase(getApplication()).getDao();
+    dao = SbDatabase.getDatabase(getApplication())
+                    .getDao();
   }
 
   public boolean validateReminderTimeValue(@IntRange(from = 0, to = 23) final int hour,
                                            @IntRange(from = 0, to = 59) final int minute) {
     if (hour < 0 || hour > 23) {
       Log.e(TAG, "validateReminderTimeValue:", new IllegalArgumentException(
-          "invalid hour value [" + hour + "] must be between [0...23]"));
+        "invalid hour value [" + hour + "] must be between [0...23]"));
       return false;
     }
 
     if (minute < 0 || minute > 59) {
       Log.e(TAG, "validateReminderTimeValue:", new IllegalArgumentException(
-          "invalid minute value [" + minute + "] must be between [0...59]"));
+        "invalid minute value [" + minute + "] must be between [0...59]"));
       return false;
     }
 
@@ -81,9 +82,8 @@ public class SettingsViewModel
     for (final String verseReference : finalReferences) {
       parts = Verse.splitReference(verseReference);
       if (parts == null) {
-        Log.e(TAG, "getVerses: ",
-              new IllegalArgumentException("no parts found for verse [" + verseReference
-                                           + "] even though it passed validation"));
+        Log.e(TAG, "getVerses: ", new IllegalArgumentException(
+          "no parts found for verse [" + verseReference + "] even though it passed validation"));
         continue;
       }
       bookNumbers.add(parts[0]);
@@ -92,6 +92,15 @@ public class SettingsViewModel
     }
 
     return dao.getVerses(bookNumbers, chapterNumbers, verseNumbers);
+  }
+
+  @NonNull
+  public String getFormattedBookmarksData() {
+    return formattedBookmarksData;
+  }
+
+  public void setFormattedBookmarksData(@NonNull final String formattedData) {
+    formattedBookmarksData = formattedData;
   }
 
 }

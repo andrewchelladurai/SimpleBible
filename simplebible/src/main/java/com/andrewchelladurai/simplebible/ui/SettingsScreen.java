@@ -1,5 +1,6 @@
 package com.andrewchelladurai.simplebible.ui;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -8,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,7 +37,8 @@ import com.andrewchelladurai.simplebible.model.Verse;
 import com.andrewchelladurai.simplebible.model.view.SettingsViewModel;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 
-import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -308,8 +311,6 @@ public class SettingsScreen
 
   private void handlePreferenceClickExport() {
     Log.d(TAG, "handlePreferenceClickExport:");
-    // TODO: 26/5/20 implement this functionality
-
     model.getAllBookmarks()
          .observe(this, bList -> {
            if (bList == null || bList.isEmpty()) {
@@ -321,13 +322,6 @@ public class SettingsScreen
            final StringBuilder bookmarkText = new StringBuilder();
            final int bListSize = bList.size();
            final int[] currentEntry = {0};
-           final SimpleDateFormat tsFormat = new SimpleDateFormat("yyyyMMdd_HHmmssSSS",
-                                                                  Locale.getDefault());
-           final String formattedTime = tsFormat.format(new Date());
-           final String fileName = getString(
-             R.string.scr_settings_template_bookmark_export_filename, formattedTime);
-
-           final File file = new File(requireContext().getFilesDir(), fileName);
 
            for (final EntityBookmark eBookmark : bList) {
              final ArrayList<Verse> verseList = new ArrayList<>(0);
@@ -357,12 +351,24 @@ public class SettingsScreen
                     currentEntry[0] = currentEntry[0] + 1;
 
                     if (currentEntry[0] == bListSize) {
-                      writeToFile(file, bookmarkText.toString());
-                    }
+                      model.setFormattedBookmarksData(bookmarkText.toString());
 
+                      final String tsPattern = "yyyyMMdd_HHmmssSSS";
+                      final SimpleDateFormat tsFormat = new SimpleDateFormat(tsPattern,
+                                                                             Locale.getDefault());
+                      final String formattedTime = tsFormat.format(new Date());
+                      final String fileName = getString(
+                        R.string.scr_settings_template_bookmark_export_filename, formattedTime);
+
+                      Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+                      intent.addCategory(Intent.CATEGORY_OPENABLE);
+                      intent.setType("application/text");
+                      intent.putExtra(Intent.EXTRA_TITLE, fileName);
+
+                      startActivityForResult(intent, 0);
+                    }
                   });
            }
-           ops.showMessage(fileName, R.id.main_nav_bar);
          });
   }
 
@@ -386,9 +392,34 @@ public class SettingsScreen
 
   }
 
-  private void writeToFile(@NonNull final File file, @NonNull final String content) {
-    Log.d(TAG, "writeToFile: file = [" + file.getPath() + "]\n, content =" + " [" + content + "]");
-    // TODO: 20/9/20 implement this function
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+    if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
+      final Uri fileUri = resultData.getData();
+      if (fileUri != null) {
+        try {
+          final ParcelFileDescriptor pfd = requireActivity().getContentResolver()
+                                                            .openFileDescriptor(fileUri, "w");
+          if (pfd != null) {
+            final FileOutputStream oStream = new FileOutputStream(pfd.getFileDescriptor());
+            oStream.write((model.getFormattedBookmarksData()).getBytes());
+            oStream.close();
+            pfd.close();
+            ops.showMessage("Bookmarks Exported", R.id.main_nav_bar);
+          } else {
+            ops.showErrorScreen("Error creating export file: NULL ParcelFileDescriptor", true,
+                                false);
+          }
+        } catch (IOException e) {
+          ops.showErrorScreen("Error creating export file.\n" + e.getLocalizedMessage(), true,
+                              false);
+        }
+      } else {
+        ops.showMessage("File creation cancelled.", R.id.main_nav_bar);
+      }
+    } else {
+      ops.showMessage("File creation cancelled.", R.id.main_nav_bar);
+    }
   }
 
   private class ChangeHandler
