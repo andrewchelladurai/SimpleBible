@@ -1,49 +1,49 @@
 <resources>
 
-    <!--  Common throughout the application  -->
-    <string name="application_name">Simple Bible</string>
-    <string name="bookmark">Bookmark</string>
-    <string name="bookmarks">Bookmark List</string>
-    <string name="share">Share</string>
-    <string name="clear">Clear</string>
-    <string name="previous">Previous</string>
-    <string name="next">Next</string>
-    <string name="chapters">Chapters</string>
-    <string name="delete">Delete</string>
-    <string name="edit">Edit</string>
-    <string name="search">Search</string>
-    <string name="reset">Reset</string>
-    <string name="save">Save</string>
+  <!--  Common throughout the application  -->
+  <string name="application_name">Simple Bible</string>
+  <string name="bookmark">Bookmark</string>
+  <string name="bookmarks">Bookmark List</string>
+  <string name="share">Share</string>
+  <string name="clear">Clear</string>
+  <string name="previous">Previous</string>
+  <string name="next">Next</string>
+  <string name="chapters">Chapters</string>
+  <string name="delete">Delete</string>
+  <string name="edit">Edit</string>
+  <string name="search">Search</string>
+  <string name="reset">Reset</string>
+  <string name="save">Save</string>
 
-    <!--  MainScreen  -->
-    <string name="main_nav_bar_home">home</string>
-    <string name="main_nav_bar_book_list">books</string>
-    <string name="main_nav_bar_search">search</string>
-    <string name="main_nav_bar_bookmark_list">bookmarks</string>
-    <string name="main_nav_bar_settings">settings</string>
+  <!--  MainScreen  -->
+  <string name="main_nav_bar_home">home</string>
+  <string name="main_nav_bar_book_list">books</string>
+  <string name="main_nav_bar_search">search</string>
+  <string name="main_nav_bar_bookmark_list">bookmarks</string>
+  <string name="main_nav_bar_settings">settings</string>
 
-    <!--  Used for setting up the Notification Channel  -->
-    <string name="notify_channel_name_setup">Setup notifications</string>
-    <string name="notify_channel_desc_setup">Notifications related to the application setup will show under this channel</string>
-    <string name="notify_channel_id_setup">161413</string>
-    <string name="notify_channel_name_reminder">Reminder notifications</string>
-    <string name="notify_channel_desc_reminder">The Daily verse reminders will use this channel</string>
-    <string name="notify_channel_id_reminder">141613</string>
+  <!--  Used for setting up the Notification Channel  -->
+  <string name="notify_channel_name_setup">Setup notifications</string>
+  <string name="notify_channel_desc_setup">Notifications related to the application setup will show under this channel</string>
+  <string name="notify_channel_id_setup">161413</string>
+  <string name="notify_channel_name_reminder">Reminder notifications</string>
+  <string name="notify_channel_desc_reminder">The Daily verse reminders will use this channel</string>
+  <string name="notify_channel_id_reminder">141613</string>
 
-    <!--  Used during the database setup  -->
-    <string name="db_setup_validation_book_name_first">genesis</string>
-    <string name="db_setup_validation_book_name_last">revelation</string>
-    <string name="db_setup_validation_book_number_last">66</string>
-    <string name="db_setup_validation_verse_number_last">66~22~21</string>
-    <string name="db_setup_asset_file_table_books">sb_books.txt</string>
-    <string name="db_setup_asset_file_table_books_separator">~</string>
-    <string name="db_setup_asset_file_table_verses">sb_verses.txt</string>
-    <string name="db_setup_asset_file_table_verses_separator">~</string>
-    <string name="new_testament">New Testament</string>
-    <string name="old_testament">Old Testament</string>
+  <!--  Used during the database setup  -->
+  <string name="db_setup_validation_book_name_first">genesis</string>
+  <string name="db_setup_validation_book_name_last">revelation</string>
+  <string name="db_setup_validation_book_number_last">66</string>
+  <string name="db_setup_validation_verse_number_last">66~22~21</string>
+  <string name="db_setup_asset_file_table_books">sb_books.txt</string>
+  <string name="db_setup_asset_file_table_books_separator">~</string>
+  <string name="db_setup_asset_file_table_verses">sb_verses.txt</string>
+  <string name="db_setup_asset_file_table_verses_separator">~</string>
+  <string name="new_testament">New Testament</string>
+  <string name="old_testament">Old Testament</string>
 
-    <!--  SetupScreen  -->
-    <string name="scr_setup_verse">
+  <!--  SetupScreen  -->
+  <string name="scr_setup_verse">
     <![CDATA[
     <h1>Simple Bible</h1><br/><br/><br/><br/>
     <h5>CREATING DATABASE</h5><br/>
@@ -56,12 +56,12 @@
     for the love he had for her.</h3><br/><br/>
     <b>The World English Bible</b>]]>
     </string>
-    <string name="scr_setup_err_creation">Failure when creating database</string>
-    <string name="scr_setup_err_validation">Unable to validate database</string>
-    <string name="scr_setup_err_cache_update_failure">Number of books after successfully setting up the database does not match the expected count</string>
+  <string name="scr_setup_err_creation">Failure when creating database</string>
+  <string name="scr_setup_err_validation">Unable to validate database</string>
+  <string name="scr_setup_err_cache_update_failure">Number of books after successfully setting up the database does not match the expected count</string>
 
-    <!--  HomeScreen  -->
-    <string name="scr_home_verse_default">
+  <!--  HomeScreen  -->
+  <string name="scr_home_verse_default">
     <![CDATA[
     <h1>Simple Bible</h1><br/>
     <h5>The Gospel of John<br/>
@@ -74,7 +74,7 @@
     <b>The World English Bible</b>
     ]]>
     </string>
-    <string name="scr_home_verse_template">
+  <string name="scr_home_verse_template">
     <![CDATA[
     <h1>Simple Bible</h1><br/>
     <h5>%s</h5>
@@ -84,90 +84,92 @@
     ]]>
     </string>
 
-    <!--  ChapterScreen  -->
-    <string name="scr_chapter_menu_action_bookmark">@string/bookmark</string>
-    <string name="scr_chapter_menu_action_share">@string/share</string>
-    <string name="scr_chapter_menu_action_clear">@string/clear</string>
-    <string name="scr_chapter_menu_action_previous">@string/previous</string>
-    <string name="scr_chapter_menu_action_next">@string/next</string>
-    <string name="scr_chapter_menu_action_chapters">@string/chapters</string>
-    <string name="scr_chapter_msg_navigate_at_start">You are already at the start</string>
-    <string name="scr_chapter_msg_navigate_at_end">You are already at the end</string>
-    <string name="scr_chapter_template_title">%s : Chapter %d : %d Verses</string>
-    <string name="scr_chapter_template_verse"><![CDATA[<b>%d :</b> %s]]></string>
-    <string name="scr_chapter_template_share">Shared from Simple Bible\n%d Verses from %s : Chapter %d\n%s</string>
-    <string name="scr_chapter_err_empty_chapter">No verses found for Book[%d] and Chapter[%d]</string>
-    <string name="scr_chapter_dialog_title">Swipe to select a chapter</string>
+  <!--  ChapterScreen  -->
+  <string name="scr_chapter_menu_action_bookmark">@string/bookmark</string>
+  <string name="scr_chapter_menu_action_share">@string/share</string>
+  <string name="scr_chapter_menu_action_clear">@string/clear</string>
+  <string name="scr_chapter_menu_action_previous">@string/previous</string>
+  <string name="scr_chapter_menu_action_next">@string/next</string>
+  <string name="scr_chapter_menu_action_chapters">@string/chapters</string>
+  <string name="scr_chapter_msg_navigate_at_start">You are already at the start</string>
+  <string name="scr_chapter_msg_navigate_at_end">You are already at the end</string>
+  <string name="scr_chapter_template_title">%s : Chapter %d : %d Verses</string>
+  <string name="scr_chapter_template_verse"><![CDATA[<b>%d :</b> %s]]></string>
+  <string name="scr_chapter_template_share">Shared from Simple Bible\n%d Verses from %s : Chapter %d\n%s</string>
+  <string name="scr_chapter_err_empty_chapter">No verses found for Book[%d] and Chapter[%d]</string>
+  <string name="scr_chapter_dialog_title">Swipe to select a chapter</string>
 
-    <!-- SettingsScreen -->
-    <string name="pref_category_title_actions">Actions and Operations</string>
-    <string name="pref_theme_key">sb_pref_key_theme</string>
-    <string name="pref_theme_title">Dark Theme</string>
-    <string name="pref_theme_entry_system">Controlled by device</string>
-    <string name="pref_theme_entry_yes">Rule the dark</string>
-    <string name="pref_theme_entry_no">Live in the light</string>
-    <string name="pref_theme_value_system">AUTO</string>
-    <string name="pref_theme_value_yes">YES</string>
-    <string name="pref_theme_value_no">NO</string>
+  <!-- SettingsScreen -->
+  <string name="pref_category_title_actions">Actions and Operations</string>
+  <string name="pref_theme_key">sb_pref_key_theme</string>
+  <string name="pref_theme_title">Dark Theme</string>
+  <string name="pref_theme_entry_system">Controlled by device</string>
+  <string name="pref_theme_entry_yes">Rule the dark</string>
+  <string name="pref_theme_entry_no">Live in the light</string>
+  <string name="pref_theme_value_system">AUTO</string>
+  <string name="pref_theme_value_yes">YES</string>
+  <string name="pref_theme_value_no">NO</string>
+  <string name="scr_settings_template_bookmark_export">Start of Bookmark\nVerse(s):\n%s\nNote(s):\n%s\nEnd of Bookmark</string>
+  <string name="scr_settings_template_bookmark_export_filename">Simple_Bible_Bookmarks_Export_%s.txt</string>
 
-    <string name="pref_export_key">sb_pref_key_export</string>
-    <string name="pref_export_title">Export Bookmarks</string>
-    <string name="pref_export_summary">into a file.</string>
+  <string name="pref_export_key">sb_pref_key_export</string>
+  <string name="pref_export_title">Export Bookmarks</string>
+  <string name="pref_export_summary">into a file.</string>
 
-    <string name="pref_reminder_key">sb_pref_key_reminder</string>
-    <string name="pref_reminder_title">Daily Reminder</string>
-    <string name="pref_reminder_summary_on">show daily verse in a notification</string>
-    <string name="pref_reminder_summary_off">is disabled</string>
+  <string name="pref_reminder_key">sb_pref_key_reminder</string>
+  <string name="pref_reminder_title">Daily Reminder</string>
+  <string name="pref_reminder_summary_on">show daily verse in a notification</string>
+  <string name="pref_reminder_summary_off">is disabled</string>
 
-    <string name="pref_reminder_time_key">sb_pref_key_reminder_time</string>
-    <string name="pref_reminder_time_hour_key">sb_pref_key_reminder_time_hour</string>
-    <string name="pref_reminder_time_minute_key">sb_pref_key_reminder_time_minute</string>
-    <string name="pref_reminder_time_title">Set notification time</string>
-    <string name="pref_reminder_time_summary_invalid">Not set</string>
-    <string name="pref_reminder_time_summary_valid">Notify at : %s</string>
+  <string name="pref_reminder_time_key">sb_pref_key_reminder_time</string>
+  <string name="pref_reminder_time_hour_key">sb_pref_key_reminder_time_hour</string>
+  <string name="pref_reminder_time_minute_key">sb_pref_key_reminder_time_minute</string>
+  <string name="pref_reminder_time_title">Set notification time</string>
+  <string name="pref_reminder_time_summary_invalid">Not set</string>
+  <string name="pref_reminder_time_summary_valid">Notify at : %s</string>
 
-    <string name="pref_category_title_feedback">Your thoughts about Simple Bible</string>
-    <string name="pref_rate_key">sb_pref_key_rate</string>
-    <string name="pref_rate_title">Rate &amp; Review</string>
-    <string name="pref_rate_summary">on the Google PlayStore.</string>
+  <string name="pref_category_title_feedback">Your thoughts about Simple Bible</string>
+  <string name="pref_rate_key">sb_pref_key_rate</string>
+  <string name="pref_rate_title">Rate &amp; Review</string>
+  <string name="pref_rate_summary">on the Google PlayStore.</string>
 
-    <string name="pref_email_key">sb_pref_key_email</string>
-    <string name="pref_email_title">Email Developer</string>
-    <string name="pref_email_summary">for Feature requests, problems or feedback</string>
-    <string name="pref_email_address">theunknownandrew+apps@gmail.com</string>
-    <string name="pref_email_subject">Simple Bible - Feature Request / Problems / Feedback</string>
+  <string name="pref_email_key">sb_pref_key_email</string>
+  <string name="pref_email_title">Email Developer</string>
+  <string name="pref_email_summary">for Feature requests, problems or feedback</string>
+  <string name="pref_email_address">theunknownandrew+apps@gmail.com</string>
+  <string name="pref_email_subject">Simple Bible - Feature Request / Problems / Feedback</string>
 
-    <string name="pref_category_title_about">Know More</string>
-    <string name="pref_about_key">sb_pref_key_about</string>
-    <string name="pref_about_title">About Simple Bible</string>
-    <string name="pref_about_summary"><![CDATA[and it\'s change history.]]></string>
+  <string name="pref_category_title_about">Know More</string>
+  <string name="pref_about_key">sb_pref_key_about</string>
+  <string name="pref_about_title">About Simple Bible</string>
+  <string name="pref_about_summary"><![CDATA[and it\'s change history.]]></string>
 
-    <string name="pref_license_key">pref_license_key</string>
-    <string name="pref_license_title">Licenses of parts</string>
-    <string name="pref_license_summary">used to make this application.</string>
+  <string name="pref_license_key">pref_license_key</string>
+  <string name="pref_license_title">Licenses of parts</string>
+  <string name="pref_license_summary">used to make this application.</string>
 
-    <string name="scr_settings_err_not_found_license">Failed to show Licenses</string>
-    <string name="scr_settings_err_not_found_about">Failed to show About</string>
-    <string name="scr_settings_msg_empty_bookmarks">No Bookmarks saved.</string>
+  <string name="scr_settings_err_not_found_license">Failed to show Licenses</string>
+  <string name="scr_settings_err_not_found_about">Failed to show About</string>
+  <string name="scr_settings_msg_empty_bookmarks">No Bookmarks saved.</string>
 
-    <!-- Book List Screen -->
-    <string name="scr_books_search_hint">Search book name</string>
-    <string name="scr_books_msg_invalid_list">Found %d books in the database instead of % which is the expected count</string>
-    <string name="scr_books_empty_book_name">No book found</string>
-    <string name="scr_books_empty_book_description">Empty description</string>
-    <plurals name="scr_books_list_item_template_details">
-        <item quantity="one"><![CDATA[has %d verses in only <b>%d Chapter</b>and is known as <b>"%s"</b>]]></item>
-        <item quantity="other"><![CDATA[has %d verses spread across <b>%d Chapters</b> & is called <b>"%s"</b>]]></item>
-    </plurals>
+  <!-- Book List Screen -->
+  <string name="scr_books_search_hint">Search book name</string>
+  <string name="scr_books_msg_invalid_list">Found %d books in the database instead of % which is the expected count</string>
+  <string name="scr_books_empty_book_name">No book found</string>
+  <string name="scr_books_empty_book_description">Empty description</string>
+  <plurals name="scr_books_list_item_template_details">
+    <item quantity="one"><![CDATA[has %d verses in only <b>%d Chapter</b>and is known as <b>"%s"</b>]]></item>
+    <item quantity="other"><![CDATA[has %d verses spread across <b>%d Chapters</b> & is called <b>"%s"</b>]]></item>
+  </plurals>
 
-    <!-- Search Screen -->
-    <string name="scr_search_menu_action_bookmark">@string/bookmark</string>
-    <string name="scr_search_menu_action_share">@string/share</string>
-    <string name="scr_search_menu_action_clear">@string/clear</string>
-    <string name="scr_search_menu_action_search">@string/search</string>
-    <string name="scr_search_menu_action_reset">@string/reset</string>
-    <string name="scr_search_input_hint">Find text in verses</string>
-    <string name="scr_search_help_text"><![CDATA[
+  <!-- Search Screen -->
+  <string name="scr_search_menu_action_bookmark">@string/bookmark</string>
+  <string name="scr_search_menu_action_share">@string/share</string>
+  <string name="scr_search_menu_action_clear">@string/clear</string>
+  <string name="scr_search_menu_action_search">@string/search</string>
+  <string name="scr_search_menu_action_reset">@string/reset</string>
+  <string name="scr_search_input_hint">Find text in verses</string>
+  <string name="scr_search_help_text"><![CDATA[
     <h1>TIPS to find relevant results</h1><br/>
     <p><h5>The length of the input text must be<br/>
     - More than 3 alphabets.<br/>
@@ -177,51 +179,51 @@
     include a space before or after the text<br/>
     like this <u>\' Eli \'</u></h5></p>]]>
     </string>
-    <string name="scr_search_msg_input_length_none">Empty text not allowed</string>
-    <string name="scr_search_msg_input_length_min">Text must have a minimum of 3 alphabets</string>
-    <string name="scr_search_msg_input_length_max">Text must not be more than 13 alphabets</string>
-    <string name="scr_search_msg_selection_none">No verses selected</string>
-    <plurals name="scr_search_title_template">
-        <item quantity="one"><![CDATA[Only <b>%d verse</b> has<b>\"%s\"</b>]]></item>
-        <item quantity="other"><![CDATA[<b>%d verses</b> has<b>\"%s\"</b>]]></item>
-    </plurals>
-    <plurals name="scr_search_title_template_selected_count">
-        <item quantity="one">%d result selected</item>
-        <item quantity="zero">%d result selected</item>
-        <item quantity="other">%d results selected</item>
-    </plurals>
+  <string name="scr_search_msg_input_length_none">Empty text not allowed</string>
+  <string name="scr_search_msg_input_length_min">Text must have a minimum of 3 alphabets</string>
+  <string name="scr_search_msg_input_length_max">Text must not be more than 13 alphabets</string>
+  <string name="scr_search_msg_selection_none">No verses selected</string>
+  <plurals name="scr_search_title_template">
+    <item quantity="one"><![CDATA[Only <b>%d verse</b> has<b>\"%s\"</b>]]></item>
+    <item quantity="other"><![CDATA[<b>%d verses</b> has<b>\"%s\"</b>]]></item>
+  </plurals>
+  <plurals name="scr_search_title_template_selected_count">
+    <item quantity="one">%d result selected</item>
+    <item quantity="zero">%d result selected</item>
+    <item quantity="other">%d results selected</item>
+  </plurals>
 
-    <!--    <string name="scr_search_title_template"><![CDATA[<b>%d verse(s)</b> has<b>\"%s\"</b>]]></string>-->
-    <string name="scr_search_result_template"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
-    <string name="scr_search_result_share_template">Shared from SimpleBible\n%d Verses that contain text \"%s\"\n\n%s</string>
+  <!--    <string name="scr_search_title_template"><![CDATA[<b>%d verse(s)</b> has<b>\"%s\"</b>]]></string>-->
+  <string name="scr_search_result_template"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
+  <string name="scr_search_result_share_template">Shared from SimpleBible\n%d Verses that contain text \"%s\"\n\n%s</string>
 
-    <!--  Bookmark Detail  -->
-    <string name="scr_bookmark_menu_action_save">@string/save</string>
-    <string name="scr_bookmark_menu_action_edit">@string/edit</string>
-    <string name="scr_bookmark_menu_action_delete">@string/delete</string>
-    <string name="scr_bookmark_menu_action_share">@string/share</string>
-    <string name="scr_bookmark_note_hint">Notes</string>
-    <string name="scr_bookmark_note_new">Enter notes for the verses in the above list here</string>
-    <string name="scr_bookmark_note_empty">This bookmark does not have a saved Note yet.</string>
-    <string name="scr_bookmark_msg_saved">Bookmark saved</string>
-    <string name="scr_bookmark_msg_deleted">Bookmark deleted</string>
-    <string name="scr_bookmark_msg_empty_args">No Arguments passed when loading screen</string>
-    <string name="scr_bookmark_msg_no_reference">No Bookmark Reference Passed when loading screen</string>
-    <string name="scr_bookmark_msg_invalid_reference">Invalid Bookmark Reference [%s] passed</string>
-    <string name="scr_bookmark_msg_no_verse_found">No Verse references found in bookmark reference [%s]</string>
-    <string name="scr_bookmark_template_share">Bookmark shared from SimpleBible\n\nVerse(s):\n%s\n\nNote(s):\n%s</string>
-    <string name="scr_bookmark_template_title">%s - %s</string>
-    <plurals name="scr_bookmark_template_title_verse_count">
-        <item quantity="one">%d Verse</item>
-        <item quantity="other">%d Verses</item>
-    </plurals>
-    <string name="scr_bookmark_template_title_bookmark_new">Unsaved</string>
-    <string name="scr_bookmark_template_title_bookmark_empty">Saved, Empty Note</string>
-    <string name="scr_bookmark_template_title_bookmark_saved">Saved</string>
-    <string name="scr_bookmark_template_verse_item"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
+  <!--  Bookmark Detail  -->
+  <string name="scr_bookmark_menu_action_save">@string/save</string>
+  <string name="scr_bookmark_menu_action_edit">@string/edit</string>
+  <string name="scr_bookmark_menu_action_delete">@string/delete</string>
+  <string name="scr_bookmark_menu_action_share">@string/share</string>
+  <string name="scr_bookmark_note_hint">Notes</string>
+  <string name="scr_bookmark_note_new">Enter notes for the verses in the above list here</string>
+  <string name="scr_bookmark_note_empty">This bookmark does not have a saved Note yet.</string>
+  <string name="scr_bookmark_msg_saved">Bookmark saved</string>
+  <string name="scr_bookmark_msg_deleted">Bookmark deleted</string>
+  <string name="scr_bookmark_msg_empty_args">No Arguments passed when loading screen</string>
+  <string name="scr_bookmark_msg_no_reference">No Bookmark Reference Passed when loading screen</string>
+  <string name="scr_bookmark_msg_invalid_reference">Invalid Bookmark Reference [%s] passed</string>
+  <string name="scr_bookmark_msg_no_verse_found">No Verse references found in bookmark reference [%s]</string>
+  <string name="scr_bookmark_template_share">Bookmark shared from SimpleBible\n\nVerse(s):\n%s\n\nNote(s):\n%s</string>
+  <string name="scr_bookmark_template_title">%s - %s</string>
+  <plurals name="scr_bookmark_template_title_verse_count">
+    <item quantity="one">%d Verse</item>
+    <item quantity="other">%d Verses</item>
+  </plurals>
+  <string name="scr_bookmark_template_title_bookmark_new">Unsaved</string>
+  <string name="scr_bookmark_template_title_bookmark_empty">Saved, Empty Note</string>
+  <string name="scr_bookmark_template_title_bookmark_saved">Saved</string>
+  <string name="scr_bookmark_template_verse_item"><![CDATA[<b>%s Chapter %d: Verse %d :</b> %s]]></string>
 
-    <!--  Screen Bookmark List -->
-    <string name="scr_bookmarks_help"><![CDATA[
+  <!--  Screen Bookmark List -->
+  <string name="scr_bookmarks_help"><![CDATA[
     <h1>No bookmarks present.</h1><br/>
     <p><h5>You can create bookmarks out of<br/>
     - The Daily Verse.<br/>
@@ -230,17 +232,17 @@
     <p><h5>Tap on a verse in a Chapter or a search result to select it, then press the Bookmark action button.<br/>
     You can optionally add a Note to the bookmarked verses.</h5>
     ]]></string>
-    <string name="scr_bookmarks_template_share">Bookmark shared from SimpleBible\n\nVerse(s):\n%s\n\nNote(s):\n%s</string>
-    <string name="scr_bookmarks_msg_delete_success">Bookmark deleted</string>
-    <string name="scr_bookmarks_msg_delete_failure">Error deleting Bookmark</string>
-    <string name="item_bookmark_template_note"><![CDATA[<b>Note: </b>%s]]></string>
-    <string name="item_bookmark_template_note_empty"><![CDATA[<b>This bookmark does not have a note.</b>Edit the bookmark if you want to add one but remember to save the changes.]]></string>
-    <plurals name="item_bookmark_template_verse">
-        <item quantity="one"><![CDATA[Bookmarked <b>only %d verse</b>, and it\'s this - <b>%s Chapter %d: Verse %d :</b>%s]]></item>
-        <item quantity="other"><![CDATA[Bookmarked <b>total %d verses</b>, the first is - <b>%s Chapter %d: Verse %d :</b>%s]]></item>
-    </plurals>
-    <string name="item_bookmark_action_edit">@string/edit</string>
-    <string name="item_bookmark_action_share">@string/share</string>
-    <string name="item_bookmark_action_delete">@string/delete</string>
+  <string name="scr_bookmarks_template_share">Bookmark shared from SimpleBible\n\nVerse(s):\n%s\n\nNote(s):\n%s</string>
+  <string name="scr_bookmarks_msg_delete_success">Bookmark deleted</string>
+  <string name="scr_bookmarks_msg_delete_failure">Error deleting Bookmark</string>
+  <string name="item_bookmark_template_note"><![CDATA[<b>Note: </b>%s]]></string>
+  <string name="item_bookmark_template_note_empty"><![CDATA[<b>This bookmark does not have a note.</b>Edit the bookmark if you want to add one but remember to save the changes.]]></string>
+  <plurals name="item_bookmark_template_verse">
+    <item quantity="one"><![CDATA[Bookmarked <b>only %d verse</b>, and it\'s this - <b>%s Chapter %d: Verse %d :</b>%s]]></item>
+    <item quantity="other"><![CDATA[Bookmarked <b>total %d verses</b>, the first is - <b>%s Chapter %d: Verse %d :</b>%s]]></item>
+  </plurals>
+  <string name="item_bookmark_action_edit">@string/edit</string>
+  <string name="item_bookmark_action_share">@string/share</string>
+  <string name="item_bookmark_action_delete">@string/delete</string>
 
 </resources>

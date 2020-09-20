@@ -21,7 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
@@ -35,7 +35,12 @@ import com.andrewchelladurai.simplebible.model.Verse;
 import com.andrewchelladurai.simplebible.model.view.SettingsViewModel;
 import com.andrewchelladurai.simplebible.ui.ops.SimpleBibleOps;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class SettingsScreen
   extends PreferenceFragmentCompat {
@@ -61,9 +66,8 @@ public class SettingsScreen
       throw new ClassCastException(TAG + " onAttach: [Context] must implement [SimpleBibleOps]");
     }
 
-    model = ViewModelProvider.AndroidViewModelFactory
-      .getInstance(requireActivity().getApplication())
-      .create(SettingsViewModel.class);
+    model = AndroidViewModelFactory.getInstance(requireActivity().getApplication())
+                                   .create(SettingsViewModel.class);
   }
 
   @Override
@@ -123,14 +127,14 @@ public class SettingsScreen
     final String key = getString(R.string.pref_theme_key);
     final Preference prefSection = getPreferenceScreen().findPreference(key);
     if (prefSection == null) {
-      Log.e(TAG, "updateSummaryTheme:", new NullPointerException(
-        "No Preference found for key[" + key + "]"));
+      Log.e(TAG, "updateSummaryTheme:",
+            new NullPointerException("No Preference found for key[" + key + "]"));
       return;
     }
 
-    final String value = getPreferenceManager()
-      .getSharedPreferences()
-      .getString(key, getString(R.string.pref_theme_value_system));
+    final String value = getPreferenceManager().getSharedPreferences()
+                                               .getString(key, getString(
+                                                 R.string.pref_theme_value_system));
     if (getString(R.string.pref_theme_value_yes).equalsIgnoreCase(value)) {
       prefSection.setSummary(R.string.pref_theme_entry_yes);
     } else if (getString(R.string.pref_theme_value_no).equalsIgnoreCase(value)) {
@@ -234,7 +238,8 @@ public class SettingsScreen
         }
       });
 
-      new AlertDialog.Builder(fragAct).setView(wv).show();
+      new AlertDialog.Builder(fragAct).setView(wv)
+                                      .show();
     } catch (Exception e) {
       Log.e(TAG, "showAlertWebView: Could not open assets file [" + assetsFileName + "]", e);
       ops.showErrorScreen(getString(errorMsgStrRef), true, false);
@@ -281,25 +286,18 @@ public class SettingsScreen
     final int minute = sPref.getInt(getString(R.string.pref_reminder_time_minute_key),
                                     resources.getInteger(R.integer.default_reminder_time_minute));
     final Context context = requireContext();
-    new TimePickerDialog(
-      context,
-      (view, newHour, newMinute) -> {
-        if (newHour != hour || newMinute != minute) {
-          updateDailyVerseReminderTime(newHour, newMinute);
-        }
-      },
-      hour,
-      minute,
-      DateFormat.is24HourFormat(context))
-      .show();
+    new TimePickerDialog(context, (view, newHour, newMinute) -> {
+      if (newHour != hour || newMinute != minute) {
+        updateDailyVerseReminderTime(newHour, newMinute);
+      }
+    }, hour, minute, DateFormat.is24HourFormat(context)).show();
   }
 
-  private void updateDailyVerseReminderTime(@IntRange(from = 0,
-                                                      to = 23) final int hour,
-                                            @IntRange(from = 0,
-                                                      to = 59) final int minute) {
+  private void updateDailyVerseReminderTime(@IntRange(from = 0, to = 23) final int hour,
+                                            @IntRange(from = 0, to = 59) final int minute) {
     Log.d(TAG, "updateDailyVerseReminderTime:");
-    final SharedPreferences.Editor editor = getPreferenceManager().getSharedPreferences().edit();
+    final SharedPreferences.Editor editor = getPreferenceManager().getSharedPreferences()
+                                                                  .edit();
     editor.putInt(getString(R.string.pref_reminder_time_hour_key), hour);
     editor.putInt(getString(R.string.pref_reminder_time_minute_key), minute);
     editor.apply();
@@ -312,54 +310,92 @@ public class SettingsScreen
     Log.d(TAG, "handlePreferenceClickExport:");
     // TODO: 26/5/20 implement this functionality
 
-    final ArrayList<Bookmark> bookmarks = new ArrayList<>(0);
+    model.getAllBookmarks()
+         .observe(this, bList -> {
+           if (bList == null || bList.isEmpty()) {
+             ops.showMessage(getString(R.string.scr_settings_msg_empty_bookmarks),
+                             R.id.main_nav_bar);
+             return;
+           }
 
-    model.getAllBookmarks().observe(this, list -> {
-      if (list == null || list.isEmpty()) {
-        ops.showMessage(getString(R.string.scr_settings_msg_empty_bookmarks), R.id.main_nav_bar);
-        return;
-      }
+           final StringBuilder bookmarkText = new StringBuilder();
+           final int bListSize = bList.size();
+           final int[] currentEntry = {0};
+           final SimpleDateFormat tsFormat = new SimpleDateFormat("yyyyMMdd_HHmmssSSS",
+                                                                  Locale.getDefault());
+           final String formattedTime = tsFormat.format(new Date());
+           final String fileName = getString(
+             R.string.scr_settings_template_bookmark_export_filename, formattedTime);
 
-      final String[][] bookmarkVerseReferences = new String[1][1];
-      final ArrayList<Verse> bookmarkVerses = new ArrayList<>(0);
-      final Book[] cachedBook = new Book[1];
+           final File file = new File(requireContext().getFilesDir(), fileName);
 
-      for (final EntityBookmark entityBookmark : list) {
+           for (final EntityBookmark eBookmark : bList) {
+             final ArrayList<Verse> verseList = new ArrayList<>(0);
+             final String bookmarkReference = eBookmark.getReference();
 
-        bookmarkVerses.clear();
-        bookmarkVerseReferences[0] = Bookmark.splitBookmarkReference(entityBookmark.getReference());
+             model.getBookmarkVerses(Bookmark.splitBookmarkReference(bookmarkReference))
+                  .observe(this, vList -> {
 
-        model.getBookmarkVerses(bookmarkVerseReferences[0]).observe(this, verseList -> {
+                    if (vList == null || vList.isEmpty()) {
+                      Log.e(TAG, "handlePreferenceClickExport: ", new NullPointerException(
+                        "no verses found for bookmark reference[" + bookmarkReference + "]"));
+                      return;
+                    }
 
-          if (verseList == null || verseList.isEmpty()) {
-            Log.e(TAG, "handlePreferenceClickExport: ", new NullPointerException(
-              "no verses found for bookmark reference[" + bookmarkVerseReferences[0][0] + "]"));
-            return;
-          }
+                    for (final EntityVerse eVerse : vList) {
+                      final Book book = Book.getCachedBook(eVerse.getBook());
+                      if (book == null) {
+                        Log.e(TAG, "handlePreferenceClickExport: ",
+                              new NullPointerException("No book found for verse [" + eVerse + "]"));
+                        continue;
+                      }
+                      verseList.add(new Verse(eVerse, book));
+                    }
 
-          for (final EntityVerse entityVerse : verseList) {
-            cachedBook[0] = Book.getCachedBook(entityVerse.getBook());
-            if (cachedBook[0] == null) {
-              Log.e(TAG, "handlePreferenceClickExport: ", new NullPointerException(
-                "No book found for verse [" + entityVerse + "]"
-              ));
-              continue;
-            }
-            bookmarkVerses.add(new Verse(entityVerse, cachedBook[0]));
-          }
-          bookmarks.add(new Bookmark(entityBookmark, bookmarkVerses));
-          Log.d(TAG, "handlePreferenceClickExport: now we have [" + bookmarks.size() + "] records");
-        });
-      }
-    });
+                    bookmarkText.append(formatBookmark(new Bookmark(eBookmark, verseList)))
+                                .append("\n");
+                    currentEntry[0] = currentEntry[0] + 1;
+
+                    if (currentEntry[0] == bListSize) {
+                      writeToFile(file, bookmarkText.toString());
+                    }
+
+                  });
+           }
+           ops.showMessage(fileName, R.id.main_nav_bar);
+         });
+  }
+
+  @NonNull
+  private String formatBookmark(@NonNull final Bookmark bookmark) {
+    final String note = bookmark.getNote();
+    final List<Verse> verseList = bookmark.getVerseList();
+    final StringBuilder verseText = new StringBuilder();
+
+    for (final Verse verse : verseList) {
+      verseText.append(
+        verse.getFormattedContentForBookmark(getString(R.string.scr_bookmark_template_verse_item))
+             .toString())
+               .append("\n");
+    }
+
+    return getString(R.string.scr_settings_template_bookmark_export, // template
+                     verseText, // transformed verses
+                     (note.isEmpty()) // note text, use placeholder if empty
+                     ? getString(R.string.scr_bookmark_note_empty) : bookmark.getNote());
+
+  }
+
+  private void writeToFile(@NonNull final File file, @NonNull final String content) {
+    Log.d(TAG, "writeToFile: file = [" + file.getPath() + "]\n, content =" + " [" + content + "]");
+    // TODO: 20/9/20 implement this function
   }
 
   private class ChangeHandler
     implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     @Override
-    public void onSharedPreferenceChanged(final SharedPreferences preferences,
-                                          final String key) {
+    public void onSharedPreferenceChanged(final SharedPreferences preferences, final String key) {
       if (key.equalsIgnoreCase(getString(R.string.pref_theme_key))) {
         handleValueChangeTheme();
       } else if (key.equalsIgnoreCase(getString(R.string.pref_reminder_key))) {
