@@ -1,38 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
+  style="@style/SbBaseTheme.CardStyle"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:layout_margin="@dimen/normal"
-  app:cardBackgroundColor="@color/card_background"
-  app:cardCornerRadius="@dimen/normal"
-  app:cardElevation="@dimen/normal"
-  app:cardMaxElevation="@dimen/normal">
+  android:padding="@dimen/normal">
 
-  <androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/big">
+  <TextView
+    android:id="@+id/item_bookmark_verse"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:text="@string/notify_channel_desc_reminder" />
 
-    <TextView
-      android:id="@+id/item_bookmark_verse"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      tools:text="@string/notify_channel_desc_reminder" />
+  <TextView
+    android:id="@+id/item_bookmark_note"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/normal"
+    app:layout_constraintEnd_toEndOf="@+id/item_bookmark_verse"
+    app:layout_constraintStart_toStartOf="@+id/item_bookmark_verse"
+    app:layout_constraintTop_toBottomOf="@+id/item_bookmark_verse"
+    tools:text="@string/notify_channel_name_reminder" />
 
-    <TextView
-      android:id="@+id/item_bookmark_note"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/normal"
-      app:layout_constraintEnd_toEndOf="@+id/item_bookmark_verse"
-      app:layout_constraintStart_toStartOf="@+id/item_bookmark_verse"
-      app:layout_constraintTop_toBottomOf="@+id/item_bookmark_verse"
-      tools:text="@string/notify_channel_name_reminder" />
-
-  </androidx.constraintlayout.widget.ConstraintLayout>
-</com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

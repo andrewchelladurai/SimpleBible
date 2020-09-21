@@ -8,12 +8,11 @@
 
   <androidx.cardview.widget.CardView
     android:id="@+id/scr_bookmarks_contain_title"
+    style="@style/SbBaseTheme.CardStyle"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/normal"
     android:animateLayoutChanges="true"
-    app:cardCornerRadius="@dimen/big"
-    app:cardElevation="@dimen/normal"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
