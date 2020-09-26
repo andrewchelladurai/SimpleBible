@@ -51,8 +51,7 @@ public class HomeScreen
       throw new ClassCastException(TAG + " onAttach: [Context] must implement [SimpleBibleOps]");
     }
 
-    model = ViewModelProvider.AndroidViewModelFactory.getInstance(
-      requireActivity().getApplication())
+    model = ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication())
                                                      .create(HomeViewModel.class);
   }
 
@@ -75,10 +74,8 @@ public class HomeScreen
     if (null == DEFAULT_REFERENCE) {
       final Resources resources = getResources();
       DEFAULT_REFERENCE = Verse.createReference(resources.getInteger(R.integer.default_book_number),
-                                                resources.getInteger(
-                                                  R.integer.default_chapter_number),
-                                                resources.getInteger(
-                                                  R.integer.default_verse_number));
+                                                resources.getInteger(R.integer.default_chapter_number),
+                                                resources.getInteger(R.integer.default_verse_number));
       Log.d(TAG, "onCreateView: DEFAULT_VERSE_REFERENCE[" + DEFAULT_REFERENCE + "]");
     }
 
@@ -109,8 +106,7 @@ public class HomeScreen
     final boolean validated = Verse.validateReference(reference[0]);
 
     if (!validated) {
-      Log.e(TAG, "updateContent:",
-            new IllegalArgumentException("reference[" + reference[0] + "] not valid"));
+      Log.e(TAG, "updateContent:", new IllegalArgumentException("reference[" + reference[0] + "] not valid"));
       updateContent(DEFAULT_REFERENCE);
       return;
     }
@@ -126,16 +122,16 @@ public class HomeScreen
     model.getVerse(parts[0], parts[1], parts[2])
          .observe(getViewLifecycleOwner(), verse -> {
            if (verse == null) {
-             Log.e(TAG, "updateContent:", new IllegalArgumentException(
-               "no verse found for reference[" + reference[0] + "]"));
+             Log.e(TAG, "updateContent:",
+                   new IllegalArgumentException("no verse found for reference[" + reference[0] + "]"));
              updateContent(DEFAULT_REFERENCE);
              return;
            }
 
            final Book book = Book.getCachedBook(verse.getBook());
            if (book == null) {
-             Log.e(TAG, "updateContent:", new IllegalArgumentException(
-               "no book found for reference[" + reference[0] + "]"));
+             Log.e(TAG, "updateContent:",
+                   new IllegalArgumentException("no book found for reference[" + reference[0] + "]"));
              updateContent(DEFAULT_REFERENCE);
              return;
            }
@@ -160,9 +156,9 @@ public class HomeScreen
     }
 
     Log.d(TAG, "displayVerse: displaying reference[" + verse.getReference() + "]");
-    final String formattedText = String.format(getString(R.string.scr_home_verse_template),
-                                               book.getName(), verse.getChapterNumber(),
-                                               verse.getVerseNumber(), verse.getVerseText());
+    final String formattedText = String.format(getString(R.string.scr_home_verse_template), book.getName(),
+                                               verse.getChapterNumber(), verse.getVerseNumber(),
+                                               verse.getVerseText());
     final Spanned htmlText = HtmlCompat.fromHtml(formattedText, HtmlCompat.FROM_HTML_MODE_COMPACT);
     final TextView textView = rootView.findViewById(R.id.scr_home_verse);
     textView.setText(htmlText);
@@ -204,10 +200,8 @@ public class HomeScreen
     if (verse == null) {
       Log.e(TAG, "handleActionChapter: null cached verse, will show default chapter");
       final Resources resources = getResources();
-      bundle.putInt(ChapterScreen.ARG_INT_BOOK,
-                    resources.getInteger(R.integer.default_book_number));
-      bundle.putInt(ChapterScreen.ARG_INT_CHAPTER,
-                    resources.getInteger(R.integer.default_chapter_number));
+      bundle.putInt(ChapterScreen.ARG_INT_BOOK, resources.getInteger(R.integer.default_book_number));
+      bundle.putInt(ChapterScreen.ARG_INT_CHAPTER, resources.getInteger(R.integer.default_chapter_number));
     } else {
       bundle.putInt(ChapterScreen.ARG_INT_BOOK, verse.getBookNumber());
       bundle.putInt(ChapterScreen.ARG_INT_CHAPTER, verse.getChapterNumber());
