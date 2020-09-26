@@ -6,33 +6,6 @@
   android:layout_height="match_parent"
   tools:context=".ui.BookmarksScreen">
 
-  <androidx.cardview.widget.CardView
-    android:id="@+id/scr_bookmarks_contain_title"
-    style="@style/SbBaseTheme.CardStyle"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/normal"
-    android:animateLayoutChanges="true"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
-
-    <SearchView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_margin="@dimen/normal"
-      android:visibility="invisible" />
-
-    <TextView
-      android:id="@+id/scr_bookmarks_title"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:text="@string/bookmarks"
-      android:textAlignment="center"
-      android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-  </androidx.cardview.widget.CardView>
-
   <ScrollView
     android:id="@+id/scr_bookmarks_contain_help"
     android:layout_width="0dp"
@@ -41,7 +14,7 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/scr_bookmarks_contain_title">
+    app:layout_constraintTop_toTopOf="parent">
 
     <TextView
       android:id="@+id/scr_bookmarks_help"
@@ -62,7 +35,7 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/scr_bookmarks_contain_title"
+    app:layout_constraintTop_toTopOf="parent"
     app:spanCount="@integer/scr_bookmarks_list_columns"
     tools:listitem="@layout/item_bookmark" />
 
