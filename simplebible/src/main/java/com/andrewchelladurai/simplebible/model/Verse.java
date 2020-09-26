@@ -13,7 +13,7 @@ import com.andrewchelladurai.simplebible.db.entities.EntityVerse;
 import java.util.Objects;
 
 public class Verse
-    implements Comparable {
+  implements Comparable {
 
   public static final int MAX_VERSES = 31098;
 
@@ -21,23 +21,17 @@ public class Verse
 
   private static final String TAG = "Verse";
 
-  @NonNull
-  private final String translation;
+  @NonNull private final String translation;
 
-  @IntRange(from = 1, to = Book.MAX_BOOKS)
-  private final int bookNumber;
+  @IntRange(from = 1, to = Book.MAX_BOOKS) private final int bookNumber;
 
-  @IntRange(from = 1)
-  private final int chapterNumber;
+  @IntRange(from = 1) private final int chapterNumber;
 
-  @IntRange(from = 1)
-  private final int verseNumber;
+  @IntRange(from = 1) private final int verseNumber;
 
-  @NonNull
-  private final String verseText;
+  @NonNull private final String verseText;
 
-  @NonNull
-  private final Book book;
+  @NonNull private final Book book;
 
   public Verse(@NonNull final EntityVerse verse, @NonNull final Book book) {
     translation = verse.getTranslation();
@@ -56,33 +50,26 @@ public class Verse
     }
 
     final String[] parts = reference.split(REFERENCE_SEPARATOR);
-    return new int[]{
-        Integer.parseInt(parts[0]),
-        Integer.parseInt(parts[1]),
-        Integer.parseInt(parts[2]),
-        };
+    return new int[]{Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]),};
   }
 
   public static boolean validateReference(@NonNull final String reference) {
     if (reference.isEmpty()) {
-      Log.e(TAG, "validateVerseReference:", new IllegalArgumentException(
-          "Verse reference [" + reference + "] is empty."
-      ));
+      Log.e(TAG, "validateVerseReference:",
+            new IllegalArgumentException("Verse reference [" + reference + "] is empty."));
       return false;
     }
 
     if (!reference.contains(REFERENCE_SEPARATOR)) {
       Log.e(TAG, "validateVerseReference:", new IllegalArgumentException(
-          "Verse reference [" + reference + "] has no separators [" + REFERENCE_SEPARATOR + "]"
-      ));
+        "Verse reference [" + reference + "] has no separators [" + REFERENCE_SEPARATOR + "]"));
       return false;
     }
 
     final String[] part = reference.split(REFERENCE_SEPARATOR);
     if (part.length != 3) {
-      Log.e(TAG, "validateVerseReference:", new IllegalArgumentException(
-          "Verse reference [" + reference + "] does not contain 3 parts"
-      ));
+      Log.e(TAG, "validateVerseReference:",
+            new IllegalArgumentException("Verse reference [" + reference + "] does not contain 3 parts"));
     }
 
     @IntRange(from = 1, to = Book.MAX_BOOKS) final int book;
@@ -100,22 +87,19 @@ public class Verse
 
     if (book < 1 || book > Book.MAX_BOOKS) {
       Log.e(TAG, "validateVerseReference:", new IllegalArgumentException(
-          "Verse reference [" + reference + "] has an invalid book number [" + book + "]"
-      ));
+        "Verse reference [" + reference + "] has an invalid book number [" + book + "]"));
       return false;
     }
 
     if (chapter < 1) {
       Log.e(TAG, "validateVerseReference:", new IllegalArgumentException(
-          "Verse reference [" + reference + "] has an invalid chapter number [" + chapter + "]"
-      ));
+        "Verse reference [" + reference + "] has an invalid chapter number [" + chapter + "]"));
       return false;
     }
 
     if (verse < 1) {
       Log.e(TAG, "validateVerseReference:", new IllegalArgumentException(
-          "Verse reference [" + reference + "] has an invalid verse number [" + verse + "]"
-      ));
+        "Verse reference [" + reference + "] has an invalid verse number [" + verse + "]"));
       return false;
     }
 
@@ -124,14 +108,11 @@ public class Verse
 
   @NonNull
   public static String createReference(@IntRange(from = 1, to = Book.MAX_BOOKS) int book,
-                                       @IntRange(from = 1) int chapter,
-                                       @IntRange(from = 1) int verse) {
+                                       @IntRange(from = 1) int chapter, @IntRange(from = 1) int verse) {
     if (book < 1 || chapter < 1 || verse < 1) {
-      Log.e(TAG, "createVerseReference:",
-            new IllegalArgumentException("one of the passed values is < 1\n"
-                                         + "book =[" + book + "], "
-                                         + "chapter =[" + chapter + "], "
-                                         + "verse = [" + verse + "]"));
+      Log.e(TAG, "createVerseReference:", new IllegalArgumentException(
+        "one of the passed values is < 1\n" + "book =[" + book + "], " + "chapter =[" + chapter + "], "
+        + "verse = [" + verse + "]"));
       return "";
     }
     return book + REFERENCE_SEPARATOR + chapter + REFERENCE_SEPARATOR + verse;
@@ -179,12 +160,9 @@ public class Verse
     }
 
     final Verse that = (Verse) o;
-    return this.bookNumber == that.bookNumber
-           && this.chapterNumber == that.chapterNumber
-           && this.verseNumber == that.verseNumber
-           && this.verseText.equals(that.verseText)
-           && this.translation.equals(that.translation)
-           && this.book.equals(that.book);
+    return this.bookNumber == that.bookNumber && this.chapterNumber == that.chapterNumber
+           && this.verseNumber == that.verseNumber && this.verseText.equals(that.verseText)
+           && this.translation.equals(that.translation) && this.book.equals(that.book);
   }
 
   @Override
@@ -196,21 +174,15 @@ public class Verse
   public int compareTo(@NonNull final Object o) {
     final Verse that = (Verse) o;
 
-    final int thisPosition = Integer.parseInt(
-        this.bookNumber + "" + this.chapterNumber + "" + this.verseNumber);
-    final int thatPosition = Integer.parseInt(
-        that.bookNumber + "" + that.chapterNumber + "" + that.verseNumber);
+    final int thisPosition = Integer.parseInt(this.bookNumber + "" + this.chapterNumber + "" + this.verseNumber);
+    final int thatPosition = Integer.parseInt(that.bookNumber + "" + that.chapterNumber + "" + that.verseNumber);
 
     return thisPosition - thatPosition;
   }
 
   @NonNull
   public String getReference() {
-    return bookNumber
-           + REFERENCE_SEPARATOR
-           + chapterNumber
-           + REFERENCE_SEPARATOR
-           + verseNumber;
+    return bookNumber + REFERENCE_SEPARATOR + chapterNumber + REFERENCE_SEPARATOR + verseNumber;
   }
 
   @NonNull
@@ -221,9 +193,8 @@ public class Verse
       return HtmlCompat.fromHtml("", HtmlCompat.FROM_HTML_MODE_COMPACT);
     }
 
-    return HtmlCompat.fromHtml(
-        String.format(template, book.getName(), chapterNumber, verseNumber, verseText),
-        HtmlCompat.FROM_HTML_MODE_COMPACT);
+    return HtmlCompat.fromHtml(String.format(template, book.getName(), chapterNumber, verseNumber, verseText),
+                               HtmlCompat.FROM_HTML_MODE_COMPACT);
   }
 
   @NonNull
@@ -234,9 +205,8 @@ public class Verse
       return HtmlCompat.fromHtml("", HtmlCompat.FROM_HTML_MODE_COMPACT);
     }
 
-    return HtmlCompat.fromHtml(
-        String.format(template, book.getName(), chapterNumber, verseNumber, verseText),
-        HtmlCompat.FROM_HTML_MODE_COMPACT);
+    return HtmlCompat.fromHtml(String.format(template, book.getName(), chapterNumber, verseNumber, verseText),
+                               HtmlCompat.FROM_HTML_MODE_COMPACT);
   }
 
   @NonNull
@@ -247,9 +217,8 @@ public class Verse
       return HtmlCompat.fromHtml("", HtmlCompat.FROM_HTML_MODE_COMPACT);
     }
 
-    return HtmlCompat.fromHtml(
-        String.format(template, verseNumber, verseText),
-        HtmlCompat.FROM_HTML_MODE_COMPACT);
+    return HtmlCompat.fromHtml(String.format(template, verseNumber, verseText),
+                               HtmlCompat.FROM_HTML_MODE_COMPACT);
   }
 
   @NonNull
@@ -260,9 +229,14 @@ public class Verse
       return HtmlCompat.fromHtml("", HtmlCompat.FROM_HTML_MODE_COMPACT);
     }
 
-    return HtmlCompat.fromHtml(
-        String.format(template, verseNumber, verseText),
-        HtmlCompat.FROM_HTML_MODE_COMPACT);
+    return HtmlCompat.fromHtml(String.format(template, verseNumber, verseText),
+                               HtmlCompat.FROM_HTML_MODE_COMPACT);
+  }
+
+  @NonNull
+  @Override
+  public String toString() {
+    return getReference() + " - " + verseText;
   }
 
 }
