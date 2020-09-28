@@ -19,16 +19,13 @@ import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 public class ReminderWorker
-    extends Worker {
+  extends Worker {
 
   public static final String TAG = "ReminderWorker";
-
   public static final String ARG_HOUR = "HOUR";
-
   public static final String ARG_MINUTE = "MINUTE";
 
-  public ReminderWorker(@NonNull final Context context,
-                        @NonNull final WorkerParameters params) {
+  public ReminderWorker(@NonNull final Context context, @NonNull final WorkerParameters params) {
     super(context, params);
     Log.d(TAG, "ReminderWorker: UUID [" + getId().toString() + "]");
   }
@@ -42,7 +39,7 @@ public class ReminderWorker
   }
 
   private void triggerNotification() {
-    Log.d(TAG, "triggerNotification:");
+    Log.d(TAG, "triggerNotification: TODO : Pending implementation");
     // TODO: 15/5/20 show a Pending Notification displaying the day's verse.
   }
 
@@ -69,18 +66,18 @@ public class ReminderWorker
     }
 
     final long timeDiff = reminderTimeStamp.getTimeInMillis() - timeNow.getTimeInMillis();
-    Log.d(TAG, "enqueueNextWorkRequest: reminderTimeStamp["
-               + DateFormat.format("yyyy-MMM-dd @ HH:mm:ss z", reminderTimeStamp) + "]");
+    Log.d(TAG, "enqueueNextWorkRequest: reminderTimeStamp[" + DateFormat.format("yyyy-MMM-dd @ HH:mm:ss z",
+                                                                                reminderTimeStamp) + "]");
+
+    final OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(ReminderWorker.class)
+      .setInitialDelay(timeDiff, TimeUnit.MILLISECONDS)
+      .addTag(ReminderWorker.TAG)
+      .setInputData(iData)
+      .build();
 
     final WorkManager workManager = WorkManager.getInstance(getApplicationContext());
     workManager.cancelAllWorkByTag(ReminderWorker.TAG);
-    workManager.enqueueUniqueWork(ReminderWorker.TAG,
-                                  ExistingWorkPolicy.REPLACE,
-                                  new OneTimeWorkRequest.Builder(ReminderWorker.class)
-                                      .setInitialDelay(timeDiff, TimeUnit.MILLISECONDS)
-                                      .addTag(ReminderWorker.TAG)
-                                      .setInputData(iData)
-                                      .build());
+    workManager.enqueueUniqueWork(ReminderWorker.TAG, ExistingWorkPolicy.REPLACE, workRequest);
   }
 
 }

@@ -59,17 +59,17 @@ public class SimpleBible
 
     // Tie the BottomNavigationBar with the NavigationUi Arch component
     //noinspection ConstantConditions
-    NavigationUI.setupWithNavController(
-      (BottomNavigationView) findViewById(R.id.main_nav_bar),
-      NavHostFragment.findNavController(
-        getSupportFragmentManager().findFragmentById(R.id.main_nav_host_fragment)));
+    NavigationUI.setupWithNavController((BottomNavigationView) findViewById(R.id.main_nav_bar),
+                                        NavHostFragment.findNavController(
+                                          getSupportFragmentManager().findFragmentById(
+                                            R.id.main_nav_host_fragment)));
   }
 
   @Override
   public void updateApplicationTheme() {
-    final String value = PreferenceManager.getDefaultSharedPreferences(this)
-                                          .getString(getString(R.string.pref_theme_key),
-                                                     getString(R.string.pref_theme_value_system));
+    final String value = PreferenceManager
+      .getDefaultSharedPreferences(this)
+      .getString(getString(R.string.pref_theme_key), getString(R.string.pref_theme_value_system));
     Log.d(TAG, "updateApplicationTheme: value[" + value + "]");
     if (getString(R.string.pref_theme_value_yes).equalsIgnoreCase(value)) {
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -77,21 +77,18 @@ public class SimpleBible
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     } else {
       Log.d(TAG, "updateApplicationTheme: AUTO/unknown, using default behavior");
-      AppCompatDelegate.setDefaultNightMode((Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-                                            ? AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-                                            : AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
+      AppCompatDelegate.setDefaultNightMode(
+        (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) ? AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                                                         : AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
     }
   }
 
   @Override
   public void hideKeyboard() {
     // find the view that has focus, if there is none, create the activity window
-    final View view = (getCurrentFocus() != null)
-                      ? getCurrentFocus()
-                      : new View(this);
+    final View view = (getCurrentFocus() != null) ? getCurrentFocus() : new View(this);
 
-    final InputMethodManager imm =
-      (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+    final InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
     if (imm != null) {
       imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     } else {
@@ -110,11 +107,10 @@ public class SimpleBible
   }
 
   @Override
-  public void showErrorScreen(@Nullable final String message,
-                              final boolean shareLogs,
-                              final boolean exitApp) {
-    Log.d(TAG, "showErrorScreen: message = [" + message + "], shareLogs = ["
-               + shareLogs + "], exitApp = [" + exitApp + "]");
+  public void showErrorScreen(@Nullable final String message, final boolean shareLogs, final boolean exitApp) {
+    Log.d(TAG,
+          "showErrorScreen: message = [" + message + "], shareLogs = [" + shareLogs + "], exitApp = [" + exitApp
+          + "]");
   }
 
   @Override
@@ -126,8 +122,7 @@ public class SimpleBible
     Log.d(TAG, "setupNotificationChannel:");
 
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-      Log.d(TAG, "setupNotificationChannel: skipping, feature not present in ["
-                 + Build.VERSION.CODENAME + "]");
+      Log.d(TAG, "setupNotificationChannel: skipping, feature not present in [" + Build.VERSION.CODENAME + "]");
       return;
     }
 
@@ -137,15 +132,14 @@ public class SimpleBible
       return;
     }
 
-    final NotificationChannel setupChannel = new NotificationChannel(
-      getString(R.string.notify_channel_id_setup),
-      getString(R.string.notify_channel_name_setup),
-      NotificationManager.IMPORTANCE_HIGH);
+    final NotificationChannel setupChannel = new NotificationChannel(getString(R.string.notify_channel_id_setup),
+                                                                     getString(
+                                                                       R.string.notify_channel_name_setup),
+                                                                     NotificationManager.IMPORTANCE_HIGH);
     setupChannel.setDescription(getString(R.string.notify_channel_desc_setup));
 
     final NotificationChannel reminderChannel = new NotificationChannel(
-      getString(R.string.notify_channel_id_reminder),
-      getString(R.string.notify_channel_name_reminder),
+      getString(R.string.notify_channel_id_reminder), getString(R.string.notify_channel_name_reminder),
       NotificationManager.IMPORTANCE_DEFAULT);
     reminderChannel.setDescription(getString(R.string.notify_channel_desc_reminder));
 
@@ -173,21 +167,22 @@ public class SimpleBible
 
   @Override
   public void showMessage(@NonNull final String string, @IdRes final int anchorViewId) {
-    Snackbar.make(findViewById(anchorViewId), string, Snackbar.LENGTH_SHORT)
-            .setAnchorView(anchorViewId)
-            .show();
+    Snackbar
+      .make(findViewById(anchorViewId), string, Snackbar.LENGTH_SHORT)
+      .setAnchorView(anchorViewId)
+      .show();
   }
 
   @Override
   public void updateDailyVerseReminderState() {
-    if (PreferenceManager.getDefaultSharedPreferences(this)
-                         .getBoolean(getString(R.string.pref_reminder_key), true)) {
+    if (PreferenceManager
+      .getDefaultSharedPreferences(this)
+      .getBoolean(getString(R.string.pref_reminder_key), true)) {
       updateDailyVerseReminderTime();
     } else {
       final WorkManager workManager = WorkManager.getInstance(this);
       workManager.cancelAllWorkByTag(ReminderWorker.TAG);
-      Log.d(TAG, "updateDailyVerseReminderState: cancelled All Work By Tag ["
-                 + ReminderWorker.TAG + "]");
+      Log.d(TAG, "updateDailyVerseReminderState: cancelled All Work By Tag [" + ReminderWorker.TAG + "]");
     }
   }
 
@@ -204,33 +199,33 @@ public class SimpleBible
     final int hour = sPref.getInt(prefKeyHour, defaultHourValue);
     final int minute = sPref.getInt(prefKeyMin, defaultMinValue);
 
-    final Calendar reminderTimeStamp = Calendar.getInstance();
-    reminderTimeStamp.set(Calendar.HOUR_OF_DAY, hour);
-    reminderTimeStamp.set(Calendar.MINUTE, minute);
-    reminderTimeStamp.set(Calendar.SECOND, 0);
+    final Calendar tsReminder = Calendar.getInstance();
+    tsReminder.set(Calendar.HOUR_OF_DAY, hour);
+    tsReminder.set(Calendar.MINUTE, minute);
+    tsReminder.set(Calendar.SECOND, 0);
 
-    final Calendar timeNow = Calendar.getInstance();
-    if (reminderTimeStamp.before(timeNow)) {
-      reminderTimeStamp.add(Calendar.HOUR_OF_DAY, 24);
+    final Calendar tsNow = Calendar.getInstance();
+    if (tsReminder.before(tsNow)) {
+      tsReminder.add(Calendar.HOUR_OF_DAY, 24);
       Log.d(TAG, "updateDailyVerseReminderTime: reminderTimestamp is past, adjusted by 24 Hours");
     }
 
-    final long timeDiff = reminderTimeStamp.getTimeInMillis() - timeNow.getTimeInMillis();
-    Log.d(TAG, "updateDailyVerseReminderTime: reminderTimeStamp["
-               + DateFormat.format("yyyy-MMM-dd @ HH:mm:ss z", reminderTimeStamp) + "]");
+    final long timeDiff = tsReminder.getTimeInMillis() - tsNow.getTimeInMillis();
+    Log.d(TAG, "updateDailyVerseReminderTime: reminderTimeStamp[" + DateFormat.format("yyyy-MMM-dd @ HH:mm:ss z",
+                                                                                      tsReminder) + "]");
+
+    final OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(ReminderWorker.class)
+      .setInitialDelay(timeDiff, TimeUnit.MILLISECONDS)
+      .addTag(ReminderWorker.TAG)
+      .setInputData(new Data.Builder()
+                      .putInt(ReminderWorker.ARG_HOUR, hour)
+                      .putInt(ReminderWorker.ARG_MINUTE, minute)
+                      .build())
+      .build();
 
     final WorkManager workManager = WorkManager.getInstance(getApplicationContext());
     workManager.cancelAllWorkByTag(ReminderWorker.TAG);
-    workManager.enqueueUniqueWork(ReminderWorker.TAG,
-                                  ExistingWorkPolicy.REPLACE,
-                                  new OneTimeWorkRequest.Builder(ReminderWorker.class)
-                                    .setInitialDelay(timeDiff, TimeUnit.MILLISECONDS)
-                                    .addTag(ReminderWorker.TAG)
-                                    .setInputData(new Data.Builder()
-                                                    .putInt(ReminderWorker.ARG_HOUR, hour)
-                                                    .putInt(ReminderWorker.ARG_MINUTE, minute)
-                                                    .build())
-                                    .build());
+    workManager.enqueueUniqueWork(ReminderWorker.TAG, ExistingWorkPolicy.REPLACE, workRequest);
   }
 
 }
