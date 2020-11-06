@@ -188,6 +188,7 @@ public class SimpleBible
 
   @Override
   public void updateDailyVerseReminderTime() {
+    // TODO: 19/10/20 Modify logic to use AlarmManager
     final String prefKeyHour = getString(R.string.pref_reminder_time_hour_key);
     final String prefKeyMin = getString(R.string.pref_reminder_time_minute_key);
 

@@ -21,6 +21,8 @@ import java.util.concurrent.TimeUnit;
 public class ReminderWorker
   extends Worker {
 
+  // TODO: 19/10/20 Modify logic to use AlarmManager
+
   public static final String TAG = "ReminderWorker";
   public static final String ARG_HOUR = "HOUR";
   public static final String ARG_MINUTE = "MINUTE";
