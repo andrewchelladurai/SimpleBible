@@ -11,12 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/SbSplashTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        tools:targetApi="s">
         <activity
             android:name=".ui.SimpleBible"
-            android:label="@string/application_name"
             android:theme="@style/SbSplashTheme"
-            android:windowSoftInputMode="stateHidden|adjustNothing">
+            android:windowSoftInputMode="stateHidden|adjustNothing"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
